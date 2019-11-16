@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context=".ConsultarLicenciaConstruccion">
+
+        <TextView
+            android:id="@+id/id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha Actualización 13/11/2019"
+            android:visibility="visible"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tvIdLicencia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Número Licencia"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/id"/>
+
+        <EditText
+            android:id="@+id/etIdLicencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tvIdLicencia"
+            android:layout_marginLeft="10dp"
+            android:hint="Numero Licencia"
+            android:layout_below="@+id/id"/>
+
+        <TextView
+            android:id="@+id/tvNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/etIdLicencia"/>
+
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tvIdLicencia"
+            android:layout_marginLeft="10dp"
+            android:hint="Nombre"
+            android:layout_below="@+id/etIdLicencia"/>
+
+        <TextView
+            android:id="@+id/tvCalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calle"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/etNombre"/>
+
+        <EditText
+            android:id="@+id/etCalle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tvIdLicencia"
+            android:layout_marginLeft="10dp"
+            android:hint="Calle"
+            android:layout_below="@+id/etNombre"/>
+
+        <TextView
+            android:id="@+id/tvNumero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Número Ext"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/etCalle"/>
+
+        <EditText
+            android:id="@+id/etNumero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tvIdLicencia"
+            android:layout_marginLeft="10dp"
+            android:hint="Número Ext"
+            android:layout_below="@+id/etCalle"/>
+
+        <TextView
+            android:id="@+id/tvFraccionamiento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Colonia"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/etNumero"/>
+
+        <EditText
+            android:id="@+id/etFraccionamiento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tvIdLicencia"
+            android:layout_marginLeft="10dp"
+            android:hint="Colonia"
+            android:layout_below="@+id/etNumero"/>
+
+        <Button
+            android:id="@+id/btnBuscar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etFraccionamiento"
+            android:text="@android:string/search_go"/>
+
+        <ListView
+            android:id="@+id/lv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnBuscar">
+        </ListView>
+    </RelativeLayout>
