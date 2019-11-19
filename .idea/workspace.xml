@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ChangeListManager">
     <list default="true" id="da0666d3-fc1b-415d-aed6-fa2125e6f8e9" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
@@ -8,6 +9,23 @@
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars____Users_miguelmontoya_Desktop_InspeccionZapopan_app_libs_droidText_0_4_jar_unspecified_jar.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars____Users_miguelmontoya_Desktop_InspeccionZapopan_app_libs_httpclient_4_5_10_jar_unspecified_jar.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars____Users_miguelmontoya_Desktop_InspeccionZapopan_app_libs_httpmime_4_2_4_jar_unspecified_jar.xml" afterDir="false" />
+=======
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6ff15568-9401-47b1-9ba5-1098beb26fca" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars____Users_Emanuel_AndroidStudioProjects_InspeccionZapopan_app_libs_BixolonPrinterV229_jar_unspecified_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars____Users_Emanuel_AndroidStudioProjects_InspeccionZapopan_app_libs_commons_net_3_1_jar_unspecified_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars____Users_Emanuel_AndroidStudioProjects_InspeccionZapopan_app_libs_droidText_0_4_jar_unspecified_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars____Users_Emanuel_AndroidStudioProjects_InspeccionZapopan_app_libs_httpclient_4_5_10_jar_unspecified_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars____Users_Emanuel_AndroidStudioProjects_InspeccionZapopan_app_libs_httpmime_4_2_4_jar_unspecified_jar.xml" afterDir="false" />
+>>>>>>> b1db54498efb130eb13afd12ff6aaf642eaf4351
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_core_common_1_1_1_jar.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1_aar.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_common_1_1_1_jar.xml" afterDir="false" />
@@ -53,12 +71,21 @@
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3_jar.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_integration_1_3_jar.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3_jar.xml" afterDir="false" />
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/InspeccionZapopan.iml" beforeDir="false" afterPath="$PROJECT_DIR$/InspeccionZapopan.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/InspeccionZapopan.iml" beforeDir="false" afterPath="$PROJECT_DIR$/InspeccionZapopan.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/perspective/inszap/ConsultarLicenciaConstruccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/perspective/inszap/ConsultarLicenciaConstruccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/perspective/inszap/ConsultarLicencias.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/perspective/inszap/ConsultarLicencias.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/perspective/inszap/Descarga.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/perspective/inszap/Descarga.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_infracciones.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_infracciones.xml" afterDir="false" />
+>>>>>>> b1db54498efb130eb13afd12ff6aaf642eaf4351
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -73,6 +100,7 @@
       </state>
     </system>
   </component>
+<<<<<<< HEAD
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -83,18 +111,127 @@
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
+=======
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_infracciones.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="843">
+              <caret line="1685" column="67" selection-start-line="1685" selection-start-column="67" selection-end-line="1685" selection-end-column="67" />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/perspective/inszap/Descarga.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="191">
+              <caret line="1000" column="221" selection-start-line="1000" selection-start-column="221" selection-end-line="1000" selection-end-column="221" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/app/src/main/java/com/perspective/inszap/ConsultarLicencias.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/perspective/inszap/ConsultarLicenciaConstruccion.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_infracciones.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/perspective/inszap/Descarga.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1280" />
+    <option name="height" value="727" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+>>>>>>> b1db54498efb130eb13afd12ff6aaf642eaf4351
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+<<<<<<< HEAD
       <pane id="ProjectPane" />
       <pane id="Scope" />
       <pane id="AndroidView" />
+=======
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="InspeccionZapopan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InspeccionZapopan" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="InspeccionZapopan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InspeccionZapopan" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="InspeccionZapopan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InspeccionZapopan" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="InspeccionZapopan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InspeccionZapopan" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="InspeccionZapopan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InspeccionZapopan" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="InspeccionZapopan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InspeccionZapopan" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="inszap" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="InspeccionZapopan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InspeccionZapopan" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="AndroidView" />
+      <pane id="Scope" />
+>>>>>>> b1db54498efb130eb13afd12ff6aaf642eaf4351
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
+<<<<<<< HEAD
     <property name="device.picker.selection" value="lenovo_Tb_3_android_5.0" />
+=======
+    <property name="device.picker.selection" value="HA0ZL8MH" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+>>>>>>> b1db54498efb130eb13afd12ff6aaf642eaf4351
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -175,6 +312,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
       <changelist id="da0666d3-fc1b-415d-aed6-fa2125e6f8e9" name="Default Changelist" comment="" />
       <created>1573928251000</created>
       <option name="number" value="Default" />
@@ -222,4 +360,74 @@
       <window_info anchor="right" id="Palette&#9;" />
     </layout>
   </component>
+=======
+      <changelist id="6ff15568-9401-47b1-9ba5-1098beb26fca" name="Default Changelist" comment="" />
+      <created>1573928242638</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1573928242638</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1280" height="727" extended-state="0" />
+    <layout>
+      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.32956383" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info id="Build Variants" order="4" side_tool="true" />
+      <window_info id="Image Layers" order="5" />
+      <window_info id="Designer" order="6" />
+      <window_info id="Resources Explorer" order="7" />
+      <window_info id="Capture Tool" order="8" />
+      <window_info anchor="bottom" id="Run" />
+      <window_info anchor="bottom" id="Debug" />
+      <window_info anchor="bottom" id="Version Control" order="0" weight="0.32913387" />
+      <window_info anchor="bottom" id="Logcat" order="1" weight="0.32913387" />
+      <window_info anchor="bottom" id="TODO" order="2" />
+      <window_info anchor="bottom" id="Terminal" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="Build" order="5" visible="true" weight="0.32913387" />
+      <window_info anchor="bottom" id="Android Profiler" order="6" show_stripe_button="false" />
+      <window_info anchor="right" id="Preview" weight="0.2609047" />
+      <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" order="1" />
+      <window_info anchor="right" id="Gradle" order="2" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+    </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/perspective/inszap/ConsultarLicencias.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="104" column="67" lean-forward="true" selection-start-line="104" selection-start-column="67" selection-end-line="104" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/perspective/inszap/ConsultarLicenciaConstruccion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="112" column="65" selection-start-line="112" selection-start-column="65" selection-end-line="112" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_infracciones.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="843">
+          <caret line="1685" column="67" selection-start-line="1685" selection-start-column="67" selection-end-line="1685" selection-end-column="67" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/perspective/inszap/Descarga.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="1000" column="221" selection-start-line="1000" selection-start-column="221" selection-end-line="1000" selection-end-column="221" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+>>>>>>> b1db54498efb130eb13afd12ff6aaf642eaf4351
 </project>

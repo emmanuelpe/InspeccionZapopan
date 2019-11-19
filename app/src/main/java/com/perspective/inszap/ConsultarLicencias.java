@@ -100,9 +100,9 @@ public class ConsultarLicencias extends Activity implements View.OnClickListener
 		if(!strings[1].equalsIgnoreCase(""))
 			condicion += " and NumeroLicencia like '%"+strings[1].trim()+"%'";
 		if(!strings[2].equalsIgnoreCase(""))
-			condicion += " and NombreCalle like '%"+strings[2].trim()+"%'";
+			condicion += " and NombreCalle like '"+strings[2].trim()+"'";
 		if(!strings[3].equalsIgnoreCase(""))
-			condicion += " and Exterior like '%"+strings[3].trim()+"%'";
+			condicion += " and Exterior like '"+strings[3].trim()+"'";
 		if(!strings[4].equalsIgnoreCase(""))
 			condicion += " and NombreColonia like '%"+strings[4].trim()+"%'";
 

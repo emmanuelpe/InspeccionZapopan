@@ -108,9 +108,9 @@ public class ConsultarLicenciaConstruccion extends AppCompatActivity implements 
         if(!strings[1].equalsIgnoreCase(""))
             condicion += " and NombrePropietario like '%"+strings[1].trim()+"%'";
         if(!strings[2].equalsIgnoreCase(""))
-            condicion += " and Calle like '%"+strings[2].trim()+"%'";
+            condicion += " and Calle like '"+strings[2].trim()+"'";
         if(!strings[3].equalsIgnoreCase(""))
-            condicion += " and Numero like '%"+strings[3].trim()+"%'";
+            condicion += " and Numero like '"+strings[3].trim()+"'";
         if(!strings[4].equalsIgnoreCase(""))
             condicion += " and Fraccionamiento like '%"+strings[4].trim()+"%'";
         datos.clear();

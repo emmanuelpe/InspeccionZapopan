@@ -1670,15 +1670,21 @@
 									android:paddingTop="43dp"
 									android:layout_below="@+id/etdescripcion"
 									style="@style/Subtitle"/>
+
+								<Spinner
+									android:id="@+id/spUni"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/tvuni">
+								</Spinner>
 			    			
 								<Button 
 									android:id="@+id/tveliminar"
-									android:layout_width="wrap_content"
+									android:layout_width="match_parent"
 									android:layout_height="wrap_content"
 									android:visibility="gone"
 									android:text="@string/eliminar"
-									android:layout_toRightOf="@+id/tvuni"
-									android:layout_below="@+id/etdescripcion"
+									android:layout_below="@+id/spUni"
 									android:paddingLeft="10dp"
 									android:paddingTop="43dp"
 									style="@style/Subtitle"/>
@@ -1716,24 +1722,30 @@
 			    			
 								<TextView 
 									android:id="@+id/tvuni1"
-									android:layout_width="wrap_content"
+									android:layout_width="match_parent"
 									android:layout_height="wrap_content"
 									android:visibility="gone"
 									android:layout_toRightOf="@+id/etdato1"
 									android:paddingTop="43dp"
 									android:layout_below="@+id/etdescripcion1"
 									style="@style/Subtitle"/>
+
+								<Spinner
+									android:id="@+id/spUni1"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/tvuni1">
+								</Spinner>
 			    			
 								<Button 
 									android:id="@+id/tveliminar1"
-									android:layout_width="wrap_content"
+									android:layout_width="match_parent"
 									android:layout_height="wrap_content"
 									android:visibility="gone"
 									android:text="@string/eliminar"
-									android:layout_toRightOf="@+id/tvuni1"
 									android:paddingLeft="10dp"
 									android:paddingTop="43dp"
-									android:layout_below="@+id/etdescripcion1"
+									android:layout_below="@+id/spUni1"
 									style="@style/Subtitle"/>
 
 								<EditText
@@ -1775,17 +1787,23 @@
 									android:layout_toRightOf="@+id/etdato2"
 									android:layout_below="@+id/etdescripcion2"
 									style="@style/Subtitle"/>
+
+								<Spinner
+									android:id="@+id/spUni2"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/tvuni2">
+								</Spinner>
 			    			
 								<Button
 									android:id="@+id/tveliminar2"
-									android:layout_width="wrap_content"
+									android:layout_width="match_parent"
 									android:layout_height="wrap_content"
 									android:visibility="gone"
 									android:text="@string/eliminar"
-									android:layout_toRightOf="@+id/tvuni2"
 									android:paddingLeft="10dp"
 									android:paddingTop="43dp"
-									android:layout_below="@+id/etdescripcion2"
+									android:layout_below="@+id/spUni2"
 									style="@style/Subtitle"/>
 
 								<EditText
@@ -1828,6 +1846,12 @@
 									android:layout_toRightOf="@+id/etdato3"
 									android:layout_below="@+id/etdescripcion3"
 									style="@style/Subtitle"/>
+
+								<Spinner
+									android:id="@+id/spUni3"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/tvuni3"/>
 			    			
 								<Button
 									android:id="@+id/tveliminar3"
@@ -1836,9 +1860,8 @@
 									android:visibility="gone"
 									android:paddingTop="43dp"
 									android:text="@string/eliminar"
-									android:layout_toRightOf="@+id/tvuni3"
 									android:paddingLeft="10dp"
-									android:layout_below="@+id/etdescripcion3"
+									android:layout_below="@+id/spUni3"
 									style="@style/Subtitle"/>
 
 								<EditText
@@ -1880,17 +1903,22 @@
 									android:layout_toRightOf="@+id/etdato4"
 									android:layout_below="@+id/etdescripcion4"
 									style="@style/Subtitle"/>
+
+								<Spinner
+									android:id="@+id/spUni4"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/tvuni4"/>
 			    			
 								<Button
 									android:id="@+id/tveliminar4"
-									android:layout_width="wrap_content"
+									android:layout_width="match_parent"
 									android:layout_height="wrap_content"
 									android:visibility="gone"
 									android:text="@string/eliminar"
-									android:layout_toRightOf="@+id/tvuni4"
 									android:paddingLeft="10dp"
 									android:paddingTop="43dp"
-									android:layout_below="@+id/etdescripcion4"
+									android:layout_below="@+id/spUni4"
 									style="@style/Subtitle"/>
 
 								<EditText
