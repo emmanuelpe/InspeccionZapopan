@@ -129,7 +129,7 @@
     <string name="salir">Salir</string>
     <string name="descarga_foto">Descarga de fotografía</string>
     <string name="btn_infraccion">Levantamiento de infracción</string>
-    <string name="fraccion">Fraccionamiento</string>
+    <string name="fraccion">Fraccionamiento y/o Colonia</string>
     <string name="mostrar">Mostrar</string>
     <string name="ubicacion">Ubicación</string>
     <string name="propietarion">Propietario</string>
@@ -137,7 +137,7 @@
     <string name="ov">OV-</string>
     <string name="fecha_elaboracion">Fecha de elaboración</string>
     <string name="poblacion">Población</string>
-    <string name="fracc">Fraccionamiento</string>
+    <string name="fracc">Fraccionamiento y/o colonia</string>
     <string name="coto">Condominio</string>
     <string name="identificacion">Identificación</string>
     <string name="manzana">Manzana</string>

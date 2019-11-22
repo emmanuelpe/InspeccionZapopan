@@ -470,7 +470,8 @@
 								android:layout_height="wrap_content"
 								android:visibility="visible">
 						    
-							    <TextView 
+							    <TextView
+									android:id="@+id/tvNLicencia"
 								    android:layout_width="wrap_content"
 								    android:layout_height="wrap_content"
 								    android:text="@string/l_giro"
@@ -493,7 +494,8 @@
 								android:layout_height="wrap_content"
 								android:visibility="visible">
 						    
-							    <TextView 
+							    <TextView
+									android:id="@+id/tvagiro"
 								    android:layout_width="wrap_content"
 								    android:layout_height="wrap_content"
 								    android:text="@string/giro1"
@@ -539,7 +541,8 @@
 						    <LinearLayout 
 						        android:layout_width="fill_parent" 
 								android:layout_height="wrap_content"
-								android:visibility="visible">
+								android:visibility="visible"
+								android:orientation="vertical">
 						    
 							    <TextView 
 							        android:id="@+id/tvNombreComercial"
@@ -909,6 +912,49 @@
 						android:inputType="textCapSentences"
 						android:hint="@string/especificar"
 						android:imeOptions="actionNext"/>
+
+					<TextView
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"
+						android:text="Propiedad de"
+						android:layout_gravity="center"
+						style="@style/Subtitle"/>
+
+					<RadioGroup
+						android:id="@+id/rgPropiedad"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content">
+
+						<RadioButton
+							android:id="@+id/rbVisitado"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:text="El visitado"
+							android:textSize="14sp"
+							android:checked="true"/>
+
+						<RadioButton
+							android:id="@+id/rbdesconoce"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:text="Se desconoce"
+							android:textSize="14sp"/>
+
+						<RadioButton
+							android:id="@+id/rbOtro"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:text="Otro"
+							android:textSize="14sp"/>
+
+					</RadioGroup>
+
+					<EditText
+						android:id="@+id/etOtro"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="@string/especificar"
+						android:visibility="gone"/>
 					
 					<TextView
 						android:layout_width="fill_parent"
@@ -950,6 +996,42 @@
 									android:hint="@string/motivo"
 									android:inputType="textCapSentences"
 									android:visibility="gone"/>
+
+                            <!--<CheckBox
+                                android:id="@+id/cbedificacion"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Licencia de edificación"
+								android:visibility="gone"/>
+							<CheckBox
+								android:id="@+id/cbplanos"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:text="Planos Oficiales Autorizados"
+								android:visibility="gone"/>
+							<CheckBox
+								android:id="@+id/cbbitacora"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:text="Bitácora de Obra Actualizada"
+								android:visibility="gone"/>
+
+					<CheckBox
+						android:id="@+id/cbpancarta"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:text="Pancarta DRO exhibida hacia la vía pñublica"/>-->
+
+					<LinearLayout
+						android:id="@+id/llconcepto"
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"
+						android:gravity="center"
+						android:layout_gravity="center_vertical"
+						android:orientation="vertical">
+
+					</LinearLayout>
+
 								
 							<TextView 
 								android:id="@+id/tvReg"
@@ -992,13 +1074,115 @@
 							android:layout_gravity="center" 
 							android:gravity="center" 
 							style="@style/Div"/>
+
+						<TextView
+							android:id="@+id/tvNombreCalle"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="20dp"
+							android:text="@string/calle"
+							android:layout_gravity="center"
+							android:layout_below="@+id/tvUbicacion"
+							style="@style/Subtitle"/>
+
+						<EditText
+							android:id="@+id/etcalle"
+							android:layout_width="wrap_content"
+							android:layout_height="70dp"
+							android:hint="@string/calle"
+							android:layout_toRightOf="@id/tvNombreCalle"
+							android:inputType="textCapSentences"
+							android:layout_below="@+id/tvUbicacion"
+							android:imeOptions="actionNext"/>
+
+						<TextView
+							android:id="@+id/tvNumeroCalle"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="20dp"
+							android:text="@string/numeroc"
+							android:layout_below="@+id/tvUbicacion"
+							android:layout_toRightOf="@id/etcalle"
+							android:layout_gravity="center"
+							style="@style/Subtitle"/>
+
+						<EditText
+							android:id="@+id/etnumerocalle"
+							android:layout_width="wrap_content"
+							android:layout_height="70dp"
+							android:hint="@string/numeroc"
+							android:layout_toRightOf="@id/tvNumeroCalle"
+							android:layout_below="@+id/tvUbicacion"
+							android:inputType="textCapSentences"
+							android:imeOptions="actionNext"/>
+
+						<TextView
+							android:id="@+id/tvNumeroInt"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="20dp"
+							android:text="@string/numero_interior"
+							android:layout_toRightOf="@id/etnumerocalle"
+							android:layout_below="@+id/tvUbicacion"
+							android:layout_gravity="center"
+							style="@style/Subtitle"/>
+
+						<EditText
+							android:id="@+id/etnumerointerior"
+							android:layout_width="100dp"
+							android:layout_height="70dp"
+							android:hint="@string/numero_interior"
+							android:layout_toRightOf="@id/tvNumeroInt"
+							android:layout_below="@+id/tvUbicacion"
+							android:inputType="textCapSentences"
+							android:layout_alignParentRight="true"
+							android:imeOptions="actionNext"/>
+
+						<LinearLayout android:id="@+id/llEntre"
+							android:gravity="center"
+							android:orientation="horizontal"
+							android:layout_width="fill_parent"
+							android:layout_height="wrap_content"
+							android:layout_below="@id/etcalle" >
+
+							<TextView
+								android:text="@string/entre"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_marginTop="5dp"
+								style="@style/Subtitle"/>
+
+							<EditText
+								android:id="@+id/etEntreC"
+								android:hint="@string/entre"
+								android:layout_width="wrap_content"
+								android:layout_height="70dp"
+								android:inputType="textCapSentences"
+								android:imeOptions="actionNext"/>
+
+							<TextView
+								android:text="@string/entre1"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_marginTop="5dp"
+								style="@style/Subtitle"/>
+
+							<EditText
+								android:id="@+id/etEntreC1"
+								android:hint="@string/entre1"
+								android:layout_width="wrap_content"
+								android:layout_height="70dp"
+								android:inputType="textCapSentences"
+								android:imeOptions="actionNext"/>
+
+						</LinearLayout>
 					    
 					    <TextView 
 					        android:id="@+id/tvSPoblacion"
 					        android:layout_width="wrap_content"
 					        android:layout_height="wrap_content"
 					        android:text="@string/poblacion"
-					        android:layout_below="@id/tvUbicacion"
+					        android:layout_below="@id/llEntre"
 					        android:layout_marginTop="20dp"
 					        android:layout_marginLeft="5dp"
 					        style="@style/Subtitle"
@@ -1017,7 +1201,7 @@
 					        android:layout_width="wrap_content"
 					        android:layout_height="wrap_content"
 					        android:text="@string/fracc"
-					        android:layout_below="@id/tvUbicacion"
+					        android:layout_below="@id/spPoblacion"
 					        android:layout_marginTop="20dp"
 					        android:layout_marginLeft="5dp"
 					        style="@style/Subtitle"/>
@@ -1065,6 +1249,27 @@
 							android:layout_below="@id/spFraccionamiento"
 							android:imeOptions="actionNext"
 							android:visibility="gone"/>
+
+						<TextView
+							android:id="@+id/tvZona"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="@string/zona"
+							android:layout_gravity="center"
+							android:gravity="center"
+							style="@style/Subtitle"
+							android:layout_marginTop="20dp"
+							android:visibility="visible"
+							android:layout_below="@id/etfraccionamiento"/>
+
+						<Spinner
+							android:id="@+id/spZona"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:prompt="@string/iden"
+							android:layout_gravity="center_horizontal"
+							android:visibility="visible"
+							android:layout_below="@id/tvZona"/>
 						
 						
 						<TextView
@@ -1074,8 +1279,9 @@
 							android:layout_marginTop="20dp"
 							android:text="@string/sector"
 							android:layout_gravity="center"
-							android:layout_below="@id/etfraccionamiento" 
-							style="@style/Subtitle"/>
+							android:layout_below="@id/spZona"
+							style="@style/Subtitle"
+							android:visibility="gone"/>
 	    			
 						<EditText 
 							android:id="@+id/etSector"
@@ -1084,8 +1290,9 @@
 							android:hint="@string/sector"
 							android:layout_toRightOf="@id/tvSector"
 							android:inputType="textCapSentences"
-							android:layout_below="@id/etfraccionamiento"
-							android:imeOptions="actionNext"/>
+							android:layout_below="@id/spZona"
+							android:imeOptions="actionNext"
+							android:visibility="gone"/>
 						
 						
 						<TextView
@@ -1108,113 +1315,11 @@
 							android:layout_below="@id/etSector"
 							android:imeOptions="actionNext"/>
 						
-						<TextView
-					        android:id="@+id/tvNombreCalle"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_marginTop="20dp"
-							android:text="@string/calle"
-							android:layout_below="@id/etCondominio"
-							android:layout_gravity="center" 
-							style="@style/Subtitle"/>
-		    	
-						<EditText 
-							android:id="@+id/etcalle"
-							android:layout_width="wrap_content"
-							android:layout_height="70dp"
-							android:hint="@string/calle"
-							android:layout_below="@id/etCondominio"
-							android:layout_toRightOf="@id/tvNombreCalle"
-							android:inputType="textCapSentences"
-							android:imeOptions="actionNext"/>
-						
-						<TextView
-					        android:id="@+id/tvNumeroCalle"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_marginTop="20dp"
-							android:text="@string/numeroc"
-							android:layout_below="@id/etCondominio"
-							android:layout_toRightOf="@id/etcalle"
-							android:layout_gravity="center" 
-							style="@style/Subtitle"/>
-	    	
-						<EditText 
-							android:id="@+id/etnumerocalle"
-							android:layout_width="wrap_content"
-							android:layout_height="70dp"
-							android:hint="@string/numeroc"
-							android:layout_below="@id/etCondominio"
-							android:layout_toRightOf="@id/tvNumeroCalle"
-							android:inputType="textCapSentences"
-							android:imeOptions="actionNext"/>
-						
-						<TextView
-					        android:id="@+id/tvNumeroInt"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_marginTop="20dp"
-							android:text="@string/numero_interior"
-							android:layout_below="@id/etCondominio"
-							android:layout_toRightOf="@id/etnumerocalle"
-							android:layout_gravity="center" 
-							style="@style/Subtitle"/>
-	    		
-						<EditText 
-							android:id="@+id/etnumerointerior"
-							android:layout_width="100dp"
-							android:layout_height="70dp"
-							android:hint="@string/numero_interior"
-							android:layout_below="@id/etCondominio"
-							android:layout_toRightOf="@id/tvNumeroInt"
-							android:inputType="textCapSentences"
-							android:layout_alignParentRight="true"
-							android:imeOptions="actionNext"/>
-						
-						<LinearLayout android:id="@+id/llEntre"
-						    android:gravity="center"
-						    android:orientation="horizontal"
-						    android:layout_width="fill_parent"
-						    android:layout_height="wrap_content"
-						    android:layout_below="@id/etcalle" >
-					        
-						    <TextView 
-						        android:text="@string/entre"
-						        android:layout_width="wrap_content"
-						        android:layout_height="wrap_content"
-						        android:layout_marginTop="5dp"
-						        style="@style/Subtitle"/>
-						    
-						    <EditText 
-						        android:id="@+id/etEntreC"
-						        android:hint="@string/entre"
-						        android:layout_width="wrap_content"
-								android:layout_height="70dp"
-								android:inputType="textCapSentences"
-								android:imeOptions="actionNext"/>
-						    
-						    <TextView 
-						        android:text="@string/entre1"
-						        android:layout_width="wrap_content"
-						        android:layout_height="wrap_content"
-						        android:layout_marginTop="5dp"
-						        style="@style/Subtitle"/>
-						    
-						    <EditText 
-						        android:id="@+id/etEntreC1"
-						        android:hint="@string/entre1"
-						        android:layout_width="wrap_content"
-								android:layout_height="70dp"
-								android:inputType="textCapSentences"
-								android:imeOptions="actionNext"/>
-						    
-						</LinearLayout>
-						
 						<RelativeLayout android:id="@+id/rlML"
 						    android:gravity="center"
 						    android:layout_width="fill_parent"
 						    android:layout_height="wrap_content"
-						    android:layout_below="@id/llEntre">
+						    android:layout_below="@id/etCondominio">
 						
 							<TextView
 						        android:id="@+id/tvManzana"
@@ -1649,12 +1754,20 @@
 									android:inputType="textMultiLine|textCapSentences"
 									android:enabled="false"
 									android:visibility="gone"/>
+
+								<Spinner
+									android:id="@+id/spUni"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/etdescripcion"
+									android:visibility="gone">
+								</Spinner>
 			    			
 								<EditText 
 									android:id="@+id/etdato"
 									android:layout_width="wrap_content"
 									android:layout_height="70dp"
-									android:layout_below="@+id/etdescripcion"
+									android:layout_below="@+id/spUni"
 									android:inputType="numberDecimal"
 									android:height="5dp"
 									android:maxLength="6"
@@ -1668,15 +1781,8 @@
 									android:visibility="gone"
 									android:layout_toRightOf="@+id/etdato"
 									android:paddingTop="43dp"
-									android:layout_below="@+id/etdescripcion"
+									android:layout_below="@+id/spUni"
 									style="@style/Subtitle"/>
-
-								<Spinner
-									android:id="@+id/spUni"
-									android:layout_width="match_parent"
-									android:layout_height="wrap_content"
-									android:layout_below="@+id/tvuni">
-								</Spinner>
 			    			
 								<Button 
 									android:id="@+id/tveliminar"
@@ -1684,9 +1790,8 @@
 									android:layout_height="wrap_content"
 									android:visibility="gone"
 									android:text="@string/eliminar"
-									android:layout_below="@+id/spUni"
+									android:layout_below="@+id/etdato"
 									android:paddingLeft="10dp"
-									android:paddingTop="43dp"
 									style="@style/Subtitle"/>
 
 								<EditText
@@ -1708,12 +1813,22 @@
 									android:enabled="false"
 									android:layout_below="@+id/etObs"
 									android:visibility="gone"/>
+
+
+
+								<Spinner
+									android:id="@+id/spUni1"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/etdescripcion1"
+									android:visibility="gone">
+								</Spinner>
 			    			
 								<EditText 
 									android:id="@+id/etdato1"
 									android:layout_width="wrap_content"
 									android:layout_height="70dp"
-									android:layout_below="@+id/etdescripcion1"
+									android:layout_below="@+id/spUni1"
 									android:inputType="numberDecimal"
 									android:maxLength="6"
 									android:maxHeight="10dp"
@@ -1727,15 +1842,8 @@
 									android:visibility="gone"
 									android:layout_toRightOf="@+id/etdato1"
 									android:paddingTop="43dp"
-									android:layout_below="@+id/etdescripcion1"
+									android:layout_below="@+id/spUni1"
 									style="@style/Subtitle"/>
-
-								<Spinner
-									android:id="@+id/spUni1"
-									android:layout_width="match_parent"
-									android:layout_height="wrap_content"
-									android:layout_below="@+id/tvuni1">
-								</Spinner>
 			    			
 								<Button 
 									android:id="@+id/tveliminar1"
@@ -1744,8 +1852,7 @@
 									android:visibility="gone"
 									android:text="@string/eliminar"
 									android:paddingLeft="10dp"
-									android:paddingTop="43dp"
-									android:layout_below="@+id/spUni1"
+									android:layout_below="@+id/etdato1"
 									style="@style/Subtitle"/>
 
 								<EditText
@@ -1767,12 +1874,20 @@
 									android:enabled="false"
 									android:layout_below="@+id/etObs1"
 									android:visibility="gone"/>
+
+								<Spinner
+									android:id="@+id/spUni2"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/etdescripcion2"
+									android:visibility="gone">
+								</Spinner>
 			    			
 								<EditText 
 									android:id="@+id/etdato2"
 									android:layout_width="wrap_content"
 									android:layout_height="70dp"
-									android:layout_below="@+id/etdescripcion2"
+									android:layout_below="@+id/spUni2"
 									android:inputType="numberDecimal"
 									android:maxLength="6"
 									android:hint="@string/unidad"
@@ -1785,15 +1900,8 @@
 									android:visibility="gone"
 									android:paddingTop="43dp"
 									android:layout_toRightOf="@+id/etdato2"
-									android:layout_below="@+id/etdescripcion2"
+									android:layout_below="@+id/spUni2"
 									style="@style/Subtitle"/>
-
-								<Spinner
-									android:id="@+id/spUni2"
-									android:layout_width="match_parent"
-									android:layout_height="wrap_content"
-									android:layout_below="@+id/tvuni2">
-								</Spinner>
 			    			
 								<Button
 									android:id="@+id/tveliminar2"
@@ -1802,8 +1910,7 @@
 									android:visibility="gone"
 									android:text="@string/eliminar"
 									android:paddingLeft="10dp"
-									android:paddingTop="43dp"
-									android:layout_below="@+id/spUni2"
+									android:layout_below="@+id/etdato2"
 									style="@style/Subtitle"/>
 
 								<EditText
@@ -1825,12 +1932,19 @@
 									android:enabled="false"
 									android:layout_below="@+id/etObs2"
 									android:visibility="gone"/>
+
+								<Spinner
+									android:id="@+id/spUni3"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/etdescripcion3"
+									android:visibility="gone"/>
 			    			
 								<EditText 
 									android:id="@+id/etdato3"
 									android:layout_width="wrap_content"
 									android:layout_height="70dp"
-									android:layout_below="@+id/etdescripcion3"
+									android:layout_below="@+id/spUni3"
 									android:inputType="numberDecimal"
 									android:maxLength="6"
 									android:hint="@string/unidad"
@@ -1844,24 +1958,17 @@
 									android:visibility="gone"
 									android:paddingTop="43dp"
 									android:layout_toRightOf="@+id/etdato3"
-									android:layout_below="@+id/etdescripcion3"
+									android:layout_below="@+id/spUni3"
 									style="@style/Subtitle"/>
-
-								<Spinner
-									android:id="@+id/spUni3"
-									android:layout_width="match_parent"
-									android:layout_height="wrap_content"
-									android:layout_below="@+id/tvuni3"/>
 			    			
 								<Button
 									android:id="@+id/tveliminar3"
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"
 									android:visibility="gone"
-									android:paddingTop="43dp"
 									android:text="@string/eliminar"
 									android:paddingLeft="10dp"
-									android:layout_below="@+id/spUni3"
+									android:layout_below="@+id/etdato3"
 									style="@style/Subtitle"/>
 
 								<EditText
@@ -1908,7 +2015,8 @@
 									android:id="@+id/spUni4"
 									android:layout_width="match_parent"
 									android:layout_height="wrap_content"
-									android:layout_below="@+id/tvuni4"/>
+									android:layout_below="@+id/tvuni4"
+                                    android:visibility="gone"/>
 			    			
 								<Button
 									android:id="@+id/tveliminar4"
@@ -2133,24 +2241,7 @@
 							android:gravity="center" 
 							style="@style/Div"/>
 		    			
-						<TextView
-							android:id="@+id/tvZona"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:text="@string/zona"
-							android:layout_gravity="center"
-							android:gravity="center" 
-							style="@style/Subtitle"
-							android:layout_marginTop="20dp"
-							android:visibility="gone"/>
-		        		
-						<Spinner 
-							android:id="@+id/spZona"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:prompt="@string/iden"
-							android:layout_gravity="center_horizontal"
-							android:visibility="gone"/>
+
 						
 						<TextView
 							android:layout_width="fill_parent"
@@ -2167,7 +2258,7 @@
 							/>
 
 						<Spinner
-							android:id="@+id/spusoh"
+							android:id="@+id/spusoH"
 							android:layout_width="fill_parent"
 							android:layout_height="wrap_content"
 							android:prompt="@string/iden"
@@ -2312,6 +2403,7 @@
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:text="@string/re"
+							android:checked="true"
 							android:textOn="@android:string/yes"
 							android:textOff="@android:string/no"/>
 						

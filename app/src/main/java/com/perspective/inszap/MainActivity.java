@@ -101,7 +101,7 @@ public class MainActivity extends Activity {
 		
 		spDireccion.setFocusableInTouchMode(true);
 		
-		spDireccion.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item,arregloLista));
+		spDireccion.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,arregloLista));
 		
 		
 		spDireccion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -557,6 +557,20 @@ public class MainActivity extends Activity {
 				GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
 				SQLiteDatabase db1 = gestionBD.getReadableDatabase();
 				db1.execSQL("create table c_peticion(id_c_peticion integer PRIMARY KEY AUTOINCREMENT,peticion TEXT,capturo Text,fecha numeric)");
+				System.out.println("false");
+			} catch(SQLiteException e) {
+				System.err.println(e.getMessage());
+			}
+		} else
+			System.out.println("true");
+
+		if(!isTableExists("concepto_ov")) {
+			System.out.println("false");
+
+			try {
+				GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+				SQLiteDatabase db1 = gestionBD.getReadableDatabase();
+				db1.execSQL("create table concepto_ov(id_concepto_ov integer PRIMARY KEY AUTOINCREMENT,id_c_direccion TEXT,concepto Text,articulo text,fraccion text)");
 				System.out.println("false");
 			} catch(SQLiteException e) {
 				System.err.println(e.getMessage());
