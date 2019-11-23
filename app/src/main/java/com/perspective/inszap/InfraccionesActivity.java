@@ -4368,10 +4368,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	sb.append("Los siguientes campos son requeridos: \n");
     	if(infrac == 1) {
 
-            if (validarCampos(this.etfecha)) {
+            /*if (validarCampos(this.etfecha)) {
                 sb.append("Ingrese la fecha. \n");
                 valid = false;
-            }
+            }*/
             if (validarCampos(this.etNombreV)) {
                 sb.append("Ingrese el nombre del visitado. \n");
                 valid = false;
@@ -4448,6 +4448,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    		sb.append("Seleccione la gravedad \n");
 	    		valid = false;
 	    	}
+            if(validarSpinner(this.spNE)){
+                sb.append("Seleccione la gravedad \n");
+                valid = false;
+            }
     	} else if(infrac == 3) {
 	    	
 	    	if(validarCampos(this.etfecha)){
@@ -8606,8 +8610,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         art = art.substring(0, art.length() - 1);
                         motivo += " ASI MIMSO, CUALQUIER OTRA ACTIVIDAD RELACIONADA CON LA NORMATIVIDAD APLICABLE Y QUE SEA REGULADA POR EL MUNICIPIO DE ZAPOPAN JALISCO, CON RESPECTO A LA EJECUCION DE TRABAJOS DE  construcción, remodelación, demolición, movimiento de tierras, excavación, reparación o restauración de cualquier género, así como cualquier acto de ocupacion o utilizacion del suelo que se lleve a cabo en el Municipio de Zapopan. Con base a los articulos: 2, 3, 5, 7  FRACCIONES I a la VI, 167, 168, 169, 171. ";
                         motivo += art + " del reglamento de construccion para el municipio de zapopan jalisco";
+
                     }
-			        txt = Justificar.justifocarTexto1(motivo, 110);
+
+                    p = new Paragraph(motivo);
+                    p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+                    p.setFont(font1);
+                    doc.add(p);
+			        /*txt = Justificar.justifocarTexto1(motivo, 110);
 				    int li = 425+c;
 				    
 				    for (int i = 0; i < txt.length; i++) {
@@ -8622,7 +8632,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        canvas.restoreState();
 				        
 				        li-=10;
-					}
+					}*/
 				    
 				    int d = 5;
 				    
