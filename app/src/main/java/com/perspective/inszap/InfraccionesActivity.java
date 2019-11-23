@@ -7172,8 +7172,28 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        canvas.showText(spIdentificaT1.getSelectedItem().toString() + " " + etIfeT.getText().toString());
 				        canvas.endText();
 				        canvas.restoreState();
-					    
-					    txt = Justificar.justifocarTexto1(etSeleccion.getText().toString() + ". En atencion a " + spPeticion.getSelectedItem().toString() + " " + competencias1, 105);
+
+                        p = new Paragraph(etSeleccion.getText().toString() + ". En atencion a " + spPeticion.getSelectedItem().toString() + " " + competencias1);
+                        p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+                        p.setFont(font1);
+                        doc.add(p);
+
+                        p = new Paragraph(etInfraccion.getText().toString());
+                        p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+                        p.setFont(font1);
+                        doc.add(p);
+
+                        p = new Paragraph(etSeleccion.getText().toString() + ". En atencion a " + spPeticion.getSelectedItem().toString() + " " + competencias1);
+                        p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+                        p.setFont(font1);
+                        doc.add(p);
+
+                        p = new Paragraph(etSeleccion.getText().toString() + ". En atencion a " + spPeticion.getSelectedItem().toString() + " " + competencias1);
+                        p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+                        p.setFont(font1);
+                        doc.add(p);
+                        int li;
+					    /*txt = Justificar.justifocarTexto1(etSeleccion.getText().toString() + ". En atencion a " + spPeticion.getSelectedItem().toString() + " " + competencias1, 105);
 					    int li = 550;
 					    
 					    for (int i = 0; i < txt.length; i++) {
@@ -7190,7 +7210,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					        li-=10;
 						}
 					    
-					    txt = Justificar.justifocarTexto1(etInfraccion.getText().toString(), 105);
+					    /*txt = Justificar.justifocarTexto1(etInfraccion.getText().toString(), 105);
 					    li = 455;
 					    
 					    for (int i = 0; i < txt.length; i++) {
@@ -7205,7 +7225,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					        canvas.restoreState();
 					        
 					        li-=10;
-						}
+						}*/
 					    
 					    txt = Justificar.justifocarTexto1(etMedida.getText().toString(), 105);
 					    li = 390;
