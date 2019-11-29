@@ -846,6 +846,12 @@
 						android:layout_height="wrap_content"
 						android:gravity="center"
 						android:layout_gravity="center">
+
+						<CheckBox
+							android:id="@+id/cbDatos"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:text="No proporciono datos"/>
 						
 					   	<TextView
 					   		android:id="@+id/tvDatoVisitado"
@@ -854,7 +860,8 @@
 							android:layout_height="wrap_content"
 							android:text="@string/nombreV"
 							android:layout_gravity="center" 
-							style="@style/Subtitle"/>
+							style="@style/Subtitle"
+							android:layout_below="@id/cbDatos"/>
 		    
 						<EditText 
 							android:id="@+id/etNombreV"
@@ -863,7 +870,8 @@
 							android:inputType="textCapWords"
 							android:layout_toRightOf="@id/tvDatoVisitado"
 							android:hint="@string/nombreV"
-							android:imeOptions="actionNext"/>
+							android:imeOptions="actionNext"
+							android:layout_below="@id/cbDatos"/>
 					
 					</RelativeLayout>
 					
@@ -957,6 +965,7 @@
 						android:visibility="gone"/>
 					
 					<TextView
+						android:id="@+id/tvPeticion"
 						android:layout_width="fill_parent"
 						android:layout_height="wrap_content"
 						android:text="@string/inspecion_fue"
@@ -2244,6 +2253,7 @@
 
 						
 						<TextView
+							android:id="@+id/tvUso"
 							android:layout_width="fill_parent"
 							android:layout_height="wrap_content"
 							android:text="@string/uso"
@@ -2300,45 +2310,52 @@
 					    android:layout_gravity="center_horizontal"
 					    android:orientation="vertical"
 					    android:visibility="gone">
+
+                        <LinearLayout
+                            android:id="@+id/llPla"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 	    		
-						<TextView
-							android:layout_width="fill_parent"
-							android:layout_height="wrap_content"
-							android:text="@string/plazo"
-							android:gravity="center"
-							style="@style/Div"/>
-		    		
-						<RelativeLayout android:layout_width="fill_parent" 
-							android:layout_height="wrap_content"
-							android:layout_gravity="center_horizontal">
-		    	
-							<EditText 
-								android:id="@+id/etdiasplazo"
-								android:layout_width="wrap_content"
-								android:layout_height="70dp"
-								android:hint="@string/diasplazo"
-								android:inputType="number"
-								android:imeOptions="actionNext"/>
-		    			
-							<Button
-								android:layout_width="wrap_content"
-								android:layout_height="70dp"
-								android:layout_toRightOf="@id/etdiasplazo"
-								android:id="@+id/btnVFecha"
-								android:text="@string/v_fecha"
-								style="@style/Boton" 
-							/>
-		    			
-							<EditText 
-								android:id="@+id/etfecha"
-								android:layout_width="wrap_content"
-								android:layout_height="70dp"
-								android:hint="@string/fecham"
-								android:inputType="date"
-								android:layout_toRightOf="@+id/btnVFecha"
-								android:imeOptions="actionNext"/>
-		    		
-						</RelativeLayout>
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/plazo"
+                                android:gravity="center"
+                                style="@style/Div"/>
+
+                            <RelativeLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal">
+
+                                <EditText
+                                    android:id="@+id/etdiasplazo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="70dp"
+                                    android:hint="@string/diasplazo"
+                                    android:inputType="number"
+                                    android:imeOptions="actionNext"/>
+
+                                <Button
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="70dp"
+                                    android:layout_toRightOf="@id/etdiasplazo"
+                                    android:id="@+id/btnVFecha"
+                                    android:text="@string/v_fecha"
+                                    style="@style/Boton"
+                                />
+
+                                <EditText
+                                    android:id="@+id/etfecha"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="70dp"
+                                    android:hint="@string/fecham"
+                                    android:inputType="date"
+                                    android:layout_toRightOf="@+id/btnVFecha"
+                                    android:imeOptions="actionNext"/>
+
+                            </RelativeLayout>
+                        </LinearLayout>
 					
 					
 	    		

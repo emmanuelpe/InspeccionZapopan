@@ -172,6 +172,17 @@
             	android:layout_marginRight="10dp"
             	android:layout_marginTop="20dp"
             	android:visibility="gone"/>
+
+			<Button
+				android:id="@+id/btnLicencias"
+				style="@style/Boton"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="Ver licencias cargadas"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
+				android:layout_marginTop="20dp"
+				android:visibility="visible"/>
         
         	<Button
             	android:id="@+id/btnSalir"

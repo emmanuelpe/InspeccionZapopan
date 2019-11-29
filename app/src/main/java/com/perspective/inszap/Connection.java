@@ -5,7 +5,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -580,6 +582,8 @@ public class Connection {
 		ContentValues cv = new ContentValues();
 		
 		Cursor c = db.rawQuery("SELECT * FROM " + tabla, null);
+
+		int r = 0;
 		
 		ArrayList<NameValuePair> dat = new ArrayList<NameValuePair>();
 		dat.add(new BasicNameValuePair("id", "0"));
@@ -626,10 +630,15 @@ public class Connection {
 					System.out.println("ALTER TABLE " + tabla + " ADD COLUMN " + tablas.get(i) + " TEXT ");
 				}
 			}
+			if(c.getColumnIndex("fechaA") > -1) {
+				r+=1;
+			}
 			c.close();
 			for (int i = 0; i < tablas.size(); i++) {
 				System.out.println("t " + tablas.get(i));
 			}
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			Date date = new Date();
 			for (int i = 0; i < jArray.length(); i++) {
 				this.json_data = this.jArray.getJSONObject(i);
 				
@@ -642,6 +651,9 @@ public class Connection {
 						cv.put(tablas.get(j), "");
 						System.out.println("registro" + i + " " + tablas.get(j) + " ");
 					}
+				}
+				if(r > 0) {
+					cv.put("fechaA",dateFormat.format(date));
 				}
 				db.insert(tabla, null, cv);
 			}

@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ConsultarLicenciaConstruccion"></activity>
+        <activity android:name=".Licencias"></activity>
+        <activity android:name=".ConsultarLicenciaConstruccion" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -40,7 +41,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".Descarga"
             android:label="@string/title_activity_descarga" />

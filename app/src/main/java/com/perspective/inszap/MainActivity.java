@@ -396,6 +396,22 @@ public class MainActivity extends Activity {
 			db1.execSQL(sql);
 			
 		}
+
+		if(validarCampo("vs_InspM2","fechaA") == 0){
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table vs_InspM2 add fechaA numeric";
+			db1.execSQL(sql);
+		}
+
+		if(validarCampo("v_LicenciasReglamentos","fechaA") == 0){
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table v_LicenciasReglamentos add fechaA numeric";
+			db1.execSQL(sql);
+		}
 		
 		if(validarCampo("Levantamiento", "status") == 0) {
 			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);

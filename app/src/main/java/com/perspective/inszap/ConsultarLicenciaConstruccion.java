@@ -44,6 +44,11 @@ public class ConsultarLicenciaConstruccion extends AppCompatActivity implements 
         lv.setAdapter(adapter);
         gestionarBD = new GestionBD(this,"inspeccion",null,1);
         db = gestionarBD.getReadableDatabase();
+
+        Cursor c = db.rawQuery("SELECT * FROM vs_InspM2", null);
+        Log.i("que", "SELECT * FROM vs_InspM2");
+
+        Log.v("count",c.getCount() + "");
     }
 
     @Override
