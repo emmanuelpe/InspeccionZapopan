@@ -156,7 +156,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	private Thread thread = null;
 	private ArrayList<String> campo = new ArrayList<String>();
 	private String campo1="",campo2="",campo3="",campo4="",campo5="",campo6="",campo7="",campo8="",campo9="",campo0="",campo11="",campo12="",campo13="",campo14 = "",campo15 = "",campo16 = "",campo17 = "",campo18 = "",campo19 = "",campo20 = "",campo21 = "",c1="",c2="",c3="",c4="",c5="",c6="",c7="",c8="",c9="",c0="",c11="",c12="",c13="",c14="",c15="",c16="",c17="",c18="",c19="",c20="",camp1="",camp2="",camp3="",camp4="",camp5="",camp6="",camp7="",camp8="",camp9="",camp0="",camp11="",camp12="",camp13="",camp14="",camp15="",camp16="",camp17="",camp18="",camp19="",camp20="",hech = "los hechos antes descritos, constituyen una infracciÔøΩn a lo dispuesto por los artÔøΩculos:",conti = "Los cuales constituyen infracciÔøΩn de conformidad con lo dispuesto por los artÔøΩculos:",na = "";
-	private CheckBox cbFlag,cbFirma;
+	private CheckBox cbFlag,cbFirma,cbDatos;
 	private Button rbaper,rborden,rbcitatorio,rbHechos,radioInfraccion;
 	private List<Levantamiento> lev = new ArrayList<Levantamiento>();
 	private List<String> reglamento = new ArrayList<String>();
@@ -510,6 +510,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         tvNota = findViewById(R.id.tvNota);
         tvUso = findViewById(R.id.tvUso);
         llPla = findViewById(R.id.llPla);
+        cbDatos = findViewById(R.id.cbDatos);
 
         unis = new ArrayList<>();
         unis1 = new ArrayList<>();
@@ -2947,7 +2948,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        btnVista.setEnabled(false);
 				        btnTomarF.setEnabled(true);
 				        if(guarda) {
-				            if(id != 4 || id != 3) {
+				            if(id != 4 || id != 3 || id != 2) {
                                 if (foto >= 1) {
                                     btnImprimir.setEnabled(true);
                                 } else {
@@ -4397,9 +4398,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 sb.append("Ingrese la fecha. \n");
                 valid = false;
             }*/
-            if (validarCampos(this.etNombreV)) {
-                sb.append("Ingrese el nombre del visitado. \n");
-                valid = false;
+            //if(cb.)
+            if(cbDatos.isChecked()) {
+                if (validarCampos(this.etNombreV)) {
+                    sb.append("Ingrese el nombre del visitado. \n");
+                    valid = false;
+                }
             }
             if (validarCampos(this.etFraccionamiento)) {
                 sb.append("Ingrese el fraccionamiento. \n");
@@ -4605,10 +4609,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    	}*/
     	}
     	else {
-	    	if(validarCampos(this.etNombreV)){
-	    		sb.append("Ingrese el nombre del visitado. \n");
-	    		valid = false;
-	    	}
+    	    if(cbDatos.isChecked()) {
+                if (validarCampos(this.etNombreV)) {
+                    sb.append("Ingrese el nombre del visitado. \n");
+                    valid = false;
+                }
+            }
 	    	if(validarCampos(this.etFraccionamiento)){
 	    		sb.append("Ingrese el fraccionamiento. \n");
 	    		valid = false;
