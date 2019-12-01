@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Licencias"></activity>
+        <activity android:name=".InfraccionesActivityTecnica"></activity>
+        <activity android:name=".Licencias" />
         <activity android:name=".ConsultarLicenciaConstruccion" />
 
         <provider
@@ -59,6 +60,9 @@
             android:label="@string/title_activity_consultar_infracciones" />
         <activity
             android:name=".Reimprimir"
+            android:label="@string/title_activity_reimprimir" />
+        <activity
+            android:name=".TestActivity"
             android:label="@string/title_activity_reimprimir" />
     </application>
 

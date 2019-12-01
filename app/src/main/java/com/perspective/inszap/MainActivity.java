@@ -153,6 +153,7 @@ public class MainActivity extends Activity {
 				else{
 					if(ingresar(usuario, pass)){
 						Intent intent = new Intent(MainActivity.this,Descarga.class);
+						//Intent intent = new Intent(MainActivity.this,TestActivity.class);
 						Bundle bundle = new Bundle();
 						bundle.putString("direccion", direccion);
 						bundle.putString("usuario", usuario.trim());
