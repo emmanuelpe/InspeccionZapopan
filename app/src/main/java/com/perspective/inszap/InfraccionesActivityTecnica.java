@@ -642,6 +642,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             this.rbcitatorio.setVisibility(View.GONE);
             this.rborden.setVisibility(View.VISIBLE);
             this.rbHechos.setVisibility(View.GONE);
+        }else if(id == 3) {
+            rlLicencias.setVisibility(View.GONE);
         }
         else {
             rlLicencias.setVisibility(View.VISIBLE);
@@ -750,6 +752,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         rborden.setOnClickListener(this);
         radioInfraccion.setOnClickListener(this);
         cbFlag.setOnCheckedChangeListener(this);
+        cbDatos.setOnCheckedChangeListener(this);
         this.btnOrden1.setOnClickListener(this);
         btnVista.setOnClickListener(this);
 
@@ -4395,7 +4398,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 valid = false;
             }*/
             //if(cb.)
-            if(cbDatos.isChecked()) {
+            if(!cbDatos.isChecked()) {
                 if (validarCampos(this.etNombreV)) {
                     sb.append("Ingrese el nombre del visitado. \n");
                     valid = false;
@@ -4483,9 +4486,11 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 sb.append("Ingrese la fecha. \n");
                 valid = false;
             }
-            if(validarCampos(this.etNombreV)){
-                sb.append("Ingrese el nombre del visitado. \n");
-                valid = false;
+            if(!cbDatos.isChecked()) {
+                if (validarCampos(this.etNombreV)) {
+                    sb.append("Ingrese el nombre del visitado. \n");
+                    valid = false;
+                }
             }
             if(validarCampos(this.etFraccionamiento)){
                 sb.append("Ingrese el fraccionamiento. \n");
@@ -4542,9 +4547,11 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 sb.append("Ingrese la fecha. \n");
                 valid = false;
             }
-            if(validarCampos(this.etNombreV)){
-                sb.append("Ingrese el nombre del visitado. \n");
-                valid = false;
+            if(!cbDatos.isChecked()) {
+                if (validarCampos(this.etNombreV)) {
+                    sb.append("Ingrese el nombre del visitado. \n");
+                    valid = false;
+                }
             }
             if(validarCampos(this.etFraccionamiento)){
                 sb.append("Ingrese el fraccionamiento. \n");
@@ -4605,7 +4612,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 	    	}*/
         }
         else {
-            if(cbDatos.isChecked()) {
+            if(!cbDatos.isChecked()) {
                 if (validarCampos(this.etNombreV)) {
                     sb.append("Ingrese el nombre del visitado. \n");
                     valid = false;
@@ -5547,8 +5554,12 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     rgPopiedad.setVisibility(View.GONE);
                 }
                 if(id == 3) {
-                    tvPeticion.setVisibility(View.GONE);
-                    spPeticion.setVisibility(View.GONE);
+                    tvPeticion.setVisibility(View.INVISIBLE);
+                    spPeticion.setVisibility(View.INVISIBLE);
+                    tvReg.setVisibility(View.GONE);
+                }
+                if(id == 2) {
+                    tvReg.setVisibility(View.GONE);
                 }
 
                 break;
@@ -5611,6 +5622,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     llNota.setVisibility(View.GONE);
                     tvCondominio.setVisibility(View.GONE);
                     etCondominio.setVisibility(View.GONE);
+                    tvReg.setVisibility(View.GONE);
                 }
 
                 break;
@@ -8710,6 +8722,11 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                 }
 
+                doc.add(new Paragraph(" ",font1));
+                doc.add(new Paragraph(" ",font1));
+                doc.add(new Paragraph(" ",font1));
+                doc.add(new Paragraph(" ",font1));
+
                 p = new Paragraph(motivo);
                 p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
                 p.setFont(font1);
@@ -10647,6 +10664,24 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     System.err.println("si");
                 } else {
                     System.err.println("no");
+                }
+                break;
+
+            case R.id.cbDatos:
+                if(isChecked) {
+                    etNombreV.setEnabled(false);
+                    etVManifiesta.setEnabled(false);
+                    spManifiesta.setEnabled(false);
+                    etVIdentifica.setEnabled(false);
+                    spIdentifica.setEnabled(false);
+                    etPropietario.setEnabled(false);
+                } else {
+                    etNombreV.setEnabled(true);
+                    etVManifiesta.setEnabled(true);
+                    spManifiesta.setEnabled(true);
+                    etVIdentifica.setEnabled(true);
+                    spIdentifica.setEnabled(true);
+                    etPropietario.setEnabled(true);
                 }
                 break;
 

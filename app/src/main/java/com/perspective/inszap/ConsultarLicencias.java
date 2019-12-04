@@ -1,6 +1,8 @@
 package com.perspective.inszap;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -8,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +20,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConsultarLicencias extends Activity implements View.OnClickListener {
+public class ConsultarLicencias extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener {
 
 	private EditText etNombre,etNumeroL,etCalle,etExterior,etColonia;
 	private Button btnBuscar;
@@ -51,6 +54,9 @@ public class ConsultarLicencias extends Activity implements View.OnClickListener
 		Log.i("que", "SELECT * FROM v_LicenciasReglamentos");
 
 		Log.v("count",c.getCount() + "");
+
+		//lv.setOnItemSelectedListener(this);
+		lv.setOnItemClickListener(this);
 	}
 
 	@Override
@@ -66,6 +72,22 @@ public class ConsultarLicencias extends Activity implements View.OnClickListener
 				}
 				break;
 		}
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+		mostrarDialogo();
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> parent) {
+
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		mostrarDialogo();
 	}
 
 	public class BuscarL extends AsyncTask<String,Void,Boolean> {
@@ -140,5 +162,24 @@ public class ConsultarLicencias extends Activity implements View.OnClickListener
 		if(etColonia.getText().toString().trim().equalsIgnoreCase(""))
 			count++;
 		return count;
+	}
+
+	public void mostrarDialogo() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(ConsultarLicencias.this);
+		builder.setTitle("Mensaje").setMessage("Seleccione Accion");
+		builder.setPositiveButton("Orden de visita", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+
+			}
+		});
+		builder.setNegativeButton("Infracción", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+
+			}
+		});
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 }
