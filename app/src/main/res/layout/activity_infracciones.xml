@@ -874,10 +874,6 @@
 							android:layout_below="@id/cbDatos"/>
 					
 					</RelativeLayout>
-					
-					
-					
-					
 			 	
 					<TextView
 						android:layout_width="fill_parent"

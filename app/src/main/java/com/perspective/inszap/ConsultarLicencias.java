@@ -3,6 +3,7 @@ package com.perspective.inszap;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -27,6 +28,14 @@ public class ConsultarLicencias extends Activity implements View.OnClickListener
 	private ListView lv;
 	private ArrayAdapter<String> adapter;
 	private List<String> datos = new ArrayList<>();
+	private List<String> nombre1 = new ArrayList<>();
+	private List<String> calle1 = new ArrayList<>();
+	private List<String> exterior1 = new ArrayList<>();
+	private List<String> interior1 = new ArrayList<>();
+	private List<String> giro1 = new ArrayList<>();
+	private List<String> nLicencia1 = new ArrayList<>();
+	private String us = "",direccion = "",nombre = "",calle = "",exterior = "",interior = "",giro = "",nLicencia = "";
+	private int id = 0,conf = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +66,11 @@ public class ConsultarLicencias extends Activity implements View.OnClickListener
 
 		//lv.setOnItemSelectedListener(this);
 		lv.setOnItemClickListener(this);
+
+		id = getIntent().getExtras().getInt("id");
+		direccion = getIntent().getExtras().getString("direccion");
+		us = getIntent().getExtras().getString("usuario");
+		conf = getIntent().getExtras().getInt("con");
 	}
 
 	@Override
@@ -77,7 +91,7 @@ public class ConsultarLicencias extends Activity implements View.OnClickListener
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-		mostrarDialogo();
+		mostrarDialogo(position);
 	}
 
 	@Override
@@ -87,7 +101,7 @@ public class ConsultarLicencias extends Activity implements View.OnClickListener
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		mostrarDialogo();
+		mostrarDialogo(position);
 	}
 
 	public class BuscarL extends AsyncTask<String,Void,Boolean> {
@@ -131,6 +145,12 @@ public class ConsultarLicencias extends Activity implements View.OnClickListener
 		GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
 		SQLiteDatabase db = gestionarBD.getReadableDatabase();
 		datos.clear();
+		nombre1.clear();
+		nLicencia1.clear();
+		calle1.clear();
+		exterior1.clear();
+		interior1.clear();
+		giro1.clear();
 		try{
 			Cursor c = db.rawQuery("SELECT * FROM v_LicenciasReglamentos where 1=1 " + condicion, null);
 			Log.i("que", "SELECT * FROM v_LicenciasReglamentos where 1=1 " + condicion);
@@ -138,6 +158,12 @@ public class ConsultarLicencias extends Activity implements View.OnClickListener
 				Log.i("no", c.getCount() + "");
 				do{
 					datos.add("Nombre:" + c.getString(c.getColumnIndex("Nombre")) + " Número licencia:" + c.getString(c.getColumnIndex("NumeroLicencia")) + " Calle:" + c.getString(c.getColumnIndex("NombreCalle")) + " Exterior:" + c.getString(c.getColumnIndex("Exterior")) + " Colonia:" + c.getString(c.getColumnIndex("NombreColonia")) + " Giro:" + c.getString(c.getColumnIndex("GiroPrincipal")) + " Categoria:" + c.getString(c.getColumnIndex("GiroPrincipal")) + " Fecha pago:" + c.getString(c.getColumnIndex("FechaPago")));
+					nombre1.add(c.getString(c.getColumnIndex("Nombre")));
+					nLicencia1.add(c.getString(c.getColumnIndex("NumeroLicencia")));
+					calle1.add(c.getString(c.getColumnIndex("NombreCalle")));
+					exterior1.add(c.getString(c.getColumnIndex("Exterior")));
+					interior1.add(c.getString(c.getColumnIndex("Interior")));
+					giro1.add(c.getString(c.getColumnIndex("GiroPrincipal")));
 				}while(c.moveToNext());
 
 			}
@@ -164,19 +190,42 @@ public class ConsultarLicencias extends Activity implements View.OnClickListener
 		return count;
 	}
 
-	public void mostrarDialogo() {
+	public void mostrarDialogo(int pos) {
+
+		nombre = nombre1.get(pos);
+		nLicencia = nLicencia1.get(pos);
+		calle = calle1.get(pos);
+		exterior = exterior1.get(pos);
+		interior = interior1.get(pos);
+		giro = giro1.get(pos);
+
+		final Bundle bundle = new Bundle();
+		bundle.putString("usuario",us);
+		bundle.putString("direccion",direccion);
+		bundle.putInt("id",id);
+		bundle.putInt("con",conf);
+
+		bundle.putString("nombre",nombre);
+		bundle.putString("nLicencia",nLicencia);
+		bundle.putString("calle",calle);
+		bundle.putString("exterior",exterior);
+		bundle.putString("interior",interior);
+		bundle.putString("giro",giro);
+
 		AlertDialog.Builder builder = new AlertDialog.Builder(ConsultarLicencias.this);
 		builder.setTitle("Mensaje").setMessage("Seleccione Accion");
 		builder.setPositiveButton("Orden de visita", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-
+				bundle.putInt("acta",2);
+				startActivity(new Intent(ConsultarLicencias.this,InfraccionesActivity.class).putExtras(bundle));
 			}
 		});
 		builder.setNegativeButton("Infracción", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-
+				bundle.putInt("acta",1);
+				startActivity(new Intent(ConsultarLicencias.this,InfraccionesActivity.class).putExtras(bundle));
 			}
 		});
 		AlertDialog dialog = builder.create();

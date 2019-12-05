@@ -42,6 +42,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,6 +81,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
     private String liga,version;
     private HttpURLConnection urlConnection;
     private TextView titleD;
+	private ProgressBar mProgressBar;
 	
 	/**
 	 * @see android.app.Activity#onCreate(Bundle)
@@ -934,99 +936,146 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 	}
 	
 	public void insertar() {
+		int i = 0;
 		if (!c.search("http://10.10.23.54/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("C_Direccion");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getC_Direccion.php"/*"http://pgt.no-ip.biz/serverSQL/getC_Direccion.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_Direccion");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getc_insepctor.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("C_inspector");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getc_insepctor.php"/*"http://pgt.no-ip.biz/serverSQL/getc_insepctor.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_inspector");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getC_infraccion.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("C_infraccion");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getC_infraccion.php"/*"http://pgt.no-ip.biz/serverSQL/getC_infraccion.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_infraccion");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getc_dia_no_habil.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("C_dia_no_habil");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getc_dia_no_habil.php"/*"http://pgt.no-ip.biz/serverSQL/getc_dia_no_habil.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_dia_no_habil");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getC_ley_ingesos.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("C_ley_ingresos");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getC_ley_ingesos.php"/*"http://pgt.no-ip.biz/serverSQL/getC_ley_ingesos.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_ley_ingresos");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getc_zonas.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("C_zonas");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getc_zonas.php"/*"http://pgt.no-ip.biz/serverSQL/getc_zonas.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_zonas");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getC_fraccionamiento.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("C_fraccionamiento");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getC_fraccionamiento.php"/*"http://pgt.no-ip.biz/serverSQL/getC_fraccionamiento.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_fraccionamiento");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getC_poblacion.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("C_poblacion");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getC_poblacion.php"/*"http://pgt.no-ip.biz/serverSQL/getC_poblacion.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_poblacion");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getC_visitado_identifica.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("C_visitado_identifica");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getC_visitado_identifica.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_identifica.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_visitado_identifica");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getC_visitado_manifiesta.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("C_visitado_manifiesta");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getC_visitado_manifiesta.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_visitado_manifiesta");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getC_uso_suelo.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("C_uso_suelo");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getC_uso_suelo.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_uso_suelo");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getC_ordenamiento.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("C_ordenamiento");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getC_ordenamiento.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_ordenamiento");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getTabletas.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("c_tabletas");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getTabletas.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "c_tabletas");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getCMedida.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("c_medida_seguridad");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getCMedida.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "c_medida_seguridad");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serversql/getc_medida.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("c_medida_precautoria");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serversql/getc_medida.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "c_medida_precautoria");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getc_medidaespacio.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("c_medida_precautoria_espacios");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getc_medidaespacio.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "c_medida_precautoria_espacios");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("c_peticion");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getCPeticion.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "c_peticion");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("v_LicenciasReglamentos");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getLicReg1.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "v_LicenciasReglamentos");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 				//eliminaRegistros("v_LicenciasReglamentos");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getLicReg2.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "v_LicenciasReglamentos");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("vs_InspM2");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/get_vs_InspM21.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "vs_InspM2");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 				//eliminaRegistros("vs_InspM2");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/get_vs_InspM22.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "vs_InspM2");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 				//eliminaRegistros("vs_InspM2");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/get_vs_InspM23.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "vs_InspM2");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/get_concepto_ov.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("concepto_ov");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/get_concepto_ov.php"/*"http://pgt.no-ip.biz/serverSQL/getc_zonas.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "concepto_ov");
 			}
+			mProgressBar.setProgress(i);
+			i++;
 			/*if (!c.search("http://10.10.23.54/infracciones/serversql/getVistaLevantamiento.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("vista_levantamiento");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serversql/getVistaLevantamiento.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php"*, "vista_levantamiento");
@@ -1209,7 +1258,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 			break;
 			
 		case R.id.btnConsultarLicencia:
-			startActivity(new Intent(getApplicationContext(), ConsultarLicencias.class));
+			startActivity(new Intent(getApplicationContext(), ConsultarLicencias.class).putExtras(bundle));
 			break;
 			
 		case R.id.btnConsultar:
@@ -1550,7 +1599,20 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 	    }
 	}*/
 	
-	public class Ingresar extends AsyncTask<Void, Void, Boolean> {
+	public class Ingresar extends AsyncTask<Void, Integer, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			mProgressBar = new ProgressBar(Descarga.this);
+			mProgressBar.setMax(23);
+		}
+
+		@Override
+		protected void onProgressUpdate(Integer... values) {
+			super.onProgressUpdate(values);
+			mProgressBar.setProgress(values[0]);
+		}
 
 		@Override
 		protected Boolean doInBackground(Void... params) {
@@ -1562,6 +1624,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		protected void onPostExecute(Boolean result) {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
+			mProgressBar.setVisibility(View.INVISIBLE);
 			Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
 			toast.setGravity(0, 0, 15);
 			toast.show();
@@ -1571,7 +1634,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		
 	}
 	
-	public class Descargas extends AsyncTask<String, String, String> {
+	public class Descargas extends AsyncTask<String, Integer, String> {
 		
 		@Override
 		protected void onPostExecute(String result) {
@@ -1602,7 +1665,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		
 		@Override
 		protected void onPreExecute() {
-			super.onPreExecute();
+		    super.onPreExecute();
 		}
 		
 	}

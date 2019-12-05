@@ -2468,6 +2468,130 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         }*/
 
        buscarCompetencia();
+
+        if(getIntent().getExtras().getString("nLicencia") != null) {
+            etPropietario.setText(getIntent().getExtras().getString("nombre").trim());
+            etCalle.setText(getIntent().getExtras().getString("calle").trim());
+            etNumero.setText(getIntent().getExtras().getString("exterior").trim());
+            etNuemroInterior.setText(getIntent().getExtras().getString("interior").trim());
+            etLGiro.setText(getIntent().getExtras().getString("nLicencia").trim() + "");
+            etGiro.setText(getIntent().getExtras().getString("giro").trim());
+            if(getIntent().getExtras().getInt("acta") == 1) {
+                inicio();
+                infrac = 1;
+                etDiaPlazo.setText("20");
+                etDiaPlazo.setEnabled(false);
+                if(id == 4)
+                    rlProp.setVisibility(View.GONE);
+                else
+                    rlProp.setVisibility(View.VISIBLE);
+                rlTestA.setVisibility(View.VISIBLE);
+                rlVisita.setVisibility(View.VISIBLE);
+                llNota.setVisibility(View.VISIBLE);
+                llplazo.setVisibility(View.VISIBLE);
+                llreincidencia.setVisibility(View.GONE);
+                ante = "IN";
+                formato = "infraccion";
+                InfraccionesActivity.this.btnOrden1.setVisibility(View.VISIBLE);
+                etOrden1.setVisibility(View.VISIBLE);
+                etGiro.setVisibility(View.GONE);
+                etMotivo.setVisibility(View.GONE);
+                tvMotivo.setVisibility(View.GONE);
+                //spReglamento.setVisibility(View.VISIBLE);
+                //spReglamento.setVisibility(View.GONE);
+                //tvReg.setVisibility(View.GONE);
+                competencias = "";
+                regla = "";
+                idComp = 0;
+                etOrden1.setText("");
+                tvActa.setText("Número Acta");
+
+                btnConsultar.setVisibility(View.VISIBLE);
+                radioInfraccion.setVisibility(View.GONE);
+                rborden.setVisibility(View.GONE);
+
+                spNombreA.setVisibility(View.GONE);
+                spNombreA1.setVisibility(View.GONE);
+                spNombreA2.setVisibility(View.GONE);
+                spNombreA3.setVisibility(View.GONE);
+                spNombreA4.setVisibility(View.GONE);
+
+                tvAcomp.setVisibility(View.GONE);
+                llconcepto.setVisibility(View.GONE);
+
+                if(id == 4) {
+                    etNombreComercial.setHint("Nombre del Propietario o Representante Legal");
+                    tvNombreComercial.setText("Nombre del Propietario o Representante Legal");
+                    etReferencia.setVisibility(View.GONE);
+                    tvReferencia.setVisibility(View.GONE);
+                    etAGiro.setHint("Area");
+                    etAGiro.setText(direccion);
+                    tvgiro.setText("Area");
+                    etMotivo.setText("Inspeccionar físicamente que los trabajos o urbanización en proceso, cuenten y presenten los permisos correspondientes como son: ");
+                    llplazo.setVisibility(View.VISIBLE);
+                }
+                if(id == 2) {
+                    llNota.setVisibility(View.GONE);
+                    tvCondominio.setVisibility(View.GONE);
+                    etCondominio.setVisibility(View.GONE);
+                }
+            } else {
+                inicio();
+                infrac = 2;
+                if(id == 2 || id == 3  || id == 5)
+                    rlProp.setVisibility(View.VISIBLE);
+                else
+                    rlProp.setVisibility(View.GONE);
+                rlTestA.setVisibility(View.GONE);
+                rlVisita.setVisibility(View.GONE);
+                llNota.setVisibility(View.GONE);
+                llplazo.setVisibility(View.GONE);
+                llreincidencia.setVisibility(View.GONE);
+                ante = "OV";
+                formato = "orden";
+                etGiro.setVisibility(View.GONE);
+
+                etMotivo.setVisibility(View.VISIBLE);
+                tvMotivo.setVisibility(View.VISIBLE);
+                spReglamento.setVisibility(View.GONE);
+                tvReg.setVisibility(View.VISIBLE);
+                tvActa.setText("Número Orden");
+
+                radioInfraccion.setSelected(true);
+
+                btnConsultar.setVisibility(View.VISIBLE);
+                radioInfraccion.setVisibility(View.GONE);
+                rborden.setVisibility(View.GONE);
+
+                spgravedad.setSelection(1);
+
+
+                if(id == 4) {
+                    etNombreComercial.setHint("Nombre del Propietario o Representante Legal");
+                    tvNombreComercial.setText("Nombre del Propietario o Representante Legal");
+                    etReferencia.setVisibility(View.GONE);
+                    tvReferencia.setVisibility(View.GONE);
+                    btnTomarF.setVisibility(View.GONE);
+                    etAGiro.setHint("Area");
+                    etAGiro.setText(direccion);
+                    tvgiro.setText("Area");
+                    etMotivo.setText("Inspeccionar físicamente que los trabajos o urbanización en proceso, cuenten y presenten los permisos correspondientes como son: ");
+                    btnTomarF.setVisibility(View.GONE);
+                    llPla.setVisibility(View.GONE);
+
+                    etVManifiesta.setVisibility(View.GONE);
+                    rgPopiedad.setVisibility(View.GONE);
+                }
+                if(id == 3) {
+                    tvPeticion.setVisibility(View.GONE);
+                    spPeticion.setVisibility(View.GONE);
+                    tvReg.setVisibility(View.GONE);
+                }
+                if(id == 2) {
+                    tvReg.setVisibility(View.GONE);
+                }
+            }
+        }
         
     }
 
