@@ -1084,6 +1084,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 Object sel = spnombre.getItemAtPosition(position);
                 //buscarInspector(sel.toString());
 
+                Log.e("aqui",sel.toString());
+
                 buscarIdInspector(sel.toString());
 
                 etIfeI.setText(ifeI);
@@ -1120,9 +1122,9 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         Log.i("Numero1", numero);
                         if(n > 0 & n <= 9){
                             numero = "0"+String.valueOf(n);
-                            etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/"  + numero);
-                            Log.i("numeros", "n " + etNumeroActa.getText().toString().substring(0, 16) + " v " + s.substring(0, 16));
-                            if(!etNumeroActa.getText().toString().substring(0, 16).equalsIgnoreCase(s.substring(0, 16))){
+                            //etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/"  + numero);
+                            //Log.i("numeros", "n " + etNumeroActa.getText().toString().substring(0, 16) + " v " + s.substring(0, 16));
+                            if(!etNumeroActa.getText().toString().substring(0, 14).equalsIgnoreCase(s.substring(0, 14))){
                                 Log.i("numero acta", "si");
                                 numero = "01";
                                 etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
@@ -5624,6 +5626,11 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     etCondominio.setVisibility(View.GONE);
                     tvReg.setVisibility(View.GONE);
                 }
+                if(id == 3) {
+                    tvReg.setVisibility(View.GONE);
+                }
+
+                etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
 
                 break;
 

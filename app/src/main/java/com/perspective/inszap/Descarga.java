@@ -313,8 +313,9 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 				Intent intent;
 				if(id != 3)
 					intent = new Intent(Descarga.this, InfraccionesActivity.class);
-				else
+				else {
 					intent = new Intent(Descarga.this, InfraccionesActivityTecnica.class);
+				}
 				Bundle bundle = new Bundle();
 				bundle.putString("usuario", us.trim());
 				bundle.putInt("id", id);
