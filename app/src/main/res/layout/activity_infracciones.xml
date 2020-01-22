@@ -2199,6 +2199,17 @@
 									android:layout_width="fill_parent"
 									android:layout_height="wrap_content"
 									android:layout_below="@id/tvMedidaSeguridad"/>
+
+								<LinearLayout
+									android:id="@+id/llfundamento"
+									android:layout_width="fill_parent"
+									android:layout_height="wrap_content"
+									android:gravity="center"
+									android:layout_gravity="center_vertical"
+									android:layout_below="@id/spMedida"
+									android:orientation="vertical">
+
+								</LinearLayout>
 			    		
 			    		
 								<EditText 
@@ -2206,7 +2217,7 @@
 									android:layout_width="fill_parent"
 									android:layout_height="140dp"
 									android:hint="@string/medida"
-									android:layout_below="@id/spMedida"
+									android:layout_below="@id/llfundamento"
 									android:inputType="textMultiLine|textCapSentences"
 									android:enabled="true"/>
 							

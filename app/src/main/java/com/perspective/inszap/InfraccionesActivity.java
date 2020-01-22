@@ -23,6 +23,8 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 import com.bixolon.printer.BixolonPrinter;
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Document;
@@ -101,12 +103,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 	private Button btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
 	private TextView tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario;
-	private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado";
+	private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",fracciones = "",articulos = "";
 	private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:"; 
 	private int mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0;
 	private Spinner spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4;
 	private EditText etNum,etFecham,etfecha,etDiaPlazo,etIfeI,etNoI,etVigI,etIfeA,etIfeA1,etIfeA2,etIfeA3,etIfeA4,etNoA,etNoA1,etNoA2,etNoA3,etNoA4,etVigA,etVigA1,etVigA2,etVigA3,etVigA4,etNombreT,etIfeT,etDesc,etDesc1,etDesc2,etDesc3,etDesc4,etdato,etdato1,etdato2,etdato3,etdato4,desf,desf1,desf2,etNombreV,etFraccionamiento,etCalle,etNumero,etPropietario,etNombreT1,etIfeT2,etManifiesta,etNuemroInterior,etApellidoP,etApellidoM,etCitatorio,etNumeroActa,etEspecificacion,etDFoto,etDFoto1,etDFoto2,etDFoto3,etVManifiesta,etVIdentifica,etLatitud,etLongitud,etAnoCitatorio,etAnoOrden,etCondominio/*etDensidad*/,etManzana,etLote,etReferencia,etBuscar,etfolio,/*etAlineamiento,*/etConstruccion, etGiro, etMotivo,etOrden1,etEntreC,etEntreC1,etResponsable,etRegistro,etMedida,etArticulo,etInspccionFue,etDFoto4,etDFoto5,etDFoto6,etDFoto7,etDFoto8,etDFoto9,etDFoto10,etDFoto11,etDFoto12,etDFoto13,etDFoto14,etDFoto15,etDFoto16,etDFoto17,etDFoto18,etDFoto19,etLGiro,etAGiro,etAlicencia,etSector,etNombreComercial,etObs,etObs1,etObs2,etObs3,etObs4,etBCol,etOtro,etDondeActua;
-	private LinearLayout lldiv,cons,llNota,llplazo,llreincidencia,llcomp,llconcepto,llPla;
+	private LinearLayout lldiv,cons,llNota,llplazo,llreincidencia,llcomp,llconcepto,llPla,llfundamento;
 	private RelativeLayout rlcampo,rlProp,rlTestA,rlVisita,rlLicencias,rlDonde_actua;
 	private RadioGroup /*radiogroup,*/rgReincidencia,rgPopiedad;
 	static final int DATE_DIALOG_ID = 0;
@@ -162,14 +164,19 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	private List<String> reglamento = new ArrayList<String>();
 	private List<String> competencia = new ArrayList<String>();
 	private List<String> campoReg = new ArrayList<String>();
+    private List<String> fundamento = new ArrayList<String>();
+    private List<String> fraccion1 = new ArrayList<String>();
+    private List<Integer> idFundamento = new ArrayList<Integer>();
+    private List<Integer> idFraccion= new ArrayList<Integer>();
 	//private List<String> reg = new ArrayList<String>();campoReg
 	private List<Integer> idCompetencia = new ArrayList<Integer>();
 	private List<MedidaSeguridad> medidas;
 	private List<String> medida = new ArrayList<String>();
+    private List<String> medidax = new ArrayList<String>();
 	private PopupWindow popupWindow;
 	private CheckBox cb;
 	private String [] comp;
-	private int [] iComp,reg;
+	private int [] iComp,reg,fra;
 	private ArrayAdapter<String> adapter,adapter1,adapterUso;
 	public static BixolonPrinter mBixolonPrinter;
 	public static final String TAG = "BixolonPrinterSample";
@@ -178,6 +185,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	private ArrayAdapter adapterCol;
 	private List<String> conceptos,articulo,fraccion,unis,unis1,unis2,unis3,unis4;
 	private ArrayAdapter adapterUni,adapterUni1,adapterUni2,adapterUni3,adapterUni4;
+	private List<String> fundam = new ArrayList<>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -515,6 +523,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         tvPropietario = findViewById(R.id.tvPropietario);
         rlDonde_actua = findViewById(R.id.rlDonde_actua);
         etDondeActua = findViewById(R.id.etDondeActua);
+        llfundamento = findViewById(R.id.llfundamento);
 
         unis = new ArrayList<>();
         unis1 = new ArrayList<>();
@@ -2426,6 +2435,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             etAGiro.setVisibility(View.GONE);
             tvgiro.setVisibility(View.GONE);
             llPla.setVisibility(View.GONE);
+            etMedida.setVisibility(View.GONE);
+            etArticulo.setVisibility(View.GONE);
         }
         
         if(!reglamento.isEmpty()) {
@@ -2438,6 +2449,31 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         }
 
         medidas("");
+
+        getFundamento();
+
+        for (int x = 0; x < fundamento.size();x++) {
+            Log.e("fundamento",fundamento.get(x));
+            if(!TextUtils.isEmpty(fundamento.get(x))){
+                TextView tv = new TextView(this);
+                tv.setId(x);
+                tv.setText(fundamento.get(x));
+                tv.setTextColor(getResources().getColor(R.color.black));
+                tv.setTypeface(helvetica);
+                tv.setTextSize(16);
+                llfundamento.addView(tv);
+                getFraccion(idFundamento.get(x));
+                for(int y = 0;y < fraccion.size();y++) {
+                    CheckBox checkBox = new CheckBox(this);
+                    checkBox.setId(idFraccion.get(y));
+                    checkBox.setText(fraccion.get(y));
+                    checkBox.setTextColor(getResources().getColor(R.color.black));
+                    checkBox.setTypeface(helvetica);
+                    checkBox.setOnClickListener(getO(checkBox));
+                    llfundamento.addView(checkBox);
+                }
+            }
+        }
         
         for (int i = 0; i < reglamento.size(); i++) {
         	System.err.println(reglamento.get(i));
@@ -2639,6 +2675,31 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			}
 		};
     	
+    }
+
+    View.OnClickListener getO(final CheckBox b) {
+        return new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                fracciones = "";
+                Log.e("cb",b.isChecked() + " ");
+                if(b.isChecked()) {
+                    fundam.add(b.getId()+"");
+                }
+                else {
+                    fundam.remove(b.getId()+"");
+                }
+                for(int x = 0;x < fundam.size();x++) {
+                    Log.e("fundam",fundam.get(x)+"");
+                    fracciones += fundam.get(x) + ",";
+                }
+                fracciones = fracciones.substring(0,fracciones.length()-1);
+                Log.e("fracciones",fracciones);
+                articulos(fracciones);
+            }
+        };
+
     }
 
     View.OnClickListener getOn(final CheckBox b) {
@@ -3873,6 +3934,78 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			}
     	}
     }
+
+    public void getFundamento() {
+        GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
+        SQLiteDatabase db = gestionarDB.getReadableDatabase();
+        if(db != null) {
+            Cursor cursor = db.rawQuery("SELECT * FROM c_medida_tabla",null);
+            try {
+                if(cursor.moveToFirst()) {
+                    idFundamento.add(0);
+                    fundamento.add("");
+                    do {
+                        idFundamento.add(cursor.getInt(cursor.getColumnIndex("id_c_medida_tabla")));
+                        fundamento.add(cursor.getString(cursor.getColumnIndex("fundamento")));
+                    } while(cursor.moveToNext());
+                }
+            } catch (SQLiteException e) {
+                Log.e("ERROR",e.getMessage() + " Mensaje");
+            } finally {
+                cursor.close();
+                db.close();
+            }
+        }
+    }
+
+    public void getFraccion(int id_c_medida_tabla) {
+        GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
+        SQLiteDatabase db = gestionarDB.getReadableDatabase();
+        if(db != null) {
+            idFraccion.clear();
+            fraccion.clear();
+            Cursor cursor = db.rawQuery("SELECT * FROM c_medida_tabla_fraccion where id_c_medida_tabla = " + id_c_medida_tabla,null);
+            try {
+                if(cursor.moveToFirst()) {
+                    do {
+                        idFraccion.add(cursor.getInt(cursor.getColumnIndex("id_c_medida_tabla_fraccion_id")));
+                        fraccion.add(cursor.getString(cursor.getColumnIndex("fraccion")));
+                    } while(cursor.moveToNext());
+                }
+            } catch (SQLiteException e) {
+                Log.e("ERROR",e.getMessage() + " Mensaje");
+            } finally {
+                cursor.close();
+                db.close();
+            }
+        }
+    }
+
+    public void articulos(String id) {
+        GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
+        SQLiteDatabase db = gestionarDB.getReadableDatabase();
+        if(db != null) {
+            Cursor cursor = db.rawQuery("select fundamento,fraccion from c_medida_tabla_fraccion a \n" +
+                    "join c_medida_tabla b on a.id_c_medida_tabla = b.id_c_medida_tabla\n" +
+                    "where a.id_c_medida_tabla_fraccion_id in (" + id + ")",null);
+            try {
+                articulos = "";
+                if(cursor.moveToFirst()) {
+                    do {
+                        articulos += cursor.getString(cursor.getColumnIndex("fundamento")) + " " + cursor.getString(cursor.getColumnIndex("fraccion")) + ",";
+                    } while(cursor.moveToNext());
+                    articulos = articulos.substring(0,articulos.length()-1);
+                    Log.e("articulos",articulos);
+                    etArticulo.setText(articulos);
+                }
+            } catch (SQLiteException e) {
+                Log.e("ERROR",e.getMessage() + " Mensaje");
+            } finally {
+                cursor.close();
+                db.close();
+            }
+        }
+    }
     
     public void competencia() {
     	GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
@@ -3909,11 +4042,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             try {
                 if(cursor.moveToFirst()) {
                     conceptos.clear();
-                    fraccion.clear();
+                    fraccion1.clear();
                     articulo.clear();
                     do {
                         conceptos.add(cursor.getString(2));
-                         fraccion.add(cursor.getString(4));
+                         fraccion1.add(cursor.getString(4));
                          articulo.add(cursor.getString(3));
                     } while (cursor.moveToNext());
                 }
@@ -5685,6 +5818,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			rborden.setVisibility(View.GONE);
 
             spgravedad.setSelection(1);
+            llfundamento.setVisibility(View.GONE);
 
 
 			if(id == 4) {
@@ -5704,14 +5838,17 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 rgPopiedad.setVisibility(View.GONE);
                 rlDonde_actua.setVisibility(View.GONE);
                 tvPropietario.setVisibility(View.GONE);
+                llfundamento.setVisibility(View.VISIBLE);
             }
 			if(id == 3) {
 			    tvPeticion.setVisibility(View.GONE);
 			    spPeticion.setVisibility(View.GONE);
                 tvReg.setVisibility(View.GONE);
+                llfundamento.setVisibility(View.GONE);
             }
 			if(id == 2) {
                 tvReg.setVisibility(View.GONE);
+                llfundamento.setVisibility(View.GONE);
             }
 
 			if(id != 2)
@@ -5775,6 +5912,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 llplazo.setVisibility(View.VISIBLE);
                 tvPropietario.setVisibility(View.GONE);
                 rlDonde_actua.setVisibility(View.GONE);
+                llfundamento.setVisibility(View.VISIBLE);
             }
             if(id == 2) {
                 llNota.setVisibility(View.GONE);
@@ -5787,9 +5925,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 rlProp.setVisibility(View.GONE);
                 rlDonde_actua.setVisibility(View.VISIBLE);
                 etGiro.setVisibility(View.VISIBLE);
+                llfundamento.setVisibility(View.GONE);
             }
             if(id == 3) {
                 tvReg.setVisibility(View.GONE);
+                llfundamento.setVisibility(View.GONE);
             }
 
             if(id != 2)
@@ -7508,10 +7648,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         font1 = new Font(Font.HELVETICA,8,Color.BLACK);*/
                         //int li;
                         if(id == 4)
-					        txt = Justificar.justifocarTexto1("En atención a " + spPeticion.getSelectedItem().toString() + ", " + etSeleccion.getText().toString().toLowerCase() + " " + competencias1.toLowerCase() , 135);
+					        txt = Justificar.justifocarTexto1("                                                                                        En atención a " + spPeticion.getSelectedItem().toString() + ", " + etSeleccion.getText().toString().toLowerCase() + " " + competencias1.toLowerCase() , 135);
                         else
-                            txt = Justificar.justifocarTexto1("Al momento de la inspeccion y en atención a " + spPeticion.getSelectedItem().toString().toLowerCase() + ", " + etSeleccion.getText().toString().toLowerCase() + " " + competencias1.toLowerCase(), 135);
-					    int li = 570;
+                            txt = Justificar.justifocarTexto1("                                                                                        Al momento de la inspeccion y en atención a " + spPeticion.getSelectedItem().toString().toLowerCase() + ", " + etSeleccion.getText().toString().toLowerCase() + " " + competencias1.toLowerCase(), 135);
+					    int li = 585;
 					    
 					    for (int i = 0; i < txt.length; i++) {
 					    	
@@ -7527,8 +7667,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					        li-=10;
 						}
 					    
-					    txt = Justificar.justifocarTexto1(etInfraccion.getText().toString(), 135);
-					    li = 485;
+					    txt = Justificar.justifocarTexto1("                                                                                            " + etInfraccion.getText().toString(), 135);
+					    li = 490;
 					    
 					    for (int i = 0; i < txt.length; i++) {
 					    	
@@ -7544,8 +7684,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					        li-=10;
 						}
 					    
-					    txt = Justificar.justifocarTexto1(etMedida.getText().toString().toLowerCase(), 135);
-					    li = 425;
+					    txt = Justificar.justifocarTexto1("                                                                   "+etMedida.getText().toString(), 135);
+					    li = 440;
 					    
 					    for (int i = 0; i < txt.length; i++) {
 					    	
@@ -7561,8 +7701,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					        li-=10;
 						}
 					    
-					    txt = Justificar.justifocarTexto1(etArticulo.getText().toString().toLowerCase(), 135);
-					    li = 375;
+					    txt = Justificar.justifocarTexto1("                                                                                            " + etArticulo.getText().toString(), 135);
+					    li = 385;
 					    
 					    for (int i = 0; i < txt.length; i++) {
 					    	
@@ -7582,7 +7722,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(30, 330);
+				        canvas.moveText(30, 335);
 				        canvas.showText("Manifiesta: " + etManifiesta.getText().toString());
 				        canvas.endText();
 				        canvas.restoreState();
@@ -7591,7 +7731,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(210, 270);
+				        canvas.moveText(210, 275);
 				        canvas.showText(hr + " ");
 				        canvas.endText();
 				        canvas.restoreState();
@@ -7600,7 +7740,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(320, 270);
+				        canvas.moveText(320, 275);
 				        canvas.showText(dia + " de " + me + " del " + a);
 				        canvas.endText();
 				        canvas.restoreState();
@@ -7610,7 +7750,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(75, 117);
+                            canvas.moveText(70, 160);
                             canvas.showText("X");
                             canvas.endText();
                             canvas.restoreState();
@@ -7619,7 +7759,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(80, 117);
+                            canvas.moveText(75, 160);
                             canvas.showText("X");
                             canvas.endText();
                             canvas.restoreState();
@@ -7628,7 +7768,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(85, 117);
+                            canvas.moveText(80, 160);
                             canvas.showText("X");
                             canvas.endText();
                             canvas.restoreState();
@@ -7637,7 +7777,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(90, 117);
+                            canvas.moveText(85, 160);
                             canvas.showText("X");
                             canvas.endText();
                             canvas.restoreState();
@@ -7646,7 +7786,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(95, 117);
+                            canvas.moveText(90, 160);
                             canvas.showText("X");
                             canvas.endText();
                             canvas.restoreState();
@@ -7657,7 +7797,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(220, 117);
+                            canvas.moveText(215, 160);
                             canvas.showText("X");
                             canvas.endText();
                             canvas.restoreState();
@@ -7665,7 +7805,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             canvas.saveState();
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(228, 117);
+                            canvas.moveText(223, 160);
                             canvas.showText("X");
                             canvas.endText();
                             canvas.restoreState();
@@ -7674,7 +7814,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(236, 117);
+                            canvas.moveText(231, 160);
                             canvas.showText("X");
                             canvas.endText();
                             canvas.restoreState();
@@ -7683,7 +7823,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(244, 117);
+                            canvas.moveText(239, 160);
                             canvas.showText("X");
                             canvas.endText();
                             canvas.restoreState();
@@ -7692,7 +7832,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(252, 117);
+                            canvas.moveText(247, 160);
                             canvas.showText("X");
                             canvas.endText();
                             canvas.restoreState();
@@ -7703,7 +7843,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(356, 117);
+                            canvas.moveText(366, 160);
                             canvas.showText("SI");
                             canvas.endText();
                             canvas.restoreState();
@@ -7712,7 +7852,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(365, 117);
+                            canvas.moveText(375, 160);
                             canvas.showText("NO");
                             canvas.endText();
                             canvas.restoreState();
@@ -7722,7 +7862,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 10);
-				        canvas.moveText(450, 120);
+				        canvas.moveText(450, 130);
 				        canvas.showText(etNumeroActa.getText().toString());
 				        canvas.endText();
 				        canvas.restoreState();
@@ -8619,13 +8759,15 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						
 					}catch (DocumentException e) {
 						System.err.println(e.getMessage() + " doc ");
-					}catch (Exception e) {
+					}catch (IOException C) {
+
+                    }catch (Exception e) {
 						Toast toast  = Toast.makeText(getApplicationContext(), "Verificar los datos que esten completos", Toast.LENGTH_LONG);
 						toast.setGravity(0, 0, 15);
 						toast.show();
 						Log.e("Error al abrir", e.getMessage() + " c ");
-						System.err.println(e.getMessage() + " n ");
-					}
+
+                    }
 		} else if(formato.equalsIgnoreCase("orden")) {
 			//construccion
 				try {
@@ -12839,21 +12981,25 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			
 		case R.id.spMedida:
 			if(!spMedida.getSelectedItem().toString().equalsIgnoreCase("")) {
-				medidas1 = spMedida.getSelectedItem().toString();
-				if(id == 12 || id == 4) {
+				medidas1 = "";
+				if(id == 2) {
 					etMedida.setText(spMedida.getSelectedItem().toString());
 					etArticulo.setText(art.get(spMedida.getSelectedItemPosition()).trim() + " del " + orden.get(spMedida.getSelectedItemPosition()).trim());
 				}
-				
 				if(id == 4) {
-				    Log.i("i",spMedida.getSelectedItem().toString() + " " + spMedida.getSelectedItem().toString().contains("CLAU"));
-				    if(spMedida.getSelectedItem().toString().contains("clausura") || spMedida.getSelectedItem().toString().contains("CLAUSURA")) {
+                    medidax.add(spMedida.getSelectedItem().toString());
+                    Log.e("princioidenrsdfcejrwn",medidas1 + ", hola");
+				    //Log.i("i",spMedida.getSelectedItem().toString() + " " + spMedida.getSelectedItem().toString().contains("CLAU"));
+				    if(spMedida.getSelectedItem().toString().contains("Clausura") || spMedida.getSelectedItem().toString().contains("CLAUSURA")) {
 				        Toast toast = Toast.makeText(getApplicationContext(),"Agregar sellos de clausura",Toast.LENGTH_LONG);
 				        toast.setGravity(0,0,15);
 				        toast.show();
                     }
-					etMedida.setText(spMedida.getSelectedItem().toString());
-					etArticulo.setText(art.get(spMedida.getSelectedItemPosition()).trim() + " del " + orden.get(spMedida.getSelectedItemPosition()).trim());
+				    for(int i = 0;i<medidax.size();i++){
+				        medidas1+=medidax.get(i);
+                    }
+				    etMedida.setText(medidas1);
+				    Log.e("medidas1",medidas1);
 				}
 			}
 			break;
@@ -12912,6 +13058,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			break;
 		}
 	}
+
+	public String setMedidas(String medidas) {
+        return medidas + " HOLA MUNDO";
+    }
 	
 	public void buscarTestigo(Spinner sp){
     	

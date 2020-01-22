@@ -1041,6 +1041,18 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 			}
 			mProgressBar.setProgress(i);
 			i++;
+			if (!c.search("http://10.10.23.54/infracciones/serverSQL/get_c_medida_tabla.php").trim().equalsIgnoreCase("null")) {
+				eliminaRegistros("c_medida_tabla");
+				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/get_c_medida_tabla.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "c_medida_tabla");
+			}
+			mProgressBar.setProgress(i);
+			i++;
+			if (!c.search("http://10.10.23.54/infracciones/serverSQL/get_c_medida_tabla_fraccion.php").trim().equalsIgnoreCase("null")) {
+				eliminaRegistros("c_medida_tabla_fraccion");
+				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/get_c_medida_tabla_fraccion.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "c_medida_tabla_fraccion");
+			}
+			mProgressBar.setProgress(i);
+			i++;
 			/*if (!c.search("http://10.10.23.54/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("v_LicenciasReglamentos");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getLicReg1.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*, "v_LicenciasReglamentos");

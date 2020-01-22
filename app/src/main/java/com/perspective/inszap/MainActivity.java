@@ -282,6 +282,34 @@ public class MainActivity extends Activity {
 			}
 		} else
 			System.out.println("true e");
+
+		if(!isTableExists("c_medida_tabla")) {
+			System.out.println("false c_medida_tabla");
+
+			try {
+				GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+				SQLiteDatabase db1 = gestionBD.getReadableDatabase();
+				db1.execSQL("create table c_medida_tabla(id_c_medida_tabla integer PRIMARY KEY AUTOINCREMENT,fundamento TEXT)");
+				System.out.println("false e");
+			} catch(SQLiteException e) {
+				System.err.println(e.getMessage());
+			}
+		} else
+			System.out.println("true c_medida_tabla");
+
+		if(!isTableExists("c_medida_tabla_fraccion")) {
+			System.out.println("false c_medida_tabla_fraccion");
+
+			try {
+				GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+				SQLiteDatabase db1 = gestionBD.getReadableDatabase();
+				db1.execSQL("create table c_medida_tabla_fraccion(id_c_medida_tabla_fraccion_id integer PRIMARY KEY AUTOINCREMENT,id_c_medida_tabla integer,fraccion TEXT)");
+				System.out.println("false e");
+			} catch(SQLiteException e) {
+				System.err.println(e.getMessage());
+			}
+		} else
+			System.out.println("true c_medida_tabla_fraccion");
 		
 		
 		if(!isTableExists("c_virtud")) {
