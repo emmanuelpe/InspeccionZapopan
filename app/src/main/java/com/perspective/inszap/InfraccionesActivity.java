@@ -2435,7 +2435,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             etAGiro.setVisibility(View.GONE);
             tvgiro.setVisibility(View.GONE);
             llPla.setVisibility(View.GONE);
-            etMedida.setVisibility(View.GONE);
+            etMedida.setVisibility(View.VISIBLE);
             etArticulo.setVisibility(View.GONE);
         }
         
@@ -2694,7 +2694,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     Log.e("fundam",fundam.get(x)+"");
                     fracciones += fundam.get(x) + ",";
                 }
-                fracciones = fracciones.substring(0,fracciones.length()-1);
+                if(!fracciones.trim().isEmpty())
+                    fracciones = fracciones.substring(0,fracciones.length()-1);
                 Log.e("fracciones",fracciones);
                 articulos(fracciones);
             }
@@ -3158,7 +3159,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     btnImprimir.setEnabled(false);
                                 }
                             } else {
-                                btnImprimir.setEnabled(true);
+				                if(infrac == 1)
+                                    btnImprimir.setEnabled(false);
+				                else
+                                    btnImprimir.setEnabled(true);
                             }
 				        }
 					
@@ -3918,8 +3922,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					orden.add("");
 					
 					do {
+					    Log.e("cmedida",cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim());
 						campos.add(cursor.getString(cursor.getColumnIndex("campo")));
-						cmedida.add(cursor.getString(cursor.getColumnIndex("medida_precautoria")));
+						cmedida.add(cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim());
 						art.add(cursor.getString(cursor.getColumnIndex("articulos")));
 						orden.add(cursor.getString(cursor.getColumnIndex("ordenamiento")));
 					} while (cursor.moveToNext());
@@ -3969,7 +3974,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 if(cursor.moveToFirst()) {
                     do {
                         idFraccion.add(cursor.getInt(cursor.getColumnIndex("id_c_medida_tabla_fraccion_id")));
-                        fraccion.add(cursor.getString(cursor.getColumnIndex("fraccion")));
+                        if(id_c_medida_tabla == 1)
+                            fraccion.add(cursor.getString(cursor.getColumnIndex("fraccion")));
+                        else
+                            fraccion.add("Fracción " + cursor.getString(cursor.getColumnIndex("fraccion")));
                     } while(cursor.moveToNext());
                 }
             } catch (SQLiteException e) {
@@ -3982,6 +3990,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     }
 
     public void articulos(String id) {
+	    Log.e("id",id);
         GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarDB.getReadableDatabase();
         if(db != null) {
@@ -3992,7 +4001,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 articulos = "";
                 if(cursor.moveToFirst()) {
                     do {
-                        articulos += cursor.getString(cursor.getColumnIndex("fundamento")) + " " + cursor.getString(cursor.getColumnIndex("fraccion")) + ",";
+                        if(!cursor.getString(cursor.getColumnIndex("fraccion")).trim().contains("."))
+                            articulos += cursor.getString(cursor.getColumnIndex("fundamento")) + " " + cursor.getString(cursor.getColumnIndex("fraccion")) + ",";
+                        else {
+                            Log.e("fra",cursor.getString(cursor.getColumnIndex("fraccion")).trim());
+                            String fra [] = cursor.getString(cursor.getColumnIndex("fraccion")).trim().split(" ");
+                            articulos += cursor.getString(cursor.getColumnIndex("fundamento")) + " Fracción " + fra[0] + ",";
+                        }
                     } while(cursor.moveToNext());
                     articulos = articulos.substring(0,articulos.length()-1);
                     Log.e("articulos",articulos);
@@ -4019,7 +4034,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					idCompetencia.add(0);
 					campoReg.add("");
 					do {
-						reglamento.add(cursor.getString(1));
+					    Log.e("reglamento",cursor.getString(1).trim());
+						reglamento.add(cursor.getString(1).trim());
 						competencia.add(cursor.getString(cursor.getColumnIndex("competencia")));
 						idCompetencia.add(cursor.getInt(0));
 						campoReg.add(cursor.getString(2));
@@ -4755,7 +4771,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    		valid = false;
 	    	}
             if(validarSpinner(this.spNE)){
-                sb.append("Seleccione la gravedad \n");
+                sb.append("Seleccione el Nivel Economico \n");
                 valid = false;
             }
     	} else if(infrac == 3) {
@@ -12980,26 +12996,26 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			break;
 			
 		case R.id.spMedida:
-			if(!spMedida.getSelectedItem().toString().equalsIgnoreCase("")) {
+			if(!spMedida.getSelectedItem().toString().trim().equalsIgnoreCase("")) {
 				medidas1 = "";
 				if(id == 2) {
-					etMedida.setText(spMedida.getSelectedItem().toString());
+					etMedida.setText(spMedida.getSelectedItem().toString().trim());
 					etArticulo.setText(art.get(spMedida.getSelectedItemPosition()).trim() + " del " + orden.get(spMedida.getSelectedItemPosition()).trim());
 				}
 				if(id == 4) {
-                    medidax.add(spMedida.getSelectedItem().toString());
+                    medidax.add(spMedida.getSelectedItem().toString().trim());
                     Log.e("princioidenrsdfcejrwn",medidas1 + ", hola");
 				    //Log.i("i",spMedida.getSelectedItem().toString() + " " + spMedida.getSelectedItem().toString().contains("CLAU"));
-				    if(spMedida.getSelectedItem().toString().contains("Clausura") || spMedida.getSelectedItem().toString().contains("CLAUSURA")) {
+				    if(spMedida.getSelectedItem().toString().trim().contains("Clausura") || spMedida.getSelectedItem().toString().contains("CLAUSURA")) {
 				        Toast toast = Toast.makeText(getApplicationContext(),"Agregar sellos de clausura",Toast.LENGTH_LONG);
 				        toast.setGravity(0,0,15);
 				        toast.show();
                     }
 				    for(int i = 0;i<medidax.size();i++){
-				        medidas1+=medidax.get(i);
+				        medidas1+=medidax.get(i).trim();
                     }
-				    etMedida.setText(medidas1);
-				    Log.e("medidas1",medidas1);
+				    etMedida.setText(medidas1.trim());
+				    Log.e("medidas1",medidas1.trim());
 				}
 			}
 			break;
@@ -13380,8 +13396,12 @@ Por recibida el Acta número ____________________________________ por la cual s
         fraccionamiento.clear();
         zonas.clear();
         try{
-            c = db.rawQuery("SELECT * FROM c_fraccionamiento where fraccionamiento like '%" + condicion + "%' order by fraccionamiento", null);
-            Log.i("que", "SELECT * FROM c_fraccionamiento where fraccionamiento like '%" + condicion + "%'");
+            /*
+            cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " +
+                    "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%"+search+"%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
+             */
+            c = db.rawQuery("SELECT * FROM c_fraccionamiento where REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(fraccionamiento),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%"+condicion+"%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') order by fraccionamiento", null);
+            Log.i("que", "SELECT * FROM c_fraccionamiento where REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(fraccionamiento),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%"+condicion+"%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') order by fraccionamiento");
             fraccionamiento.add("");
             zonas.add("");
             if(c.moveToFirst()){
