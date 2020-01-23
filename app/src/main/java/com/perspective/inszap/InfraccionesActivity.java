@@ -4002,14 +4002,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 articulos = "";
                 if(cursor.moveToFirst()) {
                     do {
-                        /*if(f.trim().equalsIgnoreCase(cursor.getString(cursor.getColumnIndex("fundamento")).trim()))
-                            articulos += f=cursor.getString(cursor.getColumnIndex("fundamento"));*/
+                        if(!f.trim().equalsIgnoreCase(cursor.getString(cursor.getColumnIndex("fundamento")).trim()))
+                            articulos += cursor.getString(cursor.getColumnIndex("fundamento"));
                         if(!cursor.getString(cursor.getColumnIndex("fraccion")).trim().contains("."))
-                            articulos += cursor.getString(cursor.getColumnIndex("fundamento")) + " " + cursor.getString(cursor.getColumnIndex("fraccion")) + ",";
+                            articulos += " " + cursor.getString(cursor.getColumnIndex("fraccion")) + ",";
                         else {
                             Log.e("fra",cursor.getString(cursor.getColumnIndex("fraccion")).trim());
                             String fra [] = cursor.getString(cursor.getColumnIndex("fraccion")).trim().split(" ");
-                            articulos += cursor.getString(cursor.getColumnIndex("fundamento")) + " Fracción " + fra[0] + ",";
+                            articulos += " Fracción " + fra[0].substring(0,fra[0].length()-1) + ",";
                         }
                         f=cursor.getString(cursor.getColumnIndex("fundamento"));
                     } while(cursor.moveToNext());
