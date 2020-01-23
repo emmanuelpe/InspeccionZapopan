@@ -3994,8 +3994,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarDB.getReadableDatabase();
         if(db != null) {
-            Cursor cursor = db.rawQuery("select fundamento,fraccion from c_medida_tabla_fraccion a \n" +
-                    "join c_medida_tabla b on a.id_c_medida_tabla = b.id_c_medida_tabla\n" +
+            Cursor cursor = db.rawQuery("select fundamento,fraccion from c_medida_tabla_fraccion a " +
+                    "join c_medida_tabla b on a.id_c_medida_tabla = b.id_c_medida_tabla" +
                     "where a.id_c_medida_tabla_fraccion_id in (" + id + ")",null);
             try {
                 articulos = "";
@@ -12719,8 +12719,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		SQLiteDatabase db = gestionar.getReadableDatabase();
 		Cursor cursor;
 		if(TextUtils.isEmpty(search)) {
-            cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE 1=1 and id_c_direccion = '" + id + "' AND vigente = 'S' COLLATE NOACCENTS order by infraccion; ", null);
-            Log.e("sql","SELECT * FROM c_infraccion WHERE 1=1 and id_c_direccion = '" + id + "' AND vigente = 'S' COLLATE NOACCENTS order by infraccion; ");
+            cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE 1=1 and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
+            Log.e("sql","SELECT * FROM c_infraccion WHERE 1=1 and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ");
 		}
 		else {
 		   /* if(isNumeric(search.trim()))

@@ -1804,7 +1804,7 @@
 									android:layout_below="@+id/spUni"
 									android:inputType="numberDecimal"
 									android:height="5dp"
-									android:maxLength="6"
+									android:maxLength="8"
 									android:hint="@string/unidad"
 									android:visibility="gone"/>
 			    			
@@ -1864,7 +1864,7 @@
 									android:layout_height="70dp"
 									android:layout_below="@+id/spUni1"
 									android:inputType="numberDecimal"
-									android:maxLength="6"
+									android:maxLength="8"
 									android:maxHeight="10dp"
 									android:hint="@string/unidad"
 									android:visibility="gone"/>
@@ -1923,7 +1923,7 @@
 									android:layout_height="70dp"
 									android:layout_below="@+id/spUni2"
 									android:inputType="numberDecimal"
-									android:maxLength="6"
+									android:maxLength="8"
 									android:hint="@string/unidad"
 									android:visibility="gone"/>
 			    			
@@ -1980,7 +1980,7 @@
 									android:layout_height="70dp"
 									android:layout_below="@+id/spUni3"
 									android:inputType="numberDecimal"
-									android:maxLength="6"
+									android:maxLength="8"
 									android:hint="@string/unidad"
 									android:visibility="gone"
 									style="@style/Subtitle"/>
@@ -2031,7 +2031,7 @@
 									android:layout_height="70dp"
 									android:layout_below="@+id/etdescripcion4"
 									android:inputType="numberDecimal"
-									android:maxLength="6"
+									android:maxLength="8"
 									android:hint="@string/unidad"
 									android:visibility="gone"/>
 			    			
