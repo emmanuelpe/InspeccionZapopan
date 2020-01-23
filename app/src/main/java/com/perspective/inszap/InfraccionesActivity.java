@@ -3991,16 +3991,19 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
     public void articulos(String id) {
 	    Log.e("id",id);
+	    String f = "";
         GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarDB.getReadableDatabase();
         if(db != null) {
             Cursor cursor = db.rawQuery("select fundamento,fraccion from c_medida_tabla_fraccion a " +
-                    "join c_medida_tabla b on a.id_c_medida_tabla = b.id_c_medida_tabla" +
-                    "where a.id_c_medida_tabla_fraccion_id in (" + id + ")",null);
+                    "join c_medida_tabla b on a.id_c_medida_tabla = b.id_c_medida_tabla " +
+                    "where a.id_c_medida_tabla_fraccion_id in (" + id + ") order by id_c_medida_tabla_fraccion_id",null);
             try {
                 articulos = "";
                 if(cursor.moveToFirst()) {
                     do {
+                        /*if(f.trim().equalsIgnoreCase(cursor.getString(cursor.getColumnIndex("fundamento")).trim()))
+                            articulos += f=cursor.getString(cursor.getColumnIndex("fundamento"));*/
                         if(!cursor.getString(cursor.getColumnIndex("fraccion")).trim().contains("."))
                             articulos += cursor.getString(cursor.getColumnIndex("fundamento")) + " " + cursor.getString(cursor.getColumnIndex("fraccion")) + ",";
                         else {
@@ -4008,6 +4011,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             String fra [] = cursor.getString(cursor.getColumnIndex("fraccion")).trim().split(" ");
                             articulos += cursor.getString(cursor.getColumnIndex("fundamento")) + " Fracción " + fra[0] + ",";
                         }
+                        f=cursor.getString(cursor.getColumnIndex("fundamento"));
                     } while(cursor.moveToNext());
                     articulos = articulos.substring(0,articulos.length()-1);
                     Log.e("articulos",articulos);
