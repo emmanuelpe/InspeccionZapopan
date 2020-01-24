@@ -3159,8 +3159,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     btnImprimir.setEnabled(false);
                                 }
                             } else {
-				                if(infrac == 1)
-                                    btnImprimir.setEnabled(false);
+				                if(infrac == 1) {
+                                    if (foto >= 1)
+                                        btnImprimir.setEnabled(true);
+                                    else
+                                        btnImprimir.setEnabled(false);
+                                }
 				                else
                                     btnImprimir.setEnabled(true);
                             }
@@ -4816,9 +4820,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 sb.append("Seleccione el Nivel Economico \n");
                 valid = false;
             }
-            if(validarCampos(this.etDondeActua)){
-                sb.append("Ingrese lugar donde se actua \n");
-                valid = false;
+            if(id == 2) {
+                if (validarCampos(this.etDondeActua)) {
+                    sb.append("Ingrese lugar donde se actua \n");
+                    valid = false;
+                }
             }
     	} else if(infrac == 3) {
 	    	
