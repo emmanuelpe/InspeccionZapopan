@@ -2448,7 +2448,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             reg = new int [conceptos.size()];
         }
 
-        medidas("");
+        medidas();
 
         getFundamento();
 
@@ -3940,6 +3940,44 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	}
     }
 
+    public void medidas() {
+        GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
+        SQLiteDatabase db = gestionarDB.getReadableDatabase();
+        if(db != null) {
+            String sql = "select * from c_medida_precautoria where id_c_direccion = " + id;
+            System.err.println(sql);
+            Cursor cursor = db.rawQuery(sql, null);
+            try {
+                if(cursor.moveToFirst()) {
+                    campos.clear();
+                    cmedida.clear();
+                    art.clear();
+                    orden.clear();
+
+                    campos.add("");
+                    cmedida.add("");
+                    art.add("");
+                    orden.add("");
+
+                    do {
+                        Log.e("cmedida",cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim());
+                        campos.add(cursor.getString(cursor.getColumnIndex("campo")));
+                        cmedida.add(cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim());
+                        art.add(cursor.getString(cursor.getColumnIndex("articulos")));
+                        orden.add(cursor.getString(cursor.getColumnIndex("ordenamiento")));
+                    } while (cursor.moveToNext());
+                }
+            } catch (SQLiteException e) {
+                System.out.println(e.getMessage());
+            }finally{
+                cursor.close();
+                db.close();
+                Log.v("change", "ok");
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }
+
     public void getFundamento() {
         GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarDB.getReadableDatabase();
@@ -4776,6 +4814,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    	}
             if(validarSpinner(this.spNE)){
                 sb.append("Seleccione el Nivel Economico \n");
+                valid = false;
+            }
+            if(validarCampos(this.etDondeActua)){
+                sb.append("Ingrese lugar donde se actua \n");
                 valid = false;
             }
     	} else if(infrac == 3) {
@@ -5869,6 +5911,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			if(id == 2) {
                 tvReg.setVisibility(View.GONE);
                 llfundamento.setVisibility(View.GONE);
+                etCondominio.setVisibility(View.GONE);
+                tvCondominio.setVisibility(View.GONE);
+                tvPropietario.setText("NOMBRE Y/O RAZON SOCIAL");
+                etDondeActua.setVisibility(View.GONE);
+                rlLicencias.setVisibility(View.GONE);
             }
 
 			if(id != 2)
@@ -5946,6 +5993,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 rlDonde_actua.setVisibility(View.VISIBLE);
                 etGiro.setVisibility(View.VISIBLE);
                 llfundamento.setVisibility(View.GONE);
+                etCondominio.setVisibility(View.GONE);
+                tvCondominio.setVisibility(View.GONE);
+                tvPropietario.setText("NOMBRE Y/O RAZON SOCIAL");
             }
             if(id == 3) {
                 tvReg.setVisibility(View.GONE);
@@ -7541,15 +7591,25 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 canvas.restoreState();
                             }
                         }
-
-                        canvas.saveState();
-                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                        canvas.beginText();
-                        canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(170, 630);
-                        canvas.showText("Por lo que");
-                        canvas.endText();
-                        canvas.restoreState();
+                        if(id == 2) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(170, 630);
+                            canvas.showText("Acto seguido");
+                            canvas.endText();
+                            canvas.restoreState();
+                        } else {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(170, 630);
+                            canvas.showText("Por lo que");
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
 				        
 				        canvas.saveState();
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -7568,15 +7628,26 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        canvas.showText(etNombreT1.getText().toString());
 				        canvas.endText();
 				        canvas.restoreState();
-				        
-				        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(70, 610);
-				        canvas.showText(spdesignado.getSelectedItem().toString());
-				        canvas.endText();
-				        canvas.restoreState();
+
+				        if(spdesignado.getSelectedItem().toString().trim().equalsIgnoreCase("inspector")) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(70, 610);
+                            canvas.showText("Suscrito " + spdesignado.getSelectedItem().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }  else {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(70, 610);
+                            canvas.showText(spdesignado.getSelectedItem().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
 				        
 				        canvas.saveState();
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -7592,7 +7663,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9);
 				        canvas.moveText(50, 600);
-				        canvas.showText(spIdentificaT1.getSelectedItem().toString() + " " + etIfeT.getText().toString());
+				        canvas.showText(spIdentificaT1.getSelectedItem().toString() + " " + etIfeT2.getText().toString());
 				        canvas.endText();
 				        canvas.restoreState();
 

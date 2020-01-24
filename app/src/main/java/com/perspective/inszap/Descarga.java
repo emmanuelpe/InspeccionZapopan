@@ -111,6 +111,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		btnReimprimir1 = (Button)findViewById(R.id.btnReimprimir1);
         btnConsultarLicenciaC = findViewById(R.id.btnConsultarLicenciaC);
 		btnLicencias = findViewById(R.id.btnLicencias);
+		mProgressBar = findViewById(R.id.mProgressBar);
 		
 		titleD = (TextView)findViewById(R.id.titleD);
 		
@@ -139,6 +140,8 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		btnPrueba.setVisibility(View.GONE);
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		btnLicencias.setOnClickListener(this);
+
+		mProgressBar.setVisibility(View.GONE);
 		
 		 
 		c = new Connection(getApplicationContext());
@@ -1617,7 +1620,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			mProgressBar = new ProgressBar(Descarga.this);
+			mProgressBar.setVisibility(View.VISIBLE);
 			mProgressBar.setMax(23);
 		}
 
@@ -1652,6 +1655,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
+			mProgressBar.setVisibility(View.GONE);
 			Toast toast = Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG);
 			toast.setGravity(0, 0, 15);
 			toast.show();
@@ -1678,7 +1682,8 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		
 		@Override
 		protected void onPreExecute() {
-		    super.onPreExecute();
+			super.onPreExecute();
+			mProgressBar.setVisibility(View.VISIBLE);
 		}
 		
 	}
@@ -1709,6 +1714,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
+			mProgressBar.setVisibility(View.VISIBLE);
 		}
 
 		@Override
@@ -1735,6 +1741,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
+			mProgressBar.setVisibility(View.GONE);
 			Toast toast = Toast.makeText(Descarga.this, result, Toast.LENGTH_SHORT);
 			toast.setGravity(0, 0, 15);
 			toast.show();
