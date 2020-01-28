@@ -530,6 +530,14 @@ public class MainActivity extends Activity {
 			String sql = "alter table Fotografia add estatus1 TEXT default 'N'";
 			db1.execSQL(sql);
 		}
+
+		if(validarCampo("c_medida_precautoria","id_c_direccion") == 0){
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table c_medida_precautoria add id_c_direccion integer";
+			db1.execSQL(sql);
+		}
 		
 		if(!isTableExists("vista_levantamiento"))  {
 			System.err.println(false);

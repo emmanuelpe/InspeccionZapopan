@@ -2448,7 +2448,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             reg = new int [conceptos.size()];
         }
 
-        medidas("");
+        medidas();
 
         getFundamento();
 
@@ -3159,8 +3159,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     btnImprimir.setEnabled(false);
                                 }
                             } else {
-				                if(infrac == 1)
-                                    btnImprimir.setEnabled(false);
+				                if(infrac == 1) {
+                                    if (foto >= 1)
+                                        btnImprimir.setEnabled(true);
+                                    else
+                                        btnImprimir.setEnabled(false);
+                                }
 				                else
                                     btnImprimir.setEnabled(true);
                             }
@@ -3938,6 +3942,44 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				adapter.notifyDataSetChanged();
 			}
     	}
+    }
+
+    public void medidas() {
+        GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
+        SQLiteDatabase db = gestionarDB.getReadableDatabase();
+        if(db != null) {
+            String sql = "select * from c_medida_precautoria where id_c_direccion = " + id;
+            System.err.println(sql);
+            Cursor cursor = db.rawQuery(sql, null);
+            try {
+                if(cursor.moveToFirst()) {
+                    campos.clear();
+                    cmedida.clear();
+                    art.clear();
+                    orden.clear();
+
+                    campos.add("");
+                    cmedida.add("");
+                    art.add("");
+                    orden.add("");
+
+                    do {
+                        Log.e("cmedida",cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim());
+                        campos.add(cursor.getString(cursor.getColumnIndex("campo")));
+                        cmedida.add(cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim());
+                        art.add(cursor.getString(cursor.getColumnIndex("articulos")));
+                        orden.add(cursor.getString(cursor.getColumnIndex("ordenamiento")));
+                    } while (cursor.moveToNext());
+                }
+            } catch (SQLiteException e) {
+                System.out.println(e.getMessage());
+            }finally{
+                cursor.close();
+                db.close();
+                Log.v("change", "ok");
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 
     public void getFundamento() {
@@ -4777,6 +4819,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             if(validarSpinner(this.spNE)){
                 sb.append("Seleccione el Nivel Economico \n");
                 valid = false;
+            }
+            if(id == 2) {
+                if (validarCampos(this.etDondeActua)) {
+                    sb.append("Ingrese lugar donde se actua \n");
+                    valid = false;
+                }
             }
     	} else if(infrac == 3) {
 	    	
@@ -5869,6 +5917,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			if(id == 2) {
                 tvReg.setVisibility(View.GONE);
                 llfundamento.setVisibility(View.GONE);
+                etCondominio.setVisibility(View.GONE);
+                tvCondominio.setVisibility(View.GONE);
+                tvPropietario.setText("NOMBRE Y/O RAZON SOCIAL");
+                etDondeActua.setVisibility(View.GONE);
+                rlLicencias.setVisibility(View.GONE);
             }
 
 			if(id != 2)
@@ -5946,6 +5999,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 rlDonde_actua.setVisibility(View.VISIBLE);
                 etGiro.setVisibility(View.VISIBLE);
                 llfundamento.setVisibility(View.GONE);
+                etCondominio.setVisibility(View.GONE);
+                tvCondominio.setVisibility(View.GONE);
+                tvPropietario.setText("NOMBRE Y/O RAZON SOCIAL");
             }
             if(id == 3) {
                 tvReg.setVisibility(View.GONE);
@@ -7567,8 +7623,31 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 canvas.restoreState();
                             }
                         }
+<<<<<<< HEAD
 
 				        //NOMBRE DEL TESTIGO 1
+=======
+                        if(id == 2) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(170, 630);
+                            canvas.showText("Acto seguido");
+                            canvas.endText();
+                            canvas.restoreState();
+                        } else {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(170, 630);
+                            canvas.showText("Por lo que");
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
+				        
+>>>>>>> a2160991f6079e478344508c789d72c026437dc4
 				        canvas.saveState();
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
@@ -7588,6 +7667,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        canvas.endText();
 				        canvas.restoreState();
 
+<<<<<<< HEAD
 				        //QUIEN DESIGNO LOS TESIGOS
 				        canvas.saveState();
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -7599,6 +7679,28 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        canvas.restoreState();
 
 				        //IDENTIFICACION TESTIGO 1
+=======
+				        if(spdesignado.getSelectedItem().toString().trim().equalsIgnoreCase("inspector")) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(70, 610);
+                            canvas.showText("Suscrito " + spdesignado.getSelectedItem().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }  else {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(70, 610);
+                            canvas.showText(spdesignado.getSelectedItem().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
+				        
+>>>>>>> a2160991f6079e478344508c789d72c026437dc4
 				        canvas.saveState();
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
@@ -7613,8 +7715,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9);
+<<<<<<< HEAD
 				        canvas.moveText(23, 682);
 				        canvas.showText(spIdentificaT1.getSelectedItem().toString() + " " + etIfeT.getText().toString());
+=======
+				        canvas.moveText(50, 600);
+				        canvas.showText(spIdentificaT1.getSelectedItem().toString() + " " + etIfeT2.getText().toString());
+>>>>>>> a2160991f6079e478344508c789d72c026437dc4
 				        canvas.endText();
 				        canvas.restoreState();
 
@@ -9074,12 +9181,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         for (int i = 0; i < reg.length; i++) {
                             if (reg[i] > 0) {
                                 motivo += conceptos.get(i) + ",";
-                                art += articulo.get(i) + " fracción " + fraccion.get(i) + ",";
+                                art += articulo.get(i) + " Fracción " + fraccion.get(i) + ",";
                             }
                         }
                         art = art.substring(0, art.length() - 1);
-                        motivo += " ASI MIMSO, CUALQUIER OTRA ACTIVIDAD RELACIONADA CON LA NORMATIVIDAD APLICABLE Y QUE SEA REGULADA POR EL MUNICIPIO DE ZAPOPAN JALISCO, CON RESPECTO A LA EJECUCION DE TRABAJOS DE  construcción, remodelación, demolición, movimiento de tierras, excavación, reparación o restauración de cualquier género, así como cualquier acto de ocupacion o utilizacion del suelo que se lleve a cabo en el Municipio de Zapopan. Con base a los articulos: 2, 3, 5, 7  FRACCIONES I a la VI, 167, 168, 169, 171. ";
-                        motivo += art + " del reglamento de construccion para el municipio de zapopan jalisco";
+                        motivo += " Asi mismo, cualquier otra actividad relacionasa con la normatividad aplicable y que sea regulada por el Municipio de Zapopan Jalisco, con respecto a la ejecución de trabajos de construcción, remodelación, demolición, movimiento de tierras, excavación, reparación o restauración de cualquier género, así como cualquier acto de ocupacion o utilizacion del suelo que se lleve a cabo en el Municipio de Zapopan. Con base a los articulos: 2, 3, 5, 7  Fracciones I a la VI, 167, 168, 169, 171. ";
+                        motivo += art + " del Reglamento de Construccion para el Municipio de Zapopan Jalisco";
 
                     }
 
@@ -9093,7 +9200,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     p.setFont(new Font(Font.HELVETICA,3));
                     doc.add(p);*/
 
-			        txt = Justificar.justifocarTexto1(motivo.toLowerCase(), 135);
+			        txt = Justificar.justifocarTexto1(motivo, 135);
 				    int li = 395+c;
 				    
 				    for (int i = 0; i < txt.length; i++) {
