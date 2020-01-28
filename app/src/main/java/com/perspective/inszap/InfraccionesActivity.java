@@ -9187,12 +9187,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         for (int i = 0; i < reg.length; i++) {
                             if (reg[i] > 0) {
                                 motivo += conceptos.get(i) + ",";
-                                art += articulo.get(i) + " fracción " + fraccion.get(i) + ",";
+                                art += articulo.get(i) + " Fracción " + fraccion.get(i) + ",";
                             }
                         }
                         art = art.substring(0, art.length() - 1);
-                        motivo += " ASI MIMSO, CUALQUIER OTRA ACTIVIDAD RELACIONADA CON LA NORMATIVIDAD APLICABLE Y QUE SEA REGULADA POR EL MUNICIPIO DE ZAPOPAN JALISCO, CON RESPECTO A LA EJECUCION DE TRABAJOS DE  construcción, remodelación, demolición, movimiento de tierras, excavación, reparación o restauración de cualquier género, así como cualquier acto de ocupacion o utilizacion del suelo que se lleve a cabo en el Municipio de Zapopan. Con base a los articulos: 2, 3, 5, 7  FRACCIONES I a la VI, 167, 168, 169, 171. ";
-                        motivo += art + " del reglamento de construccion para el municipio de zapopan jalisco";
+                        motivo += " Asi mismo, cualquier otra actividad relacionasa con la normatividad aplicable y que sea regulada por el Municipio de Zapopan Jalisco, con respecto a la ejecución de trabajos de construcción, remodelación, demolición, movimiento de tierras, excavación, reparación o restauración de cualquier género, así como cualquier acto de ocupacion o utilizacion del suelo que se lleve a cabo en el Municipio de Zapopan. Con base a los articulos: 2, 3, 5, 7  Fracciones I a la VI, 167, 168, 169, 171. ";
+                        motivo += art + " del Reglamento de Construccion para el Municipio de Zapopan Jalisco";
 
                     }
 
@@ -9206,7 +9206,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     p.setFont(new Font(Font.HELVETICA,3));
                     doc.add(p);*/
 
-			        txt = Justificar.justifocarTexto1(motivo.toLowerCase(), 135);
+			        txt = Justificar.justifocarTexto1(motivo, 135);
 				    int li = 395+c;
 				    
 				    for (int i = 0; i < txt.length; i++) {
