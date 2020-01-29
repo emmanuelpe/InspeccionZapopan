@@ -7498,7 +7498,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        canvas.endText();
 				        canvas.restoreState();
 
-				        if(id == 2) {
+				        /*if(id == 2) {
                             canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
@@ -7507,7 +7507,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             canvas.showText("donde se realiza la visita de inspección y la actividad comercial ");
                             canvas.endText();
                             canvas.restoreState();
-                        }
+                        }*/
 
 				        
 				        String vig = etVigI.getText().toString();
@@ -7521,64 +7521,130 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					    ax=Integer.parseInt(vig1[0]);
 
 					    //NUMERO DEL INSPECTOR
-                        canvas.saveState();
-                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                        canvas.beginText();
-                        canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(295, 751);
-                        canvas.showText(etNoI.getText().toString());
-                        canvas.endText();
-                        canvas.restoreState();
+                        if(id == 4) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(295, 751);
+                            canvas.showText(etNoI.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        } else {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(495, 751);
+                            canvas.showText(etNoI.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
 
                         //MES
-					    canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(35, 741);
-				        canvas.showText(getMes(m));
-				        canvas.endText();
-				        canvas.restoreState();
+                        if(id == 4) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(35, 741);
+                            canvas.showText(getMes(m));
+                            canvas.endText();
+                            canvas.restoreState();
+                        } else {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(235, 741);
+                            canvas.showText(getMes(m));
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
 
 				        //AÑO FIN VIGENCIA
-				        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(115, 741);
-				        canvas.showText(String.valueOf(ax).substring(2, 4));
-				        canvas.endText();
-				        canvas.restoreState();
+                        if(id == 4) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(115, 741);
+                            canvas.showText(String.valueOf(ax).substring(2, 4));
+                            canvas.endText();
+                            canvas.restoreState();
+                        } else {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(315, 741);
+                            canvas.showText(String.valueOf(ax).substring(2, 4));
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
 
 				        //NOMBRE VISITADO (ANTE...)
-                        canvas.saveState();
-                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                        canvas.beginText();
-                        canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(30, 732);
-                        canvas.showText(etNombreV.getText().toString());
-                        canvas.endText();
-                        canvas.restoreState();
+                        if(id == 4) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(30, 732);
+                            canvas.showText(etNombreV.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        } else {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(230, 732);
+                            canvas.showText(etNombreV.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
 
                         //IDENTIFICACION Y NUMERO DEL VISITADO
-				        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(300, 732);
-				        canvas.showText(spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
-				        canvas.endText();
-				        canvas.restoreState();
+                        if(id == 4) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(300, 732);
+                            canvas.showText(spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        } else {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(500, 732);
+                            canvas.showText(spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
 
 				        //MANIFIESTA SER
-				        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(80, 721);
-				        canvas.showText(etVManifiesta.getText().toString());
-				        canvas.endText();
-				        canvas.restoreState();
+                        if(id == 4) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(80, 721);
+                            canvas.showText(etVManifiesta.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        } else {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(80, 711);
+                            canvas.showText(etVManifiesta.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
 
 				        //DE "EL GIRO"... (COMERCIO)
                         canvas.saveState();
@@ -7592,24 +7658,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                         //PROPIEDAD DE... (CONSTRUCCION)
 				        if(propiedad.isEmpty()) {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(402, 721);
-                            canvas.showText(etOtro.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-
-                        } else {
-				            Log.e("PROPIEDAD",propiedad.equalsIgnoreCase("El Visitado") + "");
-				            if(propiedad.equalsIgnoreCase("El Visitado")) {
+				            if(id == 4) {
                                 canvas.saveState();
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
                                 canvas.moveText(402, 721);
-                                canvas.showText(etNombreV.getText().toString());
+                                canvas.showText(etOtro.getText().toString());
                                 canvas.endText();
                                 canvas.restoreState();
                             } else {
@@ -7617,17 +7672,60 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(402, 721);
-                                canvas.showText(propiedad);
+                                canvas.moveText(422, 711);
+                                canvas.showText(etOtro.getText().toString());
                                 canvas.endText();
                                 canvas.restoreState();
                             }
+
+                        } else {
+				            Log.e("PROPIEDAD",propiedad.equalsIgnoreCase("El Visitado") + "");
+				            if(id == 4) {
+                                if (propiedad.equalsIgnoreCase("El Visitado")) {
+                                    canvas.saveState();
+                                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                    canvas.beginText();
+                                    canvas.setFontAndSize(bf, 9);
+                                    canvas.moveText(422, 721);
+                                    canvas.showText(etNombreV.getText().toString());
+                                    canvas.endText();
+                                    canvas.restoreState();
+                                } else {
+                                    canvas.saveState();
+                                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                    canvas.beginText();
+                                    canvas.setFontAndSize(bf, 9);
+                                    canvas.moveText(422, 721);
+                                    canvas.showText(propiedad);
+                                    canvas.endText();
+                                    canvas.restoreState();
+                                }
+                            } else {
+                                if (propiedad.equalsIgnoreCase("El Visitado")) {
+                                    canvas.saveState();
+                                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                    canvas.beginText();
+                                    canvas.setFontAndSize(bf, 9);
+                                    canvas.moveText(422, 711);
+                                    canvas.showText(etNombreV.getText().toString());
+                                    canvas.endText();
+                                    canvas.restoreState();
+                                } else {
+                                    canvas.saveState();
+                                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                    canvas.beginText();
+                                    canvas.setFontAndSize(bf, 9);
+                                    canvas.moveText(422, 711);
+                                    canvas.showText(propiedad);
+                                    canvas.endText();
+                                    canvas.restoreState();
+                                }
+                            }
                         }
-<<<<<<< HEAD
+
 
 				        //NOMBRE DEL TESTIGO 1
-=======
-                        if(id == 2) {
+                        /*if(id == 2) {
                             canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
@@ -7645,42 +7743,72 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             canvas.showText("Por lo que");
                             canvas.endText();
                             canvas.restoreState();
+                        }*/
+                        if(id == 4) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(300, 702);
+                            canvas.showText(etNombreT.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        } else {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(300, 692);
+                            canvas.showText(etNombreT.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
                         }
-				        
->>>>>>> a2160991f6079e478344508c789d72c026437dc4
-				        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(300, 702);
-				        canvas.showText(etNombreT.getText().toString());
-				        canvas.endText();
-				        canvas.restoreState();
 
                         //NOMBRE DEL TESTIGO 2
-                        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 8);
-				        canvas.moveText(21, 692);
-				        canvas.showText(etNombreT1.getText().toString());
-				        canvas.endText();
-				        canvas.restoreState();
+                        if(id == 4) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 8);
+                            canvas.moveText(21, 692);
+                            canvas.showText(etNombreT1.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        } else {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 8);
+                            canvas.moveText(21, 682);
+                            canvas.showText(etNombreT1.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
 
-<<<<<<< HEAD
+
 				        //QUIEN DESIGNO LOS TESIGOS
-				        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(240, 692);
-				        canvas.showText(spdesignado.getSelectedItem().toString());
-				        canvas.endText();
-				        canvas.restoreState();
+                        if (id == 4) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(240, 692);
+                            canvas.showText(spdesignado.getSelectedItem().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        } else {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(240, 682);
+                            canvas.showText(spdesignado.getSelectedItem().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
 
 				        //IDENTIFICACION TESTIGO 1
-=======
-				        if(spdesignado.getSelectedItem().toString().trim().equalsIgnoreCase("inspector")) {
+				        /*if(spdesignado.getSelectedItem().toString().trim().equalsIgnoreCase("inspector")) {
                             canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
@@ -7698,44 +7826,62 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             canvas.showText(spdesignado.getSelectedItem().toString());
                             canvas.endText();
                             canvas.restoreState();
-                        }
+                        }*/
 				        
->>>>>>> a2160991f6079e478344508c789d72c026437dc4
-				        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 8);
-				        canvas.moveText(427, 692);
-				        canvas.showText(spIdentificaT.getSelectedItem().toString() + " " + etIfeT.getText().toString());
-				        canvas.endText();
-				        canvas.restoreState();
+                        if(id == 4) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(427, 692);
+                            canvas.showText(spIdentificaT.getSelectedItem().toString() + " " + etIfeT.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        } else {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(427, 682);
+                            canvas.showText(spIdentificaT.getSelectedItem().toString() + " " + etIfeT.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
 
 				        //IDENTIFICACION TESTIGO 2
-                        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-<<<<<<< HEAD
-				        canvas.moveText(23, 682);
-				        canvas.showText(spIdentificaT1.getSelectedItem().toString() + " " + etIfeT.getText().toString());
-=======
-				        canvas.moveText(50, 600);
-				        canvas.showText(spIdentificaT1.getSelectedItem().toString() + " " + etIfeT2.getText().toString());
->>>>>>> a2160991f6079e478344508c789d72c026437dc4
-				        canvas.endText();
-				        canvas.restoreState();
+                        if(id == 4) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(30, 680);
+                            canvas.showText(spIdentificaT1.getSelectedItem().toString() + " " + etIfeT2.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        } else {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(30, 670);
+                            canvas.showText(spIdentificaT1.getSelectedItem().toString() + " " + etIfeT2.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
+
 
                         //HECHOS DEL CATALOGO
                         if(id == 4)
-					        txt = Justificar.justifocarTexto1("                                                            En atención a " + spPeticion.getSelectedItem().toString() + ", " + etSeleccion.getText().toString().toLowerCase() + " " + competencias1.toLowerCase() , 135);
+					        txt = Justificar.justifocarTexto1("                                                            En atención a " + spPeticion.getSelectedItem().toString() + ", " + etSeleccion.getText().toString().toLowerCase() + " " + competencias1.toLowerCase() , 145);
                         else
-                            txt = Justificar.justifocarTexto1("                                                                                        Al momento de la inspeccion y en atención a " + spPeticion.getSelectedItem().toString().toLowerCase() + ", " + etSeleccion.getText().toString().toLowerCase() + " " + competencias1.toLowerCase(), 135);
-					    int li = 663;
-
-
+                            txt = Justificar.justifocarTexto1("                                                                    Al momento de la inspeccion y en atención a " + spPeticion.getSelectedItem().toString().toLowerCase() + ", " + etSeleccion.getText().toString().toLowerCase() + " " + competencias1.toLowerCase(), 145);
+                        int li = 0;
+                        if(id == 4)
+                            li = 663;
+					    else
+					        li = 653;
 
 					    for (int i = 0; i < txt.length; i++) {
-					    	
 					    	canvas.saveState();
 					        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 					        canvas.beginText();
@@ -7750,11 +7896,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
 					    //ARTICULOS FACULTATIVOS HECHOS
-					    txt = Justificar.justifocarTexto1("                                                                                            " + etInfraccion.getText().toString(), 135);
-					    li = 505;
+					    txt = Justificar.justifocarTexto1("                                                                                              " + etInfraccion.getText().toString(), 145);
+					    if(id == 4)
+					        li = 505;
+					    else
+                            li = 495;
 					    
 					    for (int i = 0; i < txt.length; i++) {
-					    	
 					    	canvas.saveState();
 					        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 					        canvas.beginText();
@@ -7769,11 +7917,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
 					    //MEDIDAS PRECAUTORIAS
-					    txt = Justificar.justifocarTexto1("                                                                 "+etMedida.getText().toString(), 135);
-					    li = 455;
+					    txt = Justificar.justifocarTexto1("                                                                 "+etMedida.getText().toString(), 145);
+
+					    if(id==4)
+					        li = 455;
+					    else
+                            li = 445;
 					    
 					    for (int i = 0; i < txt.length; i++) {
-					    	
 					    	canvas.saveState();
 					        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 					        canvas.beginText();
@@ -7789,10 +7940,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                         //ARTICULOS FACULTATIVOS MEDIDAS PRECAUTORIAS
 					    txt = Justificar.justifocarTexto1("                                                                                         " + etArticulo.getText().toString(), 135);
-					    li = 420;
+					    if(id==4)
+					        li = 420;
+					    else
+                            li = 410;
 					    
 					    for (int i = 0; i < txt.length; i++) {
-					    	
 					    	canvas.saveState();
 					        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 					        canvas.beginText();
@@ -7804,127 +7957,256 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					        
 					        li-=10;
 						}
-					    
-					    canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(30, 370);
-				        canvas.showText("Manifiesta: " + etManifiesta.getText().toString());
-				        canvas.endText();
-				        canvas.restoreState();
-				        
-				        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(210, 311);
-				        canvas.showText(hr + " ");
-				        canvas.endText();
-				        canvas.restoreState();
-					    
-					    canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(320, 311);
-				        canvas.showText(dia + " de " + me + " del " + a);
-				        canvas.endText();
-				        canvas.restoreState();
 
-				        //GRAVEDAD
-				        if(spgravedad.getSelectedItem().toString().equalsIgnoreCase("1")) {
+					    if(id==4) {
                             canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(83, 228);
-                            canvas.showText("X");
+                            canvas.moveText(30, 370);
+                            canvas.showText("Manifiesta: " + etManifiesta.getText().toString());
                             canvas.endText();
                             canvas.restoreState();
-                        } else if(spgravedad.getSelectedItem().toString().equalsIgnoreCase("2")) {
+                        } else {
                             canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(91, 228);
-                            canvas.showText("X");
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else if(spgravedad.getSelectedItem().toString().equalsIgnoreCase("3")) {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(99, 228);
-                            canvas.showText("X");
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else if(spgravedad.getSelectedItem().toString().equalsIgnoreCase("4")) {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(107, 228);
-                            canvas.showText("X");
-                            canvas.endText();
-                            canvas.restoreState();
-                        }else  {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(115, 228);
-                            canvas.showText("X");
+                            canvas.moveText(30, 360);
+                            canvas.showText("Manifiesta: " + etManifiesta.getText().toString());
                             canvas.endText();
                             canvas.restoreState();
                         }
 
-				        //NIVEL ECONOMICO
-                        if(spNE.getSelectedItem().toString().equalsIgnoreCase("1")) {
+					    if(id == 4) {
                             canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(228, 228);
-                            canvas.showText("X");
+                            canvas.moveText(210, 311);
+                            canvas.showText(hr + " ");
                             canvas.endText();
                             canvas.restoreState();
-                        } else if(spNE.getSelectedItem().toString().equalsIgnoreCase("2")) {
-                            canvas.saveState();
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(236, 228);
-                            canvas.showText("X");
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else if(spNE.getSelectedItem().toString().equalsIgnoreCase("3")) {
+                        } else {
                             canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(243, 228);
-                            canvas.showText("X");
+                            canvas.moveText(210, 301);
+                            canvas.showText(hr + " ");
                             canvas.endText();
                             canvas.restoreState();
-                        } else if(spNE.getSelectedItem().toString().equalsIgnoreCase("4")) {
+                        }
+
+					    if(id == 4) {
                             canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(251, 228);
-                            canvas.showText("X");
+                            canvas.moveText(320, 311);
+                            canvas.showText(dia + " de " + me + " del " + a);
                             canvas.endText();
                             canvas.restoreState();
-                        }else  {
+                        } else {
                             canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(259, 228);
-                            canvas.showText("X");
+                            canvas.moveText(320, 301);
+                            canvas.showText(dia + " de " + me + " del " + a);
                             canvas.endText();
                             canvas.restoreState();
+                        }
+
+				        //GRAVEDAD
+                        if(id==4) {
+                            if (spgravedad.getSelectedItem().toString().equalsIgnoreCase("1")) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(83, 228);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            } else if (spgravedad.getSelectedItem().toString().equalsIgnoreCase("2")) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(91, 228);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            } else if (spgravedad.getSelectedItem().toString().equalsIgnoreCase("3")) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(99, 228);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            } else if (spgravedad.getSelectedItem().toString().equalsIgnoreCase("4")) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(107, 228);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            } else {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(115, 228);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            }
+
+                            //NIVEL ECONOMICO
+                            if (spNE.getSelectedItem().toString().equalsIgnoreCase("1")) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(228, 228);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            } else if (spNE.getSelectedItem().toString().equalsIgnoreCase("2")) {
+                                canvas.saveState();
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(236, 228);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            } else if (spNE.getSelectedItem().toString().equalsIgnoreCase("3")) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(243, 228);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            } else if (spNE.getSelectedItem().toString().equalsIgnoreCase("4")) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(251, 228);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            } else {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(259, 228);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            }
+                        } else {
+                            if (spgravedad.getSelectedItem().toString().equalsIgnoreCase("1")) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(83, 218);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            } else if (spgravedad.getSelectedItem().toString().equalsIgnoreCase("2")) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(91, 218);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            } else if (spgravedad.getSelectedItem().toString().equalsIgnoreCase("3")) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(99, 218);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            } else if (spgravedad.getSelectedItem().toString().equalsIgnoreCase("4")) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(107, 218);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            } else {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(115, 218);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            }
+
+                            //NIVEL ECONOMICO
+                            if (spNE.getSelectedItem().toString().equalsIgnoreCase("1")) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(228, 218);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            } else if (spNE.getSelectedItem().toString().equalsIgnoreCase("2")) {
+                                canvas.saveState();
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(236, 218);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            } else if (spNE.getSelectedItem().toString().equalsIgnoreCase("3")) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(243, 218);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            } else if (spNE.getSelectedItem().toString().equalsIgnoreCase("4")) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(251, 218);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            } else {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(259, 218);
+                                canvas.showText("X");
+                                canvas.endText();
+                                canvas.restoreState();
+                            }
                         }
 
                         //REINCIDENCIA
@@ -10201,7 +10483,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(330, 775);
+                    canvas.moveText(230, 705);
                     canvas.showText(etDondeActua.getText().toString());
                     canvas.endText();
                     canvas.restoreState();

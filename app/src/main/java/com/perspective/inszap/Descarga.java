@@ -1056,34 +1056,34 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 			}
 			mProgressBar.setProgress(i);
 			i++;
-			/*if (!c.search("http://10.10.23.54/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
+			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("v_LicenciasReglamentos");
-				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getLicReg1.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*, "v_LicenciasReglamentos");
+				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getLicReg1.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "v_LicenciasReglamentos");
 			}
 			mProgressBar.setProgress(i);
 			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 				//eliminaRegistros("v_LicenciasReglamentos");
-				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getLicReg2.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*, "v_LicenciasReglamentos");
+				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getLicReg2.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "v_LicenciasReglamentos");
 			}
 			mProgressBar.setProgress(i);
 			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 				eliminaRegistros("vs_InspM2");
-				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/get_vs_InspM21.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*, "vs_InspM2");
+				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/get_vs_InspM21.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "vs_InspM2");
 			}
 			mProgressBar.setProgress(i);
 			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 				//eliminaRegistros("vs_InspM2");
-				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/get_vs_InspM22.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*, "vs_InspM2");
+				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/get_vs_InspM22.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "vs_InspM2");
 			}
 			mProgressBar.setProgress(i);
 			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 				//eliminaRegistros("vs_InspM2");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/get_vs_InspM23.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*, "vs_InspM2");
-			}*/
+			}
 			mProgressBar.setProgress(i);
 			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/get_concepto_ov.php").trim().equalsIgnoreCase("null")) {

@@ -6795,7 +6795,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
 
-    public void imprimir(String formato){
+    public void imprimir(String formato) {
+
         int len =0;
         final int MITAD = 135;
         String src;
@@ -6848,7 +6849,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
         if (formato.equalsIgnoreCase("infraccion")) {
 
-            //construccion
+            //ACTA DE INFRACCION
             try {
 
                 //File file = new File(Environment.getExternalStorageDirectory() + "/Infracciones/fotografias/" + etNumeroActa.getText().toString().replace("/", "_") + "/" + etNumeroActa.getText().toString().replace("/", "_")+ ".txt");
@@ -6902,6 +6903,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                 PdfContentByte canvas = write.getDirectContent();
 
+
+                //DIRECCION
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
@@ -6911,6 +6914,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 canvas.endText();
                 canvas.restoreState();
 
+                //ZONA
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
@@ -6920,6 +6924,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 canvas.endText();
                 canvas.restoreState();
 
+                //NUMERO DE ACTA
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
@@ -6929,100 +6934,119 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 canvas.endText();
                 canvas.restoreState();
 
+                //HORA DE INSPECCION
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(235, 835);
+                //canvas.moveText(235, 835);
+                canvas.moveText(235, 838);
                 canvas.showText(hora);
                 canvas.endText();
                 canvas.restoreState();
 
+                //DIA
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(390, 835);
+                //canvas.moveText(390, 835);
+                canvas.moveText(322, 838);
                 canvas.showText(dia + "");
                 canvas.endText();
                 canvas.restoreState();
 
+                //MES
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(430, 835);
+                //canvas.moveText(430, 835);
+                canvas.moveText(352, 838);
                 canvas.showText(me);
                 canvas.endText();
                 canvas.restoreState();
 
+                //AÑO
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(500, 835);
+                //canvas.moveText(500, 835);
+                canvas.moveText(460, 838);
                 canvas.showText(a + "");
                 canvas.endText();
                 canvas.restoreState();
 
+                //INSPECTOR LOGEADO
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(30, 825);
+                //canvas.moveText(30, 825);
+                canvas.moveText(30, 828);
                 canvas.showText(spnombre.getSelectedItem().toString());
                 canvas.endText();
                 canvas.restoreState();
 
+                //CLAVE DEL INSPECCTOR
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(360, 825);
+                // canvas.moveText(360, 825);
+                canvas.moveText(360, 828);
                 canvas.showText(etNoI.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
 
+                //NUMERO DE INFRACCION
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(215, 805);
+                //canvas.moveText(215, 805);
+                canvas.moveText(215, 808);
                 canvas.showText(numeroOV);
                 canvas.endText();
                 canvas.restoreState();
 
+                //FECHA
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(60, 795);
+                //canvas.moveText(60, 795);
+                canvas.moveText(60, 799);
                 canvas.showText(fechaOV);
                 canvas.endText();
                 canvas.restoreState();
 
+                //NOMBRE DEL VISITADO
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(30, 785);
+                //canvas.moveText(30, 785);
+                canvas.moveText(383, 799);
                 canvas.showText(etNombreV.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
 
-                if(this.id == 2) {
-                    //etDondeActua
-                    canvas.saveState();
-                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                    canvas.beginText();
-                    canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(330, 775);
-                    canvas.showText(etDondeActua.getText().toString());
-                    canvas.endText();
-                    canvas.restoreState();
-                }
+				        /*if(this.id == 2) {
+				            //etDondeActua
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(330, 775);
+                            canvas.showText(etDondeActua.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }*/
 
                 if(this.id == 4) {
+                    //EL USO...
 
                     String uso = "";
 
@@ -7041,79 +7065,74 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(340, 775);
+                    canvas.moveText(165, 789);
                     canvas.showText(uso);
                     canvas.endText();
                     canvas.restoreState();
 
                 }
 
+                //NUMERO INTERIOR Y EXTERIOR
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
-                canvas.setFontAndSize(bf, 9);
-                canvas.moveText(70, 765);
+                canvas.setFontAndSize(bf, 8);
+                canvas.moveText(382, 789);
                 canvas.showText(etNumero.getText().toString()+" "+etNuemroInterior.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
 
+                //NOMBRE DE LA CALLE
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
-                canvas.setFontAndSize(bf, 9);
-                canvas.moveText(265, 765);
+                canvas.setFontAndSize(bf, 8);
+                canvas.moveText(480, 789);
                 canvas.showText(etCalle.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
 
+                //ENTRE CALLE
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(30, 755);
+                canvas.moveText(90, 779);
                 canvas.showText(etEntreC.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
 
+                //Y LA CALLE
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(300, 755);
+                canvas.moveText(270, 779);
                 canvas.showText(etEntreC1.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
 
+                //FRACCIONAMIENTO Y CONDOMINIO
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(30, 745);
+                canvas.moveText(30, 769);
                 canvas.showText(etFraccionamiento.getText().toString() + " " + etCondominio.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
 
-                if(id == 2) {
-                    canvas.saveState();
-                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                    canvas.beginText();
-                    canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(30, 735);
-                    canvas.showText("donde se realiza la visita de inspección y la actividad comercial ");
-                    canvas.endText();
-                    canvas.restoreState();
-                }
+				        /*if(id == 2) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(30, 735);
+                            canvas.showText("donde se realiza la visita de inspección y la actividad comercial ");
+                            canvas.endText();
+                            canvas.restoreState();
+                        }*/
 
-                if(id == 4) {
-                    canvas.saveState();
-                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                    canvas.beginText();
-                    canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(30, 735);
-                    canvas.showText("por coincidir con la nomenclatura oficial y/o georreferencia");
-                    canvas.endText();
-                    canvas.restoreState();
-                }
 
                 String vig = etVigI.getText().toString();
 
@@ -7125,75 +7144,83 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 m=Integer.parseInt(vig1[1]);
                 ax=Integer.parseInt(vig1[0]);
 
+                //NUMERO DEL INSPECTOR
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(75, 710);
+                canvas.moveText(295, 751);
                 canvas.showText(etNoI.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
 
-					    /*canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(415, 710);
-				        canvas.showText(getMes(m));
-				        canvas.endText();
-				        canvas.restoreState();
-
-				        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(495, 710);
-				        canvas.showText(String.valueOf(ax).substring(2, 4));
-				        canvas.endText();
-				        canvas.restoreState();*/
-
+                //MES
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(450, 700);
+                canvas.moveText(35, 741);
+                canvas.showText(getMes(m));
+                canvas.endText();
+                canvas.restoreState();
+
+                //AÑO FIN VIGENCIA
+                canvas.saveState();
+                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                canvas.beginText();
+                canvas.setFontAndSize(bf, 9);
+                canvas.moveText(115, 741);
+                canvas.showText(String.valueOf(ax).substring(2, 4));
+                canvas.endText();
+                canvas.restoreState();
+
+                //NOMBRE VISITADO (ANTE...)
+                canvas.saveState();
+                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                canvas.beginText();
+                canvas.setFontAndSize(bf, 9);
+                canvas.moveText(30, 732);
                 canvas.showText(etNombreV.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
 
+                //IDENTIFICACION Y NUMERO DEL VISITADO
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(420, 690);
+                canvas.moveText(300, 732);
                 canvas.showText(spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
 
+                //MANIFIESTA SER
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(500, 680);
+                canvas.moveText(80, 721);
                 canvas.showText(etVManifiesta.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
 
-                canvas.saveState();
-                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                canvas.beginText();
-                canvas.setFontAndSize(bf, 9);
-                canvas.moveText(40, 660);
-                canvas.showText(etGiro.getText().toString());
-                canvas.endText();
-                canvas.restoreState();
+                //DE "EL GIRO"... (COMERCIO)
+                        /*canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(40, 660);
+                        canvas.showText(etGiro.getText().toString());
+                        canvas.endText();
+                        canvas.restoreState();*/
 
+                //PROPIEDAD DE... (CONSTRUCCION)
                 if(propiedad.isEmpty()) {
                     canvas.saveState();
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(90, 650);
+                    canvas.moveText(402, 721);
                     canvas.showText(etOtro.getText().toString());
                     canvas.endText();
                     canvas.restoreState();
@@ -7205,7 +7232,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(90, 650);
+                        canvas.moveText(402, 721);
                         canvas.showText(etNombreV.getText().toString());
                         canvas.endText();
                         canvas.restoreState();
@@ -7214,140 +7241,114 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(90, 650);
+                        canvas.moveText(402, 721);
                         canvas.showText(propiedad);
                         canvas.endText();
                         canvas.restoreState();
                     }
                 }
 
-                canvas.saveState();
-                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                canvas.beginText();
-                canvas.setFontAndSize(bf, 9);
-                canvas.moveText(170, 630);
-                canvas.showText("Por lo que");
-                canvas.endText();
-                canvas.restoreState();
+
+                //NOMBRE DEL TESTIGO 1
+                        /*if(id == 2) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(170, 630);
+                            canvas.showText("Acto seguido");
+                            canvas.endText();
+                            canvas.restoreState();
+                        } else {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(170, 630);
+                            canvas.showText("Por lo que");
+                            canvas.endText();
+                            canvas.restoreState();
+                        }*/
 
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(60, 620);
+                canvas.moveText(300, 702);
                 canvas.showText(etNombreT.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
 
+                //NOMBRE DEL TESTIGO 2
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(366, 620);
+                canvas.moveText(21, 692);
                 canvas.showText(etNombreT1.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
 
+
+                //QUIEN DESIGNO LOS TESIGOS
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(70, 610);
+                canvas.moveText(240, 692);
                 canvas.showText(spdesignado.getSelectedItem().toString());
                 canvas.endText();
                 canvas.restoreState();
 
+                //IDENTIFICACION TESTIGO 1
+				        /*if(spdesignado.getSelectedItem().toString().trim().equalsIgnoreCase("inspector")) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(70, 610);
+                            canvas.showText("Suscrito " + spdesignado.getSelectedItem().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }  else {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(70, 610);
+                            canvas.showText(spdesignado.getSelectedItem().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }*/
+
+
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(430, 610);
+                canvas.moveText(427, 692);
                 canvas.showText(spIdentificaT.getSelectedItem().toString() + " " + etIfeT.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
 
+                //IDENTIFICACION TESTIGO 2
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(50, 600);
-                canvas.showText(spIdentificaT1.getSelectedItem().toString() + " " + etIfeT.getText().toString());
+                canvas.moveText(50, 680);
+                canvas.showText(spIdentificaT1.getSelectedItem().toString() + " " + etIfeT2.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
 
-
-                p = new Paragraph(" ");
-                p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
-                p.setFont(font1);
-                doc.add(p);
-                p = new Paragraph(" ");
-                p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
-                p.setFont(font1);
-                doc.add(p);
-                p = new Paragraph(" ");
-                p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
-                p.setFont(font1);
-                doc.add(p);
-                p = new Paragraph(" ");
-                p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
-                p.setFont(font1);
-                doc.add(p);
-                p = new Paragraph(" ");
-                p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
-                p.setFont(font1);
-                doc.add(p);
-
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-
-                font1 = new Font(Font.HELVETICA,3,Color.BLACK);
-
-                        /*p = new Paragraph("Al momento de la inspeccion y en atención a " + spPeticion.getSelectedItem().toString() + " " + etSeleccion.getText().toString().toLowerCase() + " " + competencias1.toLowerCase());
-                        p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
-                        p.setFont(font1);
-                        doc.add(p);*/
+                //HECHOS DEL CATALOGO
+                if(id == 4)
+                    txt = Justificar.justifocarTexto1("                                                            En atención a " + spPeticion.getSelectedItem().toString() + ", " + etSeleccion.getText().toString().toLowerCase() + " " + competencias1.toLowerCase() , 145);
+                else
+                    txt = Justificar.justifocarTexto1("                                                                    Al momento de la inspeccion y en atención a " + spPeticion.getSelectedItem().toString().toLowerCase() + ", " + etSeleccion.getText().toString().toLowerCase() + " " + competencias1.toLowerCase(), 145);
+                int li = 663;
 
 
-
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-
-                        /*p = new Paragraph(etInfraccion.getText().toString().toLowerCase());
-                        p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
-                        p.setFont(font1);
-                        doc.add(p);
-
-                        font1 = new Font(Font.HELVETICA,8,Color.BLACK);*/
-                //int li;
-                txt = Justificar.justifocarTexto1("Al momento de la inspeccion y en atención a " + spPeticion.getSelectedItem().toString().toLowerCase() + " " + etSeleccion.getText().toString().toLowerCase() + " " + competencias1.toLowerCase(), 135);
-                int li = 570;
 
                 for (int i = 0; i < txt.length; i++) {
 
@@ -7363,8 +7364,29 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     li-=10;
                 }
 
-                txt = Justificar.justifocarTexto1(etInfraccion.getText().toString().toLowerCase(), 135);
-                li = 485;
+
+                //ARTICULOS FACULTATIVOS HECHOS
+                txt = Justificar.justifocarTexto1("                                                                                              " + etInfraccion.getText().toString(), 145);
+                li = 505;
+
+                for (int i = 0; i < txt.length; i++) {
+
+                    canvas.saveState();
+                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                    canvas.beginText();
+                    canvas.setFontAndSize(bf, 9);
+                    canvas.moveText(30, li);
+                    canvas.showText(txt[i]);
+                    canvas.endText();
+                    canvas.restoreState();
+
+                    li-=10;
+                }
+
+
+                //MEDIDAS PRECAUTORIAS
+                txt = Justificar.justifocarTexto1("                                                                 "+etMedida.getText().toString(), 145);
+                li = 455;
 
                 for (int i = 0; i < txt.length; i++) {
 
@@ -7380,25 +7402,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     li-=10;
                 }
 
-                txt = Justificar.justifocarTexto1(etMedida.getText().toString().toLowerCase(), 135);
-                li = 425;
 
-                for (int i = 0; i < txt.length; i++) {
-
-                    canvas.saveState();
-                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                    canvas.beginText();
-                    canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(25, li);
-                    canvas.showText(txt[i]);
-                    canvas.endText();
-                    canvas.restoreState();
-
-                    li-=10;
-                }
-
-                txt = Justificar.justifocarTexto1(etArticulo.getText().toString().toLowerCase(), 135);
-                li = 375;
+                //ARTICULOS FACULTATIVOS MEDIDAS PRECAUTORIAS
+                txt = Justificar.justifocarTexto1("                                                                                         " + etArticulo.getText().toString(), 135);
+                li = 420;
 
                 for (int i = 0; i < txt.length; i++) {
 
@@ -7418,7 +7425,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(30, 330);
+                canvas.moveText(30, 370);
                 canvas.showText("Manifiesta: " + etManifiesta.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
@@ -7427,7 +7434,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(210, 270);
+                canvas.moveText(210, 311);
                 canvas.showText(hr + " ");
                 canvas.endText();
                 canvas.restoreState();
@@ -7436,17 +7443,18 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(320, 270);
+                canvas.moveText(320, 311);
                 canvas.showText(dia + " de " + me + " del " + a);
                 canvas.endText();
                 canvas.restoreState();
 
+                //GRAVEDAD
                 if(spgravedad.getSelectedItem().toString().equalsIgnoreCase("1")) {
                     canvas.saveState();
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(75, 117);
+                    canvas.moveText(83, 228);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -7455,7 +7463,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(80, 117);
+                    canvas.moveText(91, 228);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -7464,7 +7472,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(85, 117);
+                    canvas.moveText(99, 228);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -7473,7 +7481,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(90, 117);
+                    canvas.moveText(107, 228);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -7482,18 +7490,19 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(95, 117);
+                    canvas.moveText(115, 228);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
                 }
 
+                //NIVEL ECONOMICO
                 if(spNE.getSelectedItem().toString().equalsIgnoreCase("1")) {
                     canvas.saveState();
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(220, 117);
+                    canvas.moveText(228, 228);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -7501,7 +7510,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     canvas.saveState();
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(228, 117);
+                    canvas.moveText(236, 228);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -7510,7 +7519,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(236, 117);
+                    canvas.moveText(243, 228);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -7519,7 +7528,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(244, 117);
+                    canvas.moveText(251, 228);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -7528,18 +7537,19 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(252, 117);
+                    canvas.moveText(259, 228);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
                 }
 
+                //REINCIDENCIA
                 if(swReincidencia.isChecked()) {
                     canvas.saveState();
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(356, 117);
+                    canvas.moveText(508, 221);
                     canvas.showText("SI");
                     canvas.endText();
                     canvas.restoreState();
@@ -7548,17 +7558,18 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(365, 117);
+                    canvas.moveText(521, 221);
                     canvas.showText("NO");
                     canvas.endText();
                     canvas.restoreState();
                 }
 
+                //NUMERO DE INFRACCION
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
-                canvas.setFontAndSize(bf, 10);
-                canvas.moveText(450, 120);
+                canvas.setFontAndSize(bf, 9);
+                canvas.moveText(480, 203);
                 canvas.showText(etNumeroActa.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
@@ -8455,12 +8466,14 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
             }catch (DocumentException e) {
                 System.err.println(e.getMessage() + " doc ");
+            }catch (IOException C) {
+
             }catch (Exception e) {
                 Toast toast  = Toast.makeText(getApplicationContext(), "Verificar los datos que esten completos", Toast.LENGTH_LONG);
                 toast.setGravity(0, 0, 15);
                 toast.show();
                 Log.e("Error al abrir", e.getMessage() + " c ");
-                System.err.println(e.getMessage() + " n ");
+
             }
         } else if(formato.equalsIgnoreCase("orden")) {
             //construccion
@@ -8784,12 +8797,12 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     for (int i = 0; i < reg.length; i++) {
                         if (reg[i] > 0) {
                             motivo += conceptos.get(i) + ",";
-                            art += articulo.get(i) + " fracción " + fraccion.get(i) + ",";
+                            art += articulo.get(i) + " Fracción " + fraccion.get(i) + ",";
                         }
                     }
                     art = art.substring(0, art.length() - 1);
-                    motivo += " ASI MIMSO, CUALQUIER OTRA ACTIVIDAD RELACIONADA CON LA NORMATIVIDAD APLICABLE Y QUE SEA REGULADA POR EL MUNICIPIO DE ZAPOPAN JALISCO, CON RESPECTO A LA EJECUCION DE TRABAJOS DE  construcción, remodelación, demolición, movimiento de tierras, excavación, reparación o restauración de cualquier género, así como cualquier acto de ocupacion o utilizacion del suelo que se lleve a cabo en el Municipio de Zapopan. Con base a los articulos: 2, 3, 5, 7  FRACCIONES I a la VI, 167, 168, 169, 171. ";
-                    motivo += art + " del reglamento de construccion para el municipio de zapopan jalisco";
+                    motivo += " Asi mismo, cualquier otra actividad relacionasa con la normatividad aplicable y que sea regulada por el Municipio de Zapopan Jalisco, con respecto a la ejecución de trabajos de construcción, remodelación, demolición, movimiento de tierras, excavación, reparación o restauración de cualquier género, así como cualquier acto de ocupacion o utilizacion del suelo que se lleve a cabo en el Municipio de Zapopan. Con base a los articulos: 2, 3, 5, 7  Fracciones I a la VI, 167, 168, 169, 171. ";
+                    motivo += art + " del Reglamento de Construccion para el Municipio de Zapopan Jalisco";
 
                 }
 
@@ -8803,7 +8816,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     p.setFont(new Font(Font.HELVETICA,3));
                     doc.add(p);*/
 
-                txt = Justificar.justifocarTexto1(motivo.toLowerCase(), 135);
+                txt = Justificar.justifocarTexto1(motivo, 135);
                 int li = 395+c;
 
                 for (int i = 0; i < txt.length; i++) {
@@ -8812,7 +8825,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(20, li);
+                    canvas.moveText(27, li);
                     canvas.showText(txt[i]);
                     canvas.endText();
                     canvas.restoreState();
@@ -8836,7 +8849,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
                 canvas.moveText(315, 100);
-                canvas.showText(me);
+                canvas.showText(me.toUpperCase());
                 canvas.endText();
                 canvas.restoreState();
 
@@ -8881,7 +8894,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
                 canvas.moveText(150, 70);
-                canvas.showText(me);
+                canvas.showText(me.toUpperCase(Locale.getDefault()));
                 canvas.endText();
                 canvas.restoreState();
 
@@ -9580,6 +9593,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             }
 
         }
+
     }
 
     public void imprimirPrevia(String formato) {
