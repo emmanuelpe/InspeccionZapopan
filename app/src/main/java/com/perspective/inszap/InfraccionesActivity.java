@@ -4055,7 +4055,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         }
                         f=cursor.getString(cursor.getColumnIndex("fundamento"));
                     } while(cursor.moveToNext());
-                    articulos = articulos.substring(0,articulos.length()-1);
+                    articulos = articulos.substring(0,articulos.length()-1) + " del Reglamento de Construcción para el Municipio de Zapopan, Jalisco";
                     Log.e("articulos",articulos);
                     etArticulo.setText(articulos);
                 }
@@ -7426,7 +7426,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                             String uso = "";
 
-                            uso = "EL USO " + spuso.getSelectedItem().toString() + " " + spUsoH.getSelectedItem().toString();
+                            uso = "el uso " + spuso.getSelectedItem().toString() + " " + spUsoH.getSelectedItem().toString();
 
                             /*if(spuso.getSelectedItem().toString().contains("H1") | spuso.getSelectedItem().toString().contains("H2") | spuso.getSelectedItem().toString().contains("H3") | spuso.getSelectedItem().toString().contains("H4"))
                                 uso = "HABITACIONAL " + spuso.getSelectedItem().toString();
@@ -7872,9 +7872,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                         //HECHOS DEL CATALOGO
                         if(id == 4)
-					        txt = Justificar.justifocarTexto1("                                                            En atención a " + spPeticion.getSelectedItem().toString() + ", " + etSeleccion.getText().toString().toLowerCase() + " " + competencias1.toLowerCase() , 145);
+					        txt = Justificar.justifocarTexto1("                                                            " + etSeleccion.getText().toString() + " " + competencias1 + "En atención a " + spPeticion.getSelectedItem().toString().trim() , 135);
                         else
-                            txt = Justificar.justifocarTexto1("                                                                    Al momento de la inspeccion y en atención a " + spPeticion.getSelectedItem().toString().toLowerCase() + ", " + etSeleccion.getText().toString().toLowerCase() + " " + competencias1.toLowerCase(), 145);
+                            txt = Justificar.justifocarTexto1("                                                                    Al momento de la inspeccion y en atención a " + spPeticion.getSelectedItem().toString() + ", " + etSeleccion.getText().toString() + " " + competencias1, 135);
                         int li = 0;
                         if(id == 4)
                             li = 663;
@@ -7886,7 +7886,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 					        canvas.beginText();
 					        canvas.setFontAndSize(bf, 9);
-					        canvas.moveText(25, li);
+					        canvas.moveText(20, li);
 					        canvas.showText(txt[i]);
 					        canvas.endText();
 					        canvas.restoreState();
@@ -7907,7 +7907,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 					        canvas.beginText();
 					        canvas.setFontAndSize(bf, 9);
-					        canvas.moveText(30, li);
+					        canvas.moveText(20, li);
 					        canvas.showText(txt[i]);
 					        canvas.endText();
 					        canvas.restoreState();
@@ -7917,7 +7917,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
 					    //MEDIDAS PRECAUTORIAS
-					    txt = Justificar.justifocarTexto1("                                                                 "+etMedida.getText().toString(), 145);
+					    txt = Justificar.justifocarTexto1("                                                                 "+etMedida.getText().toString(), 170);
 
 					    if(id==4)
 					        li = 455;
@@ -7929,7 +7929,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 					        canvas.beginText();
 					        canvas.setFontAndSize(bf, 9);
-					        canvas.moveText(25, li);
+					        canvas.moveText(20, li);
 					        canvas.showText(txt[i]);
 					        canvas.endText();
 					        canvas.restoreState();
@@ -7939,7 +7939,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
                         //ARTICULOS FACULTATIVOS MEDIDAS PRECAUTORIAS
-					    txt = Justificar.justifocarTexto1("                                                                                         " + etArticulo.getText().toString(), 135);
+					    txt = Justificar.justifocarTexto1("                                                                                         " + etArticulo.getText().toString(), 170);
 					    if(id==4)
 					        li = 420;
 					    else
@@ -7950,7 +7950,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 					        canvas.beginText();
 					        canvas.setFontAndSize(bf, 9);
-					        canvas.moveText(25, li);
+					        canvas.moveText(20, li);
 					        canvas.showText(txt[i]);
 					        canvas.endText();
 					        canvas.restoreState();
@@ -7964,7 +7964,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
                             canvas.moveText(30, 370);
-                            canvas.showText("Manifiesta: " + etManifiesta.getText().toString());
+                            canvas.showText("Manifiesta " + etManifiesta.getText().toString());
                             canvas.endText();
                             canvas.restoreState();
                         } else {
@@ -7973,7 +7973,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
                             canvas.moveText(30, 360);
-                            canvas.showText("Manifiesta: " + etManifiesta.getText().toString());
+                            canvas.showText("Manifiesta " + etManifiesta.getText().toString());
                             canvas.endText();
                             canvas.restoreState();
                         }
