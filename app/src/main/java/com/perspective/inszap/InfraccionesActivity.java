@@ -7782,11 +7782,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         if(id == 4)
 					        txt = Justificar.justifocarTexto1("                                                            " + etSeleccion.getText().toString() + " " + competencias1 + "En atención a " + spPeticion.getSelectedItem().toString().trim() , 135);
                         else
-<<<<<<< HEAD
                             txt = Justificar.justifocarTexto1("                                                                    Al momento de la inspeccion y en atención a " + spPeticion.getSelectedItem().toString() + ", " + etSeleccion.getText().toString() + " " + competencias1, 135);
-=======
-                            txt = Justificar.justifocarTexto1("                                                                  Al momento de la inspeccion y en atención a " + spPeticion.getSelectedItem().toString().toLowerCase() + ", " + etSeleccion.getText().toString().toLowerCase() + " " + competencias1.toLowerCase(), 145);
->>>>>>> 8640ec152b3cf1ce5e9398d3a3a5404d699473f6
                         int li = 0;
 
                         li = 663;
@@ -7844,18 +7840,15 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
                         //ARTICULOS FACULTATIVOS MEDIDAS PRECAUTORIAS
-<<<<<<< HEAD
 					    txt = Justificar.justifocarTexto1("                                                                                         " + etArticulo.getText().toString(), 170);
 					    if(id==4)
 					        li = 420;
 					    else
                             li = 410;
-=======
 					    txt = Justificar.justifocarTexto1("                                                                                         " + etArticulo.getText().toString(), 135);
 
 					    li = 420;
 
->>>>>>> 8640ec152b3cf1ce5e9398d3a3a5404d699473f6
 					    
 					    for (int i = 0; i < txt.length; i++) {
 					    	canvas.saveState();
@@ -7870,7 +7863,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					        li-=10;
 						}
 
-<<<<<<< HEAD
+
 					    if(id==4) {
                             canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -7890,7 +7883,6 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             canvas.endText();
                             canvas.restoreState();
                         }
-=======
 					    //EL VISITADO MANIFIESTA
 					    canvas.saveState();
 					    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -7911,7 +7903,6 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         canvas.showText(hr + " ");
                         canvas.endText();
                         canvas.restoreState();
->>>>>>> 8640ec152b3cf1ce5e9398d3a3a5404d699473f6
 
 
 
