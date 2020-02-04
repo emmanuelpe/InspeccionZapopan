@@ -1093,7 +1093,7 @@
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_marginTop="20dp"
-								android:text="Lugar donde se actua"
+								android:text="Me constituyo en"
 								android:layout_gravity="center"
 								style="@style/Subtitle"
 								/>
@@ -1102,7 +1102,7 @@
 								android:id="@+id/etDondeActua"
 								android:layout_width="wrap_content"
 								android:layout_height="70dp"
-								android:hint="Lugar donde se actua"
+								android:hint="Me constituyo en"
 								android:layout_toRightOf="@id/tvDondeActua"
 								android:inputType="textCapSentences"
 								android:imeOptions="actionNext"/>

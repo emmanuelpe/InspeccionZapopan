@@ -2409,6 +2409,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         	
         	tvNombreComercial.setText(getResources().getString(R.string.donde_ubica));
         	etNombreComercial.setHint(getResources().getString(R.string.donde_ubica));
+
+        	tvNombreComercial.setVisibility(View.GONE);
+            etNombreComercial.setVisibility(View.GONE);
         	
         	
         	adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, cmedida);
@@ -3179,11 +3182,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						toast.setGravity(0, 0, 15);
 						toast.show();
 
-						if(foto == 0) {
+						/*if(foto == 0) {
                             toast = Toast.makeText(getApplicationContext(), "No ah tomado evidencia fotografica", Toast.LENGTH_LONG);
                             toast.setGravity(0, 0, 15);
                             toast.show();
-                        }
+                        }*/
 						deshabilitar();
 					}else {
 						Toast toast = Toast.makeText(getApplicationContext(), "EL CAMPO INFRACCION ESTA VACIO", Toast.LENGTH_LONG);
@@ -4788,6 +4791,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    		sb.append("Ingrese los dias de plazo. \n");
 	    		valid = false;
 	    	}
+	    	if(foto == 0) {
+                sb.append("Fatlta tomar Fotografia. \n");
+                valid = false;
+            }
             if(!cbDatos.isChecked()) {
                 if (validarCampos(this.etNombreV)) {
                     sb.append("Ingrese en nombre del visitado. \n");
@@ -6021,6 +6028,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 etCondominio.setVisibility(View.GONE);
                 tvCondominio.setVisibility(View.GONE);
                 tvPropietario.setText("NOMBRE Y/O RAZON SOCIAL");
+                llplazo.setVisibility(View.GONE);
             }
             if(id == 3) {
                 tvReg.setVisibility(View.GONE);
@@ -7435,7 +7443,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(330, 770);
+                            canvas.moveText(130, 789);
                             canvas.showText(etDondeActua.getText().toString());
                             canvas.endText();
                             canvas.restoreState();
@@ -7551,6 +7559,28 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             canvas.setFontAndSize(bf, 9);
                             canvas.moveText(495, 751);
                             canvas.showText(etNoI.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
+
+                        if(id == 2) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(50, 741);
+                            canvas.showText("Enero");
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
+
+                        if(id == 2) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(150, 741);
+                            canvas.showText("20");
                             canvas.endText();
                             canvas.restoreState();
                         }
