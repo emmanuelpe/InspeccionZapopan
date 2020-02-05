@@ -1093,7 +1093,7 @@
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_marginTop="20dp"
-								android:text="Lugar donde se actua"
+								android:text="Me constituyo en"
 								android:layout_gravity="center"
 								style="@style/Subtitle"
 								/>
@@ -1102,7 +1102,7 @@
 								android:id="@+id/etDondeActua"
 								android:layout_width="wrap_content"
 								android:layout_height="70dp"
-								android:hint="Lugar donde se actua"
+								android:hint="Me constituyo en"
 								android:layout_toRightOf="@id/tvDondeActua"
 								android:inputType="textCapSentences"
 								android:imeOptions="actionNext"/>
@@ -2200,26 +2200,35 @@
 									android:layout_height="wrap_content"
 									android:layout_below="@id/tvMedidaSeguridad"/>
 
+								<EditText
+									android:id="@+id/etMedida"
+									android:layout_width="fill_parent"
+									android:layout_height="140dp"
+									android:hint="@string/medida"
+									android:layout_below="@id/spMedida"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="true"/>
+
+								<EditText
+									android:id="@+id/etNumeroSellos"
+									android:layout_width="fill_parent"
+									android:layout_height="140dp"
+									android:hint="Numero de sellos"
+									android:layout_below="@id/etMedida"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="true"
+									android:visibility="gone"/>
+
 								<LinearLayout
 									android:id="@+id/llfundamento"
 									android:layout_width="fill_parent"
 									android:layout_height="wrap_content"
 									android:gravity="center"
 									android:layout_gravity="center_vertical"
-									android:layout_below="@id/spMedida"
+									android:layout_below="@id/etNumeroSellos"
 									android:orientation="vertical">
 
 								</LinearLayout>
-			    		
-			    		
-								<EditText 
-									android:id="@+id/etMedida"
-									android:layout_width="fill_parent"
-									android:layout_height="140dp"
-									android:hint="@string/medida"
-									android:layout_below="@id/llfundamento"
-									android:inputType="textMultiLine|textCapSentences"
-									android:enabled="true"/>
 							
 								<!-- <TextView 
 							    	android:id="@+id/tvArticulos"
@@ -2475,7 +2484,7 @@
 						    android:layout_marginTop="5dp"
 						    android:layout_marginBottom="5dp"
 						    style="@style/Subtitle"
-						    android:visibility="visible"/>
+						    android:visibility="gone"/>
 					
 					<TextView
 						android:layout_width="fill_parent"
