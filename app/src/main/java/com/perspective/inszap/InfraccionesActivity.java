@@ -2415,7 +2415,6 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         	
         	
         	adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, cmedida);
-        	etNombreComercial.setVisibility(View.VISIBLE);
         	spMedida.setAdapter(adapter);
         }
         
@@ -4840,7 +4839,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             }
             if(id == 2) {
                 if (validarCampos(this.etDondeActua)) {
-                    sb.append("Ingrese lugar donde se actua \n");
+                    sb.append("Ingrese me constituyo \n");
                     valid = false;
                 }
                 if (validarCampos(this.etGiro)) {
@@ -6028,7 +6027,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 etCondominio.setVisibility(View.GONE);
                 tvCondominio.setVisibility(View.GONE);
                 tvPropietario.setText("NOMBRE Y/O RAZON SOCIAL");
-                llplazo.setVisibility(View.GONE);
+                llPla.setVisibility(View.GONE);
             }
             if(id == 3) {
                 tvReg.setVisibility(View.GONE);
@@ -7443,7 +7442,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(130, 789);
+                            canvas.moveText(165, 789);
                             canvas.showText(etDondeActua.getText().toString());
                             canvas.endText();
                             canvas.restoreState();
@@ -7568,7 +7567,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(50, 741);
+                            canvas.moveText(65, 741);
                             canvas.showText("Enero");
                             canvas.endText();
                             canvas.restoreState();
@@ -7579,7 +7578,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(150, 741);
+                            canvas.moveText(165, 741);
                             canvas.showText("20");
                             canvas.endText();
                             canvas.restoreState();
