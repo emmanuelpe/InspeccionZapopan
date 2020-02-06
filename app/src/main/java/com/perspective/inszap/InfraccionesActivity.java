@@ -607,7 +607,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         tvUso.setTypeface(helvetica);
         //btnver16.setTypeface(helvetica);
         
-        if(id == 2) {
+        if(id == 2 | id == 5) {
         	etAlicencia.setVisibility(View.GONE);
         	tvALicencia.setVisibility(View.GONE);
         }
@@ -671,7 +671,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             //this.rbHechos.setVisibility(View.VISIBLE);
         }
 
-        if(id == 2) {
+        if(id == 2 | id == 5) {
             rlLicencias.setVisibility(View.GONE);
             llcomp.setVisibility(View.GONE);
         }
@@ -2417,6 +2417,21 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         	adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, cmedida);
         	spMedida.setAdapter(adapter);
         }
+
+        if(id == 5) {
+            tvMotivo.setText(getResources().getString(R.string.verificar));
+            etMotivo.setHint(getResources().getString(R.string.verificar));
+
+            tvNombreComercial.setText(getResources().getString(R.string.donde_ubica));
+            etNombreComercial.setHint(getResources().getString(R.string.donde_ubica));
+
+            tvNombreComercial.setVisibility(View.GONE);
+            etNombreComercial.setVisibility(View.GONE);
+
+
+            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, cmedida);
+            spMedida.setAdapter(adapter);
+        }
         
         if(id == 3) {
         	tvCondominio.setText(getResources().getString(R.string.coto) + " o Mercado Tianguis");
@@ -2442,7 +2457,6 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             etMedida.setVisibility(View.VISIBLE);
             etArticulo.setVisibility(View.GONE);
         }
-        
         if(!reglamento.isEmpty()) {
         	iComp = new int [reglamento.size() - 1];
         	comp = new String [reglamento.size() - 1];
@@ -2584,7 +2598,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     etMotivo.setText("Inspeccionar físicamente que los trabajos o urbanización en proceso, cuenten y presenten los permisos correspondientes como son: ");
                     llplazo.setVisibility(View.VISIBLE);
                 }
-                if(id == 2) {
+                if(id == 2 | id == 5) {
                     llNota.setVisibility(View.GONE);
                     tvCondominio.setVisibility(View.GONE);
                     etCondominio.setVisibility(View.GONE);
@@ -2641,7 +2655,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     spPeticion.setVisibility(View.GONE);
                     tvReg.setVisibility(View.GONE);
                 }
-                if(id == 2) {
+                if(id == 2 | id == 5) {
                     tvReg.setVisibility(View.GONE);
                     etManifiesta.setText("Se reserva el derecho");
                 }
@@ -3958,7 +3972,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarDB.getReadableDatabase();
         if(db != null) {
-            String sql = "select * from c_medida_precautoria where id_c_direccion = " + id;
+            String sql;
+            if(id == 5)
+                sql = "select * from c_medida_precautoria where id_c_direccion = " + 2;
+            else
+                sql = "select * from c_medida_precautoria where id_c_direccion = " + id;
             System.err.println(sql);
             Cursor cursor = db.rawQuery(sql, null);
             try {
@@ -4136,7 +4154,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	SQLiteDatabase db = gestionarDB.getReadableDatabase();
     	if (db != null) {
     		System.err.println(" visitado m ");
-    		String sql = "select * from C_visitado_manifiesta where id_c_direccion = " + id + " order by manifiesta";
+            String sql;
+    		if(id == 5)
+    		    sql = "select * from C_visitado_manifiesta where id_c_direccion = " + 2 + " order by manifiesta";
+    		else
+                sql = "select * from C_visitado_manifiesta where id_c_direccion = " + id + " order by manifiesta";
     		Log.i("sql manidiesta ",sql);
     		//Cursor c = db.query("C_visitado_manifiesta", null, "id_c_direccion = " + id, null, null, null, "manifiesta");
             Cursor c = db.rawQuery(sql,null);
@@ -5133,11 +5155,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	SQLiteDatabase db = gestionarBD.getReadableDatabase();
     	Cursor c;
     	try{
-    		if(id != 2) {
+    		if(id == 1| id== 3) {
     			Log.i("consulta", "select * from C_infraccion where id_c_direccion = '" + id + "' and trim(vigente) = 'S'  order by infraccion");
     			c = db.rawQuery("select * from C_infraccion where id_c_direccion = '" + id + "' and trim(vigente) = 'S'  order by infraccion", null);
     			//c = db.rawQuery("select * from C_infraccion where id_c_direccion = '" + id + "' order by infraccion", null);
-    		}
+    		} else if(id == 5) {
+                Log.i("consulta", "select * from C_infraccion where id_c_direccion = '" + 2+ "' and trim(vigente) = 'S' order by id_c_infraccion");
+                c = db.rawQuery("select * from C_infraccion where id_c_direccion = '" + 2 + "' and trim(vigente) = 'S' order by infraccion", null);
+            }
     		else {
     			Log.i("consulta", "select * from C_infraccion where id_c_direccion = '" + id + "' and trim(vigente) = 'S' order by id_c_infraccion");
     			c = db.rawQuery("select * from C_infraccion where id_c_direccion = '" + id + "' and trim(vigente) = 'S' order by infraccion", null);
@@ -5587,10 +5612,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    		medidas(cam);
 	    		adapter.notifyDataSetChanged();
     		}
-    		if(id == 2) {
+    		if(id == 2 | id == 5) {
 	    		medidas(cam);
 	    		adapter.notifyDataSetChanged();
     		}
+
     		String sql = "select competencia,ordenamiento from c_ordenamiento where campo = '" + cam + "' and id_c_direccion = " + id;
     		System.err.println(sql);
     		c = db.rawQuery(sql, null);
@@ -5936,7 +5962,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 tvReg.setVisibility(View.GONE);
                 llfundamento.setVisibility(View.GONE);
             }
-			if(id == 2) {
+			if(id == 2 | id == 5) {
                 tvReg.setVisibility(View.GONE);
                 llfundamento.setVisibility(View.GONE);
                 etCondominio.setVisibility(View.GONE);
@@ -6012,7 +6038,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 llcomp.setVisibility(View.GONE);
                 tvReg.setVisibility(View.GONE);
             }
-            if(id == 2) {
+            if(id == 2 | id == 5) {
                 llNota.setVisibility(View.GONE);
                 tvCondominio.setVisibility(View.GONE);
                 etCondominio.setVisibility(View.GONE);
@@ -7867,11 +7893,28 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
 					    //ARTICULOS FACULTATIVOS HECHOS
-					    txt = Justificar.justifocarTexto1("                                                                                                   " + etInfraccion.getText().toString(), 145);
+					    txt = Justificar.justifocarTexto1(etInfraccion.getText().toString(), 70);
 
-					    li = 505;
+                        canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(270, 505);
+                        canvas.showText(txt[0]);
+                        canvas.endText();
+                        canvas.restoreState();
+
+					    li = 495;
+					    String str = "";
 					    
 					    for (int i = 0; i < txt.length; i++) {
+					        if(i > 0)
+					            str += txt[i];
+						}
+
+					    txt = Justificar.justifocarTexto1(str,145);
+
+                        for (int i = 0; i < txt.length; i++) {
 					    	canvas.saveState();
 					        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 					        canvas.beginText();
@@ -7880,15 +7923,33 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					        canvas.showText(txt[i]);
 					        canvas.endText();
 					        canvas.restoreState();
-					        
+
 					        li-=10;
-						}
+                        }
 
 
 					    //MEDIDAS PRECAUTORIAS
-					    txt = Justificar.justifocarTexto1("                                                                   "+etMedida.getText().toString().trim() + " " + etNumeroSellos.getText().toString().trim(), 170);
+					    txt = Justificar.justifocarTexto1(etMedida.getText().toString().trim() + " " + etNumeroSellos.getText().toString().trim(), 65);
 
-					    li = 455;
+                        canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(190, 455);
+                        canvas.showText(txt[0]);
+                        canvas.endText();
+                        canvas.restoreState();
+
+                        str = "";
+
+                        for (int i = 0; i < txt.length; i++) {
+                            if(i > 0)
+                                str += txt[i];
+                        }
+
+                        txt = Justificar.justifocarTexto1(str,145);
+
+					    li = 445;
 					    
 					    for (int i = 0; i < txt.length; i++) {
 					    	canvas.saveState();
@@ -7905,14 +7966,32 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
                         //ARTICULOS FACULTATIVOS MEDIDAS PRECAUTORIAS
-					    txt = Justificar.justifocarTexto1("                                                                                           " + etArticulo.getText().toString(), 170);
+					    txt = Justificar.justifocarTexto1( etArticulo.getText().toString(), 80);
 					    if(id==4)
-					        li = 420;
+                            li = 420;
 					    else
                             li = 410;
-					    txt = Justificar.justifocarTexto1("                                                                                         " + etArticulo.getText().toString(), 135);
+					    txt = Justificar.justifocarTexto1(etArticulo.getText().toString(), 75);
 
-					    li = 420;
+					    canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(250, 420);
+                        canvas.showText(txt[0]);
+                        canvas.endText();
+                        canvas.restoreState();
+
+                        str = "";
+
+                        for (int i = 0; i < txt.length; i++) {
+                            if(i > 0)
+                                str += txt[i];
+                        }
+
+                        txt = Justificar.justifocarTexto1(str,145);
+
+					    li = 410;
 
 					    
 					    for (int i = 0; i < txt.length; i++) {
@@ -8590,13 +8669,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					System.err.println(e.getMessage() + " doc ");
 				} catch (IOException e) {
                     System.err.println(e.getMessage() + " IOE ");
-                } catch (Exception e) {
+                } /*catch (Exception e) {
 					Toast toast  = Toast.makeText(getApplicationContext(), "Verificar los datos que esten completos", Toast.LENGTH_LONG);
 					toast.setGravity(0, 0, 15);
 					toast.show();
 					Log.e("Error al abrir", e.getMessage() + " c ");
 					System.err.println(e.getMessage() + " n ");
-				}
+				}*/
             } else if(formato.equalsIgnoreCase("citatorio")) {
 			
 			Paragraph p;
@@ -12069,18 +12148,30 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		SQLiteDatabase db = gestionar.getReadableDatabase();
 		Cursor cursor;
 		if(TextUtils.isEmpty(search)) {
-            cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE 1=1 and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
-            Log.e("sql","SELECT * FROM c_infraccion WHERE 1=1 and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ");
+		    if(id == 5) {
+                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE 1=1 and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ", null);
+                Log.e("sql", "SELECT * FROM c_infraccion WHERE 1=1 and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ");
+            } else {
+                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE 1=1 and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
+                Log.e("sql", "SELECT * FROM c_infraccion WHERE 1=1 and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ");
+            }
 		}
 		else {
 		   /* if(isNumeric(search.trim()))
                 cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE (id_c_infraccion = " + search + ") and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
 		    else*/
                 //cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE (infraccion  LIKE '%" + search + "%') and id_c_direccion = '" + id + "' AND vigente = 'S' COLLATE NOACCENTS order by infraccion; ", null);
-            cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " +
-                    "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%"+search+"%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
-                Log.e("sql","SELECT * FROM c_infraccion WHERE REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') = " +
-                        "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('"+search+"'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ");
+            if(id == 5) {
+                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " +
+                        "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ", null);
+                Log.e("sql", "SELECT * FROM c_infraccion WHERE REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') = " +
+                        "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('" + search + "'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ");
+            } else {
+                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " +
+                        "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
+                Log.e("sql", "SELECT * FROM c_infraccion WHERE REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') = " +
+                        "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('" + search + "'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ");
+            }
         }
 
 		if(cursor.moveToFirst()){
@@ -12346,10 +12437,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			break;
 			
 		case R.id.spMedida:
-		    boolean res = false;
+            Log.e("medida","aqio con " + id);
 			if(!spMedida.getSelectedItem().toString().trim().equalsIgnoreCase("")) {
 				medidas1 = "";
-				if(id == 2) {
+
+				if(id == 2 | id == 5) {
+				    Log.e("medida","aqio con 5");
 					etMedida.setText(spMedida.getSelectedItem().toString().trim());
 					etArticulo.setText(art.get(spMedida.getSelectedItemPosition()).trim() + " del " + orden.get(spMedida.getSelectedItemPosition()).trim());
 				}
