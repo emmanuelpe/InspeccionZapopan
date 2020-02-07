@@ -7505,7 +7505,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
                 //MEDIDAS PRECAUTORIAS
-                txt = Justificar.justifocarTexto1(etMedida.getText().toString().trim() + " " + etNumeroSellos.getText().toString().trim(), 65);
+                txt = Justificar.justifocarTexto1(etMedida.getText().toString().trim(), 65);
 
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
