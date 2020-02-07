@@ -103,7 +103,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 	private Button btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
 	private TextView tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario;
-	private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",fracciones = "",articulos = "";
+	private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",fracciones = "",articulos = "",folio = "",clave = "";
 	private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:"; 
 	private int mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0;
 	private Spinner spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4;
@@ -4100,7 +4100,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
     	SQLiteDatabase db = gestionarDB.getReadableDatabase();
     	if(db != null) {
-    		Cursor cursor = db.rawQuery("select * from C_ordenamiento where id_c_direccion = " + id, null);
+            Cursor cursor;
+    	    if(id==5)
+    	        cursor = db.rawQuery("select * from C_ordenamiento where id_c_direccion = " + 2, null);
+    	    else
+                cursor = db.rawQuery("select * from C_ordenamiento where id_c_direccion = " + id, null);
     		try {
 				if(cursor.moveToFirst()) {
 					reglamento.add("");
@@ -4785,7 +4789,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 sb.append("Ingrese la calle. \n");
                 valid = false;
             }
-            if (this.id != 4 & id != 2) {
+            if (this.id == 3) {
                 if (validarCampos(this.etPropietario)) {
                     sb.append("Ingrese el propietario o razón social.\n");
                     valid = false;
@@ -5211,6 +5215,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				do {
 					id_i1.add(c.getInt(0));
 					ifeI = c.getString(2);
+					clave = c.getString(c.getColumnIndex("clave"));
+					folio = c.getString(c.getColumnIndex("folio"));
     				noI = c.getString(c.getColumnIndex("no_empleado"));
     				vigI = c.getString(c.getColumnIndex("vigencia"));
 					Log.i("id", c.getInt(0) + "");
@@ -5330,6 +5336,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     				ifeI = c.getString(2);
     				noI = c.getString(c.getColumnIndex("no_empleado"));
     				vigI = c.getString(c.getColumnIndex("vigencia"));
+                    clave = c.getString(c.getColumnIndex("clave"));
+                    folio = c.getString(c.getColumnIndex("folio"));
     				Log.i("inspector", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
     			}while(c.moveToNext());
     			c.close();
@@ -5617,7 +5625,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    		adapter.notifyDataSetChanged();
     		}
 
-    		String sql = "select competencia,ordenamiento from c_ordenamiento where campo = '" + cam + "' and id_c_direccion = " + id;
+    		String sql;
+    		if(id == 5)
+    		    sql= "select competencia,ordenamiento from c_ordenamiento where campo = '" + cam + "' and id_c_direccion = " + 2;
+    		else
+                sql= "select competencia,ordenamiento from c_ordenamiento where campo = '" + cam + "' and id_c_direccion = " + id;
     		System.err.println(sql);
     		c = db.rawQuery(sql, null);
     		if(c.moveToFirst()) {
@@ -5643,7 +5655,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
     	SQLiteDatabase db = gestionarBD.getReadableDatabase();
     	try{
-    	Cursor c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE id_c_direccion = " + id, null);
+            Cursor c;
+            if(id == 5)
+                c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE id_c_direccion = " + 2, null);
+            else
+                c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE id_c_direccion = " + id, null);
+
     	Log.i("que", "SELECT * FROM C_Ordenamiento WHERE id_c_direccion = " + id);
     	if(c.moveToFirst()){
     		Log.i("no", "no");
@@ -5669,9 +5686,16 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    	for (int i = 0; i < campo.size(); i++) {
 				
 	    		try{
-			    	Cursor c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) + "' and id_c_direccion = '" + id + "'", null);
-			    	Log.i("quer", "SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) + "' and id_c_direccion = '" + id + "'");
-			    	Log.i("i", i + "");
+                    Cursor c;
+	    		    if(id == 5) {
+	    		        c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) + "' and id_c_direccion = '" + 2 + "'", null);
+                        Log.i("quer", "SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) + "' and id_c_direccion = '" + 2 + "'");
+                        Log.i("i", i + "");
+                    } else {
+                        c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) + "' and id_c_direccion = '" + id + "'", null);
+                        Log.i("quer", "SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) + "' and id_c_direccion = '" + id + "'");
+                        Log.i("i", i + "");
+                    }
 			    	if(c.moveToFirst()){
 			    		do{
 			    			if (i == 0)
@@ -5811,7 +5835,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		try {
 			if(db != null){
 				//Cursor c = db.query("C_zonas", null, "id_c_zonas", null, null, null, null);
-				Cursor c = db.rawQuery("SELECT * FROM C_zonas WHERE id_c_direccion = '" + id_c + "'", null);
+                Cursor c;
+                if(id == 5)
+                    c = db.rawQuery("SELECT * FROM C_zonas WHERE id_c_direccion = '" + 2 + "'", null);
+                else
+                    c = db.rawQuery("SELECT * FROM C_zonas WHERE id_c_direccion = '" + id_c + "'", null);
 				if(c.moveToFirst()){
 					do{
 						zona.add(c.getString(2) + "     " + c.getString(3));
@@ -6457,7 +6485,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	SQLiteDatabase db = gestionarDB.getReadableDatabase();
     	
     	if(db != null) {
-    		Cursor cursor = db.rawQuery("select * from c_ordenamiento where id_c_ordenamiento = '" + idCompetencia +"'", null);
+            Cursor cursor;
+    	        cursor = db.rawQuery("select * from c_ordenamiento where id_c_ordenamiento = '" + idCompetencia +"'", null);
+
     		if(cursor.moveToFirst()) {
     			do {
 					competencias = cursor.getString(cursor.getColumnIndex("competencia"));
@@ -7424,7 +7454,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        canvas.setFontAndSize(bf, 9);
 				       // canvas.moveText(360, 825);
                         canvas.moveText(360, 828);
-				        canvas.showText(etNoI.getText().toString());
+				        canvas.showText(clave);
 				        canvas.endText();
 				        canvas.restoreState();
 
@@ -7574,7 +7604,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
                             canvas.moveText(295, 751);
-                            canvas.showText(etNoI.getText().toString());
+                            canvas.showText(folio);
                             canvas.endText();
                             canvas.restoreState();
                         } else {
@@ -7583,7 +7613,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
                             canvas.moveText(495, 751);
-                            canvas.showText(etNoI.getText().toString());
+                            canvas.showText(folio);
                             canvas.endText();
                             canvas.restoreState();
                         }
@@ -12823,7 +12853,11 @@ Por recibida el Acta número ____________________________________ por la cual s
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarBD.getReadableDatabase();
         try{
-            Cursor c = db.rawQuery("SELECT competencia FROM c_ordenamiento where id_c_direccion = " + id, null);
+            Cursor c;
+                    if(id==5)
+                        c = db.rawQuery("SELECT competencia FROM c_ordenamiento where id_c_direccion = " + 2, null);
+                    else
+                        c = db.rawQuery("SELECT competencia FROM c_ordenamiento where id_c_direccion = " + id, null);
             Log.i("que", "SELECT competencia FROM c_ordenamiento where id_c_direccion = " + id + " order by id_c_ordenamiento limit 1");
             if(c.moveToFirst()){
                 Log.i("no", "no");
