@@ -65,7 +65,60 @@ public class Justificar {
 
 		return arrayCadenaC;
 	}
-	
+
+
+	public static String[] justifocarTextol(String txt, int c) {
+
+		String[] arrayCadenaO = txt.split(" ");
+		String [] arrayCadenaC = new String[1];
+		String Auxiliar = "";
+		int i = 0;
+		//for (int x=0; x<arrayCadenaO.length; x++)
+		int x = 0;
+
+		while(x < arrayCadenaO.length) {
+			if (x > 0 && i > 0){
+				String[] temp_arrayCadenaC = new String[i + 1];
+				System.arraycopy(arrayCadenaC, 0, temp_arrayCadenaC, 0, arrayCadenaC.length);
+				arrayCadenaC =  temp_arrayCadenaC;
+			}
+			try {
+				if  (((Auxiliar + " " +  arrayCadenaO[x]).length() <= c)   ) {  //&&  arrayCadenaO.[x] != " "
+					Auxiliar =   Auxiliar  +  arrayCadenaO[x] + " ";
+					x++;
+					//System.out.println(" x = " + x + "  ArrayL " + arrayCadenaO.length + " Auxiliar  " + Auxiliar.length());
+					if ((x == arrayCadenaO.length) &&( Auxiliar.length() > 0))
+						arrayCadenaC[i] =   Auxiliar.substring(0, Auxiliar.length()-1);
+				}
+				else  {
+
+					arrayCadenaC[i] = Auxiliar.substring(0, Auxiliar.length()-1);
+					i++;
+
+					//System.out.println(Auxiliar);
+					Auxiliar = "";
+					// x--;
+				}
+			}catch (StringIndexOutOfBoundsException e) {
+				Log.e("exception", e.getMessage());
+			}
+
+		}
+
+		String lineas = "";
+		int longitud;
+		for (int yy=0; yy<arrayCadenaC.length; yy++) {
+			lineas = "--";
+			longitud = arrayCadenaC[yy].length() + 2;
+			while(longitud <= c) {
+				lineas = " -";
+				arrayCadenaC[yy] = arrayCadenaC[yy] + lineas;
+				longitud = arrayCadenaC[yy].length() + 2;
+			}
+		}
+
+		return arrayCadenaC;
+	}
 	
 	public static String[] justifocarTexto1(String txt,int caracter) {
 		
