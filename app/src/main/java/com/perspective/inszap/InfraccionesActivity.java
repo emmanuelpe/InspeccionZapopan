@@ -5983,6 +5983,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 tvPropietario.setVisibility(View.GONE);
                 llfundamento.setVisibility(View.VISIBLE);
                 tvReg.setVisibility(View.GONE);
+                llcomp.setVisibility(View.GONE);
             }
 			if(id == 3) {
 			    tvPeticion.setVisibility(View.GONE);
