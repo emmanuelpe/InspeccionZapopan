@@ -7940,7 +7940,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
 					    //ARTICULOS FACULTATIVOS HECHOS
-					    txt = Justificar.justifocarTexto1(etInfraccion.getText().toString(), 70);
+					    txt = Justificar.justifocarTexto1(etInfraccion.getText().toString(), 80);
 
                         canvas.saveState();
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -7976,7 +7976,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
 					    //MEDIDAS PRECAUTORIAS
-					    txt = Justificar.justifocarTexto1(etMedida.getText().toString().trim() + " " + etNumeroSellos.getText().toString().trim(), 65);
+					    txt = Justificar.justifocarTexto1(etMedida.getText().toString().trim() + " " + etNumeroSellos.getText().toString().trim(), 75);
 
                         canvas.saveState();
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -8013,12 +8013,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
                         //ARTICULOS FACULTATIVOS MEDIDAS PRECAUTORIAS
-					    txt = Justificar.justifocarTexto1( etArticulo.getText().toString(), 80);
+					    txt = Justificar.justifocarTexto1( etArticulo.getText().toString(), 90);
 					    if(id==4)
                             li = 420;
 					    else
                             li = 410;
-					    txt = Justificar.justifocarTexto1(etArticulo.getText().toString(), 75);
+					    txt = Justificar.justifocarTexto1(etArticulo.getText().toString(), 85);
 
 					    canvas.saveState();
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -12595,9 +12595,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     		if(c.moveToFirst()){
     			do{
     				if(sp.getId() == R.id.spInspectorT) {
-    					idT = c.getString(2);
+    					idT = c.getString(c.getColumnIndex("folio"));
     				} else {
-    					idT1 = c.getString(2);
+    					idT1 = c.getString(c.getColumnIndex("folio"));
     				}
     				/*ifeA = c.getString(2);
     				noA = c.getString(c.getColumnIndex("no_empleado"));

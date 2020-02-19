@@ -1058,6 +1058,11 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 				eliminaRegistros("concepto_ov");
 				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/get_concepto_ov.php"/*"http://pgt.no-ip.biz/serverSQL/getc_zonas.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "concepto_ov");
 			}
+
+			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getcmeconstitui.php").trim().equalsIgnoreCase("null")) {
+				eliminaRegistros("c_me_constitui");
+				c.insetarRegistros("http://10.10.23.54/infracciones/serverSQL/getcmeconstitui.php"/*"http://pgt.no-ip.biz/serverSQL/getc_zonas.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "c_me_constitui");
+			}
 			mProgressBar.setProgress(i);
 			i++;
 			if (!c.search("http://10.10.23.54/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {

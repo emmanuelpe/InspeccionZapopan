@@ -859,13 +859,29 @@
                             style="@style/Div"/>
 
                         <TextView
+                            android:id="@+id/tvMeConstituye"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:text="Me Constitui fisica y legalmente"
+                            android:gravity="center"
+                            android:layout_below="@+id/tvUbicacion"
+                            style="@style/Subtitle"/>
+
+                        <Spinner
+                            android:id="@+id/spMeConstitui"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvMeConstituye"/>
+
+                        <TextView
                             android:id="@+id/tvNombreCalle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:text="@string/calle"
                             android:layout_gravity="center"
-                            android:layout_below="@+id/tvUbicacion"
+                            android:layout_below="@+id/spMeConstitui"
                             style="@style/Subtitle"/>
 
                         <EditText
@@ -875,7 +891,7 @@
                             android:hint="@string/calle"
                             android:layout_toRightOf="@id/tvNombreCalle"
                             android:inputType="textCapSentences"
-                            android:layout_below="@+id/tvUbicacion"
+                            android:layout_below="@+id/spMeConstitui"
                             android:imeOptions="actionNext"/>
 
                         <TextView
@@ -884,7 +900,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:text="@string/numeroc"
-                            android:layout_below="@+id/tvUbicacion"
+                            android:layout_below="@+id/spMeConstitui"
                             android:layout_toRightOf="@id/etcalle"
                             android:layout_gravity="center"
                             style="@style/Subtitle"/>
@@ -895,7 +911,7 @@
                             android:layout_height="70dp"
                             android:hint="@string/numeroc"
                             android:layout_toRightOf="@id/tvNumeroCalle"
-                            android:layout_below="@+id/tvUbicacion"
+                            android:layout_below="@+id/spMeConstitui"
                             android:inputType="textCapSentences"
                             android:imeOptions="actionNext"/>
 
@@ -906,7 +922,7 @@
                             android:layout_marginTop="20dp"
                             android:text="@string/numero_interior"
                             android:layout_toRightOf="@id/etnumerocalle"
-                            android:layout_below="@+id/tvUbicacion"
+                            android:layout_below="@+id/spMeConstitui"
                             android:layout_gravity="center"
                             style="@style/Subtitle"/>
 
@@ -916,7 +932,7 @@
                             android:layout_height="70dp"
                             android:hint="@string/numero_interior"
                             android:layout_toRightOf="@id/tvNumeroInt"
-                            android:layout_below="@+id/tvUbicacion"
+                            android:layout_below="@+id/spMeConstitui"
                             android:inputType="textCapSentences"
                             android:layout_alignParentRight="true"
                             android:imeOptions="actionNext"/>
@@ -961,11 +977,32 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tvCoordenada"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Coordenadas"
+                            android:layout_below="@id/llEntre"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="5dp"
+                            android:gravity="center"
+                            style="@style/Subtitle"
+                            android:visibility="visible"/>
+
+                        <EditText
+                            android:id="@+id/etCordenada"
+                            android:hint="Coordenadas"
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:inputType="textCapSentences"
+                            android:imeOptions="actionNext"
+                            android:layout_below="@id/tvCoordenada"/>
+
+                        <TextView
                             android:id="@+id/tvSPoblacion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/poblacion"
-                            android:layout_below="@id/llEntre"
+                            android:layout_below="@id/etCordenada"
                             android:layout_marginTop="20dp"
                             android:layout_marginLeft="5dp"
                             style="@style/Subtitle"

@@ -325,6 +325,20 @@ public class MainActivity extends Activity {
 			}
 		} else
 			System.out.println("true");
+
+		if(!isTableExists("c_me_constitui")) {
+			System.out.println("false");
+
+			try {
+				GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+				SQLiteDatabase db1 = gestionBD.getReadableDatabase();
+				db1.execSQL("create table c_me_constitui(id_c_me_constitui integer PRIMARY KEY AUTOINCREMENT,me_constitui TEXT)");
+				System.out.println("false");
+			} catch(SQLiteException e) {
+				System.err.println(e.getMessage());
+			}
+		} else
+			System.out.println("true");
 		
 		if(registros("c_virtud") == 0) {
 			System.out.println("insert");

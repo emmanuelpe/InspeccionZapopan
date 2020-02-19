@@ -102,10 +102,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "",clave = "",folio = "";
     private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:";
     private int mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0;
-    private Spinner spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4;
-    private EditText etNum,etFecham,etfecha,etDiaPlazo,etIfeI,etNoI,etVigI,etIfeA,etIfeA1,etIfeA2,etIfeA3,etIfeA4,etNoA,etNoA1,etNoA2,etNoA3,etNoA4,etVigA,etVigA1,etVigA2,etVigA3,etVigA4,etNombreT,etIfeT,etDesc,etDesc1,etDesc2,etDesc3,etDesc4,etdato,etdato1,etdato2,etdato3,etdato4,desf,desf1,desf2,etNombreV,etFraccionamiento,etCalle,etNumero,etPropietario,etNombreT1,etIfeT2,etManifiesta,etNuemroInterior,etApellidoP,etApellidoM,etCitatorio,etNumeroActa,etEspecificacion,etDFoto,etDFoto1,etDFoto2,etDFoto3,etVManifiesta,etVIdentifica,etLatitud,etLongitud,etAnoCitatorio,etAnoOrden,etCondominio/*etDensidad*/,etManzana,etLote,etReferencia,etBuscar,etfolio,/*etAlineamiento,*/etConstruccion, etGiro, etMotivo,etOrden1,etEntreC,etEntreC1,etResponsable,etRegistro,etMedida,etArticulo,etInspccionFue,etDFoto4,etDFoto5,etDFoto6,etDFoto7,etDFoto8,etDFoto9,etDFoto10,etDFoto11,etDFoto12,etDFoto13,etDFoto14,etDFoto15,etDFoto16,etDFoto17,etDFoto18,etDFoto19,etLGiro,etAGiro,etAlicencia,etSector,etNombreComercial,etObs,etObs1,etObs2,etObs3,etObs4,etBCol,etOtro,etDondeActua;
-    private LinearLayout lldiv,cons,llNota,llplazo,llreincidencia,llcomp,llconcepto,llPla,rlDonde_actua;
-    private RelativeLayout rlcampo,rlProp,rlTestA,rlVisita,rlLicencias;
+    private Spinner spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spMeConstitui;
+    private EditText etNum,etFecham,etfecha,etDiaPlazo,etIfeI,etNoI,etVigI,etIfeA,etIfeA1,etIfeA2,etIfeA3,etIfeA4,etNoA,etNoA1,etNoA2,etNoA3,etNoA4,etVigA,etVigA1,etVigA2,etVigA3,etVigA4,etNombreT,etIfeT,etDesc,etDesc1,etDesc2,etDesc3,etDesc4,etdato,etdato1,etdato2,etdato3,etdato4,desf,desf1,desf2,etNombreV,etFraccionamiento,etCalle,etNumero,etPropietario,etNombreT1,etIfeT2,etManifiesta,etNuemroInterior,etApellidoP,etApellidoM,etCitatorio,etNumeroActa,etEspecificacion,etDFoto,etDFoto1,etDFoto2,etDFoto3,etVManifiesta,etVIdentifica,etLatitud,etLongitud,etAnoCitatorio,etAnoOrden,etCondominio/*etDensidad*/,etManzana,etLote,etReferencia,etBuscar,etfolio,/*etAlineamiento,*/etConstruccion, etGiro, etMotivo,etOrden1,etEntreC,etEntreC1,etResponsable,etRegistro,etMedida,etArticulo,etInspccionFue,etDFoto4,etDFoto5,etDFoto6,etDFoto7,etDFoto8,etDFoto9,etDFoto10,etDFoto11,etDFoto12,etDFoto13,etDFoto14,etDFoto15,etDFoto16,etDFoto17,etDFoto18,etDFoto19,etLGiro,etAGiro,etAlicencia,etSector,etNombreComercial,etObs,etObs1,etObs2,etObs3,etObs4,etBCol,etOtro,etDondeActua,etCoordenada;
+    private LinearLayout lldiv,cons,llNota,llplazo,llreincidencia,llcomp,llconcepto,llPla;
+    private RelativeLayout rlcampo,rlProp,rlTestA,rlVisita,rlLicencias,rlDonde_actua;
     private RadioGroup /*radiogroup,*/rgReincidencia,rgPopiedad;
     static final int DATE_DIALOG_ID = 0;
     private boolean desc=false,desc1=false,desc2=false,desc3=false,desc4=false,citatorio,inicio = false, res = false,consu = false,resu = false,resov = false,guarda = false;
@@ -173,8 +173,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     public static final String TAG = "BixolonPrinterSample";
     private AlertDialog mSampleDialog;
     private Switch swReincidencia;
-    private ArrayAdapter adapterCol;
-    private List<String> conceptos,articulo,fraccion,unis,unis1,unis2,unis3,unis4;
+    private ArrayAdapter adapterCol,adapterMeC;
+    private List<String> conceptos,articulo,fraccion,unis,unis1,unis2,unis3,unis4,meConstitui;
     private ArrayAdapter adapterUni,adapterUni1,adapterUni2,adapterUni3,adapterUni4;
 
     @Override
@@ -513,17 +513,23 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         rlDonde_actua = findViewById(R.id.rlDonde_actua);
         etDondeActua = findViewById(R.id.etDondeActua);
 
+        spMeConstitui = findViewById(R.id.spMeConstitui);
+        etCoordenada = findViewById(R.id.etCordenada);
+
         unis = new ArrayList<>();
         unis1 = new ArrayList<>();
         unis2 = new ArrayList<>();
         unis3 = new ArrayList<>();
         unis4 = new ArrayList<>();
+        meConstitui = new ArrayList<>();
 
         adapterUni = new ArrayAdapter(getApplicationContext(),R.layout.multiline_spinner_dropdown_item,unis);
         adapterUni1 = new ArrayAdapter(getApplicationContext(),R.layout.multiline_spinner_dropdown_item,unis1);
         adapterUni2 = new ArrayAdapter(getApplicationContext(),R.layout.multiline_spinner_dropdown_item,unis2);
         adapterUni3 = new ArrayAdapter(getApplicationContext(),R.layout.multiline_spinner_dropdown_item,unis3);
         adapterUni4 = new ArrayAdapter(getApplicationContext(),R.layout.multiline_spinner_dropdown_item,unis4);
+        adapterMeC = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,meConstitui);
+        spMeConstitui.setAdapter(adapterMeC);
 
         spuni.setAdapter(adapterUni);
         spuni1.setAdapter(adapterUni1);
@@ -639,6 +645,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         spZona.setOnItemSelectedListener(this);
 
         rgPopiedad.setOnCheckedChangeListener(this);
+        spMeConstitui.setOnItemSelectedListener(this);
 
         if(id == 1) {
             rlLicencias.setVisibility(View.VISIBLE);
@@ -648,6 +655,9 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             this.rbHechos.setVisibility(View.GONE);
         }else if(id == 3) {
             rlLicencias.setVisibility(View.GONE);
+            tvPropietario.setVisibility(View.GONE);
+            etPropietario.setVisibility(View.GONE);
+            rlProp.setVisibility(View.GONE);
         }
         else {
             rlLicencias.setVisibility(View.VISIBLE);
@@ -666,7 +676,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             llcomp.setVisibility(View.GONE);
             tvNota.setText("Tipo de Establecimiento");
             tvUso.setText("Seleccione");
-            llPla.setVisibility(View.GONE);;
+            llPla.setVisibility(View.GONE);
+            tvPropietario.setVisibility(View.GONE);
+            etPropietario.setVisibility(View.GONE);
+            rlProp.setVisibility(View.GONE);
         }
 
         if(getIntent().getExtras().getString("na") != null) {
@@ -884,6 +897,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         etDiaPlazo.setEnabled(false);
         etNombreT.setText("HO");
         etIfeT.setText("LA");
+
+        getMeConstitui();
 
         Log.i("ordenamientos", "o1 " + campo1 + " o2 " + campo2 + " o3 " + campo3 + " o4 " + campo4 + " o5 " + campo5 + "o6 " + campo6 + " o7 " + campo7 + " o8 " + campo8 + " o9 " + campo9 + " o0 " + campo0 + campo11 + " o11 " + campo12 + " o12 " + campo12 + " o13 " + campo13 + " o14 " + campo14 + "015" + campo15 + "o16 " + campo16 + " o17 " + campo17 + " o18 " + campo18 + " o19 " + campo19 + " o20 " + campo20);
 
@@ -2396,6 +2411,9 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
         if(id == 3) {
             tvCondominio.setText(getResources().getString(R.string.coto) + " o Mercado Tianguis");
+            tvPropietario.setVisibility(View.GONE);
+            etPropietario.setVisibility(View.GONE);
+            rlProp.setVisibility(View.GONE);
         }
 
         if(id == 4) {
@@ -3737,6 +3755,30 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         }
     }
 
+    public void getMeConstitui() {
+        GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
+        SQLiteDatabase db = gestionarDB.getReadableDatabase();
+        if(db != null) {
+            String sql = "select * from c_me_constitui";
+            System.err.println(sql);
+            Cursor cursor = db.rawQuery(sql, null);
+            try {
+                meConstitui.clear();
+                if(cursor.moveToFirst()){
+                    do {
+                        meConstitui.add(cursor.getString(1));
+                    }while (cursor.moveToNext());
+                }
+            }catch (SQLiteException e) {
+                Log.e("error",e.getMessage() + "");
+            }finally {
+                db.close();
+                cursor.close();
+                adapterMeC.notifyDataSetChanged();
+            }
+        }
+    }
+
     public void competencia() {
         GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarDB.getReadableDatabase();
@@ -4418,7 +4460,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 sb.append("Ingrese la calle. \n");
                 valid = false;
             }
-            if (this.id != 4) {
+            if (!(this.id == 4 | id == 3)) {
                 if (validarCampos(this.etPropietario)) {
                     sb.append("Ingrese el propietario o razón social.\n");
                     valid = false;
@@ -5640,6 +5682,9 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     tvReg.setVisibility(View.GONE);
                     llPla.setVisibility(View.GONE);
                     llNota.setVisibility(View.GONE);
+                    tvPropietario.setVisibility(View.GONE);
+                    etPropietario.setVisibility(View.GONE);
+                    rlProp.setVisibility(View.GONE);
                 }
 
                 if(id != 2)
@@ -6876,8 +6921,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 Bitmap bitmap = null;
-                if(id != 4)
+                if(id == 2 | id == 5)
                     bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_1);
+                else if(id == 3)
+                    bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_t);
                 else
                     bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_c);
                 bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
@@ -7045,13 +7092,23 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                 //LUGAR DONDE SE ACTUA (COMERCIO)
                 if(this.id == 2) {
-
                     canvas.saveState();
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
                     canvas.moveText(165, 789);
                     canvas.showText(etDondeActua.getText().toString());
+                    canvas.endText();
+                    canvas.restoreState();
+                }
+                Log.e("me cons",spMeConstitui.getSelectedItem().toString().trim());
+                if(this.id == 3) {
+                    canvas.saveState();
+                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                    canvas.beginText();
+                    canvas.setFontAndSize(bf, 9);
+                    canvas.moveText(165, 789);
+                    canvas.showText(spMeConstitui.getSelectedItem().toString().trim());
                     canvas.endText();
                     canvas.restoreState();
                 }
@@ -7127,6 +7184,15 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 canvas.endText();
                 canvas.restoreState();
 
+                canvas.saveState();
+                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                canvas.beginText();
+                canvas.setFontAndSize(bf, 9);
+                canvas.moveText(420, 769);
+                canvas.showText(etCoordenada.getText().toString());
+                canvas.endText();
+                canvas.restoreState();
+
                 //FRACCIONAMIENTO Y CONDOMINIO
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -7159,7 +7225,17 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     canvas.showText(folio);
                     canvas.endText();
                     canvas.restoreState();
-                } else {
+                } else if(this.id == 3) {
+                    canvas.saveState();
+                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                    canvas.beginText();
+                    canvas.setFontAndSize(bf, 9);
+                    canvas.moveText(500, 751);
+                    canvas.showText(folio);
+                    canvas.endText();
+                    canvas.restoreState();
+                }
+                else {
                     canvas.saveState();
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
@@ -7491,7 +7567,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
                 //ARTICULOS FACULTATIVOS HECHOS
-                txt = Justificar.justifocarTexto1(etInfraccion.getText().toString(), 70);
+                txt = Justificar.justifocarTexto1(etInfraccion.getText().toString(), 80);
 
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -7527,7 +7603,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
                 //MEDIDAS PRECAUTORIAS
-                txt = Justificar.justifocarTexto1(etMedida.getText().toString().trim(), 65);
+                txt = Justificar.justifocarTexto1(etMedida.getText().toString().trim(), 75);
 
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -7564,12 +7640,12 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
                 //ARTICULOS FACULTATIVOS MEDIDAS PRECAUTORIAS
-                txt = Justificar.justifocarTexto1( etArticulo.getText().toString(), 80);
+                txt = Justificar.justifocarTexto1( etArticulo.getText().toString(), 90);
                 if(id==4)
                     li = 420;
                 else
                     li = 410;
-                txt = Justificar.justifocarTexto1(etArticulo.getText().toString(), 75);
+                txt = Justificar.justifocarTexto1(etArticulo.getText().toString(), 85);
 
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -11474,9 +11550,9 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             if(c.moveToFirst()){
                 do{
                     if(sp.getId() == R.id.spInspectorT) {
-                        idT = c.getString(2);
+                        idT = c.getString(c.getColumnIndex("folio"));
                     } else {
-                        idT1 = c.getString(2);
+                        idT1 = c.getString(c.getColumnIndex("folio"));
                     }
     				/*ifeA = c.getString(2);
     				noA = c.getString(c.getColumnIndex("no_empleado"));
