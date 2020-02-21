@@ -715,6 +715,7 @@
                         android:imeOptions="actionNext"/>
 
                     <TextView
+                        android:id="@+id/tvPropiedad"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:text="Propiedad de"
@@ -1068,7 +1069,7 @@
                             android:inputType="textCapSentences"
                             android:layout_below="@id/spFraccionamiento"
                             android:imeOptions="actionNext"
-                            android:visibility="gone"/>
+                            android:visibility="visible"/>
 
                         <TextView
                             android:id="@+id/tvZona"

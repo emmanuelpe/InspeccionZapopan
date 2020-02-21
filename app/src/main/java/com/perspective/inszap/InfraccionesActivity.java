@@ -102,11 +102,11 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 public class InfraccionesActivity extends Activity implements OnClickListener, Runnable, OnCheckedChangeListener, OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
 
 	private Button btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
-	private TextView tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario;
+	private TextView tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvPropiedad;
 	private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",fracciones = "",articulos = "",folio = "",clave = "";
 	private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:"; 
 	private int mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0;
-	private Spinner spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4;
+	private Spinner spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spMeConstitui;
 	private EditText etNum,etFecham,etfecha,etDiaPlazo,etIfeI,etNoI,etVigI,etIfeA,etIfeA1,etIfeA2,etIfeA3,etIfeA4,etNoA,etNoA1,etNoA2,etNoA3,etNoA4,etVigA,etVigA1,etVigA2,etVigA3,etVigA4,etNombreT,etIfeT,etDesc,etDesc1,etDesc2,etDesc3,etDesc4,etdato,etdato1,etdato2,etdato3,etdato4,desf,desf1,desf2,etNombreV,etFraccionamiento,etCalle,etNumero,etPropietario,etNombreT1,etIfeT2,etManifiesta,etNuemroInterior,etApellidoP,etApellidoM,etCitatorio,etNumeroActa,etEspecificacion,etDFoto,etDFoto1,etDFoto2,etDFoto3,etVManifiesta,etVIdentifica,etLatitud,etLongitud,etAnoCitatorio,etAnoOrden,etCondominio/*etDensidad*/,etManzana,etLote,etReferencia,etBuscar,etfolio,/*etAlineamiento,*/etConstruccion, etGiro, etMotivo,etOrden1,etEntreC,etEntreC1,etResponsable,etRegistro,etMedida,etArticulo,etInspccionFue,etDFoto4,etDFoto5,etDFoto6,etDFoto7,etDFoto8,etDFoto9,etDFoto10,etDFoto11,etDFoto12,etDFoto13,etDFoto14,etDFoto15,etDFoto16,etDFoto17,etDFoto18,etDFoto19,etLGiro,etAGiro,etAlicencia,etSector,etNombreComercial,etObs,etObs1,etObs2,etObs3,etObs4,etBCol,etOtro,etDondeActua,etNumeroSellos;
 	private LinearLayout lldiv,cons,llNota,llplazo,llreincidencia,llcomp,llconcepto,llPla,llfundamento;
 	private RelativeLayout rlcampo,rlProp,rlTestA,rlVisita,rlLicencias,rlDonde_actua;
@@ -182,10 +182,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	public static final String TAG = "BixolonPrinterSample";
 	private AlertDialog mSampleDialog;
 	private Switch swReincidencia;
-	private ArrayAdapter adapterCol;
+	private ArrayAdapter adapterCol,adapterMeC;
 	private List<String> conceptos,articulo,fraccion,unis,unis1,unis2,unis3,unis4;
 	private ArrayAdapter adapterUni,adapterUni1,adapterUni2,adapterUni3,adapterUni4;
 	private List<String> fundam = new ArrayList<>();
+	private List<String> meConstitui = new ArrayList<>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -527,6 +528,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
         etNumeroSellos = findViewById(R.id.etNumeroSellos);
 
+        spMeConstitui = findViewById(R.id.spMeConstitui);
+        tvMC = findViewById(R.id.tvMeConstituye);
+        tvPropiedad = findViewById(R.id.tvPropiedad);
+
         unis = new ArrayList<>();
         unis1 = new ArrayList<>();
         unis2 = new ArrayList<>();
@@ -538,6 +543,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         adapterUni2 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis2);
         adapterUni3 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis3);
         adapterUni4 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis4);
+        adapterMeC = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,meConstitui);
+        spMeConstitui.setAdapter(adapterMeC);
 
         spuni.setAdapter(adapterUni);
         spuni1.setAdapter(adapterUni1);
@@ -892,6 +899,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         buscarNombreCampo();
         buscarOrdenamientos();
         competencia();
+        getMeConstitui();
         conceptosOV();
 
         etDiaPlazo.setText("20");
@@ -4095,6 +4103,30 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             }
         }
     }
+
+    public void getMeConstitui() {
+        GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
+        SQLiteDatabase db = gestionarDB.getReadableDatabase();
+        if(db != null) {
+            String sql = "select * from c_me_constitui";
+            System.err.println(sql);
+            Cursor cursor = db.rawQuery(sql, null);
+            try {
+                meConstitui.clear();
+                if(cursor.moveToFirst()){
+                    do {
+                        meConstitui.add(cursor.getString(1));
+                    }while (cursor.moveToNext());
+                }
+            }catch (SQLiteException e) {
+                Log.e("error",e.getMessage() + "");
+            }finally {
+                db.close();
+                cursor.close();
+                adapterMeC.notifyDataSetChanged();
+            }
+        }
+    }
     
     public void competencia() {
     	GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
@@ -5961,7 +5993,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			rborden.setVisibility(View.GONE);
 
             spgravedad.setSelection(1);
+            tvMC.setVisibility(View.GONE);
             llfundamento.setVisibility(View.GONE);
+            tvPropiedad.setVisibility(View.GONE);
+            rgPopiedad.setVisibility(View.GONE);
 
 
 			if(id == 4) {
@@ -5990,6 +6025,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			    spPeticion.setVisibility(View.GONE);
                 tvReg.setVisibility(View.GONE);
                 llfundamento.setVisibility(View.GONE);
+                etDondeActua.setVisibility(View.GONE);
             }
 			if(id == 2 | id == 5) {
                 tvReg.setVisibility(View.GONE);
@@ -6000,9 +6036,19 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 etDondeActua.setVisibility(View.GONE);
                 rlLicencias.setVisibility(View.GONE);
             }
+			if(id == 5) {
+                rlDonde_actua.setVisibility(View.GONE);
+                rlProp.setVisibility(View.GONE);
+                tvMC.setVisibility(View.GONE);
+                spMeConstitui.setVisibility(View.GONE);
+            }
+			if(id == 2) {
+                tvMC.setVisibility(View.GONE);
+                spMeConstitui.setVisibility(View.GONE);
+            }
 
-			if(id != 2)
-			    btnImprimirResum.setVisibility(View.GONE);
+			if(id == 2 | id == 5)
+			    btnImprimirResum.setVisibility(View.VISIBLE);
 			
 			break;
 			
@@ -6066,6 +6112,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 etMedida.setVisibility(View.GONE);
                 llcomp.setVisibility(View.GONE);
                 tvReg.setVisibility(View.GONE);
+                tvMC.setVisibility(View.GONE);
+                spMeConstitui.setVisibility(View.GONE);
             }
             if(id == 2 | id == 5) {
                 llNota.setVisibility(View.GONE);
@@ -6084,13 +6132,20 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 tvPropietario.setText("NOMBRE Y/O RAZON SOCIAL");
                 llPla.setVisibility(View.GONE);
             }
+            if(id == 2) {
+                tvMC.setVisibility(View.GONE);
+                spMeConstitui.setVisibility(View.GONE);
+            }
             if(id == 3) {
                 tvReg.setVisibility(View.GONE);
                 llfundamento.setVisibility(View.GONE);
+                etDondeActua.setVisibility(View.GONE);
+                rlDonde_actua.setVisibility(View.GONE);
             }
-
-            if(id != 2)
-                btnImprimirResum.setVisibility(View.GONE);
+            if(id == 5)
+                rlDonde_actua.setVisibility(View.GONE);
+            if(id == 2 | id == 5)
+                btnImprimirResum.setVisibility(View.VISIBLE);
 
 			
 			break;
@@ -6311,8 +6366,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			cam = lev.get(0).getSe_identifica().split(":");
 			
 			selectValue(spIdentifica, cam[0]);
-			
-			etVIdentifica.setText(cam[1]);
+
+            if(cam.length > 1)
+			    etVIdentifica.setText(cam[1]);
 			
 			etNombreComercial.setText(lev.get(0).getNombre_comercial());
 			etSector.setText(lev.get(0).getSector());
@@ -7458,28 +7514,63 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        canvas.showText(clave);
 				        canvas.endText();
 				        canvas.restoreState();
+                        String test = "";
+				        if(id == 5) {
+				            if(TextUtils.isEmpty(numeroOV))
+				                test = "- - - - - - - - - - - - - - - - - - -";
+				            else
+				                test = numeroOV;
 
-				        //NUMERO DE INFRACCION
-				        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-                        //canvas.moveText(215, 805);
-				        canvas.moveText(215, 808);
-				        canvas.showText(numeroOV);
-				        canvas.endText();
-				        canvas.restoreState();
+                            //NUMERO DE INFRACCION
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            //canvas.moveText(215, 805);
+                            canvas.moveText(215, 808);
+                            canvas.showText(test);
+                            canvas.endText();
+                            canvas.restoreState();
+                        } else {
+                            //NUMERO DE INFRACCION
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            //canvas.moveText(215, 805);
+                            canvas.moveText(215, 808);
+                            canvas.showText(numeroOV);
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
 
-				        //FECHA
-				        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        //canvas.moveText(60, 795);
-                        canvas.moveText(60, 799);
-				        canvas.showText(fechaOV);
-				        canvas.endText();
-				        canvas.restoreState();
+				        if(id == 5) {
+                            if(TextUtils.isEmpty(fechaOV))
+                                test = "- - - - - - - - - - -";
+                            else
+                                test = fechaOV;
+
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            //canvas.moveText(60, 795);
+                            canvas.moveText(60, 799);
+                            canvas.showText(test);
+                            canvas.endText();
+                            canvas.restoreState();
+                        } else {
+                            //FECHA
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            //canvas.moveText(60, 795);
+                            canvas.moveText(60, 799);
+                            canvas.showText(fechaOV);
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
 
 				        //NOMBRE DEL VISITADO
 				        canvas.saveState();
@@ -7927,6 +8018,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						}
 					    Log.e("tam" , x + " " + txt.length);
                         String[] txt1;
+                        int leng;
+                        leng = 170-txt[x].length();
+                        Log.e("longitud",leng + "");
                         txt1 = Justificar.justifocarTextol(txt[x], 170);
 
                         canvas.saveState();
@@ -7940,7 +8034,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
 					    //ARTICULOS FACULTATIVOS HECHOS
-					    txt = Justificar.justifocarTexto1(etInfraccion.getText().toString(), 80);
+					    txt = Justificar.justifocarTexto1(etInfraccion.getText().toString(), 85);
 
                         canvas.saveState();
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -8013,12 +8107,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
                         //ARTICULOS FACULTATIVOS MEDIDAS PRECAUTORIAS
-					    txt = Justificar.justifocarTexto1( etArticulo.getText().toString(), 90);
+					    txt = Justificar.justifocarTexto1( etArticulo.getText().toString(), 80);
 					    if(id==4)
                             li = 420;
 					    else
                             li = 410;
-					    txt = Justificar.justifocarTexto1(etArticulo.getText().toString(), 85);
+					    txt = Justificar.justifocarTexto1(etArticulo.getText().toString(), 80);
 
 					    canvas.saveState();
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -8370,14 +8464,25 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             canvas.restoreState();
                         }
                     } else {
-                        canvas.saveState();
-                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                        canvas.beginText();
-                        canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(80, 820 + c);
-                        canvas.showText(etPropietario.getText().toString() + " " + etApellidoP.getText().toString() + " " + etApellidoM.getText().toString());
-                        canvas.endText();
-                        canvas.restoreState();
+				        if(id==5) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(80, 820 + c);
+                            canvas.showText(etNombreV.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        } else {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(80, 820 + c);
+                            canvas.showText(etPropietario.getText().toString() + " " + etApellidoP.getText().toString() + " " + etApellidoM.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
                     }
 				    
 			        
