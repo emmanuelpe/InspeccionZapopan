@@ -2451,7 +2451,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             reg = new int [conceptos.size()];
         }
 
-        medidas("");
+        medidas();
 
         for (int i = 0; i < reglamento.size(); i++) {
             System.err.println(reglamento.get(i));
@@ -3747,6 +3747,50 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     do {
                         campos.add(cursor.getString(cursor.getColumnIndex("campo")));
                         cmedida.add(cursor.getString(cursor.getColumnIndex("medida_precautoria")));
+                        art.add(cursor.getString(cursor.getColumnIndex("articulos")));
+                        orden.add(cursor.getString(cursor.getColumnIndex("ordenamiento")));
+                    } while (cursor.moveToNext());
+                }
+            } catch (SQLiteException e) {
+                System.out.println(e.getMessage());
+            }finally{
+                cursor.close();
+                db.close();
+                Log.v("change", "ok");
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    public void medidas() {
+        GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
+        SQLiteDatabase db = gestionarDB.getReadableDatabase();
+        if(db != null) {
+            String sql;
+            if(id == 5)
+                sql = "select * from c_medida_precautoria where id_c_direccion = " + 2;
+            else if(id == 3)
+                sql = "select * from c_medida_precautoria where id_c_direccion in(2,3)";
+            else
+                sql = "select * from c_medida_precautoria where id_c_direccion = " + id;
+            System.err.println(sql);
+            Cursor cursor = db.rawQuery(sql, null);
+            try {
+                if(cursor.moveToFirst()) {
+                    campos.clear();
+                    cmedida.clear();
+                    art.clear();
+                    orden.clear();
+
+                    campos.add("");
+                    cmedida.add("");
+                    art.add("");
+                    orden.add("");
+
+                    do {
+                        Log.e("cmedida",cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim());
+                        campos.add(cursor.getString(cursor.getColumnIndex("campo")));
+                        cmedida.add(cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim());
                         art.add(cursor.getString(cursor.getColumnIndex("articulos")));
                         orden.add(cursor.getString(cursor.getColumnIndex("ordenamiento")));
                     } while (cursor.moveToNext());
