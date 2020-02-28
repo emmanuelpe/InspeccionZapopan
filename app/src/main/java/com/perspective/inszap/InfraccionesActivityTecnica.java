@@ -4502,6 +4502,12 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     sb.append("Ingrese el nombre del visitado. \n");
                     valid = false;
                 }
+                if(validarCampos(this.etVIdentifica)){
+                    if(!spIdentifica.getSelectedItem().toString().trim().equalsIgnoreCase("su palabra")) {
+                        sb.append("Ingrese la identificacion del visitado. \n");
+                        valid = false;
+                    }
+                }
             }
             if (validarCampos(this.etFraccionamiento)) {
                 sb.append("Ingrese el fraccionamiento. \n");
@@ -4529,17 +4535,9 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 	    		sb.append("Ingrese el ife del segundo testigo. \n");
 	    		valid = false;
 	    	}*/
-            if (validarCampos(this.etManifiesta)) {
-                sb.append("Ingrese lo que el visitado manifiesta. \n");
-                valid = false;
-            }
 
             if(validarCampos(this.etDiaPlazo)) {
                 sb.append("Ingrese los dias de plazo. \n");
-                valid = false;
-            }
-            if(validarCampos(this.etNombreV)) {
-                sb.append("Ingrese en nombre del visitado. \n");
                 valid = false;
             }
 
@@ -4554,12 +4552,6 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             if(validarCampos(this.etVManifiesta)){
                 sb.append("Ingrese lo que el visitado manifiesta. \n");
                 valid = false;
-            }
-            if(validarCampos(this.etVIdentifica)){
-                if(!spIdentifica.getSelectedItem().toString().trim().equalsIgnoreCase("su palabra")) {
-                    sb.append("Ingrese la identificacion del visitado. \n");
-                    valid = false;
-                }
             }
             if(validarSpinner(this.spdesignado)){
                 sb.append("Seleccione por quien fue designado el primer testigo. \n");
@@ -4592,65 +4584,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     sb.append("Ingrese el nombre del visitado. \n");
                     valid = false;
                 }
-            }
-            if(validarCampos(this.etFraccionamiento)){
-                sb.append("Ingrese el fraccionamiento. \n");
-                valid = false;
-            }
-            if(validarCampos(this.etCalle)){
-                sb.append("Ingrese la calle. \n");
-                valid = false;
-            }
-            if(validarCampos(this.etPropietario)){
-                sb.append("Ingrese el propietario o razÔøΩn social.\n");
-                valid = false;
-            }
-            if(validarCampos(this.etNombreT)){
-                sb.append("Ingrese el nombre del primer testigo. \n");
-                valid = false;
-            }
-            if(validarCampos(this.etIfeT)){
-                sb.append("Ingrese el ife del primer testigo. \n");
-                valid = false;
-            }
-            if(validarCampos(this.etIfeT2)){
-                sb.append("Ingrese el ife del segundo testigo. \n");
-                valid = false;
-            }
-
-            if(validarCampos(this.etManifiesta)){
-                sb.append("Ingrese lo que el visitado manifiesta. \n");
-                valid = false;
-            }
-            if(validarCampos(this.etNombreV)) {
-                sb.append("Ingrese en nombre del visitado. \n");
-                valid = false;
-            }
-            if(validarCampos(this.etVManifiesta)){
-                sb.append("Ingrese lo que el visitado manifiesta. \n");
-                valid = false;
-            }
-            if(validarCampos(this.etVIdentifica)){
-                sb.append("Ingrese la identificacion del visitado. \n");
-                valid = false;
-            }
-	    	/*if(validarSpinner(this.spuso)){
-	    		sb.append("Seleccione el tipo de suelo. \n");
-	    		valid = false;
-	    	}
-	    	if(validarSpinner(this.spgravedad)){
-	    		sb.append("Seleccione la gravedad \n");
-	    		valid = false;
-	    	}*/
-        }else if(infrac == 4) {
-
-            if(validarCampos(this.etfecha)){
-                sb.append("Ingrese la fecha. \n");
-                valid = false;
-            }
-            if(!cbDatos.isChecked()) {
-                if (validarCampos(this.etNombreV)) {
-                    sb.append("Ingrese el nombre del visitado. \n");
+                if(validarCampos(this.etVIdentifica)){
+                    sb.append("Ingrese la identificacion del visitado. \n");
                     valid = false;
                 }
             }
@@ -4683,16 +4618,65 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 sb.append("Ingrese lo que el visitado manifiesta. \n");
                 valid = false;
             }
-            if(validarCampos(this.etNombreV)) {
-                sb.append("Ingrese en nombre del visitado. \n");
+            if(validarCampos(this.etVManifiesta)){
+                sb.append("Ingrese como se manifiesta el visitado. \n");
+                valid = false;
+            }
+	    	/*if(validarSpinner(this.spuso)){
+	    		sb.append("Seleccione el tipo de suelo. \n");
+	    		valid = false;
+	    	}
+	    	if(validarSpinner(this.spgravedad)){
+	    		sb.append("Seleccione la gravedad \n");
+	    		valid = false;
+	    	}*/
+        }else if(infrac == 4) {
+
+            if(validarCampos(this.etfecha)){
+                sb.append("Ingrese la fecha. \n");
+                valid = false;
+            }
+            if(!cbDatos.isChecked()) {
+                if (validarCampos(this.etNombreV)) {
+                    sb.append("Ingrese el nombre del visitado. \n");
+                    valid = false;
+                }
+                if(validarCampos(this.etVIdentifica)){
+                    sb.append("Ingrese la identificacion del visitado. \n");
+                    valid = false;
+                }
+            }
+            if(validarCampos(this.etFraccionamiento)){
+                sb.append("Ingrese el fraccionamiento. \n");
+                valid = false;
+            }
+            if(validarCampos(this.etCalle)){
+                sb.append("Ingrese la calle. \n");
+                valid = false;
+            }
+            if(validarCampos(this.etPropietario)){
+                sb.append("Ingrese el propietario o razÔøΩn social.\n");
+                valid = false;
+            }
+            if(validarCampos(this.etNombreT)){
+                sb.append("Ingrese el nombre del primer testigo. \n");
+                valid = false;
+            }
+            if(validarCampos(this.etIfeT)){
+                sb.append("Ingrese el ife del primer testigo. \n");
+                valid = false;
+            }
+            if(validarCampos(this.etIfeT2)){
+                sb.append("Ingrese el ife del segundo testigo. \n");
+                valid = false;
+            }
+
+            if(validarCampos(this.etManifiesta)){
+                sb.append("Ingrese lo que el visitado manifiesta. \n");
                 valid = false;
             }
             if(validarCampos(this.etVManifiesta)){
                 sb.append("Ingrese lo que el visitado manifiesta. \n");
-                valid = false;
-            }
-            if(validarCampos(this.etVIdentifica)){
-                sb.append("Ingrese la identificacion del visitado. \n");
                 valid = false;
             }
             if(validarSpinner(this.spdesignado)){
@@ -4716,6 +4700,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             if(!cbDatos.isChecked()) {
                 if (validarCampos(this.etNombreV)) {
                     sb.append("Ingrese el nombre del visitado. \n");
+                    valid = false;
+                }
+                if(validarCampos(this.etVIdentifica)){
+                    sb.append("Ingrese la identificacion del visitado. \n");
                     valid = false;
                 }
             }
@@ -7183,7 +7171,6 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     canvas.endText();
                     canvas.restoreState();
                 }
-                Log.e("me cons",spMeConstitui.getSelectedItem().toString().trim());
                 if(this.id == 3) {
                     canvas.saveState();
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);

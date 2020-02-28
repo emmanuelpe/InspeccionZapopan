@@ -58,9 +58,8 @@
 
 			<ProgressBar
 				android:id="@+id/mProgressBar"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content">
-			</ProgressBar>
+				android:layout_width="35dp"
+				android:layout_height="wrap_content"></ProgressBar>
     	
         	<Button 
             	android:id="@+id/btnInfraccion"

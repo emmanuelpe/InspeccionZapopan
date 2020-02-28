@@ -725,6 +725,75 @@ public class Connection {
 		
 		return conexion;
 	}
+
+	public boolean validar(String url, String tabla) {
+		boolean res = false;
+		GestionBD gestion = new GestionBD(context,"Recaudacion",null, 1);
+	    SQLiteDatabase db = gestion.getWritableDatabase();
+	    int total = 0;
+	    int totalBD = -1;
+	    ArrayList<NameValuePair> dat = new ArrayList<NameValuePair>();
+	    dat.add(new BasicNameValuePair("id", "0"));
+	    try {
+	    	HttpClient httpclient = new DefaultHttpClient();
+	    	HttpPost httpPost = new HttpPost(url);
+	    	httpPost.setEntity(new UrlEncodedFormEntity(dat));
+	    	HttpResponse response = httpclient.execute(httpPost);
+	    	HttpEntity entity = response.getEntity();
+	    	this.is = entity.getContent();
+	    	Log.i("is", is + " x)");
+	    } catch (Exception e) {
+	    	Log.e("ERROR 1", e.getMessage() + " ");
+	    	return false;
+	    }
+	    try {
+	    	BufferedReader reader = null;
+	    	reader = new BufferedReader(new InputStreamReader(this.is, "iso-8859-1"),8);
+	    	StringBuilder sb = new StringBuilder();
+	    	String line = null;
+	    	//try {
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			this.is.close();
+			result = sb.toString();
+			System.err.println(result);
+			jArray = new JSONArray(result);
+			this.json_data = this.jArray.getJSONObject(0);
+			total = json_data.getInt("total");
+			System.err.println(total + " total");
+			//db.beginTransaction();
+			// ContentValues cv = new ContentValues();
+			Cursor c = db.rawQuery("SELECT *  FROM " + tabla, null);
+			if(c.moveToFirst()){
+				System.err.println("if");
+				Log.e("count",c.getCount() + " count");
+				do{
+					System.err.println("do");
+					for (int i = 0; i < c.getCount(); i++) {
+						System.err.println(c.getColumnName(i) + " " + c.getString(i));
+					}
+					totalBD = c.getInt(0);
+					System.err.println(c.getInt(0));
+				}while(c.moveToNext());
+			}
+			res = total == totalBD;
+	    } catch (ClientProtocolException e) {
+			Log.e("ClientProtocolException", e.getMessage() + " ");
+			return false;
+	    }catch (IOException e) {
+	    	Log.e("IOException", e.getMessage() + " ");
+	    	return false;
+	    }catch (JSONException e) {
+	    	// TODO: handle exception
+	    }catch (Exception e) {			Log.e("Exception", e.getMessage() + " ");
+	    	return false;
+	    }finally {
+	    	//db.endTransaction();
+			db.close();
+	    }
+	    return res;
+	}
 	
 
 }

@@ -4807,12 +4807,6 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 valid = false;
             }*/
             //if(cb.)
-            if(!cbDatos.isChecked()) {
-                if (validarCampos(this.etNombreV)) {
-                    sb.append("Ingrese el nombre del visitado. \n");
-                    valid = false;
-                }
-            }
             if (validarCampos(this.etFraccionamiento)) {
                 sb.append("Ingrese el fraccionamiento. \n");
                 valid = false;
@@ -4857,6 +4851,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     sb.append("Ingrese en nombre del visitado. \n");
                     valid = false;
                 }
+                if(validarCampos(this.etVIdentifica)){
+                    sb.append("Ingrese la identificacion del visitado. \n");
+                    valid = false;
+                }
             }
 
             if(validarSpinner(this.spPeticion)) {
@@ -4868,11 +4866,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 valid = false;
             }
 	    	if(validarCampos(this.etVManifiesta)){
-	    		sb.append("Ingrese lo que el visitado manifiesta. \n");
-	    		valid = false;
-	    	}
-	    	if(validarCampos(this.etVIdentifica)){
-	    		sb.append("Ingrese la identificacion del visitado. \n");
+	    		sb.append("Ingrese como se manifiesta el visitado. \n");
 	    		valid = false;
 	    	}
 	    	if(validarSpinner(this.spdesignado)){
@@ -4916,6 +4910,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     sb.append("Ingrese el nombre del visitado. \n");
                     valid = false;
                 }
+                if(validarCampos(this.etVIdentifica)){
+                    sb.append("Ingrese la identificacion del visitado. \n");
+                    valid = false;
+                }
             }
 	    	if(validarCampos(this.etFraccionamiento)){
 	    		sb.append("Ingrese el fraccionamiento. \n");
@@ -4946,18 +4944,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    		sb.append("Ingrese lo que el visitado manifiesta. \n");
 	    		valid = false;
 	    	}
-            if(!cbDatos.isChecked()) {
-                if (validarCampos(this.etNombreV)) {
-                    sb.append("Ingrese en nombre del visitado. \n");
-                    valid = false;
-                }
-            }
 	    	if(validarCampos(this.etVManifiesta)){
-	    		sb.append("Ingrese lo que el visitado manifiesta. \n");
-	    		valid = false;
-	    	}
-	    	if(validarCampos(this.etVIdentifica)){
-	    		sb.append("Ingrese la identificacion del visitado. \n");
+	    		sb.append("Ingrese como se manifiesta el visitado. \n");
 	    		valid = false;
 	    	}
 	    	/*if(validarSpinner(this.spuso)){
@@ -4979,6 +4967,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     sb.append("Ingrese el nombre del visitado. \n");
                     valid = false;
                 }
+                if(validarCampos(this.etVIdentifica)){
+                    sb.append("Ingrese la identificacion del visitado. \n");
+                    valid = false;
+                }
             }
 	    	if(validarCampos(this.etFraccionamiento)){
 	    		sb.append("Ingrese el fraccionamiento. \n");
@@ -5009,18 +5001,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    		sb.append("Ingrese lo que el visitado manifiesta. \n");
 	    		valid = false;
 	    	}
-            if(!cbDatos.isChecked()) {
-                if (validarCampos(this.etNombreV)) {
-                    sb.append("Ingrese en nombre del visitado. \n");
-                    valid = false;
-                }
-            }
 	    	if(validarCampos(this.etVManifiesta)){
-	    		sb.append("Ingrese lo que el visitado manifiesta. \n");
-	    		valid = false;
-	    	}
-	    	if(validarCampos(this.etVIdentifica)){
-	    		sb.append("Ingrese la identificacion del visitado. \n");
+	    		sb.append("Ingrese como se manifiesta el visitado. \n");
 	    		valid = false;
 	    	}
 	    	if(validarSpinner(this.spdesignado)){
@@ -5044,6 +5026,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	    if(!cbDatos.isChecked()) {
                 if (validarCampos(this.etNombreV)) {
                     sb.append("Ingrese el nombre del visitado. \n");
+                    valid = false;
+                }
+                if(validarCampos(this.etVIdentifica)){
+                    sb.append("Ingrese la identificacion del visitado. \n");
                     valid = false;
                 }
             }
