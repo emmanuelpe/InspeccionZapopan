@@ -31,15 +31,19 @@ public class ActivitySplash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-       checkAndRequestPermissions();
+        checkAndRequestPermissions();
         Intent intent = new Intent(ActivitySplash.this, MainActivity.class);
-       // intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        //onDestroy();
         startActivity(intent);
-
-
-
-
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.finish();
+    }
+
     public boolean checkAndRequestPermissions(){
         List<String> ListPermissionsNeeded = new ArrayList<>();
         for(String perm : appPermissions){

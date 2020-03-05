@@ -3075,7 +3075,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						
 						if(formato == "infraccion") {
 							for(int i = 0; i < iHecho.length; i++) {
-								int can = 0;
+								float can = 0;
 								int iHec;
 								if(idLevantamiento == 0) {
 									idLevantamiento++;
@@ -3089,7 +3089,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 								for (int j = 0; j < iCantidad.length; j++) {
 									if (j == i) {
 										if(!iCantidad[i].equalsIgnoreCase("")) {
-											can = Integer.parseInt(iCantidad[i]);
+											can = Float.parseFloat(iCantidad[i]);
 										}
 									}
 								}
@@ -3141,7 +3141,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					
 					if(formato.equalsIgnoreCase("infraccion")) {
 						for(int i = 0; i < iHecho.length; i++) {
-							int can = 0;
+							float can = 0;
 							int iHec;
 							if(idLevantamiento == 0) {
 								idLevantamiento++;
@@ -3155,7 +3155,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							for (int j = 0; j < iCantidad.length; j++) {
 								if (j == i) {
 									if(!iCantidad[i].equalsIgnoreCase("")) {
-										can = Integer.parseInt(iCantidad[i]);
+										can = Float.parseFloat(iCantidad[i]);
 									}
 								}
 							}
@@ -4321,7 +4321,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	return n;
     }
     
-    public long ingresarDetalleInfraccion(int idLevantamiento,String numeroActa,int idInfraccion, int cantidad,String estatus ) {
+    public long ingresarDetalleInfraccion(int idLevantamiento,String numeroActa,int idInfraccion, float cantidad,String estatus ) {
      
     	long n = 0;
     	GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);

@@ -21,9 +21,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".InfraccionesActivityTecnica"></activity>
-        <activity android:name=".Licencias" />
-        <activity android:name=".ConsultarLicenciaConstruccion" />
+        <activity android:name=".InfraccionesActivityTecnica" android:configChanges="orientation|screenSize|screenLayout|navigation"></activity>
+        <activity android:name=".Licencias" android:configChanges="orientation|screenSize|screenLayout|navigation" />
+        <activity android:name=".ConsultarLicenciaConstruccion" android:configChanges="orientation|screenSize|screenLayout|navigation"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -35,35 +35,42 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".ActivitySplash">
+        <activity android:name=".ActivitySplash" android:configChanges="orientation|screenSize|screenLayout|navigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity" android:configChanges="orientation|screenSize|screenLayout|navigation"/>
         <activity
             android:name=".Descarga"
-            android:label="@string/title_activity_descarga" />
+            android:label="@string/title_activity_descarga"
+            android:configChanges="orientation|screenSize|screenLayout|navigation"/>
         <activity
             android:name=".InfraccionesActivity"
-            android:label="@string/title_activity_infracciones" />
+            android:label="@string/title_activity_infracciones"
+            android:configChanges="orientation|screenSize|screenLayout|navigation"/>
         <activity
             android:name=".Configurar"
-            android:label="@string/title_activity_configurar" />
+            android:label="@string/title_activity_configurar"
+            android:configChanges="orientation|screenSize|screenLayout|navigation"/>
         <activity
             android:name=".ConsultarLicencias"
-            android:label="@string/title_activity_consultar_licencias" />
+            android:label="@string/title_activity_consultar_licencias"
+            android:configChanges="orientation|screenSize|screenLayout|navigation"/>
         <activity
             android:name=".ConsultarInfracciones"
-            android:label="@string/title_activity_consultar_infracciones" />
+            android:label="@string/title_activity_consultar_infracciones"
+            android:configChanges="orientation|screenSize|screenLayout|navigation"/>
         <activity
             android:name=".Reimprimir"
-            android:label="@string/title_activity_reimprimir" />
+            android:label="@string/title_activity_reimprimir"
+            android:configChanges="orientation|screenSize|screenLayout|navigation"/>
         <activity
             android:name=".TestActivity"
-            android:label="@string/title_activity_reimprimir" />
+            android:label="@string/title_activity_reimprimir"
+            android:configChanges="orientation|screenSize|screenLayout|navigation"/>
     </application>
 
 </manifest>

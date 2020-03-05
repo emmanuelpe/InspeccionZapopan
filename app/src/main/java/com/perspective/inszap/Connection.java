@@ -55,7 +55,7 @@ public class Connection {
 		this.context = context;
 	}
 	
-	public void insertDetalle(int id_levantamiento, String numero_acta, int id_c_infraccion,int cantidad, String url) {
+	public void insertDetalle(int id_levantamiento, String numero_acta, int id_c_infraccion,float cantidad, String url) {
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httpost = new HttpPost(url);
 		
