@@ -6005,6 +6005,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 llfundamento.setVisibility(View.VISIBLE);
                 tvReg.setVisibility(View.GONE);
                 llcomp.setVisibility(View.GONE);
+                btnImprimirResum.setVisibility(View.GONE);
             }
 			if(id == 3) {
 			    tvPeticion.setVisibility(View.GONE);
@@ -6100,6 +6101,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 tvReg.setVisibility(View.GONE);
                 tvMC.setVisibility(View.GONE);
                 spMeConstitui.setVisibility(View.GONE);
+                btnImprimirResum.setVisibility(View.GONE);
             }
             if(id == 2 | id == 5) {
                 llNota.setVisibility(View.GONE);

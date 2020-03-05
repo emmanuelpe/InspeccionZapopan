@@ -911,8 +911,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="70dp"
                             android:hint="@string/numeroc"
-                            android:layout_toRightOf="@id/tvNumeroCalle"
-                            android:layout_below="@+id/spMeConstitui"
+                            android:layout_below="@+id/etcalle"
                             android:inputType="textCapSentences"
                             android:imeOptions="actionNext"/>
 
@@ -923,7 +922,7 @@
                             android:layout_marginTop="20dp"
                             android:text="@string/numero_interior"
                             android:layout_toRightOf="@id/etnumerocalle"
-                            android:layout_below="@+id/spMeConstitui"
+                            android:layout_below="@+id/etcalle"
                             android:layout_gravity="center"
                             style="@style/Subtitle"/>
 
@@ -933,7 +932,7 @@
                             android:layout_height="70dp"
                             android:hint="@string/numero_interior"
                             android:layout_toRightOf="@id/tvNumeroInt"
-                            android:layout_below="@+id/spMeConstitui"
+                            android:layout_below="@+id/etcalle"
                             android:inputType="textCapSentences"
                             android:layout_alignParentRight="true"
                             android:imeOptions="actionNext"/>
@@ -943,7 +942,7 @@
                             android:orientation="horizontal"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/etcalle" >
+                            android:layout_below="@id/etnumerointerior" >
 
                             <TextView
                                 android:text="@string/entre"
