@@ -832,7 +832,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				if(spdesignado.getItemAtPosition(arg2).toString().equalsIgnoreCase("inspector")) {
 					//spInspectorT.setSelection(0);
-                    selectValue(spdesignado,"Número de Gafet");
+                    //selectValue(spdesignado,"Credencial oficial folio");
 					spInspectorT.setEnabled(true);
 					/*etIfeA.setText(ifeA);
 					etNoA.setText(noA);
@@ -1797,6 +1797,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				}
 				else
 					btnaceptar.setVisibility(View.VISIBLE);
+
+				actualizarTV(infraccion);
 			}
 		});
         
@@ -1824,6 +1826,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				}
 				else
 					btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
 			}
 		});
         
@@ -1851,6 +1855,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				}
 				else
 					btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
 			}
 		});
         
@@ -1878,6 +1884,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				}
 				else
 					btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
 			}
 		});
         
@@ -1905,6 +1913,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				}
 				else
 					btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
 			}
 		});
         
@@ -1951,8 +1961,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							Log.i("des",des);
 							int x = 1;
 							if(!des.equals("")){
+                                buscarInfraccion(des);
 								infraccion();
-								buscarInfraccion(des);
 								tveliminar.setEnabled(false);
 								if(spuni.getVisibility() != View.GONE) {
                                     if (!spuni.getSelectedItem().toString().equalsIgnoreCase("")) {
@@ -1965,8 +1975,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 								dato += etdato.getText().toString().trim() + ","; 
 							}
 							if(!des1.equals("")){
+                                buscarInfraccion(des1);
 								infraccion();
-								buscarInfraccion(des1);
 								tveliminar1.setEnabled(false);
                                 if(spuni1.getVisibility() != View.GONE) {
                                     if (!spuni1.getSelectedItem().toString().equals("")) {
@@ -1979,8 +1989,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 								dato += etdato1.getText().toString().trim()+ ",";
 							}
 							if(!des2.equals("")){
+                                buscarInfraccion(des2);
 								infraccion();
-								buscarInfraccion(des2);
 								tveliminar2.setEnabled(false);
                                 if(spuni2.getVisibility() != View.GONE) {
                                     if (!spuni2.getSelectedItem().toString().equals("")) {
@@ -1993,8 +2003,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 								dato += etdato2.getText().toString().trim()+ ",";
 							}
 							if(!des3.equals("")){
+                                buscarInfraccion(des3);
 								infraccion();
-								buscarInfraccion(des3);
 								tveliminar3.setEnabled(false);
                                 if(spuni3.getVisibility() != View.GONE) {
                                     if (!spuni3.getSelectedItem().toString().equals("")) {
@@ -2007,8 +2017,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 								dato += etdato3.getText().toString().trim()+ ",";
 							}
 							if(!des4.equals("")){
+                                buscarInfraccion(des4);
 								infraccion();
-								buscarInfraccion(des4);
 								tveliminar4.setEnabled(false);
                                 if(spuni4.getVisibility() != View.GONE) {
                                     if (!spuni4.getSelectedItem().toString().equals("")) {
@@ -3409,6 +3419,63 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         etEspecificacion.setEnabled(true);
         spInfraccion.setEnabled(true);
         etManifiesta.setEnabled(true);
+
+        etSeleccion.setText("");
+        etInfraccion.setText("");
+
+        tveliminar.setEnabled(true);
+        tveliminar1.setEnabled(true);
+        tveliminar2.setEnabled(true);
+        tveliminar3.setEnabled(true);
+        tveliminar4.setEnabled(true);
+        text = "";
+        seleccion = "";
+        dato = "";
+        id_hechos  = "";
+
+        camp1 = "";
+        camp2 = "";
+        camp3 = "";
+        camp4 = "";
+        camp5 = "";
+        camp6 = "";
+        camp7 = "";
+        camp8 = "";
+        camp9 = "";
+        camp0 = "";
+        camp11 = "";
+        camp12 = "";
+        camp13 = "";
+        camp14 = "";
+        camp15 = "";
+        camp16 = "";
+        camp17 = "";
+        camp18 = "";
+        camp19 = "";
+        camp20 = "";
+
+        c1 = "";
+        c2 = "";
+        c3 = "";
+        c4 = "";
+        c5 = "";
+        c6 = "";
+        c7 = "";
+        c8 = "";
+        c9 = "";
+        c0 = "";
+        c11 = "";
+        c12 = "";
+        c13 = "";
+        c14 = "";
+        c15 = "";
+        c16 = "";
+        c17 = "";
+        c18 = "";
+        c19 = "";
+        c20 = "";
+
+        campo0 = "";
     	/*infraccion = 0;
     	co = 0;
 		rlcampo.setVisibility(View.VISIBLE);
@@ -4865,9 +4932,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     sb.append("Ingrese en nombre del visitado. \n");
                     valid = false;
                 }
-                if(validarCampos(this.etVIdentifica)){
-                    sb.append("Ingrese la identificacion del visitado. \n");
-                    valid = false;
+                if(!spIdentifica.getSelectedItem().toString().trim().equalsIgnoreCase("No se identifica")) {
+                    if (validarCampos(this.etVIdentifica)) {
+                        sb.append("Ingrese la identificacion del visitado. \n");
+                        valid = false;
+                    }
                 }
             }
             if(validarSpinner(this.spMedida)) {
@@ -4933,9 +5002,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     sb.append("Ingrese el nombre del visitado. \n");
                     valid = false;
                 }
-                if(validarCampos(this.etVIdentifica)){
-                    sb.append("Ingrese la identificacion del visitado. \n");
-                    valid = false;
+                if(!spIdentifica.getSelectedItem().toString().trim().equalsIgnoreCase("No se identifica")) {
+                    if (validarCampos(this.etVIdentifica)) {
+                        sb.append("Ingrese la identificacion del visitado. \n");
+                        valid = false;
+                    }
                 }
             }
 	    	if(validarCampos(this.etFraccionamiento)){
@@ -4990,9 +5061,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     sb.append("Ingrese el nombre del visitado. \n");
                     valid = false;
                 }
-                if(validarCampos(this.etVIdentifica)){
-                    sb.append("Ingrese la identificacion del visitado. \n");
-                    valid = false;
+                if(!spIdentifica.getSelectedItem().toString().trim().equalsIgnoreCase("No se identifica")) {
+                    if (validarCampos(this.etVIdentifica)) {
+                        sb.append("Ingrese la identificacion del visitado. \n");
+                        valid = false;
+                    }
                 }
             }
 	    	if(validarCampos(this.etFraccionamiento)){
@@ -5051,9 +5124,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     sb.append("Ingrese el nombre del visitado. \n");
                     valid = false;
                 }
-                if(validarCampos(this.etVIdentifica)){
-                    sb.append("Ingrese la identificacion del visitado. \n");
-                    valid = false;
+                if(!spIdentifica.getSelectedItem().toString().trim().equalsIgnoreCase("No se identifica")) {
+                    if (validarCampos(this.etVIdentifica)) {
+                        sb.append("Ingrese la identificacion del visitado. \n");
+                        valid = false;
+                    }
                 }
             }
 	    	if(validarCampos(this.etFraccionamiento)){
@@ -5155,6 +5230,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			camp20 += c20+",";
 		
 		System.out.println("CAMPOS " + c1 + " " + c2 + " " + c3 + " " + c4 + " "  + c5 + c6 + " " + c7 + " " + c8 + " " + c9 + " "  + c0 + " " + c11 + " " + c12 + " " + c13 + " "  + c14);
+		Log.e("valores",camp1);
 		
     }
     
@@ -8050,7 +8126,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(470, 692);
+                            canvas.moveText(490, 692);
                             canvas.showText(spIdentificaT.getSelectedItem().toString() + " " + etIfeT.getText().toString());
                             canvas.endText();
                             canvas.restoreState();
@@ -8759,6 +8835,15 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     canvas.showText("01 de enero");
                     canvas.endText();
                     canvas.restoreState();
+
+                    canvas.saveState();
+                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                    canvas.beginText();
+                    canvas.setFontAndSize(bf, 9);
+                    canvas.moveText(275, 445+c);
+                    canvas.showText("20");
+                    canvas.endText();
+                    canvas.restoreState();
 				    
 				    canvas.saveState();
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -8773,7 +8858,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9);
-			        canvas.moveText(450, 445+c);
+			        canvas.moveText(440, 445+c);
 			        canvas.showText(String.valueOf(ax).substring(2, 4));
 			        canvas.endText();
 			        canvas.restoreState();
@@ -8802,11 +8887,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     }
 			        if(id == 4) {
                         String art = "";
+                        int x = 1;
 
                         for (int i = 0; i < reg.length; i++) {
                             if (reg[i] > 0) {
-                                motivo += conceptos.get(i) + ",";
+                                motivo += (x) + " " + conceptos.get(i) + ",";
                                 art += articulo.get(i) + " Fracción " + fraccion.get(i) + ",";
+                                x+=1;
                             }
                         }
                         art = art.substring(0, art.length() - 1);
@@ -12746,7 +12833,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			
 			etNombreT.setText(spInspectorT.getSelectedItem().toString().trim());
 			etIfeT.setText(idT);
-			spIdentificaT.setSelection(1);
+			//spIdentificaT.setSelection(0);
 			break;
 			
 		case R.id.spInspectorT1:
@@ -12754,14 +12841,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			
 			etNombreT1.setText(spInspectorT1.getSelectedItem().toString().trim());
 			etIfeT2.setText(idT1);
-			spIdentificaT1.setSelection(1);
+			//spIdentificaT1.setSelection(0);
 			break;
 			
 		case R.id.spdesignado1:
 			if(spdesignado1.getItemAtPosition(arg2).toString().equalsIgnoreCase("inspector")) {
-				spInspectorT1.setSelection(0);
+				//spInspectorT1.setSelection(0);
 				spInspectorT1.setEnabled(true);
-                selectValue(spdesignado1,"Número de Gafet");
+                //selectValue(spdesignado1,"Credencial oficial folio");
 				/*etIfeA.setText(ifeA);
 				etNoA.setText(noA);
 				etVigA.setText(vigA);
