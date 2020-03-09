@@ -8831,7 +8831,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(150, 445+c);
+                    canvas.moveText(150, 447+c);
                     canvas.showText("01 de enero");
                     canvas.endText();
                     canvas.restoreState();
@@ -8840,7 +8840,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(275, 445+c);
+                    canvas.moveText(285, 447+c);
                     canvas.showText("20");
                     canvas.endText();
                     canvas.restoreState();
@@ -8849,7 +8849,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9);
-			        canvas.moveText(350, 445+c);
+			        canvas.moveText(350, 447+c);
 			        canvas.showText(d1 + " de " + getMes(m).toLowerCase());
 			        canvas.endText();
 			        canvas.restoreState();
@@ -8858,7 +8858,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9);
-			        canvas.moveText(440, 445+c);
+			        canvas.moveText(445, 447+c);
 			        canvas.showText(String.valueOf(ax).substring(2, 4));
 			        canvas.endText();
 			        canvas.restoreState();
@@ -8912,7 +8912,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     p.setFont(new Font(Font.HELVETICA,3));
                     doc.add(p);*/
 
-			        txt = Justificar.justifocarTexto1(motivo, 150);
+			        txt = Justificar.justifocarTexto1(motivo, 155);
 				    int li = 410+c;
 				    
 				    for (int i = 0; i < txt.length; i++) {

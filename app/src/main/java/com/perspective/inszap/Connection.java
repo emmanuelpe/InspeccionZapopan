@@ -16,6 +16,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -412,6 +413,7 @@ public class Connection {
 			
 			this.is.close();
 			result = sb.toString();
+			System.out.println(result + " result");
 		} catch (ClientProtocolException e) {
         	Log.e("ClientProtocolException", e.getMessage());
         	return "null";
@@ -793,6 +795,61 @@ public class Connection {
 			db.close();
 	    }
 	    return res;
+	}
+
+	public int validar1(String url,String catalogo) {
+		boolean res = false;
+		GestionBD gestion = new GestionBD(context,"Recaudacion",null, 1);
+		SQLiteDatabase db = gestion.getWritableDatabase();
+		int total = 0;
+		int totalBD = -1;
+		ArrayList<NameValuePair> dat = new ArrayList<NameValuePair>();
+		dat.add(new BasicNameValuePair("id", "0"));
+		dat.add(new BasicNameValuePair("tabla",catalogo));
+		try {
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httpPost = new HttpPost(url);
+			httpPost.setEntity(new UrlEncodedFormEntity(dat));
+			HttpResponse response = httpclient.execute(httpPost);
+			HttpEntity entity = response.getEntity();
+			this.is = entity.getContent();
+			Log.i("is", is + " x)");
+		} catch (Exception e) {
+			Log.e("ERROR 1", e.getMessage() + " ");
+			return 0;
+		}
+		try {
+			BufferedReader reader = null;
+			reader = new BufferedReader(new InputStreamReader(this.is, "iso-8859-1"),8);
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			//try {
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			this.is.close();
+			result = sb.toString();
+			System.err.println(result);
+			jArray = new JSONArray(result);
+			this.json_data = this.jArray.getJSONObject(0);
+			total = json_data.getInt("renglones");
+			System.out.println(total);
+			//return total;
+		} catch (ClientProtocolException e) {
+			Log.e("ClientProtocolException", e.getMessage() + " ");
+			return 0;
+		}catch (IOException e) {
+			Log.e("IOException", e.getMessage() + " ");
+			return 0;
+		}catch (JSONException e) {
+			// TODO: handle exception
+		}catch (Exception e) {			Log.e("Exception", e.getMessage() + " ");
+			return 0;
+		}finally {
+			//db.endTransaction();
+			db.close();
+		}
+		return total;
 	}
 	
 
