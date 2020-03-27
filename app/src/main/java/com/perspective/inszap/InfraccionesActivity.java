@@ -64,6 +64,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -106,7 +107,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",fracciones = "",articulos = "",folio = "",clave = "",fol = "";
 	private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:"; 
 	private int mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0;
-	private Spinner spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spMeConstitui;
+	private Spinner spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spMeConstitui,spDensidad;
 	private EditText etNum,etFecham,etfecha,etDiaPlazo,etIfeI,etNoI,etVigI,etIfeA,etIfeA1,etIfeA2,etIfeA3,etIfeA4,etNoA,etNoA1,etNoA2,etNoA3,etNoA4,etVigA,etVigA1,etVigA2,etVigA3,etVigA4,etNombreT,etIfeT,etDesc,etDesc1,etDesc2,etDesc3,etDesc4,etdato,etdato1,etdato2,etdato3,etdato4,desf,desf1,desf2,etNombreV,etFraccionamiento,etCalle,etNumero,etPropietario,etNombreT1,etIfeT2,etManifiesta,etNuemroInterior,etApellidoP,etApellidoM,etCitatorio,etNumeroActa,etEspecificacion,etDFoto,etDFoto1,etDFoto2,etDFoto3,etVManifiesta,etVIdentifica,etLatitud,etLongitud,etAnoCitatorio,etAnoOrden,etCondominio/*etDensidad*/,etManzana,etLote,etReferencia,etBuscar,etfolio,/*etAlineamiento,*/etConstruccion, etGiro, etMotivo,etOrden1,etEntreC,etEntreC1,etResponsable,etRegistro,etMedida,etArticulo,etInspccionFue,etDFoto4,etDFoto5,etDFoto6,etDFoto7,etDFoto8,etDFoto9,etDFoto10,etDFoto11,etDFoto12,etDFoto13,etDFoto14,etDFoto15,etDFoto16,etDFoto17,etDFoto18,etDFoto19,etLGiro,etAGiro,etAlicencia,etSector,etNombreComercial,etObs,etObs1,etObs2,etObs3,etObs4,etBCol,etOtro,etDondeActua,etNumeroSellos;
 	private LinearLayout lldiv,cons,llNota,llplazo,llreincidencia,llcomp,llconcepto,llPla,llfundamento;
 	private RelativeLayout rlcampo,rlProp,rlTestA,rlVisita,rlLicencias,rlDonde_actua;
@@ -182,7 +183,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	public static final String TAG = "BixolonPrinterSample";
 	private AlertDialog mSampleDialog;
 	private Switch swReincidencia;
-	private ArrayAdapter adapterCol,adapterMeC;
+	private ArrayAdapter adapterCol,adapterMeC,adapterDensidad;
 	private List<String> conceptos,articulo,fraccion,unis,unis1,unis2,unis3,unis4;
 	private ArrayAdapter adapterUni,adapterUni1,adapterUni2,adapterUni3,adapterUni4;
 	private List<String> fundam = new ArrayList<>();
@@ -540,6 +541,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         spselec1 = findViewById(R.id.spselec1);
         tvDonde = findViewById(R.id.tvDondeActua);
 
+        spDensidad = findViewById(R.id.spDensidad);
+
         unis = new ArrayList<>();
         unis1 = new ArrayList<>();
         unis2 = new ArrayList<>();
@@ -552,7 +555,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         adapterUni3 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis3);
         adapterUni4 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis4);
         adapterMeC = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,meConstitui);
+        adapterDensidad = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,getResources().getStringArray(R.array.densidad));
         spMeConstitui.setAdapter(adapterMeC);
+        spDensidad.setAdapter(adapterDensidad);
 
         spuni.setAdapter(adapterUni);
         spuni1.setAdapter(adapterUni1);
@@ -1595,7 +1600,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						alert.show();
 					}
 					else {*/
-						guardar();
+						//guardar();
+                new Descargas().execute();
 					//}
 				/*}catch(Exception e) {
 					
@@ -3048,7 +3054,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 								etPropietario.getText().toString(), etNombreT.getText().toString(), spIdentificaT.getSelectedItem().toString() + ":" + etIfeT.getText().toString(), 
 								spdesignado.getSelectedItem().toString(), etNombreT1.getText().toString(), spIdentificaT1.getSelectedItem().toString() + ":" +  etIfeT2.getText().toString(), 
 								spdesignado1.getSelectedItem().toString(), usoCatalogo,etSeleccion.getText().toString(), etInfraccion.getText().toString(), id_hechos, 
-								spuso.getSelectedItem().toString() , ""/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
+								spuso.getSelectedItem().toString() , spDensidad.getSelectedItem().toString()/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
 								Integer.parseInt(spgravedad.getSelectedItem().toString()), Integer.parseInt(etDiaPlazo.getText().toString()), etfecha.getText().toString(), hr, etCondominio.getText().toString(), etLote.getText().toString(), etManzana.getText().toString(), etReferencia.getText().toString(), "", "", etConstruccion.getText().toString(),idComp,etEntreC.getText().toString(),etEntreC1.getText().toString(),etResponsable.getText().toString(),etRegistro.getText().toString(),"N",identifica,
 								spPeticion.getSelectedItem().toString(),firmas,etMotivo.getText().toString(),etMedida.getText().toString().trim() + " "+ etNumeroSellos.getText().toString().trim(),etArticulo.getText().toString(),
 								id_inspector3,id_inspector4,id_inspector5,id_inspector6,idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5,etLGiro.getText().toString().trim(),etAGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),spNE.getSelectedItem().toString(),reincidencia) + "");
@@ -3142,7 +3148,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 									etPropietario.getText().toString(), etNombreT.getText().toString(),spIdentificaT.getSelectedItem().toString() + ":" + etIfeT.getText().toString(), 
 									spdesignado.getSelectedItem().toString(), etNombreT1.getText().toString(),spIdentificaT1.getSelectedItem().toString() + ":" + etIfeT2.getText().toString(), 
 									spdesignado1.getSelectedItem().toString(), usoCatalogo, etSeleccion.getText().toString(), etInfraccion.getText().toString(), id_hechos, 
-									spuso.getSelectedItem().toString().trim(), ""/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
+									spuso.getSelectedItem().toString().trim(), spDensidad.getSelectedItem().toString()/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
 									Integer.parseInt(spgravedad.getSelectedItem().toString()), Integer.parseInt(etDiaPlazo.getText().toString()), etfecha.getText().toString(), 
 									fecha + " " + hr, "POR CALIFICAR",etCondominio.getText().toString() + " ",etManzana.getText().toString(),etLote.getText().toString(), etReferencia.getText().toString(), "", /*etAlineamiento.getText().toString()*/"", etConstruccion.getText().toString(), etEntreC.getText().toString(),etEntreC1.getText().toString(),etResponsable.getText().toString(),etRegistro.getText().toString(),idComp,
 									etMedida.getText().toString().trim() + " " + etNumeroSellos.getText().toString().trim(),etArticulo.getText().toString().trim(),etMotivo.getText().toString().trim(),id_inspector3,id_inspector4,id_inspector5,id_inspector6,
@@ -3186,52 +3192,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 								conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, /*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://10.10.23.54/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
 						}
 					}
-					
-					
-						
-						btnGuardar.setEnabled(false);
-						guarda = true;
-						llcomp.setEnabled(false);
-						llcomp.setVisibility(View.GONE);
-						//btnImprimir.setEnabled(true);
-						btnmodificar.setEnabled(false);
-						this.tvEvidencia.setVisibility(View.VISIBLE);
-				        this.btnTomarF.setVisibility(View.VISIBLE);
-				        //btnFtp.setEnabled(true);
-				        btnVista.setEnabled(false);
-				        btnTomarF.setEnabled(true);
-				        if(guarda) {
-				            if(id > 2 & id < 4) {
-                                if (foto >= 1) {
-                                    btnImprimir.setEnabled(true);
-                                } else {
-                                    btnImprimir.setEnabled(false);
-                                }
-                            } else {
-				                if(infrac == 1) {
-                                    if (foto >= 1)
-                                        btnImprimir.setEnabled(true);
-                                    else
-                                        btnImprimir.setEnabled(false);
-                                }
-				                else
-                                    btnImprimir.setEnabled(true);
-                            }
-				        }
-					
-						
 					//}
-						msj = (conn.validarConexion(getApplicationContext()) & resu) ? "Los datos se han guardado en la base de datos local y enviados al servidor" : "Los datos e imagenes se han guardado en la base de datos local";
-						Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
-						toast.setGravity(0, 0, 15);
-						toast.show();
 
-						/*if(foto == 0) {
-                            toast = Toast.makeText(getApplicationContext(), "No ah tomado evidencia fotografica", Toast.LENGTH_LONG);
-                            toast.setGravity(0, 0, 15);
-                            toast.show();
-                        }*/
-						deshabilitar();
 					}else {
 						Toast toast = Toast.makeText(getApplicationContext(), "EL CAMPO INFRACCION ESTA VACIO", Toast.LENGTH_LONG);
 						toast.setGravity(0, 0, 15);
@@ -3251,6 +3213,73 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			toast.setGravity(0, 0, 15);
 			toast.show();*
 		}*/
+    }
+
+    public class Descargas extends AsyncTask<String, Integer, String> {
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            btnGuardar.setEnabled(false);
+            guarda = true;
+            llcomp.setEnabled(false);
+            llcomp.setVisibility(View.GONE);
+            //btnImprimir.setEnabled(true);
+            btnmodificar.setEnabled(false);
+            tvEvidencia.setVisibility(View.VISIBLE);
+            btnTomarF.setVisibility(View.VISIBLE);
+            //btnFtp.setEnabled(true);
+            btnVista.setEnabled(false);
+            btnTomarF.setEnabled(true);
+            if(guarda) {
+                if(id > 2 & id < 4) {
+                    if (foto >= 1) {
+                        btnImprimir.setEnabled(true);
+                    } else {
+                        btnImprimir.setEnabled(false);
+                    }
+                } else {
+                    if(infrac == 1) {
+                        if (foto >= 1)
+                            btnImprimir.setEnabled(true);
+                        else
+                            btnImprimir.setEnabled(false);
+                    }
+                    else
+                        btnImprimir.setEnabled(true);
+                }
+            }
+            msj = (conn.validarConexion(getApplicationContext()) & resu) ? "Los datos se han guardado en la base de datos local y enviados al servidor" : "Los datos e imagenes se han guardado en la base de datos local";
+            Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
+            toast.setGravity(0, 0, 15);
+            toast.show();
+
+						/*if(foto == 0) {
+                            toast = Toast.makeText(getApplicationContext(), "No ah tomado evidencia fotografica", Toast.LENGTH_LONG);
+                            toast.setGravity(0, 0, 15);
+                            toast.show();
+                        }*/
+            deshabilitar();
+            /*Toast toast = Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG);
+            toast.setGravity(0, 0, 15);
+            toast.show();*/
+        }
+        @Override
+        protected String doInBackground(String... params) {
+            Connection conn = new Connection();
+            if (!conn.search("http://10.10.23.54/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+                //if (!conn.search("http://172.16.1.21/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+                //if (!conn.search("http://192.168.0.15/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+                if (conn.validarConexion(getApplicationContext()))
+                    guardar();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
     }
     
     public void guardarFotoLocal() {
