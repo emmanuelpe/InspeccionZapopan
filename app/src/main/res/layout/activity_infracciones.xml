@@ -2360,7 +2360,7 @@
 							android:prompt="@string/iden"
 							/>
 						
-						 <!-- <RelativeLayout 
+						 <RelativeLayout
 						     android:layout_width="fill_parent" 
 							 android:layout_height="wrap_content"
 							 android:gravity="center"
@@ -2368,24 +2368,31 @@
 							
 						     <TextView 
 						    	android:id="@+id/tvDensidad"
-								android:layout_width="wrap_content"
+								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								android:layout_marginTop="20dp"
 								android:text="@string/densidad"
 								android:layout_gravity="center" 
-								style="@style/Subtitle"/>
+								style="@style/Subtitle"
+								 android:gravity="center"/>
+
+							 <android.support.v7.widget.AppCompatSpinner
+								 android:id="@+id/spDensidad"
+								 android:layout_width="match_parent"
+								 android:layout_height="wrap_content"
+								 android:layout_below="@+id/tvDensidad"/>
 					
-							<EditText 
+							<!--<EditText
 								android:id="@+id/etdensidad"
 								android:layout_width="fill_parent"
 								android:layout_height="70dp"
 								android:hint="@string/densidad"
 								android:layout_toRightOf="@id/tvDensidad"
 								android:inputType="textCapSentences"
-								android:imeOptions="actionNext"/>
+								android:imeOptions="actionNext"/>-->
 								 
 							
-						</RelativeLayout> -->
+						</RelativeLayout>
 					
 					</LinearLayout>
 					
