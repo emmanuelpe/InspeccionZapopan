@@ -851,6 +851,139 @@ public class Connection {
 		}
 		return total;
 	}
+	public boolean insetarRegistros(String url, String tabla, String fecha) {
+		GestionBD gestion = new GestionBD(context,"inspeccion",null,1);
+		SQLiteDatabase db = gestion.getWritableDatabase();
+
+		db.beginTransaction();
+
+		ContentValues cv = new ContentValues();
+
+		Cursor c = db.rawQuery("SELECT * FROM " + tabla, null);
+
+		int r = 0;
+
+		ArrayList<NameValuePair> dat = new ArrayList<NameValuePair>();
+		dat.add(new BasicNameValuePair("id", "0"));
+		dat.add(new BasicNameValuePair("fecha", fecha));
+
+		try {
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httpPost = new HttpPost(url);
+			httpPost.setEntity(new UrlEncodedFormEntity(dat));
+			HttpResponse response = httpclient.execute(httpPost);
+			HttpEntity entity = response.getEntity();
+			this.is = entity.getContent();
+		} catch (Exception e) {
+			Log.e("ERROR1", e.getMessage());
+		}
+
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(this.is, "iso-8859-1"),8);
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+
+			this.is.close();
+			result = sb.toString();
+
+			this.jArray = new JSONArray(result);
+			this.json_data = this.jArray.getJSONObject(0);
+			@SuppressWarnings("unchecked")
+			Iterator<String> itr = json_data.keys();
+			tablas.clear();
+			while (itr.hasNext()) {
+				tablas.add(itr.next());
+			}
+
+			for (int i = 0; i < tablas.size(); i++) {
+				System.out.println("t " + tablas.get(i));
+				if (c.getColumnIndex(tablas.get(i)) > -1)
+					System.out.println("si existe " );
+				else {
+					db.execSQL("ALTER TABLE " + tabla + " ADD COLUMN " + tablas.get(i) + " TEXT ");
+					System.out.println("ALTER TABLE " + tabla + " ADD COLUMN " + tablas.get(i) + " TEXT ");
+				}
+			}
+			if(c.getColumnIndex("fechaA") > -1) {
+				r+=1;
+			}
+			c.close();
+			for (int i = 0; i < tablas.size(); i++) {
+				System.out.println("t " + tablas.get(i));
+			}
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			Date date = new Date();
+			String sql = "";
+			Cursor cursor = null;
+			int action = 0;
+			for (int i = 0; i < jArray.length(); i++) {
+				this.json_data = this.jArray.getJSONObject(i);
+
+				if(tabla.equalsIgnoreCase("vs_InspM2")) {
+					if(!jArray.getJSONObject(i).isNull("IdLicencia")) {
+						sql = "Select * from " + tabla + " where  = " + this.jArray.getJSONObject(i).getString("IdLicencia");
+						cursor = db.rawQuery(sql, null);
+						action = cursor.getCount();
+					} else
+						action = 0;
+				} else if(tabla.equalsIgnoreCase("v_LicenciasReglamentos")) {
+					if(!jArray.getJSONObject(i).isNull("NumeroLicencia")) {
+						sql = "Select * from " + tabla + " where  = " + this.jArray.getJSONObject(i).getString("NumeroLicencia");
+						cursor = db.rawQuery(sql, null);
+						action = cursor.getCount();
+					} else
+						action = 0;
+				}
+
+				for (int j = 0; j < tablas.size(); j++) {
+					if (!json_data.isNull(tablas.get(j))) {
+						cv.put(tablas.get(j), json_data.getString(tablas.get(j).trim()));
+						System.out.println("registro" + i + " " + tablas.get(j) + " " + json_data.getString(tablas.get(j)));
+					}
+					else {
+						cv.put(tablas.get(j), "");
+						System.out.println("registro" + i + " " + tablas.get(j) + " ");
+					}
+				}
+				if(r > 0) {
+					cv.put("fechaA",dateFormat.format(date));
+				}
+				if(action == 0)
+					db.insert(tabla, null, cv);
+				else {
+					if(tabla.equalsIgnoreCase("vs_InspM2"))
+						db.update(tabla, cv, "IdLicencia = '" + jArray.getJSONObject(i).getString("IdLicencia") + "'", null);
+					else if(tabla.equalsIgnoreCase("v_LicenciasReglamentos"))
+						db.update(tabla, cv, "NumeroLicencia = '" + jArray.getJSONObject(i).getString("NumeroLicencia") + "'", null);
+				}
+			}
+			db.setTransactionSuccessful();
+
+		}catch (SQLiteException sqlite) {
+			Log.e("SQLiteException", sqlite.getMessage());
+			return false;
+		}catch (JSONException j) {
+			Log.e("JSONException", j.getMessage());
+			return false;
+		}
+		catch (ClientProtocolException e) {
+			Log.e("ClientProtocolException", e.getMessage());
+			return false;
+		}
+		catch (IOException e) {
+			Log.e("IOException", e.getMessage());
+			return false;
+		}
+		finally {
+			db.endTransaction();
+			db.close();
+		}
+		return true;
+	}
 	
 
 }

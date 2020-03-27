@@ -210,5 +210,12 @@
     <string name="title_activity_infracciones">Infracción</string>
     <string name="ne">Nivel Economico</string>
     <string name="re">Reincidencia</string>
+    <string-array name="densidad">
+        <item></item>
+        <item>Minima (1)</item>
+        <item>Baja (2)</item>
+        <item>Media (3)</item>
+        <item>Alta (4)</item>
+    </string-array>
 
 </resources>
