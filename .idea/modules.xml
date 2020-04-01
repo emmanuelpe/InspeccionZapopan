@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AndroidStudioProjects-InspeccionZapopan.iml" filepath="$PROJECT_DIR$/AndroidStudioProjects-InspeccionZapopan.iml" group="InspeccionZapopan" />
+      <module fileurl="file://$PROJECT_DIR$/Escritorio-InspeccionZapopan.iml" filepath="$PROJECT_DIR$/Escritorio-InspeccionZapopan.iml" group="InspeccionZapopan" />
+      <module fileurl="file://$PROJECT_DIR$/app/Escritorio-InspeccionZapopan-app.iml" filepath="$PROJECT_DIR$/app/Escritorio-InspeccionZapopan-app.iml" group="InspeccionZapopan/app" />
       <module fileurl="file://$PROJECT_DIR$/InspeccionZapopan.iml" filepath="$PROJECT_DIR$/InspeccionZapopan.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/InspeccionZapopan-app.iml" filepath="$PROJECT_DIR$/app/InspeccionZapopan-app.iml" group="InspeccionZapopan/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
