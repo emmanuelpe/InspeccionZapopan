@@ -20,7 +20,9 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:networkSecurityConfig="@xml/network_security_config">
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
         <activity android:name=".InfraccionesActivityTecnica" android:configChanges="orientation|screenSize|screenLayout|navigation"></activity>
         <activity android:name=".Licencias" android:configChanges="orientation|screenSize|screenLayout|navigation" />
         <activity android:name=".ConsultarLicenciaConstruccion" android:configChanges="orientation|screenSize|screenLayout|navigation"/>

@@ -1,10 +1,14 @@
 
 package com.perspective.inszap;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,6 +51,7 @@ public class Connection {
 	private ArrayList<String> tablas = new ArrayList<String>();
 	private static String msj;
 	private static JSONParser jsonParser = new JSONParser();
+	public static String response = "";
 	
 	public Connection(){
 		
@@ -574,8 +579,10 @@ public class Connection {
 	}
 	
 	public boolean insetarRegistros(String url, String tabla) {
-	
-		
+
+		URL url1=null;
+
+		System.out.println(tabla);
 		GestionBD gestion = new GestionBD(context,"inspeccion",null,1);
 		SQLiteDatabase db = gestion.getWritableDatabase();
 
@@ -586,24 +593,39 @@ public class Connection {
 		Cursor c = db.rawQuery("SELECT * FROM " + tabla, null);
 
 		int r = 0;
+		String response="";
 		
 		ArrayList<NameValuePair> dat = new ArrayList<NameValuePair>();
 		dat.add(new BasicNameValuePair("id", "0"));
 		dat.add(new BasicNameValuePair("a", "2016"));
 		
 		try {
-			HttpClient httpclient = new DefaultHttpClient();
+			/*HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httpPost = new HttpPost(url);
 			httpPost.setEntity(new UrlEncodedFormEntity(dat));
 			HttpResponse response = httpclient.execute(httpPost);
 			HttpEntity entity = response.getEntity();
-			this.is = entity.getContent();
+			this.is = entity.getContent();*/
+
+			//connection.execute(url);
+
+			HttpURLConnection httpURLConnection=null;
+
+
+			try {
+				url1 = new URL(url);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+
+
+			//System.out.println(response + " res");
 		} catch (Exception e) {
 			Log.e("ERROR1", e.getMessage());
 		}
 		
 		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(this.is, "iso-8859-1"),8);
+			/*BufferedReader reader = new BufferedReader(new InputStreamReader(this.is, "iso-8859-1"),8);
 			StringBuilder sb = new StringBuilder();
 			String line = null;
 			
@@ -612,20 +634,46 @@ public class Connection {
 			}
 			
 			this.is.close();
-			result = sb.toString();
-			
-			this.jArray = new JSONArray(result);
-			this.json_data = this.jArray.getJSONObject(0);
+			result = sb.toString();*/
+
+			try {
+				HttpURLConnection httpURLConnection = (HttpURLConnection) url1.openConnection();
+				httpURLConnection.connect();
+				int code= httpURLConnection.getResponseCode();
+				if (code== HttpURLConnection.HTTP_OK){
+					InputStream in= new BufferedInputStream(httpURLConnection.getInputStream());
+					BufferedReader reader= new BufferedReader(new InputStreamReader(in));
+					String line="";
+					StringBuffer buffer = new StringBuffer();
+					while ((line=reader.readLine())!=null){
+						buffer.append(line);
+					}
+					response =  buffer.toString();
+					System.out.println(response + " res");
+
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+
+			this.jArray = new JSONArray(response);
+
+			System.out.println("dato  "+response);
+
+				this.json_data = this.jArray.getJSONObject(0);
+
+
 			@SuppressWarnings("unchecked")
 			Iterator<String> itr = json_data.keys();
 			tablas.clear();
 			while (itr.hasNext()) {
 				tablas.add(itr.next());
 			}
-			
+
 			for (int i = 0; i < tablas.size(); i++) {
 				System.out.println("t " + tablas.get(i));
-				if (c.getColumnIndex(tablas.get(i)) > -1) 
+				if (c.getColumnIndex(tablas.get(i)) > -1)
 					System.out.println("si existe " );
 				else {
 					db.execSQL("ALTER TABLE " + tabla + " ADD COLUMN " + tablas.get(i) + " TEXT ");
@@ -643,9 +691,11 @@ public class Connection {
 			Date date = new Date();
 			for (int i = 0; i < jArray.length(); i++) {
 				this.json_data = this.jArray.getJSONObject(i);
-				
+
 				for (int j = 0; j < tablas.size(); j++) {
+					System.out.println("nombre campo "+ tablas.get(j));
 					if (!json_data.isNull(tablas.get(j))) {
+						System.out.println("entro");
 							cv.put(tablas.get(j), json_data.getString(tablas.get(j).trim()));
 							System.out.println("registro" + i + " " + tablas.get(j) + " " + json_data.getString(tablas.get(j)));
 					}
@@ -657,10 +707,12 @@ public class Connection {
 				if(r > 0) {
 					cv.put("fechaA",dateFormat.format(date));
 				}
+
+
 				db.insert(tabla, null, cv);
 			}
 			db.setTransactionSuccessful();
-			
+
 		}catch (SQLiteException sqlite) {
 			Log.e("SQLiteException", sqlite.getMessage());
 			return false;
@@ -668,15 +720,14 @@ public class Connection {
 			Log.e("JSONException", j.getMessage());
 			return false;
 		}
-		catch (ClientProtocolException e) {
+		/*catch (ClientProtocolException e) {
         	Log.e("ClientProtocolException", e.getMessage());
         	return false;
         }
 		catch (IOException e) {
 			Log.e("IOException", e.getMessage());
 			return false;
-		}
-		finally {
+		}*/ finally {
 			db.endTransaction();
 			db.close();
 		}
@@ -851,6 +902,113 @@ public class Connection {
 		}
 		return total;
 	}
-	
 
+	public int validar2(String url,String catalogo) {
+		boolean res = false;
+		GestionBD gestion = new GestionBD(context,"Recaudacion",null, 1);
+		SQLiteDatabase db = gestion.getWritableDatabase();
+		int total = 0;
+		int totalBD = -1;
+		ArrayList<NameValuePair> dat = new ArrayList<NameValuePair>();
+		dat.add(new BasicNameValuePair("id", "0"));
+		dat.add(new BasicNameValuePair("tabla",catalogo));
+		try {
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httpPost = new HttpPost(url);
+			httpPost.setEntity(new UrlEncodedFormEntity(dat));
+			HttpResponse response = httpclient.execute(httpPost);
+			HttpEntity entity = response.getEntity();
+			this.is = entity.getContent();
+			Log.i("is", is + " x)");
+		} catch (Exception e) {
+			Log.e("ERROR 1", e.getMessage() + " ");
+			return 0;
+		}
+		try {
+			BufferedReader reader = null;
+			reader = new BufferedReader(new InputStreamReader(this.is, "iso-8859-1"),8);
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			//try {
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			this.is.close();
+			result = sb.toString();
+			System.err.println(result);
+			jArray = new JSONArray(result);
+			this.json_data = this.jArray.getJSONObject(0);
+			total = json_data.getInt("renglones_construccion");
+			System.out.println(total);
+			//return total;
+		} catch (ClientProtocolException e) {
+			Log.e("ClientProtocolException", e.getMessage() + " ");
+			return 0;
+		}catch (IOException e) {
+			Log.e("IOException", e.getMessage() + " ");
+			return 0;
+		}catch (JSONException e) {
+			// TODO: handle exception
+		}catch (Exception e) {			Log.e("Exception", e.getMessage() + " ");
+			return 0;
+		}finally {
+			//db.endTransaction();
+			db.close();
+		}
+		return total;
+	}
+	public int validar3(String url,String catalogo) {
+		boolean res = false;
+		GestionBD gestion = new GestionBD(context,"Recaudacion",null, 1);
+		SQLiteDatabase db = gestion.getWritableDatabase();
+		int total = 0;
+		int totalBD = -1;
+		ArrayList<NameValuePair> dat = new ArrayList<NameValuePair>();
+		dat.add(new BasicNameValuePair("id", "0"));
+		dat.add(new BasicNameValuePair("tabla",catalogo));
+		try {
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httpPost = new HttpPost(url);
+			httpPost.setEntity(new UrlEncodedFormEntity(dat));
+			HttpResponse response = httpclient.execute(httpPost);
+			HttpEntity entity = response.getEntity();
+			this.is = entity.getContent();
+			Log.i("is", is + " x)");
+		} catch (Exception e) {
+			Log.e("ERROR 1", e.getMessage() + " ");
+			return 0;
+		}
+		try {
+			BufferedReader reader = null;
+			reader = new BufferedReader(new InputStreamReader(this.is, "iso-8859-1"),8);
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			//try {
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			this.is.close();
+			result = sb.toString();
+			System.err.println(result);
+			jArray = new JSONArray(result);
+			this.json_data = this.jArray.getJSONObject(0);
+			total = json_data.getInt("renglones_comercio");
+			System.out.println(" "+total);
+
+		} catch (ClientProtocolException e) {
+			Log.e("ClientProtocolException", e.getMessage() + " ");
+			return 0;
+		}catch (IOException e) {
+			Log.e("IOException", e.getMessage() + " ");
+			return 0;
+		}catch (JSONException e) {
+			// TODO: handle exception
+		}catch (Exception e) {			Log.e("Exception", e.getMessage() + " ");
+			return 0;
+		}finally {
+			//db.endTransaction();
+			db.close();
+		}
+		return total;
+	}
 }
