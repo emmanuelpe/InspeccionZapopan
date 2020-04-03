@@ -687,7 +687,7 @@ public class Connection {
 			for (int i = 0; i < tablas.size(); i++) {
 				System.out.println("t " + tablas.get(i));
 			}
-			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Date date = new Date();
 			for (int i = 0; i < jArray.length(); i++) {
 				this.json_data = this.jArray.getJSONObject(i);
@@ -902,8 +902,7 @@ public class Connection {
 		}
 		return total;
 	}
-<<<<<<< HEAD
-=======
+
 	public boolean insetarRegistros(String url, String tabla, String fecha) {
 		GestionBD gestion = new GestionBD(context,"inspeccion",null,1);
 		SQLiteDatabase db = gestion.getWritableDatabase();
@@ -968,7 +967,7 @@ public class Connection {
 			for (int i = 0; i < tablas.size(); i++) {
 				System.out.println("t " + tablas.get(i));
 			}
-			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Date date = new Date();
 			String sql = "";
 			Cursor cursor = null;
@@ -978,14 +977,14 @@ public class Connection {
 
 				if(tabla.equalsIgnoreCase("vs_InspM2")) {
 					if(!jArray.getJSONObject(i).isNull("IdLicencia")) {
-						sql = "Select * from " + tabla + " where  = " + this.jArray.getJSONObject(i).getString("IdLicencia");
+						sql = "Select * from " + tabla + " where IdLicencia = '" + this.jArray.getJSONObject(i).getString("IdLicencia") + "'";
 						cursor = db.rawQuery(sql, null);
 						action = cursor.getCount();
 					} else
 						action = 0;
 				} else if(tabla.equalsIgnoreCase("v_LicenciasReglamentos")) {
 					if(!jArray.getJSONObject(i).isNull("NumeroLicencia")) {
-						sql = "Select * from " + tabla + " where  = " + this.jArray.getJSONObject(i).getString("NumeroLicencia");
+						sql = "Select * from " + tabla + " where NumeroLicencia = '" + this.jArray.getJSONObject(i).getString("NumeroLicencia") + "'";
 						cursor = db.rawQuery(sql, null);
 						action = cursor.getCount();
 					} else
@@ -1008,6 +1007,7 @@ public class Connection {
 				if(action == 0)
 					db.insert(tabla, null, cv);
 				else {
+					System.out.println("ACTUALIZA");
 					if(tabla.equalsIgnoreCase("vs_InspM2"))
 						db.update(tabla, cv, "IdLicencia = '" + jArray.getJSONObject(i).getString("IdLicencia") + "'", null);
 					else if(tabla.equalsIgnoreCase("v_LicenciasReglamentos"))
@@ -1037,8 +1037,6 @@ public class Connection {
 		}
 		return true;
 	}
-	
->>>>>>> dcbb091e104f70b272e5039c742d42ee3a285ada
 
 	public int validar2(String url,String catalogo) {
 		boolean res = false;
@@ -1139,8 +1137,9 @@ public class Connection {
 			Log.e("IOException", e.getMessage() + " ");
 			return 0;
 		}catch (JSONException e) {
-			// TODO: handle exception
-		}catch (Exception e) {			Log.e("Exception", e.getMessage() + " ");
+
+		}catch (Exception e) {
+			Log.e("Exception", e.getMessage() + " ");
 			return 0;
 		}finally {
 			//db.endTransaction();
