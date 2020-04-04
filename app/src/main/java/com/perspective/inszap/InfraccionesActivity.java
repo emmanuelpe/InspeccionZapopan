@@ -64,6 +64,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -91,6 +92,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -189,6 +191,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	private List<String> fundam = new ArrayList<>();
 	private List<String> meConstitui = new ArrayList<>();
 	private List<String> folios = new ArrayList<>();
+	private ProgressBar pb;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -542,6 +545,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         tvDonde = findViewById(R.id.tvDondeActua);
 
         spDensidad = findViewById(R.id.spDensidad);
+
+        pb = findViewById(R.id.pb);
 
         unis = new ArrayList<>();
         unis1 = new ArrayList<>();
@@ -1601,7 +1606,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					}
 					else {*/
 						//guardar();
-                new Descargas().execute();
+                if (validarI()) {
+                    new Descargas().execute();
+                }
 					//}
 				/*}catch(Exception e) {
 					
@@ -2944,7 +2951,6 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     
     public void guardar() {
     	//try {
-	    	if (validarI()) {
 	    		int idLevantamiento, idLevantamientoSQL = 0;
 					if(!etInfraccion.getText().toString().equalsIgnoreCase("") | infrac == 2 | infrac == 3 | infrac == 4) {
 						Calendar calendar = Calendar.getInstance();
@@ -3138,30 +3144,32 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						
 						//10.84.35.153
 						if (conn.validarConexion(InfraccionesActivity.this)) {
-							Log.i("sii", "internet " + id_inspector2);
-							//nv
-							if (Connection.inserta(etNumeroActa.getText().toString(), citatorio,infrac, tipoActa,id, fecha, fecha + " " + hora, 
-									longitud, latitud, orden, etFecham.getText().toString(),zon, id_inspector1, id_inspector2, 
-									etNombreV.getText().toString(),spIdentifica.getSelectedItem().toString() + ":" + etVIdentifica.getText().toString(), etVManifiesta.getText().toString(), 
-									etFraccionamiento.getText().toString(), etCalle.getText().toString(), etNumero.getText().toString(), 
-									etNuemroInterior.getText().toString(), etApellidoP.getText().toString(), etApellidoM.getText().toString(), 
-									etPropietario.getText().toString(), etNombreT.getText().toString(),spIdentificaT.getSelectedItem().toString() + ":" + etIfeT.getText().toString(), 
-									spdesignado.getSelectedItem().toString(), etNombreT1.getText().toString(),spIdentificaT1.getSelectedItem().toString() + ":" + etIfeT2.getText().toString(), 
-									spdesignado1.getSelectedItem().toString(), usoCatalogo, etSeleccion.getText().toString(), etInfraccion.getText().toString(), id_hechos, 
-									spuso.getSelectedItem().toString().trim(), spDensidad.getSelectedItem().toString()/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
-									Integer.parseInt(spgravedad.getSelectedItem().toString()), Integer.parseInt(etDiaPlazo.getText().toString()), etfecha.getText().toString(), 
-									fecha + " " + hr, "POR CALIFICAR",etCondominio.getText().toString() + " ",etManzana.getText().toString(),etLote.getText().toString(), etReferencia.getText().toString(), "", /*etAlineamiento.getText().toString()*/"", etConstruccion.getText().toString(), etEntreC.getText().toString(),etEntreC1.getText().toString(),etResponsable.getText().toString(),etRegistro.getText().toString(),idComp,
-									etMedida.getText().toString().trim() + " " + etNumeroSellos.getText().toString().trim(),etArticulo.getText().toString().trim(),etMotivo.getText().toString().trim(),id_inspector3,id_inspector4,id_inspector5,id_inspector6,
-									idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5
-									,etLGiro.getText().toString().trim(),etAGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),conf,spPeticion.getSelectedItem().toString(),spNE.getSelectedItem().toString(),reincidencia,/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/"http://10.10.23.54/infracciones/serversql/insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
-								
-								resu = true;
-								
-								Log.i("inserto", "true");
-							}
-							else
-								Log.i("inserto", "false");
-						}
+                            if (!conn.search("http://10.10.23.54/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+                                Log.i("sii", "internet " + id_inspector2);
+                                //nv
+                                if (Connection.inserta(etNumeroActa.getText().toString(), citatorio, infrac, tipoActa, id, fecha, fecha + " " + hora,
+                                        longitud, latitud, orden, etFecham.getText().toString(), zon, id_inspector1, id_inspector2,
+                                        etNombreV.getText().toString(), spIdentifica.getSelectedItem().toString() + ":" + etVIdentifica.getText().toString(), etVManifiesta.getText().toString(),
+                                        etFraccionamiento.getText().toString(), etCalle.getText().toString(), etNumero.getText().toString(),
+                                        etNuemroInterior.getText().toString(), etApellidoP.getText().toString(), etApellidoM.getText().toString(),
+                                        etPropietario.getText().toString(), etNombreT.getText().toString(), spIdentificaT.getSelectedItem().toString() + ":" + etIfeT.getText().toString(),
+                                        spdesignado.getSelectedItem().toString(), etNombreT1.getText().toString(), spIdentificaT1.getSelectedItem().toString() + ":" + etIfeT2.getText().toString(),
+                                        spdesignado1.getSelectedItem().toString(), usoCatalogo, etSeleccion.getText().toString(), etInfraccion.getText().toString(), id_hechos,
+                                        spuso.getSelectedItem().toString().trim(), spDensidad.getSelectedItem().toString()/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
+                                        Integer.parseInt(spgravedad.getSelectedItem().toString()), Integer.parseInt(etDiaPlazo.getText().toString()), etfecha.getText().toString(),
+                                        fecha + " " + hr, "POR CALIFICAR", etCondominio.getText().toString() + " ", etManzana.getText().toString(), etLote.getText().toString(), etReferencia.getText().toString(), "", /*etAlineamiento.getText().toString()*/"", etConstruccion.getText().toString(), etEntreC.getText().toString(), etEntreC1.getText().toString(), etResponsable.getText().toString(), etRegistro.getText().toString(), idComp,
+                                        etMedida.getText().toString().trim() + " " + etNumeroSellos.getText().toString().trim(), etArticulo.getText().toString().trim(), etMotivo.getText().toString().trim(), id_inspector3, id_inspector4, id_inspector5, id_inspector6,
+                                        idCompetencia1, idCompetencia2, idCompetencia3, idCompetencia4, idCompetencia5
+                                        , etLGiro.getText().toString().trim(), etAGiro.getText().toString(), axo, etNombreComercial.getText().toString(), etSector.getText().toString(), conf, spPeticion.getSelectedItem().toString(), spNE.getSelectedItem().toString(), reincidencia,/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/"http://10.10.23.54/infracciones/serversql/insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
+
+                                    resu = true;
+
+                                    Log.i("inserto", "true");
+                                } else
+                                    Log.i("inserto", "false");
+                            }
+						} else
+						    resu = false;
 					
 						
 												
@@ -3188,8 +3196,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 									}
 								}
 							}
-							if (conn.validarConexion(getApplicationContext()) & resu) 
-								conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, /*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://10.10.23.54/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
+							if (conn.validarConexion(getApplicationContext()) & resu) {
+                                conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, /*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://10.10.23.54/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
+                            }
 						}
 					}
 					//}
@@ -3199,7 +3208,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						toast.setGravity(0, 0, 15);
 						toast.show();
 					}
-			}
+
     	/*}catch (Exception e) {
 			Log.e("Guardar", e.getMessage() + " l");
 			/*btnGuardar.setEnabled(false);
@@ -3219,6 +3228,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            pb.setVisibility(View.GONE);
             btnGuardar.setEnabled(false);
             guarda = true;
             llcomp.setEnabled(false);
@@ -3265,20 +3275,20 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         }
         @Override
         protected String doInBackground(String... params) {
-            Connection conn = new Connection();
-            if (!conn.search("http://10.10.23.54/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+           // if (!conn.search("http://10.10.23.54/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
                 //if (!conn.search("http://172.16.1.21/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
                 //if (!conn.search("http://192.168.0.15/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
-                if (conn.validarConexion(getApplicationContext()))
+                //if (conn.validarConexion(getApplicationContext()))
                     guardar();
-            }
+            //}
             return null;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
+            btnGuardar.setEnabled(false);
+            pb.setVisibility(View.VISIBLE);
         }
     }
     
