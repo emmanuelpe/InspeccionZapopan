@@ -3037,13 +3037,20 @@
 							android:layout_height="wrap_content"
 							android:text="@string/vista"
 							style="@style/Boton"/>
+
+						<ProgressBar
+							android:id="@+id/pb"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_below="@id/btnVista"
+							android:visibility="gone"/>
 	    		    
 						<Button 
 							android:id="@+id/btnguardar"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:text="@string/guardar"
-							android:layout_below="@id/btnVista"
+							android:layout_below="@id/pb"
 							style="@style/Boton"/>
 	    			
 						<Button 
@@ -3052,7 +3059,7 @@
 							android:layout_height="wrap_content"
 							android:text="@string/imprimir"
 							android:enabled="false"
-							android:layout_below="@id/btnVista"
+							android:layout_below="@id/pb"
 							android:layout_toRightOf="@id/btnguardar"
 							style="@style/Boton"/>
 						
@@ -3061,7 +3068,7 @@
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:text="@string/ftp_foto"
-							android:layout_below="@id/btnVista"
+							android:layout_below="@id/pb"
 							android:layout_toRightOf="@id/btnImprimir"
 							android:enabled="false"
 							style="@style/Boton"/>
@@ -3071,7 +3078,7 @@
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:text="@string/salir"
-							android:layout_below="@id/btnVista"
+							android:layout_below="@id/pb"
 							android:layout_toRightOf="@id/btnEnviaFTP"
 							style="@style/Boton"/>
 						
