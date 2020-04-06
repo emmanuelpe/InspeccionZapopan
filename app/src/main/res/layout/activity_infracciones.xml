@@ -2286,7 +2286,7 @@
 									android:layout_width="fill_parent"
 									android:layout_height="100dp"
 									android:hint="@string/art"
-									android:layout_below="@id/etMedida"
+									android:layout_below="@id/llfundamento"
 									android:inputType="textMultiLine|textCapSentences"
 									android:enabled="true"/>
 								
