@@ -4985,10 +4985,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 sb.append("Ingrese las medidas precautorias. \n");
                 valid = false;
             }
-            if(etMedida.getText().toString().trim().contains("Clausura") | etMedida.getText().toString().trim().contains("clausura")) {
-                if(etNumeroSellos.getText().toString().trim().equalsIgnoreCase("")) {
-                    sb.append("Ingrese los numeros de sellos. \n");
-                    valid = false;
+            if(id == 2 | id == 4) {
+                if (etMedida.getText().toString().trim().contains("Clausura") | etMedida.getText().toString().trim().contains("clausura")) {
+                    if (etNumeroSellos.getText().toString().trim().equalsIgnoreCase("")) {
+                        sb.append("Ingrese los numeros de sellos. \n");
+                        valid = false;
+                    }
                 }
             }
             if(validarSpinner(this.spPeticion)) {
@@ -12901,6 +12903,19 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				medidas1 = "";
 
 				if(id == 2 | id == 5) {
+				    if(id == 2) {
+                        if(spMedida.getSelectedItem().toString().trim().contains("Clausura") || spMedida.getSelectedItem().toString().contains("CLAUSURA")) {
+                            Toast toast = Toast.makeText(getApplicationContext(),"Agregar sellos de clausura",Toast.LENGTH_LONG);
+                            toast.setGravity(0,0,15);
+                            toast.show();
+                            res = true;
+                        } else
+                            res = false;
+                        if(res)
+                            etNumeroSellos.setVisibility(View.VISIBLE);
+                        else
+                            etNumeroSellos.setVisibility(View.GONE);
+                    }
 				    Log.e("medida","aqio con 5");
 					etMedida.setText(spMedida.getSelectedItem().toString().trim());
 					etArticulo.setText(art.get(spMedida.getSelectedItemPosition()).trim() + " del " + orden.get(spMedida.getSelectedItemPosition()).trim());
