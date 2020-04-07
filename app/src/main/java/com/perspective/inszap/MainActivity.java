@@ -604,13 +604,11 @@ public class MainActivity extends Activity {
 			System.err.println("AQUI LALALALA1111");
 		}
 
-		if(validarCampo("Levantamiento","peticion") == 0) {
+		if(validarCampo("Levantamiento","nivel_economico") == 0) {
 			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
 			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
 
-			String sql = "alter table Levantamiento add peticion TEXT";
-			db1.execSQL(sql);
-			sql = "alter table Levantamiento add nivel_economico TEXT";
+			String sql = "alter table Levantamiento add nivel_economico TEXT";
 			db1.execSQL(sql);
 			sql = "alter table Levantamiento add reincidencia TEXT";
 			db1.execSQL(sql);
