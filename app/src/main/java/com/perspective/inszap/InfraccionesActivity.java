@@ -1607,7 +1607,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					else {*/
 						//guardar();
                 if (validarI()) {
-                    new Descargas().execute();
+                    if(!etInfraccion.getText().toString().equalsIgnoreCase("") | infrac == 2 | infrac == 3 | infrac == 4)
+                        new Descargas().execute();
+                    else {
+                        Toast toast = Toast.makeText(getApplicationContext(), "EL CAMPO INFRACCION ESTA VACIO", Toast.LENGTH_LONG);
+                        toast.setGravity(0, 0, 15);
+                        toast.show();
+                    }
                 }
 					//}
 				/*}catch(Exception e) {
@@ -2952,7 +2958,6 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     public void guardar() {
     	//try {
 	    		int idLevantamiento, idLevantamientoSQL = 0;
-					if(!etInfraccion.getText().toString().equalsIgnoreCase("") | infrac == 2 | infrac == 3 | infrac == 4) {
 						Calendar calendar = Calendar.getInstance();
 						String m,h;
 						m = (calendar.get(Calendar.MINUTE) < 10) ? "0" + calendar.get(Calendar.MINUTE) : String.valueOf(calendar.get(Calendar.MINUTE));
@@ -3202,12 +3207,6 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						}
 					}
 					//}
-
-					}else {
-						Toast toast = Toast.makeText(getApplicationContext(), "EL CAMPO INFRACCION ESTA VACIO", Toast.LENGTH_LONG);
-						toast.setGravity(0, 0, 15);
-						toast.show();
-					}
 
     	/*}catch (Exception e) {
 			Log.e("Guardar", e.getMessage() + " l");

@@ -237,6 +237,9 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 			System.err.println(e.getMessage());
 		}
 
+		if(values_cr == 0)
+			btnInfraccion.setEnabled(false);
+
 		v = sp.getInt("v", 0);
 		/*if (!conn.search("http://10.10.23.54/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
 		//if (!conn.search("http://192.168.0.11/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
