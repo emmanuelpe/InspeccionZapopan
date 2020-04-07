@@ -6921,8 +6921,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				cv.put("nombre_comercial",nombre_comercial);
 				cv.put("sector",sector);
 
-                //cv.put("nivel_economico",niec);
-                //cv.put("reincidencia",rei);
+                cv.put("nivel_economico",niec);
+                cv.put("reincidencia",rei);
 		
 				n = db.insert("Levantamiento", null, cv);				
 			}catch (SQLiteException e) {
