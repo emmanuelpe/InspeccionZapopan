@@ -3149,7 +3149,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						
 						//10.84.35.153
 						if (conn.validarConexion(InfraccionesActivity.this)) {
-                            if (!conn.search("http://10.10.23.54/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+                            if (!conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
                                 Log.i("sii", "internet " + id_inspector2);
                                 //nv
                                 if (Connection.inserta(etNumeroActa.getText().toString(), citatorio, infrac, tipoActa, id, fecha, fecha + " " + hora,
@@ -3165,7 +3165,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                         fecha + " " + hr, "POR CALIFICAR", etCondominio.getText().toString() + " ", etManzana.getText().toString(), etLote.getText().toString(), etReferencia.getText().toString(), "", /*etAlineamiento.getText().toString()*/"", etConstruccion.getText().toString(), etEntreC.getText().toString(), etEntreC1.getText().toString(), etResponsable.getText().toString(), etRegistro.getText().toString(), idComp,
                                         etMedida.getText().toString().trim() + " " + etNumeroSellos.getText().toString().trim(), etArticulo.getText().toString().trim(), etMotivo.getText().toString().trim(), id_inspector3, id_inspector4, id_inspector5, id_inspector6,
                                         idCompetencia1, idCompetencia2, idCompetencia3, idCompetencia4, idCompetencia5
-                                        , etLGiro.getText().toString().trim(), etAGiro.getText().toString(), axo, etNombreComercial.getText().toString(), etSector.getText().toString(), conf, spPeticion.getSelectedItem().toString(), spNE.getSelectedItem().toString(), reincidencia,/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/"http://10.10.23.54/infracciones/serversql/insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
+                                        , etLGiro.getText().toString().trim(), etAGiro.getText().toString(), axo, etNombreComercial.getText().toString(), etSector.getText().toString(), conf, spPeticion.getSelectedItem().toString(), spNE.getSelectedItem().toString(), reincidencia,/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
 
                                     resu = true;
 
@@ -3202,7 +3202,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 								}
 							}
 							if (conn.validarConexion(getApplicationContext()) & resu) {
-                                conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, /*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://10.10.23.54/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
+                                conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, /*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
                             }
 						}
 					}
@@ -3274,7 +3274,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         }
         @Override
         protected String doInBackground(String... params) {
-           // if (!conn.search("http://10.10.23.54/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+           // if (!conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
                 //if (!conn.search("http://172.16.1.21/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
                 //if (!conn.search("http://192.168.0.15/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
                 //if (conn.validarConexion(getApplicationContext()))
@@ -3352,7 +3352,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			Log.i("Archivo", nom);
 			//conn.insertFoto(idLevantamientoSQL, etNumeroActa.getText().toString(),nom.replace("/", "-"), desc, "http://10.0.2.2:8080/serverSQL/insertFoto.php");
 			if (conn.validarConexion(getApplicationContext()) & resu)
-				conn.insertFoto(idLevantamientoSQL, etNumeroActa.getText().toString(),nom.replace("/", "-"), desc, /*"http://172.16.1.21/serverSQL/insertFoto.php"*/"http://10.10.23.54/infracciones/serverSQL/insertFoto.php"/*"http://pgt.no-ip.biz/serverSQL/insertFoto.php"/"http://192.168.0.11/serverSQL/insertFoto.php"*/);
+				conn.insertFoto(idLevantamientoSQL, etNumeroActa.getText().toString(),nom.replace("/", "-"), desc, /*"http://172.16.1.21/serverSQL/insertFoto.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertFoto.php"/*"http://pgt.no-ip.biz/serverSQL/insertFoto.php"/"http://192.168.0.11/serverSQL/insertFoto.php"*/);
 		}
 		archivo = Environment.getExternalStorageDirectory()+"/Infracciones/fotografias/"+etNumeroActa.getText().toString().replace("/", "_")+"/";
 		System.out.println(new File(archivo + etNumeroActa.getText().toString().replace("/", "_") + ".txt").exists());
@@ -3965,7 +3965,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	int id = 0;
     	//this.result = conn.search("http://192.168.0.11/serverSQL/getIdLevantamientos.php");
     	//this.result = conn.search("http://pgt.no-ip.biz/serverSQL/getIdLevantamientos.php");
-    	this.result = conn.search("http://10.10.23.54/infracciones/serverSQL/getIdLevantamientos.php");
+    	this.result = conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getIdLevantamientos.php");
     	//this.result = conn.search("http://172.16.1.21/serverSQL/getIdLevantamientos.php");
     	
     		try {
@@ -3985,7 +3985,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     public int getIdDetalle() {
     	//this.result = conn.search("http://192.168.0.11/serverSQL/getDetalleInfaccion.php");
     	//this.result = conn.search("http://10.0.2.2/serverSQL/getDetalleInfaccion.php");
-    	this.result = conn.search("http://10.10.23.54/infracciones/serverSQL/getDetalleInfraccion.php");
+    	this.result = conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getDetalleInfraccion.php");
     	//this.result = conn.search("http://172.16.1.21/serverSQL/getDetalleInfaccion.php");
     	
     	int id = 0;
