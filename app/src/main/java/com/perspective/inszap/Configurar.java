@@ -131,7 +131,7 @@ public void validarFrom() {
 			conf.add(new BasicNameValuePair("serie1", params[1]));
 			
 			
-			JSONObject jObject = jParser.realizarHttpRequest("http://10.10.23.54/infracciones/serversql/getTableta.php", "POST", conf);
+			JSONObject jObject = jParser.realizarHttpRequest("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getTableta.php", "POST", conf);
 			
 			try {
 				res = jObject.getInt("status");
