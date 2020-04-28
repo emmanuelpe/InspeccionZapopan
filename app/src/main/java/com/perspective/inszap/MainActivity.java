@@ -536,6 +536,13 @@ public class MainActivity extends Activity {
 			String sql = "alter table Detalle_infraccion add estatus1 TEXT default 'N'";
 			db1.execSQL(sql);
 		}
+		if(validarCampo("Detalle_infraccion", "unidad") == 0) {
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Detalle_infraccion add unidad TEXT";
+			db1.execSQL(sql);
+		}
 		
 		if(validarCampo("Fotografia", "estatus1") == 0) {
 			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);

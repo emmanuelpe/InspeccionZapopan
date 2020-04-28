@@ -468,7 +468,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 						System.out.println(c.getString(2) + " " + c.getString(3) + " " + c.getString(4) + " d");
 						if (buscarDetalle(c.getString(2), c.getString(3), c.getString(4)) == 0) {
 							id_l = idLe(c.getString(2));
-							conn.insertDetalle(id_l, c.getString(2), Integer.parseInt(c.getString(3)), Float.parseFloat(c.getString(4)), /*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.15/serverSQL/insertDetalle.php"*/);
+							conn.insertDetalle(id_l, c.getString(2), Integer.parseInt(c.getString(3)), Float.parseFloat(c.getString(4)),c.getString(c.getColumnIndex("unidad")), /*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.15/serverSQL/insertDetalle.php"*/);
 							db.update("Detalle_infraccion", cv, "id_detalle_infraccion = " + c.getInt(0), null);
 						} else {
 							db.update("Detalle_infraccion", cv, "id_detalle_infraccion = " + c.getInt(0), null);
@@ -615,7 +615,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 							mpEntity.addPart("fotoUp", foto);
 							mpEntity.addPart("foto", new StringBody(s));
 
-							JSONObject json = jsonParser.subirImage("http://10.10.23.54/infracciones/sistema/pruebaI.php", "POST", mpEntity);
+							JSONObject json = jsonParser.subirImage("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/pruebaI.php", "POST", mpEntity);
 
 							//JSONObject json = jsonParser.subirImage("http://192.168.0.16:8080/sitios/pruebas/pruebaI.php", "POST", mpEntity);
 
