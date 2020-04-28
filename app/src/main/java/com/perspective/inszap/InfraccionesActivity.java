@@ -106,7 +106,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 	private Button btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
 	private TextView tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvPropiedad,spselec1,tvDonde;
-	private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",fracciones = "",articulos = "",folio = "",clave = "",fol = "";
+	private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",unidades="",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",fracciones = "",articulos = "",folio = "",clave = "",fol = "";
 	private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:"; 
 	private int mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0;
 	private Spinner spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spMeConstitui,spDensidad;
@@ -1985,10 +1985,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 								infraccion();
 								tveliminar.setEnabled(false);
 								if(spuni.getVisibility() != View.GONE) {
+								    unidades += spuni.getSelectedItem().toString().trim()+",";
                                     if (!spuni.getSelectedItem().toString().equalsIgnoreCase("")) {
                                         seleccion += x + " " + des + " (" + etdato.getText().toString().trim() + " " + spuni.getSelectedItem().toString().trim() + " " + etObs.getText().toString() + "); ";
                                     }
                                 } else {
+                                    unidades += ",";
                                     seleccion += x + " " + des + "("+etObs.getText().toString()+"); ";
                                 }
 								x++;
@@ -1999,10 +2001,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 								infraccion();
 								tveliminar1.setEnabled(false);
                                 if(spuni1.getVisibility() != View.GONE) {
+                                    unidades += spuni1.getSelectedItem().toString().trim()+",";
                                     if (!spuni1.getSelectedItem().toString().equals("")) {
                                         seleccion += x + " " + des1 + " (" + etdato1.getText().toString().trim() + " " + spuni1.getSelectedItem().toString().trim() + " " + etObs1.getText().toString() + "); ";
                                     }
                                 } else {
+                                    unidades+=",";
                                     seleccion += x + " " + des1 + "("+etObs1.getText().toString()+"); ";
                                 }
                                 x++;
@@ -2013,10 +2017,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 								infraccion();
 								tveliminar2.setEnabled(false);
                                 if(spuni2.getVisibility() != View.GONE) {
+                                    unidades += spuni2.getSelectedItem().toString().trim()+",";
                                     if (!spuni2.getSelectedItem().toString().equals("")) {
                                         seleccion += x + " " + des2 + " (" + etdato2.getText().toString().trim() + " " + spuni2.getSelectedItem().toString() + " " + etObs2.getText().toString() +"); ";
                                     }
                                 } else {
+                                    unidades+=",";
                                     seleccion += x + " " + des2 + "("+etObs2.getText().toString()+"); ";
                                 }
                                 x++;
@@ -2027,10 +2033,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 								infraccion();
 								tveliminar3.setEnabled(false);
                                 if(spuni3.getVisibility() != View.GONE) {
+                                    unidades += spuni3.getSelectedItem().toString().trim()+",";
                                     if (!spuni3.getSelectedItem().toString().equals("")) {
                                         seleccion += x + " " + des3 + " (" + etdato.getText().toString().trim() + " " + spuni3.getSelectedItem().toString() + " " + etObs3.getText().toString() +"); ";
                                     }
                                 } else {
+                                    unidades+=",";
                                     seleccion += x + " " + des3 + "("+etObs3.getText().toString()+"); ";
                                 }
                                 x++;
@@ -2041,10 +2049,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 								infraccion();
 								tveliminar4.setEnabled(false);
                                 if(spuni4.getVisibility() != View.GONE) {
+                                    unidades += spuni4.getSelectedItem().toString().trim()+",";
                                     if (!spuni4.getSelectedItem().toString().equals("")) {
                                         seleccion += x + " " + des4 + " (" + etdato.getText().toString().trim() + " " + spuni4.getSelectedItem().toString() + " " + etObs4.getText().toString() +"); ";
                                     }
                                 } else {
+                                    unidades+=",";
                                     seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
                                 }
 								dato += etdato4.getText().toString().trim()+ ",";
@@ -3073,6 +3083,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						//String peticion,String v_firma,String motivo_orden,String medida_seguridad,String articulo_medida
 						String[] iHecho = null;
 						String[] iCantidad = null;
+						String[] iUnidad = null;
 						if(id_hechos != "") {
 							iHecho = id_hechos.split(regex);
 						}
@@ -3081,6 +3092,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 								iCantidad = dato.split(regex);
 							}
 						}
+						if(unidades != "")
+						    iUnidad=unidades.split(regex);
 						
 						//Log.i("long", iHecho.length + "<- " + iCantidad.length);
 						
@@ -3134,7 +3147,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 									}
 								}
 								Log.i("Detalle infacciÔøΩn", idLevantamiento + " " + etNumeroActa.getText().toString() + " " + iHec + " " + can);
-								ingresarDetalleInfraccion(idLevantamiento, etNumeroActa.getText().toString(), iHec, can,"N");
+								ingresarDetalleInfraccion(idLevantamiento, etNumeroActa.getText().toString(), iHec, can,"N",iUnidad[i]);
 							}
 						}
 						
@@ -3202,7 +3215,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 								}
 							}
 							if (conn.validarConexion(getApplicationContext()) & resu) {
-                                conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, /*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
+                                conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, iUnidad[i],/*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
                             }
 						}
 					}
@@ -3473,6 +3486,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         seleccion = "";
         dato = "";
         id_hechos  = "";
+        unidades = "";
 
         camp1 = "";
         camp2 = "";
@@ -4443,7 +4457,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	return n;
     }
     
-    public long ingresarDetalleInfraccion(int idLevantamiento,String numeroActa,int idInfraccion, float cantidad,String estatus ) {
+    public long ingresarDetalleInfraccion(int idLevantamiento,String numeroActa,int idInfraccion, float cantidad,String estatus, String unidad) {
      
     	long n = 0;
     	GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
@@ -4456,6 +4470,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     		cv.put("id_c_infraccion", idInfraccion);
     		cv.put("cantidad",cantidad);
     		cv.put("estatus", estatus);
+    		cv.put("unidad",unidad);
     	
     		n = db.insert("Detalle_infraccion", null, cv);
     	}

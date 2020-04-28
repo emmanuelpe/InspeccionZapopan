@@ -61,7 +61,7 @@ public class Connection {
 		this.context = context;
 	}
 	
-	public void insertDetalle(int id_levantamiento, String numero_acta, int id_c_infraccion,float cantidad, String url) {
+	public void insertDetalle(int id_levantamiento, String numero_acta, int id_c_infraccion,float cantidad,String unidad, String url) {
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httpost = new HttpPost(url);
 		
@@ -71,6 +71,7 @@ public class Connection {
 			detalle.add(new BasicNameValuePair("numero_acta", numero_acta));
 			detalle.add(new BasicNameValuePair("id_c_infraccion", String.valueOf(id_c_infraccion)));
 			detalle.add(new BasicNameValuePair("cantidad", String.valueOf(cantidad)));
+			detalle.add(new BasicNameValuePair("unidad", unidad));
 			
 			httpost.setEntity(new UrlEncodedFormEntity(detalle));
 			HttpResponse response = httpclient.execute(httpost);
