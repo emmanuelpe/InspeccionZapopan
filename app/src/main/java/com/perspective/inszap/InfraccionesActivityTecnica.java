@@ -1972,7 +1972,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         seleccion += x + " " + des1 + " (" + etdato1.getText().toString().trim() + " " + spuni1.getSelectedItem().toString().trim() + " " + etObs1.getText().toString() + "); ";
                                     }
                                 } else {
-                                    unidades+=",";
+                                    unidades+=" ,";
                                     seleccion += x + " " + des1 + "("+etObs1.getText().toString()+"); ";
                                 }
                                 x++;
@@ -1988,7 +1988,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         seleccion += x + " " + des2 + " (" + etdato2.getText().toString().trim() + " " + spuni2.getSelectedItem().toString() + " " + etObs2.getText().toString() +"); ";
                                     }
                                 } else {
-                                    unidades+=",";
+                                    unidades+=" ,";
                                     seleccion += x + " " + des2 + "("+etObs2.getText().toString()+"); ";
                                 }
                                 x++;
@@ -2004,7 +2004,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         seleccion += x + " " + des3 + " (" + etdato.getText().toString().trim() + " " + spuni3.getSelectedItem().toString() + " " + etObs3.getText().toString() +"); ";
                                     }
                                 } else {
-                                    unidades+=",";
+                                    unidades+=" ,";
                                     seleccion += x + " " + des3 + "("+etObs3.getText().toString()+"); ";
                                 }
                                 x++;
@@ -2020,7 +2020,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         seleccion += x + " " + des4 + " (" + etdato.getText().toString().trim() + " " + spuni4.getSelectedItem().toString() + " " + etObs4.getText().toString() +"); ";
                                     }
                                 } else {
-                                    unidades+=",";
+                                    unidades+=" ,";
                                     seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
                                 }
                                 dato += etdato4.getText().toString().trim()+ ",";
@@ -2032,6 +2032,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             Log.i("seleccion", seleccion);
                             Log.i("id", id_hechos);
                             Log.i("text", text + " 1 " + camp19);
+                            Log.i("unidades",unidades.split(",").length + "");
 
 							/*camp1 = (!camp1.equals("")) ? ordenar(camp1) : "";
 							camp2 = (!camp2.equals("")) ? ordenar(camp2) : "";
@@ -2863,8 +2864,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         iCantidad = dato.split(regex);
                     }
                 }
-                if(unidades != "")
-                    iUnidad=unidades.split(regex);
+                if(unidades != "") {
+                    iUnidad = unidades.split(regex);
+                    Log.e("entro","e" + unidades.split(",").length);
+                }
 
                 //Log.i("long", iHecho.length + "<- " + iCantidad.length);
 
@@ -11286,10 +11289,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         arregloInfraccion.clear();
         buscarInfraccionL(query);
         if(!arregloInfraccion.isEmpty()){
-            spInfraccion.setAdapter(new ArrayAdapter<String>(getApplicationContext(),R.layout.multiline_spinner_dropdown_item,arregloInfraccion));
+            spInfraccion.setAdapter(new ArrayAdapter<String>(this,R.layout.multiline_spinner_dropdown_item,arregloInfraccion));
         }
         else
-            spInfraccion.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item));
+            spInfraccion.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item));
 
 
     }

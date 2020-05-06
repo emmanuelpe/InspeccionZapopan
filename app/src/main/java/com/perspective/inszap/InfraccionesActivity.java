@@ -1990,7 +1990,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                         seleccion += x + " " + des + " (" + etdato.getText().toString().trim() + " " + spuni.getSelectedItem().toString().trim() + " " + etObs.getText().toString() + "); ";
                                     }
                                 } else {
-                                    unidades += ",";
+                                    unidades += " ,";
                                     seleccion += x + " " + des + "("+etObs.getText().toString()+"); ";
                                 }
 								x++;
@@ -2006,7 +2006,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                         seleccion += x + " " + des1 + " (" + etdato1.getText().toString().trim() + " " + spuni1.getSelectedItem().toString().trim() + " " + etObs1.getText().toString() + "); ";
                                     }
                                 } else {
-                                    unidades+=",";
+                                    unidades+=" ,";
                                     seleccion += x + " " + des1 + "("+etObs1.getText().toString()+"); ";
                                 }
                                 x++;
@@ -2022,7 +2022,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                         seleccion += x + " " + des2 + " (" + etdato2.getText().toString().trim() + " " + spuni2.getSelectedItem().toString() + " " + etObs2.getText().toString() +"); ";
                                     }
                                 } else {
-                                    unidades+=",";
+                                    unidades+=" ,";
                                     seleccion += x + " " + des2 + "("+etObs2.getText().toString()+"); ";
                                 }
                                 x++;
@@ -2038,7 +2038,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                         seleccion += x + " " + des3 + " (" + etdato.getText().toString().trim() + " " + spuni3.getSelectedItem().toString() + " " + etObs3.getText().toString() +"); ";
                                     }
                                 } else {
-                                    unidades+=",";
+                                    unidades+=" ,";
                                     seleccion += x + " " + des3 + "("+etObs3.getText().toString()+"); ";
                                 }
                                 x++;
@@ -2054,7 +2054,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                         seleccion += x + " " + des4 + " (" + etdato.getText().toString().trim() + " " + spuni4.getSelectedItem().toString() + " " + etObs4.getText().toString() +"); ";
                                     }
                                 } else {
-                                    unidades+=",";
+                                    unidades+=" ,";
                                     seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
                                 }
 								dato += etdato4.getText().toString().trim()+ ",";
