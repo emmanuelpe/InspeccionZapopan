@@ -1236,6 +1236,8 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 				} else {
 					String fechaR = "",fechaC = "";
 					String fechas [];
+					boolean br,bc;
+					Calendar cal = Calendar.getInstance();
 					Cursor cursor;
 					cursor = db.rawQuery("SELECT fechaA FROM v_LicenciasReglamentos order by fechaA desc limit 1",null);
 					if(cursor.moveToFirst())
@@ -1244,41 +1246,58 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 					if(cursor.moveToFirst())
 						fechaC = cursor.getString(0);
 					System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
+					String dia = cal.get(Calendar.DATE) > 9 ?  String.valueOf(cal.get(Calendar.DATE)) : ("0" + cal.get(Calendar.DATE));
+					String mes = (cal.get(Calendar.MONTH) + 1) > 9 ? (String.valueOf(cal.get(Calendar.MONTH)) + 1) : "0" + (cal.get(Calendar.MONTH) + 1);
+					String f = dia + "/" + mes + "/" + cal.get(Calendar.YEAR);
+					Log.i("fechac",fechaC + " " + f);
+					Log.i("fechar",fechaR + " " + f);
+					if(fechaC.equalsIgnoreCase(f))
+						bc = true;
+					else
+						bc = false;
+					if(fechaR.equalsIgnoreCase(f))
+						br = true;
+					else
+						br = false;
 					fechas = fechaR.split("/");
 					fechaR = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
 					fechas = fechaC.split("/");
 					fechaC = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
 					System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
 					//reglamentos
-					if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
-						int x1;
-						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getLicenciasReglamentos.php", "v_LicenciasReglamentos",fechaR);
-						x1 = c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros.php", "parametros");
+					if(!br) {
+						if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
+							int x1;
+							c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getLicenciasReglamentos.php", "v_LicenciasReglamentos", fechaR);
+							x1 = c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros.php", "parametros");
 
-						Cursor c2 = db.rawQuery("SELECT * FROM " + "vs_InspM2", null);
-						z = c2.getCount();
-						if (x1 > z) {
-							x++;
-							mensaje += mensaje + " vs_InspM2 " + c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
+							Cursor c2 = db.rawQuery("SELECT * FROM " + "vs_InspM2", null);
+							z = c2.getCount();
+							if (x1 > z) {
+								x++;
+								mensaje += mensaje + " vs_InspM2 " + c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
+							}
 						}
+						mProgressBar.setProgress(i);
+						i++;
 					}
-					mProgressBar.setProgress(i);
-					i++;
 					//Construccion
-					if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
-						int x1;
-						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getLicenciasConstruccion.php", "vs_InspM2",fechaC);
-						x1 = c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
+					if(!bc) {
+						if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
+							int x1;
+							c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getLicenciasConstruccion.php", "vs_InspM2", fechaC);
+							x1 = c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
 
-						Cursor c2 = db.rawQuery("SELECT * FROM " + "vs_InspM2", null);
-						z = c2.getCount();
-						if (x1 > z) {
-							x++;
-							mensaje += mensaje + " vs_InspM2 " + c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
+							Cursor c2 = db.rawQuery("SELECT * FROM " + "vs_InspM2", null);
+							z = c2.getCount();
+							if (x1 > z) {
+								x++;
+								mensaje += mensaje + " vs_InspM2 " + c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
+							}
 						}
+						mProgressBar.setProgress(i);
+						i++;
 					}
-					mProgressBar.setProgress(i);
-					i++;
 
 				}
 				msj = "Datos Actualizados";
@@ -1367,6 +1386,8 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 			i++;
 			String fechaR = "",fechaC = "";
 			String fechas [];
+			boolean br,bc;
+			Calendar cal = Calendar.getInstance();
 			Cursor cursor;
 			cursor = db.rawQuery("SELECT fechaA FROM v_LicenciasReglamentos order by fechaA desc limit 1",null);
 			if(cursor.moveToFirst())
@@ -1380,34 +1401,46 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 			fechas = fechaC.split("/");
 			fechaC = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
 			System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
+			if(fechaC.equalsIgnoreCase(cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.YEAR)))
+				bc = false;
+			else
+				bc = true;
+			if(fechaR.equalsIgnoreCase(cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.YEAR)))
+				br = false;
+			else
+				br = true;
 			//reglamentos
-			if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
-				int x1;
-				c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getLicenciasReglamentos.php", "v_LicenciasReglamentos",fechaR);
-				x1 = c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros.php", "parametros");
-				Cursor c2 = db.rawQuery("SELECT * FROM " + "vs_InspM2", null);
-				z = c2.getCount();
-				if (x1 > z) {
-					x++;
-					mensaje += mensaje + " vs_InspM2 " + c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
+			if(!br) {
+				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
+					int x1;
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getLicenciasReglamentos.php", "v_LicenciasReglamentos", fechaR);
+					x1 = c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros.php", "parametros");
+					Cursor c2 = db.rawQuery("SELECT * FROM " + "vs_InspM2", null);
+					z = c2.getCount();
+					if (x1 > z) {
+						x++;
+						mensaje += mensaje + " vs_InspM2 " + c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
+					}
 				}
+				mProgressBar.setProgress(i);
+				i++;
 			}
-			mProgressBar.setProgress(i);
-			i++;
 			//Construccion
-			if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
-				int x1;
-				c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getLicenciasConstruccion.php", "vs_InspM2",fechaC);
-				x1 = c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
-				Cursor c2 = db.rawQuery("SELECT * FROM " + "vs_InspM2", null);
-				z = c2.getCount();
-				if (x1 > z) {
-					x++;
-					mensaje += mensaje + " vs_InspM2 " + c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
+			if(!bc) {
+				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
+					int x1;
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getLicenciasConstruccion.php", "vs_InspM2", fechaC);
+					x1 = c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
+					Cursor c2 = db.rawQuery("SELECT * FROM " + "vs_InspM2", null);
+					z = c2.getCount();
+					if (x1 > z) {
+						x++;
+						mensaje += mensaje + " vs_InspM2 " + c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
+					}
 				}
+				mProgressBar.setProgress(i);
+				i++;
 			}
-			mProgressBar.setProgress(i);
-			i++;
 			msj = "Datos Actualizados";
 		}
 		else
