@@ -849,7 +849,7 @@ public class Connection {
 	    return res;
 	}
 
-	public int validar1(String url,String catalogo) {
+	public int validar1(String url,String catalogo,String s) {
 		boolean res = false;
 		GestionBD gestion = new GestionBD(context,"Recaudacion",null, 1);
 		SQLiteDatabase db = gestion.getWritableDatabase();
@@ -858,6 +858,7 @@ public class Connection {
 		ArrayList<NameValuePair> dat = new ArrayList<NameValuePair>();
 		dat.add(new BasicNameValuePair("id", "0"));
 		dat.add(new BasicNameValuePair("tabla",catalogo));
+		dat.add(new BasicNameValuePair("s",s));
 		try {
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httpPost = new HttpPost(url);
