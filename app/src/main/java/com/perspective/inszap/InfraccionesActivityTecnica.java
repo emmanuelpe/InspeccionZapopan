@@ -7023,7 +7023,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 if(id == 2 | id == 5)
                     bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_1);
                 else if(id == 3)
-                    bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_t);
+                    bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.infraccion_vacia);
+                    //bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_t);
                 else
                     bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_c);
                 bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
@@ -7089,9 +7090,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 canvas.showText(etNumeroActa.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
+//////////////////////////////////////////////////////////////
 
                 //HORA DE INSPECCION
-                canvas.saveState();
+               /* canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
@@ -7132,10 +7134,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 canvas.moveText(460, 838);
                 canvas.showText(a + "");
                 canvas.endText();
-                canvas.restoreState();
+                canvas.restoreState();*/
 
                 //INSPECTOR LOGEADO
-                canvas.saveState();
+                /*canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
@@ -7154,10 +7156,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 canvas.moveText(360, 828);
                 canvas.showText(clave);
                 canvas.endText();
-                canvas.restoreState();
+                canvas.restoreState();*/
 
                 //NUMERO DE INFRACCION
-                canvas.saveState();
+                /*canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
@@ -7187,18 +7189,26 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 canvas.moveText(383, 799);
                 canvas.showText(etNombreV.getText().toString());
                 canvas.endText();
-                canvas.restoreState();
+                canvas.restoreState();*/
 
                 //LUGAR DONDE SE ACTUA (COMERCIO)
+                Paragraph p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las "+hora +" horas del día "
+                        +dia+" de " + mes+ " del año "+ a+ ", el suscrito"
+                        + spnombre.getSelectedItem().toString() + " Inspector Municipal con clave "+ clave + ", facultado para llevar a cabo la inspección y vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, mediante y en cumplimiento de la Orden de Visita folio número "
+                        + numeroOV + "dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fechaOV + " misma que en original exhibo y en copia legible entrego al visitado, "
+                        + etNombreV.getText().toString()+ ", me constituí física y legalmente en "+ etDondeActua.getText().toString() + " marcada (o) con el número "
+                        + etNumero.getText().toString()+" "+etNuemroInterior.getText().toString() + " de la calle " + etCalle.getText().toString(),font);
+                p2.setAlignment(Element.ALIGN_JUSTIFIED);
                 if(this.id == 2) {
-                    canvas.saveState();
+                    /*canvas.saveState();
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
                     canvas.moveText(165, 789);
                     canvas.showText(etDondeActua.getText().toString());
                     canvas.endText();
-                    canvas.restoreState();
+                    canvas.restoreState();*/
+
                 }
                 if(this.id == 3) {
                     canvas.saveState();
