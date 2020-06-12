@@ -3130,6 +3130,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							for(int i = 0; i < iHecho.length; i++) {
 								float can = 0;
 								int iHec;
+								String iUni = "";
 								if(idLevantamiento == 0) {
 									idLevantamiento++;
 								}
@@ -3146,8 +3147,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 										}
 									}
 								}
+                                if(iUnidad.length == 0)
+                                    iUni = "";
+                                else
+                                    iUni = iUnidad[i];
 								Log.i("Detalle infacciÔøΩn", idLevantamiento + " " + etNumeroActa.getText().toString() + " " + iHec + " " + can);
-								ingresarDetalleInfraccion(idLevantamiento, etNumeroActa.getText().toString(), iHec, can,"N",iUnidad[i]);
+								ingresarDetalleInfraccion(idLevantamiento, etNumeroActa.getText().toString(), iHec, can,"N",iUni);
 							}
 						}
 						
@@ -3198,6 +3203,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						for(int i = 0; i < iHecho.length; i++) {
 							float can = 0;
 							int iHec;
+							String iUni = "";
 							if(idLevantamiento == 0) {
 								idLevantamiento++;
 							}
@@ -3214,8 +3220,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 									}
 								}
 							}
+                            if(iUnidad.length == 0)
+                                iUni = "";
+                            else
+                                iUni = iUnidad[i];
 							if (conn.validarConexion(getApplicationContext()) & resu) {
-                                conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, iUnidad[i],/*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
+                                conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, iUni,/*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
                             }
 						}
 					}
