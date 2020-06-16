@@ -6,11 +6,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -51,8 +48,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static repack.org.bouncycastle.crypto.tls.ContentType.alert;
-
 /**
  *
  * @author Emmanuel
@@ -61,7 +56,7 @@ import static repack.org.bouncycastle.crypto.tls.ContentType.alert;
 
 public class Descarga extends Activity implements android.content.DialogInterface.OnClickListener, OnClickListener {
 
-	private Button btnDescargarD, btnDescargarF, btnActualizar, btnInfraccion, btnSalir, btnPrueba, btnConfig, btnUpdate, btnConsultarL, btnConsultar, btnReimprimir1, btnConsultarLicenciaC, btnLicencias;
+	private Button btnReporte,btnDescargarD, btnDescargarF, btnActualizar, btnInfraccion, btnSalir, btnPrueba, btnConfig, btnUpdate, btnConsultarL, btnConsultar, btnReimprimir1, btnConsultarLicenciaC, btnLicencias;
 	private String mFTP = "172.16.1.21"/*"servicios.tlajomulco.gob.mx"/*"pgt.no-ip.biz"*/, dir, arch, result, us, msj, res, direccion, config = "";
 	private int id, aux = 0, id_l, count = 0, countF = 0, ve = 0, con,values_cr = 0,totalCR = 0;
 	private int v = 0, v1;
@@ -124,6 +119,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		btnConsultarLicenciaC = findViewById(R.id.btnConsultarLicenciaC);
 		btnLicencias = findViewById(R.id.btnLicencias);
 		mProgressBar = findViewById(R.id.mProgressBar);
+		btnReporte=findViewById(R.id.btnReporte);
 
 		titleD = (TextView) findViewById(R.id.titleD);
 
@@ -141,6 +137,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		btnConsultar.setTypeface(helvetica);
 		btnReimprimir1.setTypeface(helvetica);
 		btnLicencias.setTypeface(helvetica);
+		btnReporte.setTypeface(helvetica);
 
 		btnPrueba.setOnClickListener(this);
 		btnConfig.setOnClickListener(this);
@@ -149,6 +146,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		btnConsultar.setOnClickListener(this);
 		btnReimprimir1.setOnClickListener(this);
 		btnConsultarLicenciaC.setOnClickListener(this);
+		btnReporte.setOnClickListener(this);
 		btnPrueba.setVisibility(View.GONE);
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		btnLicencias.setOnClickListener(this);
@@ -269,6 +267,27 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 			}
 		}*/
 
+        this.btnReporte.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				//System.out.println("entro"+getactasrango("2020/01/01","2020/06/15","33"));
+				Intent intent;
+
+					intent = new Intent(Descarga.this, Reporte1.class);
+
+
+
+				Bundle bundle = new Bundle();
+				bundle.putString("usuario", us.trim());
+				bundle.putInt("id", id);
+				bundle.putString("direccion", direccion);
+				bundle.putInt("con", con);
+				intent.putExtras(bundle);
+				startActivity(intent);
+
+			}
+		});
 
 		this.btnDescargarD.setOnClickListener(new OnClickListener() {
 
@@ -583,7 +602,11 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		}
 		return 0;
 	}
+    public String getactasrango(String f1, String f2, String idinspector){
+		String numeroacta = "chetos";
 
+		return numeroacta;
+	}
 	public void fotografias() {
 		boolean res;
 		countF = 0;

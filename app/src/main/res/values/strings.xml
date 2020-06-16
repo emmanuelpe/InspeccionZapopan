@@ -14,6 +14,7 @@
     <string name="ordenvisita">Orden de visita</string>
     <string name="numero">Número</string>
     <string name="fecha">Seleccionar fecha</string>
+    <string name="reporteAceptar">Aceptar</string>
     <string name="inspector">Inspector</string>
     <string name="ife">IFE</string>
     <string name="noEmpleado">NO empleado</string>
@@ -127,6 +128,7 @@
     <string name="type">Tipo de visita:</string>
     <string name="descarga_datos">Descarga de datos</string>
     <string name="actualizacion">Actualización de Base de Datos</string>
+    <string name="Reporte">Reporte informacion Enviadas</string>
     <string name="salir">Salir</string>
     <string name="descarga_foto">Descarga de fotografía</string>
     <string name="btn_infraccion">Levantamiento de infracción</string>
