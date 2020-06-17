@@ -75,6 +75,7 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.view.menu.MenuView;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -6060,6 +6061,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     .append(mMonth + 1).append("/")
                     .append(mYear).append(" "));
     }
+
     
     private void updateDisplay1() {
     	m+=1;
