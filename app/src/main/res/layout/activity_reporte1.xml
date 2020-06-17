@@ -63,6 +63,7 @@
         android:textSize="26sp" />
 
     <Button
+        android:id="@+id/aceptarF"
         android:layout_width="180dp"
         android:layout_height="70dp"
         android:layout_below="@id/btnFecha2"
