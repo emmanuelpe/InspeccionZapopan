@@ -7253,6 +7253,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 canvas.restoreState();*/
 
                 //LUGAR DONDE SE ACTUA (COMERCIO)
+
                     Paragraph p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las "+hora +" horas del día "
                         +dia+" de " + getMes2(me.trim())+ " del año "+ a+ ", el suscrito "
                         + spnombre.getSelectedItem().toString() + " Inspector Municipal con clave "+ clave + ", facultado para llevar a cabo la inspección y vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, mediante y en cumplimiento de la Orden de Visita folio número "
