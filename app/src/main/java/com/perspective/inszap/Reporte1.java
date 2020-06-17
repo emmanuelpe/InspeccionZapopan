@@ -53,7 +53,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
       botonaceptar.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-              
+
           }
       });
 
