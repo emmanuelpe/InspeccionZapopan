@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Reporte1">
+
+    <EditText
+        android:id="@+id/etfecham1"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="100dp"
+        android:enabled="false"
+        android:hint="@string/fecham"
+        android:imeOptions="actionNext"
+        android:layout_marginLeft="130dp">
+
+    </EditText>
+
+    <Button
+        android:id="@+id/btnFecha1"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_toRightOf="@+id/etfecham1"
+        android:text="@string/fecha" />
+
+    <EditText
+        android:id="@+id/etfecham2"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:layout_below="@id/etfecham1"
+        android:layout_marginTop="10dp"
+        android:enabled="false"
+        android:hint="@string/fecham"
+        android:imeOptions="actionNext"
+        android:layout_marginLeft="130dp"></EditText>
+
+    <Button
+        android:id="@+id/btnFecha2"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_below="@id/btnFecha1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/etfecham2"
+        android:text="@string/fecha" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignWithParentIfMissing="false"
+
+        android:layout_alignTop="@id/btnFecha1"
+        android:layout_marginLeft="85dp"
+        android:layout_marginTop="-85dp"
+        android:text="REPORTE INFORMACION ENVIADAS"
+        android:textColor="@color/black"
+        android:textIsSelectable="false"
+        android:textSize="26sp" />
+
+    <Button
+        android:id="@+id/aceptarF"
+        android:layout_width="180dp"
+        android:layout_height="70dp"
+        android:layout_below="@id/btnFecha2"
+        android:layout_marginLeft="210dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/reporteAceptar"></Button>
+
+</RelativeLayout>

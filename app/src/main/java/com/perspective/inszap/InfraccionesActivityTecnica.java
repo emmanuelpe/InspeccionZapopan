@@ -2678,6 +2678,45 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 return "Diciembre";
         }
     }
+    public String getMes2(String mes) {
+        switch (mes) {
+            case "enero":
+                return "Enero";
+
+            case "febrero":
+                return "Febrero";
+
+            case "marzo":
+                return "Marzo";
+
+            case "abril":
+                return "Abril";
+
+            case "mayo":
+                return "Mayo";
+
+            case "junio":
+                return "Junio";
+
+            case "julio":
+                return "Julio";
+
+            case "agosto":
+                return "Agosto";
+
+            case "septiembre":
+                return "Septiembre";
+
+            case "octubre":
+                return "Octubre";
+
+            case "noviembre":
+                return "Noviembre";
+
+            default:
+                return "Diciembre";
+        }
+    }
 
     public void numeroA() {
         int n;
@@ -7215,16 +7254,16 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                 //LUGAR DONDE SE ACTUA (COMERCIO)
                     Paragraph p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las "+hora +" horas del día "
-                        +dia+" de " + mes+ " del año "+ a+ ", el suscrito"
-                        + spnombre.getSelectedItem().toString() + " Inspector Municipal con clave "+ clave + ", facultado para llevar a cabo la inspección y vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, mediante y en cumplimiento de la Orden de Visita folio número "
-                        + numeroOV + "dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fechaOV + " misma que en original exhibo y en copia legible entrego al visitado, "
-                        + etNombreV.getText().toString()+ ", me constituí física y legalmente en "+ spMeConstitui.getSelectedItem().toString() + " marcada (o) con el número "
-                        + etNumero.getText().toString()+" "+etNuemroInterior.getText().toString() + " de la calle " + etCalle.getText().toString() + " entre las calles " + etEntreC.getText().toString() + " y, " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " + etFraccionamiento.getText().toString()
-                            + " , cerciorándome de ser este el domicilio correcto coordenadas " + etCoordenada.getText().toString() + " donde se realiza la visita de inspección y la actividad comercial, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el   artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número "
+                        +dia+" de " + getMes2(me.trim())+ " del año "+ a+ ", el suscrito "
+                        + spnombre.getSelectedItem().toString() + " Inspector Municipal con clave "+ clave + ", facultado para llevar a cabo la inspección y vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, mediante y en cumplimiento de la Orden de Visita folio número "
+                        + numeroOV +"  dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fechaOV + " misma que en original exhibo y en copia legible entrego al visitado, "
+                        + etNombreV.getText().toString()+ ", me constituí física y legalmente  "+ spMeConstitui.getSelectedItem().toString().toLowerCase() + " marcada (o) con el número "
+                        + etNumero.getText().toString()+" "+etNuemroInterior.getText().toString() + " de la calle " + etCalle.getText().toString() + " entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " + etFraccionamiento.getText().toString()
+                            + "  cerciorándome de ser este el domicilio correcto coordenadas " + etCoordenada.getText().toString() + " donde se realiza la visita de inspección y la actividad comercial, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el   artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco, con credencial oficial con fotografía folio número "
                             + etfolio.getText().toString() + " , vigente de Abril 2020 a Junio 2020 , expedida por el Director de Inspección y Vigilancia del gobierno municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString()
                             + " manifiesta ser " + etVManifiesta.getText().toString() + " , propiedad de " + etPropietario.getText().toString() + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que negarse a  ello el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. "
-                            + etNombreT.getText().toString() + " y " + etNombreT1.getText().toString() + " por el " + spdesignado.getSelectedItem().toString() + " , mismos que se identifican con " + etIfeT.getText().toString() + " , " + etIfeT2.getText().toString() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: "
-                            + etSeleccion.getText().toString().trim() + " los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim().trim()
+                            + etNombreT.getText().toString() + " y " + etNombreT1.getText().toString() + " por el " + spdesignado.getSelectedItem().toString() + ", mismos que se identifican con " + etIfeT.getText().toString() + " , " + etIfeT2.getText().toString() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: "
+                            + etSeleccion.getText().toString().trim() + ". Los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim().trim()
                             + ". Lo anterior de conformidad a lo dispuesto por los artículos. " + etArticulo.getText().toString().trim()
                             + ". En uso de su derecho el visitado: " + etManifiesta.getText().toString().trim()
                             + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151)."
