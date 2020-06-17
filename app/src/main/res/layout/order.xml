@@ -6,6 +6,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
+
+
     
     <ImageView 
         android:id="@+id/iv"
@@ -25,6 +27,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:scrollbars="vertical"
+        android:justificationMode="inter_word"
         android:layout_below="@+id/iv"/>
     
 

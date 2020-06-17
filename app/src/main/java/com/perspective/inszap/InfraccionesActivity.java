@@ -75,7 +75,9 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.view.menu.MenuView;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -1957,7 +1959,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				else  {
 					Log.i("Validar", "no esta visible");
 					AlertDialog.Builder dialog = new AlertDialog.Builder(InfraccionesActivity.this);
-					dialog.setTitle("Al Aceptar los Hechos no podran ser Modificados");
+					dialog.setTitle("Al Aceptar los Hechos se cargaran los articulos correspondientes");
 					dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
 					
 						@Override
@@ -6059,6 +6061,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     .append(mMonth + 1).append("/")
                     .append(mYear).append(" "));
     }
+
     
     private void updateDisplay1() {
     	m+=1;
@@ -13136,6 +13139,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			final View view = inflater.inflate(R.layout.order, null);
 			
 			TextView tvMulta = (TextView)view.findViewById(R.id.tvText);
+			tvMulta.setMovementMethod(new ScrollingMovementMethod());
 			
 			final String cuerpo = "Zapopan, Jalisco, a las 14:30 catorce horas con treinta minutos del día 10 diez de septiembre del año 2019 dos mil diecinueve. El suscrito, SAÚL LÉMUS GUERRERO, Inspector Multimodal con clave operativa IC-199, en términos de lo dispuesto por los artículos 70 y 73, segundo párrafo, de la Ley del Procedimiento Administrativo del Estado de Jalisco, me constituyo física y legalmente en la calle Hidalgo frente al número 100, entre las calles Emiliano Zapata y 20 de Enero, colonia y/o fraccionamiento Centro, cerciorado de lo anterior por haber tenido a la vista la placa de nomenclatura de la calle más próxima, y porque así lo corrobora quien manifiesta llamarse JACOBO MEDRANO CÁRDENAS, visitado, ante quien me identifico con credencial oficial con fotografía folio número 000, vigente del 1° primero de agosto al 30 treinta de septiembre del 2019 dos mil diecinueve, expedida por el Director de Inspección y Vigilancia del Ayuntamiento de Zapopan, Jalisco; haciéndole saber que el motivo de mi presencia es en atención al reporte ZAPMX377, y enterado de los alcances de la diligencia que por este acto se practica le requiero por una identificación, presentando INE 3005089789185, igualmente le hago saber el derecho que tiene de nombrar a dos personas que fungirán como testigos y estén presentes durante el desahogo de la visita y que de no designar a persona alguna para ello, el suscrito lo haré en rebeldía; en consecuencia, fueron designados por el suscrito los C.C. MA DEL ROSARIO SEDANO GONZÁLEZ, quien se identifica con credencial oficial folio número 0062, respectivamente. Acto seguido, una vez practicada la inspección, resultaron los siguientes hechos: QUE AL MOMENTO DE LA INSPECCIÓN SE CONSTATA QUE REBASA LOS METROS AUTORIZADOS EN SU PERMISO DE FOLIO NÚMERO 131584DE, FECHADO EL 22 VEINTIDÓS DE AGOSTO DEL 2019 DOS MIL DIECINUEVE. Hechos que constituyen infracción a lo dispuesto por los artículos 58, FRACCIÓN IV, DEL REGLAMENTO DE TIANGUIS Y COMERCIO EN ESPACIOS PÚBLICOS DEL MUNICIPIO DE ZAPOPAN, JALISCO. Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: SE LEVANTA LA PRESENTER ACTA PARA LOS FINES LEGALES Y ADMINISTRATIVOS QUE HAYA LUGAR Y SE PROCEDE CON EL INCAUTO PRECAUTORIO DE 2 DOS CAJAS DE CARTÓN EN CUYO INTERIOR SE ALAMCENA PLÁTANO. Lo anterior de conformidad a lo dispuesto por los artículos 5, FRACCIONES IV Y V, 10, 112, FRACCIONES II Y III, 116, 117, 118, FRACCIONES II Y III Y 123, SEGUNDO PÁRRAFO, DEL REGLAMENTO DE TIANGUIS Y COMERCIO EN ESPACIOS PÚBLICOS DEL MUNICIPIO DE ZAPOPAN, JALISCO. Se concede el uso de la voz al visitado para que a los hechos señalados manifieste lo que a su derecho convenga y aporte pruebas, enterado señala: QUE SE RESERVA EL DERECHO. Finalmente, se le informa que el acta resultado de esta diligencia podrá ser impugnada a través del RECURSO DE REVISIÓN, previsto por el artículo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, para lo cual tendrá un plazo de 20 veinte días hábiles, contados a partir del día siguiente de la fecha en que se levante el acta correspondiente; debiendo interponer dicho recurso por escrito que presente en la oficia de la Dirección Jurídica Contenciosa dependiente de Sindicatura, en avenida Hidalgo número 151, colonia Centro de esta Ciudad. Se da por concluida esta diligencia a las 15.00 quince horas del 10 diez de septiembre del presente año, levantándose acta en presencia del visitado y testigos que intervinieron, firmando para constancia los que quisieron y supieron hacerlo, quedando copia legible en poder del interesado para los efectos conducentes. Lo anterior, en términos de lo dispuesto por el artículo 74 de la Ley invocada";
 			
