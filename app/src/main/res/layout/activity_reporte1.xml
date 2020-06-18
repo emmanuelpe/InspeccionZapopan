@@ -4,71 +4,109 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/naranja"
     tools:context=".Reporte1">
 
-    <EditText
-        android:id="@+id/etfecham1"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="699dp"
+        android:layout_height="500dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:layout_marginTop="100dp"
-        android:enabled="false"
-        android:hint="@string/fecham"
-        android:imeOptions="actionNext"
-        android:layout_marginLeft="130dp">
 
-    </EditText>
+        app:cardCornerRadius="25px"
+        app:cardBackgroundColor="@color/white"
 
-    <Button
-        android:id="@+id/btnFecha1"
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="100dp"
-        android:layout_toRightOf="@+id/etfecham1"
-        android:text="@string/fecha" />
+        >
+        <EditText
+            android:id="@+id/etfecham1"
+            android:layout_width="220dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="100dp"
+            android:enabled="false"
+            android:hint="@string/fecham"
+            android:imeOptions="actionNext"
+            android:textSize="24sp">
 
-    <EditText
-        android:id="@+id/etfecham2"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:layout_below="@id/etfecham1"
-        android:layout_marginTop="10dp"
-        android:enabled="false"
-        android:hint="@string/fecham"
-        android:imeOptions="actionNext"
-        android:layout_marginLeft="130dp"></EditText>
+        </EditText>
 
-    <Button
-        android:id="@+id/btnFecha2"
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:layout_below="@id/btnFecha1"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/etfecham2"
-        android:text="@string/fecha" />
+        <Button
+            android:id="@+id/btnFecha1"
+            android:layout_width="63dp"
+            android:layout_height="63dp"
+            android:layout_marginLeft="370dp"
+            android:layout_marginTop="120dp"
+            android:layout_toRightOf="@+id/etfecham1"
+            android:drawableBottom="@drawable/calendario"
+            android:background="@color/white"
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignWithParentIfMissing="false"
+            />
 
-        android:layout_alignTop="@id/btnFecha1"
-        android:layout_marginLeft="85dp"
-        android:layout_marginTop="-85dp"
-        android:text="REPORTE INFORMACION ENVIADAS"
-        android:textColor="@color/black"
-        android:textIsSelectable="false"
-        android:textSize="26sp" />
+        <EditText
+            android:id="@+id/etfecham2"
+            android:layout_width="220dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/etfecham1"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="230dp"
 
-    <Button
-        android:id="@+id/aceptarF"
-        android:layout_width="180dp"
-        android:layout_height="70dp"
-        android:layout_below="@id/btnFecha2"
-        android:layout_marginLeft="210dp"
-        android:layout_marginTop="50dp"
-        android:text="@string/reporteAceptar"></Button>
+            android:enabled="false"
+            android:hint="@string/fecham"
+            android:imeOptions="actionNext"
+            android:textSize="24sp"></EditText>
+
+        <Button
+            android:id="@+id/btnFecha2"
+            android:layout_width="63dp"
+            android:layout_height="63dp"
+            android:layout_below="@id/btnFecha1"
+            android:layout_marginLeft="370dp"
+            android:layout_marginTop="250dp"
+            android:layout_toRightOf="@+id/etfecham2"
+            android:drawableBottom="@drawable/calendario"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignWithParentIfMissing="false"
+
+            android:layout_alignTop="@id/btnFecha1"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="8dp"
+            android:text="REPORTE INFORMACION ENVIADAS"
+            android:textColor="@color/black"
+            android:textIsSelectable="false"
+            android:textSize="26sp" />
+
+        <Button
+            android:id="@+id/aceptarF"
+            android:layout_width="190dp"
+            android:layout_height="70dp"
+            android:layout_below="@id/btnFecha2"
+            android:layout_marginLeft="188dp"
+            android:layout_marginTop="400dp"
+            android:background="@drawable/bordes_redondos"
+            android:text="@string/reporteAceptar"
+            android:textSize="24sp"
+
+            >
+
+        </Button>
+
+    </android.support.v7.widget.CardView>
+
+
+
+
+
+
+
+
+
 
 </RelativeLayout>
