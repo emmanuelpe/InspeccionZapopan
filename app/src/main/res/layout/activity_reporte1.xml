@@ -15,7 +15,9 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="100dp"
-        android:background="@color/cardview_light_background"
+
+        app:cardCornerRadius="25px"
+        app:cardBackgroundColor="@color/white"
 
         >
         <EditText
@@ -88,9 +90,11 @@
             android:layout_below="@id/btnFecha2"
             android:layout_marginLeft="188dp"
             android:layout_marginTop="400dp"
-
+            android:background="@drawable/bordes_redondos"
             android:text="@string/reporteAceptar"
-            android:textSize="24sp">
+            android:textSize="24sp"
+
+            >
 
         </Button>
 
