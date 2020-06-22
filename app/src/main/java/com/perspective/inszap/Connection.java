@@ -770,7 +770,7 @@ public class Connection {
 		return result;
 	}
 	
-	public boolean validarConexion(Context context){
+	public static boolean validarConexion(Context context){
 		boolean conexion = false;
 		ConnectivityManager conn = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		

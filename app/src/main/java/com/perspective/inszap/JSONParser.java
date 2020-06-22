@@ -19,6 +19,7 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,6 +31,7 @@ public class JSONParser {
 	static String result = "";
 	static InputStream is = null;
 	static JSONObject jObject = null;
+	static JSONArray jsonArray = null;
 	
 	public JSONParser()
 	{
@@ -91,6 +93,62 @@ public class JSONParser {
 		}
 		
 		return jObject;
+	}
+
+	//Se crea un metodo de tipo JSONObject
+	public JSONArray realizarHttpRequest1(String url, String metodo, ArrayList<NameValuePair> parametro)
+	{
+		try{
+			System.out.println(url + " url " + metodo);
+			if(metodo == "POST"){
+
+				DefaultHttpClient httpClient = new DefaultHttpClient();
+				HttpPost httpPost = new HttpPost(url);
+				httpPost.setEntity(new UrlEncodedFormEntity(parametro));
+
+				HttpResponse httpResponse = httpClient.execute(httpPost);
+				HttpEntity httpEntity = httpResponse.getEntity();
+				is = httpEntity.getContent();
+				System.out.println(is.toString());
+			}
+			else if(metodo == "GET"){
+				DefaultHttpClient httpClient = new DefaultHttpClient();
+				String parametros = URLEncodedUtils.format(parametro, "utf-8");
+				url += "?" + parametros;
+				HttpGet httpGet = new HttpGet(url);
+
+				HttpResponse httpResponse = httpClient.execute(httpGet);
+				HttpEntity httpEntity = httpResponse.getEntity();
+				is= httpEntity.getContent();
+			}
+		} catch (UnsupportedEncodingException e) {
+			Log.e("UnsupportedEncodingException", e.getMessage());
+		}catch (ClientProtocolException e) {
+			Log.e("IOException", e.getMessage());
+		}catch (IOException e) {
+			Log.e("IOException", e.getMessage());
+		}
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+			StringBuilder sb = new StringBuilder();
+			String line;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			is.close();
+			result = sb.toString();
+			Log.i("result", result);
+		} catch (Exception e) {
+			Log.e("Exception", e.getMessage()+" ");
+		}
+
+		try {
+			jsonArray = new JSONArray(result);
+		} catch (JSONException e) {
+			Log.e("JSONException 1", e.getMessage());
+		}
+
+		return jsonArray;
 	}
 	
 	public JSONObject subirImage(String url,String metodo, MultipartEntity parametro) {
