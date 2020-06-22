@@ -27,6 +27,7 @@ import org.w3c.dom.Text;
 
 import com.bixolon.printer.BixolonPrinter;
 import com.lowagie.text.BadElementException;
+import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
@@ -39,6 +40,8 @@ import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.ColumnText;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.pdf.draw.DottedLineSeparator;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -1634,17 +1637,6 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			@Override
 			public void onClick(View v) {
 				try {
-					
-					
-					//imprimir();
-					//imprimir(formato);
-					//Intent intent = new Intent();
-					 /*if (!mBluetoothAdapter.isEnabled()) {
-						 
-				            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-				            startActivityForResult(enableIntent, 3);
-					 }*/
-					
 					try{
 						//if(id == 1) {
 							File file = new File(Environment.getExternalStorageDirectory() + "/Infracciones/fotografias/" + etNumeroActa.getText().toString().replace("/", "_") + "/" + etNumeroActa.getText().toString().replace("/", "_")+ ".pdf");
@@ -7501,7 +7493,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		BaseFont bf = null;
 		
 		try {
-			doc = new Document(PageSize.LEGAL);
+			doc = new Document(PageSize.LEGAL,25,25,20,20);
 		    file = new File(Environment.getExternalStorageDirectory() + "/Infracciones/fotografias/" + etNumeroActa.getText().toString().replace("/", "_") + "/" + etNumeroActa.getText().toString().replace("/", "_")+ ".pdf");
 		    ficheroPdf = new FileOutputStream(file.getAbsoluteFile());
 		    
@@ -7540,6 +7532,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					
 					//ACTA DE INFRACCION
 					try {
+
+                        DottedLineSeparator dottedLineSeparator = new DottedLineSeparator();
+                        dottedLineSeparator.setGap(7);
+
+                        Chunk chunk = new Chunk(dottedLineSeparator);
 						
 						//File file = new File(Environment.getExternalStorageDirectory() + "/Infracciones/fotografias/" + etNumeroActa.getText().toString().replace("/", "_") + "/" + etNumeroActa.getText().toString().replace("/", "_")+ ".txt");
 						
@@ -7555,10 +7552,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						
 						ByteArrayOutputStream stream = new ByteArrayOutputStream();
                         Bitmap bitmap = null;
-						if(id != 4)
+						/*if(id != 4)
 						    bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_1);
 						else
-						    bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_c);
+						    bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_c);*/
+
+                        bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_vacia);
 					    bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
 					    Image img;
 					    
@@ -7585,6 +7584,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					    
 					    doc.add(new Paragraph(" "));
 					    doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
 					    doc.add(new Paragraph(" ",new Font(Font.BOLD,21,Color.BLACK)));
 					    
 					    Font font = new Font(Font.BOLD,10,Color.BLACK);
@@ -7598,7 +7600,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(30, 870);
+				        canvas.moveText(30, 910);
 				        canvas.showText(direccion);
 				        canvas.endText();
 				        canvas.restoreState();
@@ -7608,7 +7610,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(200, 870);
+				        canvas.moveText(200, 910);
 				        canvas.showText(spZona.getSelectedItem().toString());
 				        canvas.endText();
 				        canvas.restoreState();
@@ -7618,13 +7620,77 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 11);
-				        canvas.moveText(450, 870);
+				        canvas.moveText(450, 910);
 				        canvas.showText(etNumeroActa.getText().toString());
 				        canvas.endText();
 				        canvas.restoreState();
 
+                        String uso = "";
+                        String vig = etVigI.getText().toString();
+
+                        String [] vig1 = vig.split("-");
+
+                        int d,m,ax;
+
+                        d=Integer.parseInt(vig1[2]);
+                        m=Integer.parseInt(vig1[1]);
+                        ax=Integer.parseInt(vig1[0]);
+
+                        String prop = "",numero = "";
+
+                        Log.e("PROPIEDAD",propiedad.equalsIgnoreCase("El Visitado") + "");
+                        if(propiedad.isEmpty())
+                            prop = etOtro.getText().toString().trim();
+                        else {
+                            if (propiedad.equalsIgnoreCase("El Visitado"))
+                                prop = etNombreV.getText().toString();
+                            else
+                                prop = propiedad;
+                        }
+                        if(etNuemroInterior.getText().toString().trim().equalsIgnoreCase(""))
+                            numero = etNumero.getText().toString() + " " + etNuemroInterior.getText().toString();
+                        else
+                            numero = etNumero.getText().toString() + " Int.  " + etNuemroInterior.getText().toString();
+
+                        Paragraph p2 ;
+				        if(id == 4) {
+                            if(!spuso.getSelectedItem().toString().contains("pública") | !spuso.getSelectedItem().toString().contains("público"))
+                                uso = "el uso " + spuso.getSelectedItem().toString() + " " + spUsoH.getSelectedItem().toString();
+                            else
+                                uso = spuso.getSelectedItem().toString();
+                            p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
+                                    " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, mediante y en cumplimiento de la Orden de Visita folio número " +
+                                    numeroOV + " dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fechaOV + ", misma que en original exhibo y en copia legible entrego al visitado, " + etNombreV.getText().toString() + ", me constituí física y legalmente en " + uso +" marcada (o)  con el número " +
+                                    numero + " de la calle " + etCalle.getText().toString() + " entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " + etFraccionamiento.getText().toString().trim() + " " + etCondominio.getText().toString().trim() + ", cerciorándome de ser este el domicilio por coincidir con la nomenclatura oficial y/o georreferencia, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número" +
+                                    folio + ", vigente del 01 de Abril del 2020 a " +  d + " de " + getMes(m) + " del " + ax + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString().trim() +
+                                    " manifiesta ser " + etVManifiesta.getText().toString() + " del lugar en que se actúa, propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que negarse a  ello el suscrito lo haría en rebeldía por lo que fueron designados los C.C. " + etNombreT.getText().toString().trim() + " y " + etNombreT1.getText().toString().trim() + " por el " + spdesignado.getSelectedItem().toString().trim() +
+                                    " mismos que se identifican con " + spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString() + ", " + spIdentificaT1.getSelectedItem().toString().trim() + " " + etIfeT2.getText().toString() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " +
+                                    etSeleccion.getText().toString().trim() + " los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString().trim() + " Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + " Lo anterior de conformidad a lo dispuesto por los artículos. " + etArticulo.getText().toString().trim() + " En uso de su derecho el visitado: " + etManifiesta.getText().toString().trim() +
+                                    " Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
+                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando para constancia los que en ella intervinieron, quisieron y supieron hacerlo. =Fin del texto=",font1);
+                        } else {
+                            p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del  año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
+                                    " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, mediante y en cumplimiento de la Orden de Visita folio número " +
+                                    numeroOV + " dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fechaOV + ", misma que en original exhibo y en copia legible entrego al visitado, " + etNombreV.getText().toString().trim() + ", me constituí física y legalmente en. " +
+                                    etDondeActua.getText().toString().trim() + " marcada (o)  con el número " + numero + " de  la  calle " + etCalle.getText().toString().trim() + " entre las calles " + etEntreC.getText().toString().trim() + " y, " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " +
+                                    etFraccionamiento.getText().toString().trim() + " " + etCondominio.getText().toString().trim() + ", cerciorándome de ser este el domicilio donde se realiza la visita de inspección y la actividad comercial, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado " +
+                                    "por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número " + folio + ", vigente del 01 de Abril del 2020 a " +  d + " de " + getMes(m) + " del " + ax + ", expedida por el Director de Inspección y Vigilancia del " +
+                                    "Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString().trim() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString() + " manifiesta ser " + etVManifiesta.getText().toString().trim() + " del giro " +
+                                    etGiro.getText().toString().trim() + ", propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que negarse a  ello el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. " +
+                                    etNombreT.getText().toString().trim() + " y " + etNombreT1.getText().toString().trim() + " por el " + spdesignado.getSelectedItem().toString().trim() + ", mismos que se identifican con " + spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString().trim() + ", " +
+                                    spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString().trim() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  " +
+                                    "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + etSeleccion.getText().toString().trim() + " los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString().trim() + " Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
+                                    "indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + " Lo anterior de conformidad a lo dispuesto por los artículos. " + etArticulo.getText().toString().trim() + " En uso de su derecho el visitado: " +
+                                    etManifiesta.getText().toString().trim() + " Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
+                                    "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
+                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando para constancia los que en ella intervinieron, quisieron y supieron hacerlo. =Fin del texto=",font1);
+                        }
+                        p2.setAlignment(Element.ALIGN_JUSTIFIED);
+                        p2.add(chunk);
+                        doc.add(p2);
+
 				        //HORA DE INSPECCION
-				        canvas.saveState();
+				        /*canvas.saveState();
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9);
@@ -7774,12 +7840,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         if(this.id == 4) {
 
 
-                            String uso = "";
 
-                            if(!spuso.getSelectedItem().toString().contains("pública") | !spuso.getSelectedItem().toString().contains("público"))
-                                uso = "el uso " + spuso.getSelectedItem().toString() + " " + spUsoH.getSelectedItem().toString();
-                            else
-                                uso = spuso.getSelectedItem().toString();
 
                             /*if(spuso.getSelectedItem().toString().contains("H1") | spuso.getSelectedItem().toString().contains("H2") | spuso.getSelectedItem().toString().contains("H3") | spuso.getSelectedItem().toString().contains("H4"))
                                 uso = "HABITACIONAL " + spuso.getSelectedItem().toString();
@@ -7788,7 +7849,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             else if(spuso.getSelectedItem().toString().contains("CSV") | spuso.getSelectedItem().toString().contains("CSB") | spuso.getSelectedItem().toString().contains("CSD") | spuso.getSelectedItem().toString().contains("CSC") | spuso.getSelectedItem().toString().contains("CSR") | spuso.getSelectedItem().toString().contains("SI"))
                                 uso = "COMERCIAL Y SERVICIOS " + spuso.getSelectedItem().toString();
                             else
-                                uso = "INDUSTRIAL " + spuso.getSelectedItem().toString();*/
+                                uso = "INDUSTRIAL " + spuso.getSelectedItem().toString();*
 
                             canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -7917,17 +7978,6 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        canvas.endText();
 				        canvas.restoreState();
 
-
-				        
-				        String vig = etVigI.getText().toString();
-					    
-					    String [] vig1 = vig.split("-");
-					    
-					    int d,m,ax;
-					    
-					    d=Integer.parseInt(vig1[2]);
-					    m=Integer.parseInt(vig1[1]);
-					    ax=Integer.parseInt(vig1[0]);
 
 					    //NUMERO DEL INSPECTOR
                         if(id == 4) {
@@ -8441,7 +8491,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					    canvas.moveText(30, 370);
 					    canvas.showText("Manifiesta: " + etManifiesta.getText().toString());
 					    canvas.endText();
-					    canvas.restoreState();*/
+					    canvas.restoreState();*
 
 
                         //HORA
@@ -8463,7 +8513,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         canvas.moveText(320, 311);
                         canvas.showText(dia + " de " + me + " del " + a);
                         canvas.endText();
-                        canvas.restoreState();
+                        canvas.restoreState();*/
 
 
 				        //GRAVEDAD
@@ -8473,7 +8523,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(83, 228);
+                                canvas.moveText(83, 200);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -8482,7 +8532,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(91, 228);
+                                canvas.moveText(91, 200);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -8491,7 +8541,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(99, 228);
+                                canvas.moveText(99, 200);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -8500,7 +8550,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(107, 228);
+                                canvas.moveText(107, 200);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -8509,7 +8559,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(115, 228);
+                                canvas.moveText(115, 200);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -8521,7 +8571,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(228, 228);
+                                canvas.moveText(228, 197);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -8529,7 +8579,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 canvas.saveState();
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(236, 228);
+                                canvas.moveText(236, 197);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -8538,7 +8588,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(243, 228);
+                                canvas.moveText(243, 197);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -8547,7 +8597,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(251, 228);
+                                canvas.moveText(251, 197);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -8556,7 +8606,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(259, 228);
+                                canvas.moveText(259, 197);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -8569,7 +8619,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(508, 221);
+                            canvas.moveText(370, 195);
                             canvas.showText("SI");
                             canvas.endText();
                             canvas.restoreState();
@@ -8578,7 +8628,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(521, 221);
+                            canvas.moveText(385, 195);
                             canvas.showText("NO");
                             canvas.endText();
                             canvas.restoreState();
@@ -8589,30 +8639,19 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(480, 203);
+				        canvas.moveText(460, 190);
 				        canvas.showText(etNumeroActa.getText().toString());
 				        canvas.endText();
 				        canvas.restoreState();
 
-				        if(id == 4) {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(125, 145);
-                            canvas.showText(etNumeroActa.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(125, 115);
-                            canvas.showText(etNumeroActa.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        }
+				        canvas.saveState();
+				        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+				        canvas.beginText();
+				        canvas.setFontAndSize(bf, 9);
+				        canvas.moveText(150, 123);
+				        canvas.showText(etNumeroActa.getText().toString());
+				        canvas.endText();
+				        canvas.restoreState();
 				        
 
 					    doc.close();
