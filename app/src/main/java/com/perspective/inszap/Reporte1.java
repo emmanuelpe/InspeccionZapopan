@@ -210,7 +210,9 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                     rn++;
                     pend += na1[i] + ",";
                 }
-                msj = "Hay " + total + " registros de " + fecha1 + " a " + fecha2 + " \ny se han enviado " + re + " pendientes de subir " + rn + "\n" + pend;
+                //msj = "Hay " + total + " registros de " + fecha1 + " a " + fecha2 + " \ny se han enviado " + re + " pendientes de subir " + rn + "\n" + pend;
+                msj= "Actas generadas de "+ fecha1 + " al "+ fecha2 + "\n"+"Se han enviado: " + re +"\n"+"Numero(s) de acta(s) pendiente(s) de subir: "+ rn + "\n"+ "Acta(s) faltante(s) de subir:" +"\n"+
+                        pend;
             }
             Log.e("p", String.valueOf(p));
             return re == numeros.length();
@@ -222,9 +224,9 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
             pb.setVisibility(View.GONE);
             Log.i("result",String.valueOf(aBoolean));
             if(!aBoolean) {
-                Toast toast = Toast.makeText(Reporte1.this,msj,Toast.LENGTH_LONG);
+                /*Toast toast = Toast.makeText(Reporte1.this,msj,Toast.LENGTH_LONG);
                 toast.setGravity(0,0,15);
-                toast.show();
+                toast.show();*/
 
                 AlertDialog.Builder dialogo = new AlertDialog.Builder(Reporte1.this);
                 dialogo.setTitle("Message").setMessage(msj).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
