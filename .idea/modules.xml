@@ -7,6 +7,8 @@
       <module fileurl="file://$PROJECT_DIR$/app/Escritorio-InspeccionZapopan-app.iml" filepath="$PROJECT_DIR$/app/Escritorio-InspeccionZapopan-app.iml" group="InspeccionZapopan/app" />
       <module fileurl="file://$PROJECT_DIR$/InspeccionZapopan.iml" filepath="$PROJECT_DIR$/InspeccionZapopan.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/InspeccionZapopan-app.iml" filepath="$PROJECT_DIR$/app/InspeccionZapopan-app.iml" group="InspeccionZapopan/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/InspeccionZapopanFinish.iml" filepath="$PROJECT_DIR$/.idea/modules/InspeccionZapopanFinish.iml" group="InspeccionZapopanFinish" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/InspeccionZapopanFinish-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/InspeccionZapopanFinish-app.iml" group="InspeccionZapopanFinish/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/InspeccionZapopanT.iml" filepath="$PROJECT_DIR$/.idea/modules/InspeccionZapopanT.iml" group="InspeccionZapopanT" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/InspeccionZapopanT-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/InspeccionZapopanT-app.iml" group="InspeccionZapopanT/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/InspeccionZapopangood.iml" filepath="$PROJECT_DIR$/.idea/modules/InspeccionZapopangood.iml" group="InspeccionZapopangood" />
