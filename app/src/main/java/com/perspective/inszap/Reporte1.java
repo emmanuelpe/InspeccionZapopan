@@ -190,7 +190,8 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                     na += jsonObject.getString("numero_acta") + ",";
                     nas.add(jsonObject.getString("numero_acta"));
                 }
-                na = na.substring(0,na.length()-1);
+                if(!na.isEmpty())
+                    na = na.substring(0,na.length()-1);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
