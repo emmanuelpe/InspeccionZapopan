@@ -209,10 +209,10 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                 } else {
                     Log.e("no contiene",na1[i]);
                     rn++;
-                    pend += na1[i] + ",";
+                    pend += na1[i] + ", ";
                 }
                 //msj = "Hay " + total + " registros de " + fecha1 + " a " + fecha2 + " \ny se han enviado " + re + " pendientes de subir " + rn + "\n" + pend;
-                msj= "Actas generadas de "+ fecha1 + " al "+ fecha2 + "\n"+"Se han enviado: " + re +"\n"+"Numero(s) de acta(s) pendiente(s) de subir: "+ rn + "\n"+ "Acta(s) faltante(s) de subir:" +"\n"+
+                msj= "Actas generadas de "+ fecha1 + " al "+ fecha2 +": "+na1.length+ "\n"+"Se han enviado: " + re +"\n"+"Numero(s) de acta(s) pendiente(s) de subir: "+ rn + "\n"+ "Acta(s) pendiente(s) de subir:" +"\n"+
                         pend;
             }
             Log.e("p", String.valueOf(p));
