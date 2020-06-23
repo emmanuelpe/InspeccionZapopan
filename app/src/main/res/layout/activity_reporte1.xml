@@ -31,7 +31,7 @@
             android:id="@+id/etfecham1"
             android:layout_width="220dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="45dp"
             android:layout_marginTop="100dp"
             android:enabled="false"
             android:hint="@string/fecham"
@@ -44,7 +44,7 @@
             android:id="@+id/btnFecha1"
             android:layout_width="63dp"
             android:layout_height="63dp"
-            android:layout_marginLeft="370dp"
+            android:layout_marginLeft="330dp"
             android:layout_marginTop="120dp"
             android:layout_toRightOf="@+id/etfecham1"
             android:drawableBottom="@drawable/calendario"
@@ -57,7 +57,7 @@
             android:layout_width="220dp"
             android:layout_height="100dp"
             android:layout_below="@id/etfecham1"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="45dp"
             android:layout_marginTop="230dp"
 
             android:enabled="false"
@@ -70,7 +70,7 @@
             android:layout_width="63dp"
             android:layout_height="63dp"
             android:layout_below="@id/btnFecha1"
-            android:layout_marginLeft="370dp"
+            android:layout_marginLeft="330dp"
             android:layout_marginTop="250dp"
             android:layout_toRightOf="@+id/etfecham2"
             android:drawableBottom="@drawable/calendario"
@@ -83,19 +83,22 @@
             android:layout_alignWithParentIfMissing="false"
 
             android:layout_alignTop="@id/btnFecha1"
-            android:layout_marginLeft="60dp"
+
             android:layout_marginTop="8dp"
             android:text="REPORTE INFORMACION ENVIADAS"
+
             android:textColor="@color/black"
             android:textIsSelectable="false"
-            android:textSize="26sp" />
+            android:textSize="22sp"
+
+            android:layout_gravity="center_horizontal" />
 
         <Button
             android:id="@+id/aceptarF"
             android:layout_width="190dp"
             android:layout_height="70dp"
             android:layout_below="@id/btnFecha2"
-            android:layout_marginLeft="188dp"
+            android:layout_marginLeft="122dp"
             android:layout_marginTop="400dp"
             android:background="@drawable/bordes_redondos"
             android:text="@string/reporteAceptar"
