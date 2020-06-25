@@ -274,10 +274,10 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
 
                                 //orden de visita
                                 canvas.saveState();
-                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(80, 499f);
+                                canvas.moveText(85, 499f);
                                 canvas.showText("Orden de Visita");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -292,7 +292,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                         canvas.beginText();
                                         canvas.setFontAndSize(bf, 9);
-                                        canvas.moveText(80, 499f-renglon);
+                                        canvas.moveText(85, 499f-renglon);
                                         if(ov[i].contains("'")){
                                             canvas.showText(ov[i].replace("'"," ").trim());
                                             canvas.endText();
@@ -321,10 +321,10 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                 }
                                 renglon=15;
                                 canvas.saveState();
-                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(225, 499f);
+                                canvas.moveText(230, 499f);
                                 canvas.showText("Fotos");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -337,7 +337,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                         canvas.beginText();
                                         canvas.setFontAndSize(bf, 9);
-                                        canvas.moveText(230, 499f-renglon);
+                                        canvas.moveText(237, 499f-renglon);
                                         canvas.showText(String.valueOf(ovt[i]));
                                         canvas.endText();
                                         canvas.restoreState();
@@ -358,10 +358,10 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                 //Infraccion
                                 vacio=0;
                                 canvas.saveState();
-                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(80, 499f-renglon-15);
+                                canvas.moveText(85, 499f-renglon-15);
                                 canvas.showText("Infracción");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -376,7 +376,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                         canvas.beginText();
                                         canvas.setFontAndSize(bf, 9);
-                                        canvas.moveText(80, hack-renglon);
+                                        canvas.moveText(85, hack-renglon);
                                         if(in[i].contains("'")){
                                             canvas.showText(in[i].replace("'"," ").trim());
                                             canvas.endText();
@@ -401,10 +401,10 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
 
 
                                 canvas.saveState();
-                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(225, hack);
+                                canvas.moveText(230, hack);
                                 canvas.showText("Fotos");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -418,7 +418,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                         canvas.beginText();
                                         canvas.setFontAndSize(bf, 9);
-                                        canvas.moveText(230, hack-renglon);
+                                        canvas.moveText(237, hack-renglon);
                                         canvas.showText(String.valueOf(inT[i]));
                                         canvas.endText();
                                         canvas.restoreState();
@@ -438,7 +438,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(80, hack-renglon-15);
+                                canvas.moveText(85, hack-renglon-15);
                                 canvas.showText("Total de Ordenes de Visita: " + String.valueOf(numV));
                                 canvas.endText();
                                 canvas.restoreState();
@@ -447,7 +447,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(80, hack-renglon-35);
+                                canvas.moveText(85, hack-renglon-35);
                                 canvas.showText("Total de Infracciones: "+ String.valueOf(numIn));
                                 canvas.endText();
                                 canvas.restoreState();
@@ -456,7 +456,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(80, hack-renglon-55);
+                                canvas.moveText(85, hack-renglon-55);
                                 canvas.showText("Total de Fotos: "+ String.valueOf(numFin+numVF));
                                 canvas.endText();
                                 canvas.restoreState();
