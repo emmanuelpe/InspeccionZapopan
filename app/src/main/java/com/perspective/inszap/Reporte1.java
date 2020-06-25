@@ -324,7 +324,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(230, 499f);
+                                canvas.moveText(225, 499f);
                                 canvas.showText("Fotos");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -404,7 +404,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(230, hack);
+                                canvas.moveText(225, hack);
                                 canvas.showText("Fotos");
                                 canvas.endText();
                                 canvas.restoreState();
