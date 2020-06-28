@@ -7018,7 +7018,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         BaseFont bf = null;
 
         try {
-            doc = new Document(PageSize.LEGAL,25,25,20,20);
+            doc = new Document(PageSize.LEGAL,25,35,20,20);
             doc.setPageCount(1);
             file = new File(Environment.getExternalStorageDirectory() + "/Infracciones/fotografias/" + etNumeroActa.getText().toString().replace("/", "_") + "/" + etNumeroActa.getText().toString().replace("/", "_")+ ".pdf");
             ficheroPdf = new FileOutputStream(file.getAbsoluteFile());
@@ -7113,7 +7113,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 doc.add(new Paragraph(" "));
                 doc.add(new Paragraph(" ",font1));
                 doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
+
                 doc.add(new Paragraph(" ",new Font(Font.BOLD,21,Color.BLACK)));
 
                 Font font = new Font(Font.BOLD,10,Color.BLACK);
