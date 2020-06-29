@@ -7493,7 +7493,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		BaseFont bf = null;
 		
 		try {
-			doc = new Document(PageSize.LEGAL,25,25,20,20);
+			doc = new Document(PageSize.LEGAL,25,35,20,20);
 		    file = new File(Environment.getExternalStorageDirectory() + "/Infracciones/fotografias/" + etNumeroActa.getText().toString().replace("/", "_") + "/" + etNumeroActa.getText().toString().replace("/", "_")+ ".pdf");
 		    ficheroPdf = new FileOutputStream(file.getAbsoluteFile());
 		    
@@ -7526,7 +7526,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		
 		System.err.println(medida);
 		
-		Font font1 = new Font(Font.HELVETICA,8,Color.BLACK);
+		Font font1 = new Font(Font.HELVETICA,9,Color.BLACK);
 	    
 			if (formato.equalsIgnoreCase("infraccion")) {
 					
@@ -7584,7 +7584,6 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					    
 					    doc.add(new Paragraph(" "));
 					    doc.add(new Paragraph(" ",font1));
-                        doc.add(new Paragraph(" ",font1));
                         doc.add(new Paragraph(" ",font1));
                         doc.add(new Paragraph(" ",font1));
 					    doc.add(new Paragraph(" ",new Font(Font.BOLD,21,Color.BLACK)));
