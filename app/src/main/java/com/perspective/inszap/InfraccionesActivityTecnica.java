@@ -965,7 +965,11 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             @Override
             public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
                 if (!spManifiesta.getItemAtPosition(position).toString().equals("")) {
-                    etVManifiesta.setText(spManifiesta.getItemAtPosition(position).toString());
+                    if(spManifiesta.getItemAtPosition(position).toString().equals("Otro")){
+                        etVManifiesta.setText("No manifiesta");
+                    }else{
+                        etVManifiesta.setText(spManifiesta.getItemAtPosition(position).toString());
+                    }
                 }
                 else {
                     etVManifiesta.setText("");
@@ -1042,8 +1046,13 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             @Override
             public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
                 if (!spIdentifica.getItemAtPosition(position).toString().equals("")) {
-                    //etVIdentifica.setText(spIdentifica.getItemAtPosition(position).toString() + ": ");
+                    if(spIdentifica.getItemAtPosition(position).toString().equals("Media filiacion")){
+                        etVIdentifica.setHint("Indique descripcion del visitado ");
+                    }else{
+                        etVIdentifica.setHint("Indique el número de identificación");
+                    }
                 }
+
                 else {
                     etVIdentifica.setText("");
                 }
@@ -7052,7 +7061,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
         System.err.println(medida);
 
-        Font font1 = new Font(Font.HELVETICA,9,Color.BLACK);
+        Font font1 = new Font(Font.HELVETICA,9.5f,Color.BLACK);
 
         DottedLineSeparator dottedLineSeparator = new DottedLineSeparator();
         dottedLineSeparator.setGap(7);
@@ -11508,11 +11517,20 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
             case R.id.cbDatos:
                 if(isChecked) {
-                    etNombreV.setText("No proporciono datos");
-                    //etNombreV.setEnabled(false);
-                    etVManifiesta.setEnabled(false);
+                    etNombreV.setText("No proporcionó datos");
+                    etNombreV.setEnabled(false);
+
+                    etVManifiesta.setEnabled(true);
+                    etVManifiesta.setText("No manifiesta");
+
+                    spManifiesta.setSelection(2);
                     spManifiesta.setEnabled(false);
-                    etVIdentifica.setEnabled(false);
+
+                    //etVIdentifica.setEnabled(false);
+                    etVIdentifica.setEnabled(true);
+                    //etVIdentifica.setHint("Indique descripcion del visitado");
+
+                    spIdentifica.setSelection(4);
                     spIdentifica.setEnabled(false);
                     etPropietario.setEnabled(false);
 

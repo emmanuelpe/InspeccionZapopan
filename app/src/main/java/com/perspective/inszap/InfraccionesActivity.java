@@ -989,11 +989,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 				if (!spManifiesta.getItemAtPosition(position).toString().equals("")) {
-					etVManifiesta.setText(spManifiesta.getItemAtPosition(position).toString());
+				    if(spManifiesta.getItemAtPosition(position).toString().equals("Otro")){
+                        etVManifiesta.setText("No manifiesta");
+                    }else{
+                        etVManifiesta.setText(spManifiesta.getItemAtPosition(position).toString());
+                    }
+
 				}
 				else {
 					etVManifiesta.setText("");
 				}
+
+
 			}
 
 			@Override
@@ -1001,6 +1008,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				
 			}
 		});
+
+
         
         spPoblacion.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -1066,6 +1075,16 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 				if (!spIdentifica.getItemAtPosition(position).toString().equals("")) {
+
+
+                            if(spIdentifica.getItemAtPosition(position).toString().equals("Media filiacion")){
+                                etVIdentifica.setHint("Indique descripcion del visitado ");
+                            }else{
+                                etVIdentifica.setHint("Indique el número de identificación");
+                            }
+
+
+
 					//etVIdentifica.setText(spIdentifica.getItemAtPosition(position).toString() + ": ");
 				}
 				else {
@@ -7526,7 +7545,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		
 		System.err.println(medida);
 		
-		Font font1 = new Font(Font.HELVETICA,9,Color.BLACK);
+		Font font1 = new Font(Font.HELVETICA,9.5f,Color.BLACK);
 	    
 			if (formato.equalsIgnoreCase("infraccion")) {
 					
@@ -7661,10 +7680,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, mediante y en cumplimiento de la Orden de Visita folio número " +
                                     numeroOV + " dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fechaOV + ", misma que en original exhibo y en copia legible entrego al visitado, " + etNombreV.getText().toString() + ", me constituí física y legalmente en " + uso +" marcada (o)  con el número " +
                                     numero + " de la calle " + etCalle.getText().toString() + " entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " + etFraccionamiento.getText().toString().trim() + " " + etCondominio.getText().toString().trim() + ", cerciorándome de ser este el domicilio por coincidir con la nomenclatura oficial y/o georreferencia, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número" +
-                                    folio + ", vigente del 01 de Abril del 2020 a " +  d + " de " + getMes(m) + " del " + ax + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString().trim() +
-                                    " manifiesta ser " + etVManifiesta.getText().toString() + " del lugar en que se actúa, propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que negarse a  ello el suscrito lo haría en rebeldía por lo que fueron designados los C.C. " + etNombreT.getText().toString().trim() + " y " + etNombreT1.getText().toString().trim() + " por el " + spdesignado.getSelectedItem().toString().trim() +
+                                    " "+folio + ", vigente del 01 de Abril del 2020 a " +  d + " de " + getMes(m) + " del " + ax + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString().trim() +
+                                    " manifiesta ser " + etVManifiesta.getText().toString() + " del lugar en que se actúa, propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía por lo que fueron designados los C.C. " + etNombreT.getText().toString().trim() + " y " + etNombreT1.getText().toString().trim() + " por el " + spdesignado.getSelectedItem().toString().trim() +
                                     " mismos que se identifican con " + spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString() + ", " + spIdentificaT1.getSelectedItem().toString().trim() + " " + etIfeT2.getText().toString() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " +
-                                    etSeleccion.getText().toString().trim() + " los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString().trim() + " Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + " Lo anterior de conformidad a lo dispuesto por los artículos. " + etArticulo.getText().toString().trim() + " En uso de su derecho el visitado: " + etManifiesta.getText().toString().trim() +
+                                    etSeleccion.getText().toString().trim() + " los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString().trim() + " Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + " Lo anterior de conformidad a lo dispuesto por los artículos. " + etArticulo.getText().toString().trim() + " En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
                                     " Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
                                     hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando para constancia los que en ella intervinieron, quisieron y supieron hacerlo. =Fin del texto=",font1);
                         } else {
@@ -7673,13 +7692,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     numeroOV + " dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fechaOV + ", misma que en original exhibo y en copia legible entrego al visitado, " + etNombreV.getText().toString().trim() + ", me constituí física y legalmente en. " +
                                     etDondeActua.getText().toString().trim() + " marcada (o)  con el número " + numero + " de  la  calle " + etCalle.getText().toString().trim() + " entre las calles " + etEntreC.getText().toString().trim() + " y, " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " +
                                     etFraccionamiento.getText().toString().trim() + " " + etCondominio.getText().toString().trim() + ", cerciorándome de ser este el domicilio donde se realiza la visita de inspección y la actividad comercial, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado " +
-                                    "por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número " + folio + ", vigente del 01 de Abril del 2020 a " +  d + " de " + getMes(m) + " del " + ax + ", expedida por el Director de Inspección y Vigilancia del " +
+                                    "por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número " +" "+ folio + ", vigente del 01 de Abril del 2020 a " +  d + " de " + getMes(m) + " del " + ax + ", expedida por el Director de Inspección y Vigilancia del " +
                                     "Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString().trim() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString() + " manifiesta ser " + etVManifiesta.getText().toString().trim() + " del giro " +
-                                    etGiro.getText().toString().trim() + ", propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que negarse a  ello el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. " +
+                                    etGiro.getText().toString().trim() + ", propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. " +
                                     etNombreT.getText().toString().trim() + " y " + etNombreT1.getText().toString().trim() + " por el " + spdesignado.getSelectedItem().toString().trim() + ", mismos que se identifican con " + spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString().trim() + ", " +
                                     spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString().trim() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  " +
                                     "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + etSeleccion.getText().toString().trim() + " los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString().trim() + " Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
-                                    "indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + " Lo anterior de conformidad a lo dispuesto por los artículos. " + etArticulo.getText().toString().trim() + " En uso de su derecho el visitado: " +
+                                    "indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + " Lo anterior de conformidad a lo dispuesto por los artículos. " + etArticulo.getText().toString().trim() + " En uso de su derecho el visitado manifiesta: " +
                                     etManifiesta.getText().toString().trim() + " Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
                                     "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
                                     hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando para constancia los que en ella intervinieron, quisieron y supieron hacerlo. =Fin del texto=",font1);
@@ -12736,10 +12755,20 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
             case R.id.cbDatos:
                 if(isChecked) {
+                    etNombreV.setText("No proporcionó datos");
                     etNombreV.setEnabled(false);
-                    etVManifiesta.setEnabled(false);
+
+                    etVManifiesta.setEnabled(true);
+                    etVManifiesta.setText("No manifiesta");
+
+                    spManifiesta.setSelection(2);
                     spManifiesta.setEnabled(false);
-                    etVIdentifica.setEnabled(false);
+
+                    //etVIdentifica.setEnabled(false);
+                    etVIdentifica.setEnabled(true);
+                    //etVIdentifica.setHint("Indique descripcion del visitado");
+
+                    spIdentifica.setSelection(4);
                     spIdentifica.setEnabled(false);
                     etPropietario.setEnabled(false);
                 } else {

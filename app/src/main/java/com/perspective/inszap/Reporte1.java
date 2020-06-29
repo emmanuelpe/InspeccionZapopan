@@ -284,7 +284,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                 canvas.endText();
                                 canvas.restoreState();
                                 int renglon=15;
-                                int vacio=0;
+                                int vacio=-1;
                                 int numV=0;
                                 for (int i=0;i<ov.length;i++) {
 
@@ -358,7 +358,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
 
 
                                 //Infraccion
-                                vacio=0;
+                                vacio=-1;
                                 canvas.saveState();
                                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
@@ -422,6 +422,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                         canvas.setFontAndSize(bf, 9);
                                         canvas.moveText(237, hack-renglon);
                                         canvas.showText(String.valueOf(inT[i]));
+
                                         canvas.endText();
                                         canvas.restoreState();
                                         if(inT[i]!=0)
