@@ -240,6 +240,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                                 if(fotografias.contains("IN")){
                                                     in[mov]=fotografias;
                                                     inT[mov]=totalF;
+                                                    Log.e("fotografias: ", String.valueOf(totalF));
                                                     mov++;
 
 
@@ -259,6 +260,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                             if(arrSplit[f].contains("IN")){
                                                 in[mov]=arrSplit[f];
                                                 inT[mov]=0;
+
                                                 mov++;
 
 
