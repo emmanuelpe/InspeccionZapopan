@@ -11459,15 +11459,27 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                     etVManifiesta.setEnabled(true);
                     etVManifiesta.setText("No manifiesta");
+                    if(id==2)
+                        spManifiesta.setSelection(3);
 
-                    spManifiesta.setSelection(2);
+                    if(id==4)
+                        spManifiesta.setSelection(2);
+                    if(id==5)
+                        spIdentifica.setSelection(3);
+
                     spManifiesta.setEnabled(false);
 
                     //etVIdentifica.setEnabled(false);
                     etVIdentifica.setEnabled(true);
                     //etVIdentifica.setHint("Indique descripcion del visitado");
+                   if(id==2)
+                       spIdentifica.setSelection(5);
 
+                    if(id==4)
                     spIdentifica.setSelection(4);
+                    if(id==5)
+                        spIdentifica.setSelection(5);
+
                     spIdentifica.setEnabled(false);
                     etPropietario.setEnabled(false);
                 } else {

@@ -1051,9 +1051,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     }else{
                         etVIdentifica.setHint("Indique el número de identificación");
                     }
-                }
-
-                else {
+                } else {
                     etVIdentifica.setText("");
                 }
 
@@ -11623,14 +11621,14 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     etVManifiesta.setEnabled(true);
                     etVManifiesta.setText("No manifiesta");
 
-                    spManifiesta.setSelection(2);
+                    spManifiesta.setSelection(3);
                     spManifiesta.setEnabled(false);
 
                     //etVIdentifica.setEnabled(false);
                     etVIdentifica.setEnabled(true);
                     //etVIdentifica.setHint("Indique descripcion del visitado");
 
-                    spIdentifica.setSelection(4);
+                    spIdentifica.setSelection(5);
                     spIdentifica.setEnabled(false);
                     etPropietario.setEnabled(false);
 
