@@ -644,6 +644,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                     JSONObject jsonObject2 = jsonArray1.getJSONObject(y);
                     na2 += jsonObject2.getString("numero_acta") + ",";
                     nas2.add(jsonObject2.getString("numero_acta"));
+                    System.out.println("fotografias: "+na2 );
                 }
                 if (!na2.isEmpty()) {
                     na2 = na2.substring(0, na2.length() - 1);
@@ -668,10 +669,10 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
 
             for (int i = 0; i < na1.length; i++) {
                 if (Reporte1.this.nas.contains(na1[i])) {
-                    Log.e("contiene", na1[i]);
+                    Log.e("contiene a", na1[i]);
                     re++;
                 } else {
-                    Log.e("no contiene", na1[i]);
+                    Log.e("no contiene a", na1[i]);
                     rn++;
                     pend += na1[i] + ", ";
                 }
@@ -680,10 +681,10 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
             }
             for (int x = 0; x < na3.length; x++) {
                 if (Reporte1.this.nas2.contains(na3[x])) {
-                    Log.e("contiene", na3[x]);
+                    Log.e("contiene f", na3[x]);
                     re2++;
                 } else {
-                    Log.e("no contiene", na3[x]);
+                    Log.e("no contiene f", na3[x]);
                     rn2++;
                     pend2 += na3[x] + ", ";
                 }
@@ -702,7 +703,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                 /*Toast toast = Toast.makeText(Reporte1.this,msj,Toast.LENGTH_LONG);
                 toast.setGravity(0,0,15);
                 toast.show();*/
-                if (rn > 0 && rn2 > 0) {
+                if (  rn2>0 && rn>0 || rn2<=0 && rn>0 || rn2>0 && rn<=0  ) {
                     AlertDialog.Builder dialogo = new AlertDialog.Builder(Reporte1.this);
                     dialogo.setTitle("Message").setMessage(msj + "\n" + msj2).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
@@ -711,7 +712,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                         }
                     });
                     dialogo.create().show();
-                } else {
+                } else if(rn2<=0 && rn<=0) {
                    btnimprimir.setVisibility(View.VISIBLE);
 
                 }
