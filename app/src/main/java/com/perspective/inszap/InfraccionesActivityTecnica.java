@@ -9330,7 +9330,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
         System.err.println(medida);
 
-        Font font1 = new Font(Font.HELVETICA,8,Color.BLACK);
+        Font font1 = new Font(Font.HELVETICA,9.5f,Color.BLACK);
         DottedLineSeparator dottedLineSeparator = new DottedLineSeparator();
         dottedLineSeparator.setGap(7);
 

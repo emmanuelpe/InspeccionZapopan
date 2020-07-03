@@ -9931,7 +9931,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
         System.err.println(medida);
 
-        Font font1 = new Font(Font.HELVETICA,8,Color.BLACK);
+        Font font1 = new Font(Font.HELVETICA,9.5f,Color.BLACK);
 
         if (formato.equalsIgnoreCase("infraccion")) {
 
