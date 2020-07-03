@@ -10020,14 +10020,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 canvas.restoreState();
 
                 //NUMERO DE ACTA
-                canvas.saveState();
+               /* canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 11);
                 canvas.moveText(450, 910);
                 canvas.showText(etNumeroActa.getText().toString());
                 canvas.endText();
-                canvas.restoreState();
+                canvas.restoreState();*/
 
                 String uso = "";
                 String vig = etVigI.getText().toString();
