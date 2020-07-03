@@ -9357,7 +9357,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 if(id == 2 | id == 5)
                     bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_1);
                 else if(id == 3)
-                    bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_inspeccion_previa);
+                    bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_inspeccion_vista_previa);
                     //bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_t);
                 else
                     bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_c);
