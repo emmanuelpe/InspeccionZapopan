@@ -9357,7 +9357,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 if(id == 2 | id == 5)
                     bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_1);
                 else if(id == 3)
-                    bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_vacia);
+                    bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_inspeccion_previa);
                     //bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_t);
                 else
                     bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_c);
@@ -9388,6 +9388,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 doc.add(new Paragraph(" "));
                 doc.add(new Paragraph(" ",font1));
                 doc.add(new Paragraph(" ",font1));
+                doc.add(new Paragraph(" ",font1));
+
 
                 doc.add(new Paragraph(" ",new Font(Font.BOLD,21,Color.BLACK)));
 
