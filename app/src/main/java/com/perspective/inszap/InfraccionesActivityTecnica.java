@@ -7118,6 +7118,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 }
 
                 doc.add(new Paragraph(" "));
+                doc.add(new Paragraph(" "));
                 doc.add(new Paragraph(" ",font1));
                 doc.add(new Paragraph(" ",font1));
 
@@ -7977,7 +7978,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(83, 228);
+                    canvas.moveText(83, 200);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -7986,7 +7987,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(91, 228);
+                    canvas.moveText(91, 200);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -7995,7 +7996,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(99, 228);
+                    canvas.moveText(99, 200);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -8004,7 +8005,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(107, 228);
+                    canvas.moveText(107, 200);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -8013,7 +8014,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(115, 228);
+                    canvas.moveText(115, 200);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -9296,7 +9297,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         BaseFont bf = null;
 
         try {
-            doc = new Document(PageSize.LEGAL);
+            doc = new Document(PageSize.LEGAL,25,35,20,20);
             file = new File(Environment.getExternalStorageDirectory() + "/Infracciones/fotografias/" + etNumeroActa.getText().toString().replace("/", "_") + "/" + etNumeroActa.getText().toString().replace("/", "_")+ ".pdf");
             ficheroPdf = new FileOutputStream(file.getAbsoluteFile());
 
@@ -10244,7 +10245,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(83, 228);
+                    canvas.moveText(83, 200);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -10253,7 +10254,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(91, 228);
+                    canvas.moveText(91, 200);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -10262,7 +10263,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(99, 228);
+                    canvas.moveText(99, 200);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -10271,7 +10272,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(107, 228);
+                    canvas.moveText(107, 200);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -10280,7 +10281,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(115, 228);
+                    canvas.moveText(115, 200);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
