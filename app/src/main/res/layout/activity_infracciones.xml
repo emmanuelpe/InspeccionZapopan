@@ -2201,9 +2201,12 @@
 									android:hint="@string/hechos"
 									android:layout_below="@id/rlaceptar"
 									android:layout_toRightOf="@id/tvSelecion"
-									android:background="@color/gray"
+									android:background="@color/white"
 									android:inputType="textMultiLine|textCapSentences"
-									android:enabled="false"/>
+									android:enabled="false"
+									android:textSize="16sp"
+									android:gravity="fill"
+									android:textStyle="bold"/>
 							
 								<TextView 
 							    	android:id="@+id/tvInfraccion"
@@ -2211,7 +2214,7 @@
 									android:layout_height="wrap_content"
 									android:layout_below="@id/etSelecion"
 									android:text="@string/infraccion"
-									android:layout_gravity="center" 
+									android:layout_gravity="center"
 									style="@style/Subtitle"/>
 				    	
 								<TextView
@@ -2221,9 +2224,12 @@
 									android:hint="@string/infraccion"
 									android:layout_below="@id/etSelecion"
 									android:layout_toRightOf="@id/tvInfraccion"
-									android:background="@color/gray"
+									android:background="@color/white"
 									android:inputType="textMultiLine|textCapSentences"
-									android:enabled="false"/>
+									android:enabled="false"
+									android:textSize="16sp"
+									android:gravity="fill"
+									android:textStyle="bold"/>
 								
 								
 								<TextView 

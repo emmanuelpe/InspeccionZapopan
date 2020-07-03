@@ -9898,7 +9898,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         BaseFont bf = null;
 
         try {
-            doc = new Document(PageSize.LEGAL);
+            doc = new Document(PageSize.LEGAL,25,35,20,20);
             file = new File(Environment.getExternalStorageDirectory() + "/Infracciones/fotografias/" + etNumeroActa.getText().toString().replace("/", "_") + "/" + etNumeroActa.getText().toString().replace("/", "_")+ ".pdf");
             ficheroPdf = new FileOutputStream(file.getAbsoluteFile());
 
@@ -9962,7 +9962,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						else
 						    bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_c);*/
 
-                bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_vacia);
+                bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_inspeccion_previa);
                 bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
                 Image img;
 
