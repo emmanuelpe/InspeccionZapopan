@@ -9339,6 +9339,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         System.err.println(medida);
 
         Font font1 = new Font(Font.HELVETICA,9.5f,Color.BLACK);
+        Font font2 = new Font(Font.HELVETICA,9f,Color.BLACK);
         DottedLineSeparator dottedLineSeparator = new DottedLineSeparator();
         dottedLineSeparator.setGap(7);
 
@@ -10434,7 +10435,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 doc.open();
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.ov4);
+                Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.ov4_vista_previa);
                 bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
                 Image img;
 
@@ -10519,7 +10520,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
                     canvas.moveText(80, 820 + c);
-                    canvas.showText(etPropietario.getText().toString() + " " + etApellidoP.getText().toString() + " " + etApellidoM.getText().toString());
+                    canvas.showText(etNombreV.getText().toString());
                     canvas.endText();
                     canvas.restoreState();
                 }
@@ -10668,15 +10669,17 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 doc.add(new Paragraph(" ",font1));
                 doc.add(new Paragraph(" ",font1));
                 doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
+                doc.add(new Paragraph(" ",font2));
+
+
 
                 //p = new Paragraph("  " + spnombre.getSelectedItem().toString() + ", " + spNombreA.getSelectedItem().toString() + "," + spNombreA1.getSelectedItem().toString() + "," + spNombreA2.getSelectedItem().toString()+ "," + spNombreA3.getSelectedItem().toString()+ "," + spNombreA4.getSelectedItem().toString(),font1);
-                p = new Paragraph("" + insp,font1);
+
+                p = new Paragraph(" " + insp,font2);
+                p.setLeading(10f);
+                //p.setLeading(12f);
                 p.setAlignment(Paragraph.ALIGN_LEFT);
+
                 doc.add(p);
 
                 if(count <= 1)
@@ -10703,7 +10706,25 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(350, 430+c);
+                canvas.moveText(180, 446+c);
+                canvas.showText("Enero");
+                canvas.endText();
+                canvas.restoreState();
+
+                canvas.saveState();
+                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                canvas.beginText();
+                canvas.setFontAndSize(bf, 9);
+                canvas.moveText(248, 446+c);
+                canvas.showText("20");
+                canvas.endText();
+                canvas.restoreState();
+
+                canvas.saveState();
+                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                canvas.beginText();
+                canvas.setFontAndSize(bf, 9);
+                canvas.moveText(350, 446+c);
                 canvas.showText(getMes(m));
                 canvas.endText();
                 canvas.restoreState();
@@ -10712,8 +10733,17 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(450, 430+c);
+                canvas.moveText(449, 446+c);
                 canvas.showText(String.valueOf(ax).substring(2, 4));
+                canvas.endText();
+                canvas.restoreState();
+
+                canvas.saveState();
+                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                canvas.beginText();
+                canvas.setFontAndSize(bf, 9);
+                canvas.moveText(160, 427.9f+c);
+                canvas.showText(folio);
                 canvas.endText();
                 canvas.restoreState();
 
@@ -10754,8 +10784,9 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
                     p.setFont(new Font(Font.HELVETICA,3));
                     doc.add(p);*/
+                if(!motivo.trim().equalsIgnoreCase(""))
+                    txt = Justificar.justifocarTexto1(motivo, 135);
 
-                txt = Justificar.justifocarTexto1(motivo, 135);
                 int li = 395+c;
 
                 for (int i = 0; i < txt.length; i++) {
@@ -10778,7 +10809,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(270, 100);
+                canvas.moveText(270, 114.7f);
                 canvas.showText(dia + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -10787,7 +10818,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(315, 100);
+                canvas.moveText(318, 114.7f);
                 canvas.showText(me.toUpperCase());
                 canvas.endText();
                 canvas.restoreState();
@@ -10796,7 +10827,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(425, 100);
+                canvas.moveText(427, 114.7f);
                 canvas.showText(String.valueOf(a).substring(2,4) + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -10805,7 +10836,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(80,80);
+                canvas.moveText(80,99);
                 canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
@@ -10814,7 +10845,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(510, 80);
+                canvas.moveText(500, 99);
                 canvas.showText(hr);
                 canvas.endText();
                 canvas.restoreState();
@@ -10823,7 +10854,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(60, 70);
+                canvas.moveText(65, 87);
                 canvas.showText(dia + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -10832,7 +10863,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(150, 70);
+                canvas.moveText(150, 87);
                 canvas.showText(me.toUpperCase(Locale.getDefault()));
                 canvas.endText();
                 canvas.restoreState();
@@ -10841,7 +10872,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(250, 70);
+                canvas.moveText(255, 87);
                 canvas.showText(a + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -10851,7 +10882,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(145, 60);
+                    canvas.moveText(500, 75);
                     canvas.showText("Si");
                     canvas.endText();
                     canvas.restoreState();
@@ -10860,7 +10891,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(145, 60);
+                    canvas.moveText(500, 75);
                     canvas.showText("No");
                     canvas.endText();
                     canvas.restoreState();
