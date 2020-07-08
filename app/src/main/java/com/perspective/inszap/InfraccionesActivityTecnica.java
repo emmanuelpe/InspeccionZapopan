@@ -101,8 +101,8 @@ import java.util.Set;
 public class InfraccionesActivityTecnica extends AppCompatActivity implements View.OnClickListener, Runnable, CompoundButton.OnCheckedChangeListener, AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
 
     private Button btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
-    private TextView tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvCoordenada,tvPropiedad;
-    private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,unidades="",usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",clave = "",folio = "";
+    private TextView tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvCoordenada,tvPropiedad,spselec1;
+    private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,unidades="",usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",clave = "",folio = "",fol = "";;
     private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:";
     private int mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0;
     private Spinner spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spMeConstitui;
@@ -179,6 +179,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private ArrayAdapter adapterCol,adapterMeC;
     private List<String> conceptos,articulo,fraccion,unis,unis1,unis2,unis3,unis4,meConstitui;
     private ArrayAdapter adapterUni,adapterUni1,adapterUni2,adapterUni3,adapterUni4;
+    private List<String> folios = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -244,6 +245,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         Log.i("usuario", us + " id " + id);
 
         validarFecha();
+
+        for(int x = 0;x < 5;x++) {
+            folios.add("");
+        }
         if(!c_fecha.equalsIgnoreCase("")) {
             Log.i("FECHA CON", c_fecha + " ");
             String reg = "/";
@@ -521,6 +526,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         tvMC = findViewById(R.id.tvMeConstituye);
         tvCoordenada = findViewById(R.id.tvCoordenada);
         tvPropiedad = findViewById(R.id.tvPropiedad);
+
+        spselec1 = findViewById(R.id.spselec1);
 
         unis = new ArrayList<>();
         unis1 = new ArrayList<>();
@@ -1372,174 +1379,174 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     con ++;
                 }
                 else{
-                    infraccion++;
-                    btnaceptar.setVisibility(View.VISIBLE);
-                    Log.i("Ento al else", (String)spInfraccion.getItemAtPosition(position));
-                    int pos = 0;
-                    for (int i = 0; i < spInfraccion.getItemAtPosition(position).toString().length(); i++){
-                        if(!isNumeric(spInfraccion.getSelectedItem().toString().charAt(i) + "")) {
-                            Log.i("char", spInfraccion.getSelectedItem().toString().charAt(i) + "");
-                            pos = i;
-                            break;
-                        } else {
-                            Log.i("char", spInfraccion.getSelectedItem().toString().charAt(i) + "");
-                        }
-                    }
-                    Log.i("pos",pos + "");
-                    String t = spInfraccion.getItemAtPosition(position).toString().substring(pos,spInfraccion.getSelectedItem().toString().length());
-                    buscarInfraccion(spInfraccion.getSelectedItem().toString());
-                    if(!desc){
-                        etDesc.setVisibility(View.VISIBLE);
-                        if(!unidad.trim().equalsIgnoreCase("")){
-                            Log.i("uni bd",unidad);
-                            String un [];
-                            un = unidad.split(",");
-                            Log.i("length",un.length + "");
-                            unis.clear();
-                            for (int i = 0; i < un.length;i++) {
-                                if(!un[i].equalsIgnoreCase("")) {
-                                    unis.add(un[i]);
-                                    Log.i("unidades",un[i]);
-                                }
+                    if(position > 0) {
+                        infraccion++;
+                        btnaceptar.setVisibility(View.VISIBLE);
+                        Log.i("Ento al else", (String) spInfraccion.getItemAtPosition(position));
+                        int pos = 0;
+                        for (int i = 0; i < spInfraccion.getItemAtPosition(position).toString().length(); i++) {
+                            if (!isNumeric(spInfraccion.getSelectedItem().toString().charAt(i) + "")) {
+                                Log.i("char", spInfraccion.getSelectedItem().toString().charAt(i) + "");
+                                pos = i;
+                                break;
+                            } else {
+                                Log.i("char", spInfraccion.getSelectedItem().toString().charAt(i) + "");
                             }
-                            spuni.setVisibility(View.VISIBLE);
-                            adapterUni.notifyDataSetChanged();
-                            Toast toast = Toast.makeText(InfraccionesActivityTecnica.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
-                            toast.setGravity(0, 0, 15);
-                            toast.show();
-                            etdato.setVisibility(View.VISIBLE);
-                            etdato.setEnabled(true);
+                        }
+                        Log.i("pos", pos + "");
+                        String t = spInfraccion.getItemAtPosition(position).toString().substring(pos, spInfraccion.getSelectedItem().toString().length());
+                        buscarInfraccion(spInfraccion.getSelectedItem().toString());
+                        if (!desc) {
+                            etDesc.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("")) {
+                                Log.i("uni bd", unidad);
+                                String un[];
+                                un = unidad.split(",");
+                                Log.i("length", un.length + "");
+                                unis.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].equalsIgnoreCase("")) {
+                                        unis.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni.setVisibility(View.VISIBLE);
+                                adapterUni.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivityTecnica.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato.setVisibility(View.VISIBLE);
+                                etdato.setEnabled(true);
 							/*tvuni.setVisibility(View.VISIBLE);
 							tvuni.setText(unidad);
 							tvuni.setFocusable(true);*/
-                        }
-                        des = t;
-                        etDesc.setText((String)spInfraccion.getItemAtPosition(position));
-                        tveliminar.setVisibility(View.VISIBLE);
-                        etDesc.setText(t);
-                        desc = true;
-                        etObs.setVisibility(View.VISIBLE);
-                        co++;
-                    }
-                    else if(!desc1){
-                        etDesc1.setVisibility(View.VISIBLE);
-                        if(!unidad.trim().equalsIgnoreCase("")){
-                            String un [];
-                            un = unidad.split(",");
-                            unis1.clear();
-                            for (int i = 0; i  < un.length;i++) {
-                                if(!un[i].isEmpty()) {
-                                    unis1.add(un[i]);
-                                    Log.i("unidades",un[i]);
-                                }
                             }
-                            spuni1.setVisibility(View.VISIBLE);
-                            adapterUni1.notifyDataSetChanged();
-                            Toast toast = Toast.makeText(InfraccionesActivityTecnica.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
-                            toast.setGravity(0, 0, 15);
-                            toast.show();
-                            etdato1.setVisibility(View.VISIBLE);
-                            etdato1.setEnabled(true);
+                            des = t;
+                            etDesc.setText((String) spInfraccion.getItemAtPosition(position));
+                            tveliminar.setVisibility(View.VISIBLE);
+                            etDesc.setText(t);
+                            desc = true;
+                            etObs.setVisibility(View.VISIBLE);
+                            co++;
+                        } else if (!desc1) {
+                            etDesc1.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis1.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis1.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni1.setVisibility(View.VISIBLE);
+                                adapterUni1.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivityTecnica.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato1.setVisibility(View.VISIBLE);
+                                etdato1.setEnabled(true);
 							/*tvuni1.setVisibility(View.VISIBLE);
 							tvuni1.setText(unidad);
 							tvuni1.setFocusable(true);*/
-                        }
-                        des1 = t;
-                        tveliminar1.setVisibility(View.VISIBLE);
-                        etDesc1.setText(t);
-                        desc1 = true;
-                        etObs1.setVisibility(View.VISIBLE);
-                        co++;
-                    }
-                    else if(!desc2){
-                        etDesc2.setVisibility(View.VISIBLE);
-                        if(!unidad.trim().equalsIgnoreCase("")){
-                            String un [];
-                            un = unidad.split(",");
-                            unis2.clear();
-                            for (int i = 0; i < un.length;i++) {
-                                if(!un[i].isEmpty()) {
-                                    unis2.add(un[i]);
-                                    Log.i("unidades",un[i]);
-                                }
                             }
-                            spuni2.setVisibility(View.VISIBLE);
-                            adapterUni2.notifyDataSetChanged();
-                            Toast toast = Toast.makeText(InfraccionesActivityTecnica.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
-                            toast.setGravity(0, 0, 15);
-                            toast.show();
-                            etdato2.setVisibility(View.VISIBLE);
-                            etdato2.setEnabled(true);
+                            des1 = t;
+                            tveliminar1.setVisibility(View.VISIBLE);
+                            etDesc1.setText(t);
+                            desc1 = true;
+                            etObs1.setVisibility(View.VISIBLE);
+                            co++;
+                        } else if (!desc2) {
+                            etDesc2.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis2.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis2.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni2.setVisibility(View.VISIBLE);
+                                adapterUni2.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivityTecnica.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato2.setVisibility(View.VISIBLE);
+                                etdato2.setEnabled(true);
 							/*tvuni2.setVisibility(View.VISIBLE);
 							tvuni2.setText(unidad);
 							tvuni2.setFocusable(true);*/
-                        }
-                        des2 = t;
-                        tveliminar2.setVisibility(View.VISIBLE);
-                        etDesc2.setText(t);
-                        desc2 = true;
-                        etObs2.setVisibility(View.VISIBLE);
-                        co++;
-                    }
-                    else if(!desc3){
-                        etDesc3.setVisibility(View.VISIBLE);
-                        if(!unidad.trim().equalsIgnoreCase("")){
-                            String un [];
-                            un = unidad.split(",");
-                            unis3.clear();
-                            for (int i = 0; i < un.length;i++) {
-                                if(!un[i].isEmpty()) {
-                                    unis3.add(un[i]);
-                                    Log.i("unidades",un[i]);
-                                }
                             }
-                            spuni3.setVisibility(View.VISIBLE);
-                            adapterUni3.notifyDataSetChanged();
-                            Toast toast = Toast.makeText(InfraccionesActivityTecnica.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
-                            toast.setGravity(0, 0, 15);
-                            toast.show();
-                            etdato3.setVisibility(View.VISIBLE);
-                            etdato3.setEnabled(true);
+                            des2 = t;
+                            tveliminar2.setVisibility(View.VISIBLE);
+                            etDesc2.setText(t);
+                            desc2 = true;
+                            etObs2.setVisibility(View.VISIBLE);
+                            co++;
+                        } else if (!desc3) {
+                            etDesc3.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis3.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis3.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni3.setVisibility(View.VISIBLE);
+                                adapterUni3.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivityTecnica.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato3.setVisibility(View.VISIBLE);
+                                etdato3.setEnabled(true);
 							/*tvuni3.setVisibility(View.VISIBLE);
 							tvuni3.setText(unidad);
 							tvuni3.setFocusable(true);*/
-                        }
-                        des3 = t;
-                        tveliminar3.setVisibility(View.VISIBLE);
-                        etDesc3.setText(des3);
-                        desc3 = true;
-                        etObs3.setVisibility(View.VISIBLE);
-                        co++;
-                    }
-                    else{
-                        etDesc4.setVisibility(View.VISIBLE);
-                        if(!unidad.trim().equalsIgnoreCase("")){
-                            String un [];
-                            un = unidad.split(",");
-                            unis4.clear();
-                            for (int i = 0; i < un.length;i++) {
-                                if(!un[i].isEmpty()) {
-                                    unis4.add(un[i]);
-                                    Log.i("unidades",un[i]);
-                                }
                             }
-                            spuni4.setVisibility(View.VISIBLE);
-                            adapterUni4.notifyDataSetChanged();
-                            Toast toast = Toast.makeText(InfraccionesActivityTecnica.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
-                            toast.setGravity(0, 0, 15);
-                            toast.show();
-                            etdato4.setVisibility(View.VISIBLE);
-                            etdato4.setEnabled(true);
+                            des3 = t;
+                            tveliminar3.setVisibility(View.VISIBLE);
+                            etDesc3.setText(des3);
+                            desc3 = true;
+                            etObs3.setVisibility(View.VISIBLE);
+                            co++;
+                        } else {
+                            etDesc4.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis4.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis4.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni4.setVisibility(View.VISIBLE);
+                                adapterUni4.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivityTecnica.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato4.setVisibility(View.VISIBLE);
+                                etdato4.setEnabled(true);
 							/*tvuni4.setVisibility(View.VISIBLE);
 							tvuni4.setText(unidad);
 							tvuni4.setFocusable(true);*/
+                            }
+                            des4 = t;
+                            tveliminar4.setVisibility(View.VISIBLE);
+                            etDesc4.setText(t);
+                            desc4 = true;
+                            etObs4.setVisibility(View.VISIBLE);
+                            co++;
                         }
-                        des4 = t;
-                        tveliminar4.setVisibility(View.VISIBLE);
-                        etDesc4.setText(t);
-                        desc4 = true;
-                        etObs4.setVisibility(View.VISIBLE);
-                        co++;
+                        spInfraccion.setSelection(0);
+                        actualizarTV(infraccion);
                     }
 
                 }
@@ -1803,6 +1810,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 }
                 else
                     btnaceptar.setVisibility(View.VISIBLE);
+
+				actualizarTV(infraccion);
             }
         });
 
@@ -1830,6 +1839,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 }
                 else
                     btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
             }
         });
 
@@ -1857,6 +1868,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 }
                 else
                     btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
             }
         });
 
@@ -1884,6 +1897,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 }
                 else
                     btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
             }
         });
 
@@ -1911,6 +1926,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 }
                 else
                     btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
             }
         });
 
@@ -2426,13 +2443,15 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         for (int i = 0; i < medidas.size(); i++) {
             medida.add(medidas.get(i).getMedida());
         }
-        spMedida.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, reglamento));
+        //spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, reglamento));
         spReglamento.setVisibility(View.GONE);
 
         if(id == 12 || id == 4 || id == 3) {
-            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, cmedida);
+            // spInfraccion.setAdapter(new ArrayAdapter<String>(this,R.layout.multiline_spinner_dropdown_item,arregloInfraccion));
+            adapter = new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida);
             etNombreComercial.setVisibility(View.VISIBLE);
-            spMedida.setAdapter(adapter);
+            //spMedida.setAdapter(adapter);
+            spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida));
         }
 
         if(id == 2) {
@@ -2443,9 +2462,9 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             etNombreComercial.setHint(getResources().getString(R.string.donde_ubica));
 
 
-            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, cmedida);
+            adapter = new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida);
             etNombreComercial.setVisibility(View.VISIBLE);
-            spMedida.setAdapter(adapter);
+            spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida));
         }
 
         if(id == 3) {
@@ -2529,6 +2548,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
         buscarCompetencia();
 
+    }
+
+    public void actualizarTV(int pos) {
+        spselec1.setText("Hechos Seleccionados " + pos);
     }
     public static boolean isNumeric(String str) {
         return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
@@ -3273,6 +3296,64 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         etEspecificacion.setEnabled(true);
         spInfraccion.setEnabled(true);
         etManifiesta.setEnabled(true);
+
+        etSeleccion.setText("");
+        etInfraccion.setText("");
+
+        tveliminar.setEnabled(true);
+        tveliminar1.setEnabled(true);
+        tveliminar2.setEnabled(true);
+        tveliminar3.setEnabled(true);
+        tveliminar4.setEnabled(true);
+        text = "";
+        seleccion = "";
+        dato = "";
+        id_hechos  = "";
+        unidades = "";
+
+        camp1 = "";
+        camp2 = "";
+        camp3 = "";
+        camp4 = "";
+        camp5 = "";
+        camp6 = "";
+        camp7 = "";
+        camp8 = "";
+        camp9 = "";
+        camp0 = "";
+        camp11 = "";
+        camp12 = "";
+        camp13 = "";
+        camp14 = "";
+        camp15 = "";
+        camp16 = "";
+        camp17 = "";
+        camp18 = "";
+        camp19 = "";
+        camp20 = "";
+
+        c1 = "";
+        c2 = "";
+        c3 = "";
+        c4 = "";
+        c5 = "";
+        c6 = "";
+        c7 = "";
+        c8 = "";
+        c9 = "";
+        c0 = "";
+        c11 = "";
+        c12 = "";
+        c13 = "";
+        c14 = "";
+        c15 = "";
+        c16 = "";
+        c17 = "";
+        c18 = "";
+        c19 = "";
+        c20 = "";
+
+        campo0 = "";
     	/*infraccion = 0;
     	co = 0;
 		rlcampo.setVisibility(View.VISIBLE);
@@ -3833,7 +3914,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                     do {
                         campos.add(cursor.getString(cursor.getColumnIndex("campo")));
-                        cmedida.add(cursor.getString(cursor.getColumnIndex("medida_precautoria")));
+                        cmedida.add(cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim() + " " + cursor.getString(cursor.getColumnIndex("ordenamiento")).trim());
                         art.add(cursor.getString(cursor.getColumnIndex("articulos")));
                         orden.add(cursor.getString(cursor.getColumnIndex("ordenamiento")));
                     } while (cursor.moveToNext());
@@ -3845,6 +3926,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 db.close();
                 Log.v("change", "ok");
                 adapter.notifyDataSetChanged();
+                spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida));
             }
         }
     }
@@ -3877,7 +3959,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     do {
                         Log.e("cmedida",cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim());
                         campos.add(cursor.getString(cursor.getColumnIndex("campo")));
-                        cmedida.add(cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim());
+                        cmedida.add(cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim() + " " + cursor.getString(cursor.getColumnIndex("ordenamiento")).trim());
                         art.add(cursor.getString(cursor.getColumnIndex("articulos")));
                         orden.add(cursor.getString(cursor.getColumnIndex("ordenamiento")));
                     } while (cursor.moveToNext());
@@ -3889,6 +3971,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 db.close();
                 Log.v("change", "ok");
                 adapter.notifyDataSetChanged();
+                spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida));
             }
         }
     }
@@ -5147,6 +5230,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     ifeA = c.getString(2);
                     noA = c.getString(c.getColumnIndex("no_empleado"));
                     vigA = c.getString(c.getColumnIndex("vigencia"));
+                    folios.set(0,c.getString(c.getColumnIndex("folio")));
                     Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
                 }while(c.moveToNext());
                 c.close();
@@ -5174,6 +5258,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     ifeA1 = c.getString(2);
                     noA1 = c.getString(c.getColumnIndex("no_empleado"));
                     vigA1 = c.getString(c.getColumnIndex("vigencia"));
+                    folios.set(1,c.getString(c.getColumnIndex("folio")));
                     Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
                 }while(c.moveToNext());
                 c.close();
@@ -5201,6 +5286,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     ifeA2 = c.getString(2);
                     noA2 = c.getString(c.getColumnIndex("no_empleado"));
                     vigA2 = c.getString(c.getColumnIndex("vigencia"));
+                    folios.set(2,c.getString(c.getColumnIndex("folio")));
                     Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
                 }while(c.moveToNext());
                 c.close();
@@ -5228,6 +5314,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     ifeA3 = c.getString(2);
                     noA3 = c.getString(c.getColumnIndex("no_empleado"));
                     vigA3 = c.getString(c.getColumnIndex("vigencia"));
+                    folios.set(3,c.getString(c.getColumnIndex("folio")));
                     Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
                 }while(c.moveToNext());
                 c.close();
@@ -5255,6 +5342,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     ifeA4 = c.getString(2);
                     noA4 = c.getString(c.getColumnIndex("no_empleado"));
                     vigA4 = c.getString(c.getColumnIndex("vigencia"));
+                    folios.set(4,c.getString(c.getColumnIndex("folio")));
                     Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
                 }while(c.moveToNext());
                 c.close();
@@ -5401,10 +5489,12 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 if(id == 12) {
                     medidas(cam);
                     adapter.notifyDataSetChanged();
+                    spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida));
                 }
                 if(id == 2) {
                     medidas(cam);
                     adapter.notifyDataSetChanged();
+                    spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida));
                 }
                 String sql = "select competencia,ordenamiento from c_ordenamiento where campo = '" + cam + "' and id_c_direccion = " + id;
                 System.err.println(sql);
@@ -8161,7 +8251,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 doc.open();
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.ov4);
+                Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.ov_2020);
                 bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
                 Image img;
 
@@ -8241,14 +8331,25 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         canvas.restoreState();
                     }
                 } else {
-                    canvas.saveState();
-                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                    canvas.beginText();
-                    canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(80, 820 + c);
-                    canvas.showText(etNombreV.getText().toString());
-                    canvas.endText();
-                    canvas.restoreState();
+                    if(id==3) {
+                        canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(80, 820 + c);
+                        canvas.showText(etNombreV.getText().toString());
+                        canvas.endText();
+                        canvas.restoreState();
+                    } else {
+                        canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(80, 820 + c);
+                        canvas.showText(etPropietario.getText().toString() + " " + etApellidoP.getText().toString() + " " + etApellidoM.getText().toString());
+                        canvas.endText();
+                        canvas.restoreState();
+                    }
                 }
 
 
@@ -8260,8 +8361,14 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 dato += " " + etCalle.getText().toString();
 
                 if (!etNumero.getText().toString().equalsIgnoreCase(""))
-                    dato += " " + etNumero.getText().toString() + " " + etNuemroInterior.getText().toString();
-
+                    dato += " número exterior " + etNumero.getText().toString();
+                if(!etNuemroInterior.getText().toString().equalsIgnoreCase(""))
+                    dato += " interior " + etNuemroInterior.getText().toString();
+                if(!etEntreC.getText().toString().equalsIgnoreCase("")) {
+                    dato += " entre la calle " + etEntreC.getText().toString();
+                    if(!etEntreC1.getText().toString().equalsIgnoreCase(""))
+                        dato += " y la calle " + etEntreC1.getText().toString();
+                }
                 if (!etLote.getText().toString().equalsIgnoreCase(""))
                     dato += " lote " + etLote.getText().toString();
                 if (!etManzana.getText().toString().equalsIgnoreCase(""))
@@ -8272,15 +8379,20 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 if(txt.length != 1)
                     txt = Justificar.justifocarTexto(Justificar.Conversion(Justificar.Conversion(dato)),24);
 
+                txt = Justificar.justifocarTexto1(dato.trim(),125);
+                int x1 = 810+c;
 
-                canvas.saveState();
-                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                canvas.beginText();
-                canvas.setFontAndSize(bf, 9);
-                canvas.moveText(80, 800+c);
-                canvas.showText(dato);
-                canvas.endText();
-                canvas.restoreState();
+                for(int y = 0;y < txt.length; y++) {
+                    canvas.saveState();
+                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                    canvas.beginText();
+                    canvas.setFontAndSize(bf, 9);
+                    canvas.moveText(80, x1);
+                    canvas.showText(txt[y]);
+                    canvas.endText();
+                    canvas.restoreState();
+                    x1-=10;
+                }
 
                 p = new Paragraph("                        ",new Font(Font.HELVETICA,7,Color.BLACK));
                 doc.add(p);
@@ -8394,15 +8506,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 doc.add(new Paragraph(" ",font1));
                 doc.add(new Paragraph(" ",font1));
                 doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
+                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,11f,Color.BLACK)));
 
                 //p = new Paragraph("  " + spnombre.getSelectedItem().toString() + ", " + spNombreA.getSelectedItem().toString() + "," + spNombreA1.getSelectedItem().toString() + "," + spNombreA2.getSelectedItem().toString()+ "," + spNombreA3.getSelectedItem().toString()+ "," + spNombreA4.getSelectedItem().toString(),font1);
-                p = new Paragraph("" + insp,font1);
+                p = new Paragraph("" + insp,new Font(Font.HELVETICA,8.5f,Color.BLACK));
                 p.setAlignment(Paragraph.ALIGN_LEFT);
                 doc.add(p);
 
@@ -8410,8 +8517,14 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     doc.add(new Paragraph(" ",new Font(Font.HELVETICA,6,Color.BLACK)));
 
                 doc.add(new Paragraph(" ",new Font(Font.HELVETICA,7,Color.BLACK)));
+                String f1 = "";
 
+                for(int x=0;x < folios.size();x++) {
+                    if(!folios.get(x).trim().equalsIgnoreCase(""))
+                        f1+=folios.get(x) + ",";
+                }
 
+                f1=f1.substring(0,f1.length()-1);
                 p = new Paragraph("                                                          " ,font1);
                 p.setAlignment(Paragraph.ALIGN_LEFT);
                 doc.add(p);
@@ -8430,8 +8543,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(190, 430+c);
-                canvas.showText("Enero");
+                canvas.moveText(150, 447+c);
+                canvas.showText("01 de Abril");
                 canvas.endText();
                 canvas.restoreState();
 
@@ -8439,7 +8552,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(250, 430+c);
+                canvas.moveText(280, 447+c);
                 canvas.showText("20");
                 canvas.endText();
                 canvas.restoreState();
@@ -8448,8 +8561,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(350, 430+c);
-                canvas.showText(getMes(m));
+                canvas.moveText(350, 447+c);
+                canvas.showText(d1 + " de " + getMes(m).toLowerCase());
                 canvas.endText();
                 canvas.restoreState();
 
@@ -8457,7 +8570,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(450, 430+c);
+                canvas.moveText(505, 447+c);
                 canvas.showText(String.valueOf(ax).substring(2, 4));
                 canvas.endText();
                 canvas.restoreState();
@@ -8466,8 +8579,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(160, 413+c);
-                canvas.showText(folio);
+                canvas.moveText(205, 435+c);
+                canvas.showText(fol + "," + f1);
                 canvas.endText();
                 canvas.restoreState();
 
@@ -8486,11 +8599,13 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 }
                 if(id == 4) {
                     String art = "";
+                    int x = 1;
 
                     for (int i = 0; i < reg.length; i++) {
                         if (reg[i] > 0) {
-                            motivo += conceptos.get(i) + ",";
+                            motivo += (x) + " " + conceptos.get(i) + ",";
                             art += articulo.get(i) + " Fracción " + fraccion.get(i) + ",";
+                            x+=1;
                         }
                     }
                     art = art.substring(0, art.length() - 1);
@@ -8508,17 +8623,16 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
                     p.setFont(new Font(Font.HELVETICA,3));
                     doc.add(p);*/
-                if(!motivo.trim().equalsIgnoreCase(""))
-                    txt = Justificar.justifocarTexto1(motivo, 135);
 
-                int li = 395+c;
+                txt = Justificar.justifocarTexto1(motivo, 155);
+                int li = 420+c;
 
                 for (int i = 0; i < txt.length; i++) {
 
                     canvas.saveState();
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
-                    canvas.setFontAndSize(bf, 9);
+                    canvas.setFontAndSize(bf, 8);
                     canvas.moveText(27, li);
                     canvas.showText(txt[i]);
                     canvas.endText();
@@ -8533,7 +8647,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(270, 100);
+                canvas.moveText(270, 125);
                 canvas.showText(dia + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -8542,7 +8656,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(315, 100);
+                canvas.moveText(315, 125);
                 canvas.showText(me.toUpperCase());
                 canvas.endText();
                 canvas.restoreState();
@@ -8551,25 +8665,40 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(425, 100);
+                canvas.moveText(435, 125);
                 canvas.showText(String.valueOf(a).substring(2,4) + "");
                 canvas.endText();
                 canvas.restoreState();
 
-                canvas.saveState();
-                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                canvas.beginText();
-                canvas.setFontAndSize(bf, 9);
-                canvas.moveText(80,80);
-                canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
-                canvas.endText();
-                canvas.restoreState();
+                if(id == 2) {
+                    if(!cbDatos.isChecked()) {
+                        canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(90, 110);
+                        canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
+                        canvas.endText();
+                        canvas.restoreState();
+                    }
+                } else {
+                    if(!cbDatos.isChecked()) {
+                        canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(90, 110);
+                        canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
+                        canvas.endText();
+                        canvas.restoreState();
+                    }
+                }
 
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(510, 80);
+                canvas.moveText(510, 110);
                 canvas.showText(hr);
                 canvas.endText();
                 canvas.restoreState();
@@ -8578,7 +8707,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(60, 70);
+                canvas.moveText(65, 94);
                 canvas.showText(dia + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -8587,7 +8716,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(150, 70);
+                canvas.moveText(155, 94);
                 canvas.showText(me.toUpperCase(Locale.getDefault()));
                 canvas.endText();
                 canvas.restoreState();
@@ -8596,7 +8725,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(250, 70);
+                canvas.moveText(265, 94);
                 canvas.showText(a + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -8606,7 +8735,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(145, 60);
+                    canvas.moveText(155, 80);
                     canvas.showText("Si");
                     canvas.endText();
                     canvas.restoreState();
@@ -8615,7 +8744,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(145, 60);
+                    canvas.moveText(155, 80);
                     canvas.showText("No");
                     canvas.endText();
                     canvas.restoreState();
@@ -10435,7 +10564,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 doc.open();
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.ov4_vista_previa);
+                Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.orden_previa);
                 bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
                 Image img;
 
@@ -10466,7 +10595,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(30, 855+c);
+                canvas.moveText(30, 825+c);
                 canvas.showText(this.direccion + "   " + spZona.getSelectedItem().toString());
                 canvas.endText();
                 canvas.restoreState();
@@ -10475,7 +10604,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 12);
-                canvas.moveText(450, 855+c);
+                canvas.moveText(450, 825+c);
                 canvas.showText(etNumeroActa.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
@@ -10500,7 +10629,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(80, 820 + c);
+                        canvas.moveText(80, 790 + c);
                         canvas.showText("Propietario o Representante Legal");
                         canvas.endText();
                         canvas.restoreState();
@@ -10509,7 +10638,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(80, 820 + c);
+                        canvas.moveText(80, 790 + c);
                         canvas.showText(etNombreComercial.getText().toString());
                         canvas.endText();
                         canvas.restoreState();
@@ -10519,7 +10648,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(80, 820 + c);
+                    canvas.moveText(80, 790 + c);
                     canvas.showText(etNombreV.getText().toString());
                     canvas.endText();
                     canvas.restoreState();
@@ -10551,7 +10680,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(80, 800+c);
+                canvas.moveText(80, 770+c);
                 canvas.showText(dato);
                 canvas.endText();
                 canvas.restoreState();
@@ -10563,7 +10692,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(80, 780+c);
+                canvas.moveText(80, 750+c);
                 canvas.showText(etFraccionamiento.getText().toString() + " " + etCondominio.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
@@ -10669,17 +10798,12 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 doc.add(new Paragraph(" ",font1));
                 doc.add(new Paragraph(" ",font1));
                 doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font2));
-
-
+                doc.add(new Paragraph(" ",font1));
+                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,13,Color.BLACK)));
 
                 //p = new Paragraph("  " + spnombre.getSelectedItem().toString() + ", " + spNombreA.getSelectedItem().toString() + "," + spNombreA1.getSelectedItem().toString() + "," + spNombreA2.getSelectedItem().toString()+ "," + spNombreA3.getSelectedItem().toString()+ "," + spNombreA4.getSelectedItem().toString(),font1);
-
-                p = new Paragraph(" " + insp,font2);
-                p.setLeading(10f);
-                //p.setLeading(12f);
+                p = new Paragraph("" + insp,new Font(Font.HELVETICA,8.5f,Color.BLACK));
                 p.setAlignment(Paragraph.ALIGN_LEFT);
-
                 doc.add(p);
 
                 if(count <= 1)
@@ -10706,8 +10830,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(180, 446+c);
-                canvas.showText("Enero");
+                canvas.moveText(140, 415+c);
+                canvas.showText("Abril");
                 canvas.endText();
                 canvas.restoreState();
 
@@ -10715,7 +10839,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(248, 446+c);
+                canvas.moveText(260, 415+c);
                 canvas.showText("20");
                 canvas.endText();
                 canvas.restoreState();
@@ -10724,7 +10848,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(350, 446+c);
+                canvas.moveText(350, 415+c);
                 canvas.showText(getMes(m));
                 canvas.endText();
                 canvas.restoreState();
@@ -10733,7 +10857,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(449, 446+c);
+                canvas.moveText(505, 415+c);
                 canvas.showText(String.valueOf(ax).substring(2, 4));
                 canvas.endText();
                 canvas.restoreState();
@@ -10742,19 +10866,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(160, 427.9f+c);
+                canvas.moveText(205, 405+c);
                 canvas.showText(folio);
                 canvas.endText();
                 canvas.restoreState();
-
-				    /*canvas.saveState();
-			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-			        canvas.beginText();
-			        canvas.setFontAndSize(bf, 9);
-			        canvas.moveText(150, 380+c);
-			        canvas.showText(noInsp);
-			        canvas.endText();
-			        canvas.restoreState();*/
 
                 String motivo = etMotivo.getText().toString().trim() + " ";
                 if(id == 2) {
@@ -10780,14 +10895,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 doc.add(new Paragraph(" ",font1));
                 doc.add(new Paragraph(" ",font1));
 
-                    /*p = new Paragraph("                                                                       " + motivo.toLowerCase());
-                    p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
-                    p.setFont(new Font(Font.HELVETICA,3));
-                    doc.add(p);*/
                 if(!motivo.trim().equalsIgnoreCase(""))
                     txt = Justificar.justifocarTexto1(motivo, 135);
 
-                int li = 395+c;
+                int li = 390+c;
 
                 for (int i = 0; i < txt.length; i++) {
 
@@ -10809,7 +10920,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(270, 114.7f);
+                canvas.moveText(270, 125);
                 canvas.showText(dia + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -10818,7 +10929,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(318, 114.7f);
+                canvas.moveText(315, 125);
                 canvas.showText(me.toUpperCase());
                 canvas.endText();
                 canvas.restoreState();
@@ -10827,7 +10938,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(427, 114.7f);
+                canvas.moveText(433, 125);
                 canvas.showText(String.valueOf(a).substring(2,4) + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -10836,7 +10947,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(80,99);
+                canvas.moveText(85,105);
                 canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
@@ -10845,7 +10956,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(500, 99);
+                canvas.moveText(510, 105);
                 canvas.showText(hr);
                 canvas.endText();
                 canvas.restoreState();
@@ -10854,7 +10965,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(65, 87);
+                canvas.moveText(65, 93);
                 canvas.showText(dia + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -10863,7 +10974,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(150, 87);
+                canvas.moveText(155, 93);
                 canvas.showText(me.toUpperCase(Locale.getDefault()));
                 canvas.endText();
                 canvas.restoreState();
@@ -10872,7 +10983,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(255, 87);
+                canvas.moveText(264, 93);
                 canvas.showText(a + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -10882,7 +10993,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(500, 75);
+                    canvas.moveText(150, 80);
                     canvas.showText("Si");
                     canvas.endText();
                     canvas.restoreState();
@@ -10891,7 +11002,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(500, 75);
+                    canvas.moveText(150, 80);
                     canvas.showText("No");
                     canvas.endText();
                     canvas.restoreState();
@@ -10901,14 +11012,14 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 System.err.println(e.getMessage() + " doc ");
             } catch (IOException e) {
                 System.err.println(e.getMessage() + " IOE ");
-            } /*catch (Exception e) {
-					Toast toast  = Toast.makeText(getApplicationContext(), "Verificar los datos que esten completos", Toast.LENGTH_LONG);
-					toast.setGravity(0, 0, 15);
-					toast.show();
-					Log.e("Error al abrir", e.getMessage() + " c ");
-					System.err.println(e.getMessage() + " n ");
-				}*/
-        } else if(formato.equalsIgnoreCase("citatorio")) {
+            } catch (Exception e) {
+                Toast toast  = Toast.makeText(getApplicationContext(), "Verificar los datos que esten completos", Toast.LENGTH_LONG);
+                toast.setGravity(0, 0, 15);
+                toast.show();
+                Log.e("Error al abrir", e.getMessage() + " c ");
+                System.err.println(e.getMessage() + " n ");
+            }
+        }else if(formato.equalsIgnoreCase("citatorio")) {
 
             Paragraph p;
 

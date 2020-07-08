@@ -1779,15 +1779,31 @@
 
                         </RelativeLayout>
 
-
+                        <TextView
+                            android:id="@+id/spselec"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Seleccione su Hecho"
+                            android:layout_below="@id/rlopcion"
+                            style="@style/SubtitleR">
+                        </TextView>
 
                         <Spinner
                             android:id="@+id/spHechos"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/rlopcion"
+                            android:layout_below="@id/spselec"
                             android:spinnerMode="dialog"
                             android:maxLines="3"/>
+
+                        <TextView
+                            android:id="@+id/spselec1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Hechos Seleccionados 0"
+                            android:layout_below="@id/spHechos"
+                            style="@style/SubtitleR">
+                        </TextView>
 
                         <RelativeLayout
                             android:id="@+id/rlcampos"
@@ -1795,7 +1811,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:layout_gravity="center"
-                            android:layout_below="@id/spHechos">
+                            android:layout_below="@id/spselec1">
 
 
                             <EditText
@@ -2219,10 +2235,22 @@
                                 android:layout_gravity="center"
                                 style="@style/Subtitle"/>
 
+                            <!--
+                            <Spinner
+                            android:id="@+id/spHechos"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/rlopcion"
+                            android:spinnerMode="dialog"
+                            android:maxLines="3"/>
+                            -->
+
                             <Spinner android:id="@+id/spMedida"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@id/tvMedidaSeguridad"/>
+                                android:layout_below="@id/tvMedidaSeguridad"
+                                android:spinnerMode="dialog"
+                                android:maxLines="3"/>
 
 
                             <EditText
