@@ -2245,7 +2245,9 @@
 								<Spinner android:id="@+id/spMedida"
 									android:layout_width="fill_parent"
 									android:layout_height="wrap_content"
-									android:layout_below="@id/tvMedidaSeguridad"/>
+									android:layout_below="@id/tvMedidaSeguridad"
+									android:spinnerMode="dialog"
+									android:maxLines="3"/>
 
 								<EditText
 									android:id="@+id/etMedida"
