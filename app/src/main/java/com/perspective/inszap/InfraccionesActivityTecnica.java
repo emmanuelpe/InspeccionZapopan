@@ -7176,13 +7176,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 Bitmap bitmap = null;
-                if(id == 2 | id == 5)
-                    bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_1);
-                else if(id == 3)
-                    bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_vacia);
-                    //bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_t);
-                else
-                    bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_c);
+                bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_vacia);
                 bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
                 Image img;
 
