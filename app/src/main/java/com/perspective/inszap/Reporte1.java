@@ -629,70 +629,83 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
             na = "";
             na2 = "";
 
+            if (Connection.validarConexion(getApplicationContext())) {
+                JSONArray jsonArray = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getReport.php", "POST", report);
+                JSONArray jsonArray1 = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getReport1.php", "POST", report2);
+                nas.clear();
+                try {
+                    for (int x = 0; x < jsonArray.length(); x++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(x);
+                        Log.e("jsonObject", jsonObject.getString("numero_acta"));
+                        na += jsonObject.getString("numero_acta") + ",";
+                        nas.add(jsonObject.getString("numero_acta"));
+                    }
+                    for (int y = 0; y < jsonArray1.length(); y++) {
+                        JSONObject jsonObject2 = jsonArray1.getJSONObject(y);
+                        na2 += jsonObject2.getString("numero_acta") + ",";
+                        nas2.add(jsonObject2.getString("numero_acta"));
+                        System.out.println("fotografias: " + na2);
+                    }
+                    if (!na2.isEmpty()) {
+                        na2 = na2.substring(0, na2.length() - 1);
+                    }
+                    if (!na.isEmpty())
+                        na = na.substring(0, na.length() - 1);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String[] na1 = numeros.replace("'", "").split(",");
+                String[] nas = na.replace("'", "").split(",");
+                String[] na3 = fotografias.replace("'", "").split(",");
+                String[] nas2 = na2.replace("'", "").split(",");
+                int p = 0;
+                msj = "Hay " + total + " registros de " + fecha1 + " a " + fecha2 + " y se han enviado";
+                re = 0;
+                rn = 0;
+                re2 = 0;
+                rn2 = 0;
+                String pend = "";
+                String pend2 = "";
 
-            JSONArray jsonArray = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getReport.php", "POST", report);
-            JSONArray jsonArray1 = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getReport1.php", "POST", report2);
-            nas.clear();
-            try {
-                for (int x = 0; x < jsonArray.length(); x++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(x);
-                    Log.e("jsonObject", jsonObject.getString("numero_acta"));
-                    na += jsonObject.getString("numero_acta") + ",";
-                    nas.add(jsonObject.getString("numero_acta"));
+                for (int i = 0; i < na1.length; i++) {
+                    if (Reporte1.this.nas.contains(na1[i])) {
+                        Log.e("contiene a", na1[i]);
+                        re++;
+                    } else {
+                        Log.e("no contiene a", na1[i]);
+                        rn++;
+                        pend += na1[i] + ", ";
+                    }
+                    //msj = "Hay " + total + " registros de " + fecha1 + " a " + fecha2 + " \ny se han enviado " + re + " pendientes de subir " + rn + "\n" + pend;
+                    msj = "Actas generadas de " + fecha1 + " al " + fecha2 + ": " + na1.length + "\n" + "Se han enviado: " + re + "\n" + "Numero(s) de acta(s) pendiente(s) de subir: " + rn;
                 }
-                for (int y = 0; y < jsonArray1.length(); y++) {
-                    JSONObject jsonObject2 = jsonArray1.getJSONObject(y);
-                    na2 += jsonObject2.getString("numero_acta") + ",";
-                    nas2.add(jsonObject2.getString("numero_acta"));
-                    System.out.println("fotografias: "+na2 );
+                for (int x = 0; x < na3.length; x++) {
+                    if (Reporte1.this.nas2.contains(na3[x])) {
+                        Log.e("contiene f", na3[x]);
+                        re2++;
+                    } else {
+                        Log.e("no contiene f", na3[x]);
+                        rn2++;
+                        pend2 += na3[x] + ", ";
+                    }
+                    msj2 = "Actas con fotografias generadas de " + fecha1 + " al " + fecha2 + ": " + na3.length + "\n" + "Se han enviado: " + re2 + "\n" + "Numero(s) de actas(s) con fotografia(s) pendiente(s) de subir: " + rn2;
                 }
-                if (!na2.isEmpty()) {
-                    na2 = na2.substring(0, na2.length() - 1);
-                }
-                if (!na.isEmpty())
-                    na = na.substring(0, na.length() - 1);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            String[] na1 = numeros.replace("'", "").split(",");
-            String[] nas = na.replace("'", "").split(",");
-            String[] na3 = fotografias.replace("'", "").split(",");
-            String[] nas2 = na2.replace("'", "").split(",");
-            int p = 0;
-            msj = "Hay " + total + " registros de " + fecha1 + " a " + fecha2 + " y se han enviado";
-            re = 0;
-            rn = 0;
-            re2 = 0;
-            rn2 = 0;
-            String pend = "";
-            String pend2 = "";
+                Log.e("p", String.valueOf(p));
+            }else{
+                AlertDialog.Builder dialogo = new AlertDialog.Builder(Reporte1.this);
+                dialogo.setTitle("Message").setMessage("Conecte el dispositivo al internet").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialogo.create().show();
 
-            for (int i = 0; i < na1.length; i++) {
-                if (Reporte1.this.nas.contains(na1[i])) {
-                    Log.e("contiene a", na1[i]);
-                    re++;
-                } else {
-                    Log.e("no contiene a", na1[i]);
-                    rn++;
-                    pend += na1[i] + ", ";
-                }
-                //msj = "Hay " + total + " registros de " + fecha1 + " a " + fecha2 + " \ny se han enviado " + re + " pendientes de subir " + rn + "\n" + pend;
-                msj = "Actas generadas de " + fecha1 + " al " + fecha2 + ": " + na1.length + "\n" + "Se han enviado: " + re + "\n" + "Numero(s) de acta(s) pendiente(s) de subir: " + rn;
             }
-            for (int x = 0; x < na3.length; x++) {
-                if (Reporte1.this.nas2.contains(na3[x])) {
-                    Log.e("contiene f", na3[x]);
-                    re2++;
-                } else {
-                    Log.e("no contiene f", na3[x]);
-                    rn2++;
-                    pend2 += na3[x] + ", ";
-                }
-                msj2 = "Actas con fotografias generadas de " + fecha1 + " al " + fecha2 + ": " + na3.length + "\n" + "Se han enviado: " + re2 + "\n" + "Numero(s) de actas(s) con fotografia(s) pendiente(s) de subir: " + rn2;
-            }
-            Log.e("p", String.valueOf(p));
+
             return re == numeros.length();
-        }
+            }
+
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
