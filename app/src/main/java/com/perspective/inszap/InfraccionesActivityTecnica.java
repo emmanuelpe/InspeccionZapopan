@@ -119,6 +119,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private ArrayList<String> arregloLista2 = new ArrayList<String>();
     final ArrayList<String> arregloInfraccion = new ArrayList<String>();
     final ArrayList<String> arregloCreglamentos= new ArrayList<String>();
+    final ArrayList<String> reglamentosx= new ArrayList<String>();
     final ArrayList<String> consultar = new ArrayList<String>();
     final ArrayList<Integer> id_hecho = new ArrayList<Integer>();
     final ArrayList<String> arreglo = new ArrayList<String>();
@@ -1009,9 +1010,9 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(!spCreglamentos.getItemAtPosition(position).toString().equals(""))
-                    reglamentoC[0] =spCreglamentos.getItemAtPosition(position).toString();
+                    reglamentoC[0] =reglamentosx.get(position);
                 else
-                    reglamentoC[0] =spCreglamentos.getItemAtPosition(position).toString();
+                    reglamentoC[0] =reglamentosx.get(position);;
 
             }
 
@@ -11731,11 +11732,13 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
         if(cursor.moveToFirst()){
             arregloCreglamentos.add("");
+            reglamentosx.add("");
             do{
 
 
-                    arregloCreglamentos.add(cursor.getString(2));
-                    Log.i("listado", "C_reglamentos: " + cursor.getString(2));
+                    arregloCreglamentos.add(cursor.getString(1));
+                    reglamentosx.add(cursor.getString(2));
+                    Log.i("listado", "C_reglamentos: " + cursor.getString(3));
 
             }while(cursor.moveToNext());
         }
@@ -11794,19 +11797,17 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                if (id == 5) {
                    cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+reglamentoC[0]+" IS NOT NULL  and REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " +
                            "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n')  and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ", null);
-                   Log.e("sql", "SELECT * FROM c_infraccion WHERE REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') = " +
-                           "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('" + search + "'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ");
+                   Log.e("sql", "SELECT * FROM c_infraccion WHERE REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " +
+                           "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ");
                } else {
                    if (id == 3) {
                        cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+reglamentoC[0]+" IS NOT NULL and REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " +
                                "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion in( '" + id + "',2) AND vigente = 'S' order by infraccion; ", null);
-                       Log.e("sql", "SELECT * FROM c_infraccion WHERE REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') = " +
-                               "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('" + search + "'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion  in('" + id + "',2) AND vigente = 'S' order by infraccion; ");
+                       Log.e("sql", "SELECT * FROM c_infraccion WHERE "+reglamentoC[0]+" IS NOT NULL and REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion in( '" + id + "',2) AND vigente = 'S' order by infraccion; ");
                    } else {
                        cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+reglamentoC[0]+" IS NOT NULL and REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " +
                                "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
-                       Log.e("sql", "SELECT * FROM c_infraccion WHERE REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') = " +
-                               "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('" + search + "'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ");
+                       Log.e("sql", "SELECT * FROM c_infraccion WHERE "+reglamentoC[0]+" IS NOT NULL and REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ");
                    }
                }
            }
