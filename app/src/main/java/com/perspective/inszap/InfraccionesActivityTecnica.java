@@ -112,6 +112,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private RadioGroup /*radiogroup,*/rgReincidencia,rgPopiedad;
     static final int DATE_DIALOG_ID = 0;
     private boolean desc=false,desc1=false,desc2=false,desc3=false,desc4=false,citatorio,inicio = false, res = false,consu = false,resu = false,resov = false,guarda = false;
+    String Axmedidas="";
     final Calendar c = Calendar.getInstance();
     final Calendar cal = Calendar.getInstance();
     final ArrayList<String> arregloLista = new ArrayList<String>();
@@ -119,6 +120,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private ArrayList<String> arregloLista2 = new ArrayList<String>();
     final ArrayList<String> arregloInfraccion = new ArrayList<String>();
     final ArrayList<String> arregloCreglamentos= new ArrayList<String>();
+    final ArrayList<String> arregloCreglamentosx=new ArrayList<>();
     final ArrayList<String> consultar = new ArrayList<String>();
     final ArrayList<Integer> id_hecho = new ArrayList<Integer>();
     final ArrayList<String> arreglo = new ArrayList<String>();
@@ -1008,10 +1010,14 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         spCreglamentos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(!spCreglamentos.getItemAtPosition(position).toString().equals(""))
-                    reglamentoC[0] =spCreglamentos.getItemAtPosition(position).toString();
-                else
-                    reglamentoC[0] =spCreglamentos.getItemAtPosition(position).toString();
+                if(!spCreglamentos.getItemAtPosition(position).toString().equals("Buscar en Todos los reglamentos")){
+                    System.out.println(position);
+                    reglamentoC[0] =arregloCreglamentosx.get(position-1);
+                    Axmedidas+="'"+arregloCreglamentosx.get(position-1)+"',";
+                } else{
+                    reglamentoC[0] =" ";
+                }
+
 
             }
 
@@ -1997,6 +2003,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                             rlcampo.setVisibility(View.GONE);
                             dato = "";
+                            medidas2(Axmedidas);
                             String descrip = etEspecificacion.getText().toString()+".";
 							/*if (!Double.toString(latitud).equals("0.0") & !Double.toString(longitud).equals("0.0"))
 								descrip += ". LAS COORDENADAS APROXIMADAS SON: LONGITUD: " + longitud + " LATITUD: " + latitud +".";*/
@@ -3962,6 +3969,49 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             }
         }
     }
+    public void medidas2(String condicion) {
+        GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
+        SQLiteDatabase db = gestionarDB.getReadableDatabase();
+        condicion=condicion.substring(0, condicion.length() - 1);
+        if(db != null) {
+            String sql = "select * from c_medida_precautoria where ";
+            if(condicion.equalsIgnoreCase("")) {
+                sql += " 1 = 1";
+            }else {
+                sql += " campo in( " + condicion + ")";
+            }
+            System.err.println(sql);
+            Cursor cursor = db.rawQuery(sql, null);
+            try {
+                if(cursor.moveToFirst()) {
+                    campos.clear();
+                    cmedida.clear();
+                    art.clear();
+                    orden.clear();
+
+                    campos.add("");
+                    cmedida.add("");
+                    art.add("");
+                    orden.add("");
+
+                    do {
+                        campos.add(cursor.getString(cursor.getColumnIndex("campo")));
+                        cmedida.add(cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim() + " " + cursor.getString(cursor.getColumnIndex("ordenamiento")).trim());
+                        art.add(cursor.getString(cursor.getColumnIndex("articulos")));
+                        orden.add(cursor.getString(cursor.getColumnIndex("ordenamiento")));
+                    } while (cursor.moveToNext());
+                }
+            } catch (SQLiteException e) {
+                System.out.println(e.getMessage());
+            }finally{
+                cursor.close();
+                db.close();
+                Log.v("change", "ok");
+                adapter.notifyDataSetChanged();
+                spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida));
+            }
+        }
+    }
 
     public void medidas() {
         GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
@@ -5499,21 +5549,25 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                     c18 = c.getString(c.getColumnIndex(campo.get(i)));
                                     if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
                                         cam = campo.get(i);
+
                                 }
                                 else if (i==18){
                                     c19 = c.getString(c.getColumnIndex(campo.get(i)));
                                     if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
                                         cam = campo.get(i);
+
                                 }
                                 else{
                                     c20 = c.getString(c.getColumnIndex(campo.get(i)));
                                     if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
                                         cam = campo.get(i);
+
                                 }
                             }
 
                         }
                     }
+                    Log.i("campo",cam);
                     Log.i("codigo", "c1 " + c1  + " c2 " + c2 + " c3 " + c3 + " c4 " + c4 + " c5 " + c5 + "c6 " + c6  + " c7 " + c7 + " c8 " + c8 + " c9 " + c9 + " c0 " + c0  + " c11 " + c11 + " c12 " + c12 + " c13 " + c13 + " c14 " + c14 + " c15 " + c15 + " c16 " + c16 + " c17 " + c17  + " c18 " + c18 + " c19 " + c19 + " c20 " + c20);
                     Log.i("Info", "cod: " + c.getString(4) + " ord: " + c.getString(6) + " lap: " + c.getString(7) + " ordenamiento_ " + c.getString(8) + " n " + c.getString(9) + " l " + c.getString(10));
                 }while(c.moveToNext());
@@ -5528,6 +5582,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     adapter.notifyDataSetChanged();
                     spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida));
                 }
+
+
                 String sql = "select competencia,ordenamiento from c_ordenamiento where campo = '" + cam + "' and id_c_direccion = " + id;
                 System.err.println(sql);
                 c = db.rawQuery(sql, null);
@@ -11730,54 +11786,21 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
         if(cursor.moveToFirst()){
-            arregloCreglamentos.add(" ");
+            arregloCreglamentos.add("Buscar en Todos los reglamentos");
             do{
 
 
-                    arregloCreglamentos.add(cursor.getString(2));
+                    arregloCreglamentosx.add(cursor.getString(2));
+                arregloCreglamentos.add(cursor.getString(cursor.getColumnIndex("ordenamiento")));
                     Log.i("listado", "C_reglamentos: " + cursor.getString(2));
+                //Log.i("listado", "C_reglamentos: " +cursor.getString(cursor.getColumnIndex("ordenamiento")));
 
             }while(cursor.moveToNext());
         }
         cursor.close();
 
     }
-public String cambioReglamento(String f){
-        String cambio="";
 
-        if(f.trim()=="reg_anuncion")
-        cambio="Reglamento de anuncios";
-    if(f.trim()=="reg_gestion")
-        cambio="Reglamento de gestion";
-    if(f.trim()=="reg_cementerio")
-        cambio="Reglamento de cementerio";
-    if(f.trim()=="reg_proteccion_conservacion")
-        cambio="Reglamento de proteccion y conservacion";
-    if(f.trim()=="reg_proteccion_ambiente")
-        cambio="Reglamento de protecion ambiente";
-    if(f.trim()=="reg_sonido")
-        cambio="Reglamento de sonido";
-    if(f.trim()=="reg_alumbrado")
-        cambio="Reglamento de alumbrado";
-    if(f.trim()=="reg_inclusion")
-        cambio="Reglamento de inclusion";
-    if(f.trim()=="reg_rastro")
-        cambio="Reglamento de rastro";
-    if(f.trim()=="reg_policia")
-        cambio="Reglamento de policia";
-    if(f.trim()=="ley_bebidas")
-        cambio="Reglamento de anuncios";
-    if(f.trim()=="reg_residuos")
-        cambio="Reglamento de residuos";
-    if(f.trim()=="regtiancom")
-        cambio="Reglamento de  tianguis";
-    if(f.trim()=="reg_com_ind")
-        cambio="Reglamento de  ";
-    if(f.trim()=="reg_movilidad")
-        cambio="Reglamento de movilidad";
-
-    return cambio;
-}
 
     public void buscarInfraccionL(String search) {
         GestionBD gestionar = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
@@ -11788,15 +11811,16 @@ public String cambioReglamento(String f){
             Log.e("c_reglamento","Entro al no vacio");
             //String textofiltro="("+reglamentoC[0].trim()+" IS NOT NULL or trim("+reglamentoC[0].trim()+ ") <>'') and";
             String textofiltro="length(rtrim("+reglamentoC[0].trim()+")) >2 and";
-            if(reglamentoC[0].isEmpty()){
+            if(reglamentoC[0]==" "){
                 textofiltro="";
             }
 
 
             Log.e("c_reglamento",textofiltro);
             Log.e("id", String.valueOf(id));
-            cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+"  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
+           // cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+"  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
             Log.e("sql", "SELECT * FROM c_infraccion WHERE "+textofiltro+" REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('" + search + "'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ");
+            cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+"  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n')  AND vigente = 'S' order by infraccion; ", null);
 
 
         if(cursor.moveToFirst()){
