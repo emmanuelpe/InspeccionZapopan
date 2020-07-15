@@ -100,7 +100,7 @@ import java.util.Set;
 
 public class InfraccionesActivityTecnica extends AppCompatActivity implements View.OnClickListener, Runnable, CompoundButton.OnCheckedChangeListener, AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
 
-    private Button btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
+    private Button btneliminarA,btnArticulos,btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
     private TextView tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvCoordenada,tvPropiedad,spselec1;
     private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,unidades="",usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",clave = "",folio = "",fol = "";;
     private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:";
@@ -112,7 +112,14 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private RadioGroup /*radiogroup,*/rgReincidencia,rgPopiedad;
     static final int DATE_DIALOG_ID = 0;
     private boolean desc=false,desc1=false,desc2=false,desc3=false,desc4=false,citatorio,inicio = false, res = false,consu = false,resu = false,resov = false,guarda = false;
-    String Axmedidas="";
+    private String Axmedidas="";
+    private String concatM="";
+    private int contador=0;
+    private ArrayList<String> reglaArt= new ArrayList<>();
+    private ArrayList<String> reglaArt2= new ArrayList<>();
+    private ArrayList<Integer> norepeat= new ArrayList<>();
+    private String concatB="";
+    private String concatA="";
     final Calendar c = Calendar.getInstance();
     final Calendar cal = Calendar.getInstance();
     final ArrayList<String> arregloLista = new ArrayList<String>();
@@ -267,6 +274,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         }
 
         this.btnFecha = (Button)findViewById(R.id.btnFecha);
+        this.btnArticulos=(Button)findViewById(R.id.etAcepA);
+        this.btneliminarA=(Button)findViewById(R.id.etdeleA);
         this.spIdentifica = (Spinner)findViewById(R.id.spIdentifica);
         this.spManifiesta = (Spinner)findViewById(R.id.spManifiesta);
         this.spCreglamentos=(Spinner)findViewById(R.id.spCreglamento);
@@ -1420,6 +1429,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     if(position > 0) {
                         infraccion++;
                         btnaceptar.setVisibility(View.VISIBLE);
+                       // btnArticulos.setVisibility(View.VISIBLE);
+                        //btneliminarA.setVisibility(View.VISIBLE);
                         Log.i("Ento al else", (String) spInfraccion.getItemAtPosition(position));
                         int pos = 0;
                         for (int i = 0; i < spInfraccion.getItemAtPosition(position).toString().length(); i++) {
@@ -1850,6 +1861,19 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     btnaceptar.setVisibility(View.VISIBLE);
 
 				actualizarTV(infraccion);
+            }
+        });
+
+        this.btnArticulos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mostrarArt(contador);
+            }
+        });
+        this.btneliminarA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reiniciarA();
             }
         });
 
@@ -12104,8 +12128,28 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 if(!spMedida.getSelectedItem().toString().equalsIgnoreCase("")) {
                     medidas1 = spMedida.getSelectedItem().toString();
                     if(id == 12 || id == 2 | id == 3) {
-                        etMedida.setText(spMedida.getSelectedItem().toString());
-                        etArticulo.setText(art.get(spMedida.getSelectedItemPosition()).trim() + " del " + orden.get(spMedida.getSelectedItemPosition()).trim());
+
+
+                        //etMedida.setText(spMedida.getSelectedItem().toString());
+                        //etArticulo.setText(art.get(spMedida.getSelectedItemPosition()).trim() + " del " + orden.get(spMedida.getSelectedItemPosition()).trim());
+                         if(contador<=0){
+                             reglaArt.add(orden.get(spMedida.getSelectedItemPosition()).trim());
+                             reglaArt2.add(art.get(spMedida.getSelectedItemPosition()).trim());
+                             concatM+=spMedida.getSelectedItem().toString()+",  ";
+                             contador++;
+                         }else{
+                             reglaArt.add(orden.get(spMedida.getSelectedItemPosition()).trim());
+                             reglaArt2.add(art.get(spMedida.getSelectedItemPosition()).trim());
+                             concatM+=spMedida.getSelectedItem().toString()+",  ";
+                             contador++;
+                         }
+                         etMedida.append(concatM.substring(0,concatM.length()-1));
+
+
+
+
+
+
                     }
 
                     if(id == 4) {
@@ -12119,6 +12163,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         etArticulo.setText(art.get(spMedida.getSelectedItemPosition()).trim() + " del " + orden.get(spMedida.getSelectedItemPosition()).trim());
                     }
                 }
+
                 break;
 
             case R.id.spInspectorT:
@@ -12175,7 +12220,71 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 break;
         }
     }
+    public void mostrarArt(int x){
 
+      if(x>0) {
+          if (reglaArt.size() > 0) {
+
+
+                 int i=0;
+                  x = i + 1;
+                  if (x <= reglaArt.size()) {
+                      Log.i("tamaño array", String.valueOf(reglaArt.size()));
+                      //Log.i("comparacion",reglaArt.get(i)+" = " +reglaArt.get(x));
+
+                          for (int c = 0; c < reglaArt.size(); c++) {
+                              Log.i("comparacion",reglaArt.get(i)+" = " +reglaArt.get(c));
+                              if (reglaArt.get(i).equals(reglaArt.get(c))) {
+
+                                  concatA += reglaArt2.get(c) + ",";
+                                  concatB = reglaArt.get(i);
+
+                              } else if (!reglaArt.get(i).equals(reglaArt.get(c))) {
+                                  Log.i("comparacion2",reglaArt.get(i)+" = " +reglaArt.get(c));
+                                  norepeat.add(c);
+                              }
+                          }
+
+
+
+                  }
+                  if(norepeat.size()<=0){
+                      concatA = concatA.substring(0, concatA.length() - 1) + " del " + concatB;
+                      etArticulo.append(concatA);
+                  }
+
+
+
+
+              //concatA=art.get(spMedida.getSelectedItemPosition()).trim()+" del " + orden.get(spMedida.getSelectedItemPosition()).trim()+",";
+
+          }
+          if (norepeat.size() > 0) {
+              concatA = concatA.substring(0, concatA.length() - 1) + " del " + concatB+", ";
+              etArticulo.append(concatA);
+              Log.i("entro a norepeat","YES");
+              for (int i = 0; i < norepeat.size(); i++) {
+
+                  concatA = reglaArt2.get(norepeat.get(i));
+                  concatB = reglaArt.get(norepeat.get(i));
+                  concatA = concatA + " del " + concatB;
+                  Log.i("diferentes",concatA);
+                  etArticulo.append(concatA);
+              }
+
+          }
+      }
+
+
+    }
+
+public void reiniciarA(){
+        reglaArt.clear();
+        reglaArt2.clear();
+    etArticulo.setText("");
+    etMedida.setText("");
+
+}
     public void buscarTestigo(Spinner sp){
 
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
