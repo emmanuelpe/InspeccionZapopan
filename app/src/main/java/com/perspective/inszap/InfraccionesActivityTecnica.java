@@ -119,6 +119,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private ArrayList<String> arregloLista2 = new ArrayList<String>();
     final ArrayList<String> arregloInfraccion = new ArrayList<String>();
     final ArrayList<String> arregloCreglamentos= new ArrayList<String>();
+    final ArrayList<String> arregloCreglamentox= new ArrayList<String>();
     final ArrayList<String> consultar = new ArrayList<String>();
     final ArrayList<Integer> id_hecho = new ArrayList<Integer>();
     final ArrayList<String> arreglo = new ArrayList<String>();
@@ -1009,9 +1010,9 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(!spCreglamentos.getItemAtPosition(position).toString().equals(""))
-                    reglamentoC[0] =spCreglamentos.getItemAtPosition(position).toString();
+                    reglamentoC[0] =arregloCreglamentox.get(position);
                 else
-                    reglamentoC[0] =spCreglamentos.getItemAtPosition(position).toString();
+                    reglamentoC[0] =arregloCreglamentox.get(position);
 
             }
 
@@ -11734,7 +11735,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             do{
 
 
-                    arregloCreglamentos.add(cursor.getString(2));
+                    arregloCreglamentox.add(cursor.getString(2));
+                arregloCreglamentos.add(cursor.getString(cursor.getColumnIndex("ordenamiento")));
                     Log.i("listado", "C_reglamentos: " + cursor.getString(2));
 
             }while(cursor.moveToNext());
