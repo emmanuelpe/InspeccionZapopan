@@ -191,6 +191,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private List<String> conceptos,articulo,fraccion,unis,unis1,unis2,unis3,unis4,meConstitui;
     private ArrayAdapter adapterUni,adapterUni1,adapterUni2,adapterUni3,adapterUni4;
     private List<String> folios = new ArrayList<>();
+    private String fa="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -1429,8 +1430,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     if(position > 0) {
                         infraccion++;
                         btnaceptar.setVisibility(View.VISIBLE);
-                       // btnArticulos.setVisibility(View.VISIBLE);
-                        //btneliminarA.setVisibility(View.VISIBLE);
+                        btnArticulos.setVisibility(View.VISIBLE);
+                        btneliminarA.setVisibility(View.VISIBLE);
                         Log.i("Ento al else", (String) spInfraccion.getItemAtPosition(position));
                         int pos = 0;
                         for (int i = 0; i < spInfraccion.getItemAtPosition(position).toString().length(); i++) {
@@ -2565,7 +2566,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             reg = new int [conceptos.size()];
         }
 
-        medidas();
+        //medidas();
 
         for (int i = 0; i < reglamento.size(); i++) {
             System.err.println(reglamento.get(i));
@@ -12132,22 +12133,29 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                         //etMedida.setText(spMedida.getSelectedItem().toString());
                         //etArticulo.setText(art.get(spMedida.getSelectedItemPosition()).trim() + " del " + orden.get(spMedida.getSelectedItemPosition()).trim());
-                         if(contador<=0){
+                        /* if(contador<=0){
                              reglaArt.add(orden.get(spMedida.getSelectedItemPosition()).trim());
                              reglaArt2.add(art.get(spMedida.getSelectedItemPosition()).trim());
                              concatM+=spMedida.getSelectedItem().toString()+",  ";
                              contador++;
-                         }else{
-                             reglaArt.add(orden.get(spMedida.getSelectedItemPosition()).trim());
-                             reglaArt2.add(art.get(spMedida.getSelectedItemPosition()).trim());
-                             concatM+=spMedida.getSelectedItem().toString()+",  ";
-                             contador++;
-                         }
-                         etMedida.append(concatM.substring(0,concatM.length()-1));
+                         }else{*/
+                        if(!spMedida.getSelectedItem().toString().equals(fa)) {
+                            Log.e("agrego medida",orden.get(spMedida.getSelectedItemPosition()).trim());
+                            Log.e("agrego articulo",art.get(spMedida.getSelectedItemPosition()).trim());
+                            reglaArt.add(orden.get(spMedida.getSelectedItemPosition()).trim());
+                            reglaArt2.add(art.get(spMedida.getSelectedItemPosition()).trim());
+                            concatM += spMedida.getSelectedItem().toString() + ", "+" ";
+                            contador++;
+                            // }
 
+                        }else{
+                            fa=spMedida.getSelectedItem().toString();
+                        }
 
-
-
+                       if(contador==1)
+                        etMedida.append(concatM.substring(0, concatM.length() - 1));
+                       if(contador>1)
+                           etMedida.append(concatM.substring(0, concatM.length() - 1));
 
 
                     }
@@ -12227,25 +12235,50 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
                  int i=0;
-                  x = i + 1;
-                  if (x <= reglaArt.size()) {
+                 int z=0;
+
+                  if ( reglaArt.size()>1) {
                       Log.i("tamaño array", String.valueOf(reglaArt.size()));
                       //Log.i("comparacion",reglaArt.get(i)+" = " +reglaArt.get(x));
 
                           for (int c = 0; c < reglaArt.size(); c++) {
-                              Log.i("comparacion",reglaArt.get(i)+" = " +reglaArt.get(c));
-                              if (reglaArt.get(i).equals(reglaArt.get(c))) {
+                              z=c+1;
+                              if(z<reglaArt.size()) {
+                                  if (reglaArt.get(0).equals(reglaArt.get(z))) {
 
-                                  concatA += reglaArt2.get(c) + ",";
-                                  concatB = reglaArt.get(i);
+                                      Log.i("comparacion", reglaArt.get(i) + " = " + reglaArt.get(z));
+                                      concatA += reglaArt2.get(c) + ",";
+                                      concatB = reglaArt.get(i);
 
-                              } else if (!reglaArt.get(i).equals(reglaArt.get(c))) {
-                                  Log.i("comparacion2",reglaArt.get(i)+" = " +reglaArt.get(c));
-                                  norepeat.add(c);
+                                  } else {
+
+                                      Log.i("comparacion2", reglaArt.get(i) + " = " + reglaArt.get(z));
+
+                                      norepeat.add(z);
+                                      Log.i("norepeat numero", String.valueOf(z));
+                                      if(c==0){
+                                          concatA += reglaArt2.get(i) + ",";
+                                          concatB = reglaArt.get(i);
+                                          concatA = concatA.substring(0, concatA.length() - 1) + " del " + concatB+", ";
+                                          etArticulo.append(concatA+" ");
+                                          concatA ="";
+                                          concatB ="";
+                                      }
+
+                                  }
+
+                              }else{
+                                  break;
                               }
                           }
 
 
+
+                  }else{
+                      if(reglaArt.size()==1){
+                          concatA += reglaArt2.get(0) + ",";
+                          concatB = reglaArt.get(0);
+                      }
 
                   }
                   if(norepeat.size()<=0){
@@ -12259,16 +12292,73 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
               //concatA=art.get(spMedida.getSelectedItemPosition()).trim()+" del " + orden.get(spMedida.getSelectedItemPosition()).trim()+",";
 
           }
-          if (norepeat.size() > 0) {
-              concatA = concatA.substring(0, concatA.length() - 1) + " del " + concatB+", ";
-              etArticulo.append(concatA);
-              Log.i("entro a norepeat","YES");
-              for (int i = 0; i < norepeat.size(); i++) {
+          if (norepeat.size() > 1 ) {
+              if(concatA.trim()==""&& concatB.trim()==""){
 
-                  concatA = reglaArt2.get(norepeat.get(i));
-                  concatB = reglaArt.get(norepeat.get(i));
+              }
+
+              concatA = concatA.substring(0, concatA.length() - 1) + " del " + concatB;
+              etArticulo.append(concatA);
+
+              Log.i("entro a norepeat","YES");
+              Log.e("tamaño de no repeat", String.valueOf(norepeat.size()));
+              if(norepeat.size()==2 ){
+                  for (int i = 0; i < norepeat.size(); i++) {
+                      if(reglaArt.get(norepeat.get(0)).equals(reglaArt.get(norepeat.get(1)))){
+                          concatA += reglaArt2.get(norepeat.get(0))+", "+reglaArt2.get(norepeat.get(1));
+                          concatB = reglaArt.get(norepeat.get(0));
+                          concatA = concatA + " del " + concatB;
+                          Log.i("iguales repeat 1",concatA);
+                          etArticulo.append(concatA);
+                          break;
+                      }else  if(!reglaArt.get(norepeat.get(0)).equals(reglaArt.get(norepeat.get(1)))){
+                          concatA = reglaArt2.get(norepeat.get(i));
+                          concatB = reglaArt.get(norepeat.get(i));
+                          concatA = concatA + " del " + concatB;
+                          Log.i("diferentes repeat 1",concatA);
+                          etArticulo.append(concatA);
+                      }
+
+
+                  }
+              }
+
+              if(norepeat.size()>2){
+                  int z=0;
+                  for (int i = 0; i < norepeat.size(); i++) {
+                      z=i+1;
+                      if(z<norepeat.size()) {
+                          if (reglaArt.get(norepeat.get(0)).equals(reglaArt.get(norepeat.get(i + 1)))) {
+                              concatA += reglaArt2.get(norepeat.get(0).intValue()) + ", " + reglaArt2.get(norepeat.get(i+1).intValue());
+                              concatB = reglaArt.get(norepeat.get(0).intValue());
+                              concatA = concatA + " del " + concatB;
+                              Log.i("iguales repeat 2", concatA);
+                              etArticulo.append(concatA);
+
+                          } else if (!reglaArt.get(norepeat.get(0)).equals(reglaArt.get(norepeat.get(i + 1))) ) {
+                              concatA = reglaArt2.get(norepeat.get(i+1).intValue());
+                              concatB = reglaArt.get(norepeat.get(i+1).intValue());
+                              concatA = concatA + " del " + concatB;
+                              Log.i("diferentes repeat 2 ", concatA);
+                              etArticulo.append(concatA);
+                          }
+
+                      }else{
+                          break;
+                      }
+                  }
+              }
+
+
+
+          }else{
+              if(norepeat.size()==1){
+                  Log.e("entro","norepeat==1");
+                  Log.e("entro",norepeat.get(0).toString());
+                  concatA = reglaArt2.get(norepeat.get(0).intValue());
+                  concatB = reglaArt.get(norepeat.get(0).intValue());
                   concatA = concatA + " del " + concatB;
-                  Log.i("diferentes",concatA);
+
                   etArticulo.append(concatA);
               }
 
@@ -12283,7 +12373,12 @@ public void reiniciarA(){
         reglaArt2.clear();
     etArticulo.setText("");
     etMedida.setText("");
-
+    contador=0;
+    concatA="";
+    concatB="";
+    concatM="";
+    fa="";
+    norepeat.clear();
 }
     public void buscarTestigo(Spinner sp){
 

@@ -2273,7 +2273,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="140dp"
                                 android:hint="@string/medida"
-                                android:layout_below="@+id/etAcepA"
+                                android:layout_below="@+id/spMedida"
                                 android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="true"/>
 
@@ -2289,22 +2289,22 @@
                             <Button
                                 android:id="@+id/etAcepA"
                                 android:layout_width="wrap_content"
-                                android:layout_height="25dp"
+                                android:layout_height="wrap_content"
                                 android:text="Aceptar medidas "
-                                android:textSize="5dp"
-                                android:layout_below="@id/spMedida"
-                                android:visibility="visible"
+                                android:textSize="12sp"
+                                android:layout_below="@id/etMedida"
+                                android:visibility="gone"
 
                                 ></Button>
                             <Button
                                 android:id="@+id/etdeleA"
                                 android:layout_width="wrap_content"
-                                android:layout_height="25dp"
-                                android:text="Eliminar medidas precautorias"
-                                android:textSize="5dp"
-                                android:layout_below="@id/spMedida"
+                                android:layout_height="wrap_content"
+                                android:text="Eliminar "
+                                android:textSize="12sp"
+                                android:layout_below="@id/etMedida"
                                 android:layout_toRightOf="@id/etAcepA"
-                                android:visibility="visible"
+                                android:visibility="gone"
 
                                 ></Button>
                             <EditText
