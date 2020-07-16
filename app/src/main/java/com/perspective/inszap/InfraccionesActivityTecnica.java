@@ -179,7 +179,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private List<MedidaSeguridad> medidas;
     private List<String> medida = new ArrayList<String>();
     private PopupWindow popupWindow;
-    private CheckBox cb;
+    private CheckBox cb,checkNegativo,checkCerrado;
     private String [] comp;
     private int [] iComp,reg;
     private ArrayAdapter<String> adapter,adapter1,adapterUso;
@@ -273,7 +273,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 Log.i("Levantamiento", "False");
             }
         }
-
+        this.checkNegativo=(CheckBox)findViewById(R.id.checkNegativo);
+        this.checkCerrado=(CheckBox)findViewById(R.id.checkCerrado);
         this.btnFecha = (Button)findViewById(R.id.btnFecha);
         this.btnArticulos=(Button)findViewById(R.id.etAcepA);
         this.btneliminarA=(Button)findViewById(R.id.etdeleA);
@@ -7500,6 +7501,14 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 } else {
                     datos = "en términos de lo dispuesto por el artículo 73, segundo párrafo, de la Ley del Procedimiento Administrativo del Estado de Jalisco,";
                 }
+                String tipoentrega="";
+                if(checkCerrado.isChecked()&&!checkNegativo.isChecked()){
+                    tipoentrega="finjándose un tanto del acta en lugar seguro y visible del domicilio en que se actúa al encontrar cerrado el domicilio, en términos de lo dispuesto por el artículo 87 de la Ley del Procedimiento Administrativo del Estado de Jalisco.";
+                }else if(!checkCerrado.isChecked()&&checkNegativo.isChecked()){
+                    tipoentrega="finjándose un tanto del acta en lugar seguro y visible del domicilio en que se actúa al encontrar negativa a recibirla, en términos de lo dispuesto por el artículo 87 de la Ley del Procedimiento Administrativo del Estado de Jalisco.";
+                }else if(!checkCerrado.isChecked()&&!checkNegativo.isChecked()){
+                    tipoentrega="quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.";
+                }
 
                     Paragraph p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las "+hora +" horas del día "
                         +dia+" de " + getMes2(me.trim())+ " del año "+ a+ ", el suscrito "
@@ -7514,7 +7523,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             + ". Lo anterior de conformidad a lo dispuesto por los artículos: " + etArticulo.getText().toString().trim()
                             + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim()
                             + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151)."
-                            + " Se da por concluida esta diligencia, siendo las " + hr + " horas del " +dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando para constancia los que en ella intervinieron, quisieron y supieron hacerlo. =Fin del texto=",font1);
+                            + " Se da por concluida esta diligencia, siendo las " + hr + " horas del " +dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=",font1);
                 p2.setAlignment(Element.ALIGN_JUSTIFIED);
                 p2.add(chunk);
                 doc.add(p2);
@@ -9820,6 +9829,15 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     datos = "en términos de lo dispuesto por el artículo 73, segundo párrafo, de la Ley del Procedimiento Administrativo del Estado de Jalisco,";
                 }
 
+                String tipoentrega="";
+                if(checkCerrado.isChecked()&&!checkNegativo.isChecked()){
+                    tipoentrega="finjándose un tanto del acta en lugar seguro y visible del domicilio en que se actúa al encontrar cerrado el domicilio, en términos de lo dispuesto por el artículo 87 de la Ley del Procedimiento Administrativo del Estado de Jalisco.";
+                }else if(!checkCerrado.isChecked()&&checkNegativo.isChecked()){
+                    tipoentrega="finjándose un tanto del acta en lugar seguro y visible del domicilio en que se actúa al encontrar negativa a recibirla, en términos de lo dispuesto por el artículo 87 de la Ley del Procedimiento Administrativo del Estado de Jalisco.";
+                }else if(!checkCerrado.isChecked()&&!checkNegativo.isChecked()){
+                    tipoentrega="quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.";
+                }
+
                 Paragraph p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las "+hora +" horas del día "
                         +dia+" de " + getMes2(me.trim())+ " del año "+ a+ ", el suscrito "
                         + spnombre.getSelectedItem().toString() + " Inspector Municipal con clave "+ clave + ", facultado para llevar a cabo la inspección y vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente  "+ spMeConstitui.getSelectedItem().toString().toLowerCase() + " marcada (o) con el número "
@@ -9832,7 +9850,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         + ". Lo anterior de conformidad a lo dispuesto por los artículos: " + etArticulo.getText().toString().trim()
                         + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim()
                         + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151)."
-                        + " Se da por concluida esta diligencia, siendo las " + hr + " horas del " +dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando para constancia los que en ella intervinieron, quisieron y supieron hacerlo. =Fin del texto=",font1);
+                        + " Se da por concluida esta diligencia, siendo las " + hr + " horas del " +dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+"+=Fin del texto=",font1);
                 p2.setAlignment(Element.ALIGN_JUSTIFIED);
                 p2.add(chunk);
                 doc.add(p2);

@@ -102,6 +102,7 @@
 
     <string name="hechos">Hechos</string>
     <string name="gravedad">Gravedad</string>
+    <string name="Tipo_entrega_informacion">Tipo entrega informacion</string>
     <string name="descripcion">Descripción</string>
     <string name="eliminar">Eliminar</string>
     <string name="modificar">Modificar</string>
@@ -170,6 +171,8 @@
     <string name="medida">Medida precautoria a tomar</string>
     <string name="art">Articulos</string>
     <string name="firma">El visitado firma</string>
+    <string name="negativo">Negativo a recibir Infraccion</string>
+    <string name="cerrado">Cerrado domicilio</string>
     <string name="inspecion_fue">Realizando la inspección a peticion de</string>
     <string name="buscar_p">Buscar palabra</string>
     <string name="vista">Vista previa</string>
