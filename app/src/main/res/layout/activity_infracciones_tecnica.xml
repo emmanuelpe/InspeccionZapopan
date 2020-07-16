@@ -2273,7 +2273,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="140dp"
                                 android:hint="@string/medida"
-                                android:layout_below="@id/spMedida"
+                                android:layout_below="@+id/spMedida"
                                 android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="true"/>
 
@@ -2286,13 +2286,33 @@
                                 android:text="@string/art"
                                 android:layout_gravity="center"
                                 style="@style/Subtitle"/> -->
+                            <Button
+                                android:id="@+id/etAcepA"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Aceptar medidas "
+                                android:textSize="12sp"
+                                android:layout_below="@id/etMedida"
+                                android:visibility="gone"
 
+                                ></Button>
+                            <Button
+                                android:id="@+id/etdeleA"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Eliminar "
+                                android:textSize="12sp"
+                                android:layout_below="@id/etMedida"
+                                android:layout_toRightOf="@id/etAcepA"
+                                android:visibility="gone"
+
+                                ></Button>
                             <EditText
                                 android:id="@+id/etArticulos"
                                 android:layout_width="fill_parent"
                                 android:layout_height="100dp"
                                 android:hint="@string/art"
-                                android:layout_below="@id/etMedida"
+                                android:layout_below="@id/etAcepA"
                                 android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="true"/>
 
@@ -2449,7 +2469,35 @@
 
                             </RelativeLayout>
                         </LinearLayout>
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Tipo_entrega_informacion"
+                            android:gravity="center"
+                            style="@style/Div"/>
 
+                        <CheckBox
+                            android:id="@+id/checkNegativo"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/negativo"
+                            android:checked="false"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            style="@style/Subtitle"
+                            android:visibility="visible"/>
+                        <CheckBox
+                            android:id="@+id/checkCerrado"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cerrado"
+                            android:checked="false"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            style="@style/Subtitle"
+                            android:visibility="visible"/>
 
 
                         <TextView
