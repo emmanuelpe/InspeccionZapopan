@@ -2125,7 +2125,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             Log.i("text", text + " 1 " + camp19);
                             Log.i("unidades",unidades.split(",").length + "");
 
-							/*camp1 = (!camp1.equals("")) ? ordenar(camp1) : "";
+							camp1 = (!camp1.equals("")) ? ordenar(camp1) : "";
 							camp2 = (!camp2.equals("")) ? ordenar(camp2) : "";
 							camp3 = (!camp3.equals("")) ? ordenar(camp3) : "";
 							camp4 = (!camp4.equals("")) ? ordenar(camp4) : "";
@@ -2148,7 +2148,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 							camp17 = (!camp17.equals("")) ? ordenar(camp17) : "";
 							camp18 = (!camp18.equals("")) ? ordenar(camp18) : "";
 							camp19 = (!camp19.equals("")) ? ordenar(camp19) : "";
-							camp20 = (!camp20.equals("")) ? ordenar(camp20) : "";*/
+							camp20 = (!camp20.equals("")) ? ordenar(camp20) : "";
 
 
                             camp1 = (!camp1.equals("")) ? camp1 : "";
@@ -4900,6 +4900,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 sb.append("Ingrese como se manifiesta el visitado. \n");
                 valid = false;
             }
+
 	    	/*if(validarSpinner(this.spuso)){
 	    		sb.append("Seleccione el tipo de suelo. \n");
 	    		valid = false;
@@ -4997,6 +4998,19 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 sb.append("Ingrese los dias de plazo. \n");
                 valid = false;
             }
+
+            if(validarSpinner(this.spNombreA)&&validarSpinner(this.spNombreA1)&&validarSpinner(this.spNombreA2)&&validarSpinner(this.spNombreA3)&&validarSpinner(this.spNombreA4)){
+                sb.append("Ingrese al menos un Acompañante \n");
+                valid=false;
+            }
+
+
+            if(validarCampos(etMotivo)){
+                sb.append("Ingrese el alcance \n");
+                valid=false;
+            }
+
+
 	    	/*if(validarCampos(this.etVIdentifica)){
 	    		sb.append("Ingrese la identificacion del visitado. \n");
 	    		valid = false;
@@ -7497,7 +7511,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             + " manifiesta ser " + etVManifiesta.getText().toString() + " , propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello, el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. "
                             + etNombreT.getText().toString() + " y " + etNombreT1.getText().toString() + " por el " + spdesignado.getSelectedItem().toString() + ", mismos que se identifican con " + spIdentificaT.getSelectedItem().toString() + " " + etIfeT.getText().toString() + " , " + spIdentificaT1.getSelectedItem().toString() + " " + etIfeT2.getText().toString() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: "
                             + etSeleccion.getText().toString().trim() + ". Los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim().trim()
-                            + ". Lo anterior de conformidad a lo dispuesto por los artículos. " + etArticulo.getText().toString().trim()
+                            + ". Lo anterior de conformidad a lo dispuesto por los artículos: " + etArticulo.getText().toString().trim()
                             + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim()
                             + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151)."
                             + " Se da por concluida esta diligencia, siendo las " + hr + " horas del " +dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando para constancia los que en ella intervinieron, quisieron y supieron hacerlo. =Fin del texto=",font1);
@@ -9815,7 +9829,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         + " manifiesta ser " + etVManifiesta.getText().toString() + " , propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello, el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. "
                         + etNombreT.getText().toString() + " y " + etNombreT1.getText().toString() + " por el " + spdesignado.getSelectedItem().toString() + ", mismos que se identifican con " + spIdentificaT.getSelectedItem().toString() + " " + etIfeT.getText().toString() + " , " + spIdentificaT1.getSelectedItem().toString() + " " + etIfeT2.getText().toString() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: "
                         + etSeleccion.getText().toString().trim() + ". Los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim().trim()
-                        + ". Lo anterior de conformidad a lo dispuesto por los artículos. " + etArticulo.getText().toString().trim()
+                        + ". Lo anterior de conformidad a lo dispuesto por los artículos: " + etArticulo.getText().toString().trim()
                         + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim()
                         + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151)."
                         + " Se da por concluida esta diligencia, siendo las " + hr + " horas del " +dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando para constancia los que en ella intervinieron, quisieron y supieron hacerlo. =Fin del texto=",font1);
@@ -12126,8 +12140,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 break;
 
             case R.id.spMedida:
+
                 if(!spMedida.getSelectedItem().toString().equalsIgnoreCase("")) {
                     medidas1 = spMedida.getSelectedItem().toString();
+
                     if(id == 12 || id == 2 | id == 3) {
 
 
@@ -12139,26 +12155,29 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                              concatM+=spMedida.getSelectedItem().toString()+",  ";
                              contador++;
                          }else{*/
-                        if(!spMedida.getSelectedItem().toString().equals(fa)) {
+
+                        if(!spMedida.getSelectedItem().toString().equalsIgnoreCase(fa)) {
+
                             Log.e("agrego medida",orden.get(spMedida.getSelectedItemPosition()).trim());
                             Log.e("agrego articulo",art.get(spMedida.getSelectedItemPosition()).trim());
                             reglaArt.add(orden.get(spMedida.getSelectedItemPosition()).trim());
                             reglaArt2.add(art.get(spMedida.getSelectedItemPosition()).trim());
-                            concatM += spMedida.getSelectedItem().toString() + ", "+" ";
+                            //concatM = spMedida.getSelectedItem().toString() + ",";
+                            if(contador==0)
+                            concatM = spMedida.getSelectedItem().toString();
+                            else
+                                concatM = ", "+spMedida.getSelectedItem().toString();
                             contador++;
                             // }
 
-                        }else{
-                            fa=spMedida.getSelectedItem().toString();
+                            etMedida.append(concatM);
+
                         }
-
-                       if(contador==1)
-                        etMedida.append(concatM.substring(0, concatM.length() - 1));
-                       if(contador>1)
-                           etMedida.append(concatM.substring(0, concatM.length() - 1));
-
-
+                        fa=spMedida.getSelectedItem().toString();
                     }
+
+
+
 
                     if(id == 4) {
                         Log.i("i",spMedida.getSelectedItem().toString() + " " + spMedida.getSelectedItem().toString().contains("CLAU"));
@@ -12229,6 +12248,12 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         }
     }
     public void mostrarArt(int x){
+        int tamano=etMedida.getText().toString().length();
+        String coma = etMedida.getText().toString().substring(tamano-1,tamano);
+        if(coma.contains(",")){
+            String medida=etMedida.getText().toString().trim().substring(0,etMedida.getText().toString().length()-1);
+            etMedida.setText(medida);
+        }
 
       if(x>0) {
           if (reglaArt.size() > 0) {
@@ -12240,15 +12265,21 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                   if ( reglaArt.size()>1) {
                       Log.i("tamaño array", String.valueOf(reglaArt.size()));
                       //Log.i("comparacion",reglaArt.get(i)+" = " +reglaArt.get(x));
-
+                      boolean f=false;
+                      boolean f2=false;
                           for (int c = 0; c < reglaArt.size(); c++) {
                               z=c+1;
                               if(z<reglaArt.size()) {
                                   if (reglaArt.get(0).equals(reglaArt.get(z))) {
 
                                       Log.i("comparacion", reglaArt.get(i) + " = " + reglaArt.get(z));
-                                      concatA += reglaArt2.get(c) + ",";
-                                      concatB = reglaArt.get(i);
+                                      if(f==false){
+                                          concatA += reglaArt2.get(c) + ", "+reglaArt2.get(z)+", ";
+                                          concatB = reglaArt.get(i);
+                                          f=true;
+                                      }else{
+                                          concatA += reglaArt2.get(z)+ ", ";
+                                      }
 
                                   } else {
 
@@ -12256,16 +12287,12 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                                       norepeat.add(z);
                                       Log.i("norepeat numero", String.valueOf(z));
-                                      if(c==0){
-                                          concatA += reglaArt2.get(i) + ",";
-                                          concatB = reglaArt.get(i);
-                                          concatA = concatA.substring(0, concatA.length() - 1) + " del " + concatB+", ";
-                                          etArticulo.append(concatA+" ");
-                                          concatA ="";
-                                          concatB ="";
-                                      }
 
-                                  }
+                                                      concatA += reglaArt2.get(i);
+                                                      concatB = reglaArt.get(i);
+                                                      concatA = concatA.substring(0, concatA.length() - 1) + " del " + concatB+", ";
+
+                                              }
 
                               }else{
                                   break;
@@ -12276,29 +12303,18 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                   }else{
                       if(reglaArt.size()==1){
-                          concatA += reglaArt2.get(0) + ",";
+                          concatA += reglaArt2.get(0) + ", ";
                           concatB = reglaArt.get(0);
                       }
 
                   }
-                  if(norepeat.size()<=0){
-                      concatA = concatA.substring(0, concatA.length() - 1) + " del " + concatB;
-                      etArticulo.append(concatA);
-                  }
-
-
 
 
               //concatA=art.get(spMedida.getSelectedItemPosition()).trim()+" del " + orden.get(spMedida.getSelectedItemPosition()).trim()+",";
 
           }
           if (norepeat.size() > 1 ) {
-              if(concatA.trim()==""&& concatB.trim()==""){
 
-              }
-
-              concatA = concatA.substring(0, concatA.length() - 1) + " del " + concatB;
-              etArticulo.append(concatA);
 
               Log.i("entro a norepeat","YES");
               Log.e("tamaño de no repeat", String.valueOf(norepeat.size()));
@@ -12353,6 +12369,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
           }else{
               if(norepeat.size()==1){
+                  etArticulo.append(concatA+" ");
+
                   Log.e("entro","norepeat==1");
                   Log.e("entro",norepeat.get(0).toString());
                   concatA = reglaArt2.get(norepeat.get(0).intValue());
@@ -12360,6 +12378,14 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                   concatA = concatA + " del " + concatB;
 
                   etArticulo.append(concatA);
+              }
+              if(norepeat.size()<=0){
+                  //concatA = concatA.substring(0, concatA.length() - 1) + " del " + concatB;
+                  etArticulo.append(concatA);
+                  etArticulo.append(concatB);
+
+
+
               }
 
           }
@@ -12379,6 +12405,7 @@ public void reiniciarA(){
     concatM="";
     fa="";
     norepeat.clear();
+    spMedida.setSelection(0);
 }
     public void buscarTestigo(Spinner sp){
 
