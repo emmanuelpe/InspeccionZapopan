@@ -622,6 +622,15 @@ public class MainActivity extends Activity {
 
 			System.err.println("peticion");
 		}
+		if(validarCampo("Levantamiento","tipo_cedula") == 0) {
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Levantamiento add tipo_cedula integer";
+			db1.execSQL(sql);
+
+			System.err.println("tipo_cedula");
+		}
 		if(!isTableExists("c_peticion")) {
 			System.out.println("false");
 			

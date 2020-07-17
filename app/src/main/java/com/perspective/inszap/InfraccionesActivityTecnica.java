@@ -104,12 +104,12 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private TextView tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvCoordenada,tvPropiedad,spselec1;
     private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,unidades="",usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",clave = "",folio = "",fol = "";;
     private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:";
-    private int mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0;
+    private int mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0,tipoEntrega = 0;
     private Spinner spCreglamentos,spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spMeConstitui;
     private EditText etNum,etFecham,etfecha,etDiaPlazo,etIfeI,etNoI,etVigI,etIfeA,etIfeA1,etIfeA2,etIfeA3,etIfeA4,etNoA,etNoA1,etNoA2,etNoA3,etNoA4,etVigA,etVigA1,etVigA2,etVigA3,etVigA4,etNombreT,etIfeT,etDesc,etDesc1,etDesc2,etDesc3,etDesc4,etdato,etdato1,etdato2,etdato3,etdato4,desf,desf1,desf2,etNombreV,etFraccionamiento,etCalle,etNumero,etPropietario,etNombreT1,etIfeT2,etManifiesta,etNuemroInterior,etApellidoP,etApellidoM,etCitatorio,etNumeroActa,etEspecificacion,etDFoto,etDFoto1,etDFoto2,etDFoto3,etVManifiesta,etVIdentifica,etLatitud,etLongitud,etAnoCitatorio,etAnoOrden,etCondominio/*etDensidad*/,etManzana,etLote,etReferencia,etBuscar,etfolio,/*etAlineamiento,*/etConstruccion, etGiro, etMotivo,etOrden1,etEntreC,etEntreC1,etResponsable,etRegistro,etMedida,etArticulo,etInspccionFue,etDFoto4,etDFoto5,etDFoto6,etDFoto7,etDFoto8,etDFoto9,etDFoto10,etDFoto11,etDFoto12,etDFoto13,etDFoto14,etDFoto15,etDFoto16,etDFoto17,etDFoto18,etDFoto19,etLGiro,etAGiro,etAlicencia,etSector,etNombreComercial,etObs,etObs1,etObs2,etObs3,etObs4,etBCol,etOtro,etDondeActua,etCoordenada;
     private LinearLayout lldiv,cons,llNota,llplazo,llreincidencia,llcomp,llconcepto,llPla;
     private RelativeLayout rlcampo,rlProp,rlTestA,rlVisita,rlLicencias,rlDonde_actua;
-    private RadioGroup /*radiogroup,*/rgReincidencia,rgPopiedad;
+    private RadioGroup /*radiogroup,*/rgReincidencia,rgPopiedad,rgTipo;
     static final int DATE_DIALOG_ID = 0;
     private boolean desc=false,desc1=false,desc2=false,desc3=false,desc4=false,citatorio,inicio = false, res = false,consu = false,resu = false,resov = false,guarda = false;
     private String Axmedidas="";
@@ -179,7 +179,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private List<MedidaSeguridad> medidas;
     private List<String> medida = new ArrayList<String>();
     private PopupWindow popupWindow;
-    private CheckBox cb,checkNegativo,checkCerrado;
+    private CheckBox cb/*,checkNegativo,checkCerrado*/;
     private String [] comp;
     private int [] iComp,reg;
     private ArrayAdapter<String> adapter,adapter1,adapterUso;
@@ -273,8 +273,6 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 Log.i("Levantamiento", "False");
             }
         }
-        this.checkNegativo=(CheckBox)findViewById(R.id.checkNegativo);
-        this.checkCerrado=(CheckBox)findViewById(R.id.checkCerrado);
         this.btnFecha = (Button)findViewById(R.id.btnFecha);
         this.btnArticulos=(Button)findViewById(R.id.etAcepA);
         this.btneliminarA=(Button)findViewById(R.id.etdeleA);
@@ -521,6 +519,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
         etOtro = findViewById(R.id.etOtro);
         rgPopiedad = findViewById(R.id.rgPropiedad);
+        rgTipo = findViewById(R.id.rgTipo);
         spuni = findViewById(R.id.spUni);
         spuni1 = findViewById(R.id.spUni1);
         spuni2 = findViewById(R.id.spUni2);
@@ -678,6 +677,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
         rgPopiedad.setOnCheckedChangeListener(this);
         spMeConstitui.setOnItemSelectedListener(this);
+
+        rgTipo.setOnCheckedChangeListener(this);
 
         if(id == 1) {
             mostrarReglamentos();
@@ -2987,7 +2988,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         spuso.getSelectedItem().toString() , ""/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
                         Integer.parseInt(spgravedad.getSelectedItem().toString()), Integer.parseInt(etDiaPlazo.getText().toString()), etfecha.getText().toString(), hr, etCondominio.getText().toString(), etLote.getText().toString(), etManzana.getText().toString(), etReferencia.getText().toString(), "", "", etConstruccion.getText().toString(),idComp,etEntreC.getText().toString(),etEntreC1.getText().toString(),etResponsable.getText().toString(),etRegistro.getText().toString(),"N",identifica,
                         spPeticion.getSelectedItem().toString(),firmas,etMotivo.getText().toString(),etMedida.getText().toString(),etArticulo.getText().toString(),
-                        id_inspector3,id_inspector4,id_inspector5,id_inspector6,idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5,etLGiro.getText().toString().trim(),etAGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),spNE.getSelectedItem().toString(),reincidencia) + "");
+                        id_inspector3,id_inspector4,id_inspector5,id_inspector6,idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5,etLGiro.getText().toString().trim(),etAGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),spNE.getSelectedItem().toString(),reincidencia,tipoEntrega) + "");
 
                 //String peticion,String v_firma,String motivo_orden,String medida_seguridad,String articulo_medida
                 String[] iHecho = null;
@@ -3094,7 +3095,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             fecha + " " + hr, "POR CALIFICAR",etCondominio.getText().toString() + " ",etManzana.getText().toString(),etLote.getText().toString(), etReferencia.getText().toString(), "", /*etAlineamiento.getText().toString()*/"", etConstruccion.getText().toString(), etEntreC.getText().toString(),etEntreC1.getText().toString(),etResponsable.getText().toString(),etRegistro.getText().toString(),idComp,
                             etMedida.getText().toString(),etArticulo.getText().toString().trim(),etMotivo.getText().toString().trim(),id_inspector3,id_inspector4,id_inspector5,id_inspector6,
                             idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5
-                            ,etLGiro.getText().toString().trim(),etAGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),conf,spPeticion.getSelectedItem().toString(),spNE.getSelectedItem().toString(),reincidencia,/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
+                            ,etLGiro.getText().toString().trim(),etAGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),conf,spPeticion.getSelectedItem().toString(),spNE.getSelectedItem().toString(),reincidencia,tipoEntrega,/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
 
                         resu = true;
 
@@ -6582,7 +6583,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                          String identifica,String peticion,String v_firma,String motivo_orden,String medida_seguridad,String articulo_medida,
                          int id_c_inspector3,int id_c_inspector4,int id_c_inspector5,int id_c_inspector6,int id_competencia1,int id_competencia2,
                          int id_competencia3,int id_competencia4,int id_competencia5,String licencia_giro,String actividad_giro,int axo_licencia,
-                         String nombre_comercial,String sector,String niec,String rei){
+                         String nombre_comercial,String sector,String niec,String rei,int tipo_cedula){
 
 
 
@@ -6691,8 +6692,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 cv.put("nombre_comercial",nombre_comercial);
                 cv.put("sector",sector);
 
-                //cv.put("nivel_economico",niec);
-                //cv.put("reincidencia",rei);
+                cv.put("nivel_economico",niec);
+                cv.put("reincidencia",rei);
+
+                cv.put("tipo_cedula",tipo_cedula);
 
                 n = db.insert("Levantamiento", null, cv);
             }catch (SQLiteException e) {
@@ -6803,6 +6806,19 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             case R.id.rbOtro:
                 propiedad = "";
                 etOtro.setVisibility(View.VISIBLE);
+                break;
+
+            case R.id.rbF:
+                tipoEntrega = 0;
+                break;
+
+            case R.id.rbN:
+                tipoEntrega = 1;
+                Log.v("tipoEntrega",String.valueOf(tipoEntrega));
+                break;
+
+            case R.id.rbC:
+                tipoEntrega = 2;
                 break;
 
             default:
@@ -7502,11 +7518,11 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     datos = "en términos de lo dispuesto por el artículo 73, segundo párrafo, de la Ley del Procedimiento Administrativo del Estado de Jalisco,";
                 }
                 String tipoentrega="";
-                if(checkCerrado.isChecked()&&!checkNegativo.isChecked()){
+                if(tipoEntrega == 2){
                     tipoentrega="finjándose un tanto del acta en lugar seguro y visible del domicilio en que se actúa al encontrar cerrado el domicilio, en términos de lo dispuesto por el artículo 87 de la Ley del Procedimiento Administrativo del Estado de Jalisco.";
-                }else if(!checkCerrado.isChecked()&&checkNegativo.isChecked()){
+                }else if(tipoEntrega == 1){
                     tipoentrega="finjándose un tanto del acta en lugar seguro y visible del domicilio en que se actúa al encontrar negativa a recibirla, en términos de lo dispuesto por el artículo 87 de la Ley del Procedimiento Administrativo del Estado de Jalisco.";
-                }else if(!checkCerrado.isChecked()&&!checkNegativo.isChecked()){
+                }else if(tipoEntrega == 0){
                     tipoentrega="quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.";
                 }
 
@@ -9830,11 +9846,11 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 }
 
                 String tipoentrega="";
-                if(checkCerrado.isChecked()&&!checkNegativo.isChecked()){
+                if(tipoEntrega == 2){
                     tipoentrega="finjándose un tanto del acta en lugar seguro y visible del domicilio en que se actúa al encontrar cerrado el domicilio, en términos de lo dispuesto por el artículo 87 de la Ley del Procedimiento Administrativo del Estado de Jalisco.";
-                }else if(!checkCerrado.isChecked()&&checkNegativo.isChecked()){
+                }else if(tipoEntrega == 1){
                     tipoentrega="finjándose un tanto del acta en lugar seguro y visible del domicilio en que se actúa al encontrar negativa a recibirla, en términos de lo dispuesto por el artículo 87 de la Ley del Procedimiento Administrativo del Estado de Jalisco.";
-                }else if(!checkCerrado.isChecked()&&!checkNegativo.isChecked()){
+                }else if(tipoEntrega == 0){
                     tipoentrega="quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.";
                 }
 
