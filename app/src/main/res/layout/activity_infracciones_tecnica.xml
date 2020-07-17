@@ -2476,7 +2476,36 @@
                             android:gravity="center"
                             style="@style/Div"/>
 
-                        <CheckBox
+                        <RadioGroup
+                            android:id="@+id/rgTipo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp">
+
+                            <RadioButton
+                                android:id="@+id/rbF"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Entrega fisica"
+                                android:checked="true"/>
+
+                            <RadioButton
+                                android:id="@+id/rbN"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/negativo"/>
+
+                            <RadioButton
+                                android:id="@+id/rbC"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cerrado"/>
+
+                        </RadioGroup>
+
+                        <!--<CheckBox
                             android:id="@+id/checkNegativo"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
@@ -2497,7 +2526,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
                             style="@style/Subtitle"
-                            android:visibility="visible"/>
+                            android:visibility="visible"/>-->
 
 
                         <TextView
