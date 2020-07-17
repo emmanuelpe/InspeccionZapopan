@@ -11951,7 +11951,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             default:
                 break;
         }
-        etMotivo.setText(m1);
+        //etMotivo.setText(m1);
         System.out.println(hech);
     }
 
