@@ -102,7 +102,7 @@
 
     <string name="hechos">Hechos</string>
     <string name="gravedad">Gravedad</string>
-    <string name="Tipo_entrega_informacion">Tipo entrega informacion</string>
+    <string name="Tipo_entrega_informacion">Entrega por cedula</string>
     <string name="descripcion">Descripción</string>
     <string name="eliminar">Eliminar</string>
     <string name="modificar">Modificar</string>

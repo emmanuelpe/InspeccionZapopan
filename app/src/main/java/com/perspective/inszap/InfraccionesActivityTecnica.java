@@ -2030,6 +2030,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                             rlcampo.setVisibility(View.GONE);
                             dato = "";
+                            Log.e("Axmedidas",Axmedidas);
                             medidas2(Axmedidas);
                             String descrip = etEspecificacion.getText().toString()+".";
 							/*if (!Double.toString(latitud).equals("0.0") & !Double.toString(longitud).equals("0.0"))
@@ -2046,11 +2047,15 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 if(spuni.getVisibility() != View.GONE) {
                                     unidades += spuni.getSelectedItem().toString().trim()+",";
                                     if (!spuni.getSelectedItem().toString().equalsIgnoreCase("")) {
-                                        seleccion += x + " " + des + " (" + etdato.getText().toString().trim() + " " + spuni.getSelectedItem().toString().trim() + " " + etObs.getText().toString() + "); ";
+                                        seleccion += x + " " + des + " (" + etdato.getText().toString().trim() + " " + spuni.getSelectedItem().toString().trim() + " " + etObs.getText().toString() + "). ";
                                     }
                                 } else {
+                                    //Log.e("Primer hecho",des1);
                                     unidades += ",";
-                                    seleccion += x + " " + des + "("+etObs.getText().toString()+"); ";
+                                    if(etObs.getText().toString().trim().length()>1)
+                                    seleccion += x + " " + des + " ("+etObs.getText().toString()+"). ";
+                                    else
+                                        seleccion += x + " " + des +". ";
                                 }
                                 x++;
                                 dato += etdato.getText().toString().trim() + ",";
@@ -2062,11 +2067,16 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 if(spuni1.getVisibility() != View.GONE) {
                                     unidades += spuni1.getSelectedItem().toString().trim()+",";
                                     if (!spuni1.getSelectedItem().toString().equals("")) {
-                                        seleccion += x + " " + des1 + " (" + etdato1.getText().toString().trim() + " " + spuni1.getSelectedItem().toString().trim() + " " + etObs1.getText().toString() + "); ";
+
+                                        seleccion += x + " " + des1 + " (" + etdato1.getText().toString().trim() + " " + spuni1.getSelectedItem().toString().trim() + " " + etObs1.getText().toString() + "). ";
                                     }
                                 } else {
+                                    //Log.e("Segundo hecho",des1);
                                     unidades+=" ,";
-                                    seleccion += x + " " + des1 + "("+etObs1.getText().toString()+"); ";
+                                    if(etObs1.getText().toString().trim().length()>1)
+                                        seleccion += x + " " + des1 + " ("+etObs1.getText().toString()+"). ";
+                                    else
+                                        seleccion += x + " " + des1 +". ";
                                 }
                                 x++;
                                 dato += etdato1.getText().toString().trim()+ ",";
@@ -2078,11 +2088,15 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 if(spuni2.getVisibility() != View.GONE) {
                                     unidades += spuni2.getSelectedItem().toString().trim()+",";
                                     if (!spuni2.getSelectedItem().toString().equals("")) {
-                                        seleccion += x + " " + des2 + " (" + etdato2.getText().toString().trim() + " " + spuni2.getSelectedItem().toString() + " " + etObs2.getText().toString() +"); ";
+                                        //Log.e("Primer hecho",des2);
+                                        seleccion += x + " " + des2 + " (" + etdato2.getText().toString().trim() + " " + spuni2.getSelectedItem().toString() + " " + etObs2.getText().toString() +"). ";
                                     }
                                 } else {
                                     unidades+=" ,";
-                                    seleccion += x + " " + des2 + "("+etObs2.getText().toString()+"); ";
+                                    if(etObs2.getText().toString().trim().length()>1)
+                                        seleccion += x + " " + des2 + " ("+etObs2.getText().toString()+"). ";
+                                    else
+                                        seleccion += x + " " + des2 +". ";
                                 }
                                 x++;
                                 dato += etdato2.getText().toString().trim()+ ",";
@@ -2094,11 +2108,15 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 if(spuni3.getVisibility() != View.GONE) {
                                     unidades += spuni3.getSelectedItem().toString().trim()+",";
                                     if (!spuni3.getSelectedItem().toString().equals("")) {
-                                        seleccion += x + " " + des3 + " (" + etdato.getText().toString().trim() + " " + spuni3.getSelectedItem().toString() + " " + etObs3.getText().toString() +"); ";
+                                       // Log.e("Primer hecho",des1);
+                                        seleccion += x + " " + des3 + " (" + etdato.getText().toString().trim() + " " + spuni3.getSelectedItem().toString() + " " + etObs3.getText().toString() +"). ";
                                     }
                                 } else {
                                     unidades+=" ,";
-                                    seleccion += x + " " + des3 + "("+etObs3.getText().toString()+"); ";
+                                    if(etObs3.getText().toString().trim().length()>1)
+                                        seleccion += x + " " + des3 + " ("+etObs3.getText().toString()+").  ";
+                                    else
+                                        seleccion += x + " " + des3 +". ";
                                 }
                                 x++;
                                 dato += etdato3.getText().toString().trim()+ ",";
@@ -2110,11 +2128,15 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 if(spuni4.getVisibility() != View.GONE) {
                                     unidades += spuni4.getSelectedItem().toString().trim()+",";
                                     if (!spuni4.getSelectedItem().toString().equals("")) {
-                                        seleccion += x + " " + des4 + " (" + etdato.getText().toString().trim() + " " + spuni4.getSelectedItem().toString() + " " + etObs4.getText().toString() +"); ";
+                                        //Log.e("Primer hecho",des1);
+                                        seleccion += x + " " + des4 + " (" + etdato.getText().toString().trim() + " " + spuni4.getSelectedItem().toString() + " " + etObs4.getText().toString() +"). ";
                                     }
                                 } else {
                                     unidades+=" ,";
-                                    seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                    if(etObs4.getText().toString().trim().length()>1)
+                                        seleccion += x + " " + des4 + " ("+etObs4.getText().toString()+"). ";
+                                    else
+                                        seleccion += x + " " + des4 +". ";
                                 }
                                 dato += etdato4.getText().toString().trim()+ ",";
                             }
@@ -2126,8 +2148,11 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             Log.i("id", id_hechos);
                             Log.i("text", text + " 1 " + camp19);
                             Log.i("unidades",unidades.split(",").length + "");
+                            Log.e("camp1",camp1);
 
 							camp1 = (!camp1.equals("")) ? ordenar(camp1) : "";
+                            Log.e("camp1a",camp1);
+
 							camp2 = (!camp2.equals("")) ? ordenar(camp2) : "";
 							camp3 = (!camp3.equals("")) ? ordenar(camp3) : "";
 							camp4 = (!camp4.equals("")) ? ordenar(camp4) : "";
@@ -2186,7 +2211,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 							ne = (!ne.equals("")) ? ordenar(ne) : "";
 							leeep = (!leeep.equals("")) ? ordenar(leeep) : "";*/
 
-							/*text += (!camp1.equals("")) ? "Articulo(s) " + camp1 + " " + campo1 + ";" : "";
+							text += (!camp1.equals("")) ? "Articulo(s) " + camp1 + " " + campo1 + ";" : "";
 							text += (!camp2.equals("")) ? "Articulo(s) " + camp2 + " " + campo2 + ";" : "";
 							text += (!camp3.equals("")) ? "Articulo(s) " + camp3 + " " + campo3 + ";" : "";
 							text += (!camp4.equals("")) ? "Articulo(s) " + camp4 + " " + campo4 + ";" : "";
@@ -2208,9 +2233,9 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 							text += (!camp17.equals("")) ? "Articulo(s) " + camp17 + " " + campo17 + ";" : "";
 							text += (!camp18.equals("")) ? "Articulo(s) " + camp18 + " " + campo18 + ";" : "";
 							text += (!camp19.equals("")) ? "Articulo(s) " + camp19 + " " + campo19 + ";" : "";
-							text += (!camp20.equals("")) ? "Articulo(s) " + camp20 + " " + campo20 + ";" : "";*/
-
-                            text += (!camp1.equals("")) ? camp1 + " " + campo1 + ";" : "";
+							text += (!camp20.equals("")) ? "Articulo(s) " + camp20 + " " + campo20 + ";" : "";
+                            Log.e("campo1",campo1);
+                           /* text += (!camp1.equals("")) ? camp1 + " " + campo1 + ";" : "";
                             text += (!camp2.equals("")) ? camp2 + " " + campo2 + ";" : "";
                             text += (!camp3.equals("")) ? camp3 + " " + campo3 + ";" : "";
                             text += (!camp4.equals("")) ? camp4 + " " + campo4 + ";" : "";
@@ -2232,7 +2257,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             text += (!camp17.equals("")) ? camp17 + " " + campo17 + ";" : "";
                             text += (!camp18.equals("")) ? camp18 + " " + campo18 + ";" : "";
                             text += (!camp19.equals("")) ? camp19 + " " + campo19 + ";" : "";
-                            text += (!camp20.equals("")) ? camp20 + " " + campo20 + ";" : "";
+                            text += (!camp20.equals("")) ? camp20 + " " + campo20 + ";" : "";*/
 
 							/*text += (!codi.equals("")) ? "Articulo(s) " + codi + " " + cod + ";" : "";
 							text += (!zoni.equals("")) ? "Articulo(s) " + zoni + " "  + zon + ";" : "";
@@ -3999,12 +4024,16 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     public void medidas2(String condicion) {
         GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarDB.getReadableDatabase();
-        condicion=condicion.substring(0, condicion.length() - 1);
+
+
         if(db != null) {
             String sql = "select * from c_medida_precautoria where ";
             if(condicion.equalsIgnoreCase("")) {
+
+                //condicion=condicion.substring(0, condicion.length() - 1);
                 sql += " 1 = 1";
             }else {
+                condicion=condicion.substring(0, condicion.length() - 1);
                 sql += " campo in( " + condicion + ")";
             }
             System.err.println(sql);
@@ -5036,18 +5065,22 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     public String ordenar(String var){
         hs.clear();
         array.clear();
+        //Log.e("regex",var);
         String[] num = var.split(regex);
-        for (int i = 0; i < num.length; i++) {
-            array.add(num[i]);
-        }
-        hs.addAll(array);
-        array.clear();
-        array.addAll(hs);
-        Collections.sort(array);
-        var="";
-        for (int j = 0; j < array.size(); j++) {
-            var += array.get(j) + ",";
-        }
+        Log.e("infraccion",var);
+
+     for (int i = 0; i < num.length; i++) {
+         array.add(num[i]);
+     }
+     hs.addAll(array);
+     array.clear();
+     array.addAll(hs);
+     Collections.sort(array);
+     var = "";
+     for (int j = 0; j < array.size(); j++) {
+         var += array.get(j) + ",";
+     }
+
         return var;
     }
 
@@ -5490,7 +5523,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         String cam = "";
 
         try{
-            Cursor c = db.rawQuery("SELECT * FROM C_infraccion WHERE infraccion like '%" + nom.substring(4,(nom.length()-1)) + "%'", null);
+            Cursor c = db.rawQuery("SELECT * FROM C_infraccion WHERE infraccion like '%" + nom.substring(4,(nom.length()-1)) + "%' and vigente='S'", null);
             Log.v("sql","SELECT * FROM C_infraccion WHERE infraccion like '" + nom.substring(4,(nom.length()-1)) + "%'");
             if(c.moveToFirst()){
                 do{
@@ -5578,8 +5611,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         cam = campo.get(i);
                                 }
                                 else if (i==15){
-                                    cam = c.getString(c.getColumnIndex(campo.get(i)));
+                                    //cam = c.getString(c.getColumnIndex(campo.get(i)));
                                     c16 = c.getString(c.getColumnIndex(campo.get(i)));
+                                    if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                        cam = campo.get(i);
                                 }
                                 else if (i==16){
                                     c17 = c.getString(c.getColumnIndex(campo.get(i)));
@@ -5652,13 +5687,18 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         SQLiteDatabase db = gestionarBD.getReadableDatabase();
         try{
             Cursor c;
-            if(id == 3) {
+          /*  if(id == 3) {
                 c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE id_c_direccion in(" + id + ",2)", null);
                 Log.i("que", "SELECT * FROM C_Ordenamiento WHERE id_c_direccion in(" + id+",2)");
             } else {
                 c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE id_c_direccion = " + id, null);
                 Log.i("que", "SELECT * FROM C_Ordenamiento WHERE id_c_direccion = " + id);
-            }
+            }*/
+            c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE id_c_direccion = " + id, null);
+            Log.i("que", "SELECT * FROM C_Ordenamiento WHERE id_c_direccion = " + id);
+
+
+
             if(c.moveToFirst()){
                 Log.i("no", "no");
                 campo.clear();
@@ -5684,13 +5724,16 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                 try{
                     Cursor c;
-                    if(id == 3) {
+                    /*if(id == 3) {
                         c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) + "' and id_c_direccion in('" + id + "',2)", null);
                         Log.i("quer", "SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) + "' and  id_c_direccion in('" + id + "',2)");
                     } else {
                         c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) + "' and id_c_direccion = '" + id + "'", null);
                         Log.i("quer", "SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) + "' and id_c_direccion = '" + id + "'");
-                    }
+                    }*/
+                    c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i)+ "' and id_c_direccion = '" + id + "'"  , null);
+
+
                     Log.i("i", i + "");
                     if(c.moveToFirst()){
                         do{
@@ -7525,17 +7568,17 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 }else if(tipoEntrega == 0){
                     tipoentrega="quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.";
                 }
-
+               String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
                     Paragraph p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las "+hora +" horas del día "
                         +dia+" de " + getMes2(me.trim())+ " del año "+ a+ ", el suscrito "
                         + spnombre.getSelectedItem().toString() + " Inspector Municipal con clave "+ clave + ", facultado para llevar a cabo la inspección y vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, " +
                             datos + " me constituí física y legalmente  "+ spMeConstitui.getSelectedItem().toString().toLowerCase() + " marcada (o) con el número "
                         + etNumero.getText().toString()+" "+etNuemroInterior.getText().toString() + " de la calle " + etCalle.getText().toString() + " entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " + etFraccionamiento.getText().toString()
-                            + "  cerciorándome de ser este el domicilio correcto coordenadas " + etCoordenada.getText().toString() + " donde se realiza la visita de inspección, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el   artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco, con credencial oficial con fotografía folio número "
+                            + "  cerciorándome de ser este el domicilio correcto  donde se realiza la visita de inspección, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el   artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco, con credencial oficial con fotografía folio número "
                             +"  "+ folio + " , vigente de Abril 2020 a Junio 2020 , expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString()
                             + " manifiesta ser " + etVManifiesta.getText().toString() + " , propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello, el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. "
                             + etNombreT.getText().toString() + " y " + etNombreT1.getText().toString() + " por el " + spdesignado.getSelectedItem().toString() + ", mismos que se identifican con " + spIdentificaT.getSelectedItem().toString() + " " + etIfeT.getText().toString() + " , " + spIdentificaT1.getSelectedItem().toString() + " " + etIfeT2.getText().toString() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: "
-                            + etSeleccion.getText().toString().trim() + ". Los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim().trim()
+                            + hechos + "Los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim().trim()
                             + ". Lo anterior de conformidad a lo dispuesto por los artículos: " + etArticulo.getText().toString().trim()
                             + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim()
                             + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151)."
@@ -9853,16 +9896,16 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 }else if(tipoEntrega == 0){
                     tipoentrega="quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.";
                 }
-
+                String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
                 Paragraph p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las "+hora +" horas del día "
                         +dia+" de " + getMes2(me.trim())+ " del año "+ a+ ", el suscrito "
                         + spnombre.getSelectedItem().toString() + " Inspector Municipal con clave "+ clave + ", facultado para llevar a cabo la inspección y vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente  "+ spMeConstitui.getSelectedItem().toString().toLowerCase() + " marcada (o) con el número "
                         + etNumero.getText().toString()+" "+etNuemroInterior.getText().toString() + " de la calle " + etCalle.getText().toString() + " entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " + etFraccionamiento.getText().toString()
-                        + "  cerciorándome de ser este el domicilio correcto coordenadas " + etCoordenada.getText().toString() + " donde se realiza la visita de inspección, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco, con credencial oficial con fotografía folio número "
+                        + "  cerciorándome de ser este el domicilio correcto donde se realiza la visita de inspección, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco, con credencial oficial con fotografía folio número "
                         +"  "+ folio + " , vigente de Abril 2020 a Junio 2020 , expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString()
                         + " manifiesta ser " + etVManifiesta.getText().toString() + " , propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello, el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. "
                         + etNombreT.getText().toString() + " y " + etNombreT1.getText().toString() + " por el " + spdesignado.getSelectedItem().toString() + ", mismos que se identifican con " + spIdentificaT.getSelectedItem().toString() + " " + etIfeT.getText().toString() + " , " + spIdentificaT1.getSelectedItem().toString() + " " + etIfeT2.getText().toString() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: "
-                        + etSeleccion.getText().toString().trim() + ". Los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim().trim()
+                        + hechos + "Los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim().trim()
                         + ". Lo anterior de conformidad a lo dispuesto por los artículos: " + etArticulo.getText().toString().trim()
                         + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim()
                         + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151)."

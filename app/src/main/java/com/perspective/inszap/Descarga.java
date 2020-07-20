@@ -380,7 +380,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 
 	public void mostrarMsg() {
 		AlertDialog.Builder dialogo = new AlertDialog.Builder(Descarga.this);
-		dialogo.setTitle("Message").setMessage("La versi�n de la aplicaci�n no esta actualizada").setPositiveButton("Ok", this);
+		dialogo.setTitle("Message").setMessage("La versión de la aplicacion no esta actualizada").setPositiveButton("Ok", this);
 		dialogo.create().show();
 	}
 
