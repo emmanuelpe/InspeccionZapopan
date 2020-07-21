@@ -117,6 +117,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private String concatM="";
     private int contador=0;
     private ArrayList<String> reglaArt= new ArrayList<>();
+    private ArrayList<String> SeguimientoM1=new ArrayList<>();
     private ArrayList<String> reglaArt2= new ArrayList<>();
     private ArrayList<Integer> norepeat= new ArrayList<>();
     private String concatB="";
@@ -3020,6 +3021,17 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 else {
                     Log.i("Inserto", "no");
                 }
+                if(id==3){
+                    for(int i=0;i<SeguimientoM1.size();i++){
+                        if(ingresarSeguimientoM(etNumeroActa.getText().toString(), String.valueOf(id_inspector1),SeguimientoM1.get(i),fecha)>0){
+                            Log.i("Inserto", "si");
+                        }else {
+                            Log.i("No inserto", "no");
+                        }
+                    }
+                }
+
+
 
                 if(ingresarNumeroActa(etNumeroActa.getText().toString(), spnombre.getSelectedItem().toString(), fecha) > 0)
                     Log.i("Acta", "si");
@@ -4423,6 +4435,27 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             n = db.insert("Detalle_infraccion", null, cv);
         }
         db.close();
+        return n;
+    }
+
+    public long ingresarSeguimientoM(String numeroActa,String idinspector,String medida_precautoria,String fecha){
+        long n = 0;
+        GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
+        SQLiteDatabase db = gestionarBD.getWritableDatabase();
+
+        if(db != null) {
+            ContentValues cv = new ContentValues();
+            //cv.put("id_MedidaS",id_MedidaS);
+            cv.put("numero_acta", numeroActa);
+            cv.put("id_inspector", idinspector);
+            cv.put("medida_precautoria", medida_precautoria);
+            cv.put("fecha",fecha);
+
+
+            n = db.insert("SeguimientoM", null, cv);
+        }
+        db.close();
+
         return n;
     }
 
@@ -12324,6 +12357,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             Log.e("agrego medida",orden.get(spMedida.getSelectedItemPosition()).trim());
                             Log.e("agrego articulo",art.get(spMedida.getSelectedItemPosition()).trim());
                             reglaArt.add(orden.get(spMedida.getSelectedItemPosition()).trim());
+                            SeguimientoM1.add(spMedida.getSelectedItem().toString());
                             reglaArt2.add(art.get(spMedida.getSelectedItemPosition()).trim());
                             //concatM = spMedida.getSelectedItem().toString() + ",";
                             if(contador==0)
@@ -12569,6 +12603,7 @@ public void reiniciarA(){
     fa="";
     norepeat.clear();
     spMedida.setSelection(0);
+    SeguimientoM1.clear();
 }
     public void buscarTestigo(Spinner sp){
 
