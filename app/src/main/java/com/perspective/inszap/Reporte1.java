@@ -278,7 +278,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                     String id1=String.valueOf(id);
                                     System.out.println(id1);
                                     //String sql2 = "select numero_acta,medida_precautoria from SeguimientoM where id_inspector='"+id1+"'";
-                                    String sql2 = "select * from SeguimientoM ";
+                                    String sql2 = "select * from SeguimientoM where fecha='"+fecha1+"'";
                                     System.out.println(sql2);
                                     Cursor cursor2;
                                     cursor2 = db.rawQuery(sql2, null);
@@ -551,7 +551,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(100, 499f);
+                                canvas.moveText(50, 499f);
                                 canvas.showText("Infraccion");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -560,7 +560,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(200, 499f);
+                                canvas.moveText(150, 499f);
                                 canvas.showText("Medida Precautoria");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -608,10 +608,10 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                          for(int i=0;i<numeroAc.size();i++){
 
                              canvas.saveState();
-                             bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                              canvas.beginText();
                              canvas.setFontAndSize(bf, 9);
-                             canvas.moveText(100, yf);
+                             canvas.moveText(50, yf);
                              canvas.showText(numeroAc.get(i));
                              canvas.endText();
                              canvas.restoreState();
@@ -622,10 +622,10 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                 //medidas imprimir
                                 for(int i=0;i<medida.size();i++) {
                                     canvas.saveState();
-                                    bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                     canvas.beginText();
                                     canvas.setFontAndSize(bf, 9);
-                                    canvas.moveText(200, ym);
+                                    canvas.moveText(150, ym);
                                     canvas.showText(medida.get(i));
                                     canvas.endText();
                                     canvas.restoreState();

@@ -4904,6 +4904,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         return r;
         //return 0;
     }
+    
 
     public static boolean validarCampos(EditText et){
         return((et == null) || (et.getText().toString() == null) || et.getText().toString().equalsIgnoreCase(""));
