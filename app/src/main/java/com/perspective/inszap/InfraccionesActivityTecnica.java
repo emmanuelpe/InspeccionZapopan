@@ -23,6 +23,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
@@ -1659,7 +1660,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 						alert.show();
 					}
 					else {*/
-                guardar();
+                //guardar();
                 //}
 				/*}catch(Exception e) {
 
@@ -1669,8 +1670,20 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 				/*btnGuardar.setEnabled(false);
 				btnImprimir.setEnabled(true);
 				InfraccionesActivityTecnica.this.finish();*/
+
+                if (validarI()) {
+                    if(!etInfraccion.getText().toString().equalsIgnoreCase("") | infrac == 2 | infrac == 3 | infrac == 4)
+                        new Descargas().execute();
+                    else {
+                        Toast toast = Toast.makeText(getApplicationContext(), "EL CAMPO INFRACCION ESTA VACIO", Toast.LENGTH_LONG);
+                        toast.setGravity(0, 0, 15);
+                        toast.show();
+                    }
+                }
             }
         });
+
+
 
         this.btnImprimir.setOnClickListener(new View.OnClickListener() {
 
@@ -2897,7 +2910,73 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             }
         }
     }
+    public class Descargas extends AsyncTask<String, Integer, String> {
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            //pb.setVisibility(View.GONE);
+            btnGuardar.setEnabled(false);
+            guarda = true;
+            llcomp.setEnabled(false);
+            llcomp.setVisibility(View.GONE);
+            btnImprimir.setEnabled(true);
+            btnmodificar.setEnabled(false);
+            //tvEvidencia.setVisibility(View.VISIBLE);
+            //btnTomarF.setVisibility(View.VISIBLE);
+            //btnFtp.setEnabled(true);
+            btnVista.setEnabled(false);
+            //btnTomarF.setEnabled(true);
+            if(guarda) {
+                if(id > 2 & id < 4) {
+                    if (foto >= 1) {
+                        btnImprimir.setEnabled(true);
+                    } else {
+                        btnImprimir.setEnabled(false);
+                    }
+                } else {
+                    if(infrac == 1) {
+                        if (foto >= 1)
+                            btnImprimir.setEnabled(true);
+                        else
+                            btnImprimir.setEnabled(false);
+                    }
+                    else
+                        btnImprimir.setEnabled(true);
+                }
+            }
+            msj = (conn.validarConexion(getApplicationContext()) & resu) ? "Los datos se han guardado en la base de datos local y enviados al servidor" : "Los datos e imagenes se han guardado en la base de datos local";
+            Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
+            toast.setGravity(0, 0, 15);
+            toast.show();
 
+						/*if(foto == 0) {
+                            toast = Toast.makeText(getApplicationContext(), "No ah tomado evidencia fotografica", Toast.LENGTH_LONG);
+                            toast.setGravity(0, 0, 15);
+                            toast.show();
+                        }*/
+            deshabilitar();
+            /*Toast toast = Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG);
+            toast.setGravity(0, 0, 15);
+            toast.show();*/
+        }
+        @Override
+        protected String doInBackground(String... params) {
+            // if (!conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+            //if (!conn.search("http://172.16.1.21/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+            //if (!conn.search("http://192.168.0.15/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+            //if (conn.validarConexion(getApplicationContext()))
+            guardar();
+            //}
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            btnGuardar.setEnabled(false);
+            //pb.setVisibility(View.VISIBLE);
+        }
+    }
     public void guardar() {
         //try {
         if (validarI()) {
@@ -3172,13 +3251,13 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 llcomp.setEnabled(false);
                 llcomp.setVisibility(View.GONE);
                 //btnImprimir.setEnabled(true);
-                btnmodificar.setEnabled(false);
-                this.tvEvidencia.setVisibility(View.VISIBLE);
-                this.btnTomarF.setVisibility(View.VISIBLE);
+                //btnmodificar.setEnabled(false);
+                //this.tvEvidencia.setVisibility(View.VISIBLE);
+                //this.btnTomarF.setVisibility(View.VISIBLE);
                 //btnFtp.setEnabled(true);
-                btnVista.setEnabled(false);
-                btnTomarF.setEnabled(true);
-                if(guarda) {
+//                btnVista.setEnabled(false);
+                //btnTomarF.setEnabled(true);
+                /*if(guarda) {
                     if(id != 4 || id != 3 || id != 2) {
                         if (foto >= 1) {
                             btnImprimir.setEnabled(true);
@@ -3188,15 +3267,15 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     } else {
                         btnImprimir.setEnabled(true);
                     }
-                }
+                }*/
 
 
                 //}
-                msj = (conn.validarConexion(getApplicationContext()) & resu) ? "Los datos se han guardado en la base de datos local y enviados al servidor" : "Los datos e imagenes se han guardado en la base de datos local";
+                /*msj = (conn.validarConexion(getApplicationContext()) & resu) ? "Los datos se han guardado en la base de datos local y enviados al servidor" : "Los datos e imagenes se han guardado en la base de datos local";
                 Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
                 toast.setGravity(0, 0, 15);
                 toast.show();
-                deshabilitar();
+                deshabilitar();*/
             }else {
                 Toast toast = Toast.makeText(getApplicationContext(), "EL CAMPO INFRACCION ESTA VACIO", Toast.LENGTH_LONG);
                 toast.setGravity(0, 0, 15);
@@ -3566,6 +3645,12 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         spconsultar.setVisibility(View.VISIBLE);
         lldiv.setVisibility(View.VISIBLE);
         etEspecificacion.setVisibility(View.GONE);
+        spInspectorT.setEnabled(false);
+        spInspectorT1.setEnabled(false);
+        spCreglamentos.setEnabled(false);
+        spMedida.setEnabled(false);
+
+
         citatorio = true;
         btnSi.setEnabled(false);
         btnNo.setEnabled(false);
@@ -3603,6 +3688,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         //etDensidad.setEnabled(false);
         etManifiesta.setEnabled(false);
         spgravedad.setEnabled(false);
+        spNE.setEnabled(false);
         etDiaPlazo.setEnabled(false);
         etfecha.setEnabled(false);
         etNombreT1.setEnabled(false);

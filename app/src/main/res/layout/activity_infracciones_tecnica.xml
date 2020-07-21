@@ -986,7 +986,7 @@
                             android:layout_marginLeft="5dp"
                             android:gravity="center"
                             style="@style/Subtitle"
-                            android:visibility="visible"/>
+                            android:visibility="gone"/>
 
                         <EditText
                             android:id="@+id/etCordenada"
@@ -995,7 +995,8 @@
                             android:layout_height="70dp"
                             android:inputType="textCapSentences"
                             android:imeOptions="actionNext"
-                            android:layout_below="@id/tvCoordenada"/>
+                            android:layout_below="@id/tvCoordenada"
+                            android:visibility="gone"/>
 
                         <TextView
                             android:id="@+id/tvSPoblacion"
