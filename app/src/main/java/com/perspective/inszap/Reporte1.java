@@ -123,7 +123,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
         btnimprimir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              final  String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+              final  String date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
 
                 new Thread(new Runnable() {
                     @Override
@@ -208,7 +208,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
                                 canvas.moveText(120, 583.3f);
-                                canvas.showText(date);
+                                canvas.showText(date+" hrs");
                                 canvas.endText();
                                 canvas.restoreState();
 
@@ -278,7 +278,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                     String id1=String.valueOf(id);
                                     System.out.println(id1);
                                     //String sql2 = "select numero_acta,medida_precautoria from SeguimientoM where id_inspector='"+id1+"'";
-                                    String sql2 = "select * from SeguimientoM where fecha='"+fecha1+"'";
+                                    String sql2 = "select * from SeguimientoM where fecha='"+fecha1+"' and id_inspector='"+id1+"'" ;
                                     System.out.println(sql2);
                                     Cursor cursor2;
                                     cursor2 = db.rawQuery(sql2, null);
@@ -543,7 +543,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
                                 canvas.moveText(120, 583.3f);
-                                canvas.showText(date);
+                                canvas.showText(date+" hrs");
                                 canvas.endText();
                                 canvas.restoreState();
 //TITULO medidas precautorias
@@ -604,8 +604,9 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
 
                                 float yf=470f;
                                 float ym=470f;
+                                boolean flag=false;
                                 //infracciones  imprimir
-                         for(int i=0;i<numeroAc.size();i++){
+                         for(int i=0;i<numeroAc.size();i++) {
 
                              canvas.saveState();
                              bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -615,26 +616,52 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                              canvas.showText(numeroAc.get(i));
                              canvas.endText();
                              canvas.restoreState();
-                             yf-=13;
+
+
+                             yf -= 13;
                          }
 
 
-                                //medidas imprimir
-                                for(int i=0;i<medida.size();i++) {
-                                    canvas.saveState();
-                                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                                    canvas.beginText();
-                                    canvas.setFontAndSize(bf, 9);
-                                    canvas.moveText(150, ym);
-                                    canvas.showText(medida.get(i));
-                                    canvas.endText();
-                                    canvas.restoreState();
-                                    ym-=13;
-                                }
+                             //medidas imprimir
+                             for(int i=0;i<medida.size();i++){
+                                  if(medida.get(i).length()>95&& medida.get(i).length()<=120){
+                                     String recorte=medida.get(i).substring(0,95);
+                                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                     canvas.saveState();
+                                     canvas.beginText();
+                                     canvas.setFontAndSize(bf, 9);
+                                     canvas.moveText(150, ym);
+                                     canvas.showText(recorte);
+                                     canvas.endText();
+                                     canvas.restoreState();
+                                     ym-=13;
+                                 }else if(medida.get(i).length()>95&& medida.get(i).length()<=230){
+                                      String recorte=medida.get(i).substring(0,95);
+                                      bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                      canvas.saveState();
+                                      canvas.beginText();
+                                      canvas.setFontAndSize(bf, 9);
+                                      canvas.moveText(150, ym);
+                                      canvas.showText(recorte);
+                                      canvas.endText();
+                                      canvas.restoreState();
+                                      ym-=13;
+                                  }
 
 
+                                 else{
+                                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                     canvas.saveState();
+                                     canvas.beginText();
+                                     canvas.setFontAndSize(bf, 9);
+                                     canvas.moveText(150, ym);
+                                     canvas.showText(medida.get(i));
+                                     canvas.endText();
+                                     canvas.restoreState();
+                                     ym-=13;
+                                 }
 
-
+                             }
 
 
 
@@ -642,6 +669,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
 
 
                                 doc.close();
+
 
 
                             } catch (BadElementException e) {
