@@ -3227,6 +3227,22 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         Log.i("inserto", "false");
                 }
 
+                if (conn.validarConexion(InfraccionesActivityTecnica.this)) {
+                    Log.i("sii", "internet " + id_inspector2);
+                    //nv
+                    for(int i=0;i<SeguimientoM1.size();i++){
+                        if (Connection.insertSeguimiento(etNumeroActa.getText().toString(), String.valueOf(id),SeguimientoM1.get(i),fecha,"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertSeguimientoM.php")) {
+
+
+
+                            Log.i("inserto SEGUIMIENTO", "true");
+                        }
+                        else
+                            Log.i("NO INSERTO SEGUIMIENTO", "false");
+                    }
+
+                }
+
 
 
                 if (conn.validarConexion((getApplicationContext())) & resu)
@@ -4913,7 +4929,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
     public int validaraceptar(){
         int r = 0;
-        if(etDesc.equals(" ")){
+        if(etDesc.equals(" ")&&etDesc1.equals(" ")&&etDesc2.equals(" ")&&etDesc3.equals(" ")&&etDesc4.equals(" ")){
             r=1;
         }
         return  r;
