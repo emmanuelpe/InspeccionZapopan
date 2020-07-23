@@ -6,8 +6,8 @@ public class Justificar {
 	
 	public static String Conversion(String txtOriginal) {
 				
-		//String txtEspeciales = txtOriginal.replace('�', (char)160).replace('�', '�').replace('�', (char)161).replace('�', (char)162).replace('�', (char)163).replace('�', (char)165).replace('�', (char)164).replace('�', '�').replace('�', '�').replace('�', '�').replace('�', '�').replace('�', (char)129);
-		String txtEspeciales = txtOriginal.replace(' ', (char)160).replace(' ', '�').replace(' ', (char)161).replace(' ', (char)162).replace(' ', (char)163).replace(' ', (char)165).replace(' ', (char)164).replace(' ', '�').replace(' ', '�').replace(' ', '�').replace(' ', '�').replace(' ', (char)129);
+		//String txtEspeciales = txtOriginal.replace('á', (char)160).replace('�', '�').replace('�', (char)161).replace('�', (char)162).replace('�', (char)163).replace('�', (char)165).replace('�', (char)164).replace('�', '�').replace('�', '�').replace('�', '�').replace('�', '�').replace('�', (char)129);
+		String txtEspeciales =   txtOriginal.replace('á', (char)160).replace(' ', 'á').replace('í', (char)161).replace('ó', (char)162).replace('ú', (char)163).replace('Ñ', (char)165).replace('ñ', (char)164).replace(' ', '�').replace(' ', '�').replace(' ', '�').replace(' ', '�').replace('ü', (char)129);
 		
 		
 		return txtEspeciales;
