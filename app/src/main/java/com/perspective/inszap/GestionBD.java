@@ -47,6 +47,7 @@ public class GestionBD extends SQLiteOpenHelper{
 	String sqlCrearTablaPoblacion = "Create table C_poblacion(id_c_poblacion INTEGER PRIMARY KEY AUTOINCREMENT, poblacion TEXT)";
 	String sqlCrearTablaFraccionamiento ="Create table C_fraccionamiento(id_c_fraccionamiento INTEGER PRIMARY KEY AUTOINCREMENT, fraccionamiento TEXT)";
 	String sqlCrearTablaNumeroActa = "Create table numero_acta(id_numero_acta INTEGER PRIMARY KEY AUTOINCREMENT,numero_acta TEXT, inspector TEXT, fecha TEXT)";
+	String sqlCrearTablaSeguimientoM= "create table SeguimientoM(id_MedidaS INTEGER PRIMARY KEY AUTOINCREMENT,numero_acta TEXT,id_inspector TEXT,medida_precautoria TEXT,fecha TEXT)";
 	
 	String sqlD = "DROP TABLE Direcciones;DROP TABLE infracciones;DROP TABLE Inspectores;DROP TABLE Ordenamientos;";
 	
@@ -75,6 +76,7 @@ public class GestionBD extends SQLiteOpenHelper{
 		db.execSQL(sqlCrearTablaPoblacion);
 		db.execSQL(sqlCrearTablaFraccionamiento);
 		db.execSQL(sqlCrearTablaNumeroActa);
+		db.execSQL(sqlCrearTablaSeguimientoM);
 		
 		Log.i("Gestionar", sqlCrearTablaDireccion);
 		Log.i("Gestionar", sqlCrearTablaInfraccion);
@@ -91,6 +93,7 @@ public class GestionBD extends SQLiteOpenHelper{
 		Log.i("Gestionar", sqlCrearTablaUso);
 		Log.i("Gestionar", sqlCrearTablaLey);
 		Log.i("Gestionar", sqlCrearTablaNumeroActa);
+		Log.i("Gestionar",sqlCrearTablaSeguimientoM);
 		
 		ingresarDireccion(db);
 		ingresarInfracciones(db);

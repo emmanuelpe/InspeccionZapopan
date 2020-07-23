@@ -986,7 +986,7 @@
                             android:layout_marginLeft="5dp"
                             android:gravity="center"
                             style="@style/Subtitle"
-                            android:visibility="visible"/>
+                            android:visibility="gone"/>
 
                         <EditText
                             android:id="@+id/etCordenada"
@@ -995,7 +995,8 @@
                             android:layout_height="70dp"
                             android:inputType="textCapSentences"
                             android:imeOptions="actionNext"
-                            android:layout_below="@id/tvCoordenada"/>
+                            android:layout_below="@id/tvCoordenada"
+                            android:visibility="gone"/>
 
                         <TextView
                             android:id="@+id/tvSPoblacion"
@@ -1867,15 +1868,7 @@
                                 android:layout_below="@+id/spUni"
                                 style="@style/Subtitle"/>
 
-                            <Button
-                                android:id="@+id/tveliminar"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:text="@string/eliminar"
-                                android:layout_below="@+id/etdato"
-                                android:paddingLeft="10dp"
-                                style="@style/Subtitle"/>
+
 
                             <EditText
                                 android:id="@+id/etObs"
@@ -1884,8 +1877,19 @@
                                 android:hint="Observaciones"
                                 android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="true"
-                                android:layout_below="@+id/tveliminar"
+
+                                android:layout_below="@+id/etdato"
                                 android:visibility="gone"/>
+
+                            <Button
+                                android:id="@+id/tveliminar"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                android:text="@string/eliminar"
+                                android:layout_below="@+id/etObs"
+                                android:paddingLeft="10dp"
+                                style="@style/Subtitle"/>
 
                             <EditText
                                 android:id="@+id/etdescripcion1"
@@ -1894,7 +1898,7 @@
                                 android:hint="@string/descripcion"
                                 android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="false"
-                                android:layout_below="@+id/etObs"
+                                android:layout_below="@+id/tveliminar"
                                 android:visibility="gone"/>
 
 
@@ -1928,15 +1932,7 @@
                                 android:layout_below="@+id/spUni1"
                                 style="@style/Subtitle"/>
 
-                            <Button
-                                android:id="@+id/tveliminar1"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:text="@string/eliminar"
-                                android:paddingLeft="10dp"
-                                android:layout_below="@+id/etdato1"
-                                style="@style/Subtitle"/>
+
 
                             <EditText
                                 android:id="@+id/etObs1"
@@ -1945,8 +1941,18 @@
                                 android:hint="Observaciones"
                                 android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="true"
-                                android:layout_below="@+id/tveliminar1"
+                                android:layout_below="@+id/etdato1"
+
                                 android:visibility="gone"/>
+                            <Button
+                                android:id="@+id/tveliminar1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                android:text="@string/eliminar"
+                                android:paddingLeft="10dp"
+                                android:layout_below="@+id/etObs1"
+                                style="@style/Subtitle"/>
 
                             <EditText
                                 android:id="@+id/etdescripcion2"
@@ -1955,7 +1961,7 @@
                                 android:hint="@string/descripcion"
                                 android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="false"
-                                android:layout_below="@+id/etObs1"
+                                android:layout_below="@+id/tveliminar1"
                                 android:visibility="gone"/>
 
                             <Spinner
@@ -1986,15 +1992,7 @@
                                 android:layout_below="@+id/spUni2"
                                 style="@style/Subtitle"/>
 
-                            <Button
-                                android:id="@+id/tveliminar2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:text="@string/eliminar"
-                                android:paddingLeft="10dp"
-                                android:layout_below="@+id/etdato2"
-                                style="@style/Subtitle"/>
+
 
                             <EditText
                                 android:id="@+id/etObs2"
@@ -2003,8 +2001,18 @@
                                 android:hint="Observaciones"
                                 android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="true"
-                                android:layout_below="@+id/tveliminar2"
+                                android:layout_below="@+id/etdato2"
                                 android:visibility="gone"/>
+                            <Button
+                                android:id="@+id/tveliminar2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                android:text="@string/eliminar"
+                                android:paddingLeft="10dp"
+
+                                android:layout_below="@+id/etObs2"
+                                style="@style/Subtitle"/>
 
                             <EditText
                                 android:id="@+id/etdescripcion3"
@@ -2013,7 +2021,7 @@
                                 android:hint="@string/descripcion"
                                 android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="false"
-                                android:layout_below="@+id/etObs2"
+                                android:layout_below="@+id/tveliminar2"
                                 android:visibility="gone"/>
 
                             <Spinner
@@ -2044,15 +2052,7 @@
                                 android:layout_below="@+id/spUni3"
                                 style="@style/Subtitle"/>
 
-                            <Button
-                                android:id="@+id/tveliminar3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:text="@string/eliminar"
-                                android:paddingLeft="10dp"
-                                android:layout_below="@+id/etdato3"
-                                style="@style/Subtitle"/>
+
 
                             <EditText
                                 android:id="@+id/etObs3"
@@ -2061,8 +2061,19 @@
                                 android:hint="Observaciones"
                                 android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="true"
-                                android:layout_below="@+id/tveliminar3"
+
+                                android:layout_below="@+id/etdato3"
                                 android:visibility="gone"/>
+                            <Button
+                                android:id="@+id/tveliminar3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                android:text="@string/eliminar"
+                                android:paddingLeft="10dp"
+                                android:layout_below="@+id/etObs3"
+
+                                style="@style/Subtitle"/>
 
                             <EditText
                                 android:id="@+id/etdescripcion4"
@@ -2071,7 +2082,7 @@
                                 android:hint="@string/descripcion"
                                 android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="false"
-                                android:layout_below="@+id/etObs3"
+                                android:layout_below="@+id/tveliminar3"
                                 android:visibility="gone"/>
 
                             <EditText
@@ -2101,16 +2112,7 @@
                                 android:layout_below="@+id/tvuni4"
                                 android:visibility="gone"/>
 
-                            <Button
-                                android:id="@+id/tveliminar4"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:text="@string/eliminar"
-                                android:paddingLeft="10dp"
-                                android:paddingTop="43dp"
-                                android:layout_below="@+id/spUni4"
-                                style="@style/Subtitle"/>
+
 
                             <EditText
                                 android:id="@+id/etObs4"
@@ -2119,8 +2121,17 @@
                                 android:hint="Observaciones"
                                 android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="true"
-                                android:layout_below="@+id/tveliminar4"
+                                android:layout_below="@+id/spUni4"
                                 android:visibility="gone"/>
+                            <Button
+                                android:id="@+id/tveliminar4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                android:text="@string/eliminar"
+                                android:paddingLeft="10dp"
+
+                                style="@style/Subtitle"/>
 
                         </RelativeLayout>
 

@@ -111,7 +111,35 @@ public class Connection {
 		}
 		
 	}
-	
+	public static boolean insertSeguimiento(String numero_acta,String id_inspector,String medida_precautoria,String fecha,String url){
+		Boolean respuesta=false;
+		try {
+			ArrayList<NameValuePair> levanta = new ArrayList<NameValuePair>();
+
+
+			levanta.add(new BasicNameValuePair("numero_acta", numero_acta));
+			levanta.add(new BasicNameValuePair("id_inspector", id_inspector));
+			levanta.add(new BasicNameValuePair("medida_precautoria", medida_precautoria));
+
+			levanta.add(new BasicNameValuePair("fecha", fecha));
+
+			JSONObject json = jsonParser.realizarHttpRequest(url, "POST", levanta);
+			int status = json.getInt("status");
+
+			if(status==1){
+				respuesta=true;
+			}else{
+				respuesta=false;
+			}
+
+
+		} catch (Exception e) {
+			Log.e("e", e.getMessage() + " F");
+			return false;
+		}
+
+		return respuesta;
+	}
 	public boolean insert(String numero_acta, String numero_citatorio, int infraccion, String tipo_acta, int id_c_direccion, String fechas, String hora_inicio,
 			double longitud, double latitud, String orden_vista, String fecha_orden, String zona, int id_c_inspector1, int id_c_inspector2
 			,String nombre_visitado, String se_identifica, String manifiesta_ser, String fraccionamiento, String calle,

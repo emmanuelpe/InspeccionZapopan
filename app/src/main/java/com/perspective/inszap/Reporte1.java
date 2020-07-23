@@ -69,6 +69,8 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
     private List<String> nas = new ArrayList<>();
     private List<String> nas2 = new ArrayList<>();
     private List<String> nal2 = new ArrayList<>();
+    private List<String> numeroAc=new ArrayList<>();
+    private List<String> medida=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +123,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
         btnimprimir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              final  String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+              final  String date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
 
                 new Thread(new Runnable() {
                     @Override
@@ -163,7 +165,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                             ByteArrayOutputStream stream = new ByteArrayOutputStream();
                             Bitmap bitmap = null;
 
-                            bitmap = BitmapFactory.decodeResource(Reporte1.this.getResources(), R.drawable.reporte_enviadas);
+                            bitmap = BitmapFactory.decodeResource(Reporte1.this.getResources(), R.drawable.reporte_enviadas_2);
                             //bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
                             bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream);
                             Image img;
@@ -206,7 +208,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
                                 canvas.moveText(120, 583.3f);
-                                canvas.showText(date);
+                                canvas.showText(date+" hrs");
                                 canvas.endText();
                                 canvas.restoreState();
 
@@ -271,6 +273,38 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
 
                                             }
                                         }
+                                    }
+                                    int id = getIntent().getExtras().getInt("id");
+                                    String id1=String.valueOf(id);
+                                    System.out.println(id1);
+                                    //String sql2 = "select numero_acta,medida_precautoria from SeguimientoM where id_inspector='"+id1+"'";
+                                    String sql2 = "select * from SeguimientoM where fecha='"+fecha1+"' and id_inspector='"+id1+"'" ;
+                                    System.out.println(sql2);
+                                    Cursor cursor2;
+                                    cursor2 = db.rawQuery(sql2, null);
+
+
+                                    if (cursor2.moveToFirst()) {
+                                        Log.e("conexion db","good");
+                                        do {
+                                            //totalF = cursor1.getInt(cursor1.getColumnIndex("Total"));
+                                            //fotografias = cursor1.getString(cursor1.getColumnIndex("numero_acta"));
+
+                                            medida.add(cursor2.getString(cursor2.getColumnIndex("medida_precautoria")));
+                                            numeroAc.add(cursor2.getString(cursor2.getColumnIndex("numero_acta")));
+
+                                            Log.i("numero_acta",cursor2.getString(cursor2.getColumnIndex("numero_acta")));
+                                            Log.i("medida_precautoria",cursor2.getString(cursor2.getColumnIndex("medida_precautoria")));
+                                            Log.i("fecha",cursor2.getString(cursor2.getColumnIndex("fecha"))+" = "+fecha1);
+                                            Log.i("id_inspector",cursor2.getString(cursor2.getColumnIndex("id_inspector")));
+
+
+
+                                        } while (cursor2.moveToNext());
+
+
+                                    }else{
+                                        Log.e("conexion db","fake");
                                     }
                                 }
 
@@ -463,6 +497,171 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                 canvas.showText("Total de Fotos: "+ String.valueOf(numFin+numVF));
                                 canvas.endText();
                                 canvas.restoreState();
+//medidas tomadas por el inspector por infraccion
+                                doc.newPage();
+
+                                ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
+                                Bitmap bitmap2 = BitmapFactory.decodeResource(Reporte1.this.getResources(), R.drawable.reporte_enviadas_2);
+                                bitmap2.compress(Bitmap.CompressFormat.JPEG , 100, stream1);
+                                Image img2;
+
+                                try {
+
+                                    img2 = Image.getInstance(stream1.toByteArray());
+                                    img2.setAbsolutePosition(0, 0);
+
+                                    float width2 = doc.getPageSize().getWidth();
+                                    float height2 = doc.getPageSize().getHeight();
+
+                                    img2.scaleToFit(width2, height2);
+
+                                    doc.add(img2);
+
+                                } catch (BadElementException e) {
+                                    System.err.println(e.getMessage() + " BadElementException");
+                                } catch (MalformedURLException e) {
+                                    System.err.println(e.getMessage() + " MalformedURLException");
+                                } catch (IOException e) {
+                                    System.err.println(e.getMessage() + " IOException");
+                                } catch (DocumentException e) {
+                                    System.err.println(e.getMessage() + " DocumentException");
+                                }
+
+//NOMBRE INSPECTOR
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(135, 609.2f);
+                                canvas.showText(nombre);
+                                canvas.endText();
+                                canvas.restoreState();
+
+                                //FECHA
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(120, 583.3f);
+                                canvas.showText(date+" hrs");
+                                canvas.endText();
+                                canvas.restoreState();
+//TITULO medidas precautorias
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(50, 499f);
+                                canvas.showText("Infraccion");
+                                canvas.endText();
+                                canvas.restoreState();
+
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(150, 499f);
+                                canvas.showText("Medida Precautoria");
+                                canvas.endText();
+                                canvas.restoreState();
+
+                              /*  if (Connection.validarConexion(getApplicationContext())) {
+                                    GestionBD gestion2 = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
+                                    SQLiteDatabase db = gestion2.getReadableDatabase();
+                                    Log.i("numeros", numeros);
+                                    int id = getIntent().getExtras().getInt("id");
+                                    String id1=String.valueOf(id);
+
+
+                                    String sql2 = "select numero_acta,medida_precautoria from SeguimientoM where id_inspector='"+id1+"' and fecha='"+fecha+"' group by numero_acta ";
+                                    Cursor cursor1;
+                                    cursor1 = db.rawQuery(sql2, null);
+
+
+                                    if (cursor1.moveToFirst()) {
+                                        Log.e("conexion db","good");
+                                        do {
+                                            //totalF = cursor1.getInt(cursor1.getColumnIndex("Total"));
+                                            //fotografias = cursor1.getString(cursor1.getColumnIndex("numero_acta"));
+
+                                            medida.add(cursor1.getString(cursor1.getColumnIndex("medida_precautoria")));
+                                            numeroAc.add(cursor1.getString(cursor1.getColumnIndex("numero_acta")));
+
+                                            Log.i("numero_acta",cursor1.getString(cursor1.getColumnIndex("numero_acta")));
+                                            Log.i("medida_precautoria",cursor1.getString(cursor1.getColumnIndex("medida_precautoria")));
+
+
+
+                                        } while (cursor1.moveToNext());
+
+
+                                    }
+
+
+                                }else{
+                                    Log.e("no conexion db","F");
+                                }*/
+
+                                float yf=470f;
+                                float ym=470f;
+                                boolean flag=false;
+                                //infracciones  imprimir
+                         for(int i=0;i<numeroAc.size();i++) {
+
+                             canvas.saveState();
+                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                             canvas.beginText();
+                             canvas.setFontAndSize(bf, 9);
+                             canvas.moveText(50, yf);
+                             canvas.showText(numeroAc.get(i));
+                             canvas.endText();
+                             canvas.restoreState();
+
+
+                             yf -= 13;
+                         }
+
+
+                             //medidas imprimir
+                             for(int i=0;i<medida.size();i++){
+                                  if(medida.get(i).length()>95&& medida.get(i).length()<=120){
+                                     String recorte=medida.get(i).substring(0,95);
+                                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                     canvas.saveState();
+                                     canvas.beginText();
+                                     canvas.setFontAndSize(bf, 9);
+                                     canvas.moveText(150, ym);
+                                     canvas.showText(recorte);
+                                     canvas.endText();
+                                     canvas.restoreState();
+                                     ym-=13;
+                                 }else if(medida.get(i).length()>95&& medida.get(i).length()<=230){
+                                      String recorte=medida.get(i).substring(0,95);
+                                      bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                      canvas.saveState();
+                                      canvas.beginText();
+                                      canvas.setFontAndSize(bf, 9);
+                                      canvas.moveText(150, ym);
+                                      canvas.showText(recorte);
+                                      canvas.endText();
+                                      canvas.restoreState();
+                                      ym-=13;
+                                  }
+
+
+                                 else{
+                                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                     canvas.saveState();
+                                     canvas.beginText();
+                                     canvas.setFontAndSize(bf, 9);
+                                     canvas.moveText(150, ym);
+                                     canvas.showText(medida.get(i));
+                                     canvas.endText();
+                                     canvas.restoreState();
+                                     ym-=13;
+                                 }
+
+                             }
 
 
 
@@ -470,6 +669,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
 
 
                                 doc.close();
+
 
 
                             } catch (BadElementException e) {

@@ -35,6 +35,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -319,7 +320,14 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 				toast.show();*/
 			}
 		});
-
+this.btnUpdate.setOnClickListener(new OnClickListener() {
+	@Override
+	public void onClick(View v) {
+		Uri uri = Uri.parse("https://github.com/emmanuelpe/AppZap/raw/master/app-debug.apk");
+		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+		startActivity(intent);
+	}
+});
 		this.btnDescargarF.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -380,7 +388,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 
 	public void mostrarMsg() {
 		AlertDialog.Builder dialogo = new AlertDialog.Builder(Descarga.this);
-		dialogo.setTitle("Message").setMessage("La versi�n de la aplicaci�n no esta actualizada").setPositiveButton("Ok", this);
+		dialogo.setTitle("Message").setMessage("La versión de la aplicacion no esta actualizada").setPositiveButton("Ok", this);
 		dialogo.create().show();
 	}
 
