@@ -167,7 +167,7 @@ public class JSONParser {
 				httpclient.getConnectionManager().shutdown();
 			}
 		} catch (UnsupportedEncodingException e) {
-			Log.e("UnsupportedEncodingException", e.getMessage());
+			Log.e("UnsupportedEncoding", e.getMessage());
 		}catch (ClientProtocolException e) {
 			Log.e("ClientProtocolException", e.getMessage());
 		}catch (IOException e) {
