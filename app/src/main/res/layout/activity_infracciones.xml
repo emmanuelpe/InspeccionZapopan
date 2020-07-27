@@ -1785,13 +1785,28 @@
 								    style="@style/Boton"/>
 			    		    
 							</RelativeLayout>
-							
+							<TextView
+								android:id="@+id/spselectregla"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:text="Seleccione su reglamento"
+								android:layout_below="@id/rlopcion"
+								style="@style/SubtitleR">
+
+							</TextView>
+							<Spinner
+								android:id="@+id/spCreglamento"
+								android:layout_width="fill_parent"
+								android:layout_height="wrap_content"
+								android:layout_below="@id/spselectregla"
+								android:spinnerMode="dialog"
+								android:maxLines="3"/>
 							<TextView
 								android:id="@+id/spselec"
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								android:text="Seleccione su Hecho"
-								android:layout_below="@id/rlopcion"
+								android:layout_below="@id/spCreglamento"
 								style="@style/SubtitleR">
 							</TextView>
 			    	

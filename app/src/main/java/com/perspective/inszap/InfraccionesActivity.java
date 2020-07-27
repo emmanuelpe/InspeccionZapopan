@@ -111,10 +111,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 	private Button btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
 	private TextView tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvPropiedad,spselec1,tvDonde;
-	private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",unidades="",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",fracciones = "",articulos = "",folio = "",clave = "",fol = "";
+	private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",unidades="",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",fracciones = "",articulos = "",folio = "",clave = "",fol = "",Axmedidas="",concatM="";;
 	private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:"; 
 	private int mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0;
-	private Spinner spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spMeConstitui,spDensidad;
+	private Spinner spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spMeConstitui,spDensidad,spCreglamentos;
 	private EditText etNum,etFecham,etfecha,etDiaPlazo,etIfeI,etNoI,etVigI,etIfeA,etIfeA1,etIfeA2,etIfeA3,etIfeA4,etNoA,etNoA1,etNoA2,etNoA3,etNoA4,etVigA,etVigA1,etVigA2,etVigA3,etVigA4,etNombreT,etIfeT,etDesc,etDesc1,etDesc2,etDesc3,etDesc4,etdato,etdato1,etdato2,etdato3,etdato4,desf,desf1,desf2,etNombreV,etFraccionamiento,etCalle,etNumero,etPropietario,etNombreT1,etIfeT2,etManifiesta,etNuemroInterior,etApellidoP,etApellidoM,etCitatorio,etNumeroActa,etEspecificacion,etDFoto,etDFoto1,etDFoto2,etDFoto3,etVManifiesta,etVIdentifica,etLatitud,etLongitud,etAnoCitatorio,etAnoOrden,etCondominio/*etDensidad*/,etManzana,etLote,etReferencia,etBuscar,etfolio,/*etAlineamiento,*/etConstruccion, etGiro, etMotivo,etOrden1,etEntreC,etEntreC1,etResponsable,etRegistro,etMedida,etArticulo,etInspccionFue,etDFoto4,etDFoto5,etDFoto6,etDFoto7,etDFoto8,etDFoto9,etDFoto10,etDFoto11,etDFoto12,etDFoto13,etDFoto14,etDFoto15,etDFoto16,etDFoto17,etDFoto18,etDFoto19,etLGiro,etAGiro,etAlicencia,etSector,etNombreComercial,etObs,etObs1,etObs2,etObs3,etObs4,etBCol,etOtro,etDondeActua,etNumeroSellos;
 	private LinearLayout lldiv,cons,llNota,llplazo,llreincidencia,llcomp,llconcepto,llPla,llfundamento;
 	private RelativeLayout rlcampo,rlProp,rlTestA,rlVisita,rlLicencias,rlDonde_actua;
@@ -127,6 +127,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	private ArrayList<String> arregloLista1 = new ArrayList<String>();
 	private ArrayList<String> arregloLista2 = new ArrayList<String>();
 	final ArrayList<String> arregloInfraccion = new ArrayList<String>();
+    final ArrayList<String> arregloInfraccion1 = new ArrayList<String>();
+    final ArrayList<String> arregloCreglamentos= new ArrayList<String>();
+    final ArrayList<String> arregloCreglamentosx=new ArrayList<>();
 	final ArrayList<String> consultar = new ArrayList<String>();
 	final ArrayList<Integer> id_hecho = new ArrayList<Integer>();
 	final ArrayList<String> arreglo = new ArrayList<String>();
@@ -197,6 +200,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	private List<String> meConstitui = new ArrayList<>();
 	private List<String> folios = new ArrayList<>();
 	private ProgressBar pb;
+    String reglamentoC = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -554,6 +558,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         spDensidad = findViewById(R.id.spDensidad);
 
         pb = findViewById(R.id.pb);
+        spCreglamentos=findViewById(R.id.spCreglamento);
 
         unis = new ArrayList<>();
         unis1 = new ArrayList<>();
@@ -685,6 +690,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         spZona.setOnItemSelectedListener(this);
 
         rgPopiedad.setOnCheckedChangeListener(this);
+        mostrarReglamentos();
         
         if(id == 1) {
         	rlLicencias.setVisibility(View.VISIBLE);
@@ -982,9 +988,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         if(!arregloLista.isEmpty()){
         	spNombreA4.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,arregloLista));
         }
-        
-        if(!arregloInfraccion.isEmpty()){
-        	spInfraccion.setAdapter(new ArrayAdapter<String>(this,R.layout.multiline_spinner_dropdown_item,arregloInfraccion));
+        if(!arregloInfraccion1.isEmpty()){
+            spInfraccion.setAdapter(new ArrayAdapter<String>(this,R.layout.multiline_spinner_dropdown_item,arregloInfraccion1));
+        }
+        if(!arregloCreglamentos.isEmpty()){
+            spCreglamentos.setAdapter(new ArrayAdapter<String>(this,R.layout.multiline_spinner_dropdown_item,arregloCreglamentos));
         }
         
         spManifiesta.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -1410,18 +1418,20 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         btnaceptar.setVisibility(View.VISIBLE);
                         Log.i("Ento al else", (String) spInfraccion.getItemAtPosition(position));
                         int pos = 0;
-                        for (int i = 0; i < spInfraccion.getItemAtPosition(position).toString().length(); i++) {
-                            if (!isNumeric(spInfraccion.getSelectedItem().toString().charAt(i) + "")) {
+                        for (int i = 0; i < arregloInfraccion.get(position).length(); i++) {
+                        //for (int i = 0; i < spInfraccion.getItemAtPosition(position).toString().length(); i++) {
+                            //if (!isNumeric(spInfraccion.getSelectedItem().toString().charAt(i) + "")) {
+                            if (!isNumeric(arregloInfraccion.get(position).charAt(i) + "")) {
                                 Log.i("char", spInfraccion.getSelectedItem().toString().charAt(i) + "");
                                 pos = i;
                                 break;
                             } else {
-                                Log.i("char", spInfraccion.getSelectedItem().toString().charAt(i) + "");
+                                Log.i("char", arregloInfraccion.get(position).charAt(i) + "");
                             }
                         }
                         Log.i("pos", pos + "");
-                        String t = spInfraccion.getItemAtPosition(position).toString().substring(pos, spInfraccion.getSelectedItem().toString().length());
-                        buscarInfraccion(spInfraccion.getSelectedItem().toString());
+                        String t = arregloInfraccion.get(position).substring(pos);
+                        buscarInfraccion(arregloInfraccion.get(position));
                         if (!desc) {
                             etDesc.setVisibility(View.VISIBLE);
                             if (!unidad.trim().equalsIgnoreCase("")) {
@@ -2753,6 +2763,26 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 }
             }
         }
+
+        spCreglamentos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(!spCreglamentos.getItemAtPosition(position).toString().equals("Buscar en Todos los reglamentos")){
+                    System.out.println(position);
+                    reglamentoC =arregloCreglamentosx.get(position-1);
+                    Axmedidas+="'"+arregloCreglamentosx.get(position-1)+"',";
+                } else{
+                    reglamentoC ="";
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         
     }
 
@@ -5402,11 +5432,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	//Cursor c = db.query("infracciones", null, "id_infraccion", null, null, null, null);
 	    	if(c.moveToFirst()){
 	    		arregloInfraccion.add("");
+                arregloInfraccion1.add("");
 	    		do{
 	    			//System.out.println(c.getString(2) + " " + c.getString(c.getColumnIndex("id_c_direccion")));
 	    			//if(c.getString(c.getColumnIndex("vigente")).trim().equalsIgnoreCase("S")) {
 		    			id_hecho.add(c.getInt(0));
 		    			arregloInfraccion.add(c.getString(2));
+                        arregloInfraccion1.add(c.getString(2));
 		    			//System.out.println(c.getString(2) + " do " + c.getString(c.getColumnIndex("id_c_direccion")));
 		    			//Log.i("listado", "Infraccion: " + c.getString(2));
 	    			//}
@@ -11422,10 +11454,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	
 	public void mostrarResutados(String query) {
 		arregloInfraccion.clear();
+        arregloInfraccion1.clear();
 		//query = conceptoAcento(query);
 		buscarInfraccionL(query);
 		if(!arregloInfraccion.isEmpty()){
-            spInfraccion.setAdapter(new ArrayAdapter<String>(this,R.layout.multiline_spinner_dropdown_item,arregloInfraccion));
+            spInfraccion.setAdapter(new ArrayAdapter<String>(this,R.layout.multiline_spinner_dropdown_item,arregloInfraccion1));
 		    //spInfraccion.setAdapter(new ArrayAdapter<String>(getApplicationContext(),R.layout.multiline_spinner_dropdown_item,arregloInfraccion));
 	    }
 		else
@@ -11438,13 +11471,17 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		GestionBD gestionar = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
 		SQLiteDatabase db = gestionar.getReadableDatabase();
 		Cursor cursor;
+        String textofiltro="length(rtrim("+reglamentoC.trim()+")) >2 and";
+        if(reglamentoC==" "){
+            textofiltro="";
+        }
 		if(TextUtils.isEmpty(search)) {
 		    if(id == 5) {
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE 1=1 and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ", null);
-                Log.e("sql", "SELECT * FROM c_infraccion WHERE 1=1 and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ");
+                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+" and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ", null);
+                Log.e("sql", "SELECT * FROM c_infraccion WHERE "+textofiltro+"  and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ");
             } else {
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE 1=1 and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
-                Log.e("sql", "SELECT * FROM c_infraccion WHERE 1=1 and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ");
+                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+" and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
+                Log.e("sql", "SELECT * FROM c_infraccion WHERE "+textofiltro+" and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ");
             }
 		}
 		else {
@@ -11453,24 +11490,26 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		    else*/
                 //cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE (infraccion  LIKE '%" + search + "%') and id_c_direccion = '" + id + "' AND vigente = 'S' COLLATE NOACCENTS order by infraccion; ", null);
             if(id == 5) {
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " +
+                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+" REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " +
                         "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ", null);
-                Log.e("sql", "SELECT * FROM c_infraccion WHERE REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') = " +
+                Log.e("sql", "SELECT * FROM c_infraccion WHERE "+textofiltro+"  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') = " +
                         "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('" + search + "'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ");
             } else {
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " +
+                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+" REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " +
                         "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
-                Log.e("sql", "SELECT * FROM c_infraccion WHERE REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') = " +
+                Log.e("sql", "SELECT * FROM c_infraccion WHERE "+textofiltro+"  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') = " +
                         "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('" + search + "'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ");
             }
         }
 
 		if(cursor.moveToFirst()){
     		arregloInfraccion.add("");
+            arregloInfraccion1.add("");
     		do{
     			if(cursor.getString(cursor.getColumnIndex("vigente")).trim().equalsIgnoreCase("S")) {
 	    			id_hecho.add(cursor.getInt(0));
 	    			arregloInfraccion.add(cursor.getString(2));
+                    arregloInfraccion1.add(cursor.getString(2) + " " + cursor.getString(cursor.getColumnIndex(reglamentoC.trim())));
 	    			Log.i("listado", "Infraccion: " + cursor.getString(2));
     			}
     		}while(cursor.moveToNext());
@@ -12120,6 +12159,28 @@ Por recibida el Acta número ____________________________________ por la cual s
 		
 		mSampleDialog.show();
 	}
+    public void mostrarReglamentos(){
+        GestionBD gestionar = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
+        SQLiteDatabase db = gestionar.getReadableDatabase();
+        Cursor cursor = null;
+        cursor = db.rawQuery("SELECT * FROM c_ordenamiento where  id_c_direccion='"+id+"'; ", null);
+
+
+        if(cursor.moveToFirst()){
+            arregloCreglamentos.add("Buscar en Todos los reglamentos");
+            do{
+
+
+                arregloCreglamentosx.add(cursor.getString(2));
+                arregloCreglamentos.add(cursor.getString(cursor.getColumnIndex("ordenamiento")));
+                Log.i("listado", "C_reglamentos: " + cursor.getString(2));
+                //Log.i("listado", "C_reglamentos: " +cursor.getString(cursor.getColumnIndex("ordenamiento")));
+
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+
+    }
 	
 	public void buscarPeticion() {
     	GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);

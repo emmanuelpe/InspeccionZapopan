@@ -128,6 +128,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private ArrayList<String> arregloLista1 = new ArrayList<String>();
     private ArrayList<String> arregloLista2 = new ArrayList<String>();
     final ArrayList<String> arregloInfraccion = new ArrayList<String>();
+    final ArrayList<String> arregloInfraccion1 = new ArrayList<String>();
     final ArrayList<String> arregloCreglamentos= new ArrayList<String>();
     final ArrayList<String> arregloCreglamentosx=new ArrayList<>();
     final ArrayList<String> consultar = new ArrayList<String>();
@@ -992,8 +993,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             spNombreA4.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,arregloLista));
         }
 
-        if(!arregloInfraccion.isEmpty()){
-            spInfraccion.setAdapter(new ArrayAdapter<String>(this,R.layout.multiline_spinner_dropdown_item,arregloInfraccion));
+        if(!arregloInfraccion1.isEmpty()){
+            spInfraccion.setAdapter(new ArrayAdapter<String>(this,R.layout.multiline_spinner_dropdown_item,arregloInfraccion1));
         }
         if(!arregloCreglamentos.isEmpty()){
             spCreglamentos.setAdapter(new ArrayAdapter<String>(this,R.layout.multiline_spinner_dropdown_item,arregloCreglamentos));
@@ -1438,18 +1439,20 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         btneliminarA.setVisibility(View.VISIBLE);
                         Log.i("Ento al else", (String) spInfraccion.getItemAtPosition(position));
                         int pos = 0;
-                        for (int i = 0; i < spInfraccion.getItemAtPosition(position).toString().length(); i++) {
-                            if (!isNumeric(spInfraccion.getSelectedItem().toString().charAt(i) + "")) {
-                                Log.i("char", spInfraccion.getSelectedItem().toString().charAt(i) + "");
+                        //for (int i = 0; i < spInfraccion.getItemAtPosition(position).toString().length(); i++) {
+                        for (int i = 0; i < arregloInfraccion.get(position).length(); i++) {
+                            //if (!isNumeric(spInfraccion.getSelectedItem().toString().charAt(i) + "")) {
+                            if (!isNumeric(arregloInfraccion.get(position).charAt(i) + "")) {
+                                Log.i("char", arregloInfraccion.get(position).charAt(i) + "");
                                 pos = i;
                                 break;
                             } else {
-                                Log.i("char", spInfraccion.getSelectedItem().toString().charAt(i) + "");
+                                Log.i("char", arregloInfraccion.get(position).charAt(i) + "");
                             }
                         }
                         Log.i("pos", pos + "");
-                        String t = spInfraccion.getItemAtPosition(position).toString().substring(pos, spInfraccion.getSelectedItem().toString().length());
-                        buscarInfraccion(spInfraccion.getSelectedItem().toString());
+                        String t = arregloInfraccion.get(position).substring(pos);
+                        buscarInfraccion(arregloInfraccion.get(position));
                         if (!desc) {
                             etDesc.setVisibility(View.VISIBLE);
                             if (!unidad.trim().equalsIgnoreCase("")) {
@@ -5350,11 +5353,13 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             //Cursor c = db.query("infracciones", null, "id_infraccion", null, null, null, null);
             if(c.moveToFirst()){
                 arregloInfraccion.add("");
+                arregloInfraccion1.add("");
                 do{
                     //System.out.println(c.getString(2) + " " + c.getString(c.getColumnIndex("id_c_direccion")));
                     //if(c.getString(c.getColumnIndex("vigente")).trim().equalsIgnoreCase("S")) {
                     id_hecho.add(c.getInt(0));
                     arregloInfraccion.add(c.getString(2));
+                    arregloInfraccion1.add(c.getString(2));
                     //System.out.println(c.getString(2) + " do " + c.getString(c.getColumnIndex("id_c_direccion")));
                     //Log.i("listado", "Infraccion: " + c.getString(2));
                     //}
@@ -12035,9 +12040,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
     public void mostrarResutados(String query) {
         arregloInfraccion.clear();
+        arregloInfraccion1.clear();
         buscarInfraccionL(query);
-        if(!arregloInfraccion.isEmpty()){
-            spInfraccion.setAdapter(new ArrayAdapter<String>(this,R.layout.multiline_spinner_dropdown_item,arregloInfraccion));
+        if(!arregloInfraccion1.isEmpty()){
+            spInfraccion.setAdapter(new ArrayAdapter<String>(this,R.layout.multiline_spinner_dropdown_item,arregloInfraccion1));
         }
         else
             spInfraccion.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item));
@@ -12092,6 +12098,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
         if(cursor.moveToFirst()){
             arregloInfraccion.add(" ");
+            arregloInfraccion1.add(" ");
             do{
                 if(cursor.getString(cursor.getColumnIndex("vigente")).trim().equalsIgnoreCase("S")) {
                    String cambio="";
@@ -12099,6 +12106,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
                     arregloInfraccion.add(cursor.getString(2));
+                    arregloInfraccion1.add(cursor.getString(2) + " " + cursor.getString(cursor.getColumnIndex(reglamentoC[0].trim())));
                     Log.i("listado", "Infraccion: " + cursor.getString(cursor.getColumnIndex("reg_anuncion"))+ "x");
                 }
             }while(cursor.moveToNext());
