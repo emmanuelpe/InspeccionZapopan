@@ -1892,7 +1892,12 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         this.btnArticulos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mostrarArt(contador);
+                if(contador>1){
+                    mostrarArt(contador);
+                }else{
+
+                }
+
             }
         });
         this.btneliminarA.setOnClickListener(new View.OnClickListener() {
