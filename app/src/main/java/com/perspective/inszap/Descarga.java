@@ -68,6 +68,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 	private JSONObject json_data, jObject;
 	private StringBuilder sb = new StringBuilder();
 	private Connection c;
+
 	private ArrayList<String> foto = new ArrayList<String>();
 	private ArrayList<String> archivo = new ArrayList<String>();
 	private EditText mEdittText;
@@ -1481,8 +1482,23 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 		else
 			msj = "No se pudo conectar con el servidor";
 	}
+	public static void actualiza2(Connection c2, Context f) {
+		//int i = 0;
+		final String url = "http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/contarreglones.php";
+		GestionBD gestion = new GestionBD(f, "inspeccion", null, 1);
+		SQLiteDatabase db = gestion.getWritableDatabase();
+		if (!c2.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+			if (!c2.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_insepctor.php").trim().equalsIgnoreCase("null")) {
+				eliminaRegistros2("C_inspector",f);
+				c2.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_insepctor.php"/*"http://pgt.no-ip.biz/serverSQL/getc_insepctor.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_inspector");
 
-	public void eliminaRegistros(String tabla) {
+
+			}
+		}
+
+
+	}
+	public  void eliminaRegistros(String tabla) {
 		GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion",null,1);
 		SQLiteDatabase db = gestion.getReadableDatabase();
 		db.beginTransaction();
@@ -1503,7 +1519,27 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			db.close();
 		}
 	}
-
+	public static void eliminaRegistros2(String tabla,Context f) {
+		GestionBD gestion = new GestionBD(f, "inspeccion",null,1);
+		SQLiteDatabase db = gestion.getReadableDatabase();
+		db.beginTransaction();
+		try {
+			Cursor c = db.rawQuery("SELECT * FROM " + tabla, null);
+			if (c.moveToFirst()) {
+				do {
+					db.delete(tabla, "1", null);
+				} while (c.moveToNext());
+			}
+			db.setTransactionSuccessful();
+			c.close();
+		} catch (SQLiteException e) {
+			Log.e("SQLiteException ", e.getMessage());
+		}
+		finally {
+			db.endTransaction();
+			db.close();
+		}
+	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {

@@ -1,5 +1,9 @@
 package com.perspective.inszap;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,12 +12,16 @@ import java.util.Calendar;
 import java.util.Date;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,15 +33,27 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
 @SuppressLint("SimpleDateFormat")
 public class MainActivity extends Activity {
-	
+	private Connection c;
+	private InputStream is;
 	private Spinner spDireccion, spUsuario;
 	private EditText etContrasena;
 	private Button btnIngresar;
 	private TextView tvInpector,tvContrasena,tvDireccion,title;
 	private int id_;
-	private String usuario,pass,direccion;
+	private Connection conn = new Connection();
+	private String usuario,pass,direccion,mensaje;
 	 static String vigencia,vigencia_inicial;
 	private ArrayList<String> arregloLista = new ArrayList<String>();
 	private ArrayList<String> user = new ArrayList<String>();
@@ -48,6 +68,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		 //final Context main=getApplicationContext();
 		
 		Typeface helvetica = Typeface.createFromAsset(getAssets(), "font/HelveticaNeueLTStd-Bd.otf");
 		
@@ -163,11 +184,43 @@ public class MainActivity extends Activity {
 						intent.putExtras(bundle);
 						startActivity(intent);
 						MainActivity.this.finish();
+						mensaje=null;
 					}
 					else{
-						Toast toast = Toast.makeText(MainActivity.this, "Contraseña Incorrecta", Toast.LENGTH_SHORT);
-						toast.setGravity(0, 0, 15);
-						toast.show();
+						if(mensaje!=null){
+							if (conn.validarConexion(getApplicationContext())) {
+								AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+								dialog.setTitle(mensaje);
+								dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+
+									}
+								});
+								dialog.setMessage("¿Esta seguro?").setPositiveButton("SI", new DialogInterface.OnClickListener() {
+
+
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										new Actualizar().execute();
+
+									}
+								});
+								AlertDialog alert = dialog.create();
+								alert.show();
+							} else{
+								Toast toast = Toast.makeText(MainActivity.this, "No se encontro conexion a internet,vuelva a ingresar para actualizar", Toast.LENGTH_SHORT);
+								toast.setGravity(0, 0, 15);
+								toast.show();
+							}
+								//msj = "No se encontro conexion a internet";
+						}else{
+							Toast toast = Toast.makeText(MainActivity.this, "Contraseña Incorrecta", Toast.LENGTH_SHORT);
+							toast.setGravity(0, 0, 15);
+							toast.show();
+						}
+
 						
 					}
 				}
@@ -678,6 +731,8 @@ public class MainActivity extends Activity {
 		consultaf();
 		consultaTodo1();
 	}
+
+
 	public boolean isTableExists(String tableName) {
 		GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
 		SQLiteDatabase db = gestionBD.getReadableDatabase();
@@ -1005,7 +1060,24 @@ public class MainActivity extends Activity {
 				vigencia=c.getString(c.getColumnIndex("vigencia"));
 				System.out.println(vigencia_inicial);
 				System.out.println(vigencia);
-              r=true;
+				Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(vigencia);
+                //Date date2=new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-01");
+
+				//System.out.println(date1);
+				//System.out.println(date);
+
+
+				if(date.compareTo(date1)<0){
+					r=true;
+
+				}else{
+					r=false;
+					mensaje="Las vigencias se actualizaran";
+				}
+
+
+			}else{
+				r=false;
 			}
 			c.close();
 
@@ -1171,4 +1243,51 @@ public class MainActivity extends Activity {
 			c.close();
 		}
 	}
+
+	public class Actualizar extends AsyncTask<String, Integer, Boolean> {
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+
+		@Override
+		protected void onProgressUpdate(Integer... values) {
+			super.onProgressUpdate(values);
+			//mProgressBar.setProgress(values[0]);
+		}
+
+		@Override
+		protected Boolean doInBackground(String... params) {
+			//insertar(params[0]);
+			Context main=getApplicationContext();
+			c=new Connection(main);
+			Descarga.actualiza2(c,main);
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			super.onPostExecute(result);
+			//mProgressBar.setVisibility(View.GONE);
+			//mProgressBar.setVisibility(View.INVISIBLE);
+
+			//editor.commit();
+			AlertDialog.Builder builder =
+					new AlertDialog.Builder(MainActivity.this);
+
+			builder.setMessage("Se ha actualizado correctamente vuelva iniciar sesion")
+					.setTitle("Información")
+					.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							dialog.cancel();
+						}
+					});
+
+			builder.create().show();
+			/*Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
+			toast.setGravity(0, 0, 15);
+			toast.show();*/
+		}
+	}
 }
+
