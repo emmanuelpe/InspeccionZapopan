@@ -34,6 +34,7 @@ public class MainActivity extends Activity {
 	private TextView tvInpector,tvContrasena,tvDireccion,title;
 	private int id_;
 	private String usuario,pass,direccion;
+	 static String vigencia,vigencia_inicial;
 	private ArrayList<String> arregloLista = new ArrayList<String>();
 	private ArrayList<String> user = new ArrayList<String>();
 	private ArrayList<Integer> id = new ArrayList<Integer>();
@@ -146,12 +147,13 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				pass = etContrasena.getText().toString();
 				if(validarCampos(etContrasena)){
-					Toast toast = Toast.makeText(MainActivity.this, "Ingrese la contrase�a", Toast.LENGTH_SHORT);
+					Toast toast = Toast.makeText(MainActivity.this, "Ingrese la contraseña", Toast.LENGTH_SHORT);
 					toast.setGravity(0, 0, 15);
 					toast.show();
 				}
 				else{
 					if(ingresar(usuario, pass)){
+
 						Intent intent = new Intent(MainActivity.this,Descarga.class);
 						//Intent intent = new Intent(MainActivity.this,TestActivity.class);
 						Bundle bundle = new Bundle();
@@ -163,7 +165,7 @@ public class MainActivity extends Activity {
 						MainActivity.this.finish();
 					}
 					else{
-						Toast toast = Toast.makeText(MainActivity.this, "Contrase�a Incorrecta", Toast.LENGTH_SHORT);
+						Toast toast = Toast.makeText(MainActivity.this, "Contraseña Incorrecta", Toast.LENGTH_SHORT);
 						toast.setGravity(0, 0, 15);
 						toast.show();
 						
@@ -842,7 +844,7 @@ public class MainActivity extends Activity {
 			for (int i = 0; i < f.size(); i++) {
 				try {
 					date = (Date)sdf.parse(f.get(i));
-					System.out.println(date);
+					System.out.println(sdf.parse(date.toString()) + "fecha F");
 					//if (cal.getTime().compareTo(date) > 0) {	
 					if (cal.getTime().before(date)) {
 						r = true;
@@ -998,9 +1000,15 @@ public class MainActivity extends Activity {
 		try {
 			Cursor c = db.rawQuery("Select * from C_inspector where nombre = '" + usuario + "' and contrasena = '" + pass + "'", null);
 			if(c.moveToFirst()){
-				r = true;
+
+				vigencia_inicial=c.getString(c.getColumnIndex("vigencia_inicial"));
+				vigencia=c.getString(c.getColumnIndex("vigencia"));
+				System.out.println(vigencia_inicial);
+				System.out.println(vigencia);
+              r=true;
 			}
 			c.close();
+
 		} catch (Exception e) {
 			
 		}

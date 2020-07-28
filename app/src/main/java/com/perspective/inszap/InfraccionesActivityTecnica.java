@@ -1892,7 +1892,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         this.btnArticulos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(contador>1){
+                if(contador>=1){
                     mostrarArt(contador);
                 }else{
 
@@ -7521,7 +7521,89 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         }
     }
 
+public String vigencia_inicial(String v){
+   String vigencia_inicial="";
+    if(v.equals("01")){
+        vigencia_inicial="Enero";
+    }
+    if(v.equals("02")){
+        vigencia_inicial="Febrero";
+    }
+    if(v.equals("03")){
+        vigencia_inicial="Marzo";
+    }
+    if(v.equals("04")){
+        vigencia_inicial="Abril";
+    }
+    if(v.equals("05")){
+        vigencia_inicial="Mayo";
+    }
+    if(v.equals("06")){
+        vigencia_inicial="Junio";
+    }
+    if(v.equals("07")){
+        vigencia_inicial="Julio";
+    }
+    if(v.equals("08")){
+        vigencia_inicial="Agosto";
+    }
+    if(v.equals("09")){
+        vigencia_inicial="Septiembre";
+    }
+    if(v.equals("10")){
+        vigencia_inicial="Octubre";
+    }
+    if(v.equals("11")){
+        vigencia_inicial="Noviembre";
+    }
+    if(v.equals("12")){
+        vigencia_inicial="Diciembre";
+    }
 
+    return vigencia_inicial;
+}
+
+    public String vigencia_final(String v){
+        String vigencia_inicial="";
+        if(v.equals("01")){
+            vigencia_inicial="Enero";
+        }
+        if(v.equals("02")){
+            vigencia_inicial="Febrero";
+        }
+        if(v.equals("03")){
+            vigencia_inicial="Marzo";
+        }
+        if(v.equals("04")){
+            vigencia_inicial="Abril";
+        }
+        if(v.equals("05")){
+            vigencia_inicial="Mayo";
+        }
+        if(v.equals("06")){
+            vigencia_inicial="Junio";
+        }
+        if(v.equals("07")){
+            vigencia_inicial="Julio";
+        }
+        if(v.equals("08")){
+            vigencia_inicial="Agosto";
+        }
+        if(v.equals("09")){
+            vigencia_inicial="Septiembre";
+        }
+        if(v.equals("10")){
+            vigencia_inicial="Octubre";
+        }
+        if(v.equals("11")){
+            vigencia_inicial="Noviembre";
+        }
+        if(v.equals("12")){
+            vigencia_inicial="Diciembre";
+        }
+
+        return vigencia_inicial;
+    }
 
     public void imprimir(String formato) {
         int len =0;
@@ -7805,6 +7887,14 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 }else if(tipoEntrega == 0){
                     tipoentrega="quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.";
                 }
+                String vigencia=MainActivity.vigencia;
+                String vigencia_inicial=MainActivity.vigencia_inicial;
+                String []recorte1=vigencia.split("-");
+                String []recorte2=vigencia_inicial.split("-");
+                vigencia_inicial=vigencia_inicial(recorte2[1]);
+                vigencia=vigencia_final(recorte1[1]);
+
+
                String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
                     Paragraph p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las "+hora +" horas del día "
                         +dia+" de " + getMes2(me.trim())+ " del año "+ a+ ", el suscrito "
@@ -7812,10 +7902,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             datos + " me constituí física y legalmente  "+ spMeConstitui.getSelectedItem().toString().toLowerCase() + " marcada (o) con el número "
                         + etNumero.getText().toString()+" "+etNuemroInterior.getText().toString() + " de la calle " + etCalle.getText().toString() + " entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " + etFraccionamiento.getText().toString()
                             + "  cerciorándome de ser este el domicilio correcto  donde se realiza la visita de inspección, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el   artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco, con credencial oficial con fotografía folio número "
-                            +"  "+ folio + " , vigente de Abril 2020 a Junio 2020 , expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString()
+                            +"  "+ folio + " , vigente de "+vigencia_inicial+" 2020 a "+vigencia+" 2020 , expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString()
                             + " manifiesta ser " + etVManifiesta.getText().toString() + " , propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello, el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. "
                             + etNombreT.getText().toString() + " y " + etNombreT1.getText().toString() + " por el " + spdesignado.getSelectedItem().toString() + ", mismos que se identifican con " + spIdentificaT.getSelectedItem().toString() + " " + etIfeT.getText().toString() + " , " + spIdentificaT1.getSelectedItem().toString() + " " + etIfeT2.getText().toString() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: "
-                            + hechos + "Los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim().trim()
+                            + hechos + "Los cuales constituyen infracción a lo dispuesto por los " + etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim().trim()
                             + ". Lo anterior de conformidad a lo dispuesto por los " + etArticulo.getText().toString().trim()
                             + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim()
                             + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151)."
@@ -8966,12 +9056,20 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 m=Integer.parseInt(vig1[1]);
                 ax=Integer.parseInt(vig1[0]);
 
+                String vigencia=MainActivity.vigencia;
+                String vigencia_inicial=MainActivity.vigencia_inicial;
+                String []recorte1=vigencia.split("-");
+                String []recorte2=vigencia_inicial.split("-");
+                vigencia_inicial=vigencia_inicial(recorte2[1]);
+                vigencia=vigencia_final(recorte1[1]);
+
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
                 canvas.moveText(150, 447+c);
-                canvas.showText("01 de Abril");
+                //canvas.showText("01 de Abril");
+                canvas.showText(recorte2[2]+" de "+ vigencia_inicial);
                 canvas.endText();
                 canvas.restoreState();
 
@@ -8989,7 +9087,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
                 canvas.moveText(350, 447+c);
-                canvas.showText(d1 + " de " + getMes(m).toLowerCase());
+                canvas.showText(recorte1[2] + " de " + vigencia);
                 canvas.endText();
                 canvas.restoreState();
 
@@ -10134,13 +10232,21 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 }else if(tipoEntrega == 0){
                     tipoentrega="quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.";
                 }
+
+                String vigencia=MainActivity.vigencia;
+                String vigencia_inicial=MainActivity.vigencia_inicial;
+                String []recorte1=vigencia.split("-");
+                String []recorte2=vigencia_inicial.split("-");
+                vigencia_inicial=vigencia_inicial(recorte2[1]);
+                vigencia=vigencia_final(recorte1[1]);
+
                 String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
                 Paragraph p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las "+hora +" horas del día "
                         +dia+" de " + getMes2(me.trim())+ " del año "+ a+ ", el suscrito "
                         + spnombre.getSelectedItem().toString() + " Inspector Municipal con clave "+ clave + ", facultado para llevar a cabo la inspección y vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente  "+ spMeConstitui.getSelectedItem().toString().toLowerCase() + " marcada (o) con el número "
                         + etNumero.getText().toString()+" "+etNuemroInterior.getText().toString() + " de la calle " + etCalle.getText().toString() + " entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " + etFraccionamiento.getText().toString()
                         + "  cerciorándome de ser este el domicilio correcto donde se realiza la visita de inspección, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco, con credencial oficial con fotografía folio número "
-                        +"  "+ folio + " , vigente de Abril 2020 a Junio 2020 , expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString()
+                        +"  "+ folio + " , vigente de "+vigencia_inicial+" 2020 a "+vigencia+" 2020 , expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString()
                         + " manifiesta ser " + etVManifiesta.getText().toString() + " , propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello, el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. "
                         + etNombreT.getText().toString() + " y " + etNombreT1.getText().toString() + " por el " + spdesignado.getSelectedItem().toString() + ", mismos que se identifican con " + spIdentificaT.getSelectedItem().toString() + " " + etIfeT.getText().toString() + " , " + spIdentificaT1.getSelectedItem().toString() + " " + etIfeT2.getText().toString() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: "
                         + hechos + "Los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim().trim()
@@ -11262,12 +11368,19 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 m=Integer.parseInt(vig1[1]);
                 ax=Integer.parseInt(vig1[0]);
 
+                String vigencia=MainActivity.vigencia;
+                String vigencia_inicial=MainActivity.vigencia_inicial;
+                String []recorte1=vigencia.split("-");
+                String []recorte2=vigencia_inicial.split("-");
+                vigencia_inicial=vigencia_inicial(recorte2[1]);
+                vigencia=vigencia_final(recorte1[1]);
+
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
                 canvas.moveText(140, 415+c);
-                canvas.showText("Abril");
+                canvas.showText(vigencia_inicial);
                 canvas.endText();
                 canvas.restoreState();
 
@@ -11285,7 +11398,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
                 canvas.moveText(350, 415+c);
-                canvas.showText(getMes(m));
+                canvas.showText(vigencia);
                 canvas.endText();
                 canvas.restoreState();
 
