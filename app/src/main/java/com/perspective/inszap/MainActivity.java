@@ -1050,35 +1050,42 @@ public class MainActivity extends Activity {
 	
 	public boolean ingresar(String usuario, String pass){
 		boolean r = false;
+
+
 		GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
 		SQLiteDatabase db = gestionarBD.getReadableDatabase();
 		try {
 			Cursor c = db.rawQuery("Select * from C_inspector where nombre = '" + usuario + "' and contrasena = '" + pass + "'", null);
-			if(c.moveToFirst()){
-
-				vigencia_inicial=c.getString(c.getColumnIndex("vigencia_inicial"));
-				vigencia=c.getString(c.getColumnIndex("vigencia"));
-				System.out.println(vigencia_inicial);
-				System.out.println(vigencia);
-				Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(vigencia);
-                //Date date2=new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-01");
-
-				//System.out.println(date1);
-				//System.out.println(date);
+			if(c.moveToFirst()) {
+				if (usuario.trim().equals("Administrador")) {
+					r = true;
+				} else {
 
 
-				if(date.compareTo(date1)<0){
-					r=true;
+					vigencia_inicial = c.getString(c.getColumnIndex("vigencia_inicial"));
+					vigencia = c.getString(c.getColumnIndex("vigencia"));
+					System.out.println(vigencia_inicial);
+					System.out.println(vigencia);
+					Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(vigencia);
+					//Date date2=new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-01");
 
+					//System.out.println(date1);
+					//System.out.println(date);
+
+
+					if (date.compareTo(date1) < 0) {
+						r = true;
+
+					} else {
+						r = false;
+						mensaje = "Las vigencias se actualizaran";
+					}
+
+				}
 				}else{
-					r=false;
-					mensaje="Las vigencias se actualizaran";
+					r = false;
 				}
 
-
-			}else{
-				r=false;
-			}
 			c.close();
 
 		} catch (Exception e) {
