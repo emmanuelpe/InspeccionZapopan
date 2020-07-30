@@ -1066,23 +1066,25 @@ public class MainActivity extends Activity {
 					vigencia = c.getString(c.getColumnIndex("vigencia"));
 					System.out.println(vigencia_inicial);
 					System.out.println(vigencia);
-					Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(vigencia);
+					Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(vigencia.trim());
 					//Date date2=new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-01");
 
-					//System.out.println(date1);
-					//System.out.println(date);
+					System.out.println(date1);
+					System.out.println(date);
 
 
 					if (date.compareTo(date1) < 0) {
 						r = true;
-
+						System.out.println("fechas  funka");
 					} else {
+						System.out.println("fechas no funkan");
 						r = false;
 						mensaje = "Las vigencias se actualizaran";
 					}
 
 				}
 				}else{
+				System.out.println("no entro a la db");
 					r = false;
 				}
 
