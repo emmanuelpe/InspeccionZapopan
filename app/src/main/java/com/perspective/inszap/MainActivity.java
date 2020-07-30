@@ -1057,7 +1057,7 @@ public class MainActivity extends Activity {
 		try {
 			Cursor c = db.rawQuery("Select * from C_inspector where nombre = '" + usuario + "' and contrasena = '" + pass + "'", null);
 			if(c.moveToFirst()) {
-				if (usuario.trim().equals("Administrador")) {
+				if (usuario.trim().equals("Administrador")||usuario.trim().equals("administrador")) {
 					r = true;
 				} else {
 
