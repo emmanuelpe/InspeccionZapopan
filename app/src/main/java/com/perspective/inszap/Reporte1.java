@@ -768,7 +768,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                 numeros = "";
                 fotografias = "";
                 total = 0;
-                String sql = "select * from Levantamiento where fecha between '" + fecha1 + "' and '" + fecha2 + "'";
+                String sql = "select * from Levantamiento where fecha between '" + fecha1 + "' and '" + fecha2 + "' and id_c_inspector1="+MainActivity.id_ins_sesion;
                 Cursor cursor;
                 GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
                 SQLiteDatabase db = gestion.getReadableDatabase();

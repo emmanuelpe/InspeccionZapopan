@@ -118,7 +118,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	private EditText etNum,etFecham,etfecha,etDiaPlazo,etIfeI,etNoI,etVigI,etIfeA,etIfeA1,etIfeA2,etIfeA3,etIfeA4,etNoA,etNoA1,etNoA2,etNoA3,etNoA4,etVigA,etVigA1,etVigA2,etVigA3,etVigA4,etNombreT,etIfeT,etDesc,etDesc1,etDesc2,etDesc3,etDesc4,etdato,etdato1,etdato2,etdato3,etdato4,desf,desf1,desf2,etNombreV,etFraccionamiento,etCalle,etNumero,etPropietario,etNombreT1,etIfeT2,etManifiesta,etNuemroInterior,etApellidoP,etApellidoM,etCitatorio,etNumeroActa,etEspecificacion,etDFoto,etDFoto1,etDFoto2,etDFoto3,etVManifiesta,etVIdentifica,etLatitud,etLongitud,etAnoCitatorio,etAnoOrden,etCondominio/*etDensidad*/,etManzana,etLote,etReferencia,etBuscar,etfolio,/*etAlineamiento,*/etConstruccion, etGiro, etMotivo,etOrden1,etEntreC,etEntreC1,etResponsable,etRegistro,etMedida,etArticulo,etInspccionFue,etDFoto4,etDFoto5,etDFoto6,etDFoto7,etDFoto8,etDFoto9,etDFoto10,etDFoto11,etDFoto12,etDFoto13,etDFoto14,etDFoto15,etDFoto16,etDFoto17,etDFoto18,etDFoto19,etLGiro,etAGiro,etAlicencia,etSector,etNombreComercial,etObs,etObs1,etObs2,etObs3,etObs4,etBCol,etOtro,etDondeActua,etNumeroSellos;
 	private LinearLayout lldiv,cons,llNota,llplazo,llreincidencia,llcomp,llconcepto,llPla,llfundamento;
 	private RelativeLayout rlcampo,rlProp,rlTestA,rlVisita,rlLicencias,rlDonde_actua;
-	private RadioGroup /*radiogroup,*/rgReincidencia,rgPopiedad;
+	private RadioGroup /*radiogroup,*/rgReincidencia,rgPopiedad,rgTipo;
 	static final int DATE_DIALOG_ID = 0;
 	private boolean desc=false,desc1=false,desc2=false,desc3=false,desc4=false,citatorio,inicio = false, res = false,consu = false,resu = false,resov = false,guarda = false;
 	final Calendar c = Calendar.getInstance();
@@ -539,6 +539,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
         etOtro = findViewById(R.id.etOtro);
         rgPopiedad = findViewById(R.id.rgPropiedad);
+        rgTipo = findViewById(R.id.rgTipo);
         spuni = findViewById(R.id.spUni);
         spuni1 = findViewById(R.id.spUni1);
         spuni2 = findViewById(R.id.spUni2);
@@ -699,7 +700,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         spUsoH.setOnItemSelectedListener(this);
 
         spZona.setOnItemSelectedListener(this);
-
+        rgTipo.setOnCheckedChangeListener(this);
         rgPopiedad.setOnCheckedChangeListener(this);
         mostrarReglamentos();
         
@@ -7211,17 +7212,19 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 etOtro.setVisibility(View.VISIBLE);
                 break;
 
-            case R.id.rbF:
+            case R.id.rbF2:
                 tipoEntrega = 0;
+                Log.v("tipoEntrega",String.valueOf(tipoEntrega));
                 break;
 
-            case R.id.rbN:
+            case R.id.rbN2:
                 tipoEntrega = 1;
                 Log.v("tipoEntrega",String.valueOf(tipoEntrega));
                 break;
 
-            case R.id.rbC:
+            case R.id.rbC2:
                 tipoEntrega = 2;
+                Log.v("tipoEntrega",String.valueOf(tipoEntrega));
                 break;
 
                 default:
@@ -7936,7 +7939,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
                                     " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en " + uso +" marcada (o)  con el número " +
                                     numero + " de la calle " + etCalle.getText().toString() + " entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " + etFraccionamiento.getText().toString().trim() + " " + etCondominio.getText().toString().trim() + ", cerciorándome de ser este el domicilio por coincidir con la nomenclatura oficial y/o georreferencia, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número" +
-                                    " "+folio + ", vigente de " +vigencia_inicial+ " del "+recorte2[0]+"+ a " +  vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString().trim() +
+                                    " "+folio + ", vigente de " +vigencia_inicial+ " del "+recorte2[0]+" a " +  vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString().trim() +
                                     " manifiesta ser " + etVManifiesta.getText().toString() + " del lugar en que se actúa, propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía por lo que fueron designados los C.C. " + etNombreT.getText().toString().trim() + " y " + etNombreT1.getText().toString().trim() + " por el " + spdesignado.getSelectedItem().toString().trim() +
                                     " mismos que se identifican con " + spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString() + ", " + spIdentificaT1.getSelectedItem().toString().trim() + " " + etIfeT2.getText().toString() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " +
                                     hechos + " Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + ". Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
@@ -7948,16 +7951,16 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en. " +
                                     etDondeActua.getText().toString().trim() + " marcada (o)  con el número " + numero + " de  la  calle " + etCalle.getText().toString().trim() + " entre las calles " + etEntreC.getText().toString().trim() + " y, " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " +
                                     etFraccionamiento.getText().toString().trim() + " " + etCondominio.getText().toString().trim() + ", cerciorándome de ser este el domicilio donde se realiza la visita de inspección y la actividad comercial, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado " +
-                                    "por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número " +" "+ folio + ", vigente de " +vigencia_inicial+ " del "+recorte2[0]+ "+ a " +  vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del " +
+                                    "por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número " +" "+ folio + ", vigente de " +vigencia_inicial+ " del "+recorte2[0]+ " a " +  vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del " +
                                     "Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString().trim() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString() + " manifiesta ser " + etVManifiesta.getText().toString().trim() + " del giro " +
                                     etGiro.getText().toString().trim() + ", propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. " +
                                     etNombreT.getText().toString().trim() + " y " + etNombreT1.getText().toString().trim() + " por el " + spdesignado.getSelectedItem().toString().trim() + ", mismos que se identifican con " + spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString().trim() + ", " +
                                     spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString().trim() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  " +
-                                    "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + hechos + " los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
+                                    "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + hechos + " Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
                                     "indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + ". Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " +
                                     etManifiesta.getText().toString().trim() + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
                                     "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
-                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan,"+tipoentrega+" =Fin del texto=",font1);
+                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=",font1);
                         }
                         p2.setAlignment(Element.ALIGN_JUSTIFIED);
                         p2.add(chunk);
@@ -10357,7 +10360,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en. " +
                             etDondeActua.getText().toString().trim() + " marcada (o)  con el número " + numero + " de  la  calle " + etCalle.getText().toString().trim() + " entre las calles " + etEntreC.getText().toString().trim() + " y, " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " +
                             etFraccionamiento.getText().toString().trim() + " " + etCondominio.getText().toString().trim() + ", cerciorándome de ser este el domicilio donde se realiza la visita de inspección y la actividad comercial, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado " +
-                            "por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número " +" "+ folio + ", vigente de " +vigencia_inicial+ " del "+recorte2[0]+ "+ a " +  vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del " +
+                            "por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número " +" "+ folio + ", vigente de " +vigencia_inicial+ " del "+recorte2[0]+ " a " +  vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del " +
                             "Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString().trim() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString() + " manifiesta ser " + etVManifiesta.getText().toString().trim() + " del giro " +
                             etGiro.getText().toString().trim() + ", propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. " +
                             etNombreT.getText().toString().trim() + " y " + etNombreT1.getText().toString().trim() + " por el " + spdesignado.getSelectedItem().toString().trim() + ", mismos que se identifican con " + spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString().trim() + ", " +
@@ -12453,7 +12456,213 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			return true;
 			}
 	});
-	
+
+    public String horaTOletra(String hora){
+        String [] corteHora = hora.split(":");
+
+        //Hora
+        if(corteHora[0].trim().equals("07")){
+            if(Integer.valueOf(corteHora[1])<=10){
+                if(corteHora[0].trim().equals("01"))
+                    return "siete horas con un minuto";
+                if(corteHora[0].trim().equals("02"))
+                    return "siete horas con dos minutos";
+                if(corteHora[0].trim().equals("03"))
+                    return "siete horas con tres minutos";
+                if(corteHora[0].trim().equals("04"))
+                    return "siete horas con cuatro minutos";
+                if(corteHora[0].trim().equals("05"))
+                    return "siete horas con cinco minutos";
+                if(corteHora[0].trim().equals("06"))
+                    return "siete horas con seis minutos";
+                if(corteHora[0].trim().equals("07"))
+                    return "siete horas con siete minutos";
+                if(corteHora[0].trim().equals("08"))
+                    return "siete horas con ocho minutos";
+                if(corteHora[0].trim().equals("09"))
+                    return "siete horas con nueve minutos";
+                if(corteHora[0].trim().equals("10"))
+                    return "siete horas con diez minutos";
+            }
+            if(Integer.valueOf(corteHora[1])>10 && Integer.valueOf(corteHora[1])<=20){
+                if(corteHora[0].trim().equals("11"))
+                    return "siete horas con once minutos";
+                if(corteHora[0].trim().equals("12"))
+                    return "siete horas con doce minutos";
+                if(corteHora[0].trim().equals("13"))
+                    return "siete horas con trece minutos";
+                if(corteHora[0].trim().equals("14"))
+                    return "siete horas con catorce minutos";
+                if(corteHora[0].trim().equals("15"))
+                    return "siete horas con quince minutos";
+                if(corteHora[0].trim().equals("16"))
+                    return "siete horas con dieciseis minutos";
+                if(corteHora[0].trim().equals("17"))
+                    return "siete horas con diecisiete minutos";
+                if(corteHora[0].trim().equals("18"))
+                    return "siete horas con dieciocho minutos";
+                if(corteHora[0].trim().equals("19"))
+                    return "siete horas con diecinueve minutos";
+                if(corteHora[0].trim().equals("20"))
+                    return "siete horas con veinte minutos";
+            }
+            if(Integer.valueOf(corteHora[1])>20 && Integer.valueOf(corteHora[1])<=30){
+                if(corteHora[0].trim().equals("21"))
+                    return "siete horas con veintiuno minutos";
+                if(corteHora[0].trim().equals("22"))
+                    return "siete horas con veintidós minutos";
+                if(corteHora[0].trim().equals("23"))
+                    return "siete horas con veintitrés minutos";
+                if(corteHora[0].trim().equals("24"))
+                    return "siete horas con veinticuatro minutos";
+                if(corteHora[0].trim().equals("25"))
+                    return "siete horas con veinticinco minutos";
+                if(corteHora[0].trim().equals("26"))
+                    return "siete horas con veintiséis minutos";
+                if(corteHora[0].trim().equals("27"))
+                    return "siete horas con veintisiete minutos";
+                if(corteHora[0].trim().equals("28"))
+                    return "siete horas con veintisiete minutos";
+                if(corteHora[0].trim().equals("29"))
+                    return "siete horas con veintinueve minutos";
+                if(corteHora[0].trim().equals("30"))
+                    return "siete horas con treinta minutos";
+            }
+            if(Integer.valueOf(corteHora[1])>30 && Integer.valueOf(corteHora[1])<=40){
+                if(corteHora[0].trim().equals("21"))
+                    return "siete horas con veintiuno minutos";
+                if(corteHora[0].trim().equals("22"))
+                    return "siete horas con veintidós minutos";
+                if(corteHora[0].trim().equals("23"))
+                    return "siete horas con veintitrés minutos";
+                if(corteHora[0].trim().equals("24"))
+                    return "siete horas con veinticuatro minutos";
+                if(corteHora[0].trim().equals("25"))
+                    return "siete horas con veinticinco minutos";
+                if(corteHora[0].trim().equals("26"))
+                    return "siete horas con veintiséis minutos";
+                if(corteHora[0].trim().equals("27"))
+                    return "siete horas con veintisiete minutos";
+                if(corteHora[0].trim().equals("28"))
+                    return "siete horas con veintisiete minutos";
+                if(corteHora[0].trim().equals("29"))
+                    return "siete horas con veintinueve minutos";
+                if(corteHora[0].trim().equals("30"))
+                    return "siete horas con treinta minutos";
+            }
+            if(Integer.valueOf(corteHora[1])>40 && Integer.valueOf(corteHora[1])<=50){
+                if(corteHora[0].trim().equals("21"))
+                    return "siete horas con veintiuno minutos";
+                if(corteHora[0].trim().equals("22"))
+                    return "siete horas con veintidós minutos";
+                if(corteHora[0].trim().equals("23"))
+                    return "siete horas con veintitrés minutos";
+                if(corteHora[0].trim().equals("24"))
+                    return "siete horas con veinticuatro minutos";
+                if(corteHora[0].trim().equals("25"))
+                    return "siete horas con veinticinco minutos";
+                if(corteHora[0].trim().equals("26"))
+                    return "siete horas con veintiséis minutos";
+                if(corteHora[0].trim().equals("27"))
+                    return "siete horas con veintisiete minutos";
+                if(corteHora[0].trim().equals("28"))
+                    return "siete horas con veintisiete minutos";
+                if(corteHora[0].trim().equals("29"))
+                    return "siete horas con veintinueve minutos";
+                if(corteHora[0].trim().equals("30"))
+                    return "siete horas con treinta minutos";
+            }
+            if(Integer.valueOf(corteHora[1])>50 && Integer.valueOf(corteHora[1])<60){
+                if(corteHora[0].trim().equals("21"))
+                    return "siete horas con veintiuno minutos";
+                if(corteHora[0].trim().equals("22"))
+                    return "siete horas con veintidós minutos";
+                if(corteHora[0].trim().equals("23"))
+                    return "siete horas con veintitrés minutos";
+                if(corteHora[0].trim().equals("24"))
+                    return "siete horas con veinticuatro minutos";
+                if(corteHora[0].trim().equals("25"))
+                    return "siete horas con veinticinco minutos";
+                if(corteHora[0].trim().equals("26"))
+                    return "siete horas con veintiséis minutos";
+                if(corteHora[0].trim().equals("27"))
+                    return "siete horas con veintisiete minutos";
+                if(corteHora[0].trim().equals("28"))
+                    return "siete horas con veintisiete minutos";
+                if(corteHora[0].trim().equals("29"))
+                    return "siete horas con veintinueve minutos";
+                if(corteHora[0].trim().equals("30"))
+                    return "siete horas con treinta minutos";
+            }
+        }
+        if(corteHora[0].trim().equals("08")){
+
+
+        }
+        if(corteHora[0].trim().equals("09")){
+
+
+        }
+        if(corteHora[0].trim().equals("10")){
+
+
+        }
+        if(corteHora[0].trim().equals("11")){
+
+
+        }
+        if(corteHora[0].trim().equals("12")){
+
+
+        }
+        if(corteHora[0].trim().equals("13")){
+
+
+        }
+        if(corteHora[0].trim().equals("14")){
+
+
+        }
+        if(corteHora[0].trim().equals("15")){
+
+
+        }
+        if(corteHora[0].trim().equals("16")){
+
+
+        }
+        if(corteHora[0].trim().equals("17")){
+
+
+        }
+        if(corteHora[0].trim().equals("18")){
+
+
+        }
+        if(corteHora[0].trim().equals("19")){
+
+
+        }
+        if(corteHora[0].trim().equals("20")){
+
+
+        }
+        if(corteHora[0].trim().equals("21")){
+
+
+        }
+        if(corteHora[0].trim().equals("22")){
+
+
+        }
+        if(corteHora[0].trim().equals("23")){
+
+
+        }
+      return " ";
+    }
+
+
 	@SuppressLint({ "InflateParams", "DefaultLocale" })
 	private void printSampleGDL() {
 		if (mSampleDialog == null) {

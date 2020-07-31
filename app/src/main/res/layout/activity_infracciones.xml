@@ -2510,20 +2510,20 @@
 							android:layout_marginBottom="5dp">
 
 							<RadioButton
-								android:id="@+id/rbF"
+								android:id="@+id/rbF2"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:text="Entrega fisica"
 								android:checked="true"/>
 
 							<RadioButton
-								android:id="@+id/rbN"
+								android:id="@+id/rbN2"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:text="@string/negativo"/>
 
 							<RadioButton
-								android:id="@+id/rbC"
+								android:id="@+id/rbC2"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:text="@string/cerrado"/>
