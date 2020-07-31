@@ -2303,13 +2303,33 @@
 									android:text="@string/art"
 									android:layout_gravity="center" 
 									style="@style/Subtitle"/> -->
-				    	
+								<Button
+									android:id="@+id/etAcepA"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:text="Aceptar medidas "
+									android:textSize="12sp"
+									android:layout_below="@id/llfundamento"
+									android:visibility="gone"
+
+									></Button>
+								<Button
+									android:id="@+id/etdeleA"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:text="Eliminar "
+									android:textSize="12sp"
+									android:layout_below="@id/llfundamento"
+									android:layout_toRightOf="@id/etAcepA"
+									android:visibility="gone"
+
+									></Button>
 								<EditText 
 									android:id="@+id/etArticulos"
 									android:layout_width="fill_parent"
 									android:layout_height="100dp"
 									android:hint="@string/art"
-									android:layout_below="@id/llfundamento"
+									android:layout_below="@id/etAcepA"
 									android:inputType="textMultiLine|textCapSentences"
 									android:enabled="true"/>
 								
@@ -2473,9 +2493,44 @@
 
                             </RelativeLayout>
                         </LinearLayout>
-					
-					
-	    		
+
+						<TextView
+							android:layout_width="fill_parent"
+							android:layout_height="wrap_content"
+							android:text="@string/Tipo_entrega_informacion"
+							android:gravity="center"
+							style="@style/Div"/>
+
+						<RadioGroup
+							android:id="@+id/rgTipo"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginLeft="5dp"
+							android:layout_marginTop="5dp"
+							android:layout_marginBottom="5dp">
+
+							<RadioButton
+								android:id="@+id/rbF"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:text="Entrega fisica"
+								android:checked="true"/>
+
+							<RadioButton
+								android:id="@+id/rbN"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:text="@string/negativo"/>
+
+							<RadioButton
+								android:id="@+id/rbC"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:text="@string/cerrado"/>
+
+						</RadioGroup>
+
+
 						<TextView
 							android:layout_width="fill_parent"
 							android:layout_height="wrap_content"

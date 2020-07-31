@@ -109,11 +109,11 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class InfraccionesActivity extends Activity implements OnClickListener, Runnable, OnCheckedChangeListener, OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
 
-	private Button btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
+	private Button btneliminarA,btnArticulos,btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
 	private TextView tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvPropiedad,spselec1,tvDonde;
 	private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",unidades="",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",fracciones = "",articulos = "",folio = "",clave = "",fol = "",Axmedidas="",concatM="";;
 	private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:"; 
-	private int mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0;
+	private int mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0,tipoEntrega = 0;
 	private Spinner spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spMeConstitui,spDensidad,spCreglamentos;
 	private EditText etNum,etFecham,etfecha,etDiaPlazo,etIfeI,etNoI,etVigI,etIfeA,etIfeA1,etIfeA2,etIfeA3,etIfeA4,etNoA,etNoA1,etNoA2,etNoA3,etNoA4,etVigA,etVigA1,etVigA2,etVigA3,etVigA4,etNombreT,etIfeT,etDesc,etDesc1,etDesc2,etDesc3,etDesc4,etdato,etdato1,etdato2,etdato3,etdato4,desf,desf1,desf2,etNombreV,etFraccionamiento,etCalle,etNumero,etPropietario,etNombreT1,etIfeT2,etManifiesta,etNuemroInterior,etApellidoP,etApellidoM,etCitatorio,etNumeroActa,etEspecificacion,etDFoto,etDFoto1,etDFoto2,etDFoto3,etVManifiesta,etVIdentifica,etLatitud,etLongitud,etAnoCitatorio,etAnoOrden,etCondominio/*etDensidad*/,etManzana,etLote,etReferencia,etBuscar,etfolio,/*etAlineamiento,*/etConstruccion, etGiro, etMotivo,etOrden1,etEntreC,etEntreC1,etResponsable,etRegistro,etMedida,etArticulo,etInspccionFue,etDFoto4,etDFoto5,etDFoto6,etDFoto7,etDFoto8,etDFoto9,etDFoto10,etDFoto11,etDFoto12,etDFoto13,etDFoto14,etDFoto15,etDFoto16,etDFoto17,etDFoto18,etDFoto19,etLGiro,etAGiro,etAlicencia,etSector,etNombreComercial,etObs,etObs1,etObs2,etObs3,etObs4,etBCol,etOtro,etDondeActua,etNumeroSellos;
 	private LinearLayout lldiv,cons,llNota,llplazo,llreincidencia,llcomp,llconcepto,llPla,llfundamento;
@@ -123,6 +123,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	private boolean desc=false,desc1=false,desc2=false,desc3=false,desc4=false,citatorio,inicio = false, res = false,consu = false,resu = false,resov = false,guarda = false;
 	final Calendar c = Calendar.getInstance();
 	final Calendar cal = Calendar.getInstance();
+    private ArrayList<String> reglaArt= new ArrayList<>();
+    private ArrayList<String> SeguimientoM1=new ArrayList<>();
+    private ArrayList<String> reglaArt2= new ArrayList<>();
+    private ArrayList<Integer> norepeat= new ArrayList<>();
+    private String concatB="";
+    private String concatA="";
+    private int contador=0;
 	final ArrayList<String> arregloLista = new ArrayList<String>();
 	private ArrayList<String> arregloLista1 = new ArrayList<String>();
 	private ArrayList<String> arregloLista2 = new ArrayList<String>();
@@ -214,6 +221,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         title = savedInstanceState.getString("direccion");
         this.us = savedInstanceState.getString("usuario");
         this.id = savedInstanceState.getInt("id");
+        //this.id_inspector1=savedInstanceState.getInt("id_inspector");
+        System.out.println(MainActivity.id_ins_sesion);
         this.direccion = savedInstanceState.getString("direccion");
         this.conf = savedInstanceState.getInt("con");
         
@@ -285,6 +294,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         }
         
         this.btnFecha = (Button)findViewById(R.id.btnFecha);
+        this.btnArticulos=(Button)findViewById(R.id.etAcepA);
+        this.btneliminarA=(Button)findViewById(R.id.etdeleA);
         this.spIdentifica = (Spinner)findViewById(R.id.spIdentifica);
         this.spManifiesta = (Spinner)findViewById(R.id.spManifiesta);
         this.spuso = (Spinner)findViewById(R.id.spuso);
@@ -1405,7 +1416,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		});
         
         spInfraccion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
+          int id2=id;
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 				if(con == 0){
@@ -1416,6 +1427,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				    if(position > 0) {
                         infraccion++;
                         btnaceptar.setVisibility(View.VISIBLE);
+                        if(id2==2 || id2==5){
+                            btnArticulos.setVisibility(View.VISIBLE);
+                            btneliminarA.setVisibility(View.VISIBLE);
+                        }
+
                         Log.i("Ento al else", (String) spInfraccion.getItemAtPosition(position));
                         int pos = 0;
                         for (int i = 0; i < arregloInfraccion.get(position).length(); i++) {
@@ -1818,6 +1834,24 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         ArrayAdapter<CharSequence> adapter5 = ArrayAdapter.createFromResource(this, R.array.designado_array, android.R.layout.simple_spinner_dropdown_item);
         spdesignado.setAdapter(adapter5);
         spdesignado1.setAdapter(adapter5);
+
+        this.btnArticulos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(contador>=1){
+                    mostrarArt(contador);
+                }else{
+
+                }
+
+            }
+        });
+        this.btneliminarA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reiniciarA();
+            }
+        });
         
         this.tveliminar.setOnClickListener(new View.OnClickListener() {
 			
@@ -3072,6 +3106,15 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						else {
 							Log.i("Inserto", "no");
 						}
+        if(id==2 || id==5){
+            for(int i=0;i<SeguimientoM1.size();i++){
+                if(ingresarSeguimientoM(etNumeroActa.getText().toString(), String.valueOf(MainActivity.id_ins_sesion),SeguimientoM1.get(i),fecha)>0){
+                    Log.i("Inserto", "si");
+                }else {
+                    Log.i("No inserto", "no");
+                }
+            }
+        }
 						
 						if(ingresarNumeroActa(etNumeroActa.getText().toString(), spnombre.getSelectedItem().toString(), fecha) > 0)
 							Log.i("Acta", "si");
@@ -3144,7 +3187,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 								spuso.getSelectedItem().toString() , spDensidad.getSelectedItem().toString()/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
 								Integer.parseInt(spgravedad.getSelectedItem().toString()), Integer.parseInt(etDiaPlazo.getText().toString()), etfecha.getText().toString(), hr, etCondominio.getText().toString(), etLote.getText().toString(), etManzana.getText().toString(), etReferencia.getText().toString(), "", "", etConstruccion.getText().toString(),idComp,etEntreC.getText().toString(),etEntreC1.getText().toString(),etResponsable.getText().toString(),etRegistro.getText().toString(),"N",identifica,
 								spPeticion.getSelectedItem().toString(),firmas,etMotivo.getText().toString(),etMedida.getText().toString().trim() + " "+ etNumeroSellos.getText().toString().trim(),etArticulo.getText().toString(),
-								id_inspector3,id_inspector4,id_inspector5,id_inspector6,idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5,etLGiro.getText().toString().trim(),etAGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),spNE.getSelectedItem().toString(),reincidencia,0) + "");
+								id_inspector3,id_inspector4,id_inspector5,id_inspector6,idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5,etLGiro.getText().toString().trim(),etAGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),spNE.getSelectedItem().toString(),reincidencia,tipoEntrega) + "");
 					
 						//String peticion,String v_firma,String motivo_orden,String medida_seguridad,String articulo_medida
 						String[] iHecho = null;
@@ -3249,7 +3292,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                         fecha + " " + hr, "POR CALIFICAR", etCondominio.getText().toString() + " ", etManzana.getText().toString(), etLote.getText().toString(), etReferencia.getText().toString(), "", /*etAlineamiento.getText().toString()*/"", etConstruccion.getText().toString(), etEntreC.getText().toString(), etEntreC1.getText().toString(), etResponsable.getText().toString(), etRegistro.getText().toString(), idComp,
                                         etMedida.getText().toString().trim() + " " + etNumeroSellos.getText().toString().trim(), etArticulo.getText().toString().trim(), etMotivo.getText().toString().trim(), id_inspector3, id_inspector4, id_inspector5, id_inspector6,
                                         idCompetencia1, idCompetencia2, idCompetencia3, idCompetencia4, idCompetencia5
-                                        , etLGiro.getText().toString().trim(), etAGiro.getText().toString(), axo, etNombreComercial.getText().toString(), etSector.getText().toString(), conf, spPeticion.getSelectedItem().toString(), spNE.getSelectedItem().toString(), reincidencia,0,/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
+                                        , etLGiro.getText().toString().trim(), etAGiro.getText().toString(), axo, etNombreComercial.getText().toString(), etSector.getText().toString(), conf, spPeticion.getSelectedItem().toString(), spNE.getSelectedItem().toString(), reincidencia,tipoEntrega,/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
 
                                     resu = true;
 
@@ -3257,8 +3300,25 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 } else
                                     Log.i("inserto", "false");
                             }
-						} else
-						    resu = false;
+						} else{
+						    resu=false;
+                        }
+
+        if (conn.validarConexion(InfraccionesActivity.this)) {
+            Log.i("sii", "internet " + id_inspector2);
+            //nv
+            for(int i=0;i<SeguimientoM1.size();i++){
+                if (Connection.insertSeguimiento(etNumeroActa.getText().toString(), String.valueOf(MainActivity.id_ins_sesion),SeguimientoM1.get(i),fecha,"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertSeguimientoM.php")) {
+
+
+
+                    Log.i("inserto SEGUIMIENTO", "true");
+                }
+                else
+                    Log.i("NO INSERTO SEGUIMIENTO", "false");
+            }
+
+        }
 					
 						
 												
@@ -4552,6 +4612,27 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	}
     	db.close();
     	return n;
+    }
+
+    public long ingresarSeguimientoM(String numeroActa,String idinspector,String medida_precautoria,String fecha){
+        long n = 0;
+        GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
+        SQLiteDatabase db = gestionarBD.getWritableDatabase();
+
+        if(db != null) {
+            ContentValues cv = new ContentValues();
+            //cv.put("id_MedidaS",id_MedidaS);
+            cv.put("numero_acta", numeroActa);
+            cv.put("id_inspector", idinspector);
+            cv.put("medida_precautoria", medida_precautoria);
+            cv.put("fecha",fecha);
+
+
+            n = db.insert("SeguimientoM", null, cv);
+        }
+        db.close();
+
+        return n;
     }
     
     public void validarFecha(){
@@ -7130,6 +7211,19 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 etOtro.setVisibility(View.VISIBLE);
                 break;
 
+            case R.id.rbF:
+                tipoEntrega = 0;
+                break;
+
+            case R.id.rbN:
+                tipoEntrega = 1;
+                Log.v("tipoEntrega",String.valueOf(tipoEntrega));
+                break;
+
+            case R.id.rbC:
+                tipoEntrega = 2;
+                break;
+
                 default:
 
                     break;
@@ -7549,8 +7643,90 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			Log.e("Error al abrir", e.getMessage());
 		}
 	}
-	
-	
+
+    public String vigencia_inicial(String v){
+        String vigencia_inicial="";
+        if(v.equals("01")){
+            vigencia_inicial="Enero";
+        }
+        if(v.equals("02")){
+            vigencia_inicial="Febrero";
+        }
+        if(v.equals("03")){
+            vigencia_inicial="Marzo";
+        }
+        if(v.equals("04")){
+            vigencia_inicial="Abril";
+        }
+        if(v.equals("05")){
+            vigencia_inicial="Mayo";
+        }
+        if(v.equals("06")){
+            vigencia_inicial="Junio";
+        }
+        if(v.equals("07")){
+            vigencia_inicial="Julio";
+        }
+        if(v.equals("08")){
+            vigencia_inicial="Agosto";
+        }
+        if(v.equals("09")){
+            vigencia_inicial="Septiembre";
+        }
+        if(v.equals("10")){
+            vigencia_inicial="Octubre";
+        }
+        if(v.equals("11")){
+            vigencia_inicial="Noviembre";
+        }
+        if(v.equals("12")){
+            vigencia_inicial="Diciembre";
+        }
+
+        return vigencia_inicial;
+    }
+
+    public String vigencia_final(String v){
+        String vigencia_inicial="";
+        if(v.equals("01")){
+            vigencia_inicial="Enero";
+        }
+        if(v.equals("02")){
+            vigencia_inicial="Febrero";
+        }
+        if(v.equals("03")){
+            vigencia_inicial="Marzo";
+        }
+        if(v.equals("04")){
+            vigencia_inicial="Abril";
+        }
+        if(v.equals("05")){
+            vigencia_inicial="Mayo";
+        }
+        if(v.equals("06")){
+            vigencia_inicial="Junio";
+        }
+        if(v.equals("07")){
+            vigencia_inicial="Julio";
+        }
+        if(v.equals("08")){
+            vigencia_inicial="Agosto";
+        }
+        if(v.equals("09")){
+            vigencia_inicial="Septiembre";
+        }
+        if(v.equals("10")){
+            vigencia_inicial="Octubre";
+        }
+        if(v.equals("11")){
+            vigencia_inicial="Noviembre";
+        }
+        if(v.equals("12")){
+            vigencia_inicial="Diciembre";
+        }
+
+        return vigencia_inicial;
+    }
 	
 	public void imprimir(String formato) {
 		
@@ -7735,6 +7911,20 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         } else {
                             datos = "en términos de lo dispuesto por el artículo 73, segundo párrafo, de la Ley del Procedimiento Administrativo del Estado de Jalisco,";
                         }
+                        String tipoentrega="";
+                        if(tipoEntrega == 2){
+                            tipoentrega="finjándose un tanto del acta en lugar seguro y visible del domicilio en que se actúa al encontrar cerrado el domicilio, en términos de lo dispuesto por el artículo 87 de la Ley del Procedimiento Administrativo del Estado de Jalisco.";
+                        }else if(tipoEntrega == 1){
+                            tipoentrega="finjándose un tanto del acta en lugar seguro y visible del domicilio en que se actúa al encontrar negativa a recibirla, en términos de lo dispuesto por el artículo 87 de la Ley del Procedimiento Administrativo del Estado de Jalisco.";
+                        }else if(tipoEntrega == 0){
+                            tipoentrega="quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.";
+                        }
+                        String vigencia=MainActivity.vigencia;
+                        String vigencia_inicial=MainActivity.vigencia_inicial;
+                        String []recorte1=vigencia.split("-");
+                        String []recorte2=vigencia_inicial.split("-");
+                        vigencia_inicial=vigencia_inicial(recorte2[1]);
+                        vigencia=vigencia_final(recorte1[1]);
 
                         Paragraph p2 ;
 				        if(id == 4) {
@@ -7746,28 +7936,28 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
                                     " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en " + uso +" marcada (o)  con el número " +
                                     numero + " de la calle " + etCalle.getText().toString() + " entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " + etFraccionamiento.getText().toString().trim() + " " + etCondominio.getText().toString().trim() + ", cerciorándome de ser este el domicilio por coincidir con la nomenclatura oficial y/o georreferencia, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número" +
-                                    " "+folio + ", vigente del 01 de Abril del 2020 a " +  d + " de " + getMes(m) + " del " + ax + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString().trim() +
+                                    " "+folio + ", vigente de " +vigencia_inicial+ " del "+recorte2[0]+"+ a " +  vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString().trim() +
                                     " manifiesta ser " + etVManifiesta.getText().toString() + " del lugar en que se actúa, propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía por lo que fueron designados los C.C. " + etNombreT.getText().toString().trim() + " y " + etNombreT1.getText().toString().trim() + " por el " + spdesignado.getSelectedItem().toString().trim() +
                                     " mismos que se identifican con " + spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString() + ", " + spIdentificaT1.getSelectedItem().toString().trim() + " " + etIfeT2.getText().toString() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " +
-                                    hechos + " los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString().trim() + " Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + " Lo anterior de conformidad a lo dispuesto por los artículos. " + etArticulo.getText().toString().trim() + " En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
-                                    " Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
-                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando para constancia los que en ella intervinieron, quisieron y supieron hacerlo. =Fin del texto=",font1);
+                                    hechos + " Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + ". Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
+                                    ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
+                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+"  =Fin del texto=",font1);
                         } else {
                             String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
                             p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del  año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
                                     " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en. " +
                                     etDondeActua.getText().toString().trim() + " marcada (o)  con el número " + numero + " de  la  calle " + etCalle.getText().toString().trim() + " entre las calles " + etEntreC.getText().toString().trim() + " y, " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " +
                                     etFraccionamiento.getText().toString().trim() + " " + etCondominio.getText().toString().trim() + ", cerciorándome de ser este el domicilio donde se realiza la visita de inspección y la actividad comercial, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado " +
-                                    "por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número " +" "+ folio + ", vigente del 01 de Abril del 2020 a " +  d + " de " + getMes(m) + " del " + ax + ", expedida por el Director de Inspección y Vigilancia del " +
+                                    "por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número " +" "+ folio + ", vigente de " +vigencia_inicial+ " del "+recorte2[0]+ "+ a " +  vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del " +
                                     "Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString().trim() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString() + " manifiesta ser " + etVManifiesta.getText().toString().trim() + " del giro " +
                                     etGiro.getText().toString().trim() + ", propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. " +
                                     etNombreT.getText().toString().trim() + " y " + etNombreT1.getText().toString().trim() + " por el " + spdesignado.getSelectedItem().toString().trim() + ", mismos que se identifican con " + spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString().trim() + ", " +
                                     spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString().trim() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  " +
-                                    "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + hechos + " los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString().trim() + " Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
-                                    "indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + " Lo anterior de conformidad a lo dispuesto por los artículos. " + etArticulo.getText().toString().trim() + " En uso de su derecho el visitado manifiesta: " +
-                                    etManifiesta.getText().toString().trim() + " Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
+                                    "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + hechos + " los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
+                                    "indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + ". Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " +
+                                    etManifiesta.getText().toString().trim() + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
                                     "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
-                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando para constancia los que en ella intervinieron, quisieron y supieron hacerlo. =Fin del texto=",font1);
+                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan,"+tipoentrega+" =Fin del texto=",font1);
                         }
                         p2.setAlignment(Element.ALIGN_JUSTIFIED);
                         p2.add(chunk);
@@ -9060,12 +9250,20 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				    m=Integer.parseInt(vig1[1]);
 				    ax=Integer.parseInt(vig1[0]);
 
+                    String vigencia=MainActivity.vigencia;
+                    String vigencia_inicial=MainActivity.vigencia_inicial;
+                    String []recorte1=vigencia.split("-");
+                    String []recorte2=vigencia_inicial.split("-");
+                    vigencia_inicial=vigencia_inicial(recorte2[1]);
+                    vigencia=vigencia_final(recorte1[1]);
+
                     canvas.saveState();
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
                     canvas.moveText(150, 447+c);
-                    canvas.showText("01 de Abril");
+                    //canvas.showText("01 de Abril");
+                    canvas.showText(recorte2[2]+" de "+ vigencia_inicial);
                     canvas.endText();
                     canvas.restoreState();
 
@@ -9077,15 +9275,15 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     canvas.showText("20");
                     canvas.endText();
                     canvas.restoreState();
-				    
-				    canvas.saveState();
-			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-			        canvas.beginText();
-			        canvas.setFontAndSize(bf, 9);
-			        canvas.moveText(350, 447+c);
-			        canvas.showText(d1 + " de " + getMes(m).toLowerCase());
-			        canvas.endText();
-			        canvas.restoreState();
+
+                    canvas.saveState();
+                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                    canvas.beginText();
+                    canvas.setFontAndSize(bf, 9);
+                    canvas.moveText(350, 447+c);
+                    canvas.showText(recorte1[2] + " de " + vigencia);
+                    canvas.endText();
+                    canvas.restoreState();
 			        
 			        canvas.saveState();
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -10122,39 +10320,53 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 }else {
                     datos = "en términos de lo dispuesto por el artículo 73, segundo párrafo, de la Ley del Procedimiento Administrativo del Estado de Jalisco,";
                 }
+                String tipoentrega="";
+                if(tipoEntrega == 2){
+                    tipoentrega="finjándose un tanto del acta en lugar seguro y visible del domicilio en que se actúa al encontrar cerrado el domicilio, en términos de lo dispuesto por el artículo 87 de la Ley del Procedimiento Administrativo del Estado de Jalisco.";
+                }else if(tipoEntrega == 1){
+                    tipoentrega="finjándose un tanto del acta en lugar seguro y visible del domicilio en que se actúa al encontrar negativa a recibirla, en términos de lo dispuesto por el artículo 87 de la Ley del Procedimiento Administrativo del Estado de Jalisco.";
+                }else if(tipoEntrega == 0){
+                    tipoentrega="quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.";
+                }
 
+                String vigencia=MainActivity.vigencia;
+                String vigencia_inicial=MainActivity.vigencia_inicial;
+                String []recorte1=vigencia.split("-");
+                String []recorte2=vigencia_inicial.split("-");
+                vigencia_inicial=vigencia_inicial(recorte2[1]);
+                vigencia=vigencia_final(recorte1[1]);
                 Paragraph p2 ;
                 if(id == 4) {
+                    String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
                     if(!spuso.getSelectedItem().toString().contains("pública") | !spuso.getSelectedItem().toString().contains("público"))
                         uso = "el uso " + spuso.getSelectedItem().toString() + " " + spUsoH.getSelectedItem().toString();
                     else
                         uso = spuso.getSelectedItem().toString();
-                    String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
                     p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
                             " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en " + uso +" marcada (o)  con el número " +
                             numero + " de la calle " + etCalle.getText().toString() + " entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " + etFraccionamiento.getText().toString().trim() + " " + etCondominio.getText().toString().trim() + ", cerciorándome de ser este el domicilio por coincidir con la nomenclatura oficial y/o georreferencia, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número" +
-                            " "+folio + ", vigente del 01 de Abril del 2020 a " +  d + " de " + getMes(m) + " del " + ax + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString().trim() +
+                            " "+folio + ", vigente de " +vigencia_inicial+ " del "+recorte2[0]+"+ a " +  vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString().trim() +
                             " manifiesta ser " + etVManifiesta.getText().toString() + " del lugar en que se actúa, propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía por lo que fueron designados los C.C. " + etNombreT.getText().toString().trim() + " y " + etNombreT1.getText().toString().trim() + " por el " + spdesignado.getSelectedItem().toString().trim() +
                             " mismos que se identifican con " + spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString() + ", " + spIdentificaT1.getSelectedItem().toString().trim() + " " + etIfeT2.getText().toString() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " +
-                            hechos + " los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString().trim() + " Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + " Lo anterior de conformidad a lo dispuesto por los artículos. " + etArticulo.getText().toString().trim() + " En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
-                            " Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
-                            hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando para constancia los que en ella intervinieron, quisieron y supieron hacerlo. =Fin del texto=",font1);
+                            hechos + " Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + ". Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
+                            ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
+                            hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+"  =Fin del texto=",font1);
                 } else {
                     String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
                     p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del  año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
                             " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en. " +
                             etDondeActua.getText().toString().trim() + " marcada (o)  con el número " + numero + " de  la  calle " + etCalle.getText().toString().trim() + " entre las calles " + etEntreC.getText().toString().trim() + " y, " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " +
                             etFraccionamiento.getText().toString().trim() + " " + etCondominio.getText().toString().trim() + ", cerciorándome de ser este el domicilio donde se realiza la visita de inspección y la actividad comercial, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado " +
-                            "por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número " +" "+ folio + ", vigente del 01 de Abril del 2020 a " +  d + " de " + getMes(m) + " del " + ax + ", expedida por el Director de Inspección y Vigilancia del " +
+                            "por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número " +" "+ folio + ", vigente de " +vigencia_inicial+ " del "+recorte2[0]+ "+ a " +  vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del " +
                             "Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString().trim() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString() + " manifiesta ser " + etVManifiesta.getText().toString().trim() + " del giro " +
                             etGiro.getText().toString().trim() + ", propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. " +
                             etNombreT.getText().toString().trim() + " y " + etNombreT1.getText().toString().trim() + " por el " + spdesignado.getSelectedItem().toString().trim() + ", mismos que se identifican con " + spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString().trim() + ", " +
                             spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString().trim() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  " +
-                            "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + hechos + " los cuales constituyen infracción a lo dispuesto por los artículos: " + etInfraccion.getText().toString().trim() + " Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
-                            "indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + " Lo anterior de conformidad a lo dispuesto por los artículos. " + etArticulo.getText().toString().trim() + " En uso de su derecho el visitado manifiesta: " +
-                            etManifiesta.getText().toString().trim() + " Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
+                            "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + hechos + " los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
+                            "indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + ". Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " +
+                            etManifiesta.getText().toString().trim() + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
                             "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
-                            hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando para constancia los que en ella intervinieron, quisieron y supieron hacerlo. =Fin del texto=",font1);
+                            hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan,"+tipoentrega+" =Fin del texto=",font1);
                 }
                 p2.setAlignment(Element.ALIGN_JUSTIFIED);
                 p2.add(chunk);
@@ -10594,12 +10806,20 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 m=Integer.parseInt(vig1[1]);
                 ax=Integer.parseInt(vig1[0]);
 
+                String vigencia=MainActivity.vigencia;
+                String vigencia_inicial=MainActivity.vigencia_inicial;
+                String []recorte1=vigencia.split("-");
+                String []recorte2=vigencia_inicial.split("-");
+                vigencia_inicial=vigencia_inicial(recorte2[1]);
+                vigencia=vigencia_final(recorte1[1]);
+
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(140, 415+c);
-                canvas.showText("Abril");
+                canvas.moveText(150, 447+c);
+                //canvas.showText("01 de Abril");
+                canvas.showText(recorte2[2]+" de "+ vigencia_inicial);
                 canvas.endText();
                 canvas.restoreState();
 
@@ -10607,7 +10827,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(260, 415+c);
+                canvas.moveText(280, 447+c);
                 canvas.showText("20");
                 canvas.endText();
                 canvas.restoreState();
@@ -10616,8 +10836,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(350, 415+c);
-                canvas.showText(getMes(m));
+                canvas.moveText(350, 447+c);
+                canvas.showText(recorte1[2] + " de " + vigencia);
                 canvas.endText();
                 canvas.restoreState();
 
@@ -10625,7 +10845,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(505, 415+c);
+                canvas.moveText(505, 447+c);
                 canvas.showText(String.valueOf(ax).substring(2, 4));
                 canvas.endText();
                 canvas.restoreState();
@@ -11850,10 +12070,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		case R.id.spMedida:
             Log.e("medida","aqio con " + id);
 			if(!spMedida.getSelectedItem().toString().trim().equalsIgnoreCase("")) {
-				medidas1 = "";
+				medidas1 = spMedida.getSelectedItem().toString();;
 
 				if(id == 2 | id == 5) {
-				    if(id == 2) {
+				    if(id == 2 || id==5 ) {
                         if(spMedida.getSelectedItem().toString().trim().contains("Clausura") || spMedida.getSelectedItem().toString().contains("CLAUSURA")) {
                             Toast toast = Toast.makeText(getApplicationContext(),"Agregar sellos de clausura",Toast.LENGTH_LONG);
                             toast.setGravity(0,0,15);
@@ -11865,10 +12085,29 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etNumeroSellos.setVisibility(View.VISIBLE);
                         else
                             etNumeroSellos.setVisibility(View.GONE);
+
+
+                        Log.e("agrego medida",orden.get(spMedida.getSelectedItemPosition()).trim());
+                        Log.e("agrego articulo",art.get(spMedida.getSelectedItemPosition()).trim());
+                        reglaArt.add(orden.get(spMedida.getSelectedItemPosition()).trim());
+                        SeguimientoM1.add(spMedida.getSelectedItem().toString());
+                        reglaArt2.add(art.get(spMedida.getSelectedItemPosition()).trim());
+                        //concatM = spMedida.getSelectedItem().toString() + ",";
+                        if(contador==0)
+                            concatM = spMedida.getSelectedItem().toString();
+                        else
+                            concatM = ", "+spMedida.getSelectedItem().toString();
+                        contador++;
+                        // }
+
+                        etMedida.append(concatM);
                     }
-				    Log.e("medida","aqio con 5");
-					etMedida.setText(spMedida.getSelectedItem().toString().trim());
-					etArticulo.setText(art.get(spMedida.getSelectedItemPosition()).trim() + " del " + orden.get(spMedida.getSelectedItemPosition()).trim());
+				    /*if(id==4){
+                        Log.e("medida","aqio con 5");
+                        etMedida.setText(spMedida.getSelectedItem().toString().trim());
+                        etArticulo.setText(art.get(spMedida.getSelectedItemPosition()).trim() + " del " + orden.get(spMedida.getSelectedItemPosition()).trim());
+                    }*/
+
 				}
 				if(id == 4) {
                     medidax.add(spMedida.getSelectedItem().toString().trim());
@@ -11952,8 +12191,168 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	public String setMedidas(String medidas) {
         return medidas + " HOLA MUNDO";
     }
-	
-	public void buscarTestigo(Spinner sp){
+    public void mostrarArt(int x){
+        int tamano=etMedida.getText().toString().length();
+        String coma = etMedida.getText().toString().substring(tamano-1,tamano);
+        if(coma.contains(",")){
+            String medida=etMedida.getText().toString().trim().substring(0,etMedida.getText().toString().length()-1);
+            etMedida.setText(medida);
+        }
+
+        if(x>0) {
+            if (reglaArt.size() > 0) {
+
+
+                int i=0;
+                int z=0;
+
+                if ( reglaArt.size()>1) {
+                    Log.i("tamaño array", String.valueOf(reglaArt.size()));
+                    //Log.i("comparacion",reglaArt.get(i)+" = " +reglaArt.get(x));
+                    boolean f=false;
+                    boolean f2=false;
+                    for (int c = 0; c < reglaArt.size(); c++) {
+                        z=c+1;
+                        if(z<reglaArt.size()) {
+                            if (reglaArt.get(0).equals(reglaArt.get(z))) {
+
+                                Log.i("comparacion", reglaArt.get(i) + " = " + reglaArt.get(z));
+                                if(f==false){
+                                    concatA += reglaArt2.get(c) + ", "+reglaArt2.get(z)+", ";
+                                    concatB = reglaArt.get(i);
+                                    f=true;
+                                }else{
+                                    concatA += reglaArt2.get(z)+ ", ";
+                                }
+
+                            } else {
+
+                                Log.i("comparacion2", reglaArt.get(i) + " = " + reglaArt.get(z));
+
+                                norepeat.add(z);
+                                Log.i("norepeat numero", String.valueOf(z));
+
+                                concatA += reglaArt2.get(i);
+                                concatB = reglaArt.get(i);
+                                concatA = concatA.substring(0, concatA.length() - 1) + " del " + concatB+", ";
+
+                            }
+
+                        }else{
+                            break;
+                        }
+                    }
+
+
+
+                }else{
+                    if(reglaArt.size()==1){
+                        concatA += reglaArt2.get(0) + ", ";
+                        concatB = reglaArt.get(0);
+                    }
+
+                }
+
+
+                //concatA=art.get(spMedida.getSelectedItemPosition()).trim()+" del " + orden.get(spMedida.getSelectedItemPosition()).trim()+",";
+
+            }
+            if (norepeat.size() > 1 ) {
+
+
+                Log.i("entro a norepeat","YES");
+                Log.e("tamaño de no repeat", String.valueOf(norepeat.size()));
+                if(norepeat.size()==2 ){
+                    for (int i = 0; i < norepeat.size(); i++) {
+                        if(reglaArt.get(norepeat.get(0)).equals(reglaArt.get(norepeat.get(1)))){
+                            concatA += reglaArt2.get(norepeat.get(0))+", "+reglaArt2.get(norepeat.get(1));
+                            concatB = reglaArt.get(norepeat.get(0));
+                            concatA = concatA + " del " + concatB;
+                            Log.i("iguales repeat 1",concatA);
+                            etArticulo.append(concatA);
+                            break;
+                        }else  if(!reglaArt.get(norepeat.get(0)).equals(reglaArt.get(norepeat.get(1)))){
+                            concatA = reglaArt2.get(norepeat.get(i));
+                            concatB = reglaArt.get(norepeat.get(i));
+                            concatA = concatA + " del " + concatB;
+                            Log.i("diferentes repeat 1",concatA);
+                            etArticulo.append(concatA);
+                        }
+
+
+                    }
+                }
+
+                if(norepeat.size()>2){
+                    int z=0;
+                    for (int i = 0; i < norepeat.size(); i++) {
+                        z=i+1;
+                        if(z<norepeat.size()) {
+                            if (reglaArt.get(norepeat.get(0)).equals(reglaArt.get(norepeat.get(i + 1)))) {
+                                concatA += reglaArt2.get(norepeat.get(0).intValue()) + ", " + reglaArt2.get(norepeat.get(i+1).intValue());
+                                concatB = reglaArt.get(norepeat.get(0).intValue());
+                                concatA = concatA + " del " + concatB;
+                                Log.i("iguales repeat 2", concatA);
+                                etArticulo.append(concatA);
+
+                            } else if (!reglaArt.get(norepeat.get(0)).equals(reglaArt.get(norepeat.get(i + 1))) ) {
+                                concatA = reglaArt2.get(norepeat.get(i+1).intValue());
+                                concatB = reglaArt.get(norepeat.get(i+1).intValue());
+                                concatA = concatA + " del " + concatB;
+                                Log.i("diferentes repeat 2 ", concatA);
+                                etArticulo.append(concatA);
+                            }
+
+                        }else{
+                            break;
+                        }
+                    }
+                }
+
+
+
+            }else{
+                if(norepeat.size()==1){
+                    etArticulo.append(concatA+" ");
+
+                    Log.e("entro","norepeat==1");
+                    Log.e("entro",norepeat.get(0).toString());
+                    concatA = reglaArt2.get(norepeat.get(0).intValue());
+                    concatB = reglaArt.get(norepeat.get(0).intValue());
+                    concatA = concatA + " del " + concatB;
+
+                    etArticulo.append(concatA);
+                }
+                if(norepeat.size()<=0){
+                    //concatA = concatA.substring(0, concatA.length() - 1) + " del " + concatB;
+                    etArticulo.append(concatA);
+                    etArticulo.append(concatB);
+
+
+
+                }
+
+            }
+        }
+
+
+    }
+
+    public void reiniciarA(){
+        reglaArt.clear();
+        reglaArt2.clear();
+        etArticulo.setText("");
+        etMedida.setText("");
+        contador=0;
+        concatA="";
+        concatB="";
+        concatM="";
+        //fa="";
+        norepeat.clear();
+        spMedida.setSelection(0);
+        SeguimientoM1.clear();
+    }
+    public void buscarTestigo(Spinner sp){
     	
     	GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
     	SQLiteDatabase db = gestionarBD.getReadableDatabase();

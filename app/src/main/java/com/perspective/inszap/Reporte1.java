@@ -274,7 +274,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                             }
                                         }
                                     }
-                                    int id = getIntent().getExtras().getInt("id");
+                                    int id = MainActivity.id_ins_sesion;
                                     String id1=String.valueOf(id);
                                     System.out.println(id1);
                                     //String sql2 = "select numero_acta,medida_precautoria from SeguimientoM where id_inspector='"+id1+"'";

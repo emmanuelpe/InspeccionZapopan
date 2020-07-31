@@ -103,6 +103,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		savedInstanceState = getIntent().getExtras();
 		this.us = savedInstanceState.getString("usuario");
 		this.id = savedInstanceState.getInt("id");
+		System.out.println(MainActivity.id_ins_sesion);
 		this.direccion = savedInstanceState.getString("direccion");
         prog=(TextView) findViewById(R.id.progresoF);
 		Typeface helvetica = Typeface.createFromAsset(getAssets(), "font/HelveticaNeueLTStd-Bd.otf");

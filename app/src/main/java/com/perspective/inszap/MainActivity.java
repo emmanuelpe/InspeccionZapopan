@@ -55,6 +55,7 @@ public class MainActivity extends Activity {
 	private Connection conn = new Connection();
 	private String usuario,pass,direccion,mensaje;
 	 static String vigencia,vigencia_inicial;
+	 static int id_ins_sesion;
 	private ArrayList<String> arregloLista = new ArrayList<String>();
 	private ArrayList<String> user = new ArrayList<String>();
 	private ArrayList<Integer> id = new ArrayList<Integer>();
@@ -1061,19 +1062,21 @@ public class MainActivity extends Activity {
 					r = true;
 				} else {
 
-
+                    id_ins_sesion=c.getInt(c.getColumnIndex("id_c_inspector"));
+					System.out.println(id_ins_sesion);
 					vigencia_inicial = c.getString(c.getColumnIndex("vigencia_inicial"));
 					vigencia = c.getString(c.getColumnIndex("vigencia"));
 					System.out.println(vigencia_inicial);
 					System.out.println(vigencia);
 					Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(vigencia.trim());
+					Date date2= new Date();
 					//Date date2=new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-01");
 
 					System.out.println(date1);
-					System.out.println(date);
+					System.out.println(date2);
 
 
-					if (date.compareTo(date1) < 0) {
+					if (date2.compareTo(date1) < 0) {
 						r = true;
 						System.out.println("fechas  funka");
 					} else {

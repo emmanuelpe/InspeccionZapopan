@@ -208,6 +208,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         title = savedInstanceState.getString("direccion");
         this.us = savedInstanceState.getString("usuario");
         this.id = savedInstanceState.getInt("id");
+        //this.id_inspector1=savedInstanceState.getInt("id_inspector");
         this.direccion = savedInstanceState.getString("direccion");
         this.conf = savedInstanceState.getInt("con");
 
@@ -3042,7 +3043,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 }
                 if(id==3){
                     for(int i=0;i<SeguimientoM1.size();i++){
-                        if(ingresarSeguimientoM(etNumeroActa.getText().toString(), String.valueOf(id),SeguimientoM1.get(i),fecha)>0){
+                        if(ingresarSeguimientoM(etNumeroActa.getText().toString(), String.valueOf(MainActivity.id_ins_sesion),SeguimientoM1.get(i),fecha)>0){
                             Log.i("Inserto", "si");
                         }else {
                             Log.i("No inserto", "no");
@@ -3238,13 +3239,15 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     }
                     else
                         Log.i("inserto", "false");
+                }else{
+                    resu=false;
                 }
 
                 if (conn.validarConexion(InfraccionesActivityTecnica.this)) {
                     Log.i("sii", "internet " + id_inspector2);
                     //nv
                     for(int i=0;i<SeguimientoM1.size();i++){
-                        if (Connection.insertSeguimiento(etNumeroActa.getText().toString(), String.valueOf(id),SeguimientoM1.get(i),fecha,"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertSeguimientoM.php")) {
+                        if (Connection.insertSeguimiento(etNumeroActa.getText().toString(), String.valueOf(MainActivity.id_ins_sesion),SeguimientoM1.get(i),fecha,"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertSeguimientoM.php")) {
 
 
 
@@ -10240,7 +10243,7 @@ public String vigencia_inicial(String v){
                 vigencia_inicial=vigencia_inicial(recorte2[1]);
                 vigencia=vigencia_final(recorte1[1]);
 
-                String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
+                /*String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
                 Paragraph p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las "+hora +" horas del día "
                         +dia+" de " + getMes2(me.trim())+ " del año "+ a+ ", el suscrito "
                         + spnombre.getSelectedItem().toString() + " Inspector Municipal con clave "+ clave + ", facultado para llevar a cabo la inspección y vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente  "+ spMeConstitui.getSelectedItem().toString().toLowerCase() + " marcada (o) con el número "
@@ -10256,8 +10259,26 @@ public String vigencia_inicial(String v){
                         + " Se da por concluida esta diligencia, siendo las " + hr + " horas del " +dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+"+=Fin del texto=",font1);
                 p2.setAlignment(Element.ALIGN_JUSTIFIED);
                 p2.add(chunk);
-                doc.add(p2);
+                doc.add(p2);*/
 
+                String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
+                Paragraph p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las "+hora +" horas del día "
+                        +dia+" de " + getMes2(me.trim())+ " del año "+ a+ ", el suscrito "
+                        + spnombre.getSelectedItem().toString() + " Inspector Municipal con clave "+ clave + ", facultado para llevar a cabo la inspección y vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, " +
+                        datos + " me constituí física y legalmente  "+ spMeConstitui.getSelectedItem().toString().toLowerCase() + " marcada (o) con el número "
+                        + etNumero.getText().toString()+" "+etNuemroInterior.getText().toString() + " de la calle " + etCalle.getText().toString() + " entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " + etFraccionamiento.getText().toString()
+                        + "  cerciorándome de ser este el domicilio correcto  donde se realiza la visita de inspección, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el   artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco, con credencial oficial con fotografía folio número "
+                        +"  "+ folio + " , vigente de "+vigencia_inicial+" 2020 a "+vigencia+" 2020 , expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString()
+                        + " manifiesta ser " + etVManifiesta.getText().toString() + " , propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello, el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. "
+                        + etNombreT.getText().toString() + " y " + etNombreT1.getText().toString() + " por el " + spdesignado.getSelectedItem().toString() + ", mismos que se identifican con " + spIdentificaT.getSelectedItem().toString() + " " + etIfeT.getText().toString() + " , " + spIdentificaT1.getSelectedItem().toString() + " " + etIfeT2.getText().toString() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: "
+                        + hechos + "Los cuales constituyen infracción a lo dispuesto por los " + etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim().trim()
+                        + ". Lo anterior de conformidad a lo dispuesto por los Artículo(s): " + etArticulo.getText().toString().trim()
+                        + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim()
+                        + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151)."
+                        + " Se da por concluida esta diligencia, siendo las " + hr + " horas del " +dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=",font1);
+                p2.setAlignment(Element.ALIGN_JUSTIFIED);
+                p2.add(chunk);
+                doc.add(p2);
                 Log.e("after 2","" + write.getVerticalPosition(false));
 
                 /*for (int y = (int) write.getVerticalPosition(false); y > 260; y-= 15) {
@@ -11379,8 +11400,9 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(140, 415+c);
-                canvas.showText(vigencia_inicial);
+                canvas.moveText(150, 447+c);
+                //canvas.showText("01 de Abril");
+                canvas.showText(recorte2[2]+" de "+ vigencia_inicial);
                 canvas.endText();
                 canvas.restoreState();
 
@@ -11388,7 +11410,7 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(260, 415+c);
+                canvas.moveText(280, 447+c);
                 canvas.showText("20");
                 canvas.endText();
                 canvas.restoreState();
@@ -11397,8 +11419,8 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(350, 415+c);
-                canvas.showText(vigencia);
+                canvas.moveText(350, 447+c);
+                canvas.showText(recorte1[2] + " de " + vigencia);
                 canvas.endText();
                 canvas.restoreState();
 
@@ -11406,7 +11428,7 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(505, 415+c);
+                canvas.moveText(505, 447+c);
                 canvas.showText(String.valueOf(ax).substring(2, 4));
                 canvas.endText();
                 canvas.restoreState();
