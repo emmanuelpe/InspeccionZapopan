@@ -2037,7 +2037,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							
 							rlcampo.setVisibility(View.GONE);
 							dato = "";
-							if(id==5){
+							if(id==5 || id==2){
                                 Log.e("Axmedidas", Axmedidas);
                                 medidas2(Axmedidas);
                             }
@@ -6079,11 +6079,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 medidas(cam);
                 adapter.notifyDataSetChanged();
             }
-            if (id != 5) {
+            if (id != 5 || id!=2) {
 
 
                 String sql = "";
-                if (id == 2 || id == 4)
+                if ( id == 4)
                     sql = "select competencia,ordenamiento from c_ordenamiento where campo = '" + cam + "' and id_c_direccion = " + id;
 
 
