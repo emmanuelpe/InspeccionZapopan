@@ -325,7 +325,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 this.btnUpdate.setOnClickListener(new OnClickListener() {
 	@Override
 	public void onClick(View v) {
-		Uri uri = Uri.parse("https://github.com/emmanuelpe/AppZap/raw/master/app-debug.apk");
+		Uri uri = Uri.parse("https://github.com/emmanuelpe/AppZap/blob/master/app-debug.apk");
 		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 		startActivity(intent);
 	}
