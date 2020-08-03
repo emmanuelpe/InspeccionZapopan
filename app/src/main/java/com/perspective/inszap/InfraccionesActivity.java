@@ -12693,7 +12693,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
 			final String cuerpo = "Zapopan, Jalisco, a las "+hora +" "+horaTOletra(hora)+" del día 10 de septiembre del año 2019 dos mil diecinueve." +
                     "El suscrito, "+spnombre.getSelectedItem().toString()+", Inspector Multimodal con clave operativa"+ clave +", en términos de lo dispuesto por los artículos 70 y 73, " +
-                    "segundo párrafo, de la Ley del Procedimiento Administrativo del Estado de Jalisco, me constituyo física y legalmente en la"+ spMeConstitui.getSelectedItem().toString().toLowerCase() + " " +
+                    "segundo párrafo, de la Ley del Procedimiento Administrativo del Estado de Jalisco, me constituyo física y legalmente en la "+ etCalle.getText().toString() +
                     "marcada(o) con el  número"+ etNumero.getText().toString()+" "+etNuemroInterior.getText().toString() + ", entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + "," + etFraccionamiento.getText().toString()+", cerciorado de lo anterior por haber tenido " +
                     "a la vista la placa de nomenclatura de la calle más próxima, y porque así lo corrobora quien manifiesta llamarse " + etNombreV.getText().toString() + ", " +
                     "visitado, ante quien me identifico con credencial oficial con fotografía folio número "+ folio + " , vigente del "+vigencia_inicial+" 2020 a "+vigencia+" 2020" +
