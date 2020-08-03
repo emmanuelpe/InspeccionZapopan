@@ -1433,6 +1433,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         if(id2==2 || id2==5){
                             btnArticulos.setVisibility(View.VISIBLE);
                             btneliminarA.setVisibility(View.VISIBLE);
+                        }else{
+                            btneliminarA.setVisibility(View.VISIBLE);
                         }
 
                         Log.i("Ento al else", (String) spInfraccion.getItemAtPosition(position));
@@ -4330,11 +4332,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
                 }
-                Log.e("entro al if donde  ax no esta lleno","yes");
+                //Log.e("entro al if donde  ax no esta lleno","yes");
                 condicion=condicion.substring(0, condicion.length() - 1);
                 sql += " campo in( " + condicion + ")";
             }else {
-                Log.e("entro al if donde  ax si esta lleno","yes");
+                //Log.e("entro al if donde  ax si esta lleno","yes");
                 condicion=condicion.substring(0, condicion.length() - 1);
                 sql += " campo in( " + condicion + ")";
             }
@@ -12952,10 +12954,45 @@ Por recibida el Acta número ____________________________________ por la cual s
 							BixolonPrinter.TEXT_SIZE_HORIZONTAL1 | BixolonPrinter.TEXT_SIZE_VERTICAL1, false);
 					
 					mBixolonPrinter.lineFeed(7, false);
-					
-					mBixolonPrinter.printText("G 1  \t  NE 1  \t R 1" + "\n", BixolonPrinter.ALIGNMENT_CENTER,
+                     String gravedad="";
+                     String NE="";
+                     String R="";
+                    if (spgravedad.getSelectedItem().toString().equalsIgnoreCase("1")) {
+                       gravedad="1";
+                    } else if (spgravedad.getSelectedItem().toString().equalsIgnoreCase("2")) {
+                        gravedad="2";
+                    } else if (spgravedad.getSelectedItem().toString().equalsIgnoreCase("3")) {
+                        gravedad="3";
+                    } else if (spgravedad.getSelectedItem().toString().equalsIgnoreCase("4")) {
+                        gravedad="4";
+                    } else {
+                        gravedad="5";
+                    }
+
+                    if (spNE.getSelectedItem().toString().equalsIgnoreCase("1")) {
+                       NE="1";
+                    } else if (spNE.getSelectedItem().toString().equalsIgnoreCase("2")) {
+                        NE="2";
+                    } else if (spNE.getSelectedItem().toString().equalsIgnoreCase("3")) {
+                        NE="3";
+                    } else if (spNE.getSelectedItem().toString().equalsIgnoreCase("4")) {
+                        NE="4";
+                    } else {
+                        NE="5";
+                    }
+
+                    if(swReincidencia.isChecked()) {
+                        R="1";
+                    } else {
+                        R="0";
+                    }
+
+					/*mBixolonPrinter.printText("G 1  \t  NE 1  \t R 1" + "\n", BixolonPrinter.ALIGNMENT_CENTER,
 							BixolonPrinter.TEXT_ATTRIBUTE_FONT_A, 
-							BixolonPrinter.TEXT_SIZE_HORIZONTAL1 | BixolonPrinter.TEXT_SIZE_VERTICAL1, false);
+							BixolonPrinter.TEXT_SIZE_HORIZONTAL1 | BixolonPrinter.TEXT_SIZE_VERTICAL1, false);*/
+                    mBixolonPrinter.printText("G"+gravedad+" \t "+"NE"+NE+" \t "+ "R"+R+ "\n", BixolonPrinter.ALIGNMENT_CENTER,
+                            BixolonPrinter.TEXT_ATTRIBUTE_FONT_A,
+                            BixolonPrinter.TEXT_SIZE_HORIZONTAL1 | BixolonPrinter.TEXT_SIZE_VERTICAL1, false);
 					
 					mBixolonPrinter.lineFeed(3, false);
 					
