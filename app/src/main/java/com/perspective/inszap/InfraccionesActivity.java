@@ -130,6 +130,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     private String concatB="";
     private String concatA="";
     private int contador=0;
+    private ArrayList<String> arrayincaseF= new ArrayList<>();
 	final ArrayList<String> arregloLista = new ArrayList<String>();
 	private ArrayList<String> arregloLista1 = new ArrayList<String>();
 	private ArrayList<String> arregloLista2 = new ArrayList<String>();
@@ -1420,7 +1421,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
           int id2=id;
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-				if(con == 0){
+                arrayincaseF.add((String) spInfraccion.getItemAtPosition(position));
+			    if(con == 0){
 					Log.i("Ento al if", (String)spInfraccion.getSelectedItem());
 					con ++;
 				}
@@ -2033,6 +2035,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							
 							rlcampo.setVisibility(View.GONE);
 							dato = "";
+							if(id==5){
+                                Log.e("Axmedidas", Axmedidas);
+                                medidas2(Axmedidas);
+                            }
 							String descrip = etEspecificacion.getText().toString()+".";
 							/*if (!Double.toString(latitud).equals("0.0") & !Double.toString(longitud).equals("0.0"))   
 								descrip += ". LAS COORDENADAS APROXIMADAS SON: LONGITUD: " + longitud + " LATITUD: " + latitud +".";*/
@@ -4244,7 +4250,130 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			}
     	}
     }
+    public void medidas2(String condicion) {
+        GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
+        SQLiteDatabase db = gestionarDB.getReadableDatabase();
 
+
+        if(db != null) {
+            String sql = "select * from c_medida_precautoria where ";
+            if(condicion.equalsIgnoreCase("")) {
+
+                //condicion=condicion.substring(0, condicion.length() - 1);
+                //sql += " 1 = 1";
+                //String infraccion="";
+                String sqlI="";
+                for(int i=0;i<arrayincaseF.size();i++){
+                    if(arrayincaseF.get(i).length()>2){
+                        sqlI="SELECT reg_anuncion,reg_gestion,reg_cementerio,reg_proteccion_conservacion,reg_proteccion_ambiente,reg_sonido,reg_alumbrado,reg_inclusion,reg_rastro,reg_policia,ley_bebidas,reg_residuos,regtiancom,reg_com_ind,reg_movilidad FROM C_infraccion WHERE infraccion like '%"+arrayincaseF.get(i).trim()+"%'";
+
+                    }
+
+                    Cursor cursor1 = db.rawQuery(sqlI, null);
+                    Log.e("sql:",sqlI);
+                    try {
+                        if(cursor1.moveToFirst()) {
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_anuncion")).length()>2){
+                                condicion+="'reg_anuncion',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_gestion")).length()>2){
+                                condicion+="'reg_gestion',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_cementerio")).length()>2){
+                                condicion+="'reg_cementerio',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_proteccion_conservacion")).length()>2){
+                                condicion+="'reg_proteccion_conservacion',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_proteccion_ambiente")).length()>2){
+                                condicion+="'reg_proteccion_ambiente',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_sonido")).length()>2){
+                                condicion+="'reg_sonido',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_alumbrado")).length()>2){
+                                condicion+="'reg_alumbrado',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_inclusion")).length()>2){
+                                condicion+="'reg_inclusion',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_rastro")).length()>2){
+                                condicion+="'reg_rastro',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_policia")).length()>2){
+                                condicion+="'reg_policia',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("ley_bebidas")).length()>2){
+                                condicion+="'ley_bebidas',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_residuos")).length()>2){
+                                condicion+="'reg_residuos',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("regtiancom")).length()>2){
+                                condicion+="'regtiancom',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_com_ind")).length()>2){
+                                condicion+="'reg_com_ind',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_movilidad")).length()>2){
+                                condicion+="'reg_movilidad',";
+                            }
+
+
+                            do {
+
+                            } while (cursor1.moveToNext());
+                        }
+                    }catch (SQLiteException e){
+                        System.out.println(e.getMessage());
+                    }
+
+
+                }
+                Log.e("entro al if donde  ax no esta lleno","yes");
+                condicion=condicion.substring(0, condicion.length() - 1);
+                sql += " campo in( " + condicion + ")";
+            }else {
+                Log.e("entro al if donde  ax si esta lleno","yes");
+                condicion=condicion.substring(0, condicion.length() - 1);
+                sql += " campo in( " + condicion + ")";
+            }
+            System.err.println(sql);
+            Cursor cursor = db.rawQuery(sql, null);
+            try {
+                if(cursor.moveToFirst()) {
+                    campos.clear();
+                    cmedida.clear();
+                    art.clear();
+                    orden.clear();
+
+                    campos.add("");
+                    cmedida.add("");
+                    art.add("");
+                    orden.add("");
+
+                    do {
+                        campos.add(cursor.getString(cursor.getColumnIndex("campo")));
+                        cmedida.add(cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim() + " " + cursor.getString(cursor.getColumnIndex("ordenamiento")).trim());
+                        art.add(cursor.getString(cursor.getColumnIndex("articulos")));
+                        orden.add(cursor.getString(cursor.getColumnIndex("ordenamiento")));
+                    } while (cursor.moveToNext());
+                }
+                if(id==5){
+                    adapter.notifyDataSetChanged();
+                    spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida));
+                }
+            } catch (SQLiteException e) {
+                System.out.println(e.getMessage());
+            }finally{
+                cursor.close();
+                db.close();
+                Log.v("change", "ok");
+                adapter.notifyDataSetChanged();
+                spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida));
+            }
+        }
+    }
     public void medidas() {
         GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarDB.getReadableDatabase();
@@ -5138,7 +5267,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    		valid = false;
 	    	}
 	    	if(foto == 0) {
-                sb.append("Fatlta tomar Fotografia. \n");
+                sb.append("Falta tomar Fotografia. \n");
                 valid = false;
             }
             if(!cbDatos.isChecked()) {
@@ -5843,146 +5972,129 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	try{
     	Cursor c = db.rawQuery("SELECT * FROM C_infraccion WHERE infraccion like '%" + nom + "%'", null);
     	Log.v("sql","SELECT * FROM C_infraccion WHERE infraccion like '" + nom + "%'");
-    	if(c.moveToFirst()){
-    		do{
-    			id_infra = c.getInt(0);
-    			unidad = c.getString(3);
-    			
-    			for (int i = 0; i < campo.size(); i++) {
-    				if (!campo.get(i).equalsIgnoreCase("")) {
-    					System.out.println(c.getColumnIndex(campo.get(i)));
-        				if (c.getColumnIndex(campo.get(i)) >= 0) {
-        					System.err.println(c.getString(c.getColumnIndex(campo.get(i))));
-        					if (i==0) {
-        						c1 = c.getString(c.getColumnIndex(campo.get(i)));
-        						if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
-        							cam = campo.get(i);
-        					}
-        					else if (i==1) {
-        						c2 = c.getString(c.getColumnIndex(campo.get(i)));
-        						if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
-        							cam = campo.get(i);
-        					}
-        					else if (i==2) {
-        						c3 = c.getString(c.getColumnIndex(campo.get(i)));
-        						if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
-        							cam = campo.get(i);
-        					}
-        					else if (i==3) {
-        						c4 = c.getString(c.getColumnIndex(campo.get(i)));
-        						if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
-        							cam = campo.get(i);
-        					}
-        					else if (i==4) {
-        						cam = campo.get(i);
-        						c5 = c.getString(c.getColumnIndex(campo.get(i)));
-        					}
-        					else if (i==5) {
-        						c6 = c.getString(c.getColumnIndex(campo.get(i)));
-        						if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
-        							cam = campo.get(i);
-        					}
-        					else if (i==6) {
-        						c7 = c.getString(c.getColumnIndex(campo.get(i)));
-        						if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
-        							cam = campo.get(i);
-        					}
-        					else if (i==7) {
-        						c8 = c.getString(c.getColumnIndex(campo.get(i)));
-        						if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
-        							cam = campo.get(i);
-        					}
-        					else if (i==8) {
-        						c9 = c.getString(c.getColumnIndex(campo.get(i)));
-        						if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
-        							cam = campo.get(i);
-        					}
-        					else if (i==9) {
-        						c0 = c.getString(c.getColumnIndex(campo.get(i)));
-        						if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
-        							cam = campo.get(i);
-        					}
-        					else if (i==10) {
-        						c11 = c.getString(c.getColumnIndex(campo.get(i)));
-        						if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
-        							cam = campo.get(i);
-        					}
-        					else if (i==11) {
-        						c12 = c.getString(c.getColumnIndex(campo.get(i)));
-        						if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
-        							cam = campo.get(i);
-        					}
-        					else if (i==12) {
-        						c13 = c.getString(c.getColumnIndex(campo.get(i)));
-        						if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
-        							cam = campo.get(i);
-        					}
-        					
-        					else if (i==13) {
-        						c14 = c.getString(c.getColumnIndex(campo.get(i)));
-        						if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
-        							cam = campo.get(i);
-        					}
-        					else if (i==14){
-        						c15 = c.getString(c.getColumnIndex(campo.get(i)));
-        						if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
-        							cam = campo.get(i);
-        					}
-        					else if (i==15){
-        						cam = c.getString(c.getColumnIndex(campo.get(i)));
-        						c16 = c.getString(c.getColumnIndex(campo.get(i)));
-        					}
-        					else if (i==16){
-        						c17 = c.getString(c.getColumnIndex(campo.get(i)));
-        						if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
-        							cam = campo.get(i);
-        					}
-        					else if (i==17){
-        						c18 = c.getString(c.getColumnIndex(campo.get(i)));
-        						if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
-        							cam = campo.get(i);
-        					}
-        					else if (i==18){
-        						c19 = c.getString(c.getColumnIndex(campo.get(i)));
-        						if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
-        							cam = campo.get(i);
-        					}
-        					else{
-        						c20 = c.getString(c.getColumnIndex(campo.get(i)));
-        						if(!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
-        							cam = campo.get(i);
-        					}
-        				}
+    	if(c.moveToFirst()) {
+            do {
+                id_infra = c.getInt(0);
+                unidad = c.getString(3);
 
-    				}
-    			}
-    			Log.i("codigo", "c1 " + c1  + " c2 " + c2 + " c3 " + c3 + " c4 " + c4 + " c5 " + c5 + "c6 " + c6  + " c7 " + c7 + " c8 " + c8 + " c9 " + c9 + " c0 " + c0  + " c11 " + c11 + " c12 " + c12 + " c13 " + c13 + " c14 " + c14 + " c15 " + c15 + " c16 " + c16 + " c17 " + c17  + " c18 " + c18 + " c19 " + c19 + " c20 " + c20);
-    			Log.i("Info", "cod: " + c.getString(4) + " ord: " + c.getString(6) + " lap: " + c.getString(7) + " ordenamiento_ " + c.getString(8) + " n " + c.getString(9) + " l " + c.getString(10));
-    		}while(c.moveToNext());
-    		c.close();
-    		if(id == 12) {
-	    		medidas(cam);
-	    		adapter.notifyDataSetChanged();
-    		}
-    		if(id == 2 | id == 5) {
-	    		medidas(cam);
-	    		adapter.notifyDataSetChanged();
-    		}
+                for (int i = 0; i < campo.size(); i++) {
+                    if (!campo.get(i).equalsIgnoreCase("")) {
+                        System.out.println(c.getColumnIndex(campo.get(i)));
+                        if (c.getColumnIndex(campo.get(i)) >= 0) {
+                            System.err.println(c.getString(c.getColumnIndex(campo.get(i))));
+                            if (i == 0) {
+                                c1 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                    cam = campo.get(i);
+                            } else if (i == 1) {
+                                c2 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                    cam = campo.get(i);
+                            } else if (i == 2) {
+                                c3 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                    cam = campo.get(i);
+                            } else if (i == 3) {
+                                c4 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                    cam = campo.get(i);
+                            } else if (i == 4) {
+                                cam = campo.get(i);
+                                c5 = c.getString(c.getColumnIndex(campo.get(i)));
+                            } else if (i == 5) {
+                                c6 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                    cam = campo.get(i);
+                            } else if (i == 6) {
+                                c7 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                    cam = campo.get(i);
+                            } else if (i == 7) {
+                                c8 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                    cam = campo.get(i);
+                            } else if (i == 8) {
+                                c9 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                    cam = campo.get(i);
+                            } else if (i == 9) {
+                                c0 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                    cam = campo.get(i);
+                            } else if (i == 10) {
+                                c11 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                    cam = campo.get(i);
+                            } else if (i == 11) {
+                                c12 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                    cam = campo.get(i);
+                            } else if (i == 12) {
+                                c13 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                    cam = campo.get(i);
+                            } else if (i == 13) {
+                                c14 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                    cam = campo.get(i);
+                            } else if (i == 14) {
+                                c15 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                    cam = campo.get(i);
+                            } else if (i == 15) {
+                                cam = c.getString(c.getColumnIndex(campo.get(i)));
+                                c16 = c.getString(c.getColumnIndex(campo.get(i)));
+                            } else if (i == 16) {
+                                c17 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                    cam = campo.get(i);
+                            } else if (i == 17) {
+                                c18 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                    cam = campo.get(i);
+                            } else if (i == 18) {
+                                c19 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                    cam = campo.get(i);
+                            } else {
+                                c20 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                    cam = campo.get(i);
+                            }
+                        }
 
-    		String sql;
-    		if(id == 5)
-    		    sql= "select competencia,ordenamiento from c_ordenamiento where campo = '" + cam + "' and id_c_direccion = " + 2;
-    		else
-                sql= "select competencia,ordenamiento from c_ordenamiento where campo = '" + cam + "' and id_c_direccion = " + id;
-    		System.err.println(sql);
-    		c = db.rawQuery(sql, null);
-    		if(c.moveToFirst()) {
-    			do {
-					System.err.println(c.getString(0) + " " + c.getString(1));
-					competencias = c.getString(0) + " " + c.getString(1);
-				} while (c.moveToNext());
-    		}
-    	}
+                    }
+                }
+                Log.i("codigo", "c1 " + c1 + " c2 " + c2 + " c3 " + c3 + " c4 " + c4 + " c5 " + c5 + "c6 " + c6 + " c7 " + c7 + " c8 " + c8 + " c9 " + c9 + " c0 " + c0 + " c11 " + c11 + " c12 " + c12 + " c13 " + c13 + " c14 " + c14 + " c15 " + c15 + " c16 " + c16 + " c17 " + c17 + " c18 " + c18 + " c19 " + c19 + " c20 " + c20);
+                Log.i("Info", "cod: " + c.getString(4) + " ord: " + c.getString(6) + " lap: " + c.getString(7) + " ordenamiento_ " + c.getString(8) + " n " + c.getString(9) + " l " + c.getString(10));
+            } while (c.moveToNext());
+            c.close();
+            if (id == 12) {
+                medidas(cam);
+                adapter.notifyDataSetChanged();
+            }
+            if (id == 2) {
+                medidas(cam);
+                adapter.notifyDataSetChanged();
+            }
+            if (id != 5) {
+
+
+                String sql = "";
+                if (id == 2 || id == 4)
+                    sql = "select competencia,ordenamiento from c_ordenamiento where campo = '" + cam + "' and id_c_direccion = " + id;
+
+
+                System.err.println(sql);
+                c = db.rawQuery(sql, null);
+                if (c.moveToFirst()) {
+                    do {
+                        System.err.println(c.getString(0) + " " + c.getString(1));
+                        competencias = c.getString(0) + " " + c.getString(1);
+                    } while (c.moveToNext());
+                }
+            }
+        }
     	else{
     		Toast toast = Toast.makeText(this, "No hay infracciones en la bd", Toast.LENGTH_SHORT);
     		toast.setGravity(0, 0, 15);
@@ -11762,8 +11874,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         }
         else{
             if(id==5){
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+"  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "'  AND vigente = 'S' order by infraccion; ", null);
+                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+"  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n')   AND vigente = 'S' order by infraccion; ", null);
                 Log.i("entro else:","entro");
+                //Log.i("query:",);
             }else{
                 cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+"  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "'  AND vigente = 'S' order by infraccion; ", null);
                 Log.i("entro else:","entro");
@@ -11833,7 +11946,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     if(id==4)
                         spManifiesta.setSelection(2);
                     if(id==5)
-                        spIdentifica.setSelection(3);
+                        spManifiesta.setSelection(3);
 
                     spManifiesta.setEnabled(false);
 
@@ -12123,10 +12236,19 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        res = true;
                     } else
 				        res = false;
-				    for(int i = 0;i<medidax.size();i++){
+				    /*for(int i = 0;i<medidax.size();i++){
 				        medidas1+=medidax.get(i).trim();
-                    }
-                    etMedida.setText(medidas1.trim());
+                    }*/
+
+                    if(contador==0)
+                        concatM = spMedida.getSelectedItem().toString();
+                    else
+                        concatM = ", "+spMedida.getSelectedItem().toString();
+
+                    contador++;
+
+                    etMedida.append(concatM);
+                    SeguimientoM1.add(spMedida.getSelectedItem().toString());
 				    if(res)
                         etNumeroSellos.setVisibility(View.VISIBLE);
 				    else

@@ -4265,6 +4265,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         orden.add(cursor.getString(cursor.getColumnIndex("ordenamiento")));
                     } while (cursor.moveToNext());
                 }
+
+
             } catch (SQLiteException e) {
                 System.out.println(e.getMessage());
             }finally{
