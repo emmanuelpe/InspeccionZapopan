@@ -846,6 +846,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
         etLongitud.setEnabled(false);
         etLatitud.setEnabled(false);
+        swReincidencia.setChecked(false);
 
 
         this.btnSalir.setOnClickListener(new View.OnClickListener() {

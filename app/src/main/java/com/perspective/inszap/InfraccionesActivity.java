@@ -442,6 +442,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         llplazo = (LinearLayout)findViewById(R.id.llPlazo);
         llreincidencia = (LinearLayout)findViewById(R.id.llreincidencia);
         rgReincidencia = (RadioGroup)findViewById(R.id.rgreincidencia);
+
         etfolio = (EditText)findViewById(R.id.etFolio);
         cbFlag = (CheckBox)findViewById(R.id.cbFlag);
         cbFlag = (CheckBox)findViewById(R.id.cbFlag);
