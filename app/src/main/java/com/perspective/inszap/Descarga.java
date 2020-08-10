@@ -68,6 +68,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 	private JSONObject json_data, jObject;
 	private StringBuilder sb = new StringBuilder();
 	private Connection c;
+	String fechasicro=" ";
 
 	private ArrayList<String> foto = new ArrayList<String>();
 	private ArrayList<String> archivo = new ArrayList<String>();
@@ -177,13 +178,15 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		}
 		Log.v("direccion", direccion.trim().contains("Comercio") + "");
 		if (direccion.trim().contains("Comercio")) {
-			btnConsultarL.setEnabled(true);
+			btnConsultarL.setEnabled(false);
+			btnConsultarL.setVisibility(View.GONE);
 		} else {
 			btnConsultarL.setEnabled(false);
 		}
 
 		if (direccion.trim().contains("Construcc")) {
 			btnConsultarLicenciaC.setEnabled(true);
+			btnConsultarL.setVisibility(View.GONE);
 		} else {
 			btnConsultarLicenciaC.setEnabled(false);
 		}
@@ -375,7 +378,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				startActivity(intent);
 			}
 		});
-
+        btnSalir.setVisibility(View.GONE);
 		this.btnSalir.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -999,6 +1002,26 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			return 1;
 		}
 	}
+	public String fechasicronizacion(String catalogo){
+		String fecha=" ";
+		GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
+		SQLiteDatabase db = gestion.getWritableDatabase();
+		System.out.println("select max(fecha) fecha_sincronizacion from "+catalogo+" where id_c_inspector1 =" + MainActivity.id_ins_sesion);
+		Cursor c2;
+
+
+		c2=db.rawQuery("select max(fecha) fecha_sincronizacion from "+catalogo+" where id_c_inspector1 =" + MainActivity.id_ins_sesion,null);
+		if (c2.moveToFirst()) {
+
+			do {
+             fecha=c2.getString(c2.getColumnIndex("fecha_sincronizacion"));
+
+			} while (c2.moveToNext());
+
+
+		}
+		return fecha;
+	}
     String mensaje="";
 	public void insertar(String values_cr) {
 		int i = 0;
@@ -1218,7 +1241,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				i++;
 
 				if(values_cr.equalsIgnoreCase("0")) {
-					if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
+					/*if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 						eliminaRegistros("v_LicenciasReglamentos");
 						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getLicReg1.php", "v_LicenciasReglamentos");
 						//x += sicrof("v_LicenciasReglamentos", url);
@@ -1243,9 +1266,9 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 							mensaje += mensaje + " v_LicenciasReglamentos " + c.validar3("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros.php", "parametros");
 						}
 
-					}
-					mProgressBar.setProgress(i);
-					i++;
+					}*/
+					//mProgressBar.setProgress(i);
+					//i++;
 
 					if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 						eliminaRegistros("vs_InspM2");
@@ -1302,7 +1325,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 					fechaC = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
 					System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
 					//reglamentos
-					if(!br) {
+					/*if(!br) {
 						if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 							int x1;
 							c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getLicenciasReglamentos.php", "v_LicenciasReglamentos", fechaR);
@@ -1317,7 +1340,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 						}
 						mProgressBar.setProgress(i);
 						i++;
-					}
+					}*/
 					//Construccion
 					if(!bc) {
 						if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
@@ -1343,80 +1366,138 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				msj = "No se pudo conectar con el servidor";
 	}
 
+
+
 	public void actualiza() {
+		System.out.println(fechasicro);
 		int i = 0;
 		final String url = "http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/contarreglones.php";
+		final String url2="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/sicronizacionD.php";
 		GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
 		SQLiteDatabase db = gestion.getWritableDatabase();
 		if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
 			if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_insepctor.php").trim().equalsIgnoreCase("null")) {
-				eliminaRegistros("C_inspector");
-				c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_insepctor.php"/*"http://pgt.no-ip.biz/serverSQL/getc_insepctor.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_inspector");
-				x += sicrof("C_inspector", url,"1");
-				if (x>0){
-					mensaje=mensaje+" C_inspector";
-				}
+           if(c.cambiosT("C_inspector",fechasicro,url2)>0){
+           	Log.e("entro en cambios","Yes C_inspector");
+			   x = sicrof("C_inspector", url,"1");
+			   if (x<=0){
+
+				   Log.e("no actualizo","Yes");
+			   }else{
+				   mensaje=mensaje+" C_inspector";
+				   eliminaRegistros("C_inspector");
+				   c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_insepctor.php"/*"http://pgt.no-ip.biz/serverSQL/getc_insepctor.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_inspector");
+				   Log.e("actualizo","Yes");
+			   }
+		   }
+
 			}
 			System.out.println(x);
 			mProgressBar.setProgress(i);
 			i++;
 			if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_infraccion.php").trim().equalsIgnoreCase("null")) {
-				eliminaRegistros("C_infraccion");
-				c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_infraccion.php"/*"http://pgt.no-ip.biz/serverSQL/getC_infraccion.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_infraccion");
-				x += sicrof("C_infraccion", url,"1");
-				if (x>0){
-					mensaje=mensaje+" C_infraccion";
+
+				if(c.cambiosT("C_infraccion",fechasicro,url2)>0) {
+					Log.e("entro en cambios","Yes C_infraccion");
+					x = sicrof("C_infraccion", url, "1");
+					if (x <= 0) {
+
+						Log.e("no actualizo","Yes");
+					}else{
+						mensaje = mensaje + " C_infraccion";
+						eliminaRegistros("C_infraccion");
+						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_infraccion.php"/*"http://pgt.no-ip.biz/serverSQL/getC_infraccion.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_infraccion");
+						Log.e(" actualizo","Yes");
+					}
 				}
 			}
 			System.out.println(x);
 			mProgressBar.setProgress(i);
 			i++;
 			if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_zonas.php").trim().equalsIgnoreCase("null")) {
-				eliminaRegistros("C_zonas");
-				c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_zonas.php"/*"http://pgt.no-ip.biz/serverSQL/getc_zonas.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_zonas");
-				x += sicrof("C_zonas", url,"0");
-				if (x>0){
-					mensaje=mensaje+" C_zonas";
+
+				if(c.cambiosT("C_zonas",fechasicro,url2)>0) {
+					Log.e("entro en cambios","Yes C_zonas");
+					x = sicrof("C_zonas", url, "0");
+					if (x <= 0) {
+
+						Log.e("no actualizo","Yes");
+					} else {
+						mensaje = mensaje + " C_zonas";
+						eliminaRegistros("C_zonas");
+						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_zonas.php"/*"http://pgt.no-ip.biz/serverSQL/getc_zonas.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_zonas");
+						Log.e(" actualizo","Yes");
+					}
 				}
 			}
 			mProgressBar.setProgress(i);
 			i++;
 			if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_fraccionamiento.php").trim().equalsIgnoreCase("null")) {
-				eliminaRegistros("C_fraccionamiento");
-				c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_fraccionamiento.php"/*"http://pgt.no-ip.biz/serverSQL/getC_fraccionamiento.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_fraccionamiento");
-				x += sicrof("C_fraccionamiento", url,"0");
-				if (x>0){
-					mensaje=mensaje+" C_fraccionamiento";
+
+				if(c.cambiosT("C_fraccionamiento",fechasicro,url2)>0) {
+					Log.e("entro en cambios","Yes C_fraccionamiento");
+					x = sicrof("C_fraccionamiento", url, "0");
+					if (x <= 0) {
+
+						Log.e("no actualizo","Yes");
+					} else {
+						mensaje = mensaje + " C_fraccionamiento";
+						eliminaRegistros("C_fraccionamiento");
+						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_fraccionamiento.php"/*"http://pgt.no-ip.biz/serverSQL/getC_fraccionamiento.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_fraccionamiento");
+						Log.e(" actualizo","Yes");
+					}
 				}
 			}
 			mProgressBar.setProgress(i);
 			i++;
 			if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_ordenamiento.php").trim().equalsIgnoreCase("null")) {
-				eliminaRegistros("C_ordenamiento");
-				c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_ordenamiento.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_ordenamiento");
-				x += sicrof("C_ordenamiento", url,"0");
-				if (x>0){
-					mensaje=mensaje+" C_ordenamiento";
+				if(c.cambiosT("C_ordenamiento",fechasicro,url2)>0) {
+					Log.e("entro en cambios","Yes C_ordenamiento");
+					x = sicrof("C_ordenamiento", url, "0");
+					if (x <= 0) {
+
+						Log.e("no actualizo","Yes");
+					} else {
+						mensaje = mensaje + " C_ordenamiento";
+						eliminaRegistros("C_ordenamiento");
+						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_ordenamiento.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_ordenamiento");
+						Log.e(" actualizo","Yes");
+					}
 				}
 			}
 			mProgressBar.setProgress(i);
 			i++;
 			if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getTabletas.php").trim().equalsIgnoreCase("null")) {
-				eliminaRegistros("c_tabletas");
-				c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getTabletas.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "c_tabletas");
-				x += sicrof("c_tabletas", url,"1");
-				if (x>0){
-					mensaje=mensaje+" c_tabletas";
+				if(c.cambiosT("c_tabletas",fechasicro,url2)>0) {
+					Log.e("entro en cambios","Yes c_tabletas");
+					x = sicrof("c_tabletas", url, "1");
+					if (x <= 0) {
+
+						Log.e("no actualizo","Yes");
+					} else {
+						mensaje = mensaje + " c_tabletas";
+						eliminaRegistros("c_tabletas");
+						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getTabletas.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "c_tabletas");
+						Log.e(" actualizo","Yes");
+					}
 				}
 			}
 			mProgressBar.setProgress(i);
 			i++;
 			if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_medida.php").trim().equalsIgnoreCase("null")) {
-				eliminaRegistros("c_medida_precautoria");
-				c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_medida.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "c_medida_precautoria");
-				x += sicrof("c_medida_precautoria", url,"0");
-				if (x>0){
-					mensaje=mensaje+" c_medida_precautoria";
+
+				if(c.cambiosT("c_medida_precautoria",fechasicro,url2)>0) {
+					Log.e("entro en cambios","Yes c_medida_precautoria");
+					x = sicrof("c_medida_precautoria", url, "0");
+					if (x <= 0) {
+
+						Log.e("no actualizo","Yes");
+					} else {
+						mensaje = mensaje + " c_medida_precautoria";
+						eliminaRegistros("c_medida_precautoria");
+						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_medida.php"/*"http://pgt.no-ip.biz/serverSQL/getC_visitado_manifiesta.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "c_medida_precautoria");
+						Log.e(" actualizo","Yes");
+					}
 				}
 			}
 			mProgressBar.setProgress(i);
@@ -1997,8 +2078,17 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 		@Override
 		protected Boolean doInBackground(String... params) {
 			//insertar(params[0]);
-			actualiza();
+			fechasicro=fechasicronizacion("levantamiento");
+			Log.e("fecha sicronizacion",""+fechasicro);
+			if(fechasicro!=null){
+				actualiza();
+
+				return null;
+			}else{
+				System.out.println("primera sicronizacion");
+			}
 			return null;
+
 		}
 
 		@Override

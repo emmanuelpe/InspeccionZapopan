@@ -878,17 +878,12 @@ public class Connection {
 	    }
 	    return res;
 	}
-
-	public int validar1(String url,String catalogo,String s) {
-		boolean res = false;
-		GestionBD gestion = new GestionBD(context,"Recaudacion",null, 1);
-		SQLiteDatabase db = gestion.getWritableDatabase();
-		int total = 0;
-		int totalBD = -1;
+	public int cambiosT(String tabla,String fechasicr,String url){
+		int cambios=0;
 		ArrayList<NameValuePair> dat = new ArrayList<NameValuePair>();
 		dat.add(new BasicNameValuePair("id", "0"));
-		dat.add(new BasicNameValuePair("tabla",catalogo));
-		dat.add(new BasicNameValuePair("s",s));
+		dat.add(new BasicNameValuePair("tabla",tabla));
+		dat.add(new BasicNameValuePair("s",fechasicr));
 		try {
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httpPost = new HttpPost(url);
@@ -915,8 +910,67 @@ public class Connection {
 			System.err.println(result);
 			jArray = new JSONArray(result);
 			this.json_data = this.jArray.getJSONObject(0);
-			total = json_data.getInt("renglones");
-			System.out.println(total);
+			cambios = json_data.getInt("cuantos");
+			System.out.println(cambios);
+			//return total;
+		} catch (ClientProtocolException e) {
+			Log.e("ClientProtocolException", e.getMessage() + " ");
+			return 0;
+		}catch (IOException e) {
+			Log.e("IOException", e.getMessage() + " ");
+			return 0;
+		}catch (JSONException e) {
+			// TODO: handle exception
+		}catch (Exception e) {			Log.e("Exception", e.getMessage() + " ");
+			return 0;
+		}finally {
+			//db.endTransaction();
+			//db.close();
+		}
+		return cambios;
+
+
+	}
+	public int validar1(String url,String catalogo,String s) {
+
+		//select count(*) from la tabla where fecha
+		boolean res = false;
+		GestionBD gestion = new GestionBD(context,"Recaudacion",null, 1);
+		SQLiteDatabase db = gestion.getWritableDatabase();
+		int total = 0;
+		int totalBD = -1;
+		ArrayList<NameValuePair> dat = new ArrayList<NameValuePair>();
+			dat.add(new BasicNameValuePair("id", "0"));
+			dat.add(new BasicNameValuePair("tabla",catalogo));
+			dat.add(new BasicNameValuePair("s",s));
+			try {
+				HttpClient httpclient = new DefaultHttpClient();
+				HttpPost httpPost = new HttpPost(url);
+				httpPost.setEntity(new UrlEncodedFormEntity(dat));
+				HttpResponse response = httpclient.execute(httpPost);
+				HttpEntity entity = response.getEntity();
+				this.is = entity.getContent();
+				Log.i("is", is + " x)");
+			} catch (Exception e) {
+				Log.e("ERROR 1", e.getMessage() + " ");
+				return 0;
+			}
+			try {
+				BufferedReader reader = null;
+				reader = new BufferedReader(new InputStreamReader(this.is, "iso-8859-1"),8);
+				StringBuilder sb = new StringBuilder();
+				String line = null;
+				//try {
+				while ((line = reader.readLine()) != null) {
+					sb.append(line + "\n");
+				}
+				this.is.close();
+				result = sb.toString();
+				System.err.println(result);
+				jArray = new JSONArray(result);
+				this.json_data = this.jArray.getJSONObject(0);
+				total = json_data.getInt("renglones");
+				System.out.println(total);
 			//return total;
 		} catch (ClientProtocolException e) {
 			Log.e("ClientProtocolException", e.getMessage() + " ");

@@ -442,6 +442,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         llplazo = (LinearLayout)findViewById(R.id.llPlazo);
         llreincidencia = (LinearLayout)findViewById(R.id.llreincidencia);
         rgReincidencia = (RadioGroup)findViewById(R.id.rgreincidencia);
+
         etfolio = (EditText)findViewById(R.id.etFolio);
         cbFlag = (CheckBox)findViewById(R.id.cbFlag);
         cbFlag = (CheckBox)findViewById(R.id.cbFlag);
@@ -9084,7 +9085,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					doc.open();
 					
 					ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				    Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.ov_2020);
+				    Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.hoja_blanca);
 				    bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
 				    Image img;
 				    
