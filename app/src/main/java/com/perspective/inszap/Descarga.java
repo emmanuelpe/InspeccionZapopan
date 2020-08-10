@@ -378,7 +378,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				startActivity(intent);
 			}
 		});
-
+        btnSalir.setVisibility(View.GONE);
 		this.btnSalir.setOnClickListener(new OnClickListener() {
 
 			@Override
