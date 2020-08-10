@@ -9085,7 +9085,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					doc.open();
 					
 					ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				    Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.ov_2020);
+				    Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.hoja_blanca);
 				    bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
 				    Image img;
 				    
