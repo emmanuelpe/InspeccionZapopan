@@ -5181,6 +5181,11 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 	    		sb.append("Seleccione la gravedad \n");
 	    		valid = false;
 	    	}*/
+	    	if(validarCampos(this.etMedida)){
+                sb.append("Ingrese las medidas precautorias. \n");
+                valid=false;
+            }
+
         }else if(infrac == 4) {
 
             if(validarCampos(this.etfecha)){
