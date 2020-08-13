@@ -5239,6 +5239,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 valid = false;
             }*/
             //if(cb.)
+            if(validarCampos(this.etMedida)){
+                sb.append("Ingrese las medidas precautorias. \n");
+                valid=false;
+            }
             if (validarCampos(this.etFraccionamiento)) {
                 sb.append("Ingrese el fraccionamiento. \n");
                 valid = false;
@@ -5404,7 +5408,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    		valid = false;
 	    	}*/
     	}else if(infrac == 4) {
-	    	
+            if(validarCampos(this.etMedida)){
+                sb.append("Ingrese las medidas precautorias. \n");
+                valid=false;
+            }
+            if(validarCampos(this.etArticulo)){
+                sb.append("Ingrese los articulos. \n");
+                valid=false;
+            }
 	    	if(validarCampos(this.etfecha)){
 	    		sb.append("Ingrese la fecha. \n");
 	    		valid = false;
