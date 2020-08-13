@@ -5059,6 +5059,14 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     }
                 }
             }
+            if(validarCampos(this.etMedida)){
+                sb.append("Ingrese las medidas precautorias. \n");
+                valid=false;
+            }
+            if(validarCampos(this.etArticulo)){
+                sb.append("Ingrese las medidas precautorias. \n");
+                valid=false;
+            }
             if (validarCampos(this.etFraccionamiento)) {
                 sb.append("Ingrese el fraccionamiento. \n");
                 valid = false;
@@ -5181,7 +5189,11 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 	    		sb.append("Seleccione la gravedad \n");
 	    		valid = false;
 	    	}*/
-	    	if(validarCampos(this.etMedida)){
+            if(validarCampos(this.etMedida)){
+                sb.append("Ingrese las medidas precautorias. \n");
+                valid=false;
+            }
+            if(validarCampos(this.etArticulo)){
                 sb.append("Ingrese las medidas precautorias. \n");
                 valid=false;
             }

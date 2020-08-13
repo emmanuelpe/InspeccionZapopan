@@ -22,8 +22,18 @@
             android:src="@drawable/logo" 
             android:layout_centerHorizontal="true"
             android:contentDescription="@string/sistema"
-            android:visibility="visible"/>  
-        
+            android:visibility="visible"/>
+		 <TextView
+			 android:id="@+id/version"
+			 android:layout_width="match_parent"
+			 android:layout_height="wrap_content"
+			 android:paddingTop="10dp"
+			 android:paddingBottom="10dp"
+			 android:text="Version 1.1.0 13/08/2020"
+			 android:gravity="center"
+			 android:layout_below="@id/ivLogo"
+			 android:textSize="19px"
+			/>
     	<TextView 
         	android:id="@+id/title"
         	android:layout_width="match_parent"
@@ -32,7 +42,7 @@
         	android:paddingBottom="10dp"
         	android:text="@string/sistema"
         	android:gravity="center"
-        	android:layout_below="@id/ivLogo"
+        	android:layout_below="@id/version"
         	style="@style/titleR"/>
     	
     	<ImageView 

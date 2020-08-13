@@ -5243,6 +5243,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 sb.append("Ingrese las medidas precautorias. \n");
                 valid=false;
             }
+            if(validarCampos(this.etArticulo)){
+                sb.append("Ingrese las medidas precautorias. \n");
+                valid=false;
+            }
             if (validarCampos(this.etFraccionamiento)) {
                 sb.append("Ingrese el fraccionamiento. \n");
                 valid = false;
@@ -5252,6 +5256,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 valid = false;
             }
             if (this.id == 3) {
+                if(validarCampos(this.etMedida)){
+                    sb.append("Ingrese las medidas precautorias. \n");
+                    valid=false;
+                }
+                if(validarCampos(this.etArticulo)){
+                    sb.append("Ingrese las medidas precautorias. \n");
+                    valid=false;
+                }
                 if (validarCampos(this.etPropietario)) {
                     sb.append("Ingrese el propietario o razón social.\n");
                     valid = false;
@@ -5305,6 +5317,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         valid = false;
                     }
                 }
+                if(validarCampos(this.etMedida)){
+                    sb.append("Ingrese las medidas precautorias. \n");
+                    valid=false;
+                }
+                if(validarCampos(this.etArticulo)){
+                    sb.append("Ingrese las medidas precautorias. \n");
+                    valid=false;
+                }
             }
             if(validarSpinner(this.spPeticion)) {
                 sb.append("Ingrese a petición de. \n");
@@ -5347,9 +5367,24 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     sb.append("Ingrese el giro de donde se actua \n");
                     valid = false;
                 }
+                if(validarCampos(this.etMedida)){
+                    sb.append("Ingrese las medidas precautorias. \n");
+                    valid=false;
+                }
+                if(validarCampos(this.etArticulo)){
+                    sb.append("Ingrese las medidas precautorias. \n");
+                    valid=false;
+                }
             }
     	} else if(infrac == 3) {
-	    	
+            if(validarCampos(this.etMedida)){
+                sb.append("Ingrese las medidas precautorias. \n");
+                valid=false;
+            }
+            if(validarCampos(this.etArticulo)){
+                sb.append("Ingrese las medidas precautorias. \n");
+                valid=false;
+            }
 	    	if(validarCampos(this.etfecha)){
 	    		sb.append("Ingrese la fecha. \n");
 	    		valid = false;
@@ -5399,6 +5434,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    		sb.append("Ingrese como se manifiesta el visitado. \n");
 	    		valid = false;
 	    	}
+            if(validarCampos(this.etMedida)){
+                sb.append("Ingrese las medidas precautorias. \n");
+                valid=false;
+            }
+            if(validarCampos(this.etArticulo)){
+                sb.append("Ingrese las medidas precautorias. \n");
+                valid=false;
+            }
 	    	/*if(validarSpinner(this.spuso)){
 	    		sb.append("Seleccione el tipo de suelo. \n");
 	    		valid = false;
@@ -5521,6 +5564,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    		sb.append("Seleccione la gravedad \n");
 	    		valid = false;
 	    	}*/
+
     	}
     	
     	if(!valid){
