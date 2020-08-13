@@ -1508,14 +1508,14 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			Calendar cal = Calendar.getInstance();
 			Cursor cursor;
 			cursor = db.rawQuery("SELECT fechaA FROM v_LicenciasReglamentos order by fechaA desc limit 1",null);
-			if(cursor.moveToFirst())
-				fechaR = cursor.getString(0);
+			/*if(cursor.moveToFirst())
+				fechaR = cursor.getString(0);*/
 			cursor = db.rawQuery("SELECT fechaA FROM vs_InspM2 order by fechaA desc limit 1",null);
 			if(cursor.moveToFirst())
 				fechaC = cursor.getString(0);
 			System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
-			fechas = fechaR.split("/");
-			fechaR = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
+			//fechas = fechaR.split("/");
+			//fechaR = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
 			fechas = fechaC.split("/");
 			fechaC = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
 			System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
@@ -1523,12 +1523,12 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				bc = false;
 			else
 				bc = true;
-			if(fechaR.equalsIgnoreCase(cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.YEAR)))
+			/*if(fechaR.equalsIgnoreCase(cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.YEAR)))
 				br = false;
 			else
-				br = true;
+				br = true;*/
 			//reglamentos
-			if(!br) {
+			/*if(!br) {
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 					int x1;
 					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getLicenciasReglamentos.php", "v_LicenciasReglamentos", fechaR);
@@ -1542,7 +1542,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				}
 				mProgressBar.setProgress(i);
 				i++;
-			}
+			}*/
 			//Construccion
 			if(!bc) {
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
