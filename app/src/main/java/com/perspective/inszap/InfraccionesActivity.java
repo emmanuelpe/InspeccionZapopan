@@ -5239,6 +5239,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 valid = false;
             }*/
             //if(cb.)
+            if(etMotivo.length()>1500){
+                sb.append("Limite de caracteres del motivo fue rebasado \n");
+                valid=false;
+            }
             if(validarCampos(this.etMedida)){
                 sb.append("Ingrese las medidas precautorias. \n");
                 valid=false;
@@ -5267,6 +5271,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 if (validarCampos(this.etPropietario)) {
                     sb.append("Ingrese el propietario o razón social.\n");
                     valid = false;
+                }
+                if(etMotivo.length()>1500){
+                    sb.append("Limite de caracteres del motivo fue rebasado \n");
+                    valid=false;
                 }
             }
 	    	if(validarCampos(this.etNombreT)){
@@ -5325,6 +5333,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     sb.append("Ingrese las medidas precautorias. \n");
                     valid=false;
                 }
+                if(etMotivo.length()>1500){
+                    sb.append("Limite de caracteres del motivo fue rebasado \n");
+                    valid=false;
+                }
             }
             if(validarSpinner(this.spPeticion)) {
                 sb.append("Ingrese a petición de. \n");
@@ -5375,6 +5387,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     sb.append("Ingrese las medidas precautorias. \n");
                     valid=false;
                 }
+
+                if(etMotivo.length()>1500){
+                    sb.append("Limite de caracteres del motivo fue rebasado \n");
+                    valid=false;
+                }
             }
     	} else if(infrac == 3) {
             if(validarCampos(this.etMedida)){
@@ -5389,6 +5406,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    		sb.append("Ingrese la fecha. \n");
 	    		valid = false;
 	    	}
+            if(etMotivo.length()>1500){
+                sb.append("Limite de caracteres del motivo fue rebasado \n");
+                valid=false;
+            }
             if(!cbDatos.isChecked()) {
                 if (validarCampos(this.etNombreV)) {
                     sb.append("Ingrese el nombre del visitado. \n");
@@ -5451,6 +5472,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    		valid = false;
 	    	}*/
     	}else if(infrac == 4) {
+            if(etMotivo.length()>1500){
+                sb.append("Limite de caracteres del motivo fue rebasado \n");
+                valid=false;
+            }
             if(validarCampos(this.etMedida)){
                 sb.append("Ingrese las medidas precautorias. \n");
                 valid=false;
@@ -5538,6 +5563,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             valid = false;
                         }
                     }
+
+                }
+                if(etMotivo.length()>1500){
+                    sb.append("Limite de caracteres del motivo fue rebasado \n");
+                    valid=false;
                 }
             }
 	    	if(validarCampos(this.etFraccionamiento)){
@@ -5564,6 +5594,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    		sb.append("Seleccione la gravedad \n");
 	    		valid = false;
 	    	}*/
+            if(etMotivo.length()>1500){
+                sb.append("Limite de caracteres del motivo fue rebasado \n");
+                valid=false;
+            }
 
     	}
     	

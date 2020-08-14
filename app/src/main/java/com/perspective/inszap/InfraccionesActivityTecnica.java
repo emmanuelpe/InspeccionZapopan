@@ -5047,6 +5047,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 valid = false;
             }*/
             //if(cb.)
+            if(etMotivo.length()>1500){
+                sb.append("Limite de caracteres del motivo fue rebasado \n");
+                valid=false;
+            }
             if(!cbDatos.isChecked()) {
                 if (validarCampos(this.etNombreV)) {
                     sb.append("Ingrese el nombre del visitado. \n");
@@ -5079,6 +5083,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 if (validarCampos(this.etPropietario)) {
                     sb.append("Ingrese el propietario o razón social.\n");
                     valid = false;
+                }
+                if(etMotivo.length()>1500){
+                    sb.append("Limite de caracteres del motivo fue rebasado \n");
+                    valid=false;
                 }
             }
             if(validarCampos(this.etNombreT)){
@@ -5132,7 +5140,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 valid = false;
             }
         } else if(infrac == 3) {
-
+            if(etMotivo.length()>1500){
+                sb.append("Limite de caracteres del motivo fue rebasado \n");
+                valid=false;
+            }
             if(validarCampos(this.etfecha)){
                 sb.append("Ingrese la fecha. \n");
                 valid = false;
@@ -5199,7 +5210,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             }
 
         }else if(infrac == 4) {
-
+            if(etMotivo.length()>1500){
+                sb.append("Limite de caracteres del motivo fue rebasado \n");
+                valid=false;
+            }
             if(validarCampos(this.etfecha)){
                 sb.append("Ingrese la fecha. \n");
                 valid = false;
@@ -5265,6 +5279,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 	    	}*/
         }
         else {
+            if(etMotivo.length()>1500){
+                sb.append("Limite de caracteres del motivo fue rebasado \n");
+                valid=false;
+            }
             if(!cbDatos.isChecked()) {
                 if (validarCampos(this.etNombreV)) {
                     sb.append("Ingrese el nombre del visitado. \n");
