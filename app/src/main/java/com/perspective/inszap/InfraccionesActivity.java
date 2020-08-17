@@ -8148,6 +8148,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         }else if(tipoEntrega == 0){
                             tipoentrega="quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.";
                         }
+
+
                         String vigencia=MainActivity.vigencia;
                         String vigencia_inicial=MainActivity.vigencia_inicial;
                         String []recorte1=vigencia.split("-");
@@ -8156,6 +8158,19 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         vigencia=vigencia_final(recorte1[1]);
 
                         Paragraph p2 ;
+                        String testigos="";
+                        if(etNombreT.getText().toString().length()>4 && etNombreT1.getText().toString().length()>4){
+                           testigos= "mismos que se identifican con "+spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString() + ", " + spIdentificaT1.getSelectedItem().toString().trim() + " " + etIfeT2.getText().toString();
+                        }
+                        if(etNombreT.getText().toString().length()>4 && etNombreT1.getText().toString().length()<=1){
+                            testigos= "mismo que se identifica con "+spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString();
+
+                        }
+                        if(etNombreT.getText().toString().length()<=1 && etNombreT1.getText().toString().length()>=1){
+                            testigos="mismo que se identifica con "+spIdentificaT1.getSelectedItem().toString().trim() + " " + etIfeT2.getText().toString();
+
+                        }
+
 				        if(id == 4) {
                             String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
                             if(!spuso.getSelectedItem().toString().contains("pública") | !spuso.getSelectedItem().toString().contains("público"))
@@ -8167,7 +8182,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     numero + " de la calle " + etCalle.getText().toString() + " entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " + etFraccionamiento.getText().toString().trim() + " " + etCondominio.getText().toString().trim() + ", cerciorándome de ser este el domicilio por coincidir con la nomenclatura oficial y/o georreferencia, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número" +
                                     " "+folio + ", vigente de " +vigencia_inicial+ " del "+recorte2[0]+" a " +  vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString().trim() +
                                     " manifiesta ser " + etVManifiesta.getText().toString() + " del lugar en que se actúa, propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía por lo que fueron designados los C.C. " + etNombreT.getText().toString().trim() + " y " + etNombreT1.getText().toString().trim() + " por el " + spdesignado.getSelectedItem().toString().trim() +
-                                    " mismos que se identifican con " + spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString() + ", " + spIdentificaT1.getSelectedItem().toString().trim() + " " + etIfeT2.getText().toString() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " +
+                                    ", "+ testigos + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " +
                                     hechos + " Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + ". Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
                                     ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
                                     hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+"  =Fin del texto=",font1);
@@ -8180,8 +8195,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     "por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número " +" "+ folio + ", vigente de " +vigencia_inicial+ " del "+recorte2[0]+ " a " +  vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del " +
                                     "Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString().trim() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString() + " manifiesta ser " + etVManifiesta.getText().toString().trim() + " del giro " +
                                     etGiro.getText().toString().trim() + ", propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. " +
-                                    etNombreT.getText().toString().trim() + " y " + etNombreT1.getText().toString().trim() + " por el " + spdesignado.getSelectedItem().toString().trim() + ", mismos que se identifican con " + spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString().trim() + ", " +
-                                    spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString().trim() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  " +
+                                    etNombreT.getText().toString().trim() + " y " + etNombreT1.getText().toString().trim() + " por el " + spdesignado.getSelectedItem().toString().trim() + ", " + testigos
+                                     + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  " +
                                     "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + hechos + " Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
                                     "indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + ". Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " +
                                     etManifiesta.getText().toString().trim() + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
@@ -9443,6 +9458,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					doc.add(new Paragraph(" ",font1));
 					doc.add(new Paragraph(" ",font1));
 					doc.add(new Paragraph(" ",font1));
+                    doc.add(new Paragraph(" ",font1));
 
 					doc.add(new Paragraph(" ",new Font(Font.HELVETICA,14f,Color.BLACK)));
 					
@@ -9516,7 +9532,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9);
-			        canvas.moveText(505, 475.5f+c);
+			        canvas.moveText(513, 475.5f+c);
 			        canvas.showText(String.valueOf(ax).substring(2, 4));
 			        canvas.endText();
 			        canvas.restoreState();
@@ -9626,6 +9642,15 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
                             canvas.endText();
                             canvas.restoreState();
+                        }else{
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(86, 138.2f);
+                            canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
                         }
                     } else {
 			            if(!cbDatos.isChecked()) {
@@ -9635,6 +9660,15 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             canvas.setFontAndSize(bf, 9);
                             canvas.moveText(86, 138.2f);
                             canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }else{
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9);
+                            canvas.moveText(86, 138.2f);
+                            canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
                             canvas.endText();
                             canvas.restoreState();
                         }
@@ -12081,7 +12115,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         spIdentifica.setSelection(5);
 
                     spIdentifica.setEnabled(false);
-                    etPropietario.setEnabled(false);
+                    etPropietario.setText("Se desconoce");
+                    //etPropietario.setEnabled(false);
                 } else {
                     etNombreV.setEnabled(true);
                     etVManifiesta.setEnabled(true);
