@@ -7953,6 +7953,18 @@ public String vigencia_inicial(String v){
                 vigencia_inicial=vigencia_inicial(recorte2[1]);
                 vigencia=vigencia_final(recorte1[1]);
 
+                String testigos="";
+                if(etNombreT.getText().toString().length()>4 && etNombreT1.getText().toString().length()>4){
+                    testigos= "mismos que se identifican con "+spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString() + ", " + spIdentificaT1.getSelectedItem().toString().trim() + " " + etIfeT2.getText().toString();
+                }
+                if(etNombreT.getText().toString().length()>4 && etNombreT1.getText().toString().length()<=1){
+                    testigos= "mismo que se identifica con "+spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString();
+
+                }
+                if(etNombreT.getText().toString().length()<=1 && etNombreT1.getText().toString().length()>=1){
+                    testigos="mismo que se identifica con "+spIdentificaT1.getSelectedItem().toString().trim() + " " + etIfeT2.getText().toString();
+
+                }
 
                String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
                     Paragraph p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las "+hora +" horas del día "
@@ -7963,7 +7975,7 @@ public String vigencia_inicial(String v){
                             + "  cerciorándome de ser este el domicilio correcto  donde se realiza la visita de inspección, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el   artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco, con credencial oficial con fotografía folio número "
                             +"  "+ folio + " , vigente de "+vigencia_inicial+" 2020 a "+vigencia+" 2020 , expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString()
                             + " manifiesta ser " + etVManifiesta.getText().toString() + " , propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello, el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. "
-                            + etNombreT.getText().toString() + " y " + etNombreT1.getText().toString() + " por el " + spdesignado.getSelectedItem().toString() + ", mismos que se identifican con " + spIdentificaT.getSelectedItem().toString() + " " + etIfeT.getText().toString() + " , " + spIdentificaT1.getSelectedItem().toString() + " " + etIfeT2.getText().toString() + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: "
+                            + etNombreT.getText().toString() + " y " + etNombreT1.getText().toString() + " por el " + spdesignado.getSelectedItem().toString() + ", "+testigos + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: "
                             + hechos + "Los cuales constituyen infracción a lo dispuesto por los " + etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim().trim()
                             + ". Lo anterior de conformidad a lo dispuesto por los Artículo(s): " + etArticulo.getText().toString().trim()
                             + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim()
