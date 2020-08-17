@@ -188,7 +188,7 @@
 						
 						<EditText 
 							android:id="@+id/etOrden1"
-							android:layout_width="350dp"
+							android:layout_width="330dp"
 							android:layout_height="70dp"
 							android:hint="@string/ordenvisita"
 							android:layout_below="@+id/etnActa"
@@ -2670,6 +2670,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:text="@string/tomarFoto"
+						android:drawableRight="@android:drawable/ic_menu_camera"
 						style="@style/Boton"/>
 	    		
 					<ImageView 
@@ -3115,6 +3116,15 @@
 							android:layout_height="wrap_content"
 							android:text="@string/vista"
 							style="@style/Boton"/>
+						<Button
+							android:id="@+id/btnCopiar"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="@string/copiar"
+							android:layout_toRightOf="@id/btnVista"
+							style="@style/Boton"/>
+
+
 
 						<ProgressBar
 							android:id="@+id/pb"
@@ -3135,10 +3145,12 @@
 							android:id="@+id/btnImprimir"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
+							android:drawableRight="@drawable/printer_icon"
 							android:text="@string/imprimir"
 							android:enabled="false"
 							android:layout_below="@id/pb"
 							android:layout_toRightOf="@id/btnguardar"
+
 							style="@style/Boton"/>
 						
 						<Button 
@@ -3164,7 +3176,9 @@
 							android:id="@+id/btnImprimirResum"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
+
 							android:text="@string/imprimir"
+							android:drawableRight="@drawable/ticket"
 							android:layout_below="@id/btnSalirIn"
 							style="@style/Boton"/>
 						

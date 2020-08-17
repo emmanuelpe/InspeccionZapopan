@@ -2679,6 +2679,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tomarFoto"
+                        android:drawableRight="@android:drawable/ic_menu_camera"
                         style="@style/Boton"/>
 
                     <ImageView
@@ -3126,6 +3127,14 @@
                             style="@style/Boton"/>
 
                         <Button
+                            android:id="@+id/btnCopiar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/copiar"
+                            android:layout_toRightOf="@id/btnVista"
+                            style="@style/Boton"/>
+
+                        <Button
                             android:id="@+id/btnguardar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -3138,6 +3147,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/imprimir"
+                            android:drawableRight="@drawable/printer_icon"
                             android:enabled="false"
                             android:layout_below="@id/btnVista"
                             android:layout_toRightOf="@id/btnguardar"
