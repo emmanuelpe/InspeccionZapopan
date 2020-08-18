@@ -7940,9 +7940,9 @@ public String vigencia_inicial(String v){
                 }
                 String tipoentrega="";
                 if(tipoEntrega == 2){
-                    tipoentrega="finjándose un tanto del acta en lugar seguro y visible del domicilio en que se actúa al encontrar cerrado el domicilio, en términos de lo dispuesto por el artículo 87 de la Ley del Procedimiento Administrativo del Estado de Jalisco.";
+                    tipoentrega="fijándose un tanto del acta en lugar seguro y visible del domicilio en que se actúa al encontrar cerrado el domicilio, en términos de lo dispuesto por el artículo 87 de la Ley del Procedimiento Administrativo del Estado de Jalisco.";
                 }else if(tipoEntrega == 1){
-                    tipoentrega="finjándose un tanto del acta en lugar seguro y visible del domicilio en que se actúa al encontrar negativa a recibirla, en términos de lo dispuesto por el artículo 87 de la Ley del Procedimiento Administrativo del Estado de Jalisco.";
+                    tipoentrega="fijándose un tanto del acta en lugar seguro y visible del domicilio en que se actúa al encontrar negativa a recibirla, en términos de lo dispuesto por el artículo 87 de la Ley del Procedimiento Administrativo del Estado de Jalisco.";
                 }else if(tipoEntrega == 0){
                     tipoentrega="quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.";
                 }
