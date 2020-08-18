@@ -1321,8 +1321,11 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 					//	br = false;
 					//fechas = fechaR.split("/");
 					//fechaR = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
-					fechas = fechaC.split("/");
-					fechaC = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
+                    if(fechaC.length() > 0) {
+                        fechas = fechaC.split("/");
+                        fechaC = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
+                    } else
+                        fechaC = "01/01/1970";
 					//System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
 					//reglamentos
 					/*if(!br) {

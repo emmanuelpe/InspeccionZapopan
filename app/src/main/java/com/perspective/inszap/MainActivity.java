@@ -1301,5 +1301,31 @@ public class MainActivity extends Activity {
 			toast.show();*/
 		}
 	}
+
+	public void test(String numeroActa) {
+		//IN/2/47/14/8/2020/01
+		GestionBD gestion = new GestionBD(this,"inspeccion",null,1);
+		SQLiteDatabase db = gestion.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT * FROM levantamiento where numero_acta like '%"+numeroActa+"%'", null);
+		String column = "",dato = "";
+		try {
+			if(db != null){
+				if (c.moveToFirst()) {
+					do {
+						for (int i = 0; i < c.getColumnCount(); i++) {
+							System.err.println(c.getColumnName(i) + " " + c.getString(i));
+						}
+					} while (c.moveToNext());
+				}
+			}
+
+		} catch (SQLiteException e) {
+			Log.e("SQLite", e.getMessage());
+		}
+		finally {
+			db.close();
+			c.close();
+		}
+	}
 }
 
