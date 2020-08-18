@@ -165,7 +165,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                             ByteArrayOutputStream stream = new ByteArrayOutputStream();
                             Bitmap bitmap = null;
 
-                            bitmap = BitmapFactory.decodeResource(Reporte1.this.getResources(), R.drawable.reporte_enviadas_2);
+                            bitmap = BitmapFactory.decodeResource(Reporte1.this.getResources(), R.drawable.reporte_enviadas_3);
                             //bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
                             bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream);
                             Image img;

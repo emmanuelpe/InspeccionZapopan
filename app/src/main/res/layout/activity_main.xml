@@ -19,7 +19,7 @@
             android:id="@+id/ivLogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/logo" 
+            android:src="@drawable/logo2020"
             android:layout_centerHorizontal="true"
             android:contentDescription="@string/sistema"
             android:visibility="visible"/>
@@ -29,7 +29,7 @@
 			 android:layout_height="wrap_content"
 			 android:paddingTop="10dp"
 			 android:paddingBottom="10dp"
-			 android:text="Version 1.1.0 13/08/2020"
+			 android:text="Version 1.1.1 17/08/2020"
 			 android:gravity="center"
 			 android:layout_below="@id/ivLogo"
 			 android:textSize="19px"

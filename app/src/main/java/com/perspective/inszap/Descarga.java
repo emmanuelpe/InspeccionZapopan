@@ -1299,31 +1299,31 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 					boolean br,bc;
 					Calendar cal = Calendar.getInstance();
 					Cursor cursor;
-					cursor = db.rawQuery("SELECT fechaA FROM v_LicenciasReglamentos order by fechaA desc limit 1",null);
-					if(cursor.moveToFirst())
-						fechaR = cursor.getString(0);
+					//cursor = db.rawQuery("SELECT fechaA FROM v_LicenciasReglamentos order by fechaA desc limit 1",null);
+					/*if(cursor.moveToFirst())
+						fechaR = cursor.getString(0);*/
 					cursor = db.rawQuery("SELECT fechaA FROM vs_InspM2 order by fechaA desc limit 1",null);
 					if(cursor.moveToFirst())
 						fechaC = cursor.getString(0);
-					System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
+					//System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
 					String dia = cal.get(Calendar.DATE) > 9 ?  String.valueOf(cal.get(Calendar.DATE)) : ("0" + cal.get(Calendar.DATE));
 					String mes = (cal.get(Calendar.MONTH) + 1) > 9 ? (String.valueOf(cal.get(Calendar.MONTH)) + 1) : "0" + (cal.get(Calendar.MONTH) + 1);
 					String f = dia + "/" + mes + "/" + cal.get(Calendar.YEAR);
 					Log.i("fechac",fechaC + " " + f);
-					Log.i("fechar",fechaR + " " + f);
+					//Log.i("fechar",fechaR + " " + f);
 					if(fechaC.equalsIgnoreCase(f))
 						bc = true;
 					else
 						bc = false;
-					if(fechaR.equalsIgnoreCase(f))
-						br = true;
-					else
-						br = false;
-					fechas = fechaR.split("/");
-					fechaR = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
+					//if(fechaR.equalsIgnoreCase(f))
+						//br = true;
+					//else
+					//	br = false;
+					//fechas = fechaR.split("/");
+					//fechaR = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
 					fechas = fechaC.split("/");
 					fechaC = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
-					System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
+					//System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
 					//reglamentos
 					/*if(!br) {
 						if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
