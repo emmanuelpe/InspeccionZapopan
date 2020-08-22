@@ -8879,7 +8879,7 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 12);
-                canvas.moveText(450, 896+c);
+                canvas.moveText(240, 896+c);
                 canvas.showText(etNumeroActa.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
@@ -9221,7 +9221,7 @@ public String vigencia_inicial(String v){
                     p.setFont(new Font(Font.HELVETICA,3));
                     doc.add(p);*/
 
-                txt = Justificar.justifocarTexto1(motivo, 130);
+                txt = Justificar.justifocarTexto1(motivo, 132);
                 float li = 443+c;
 
                 for (int i = 0; i < txt.length; i++) {
@@ -9235,7 +9235,7 @@ public String vigencia_inicial(String v){
                     canvas.endText();
                     canvas.restoreState();
 
-                    li-=10.1;
+                    li-=10.2;
                 }
 
                 int d = 5;
