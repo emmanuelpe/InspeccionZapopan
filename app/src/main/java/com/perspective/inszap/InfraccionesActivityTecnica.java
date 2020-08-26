@@ -2202,7 +2202,9 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 Log.i("unidades", unidades.split(",").length + "");
                                 Log.e("camp1", camp1);
 
-                                camp1 = (!camp1.equals("")) ? ordenar(camp1) : "";
+
+
+                               /* camp1 = (!camp1.equals("")) ? ordenar(camp1) : "";
                                 Log.e("camp1a", camp1);
 
                                 camp2 = (!camp2.equals("")) ? ordenar(camp2) : "";
@@ -2227,7 +2229,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 camp17 = (!camp17.equals("")) ? ordenar(camp17) : "";
                                 camp18 = (!camp18.equals("")) ? ordenar(camp18) : "";
                                 camp19 = (!camp19.equals("")) ? ordenar(camp19) : "";
-                                camp20 = (!camp20.equals("")) ? ordenar(camp20) : "";
+                                camp20 = (!camp20.equals("")) ? ordenar(camp20) : "";*/
 
 
                                 camp1 = (!camp1.equals("")) ? camp1 : "";
@@ -4191,7 +4193,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 String sqlI="";
                 for(int i=0;i<arrayincaseF.size();i++){
                     if(arrayincaseF.get(i).length()>2){
-                        sqlI="SELECT reg_anuncion,reg_gestion,reg_cementerio,reg_proteccion_conservacion,reg_proteccion_ambiente,reg_sonido,reg_alumbrado,reg_inclusion,reg_rastro,reg_policia,ley_bebidas,reg_residuos,regtiancom,reg_com_ind,reg_movilidad FROM C_infraccion WHERE infraccion like '%"+arrayincaseF.get(i).trim()+"%'";
+                        sqlI="SELECT reg_trato_animales,reg_anuncion,reg_gestion,reg_cementerio,reg_proteccion_conservacion,reg_proteccion_ambiente,reg_sonido,reg_alumbrado,reg_inclusion,reg_rastro,reg_policia,ley_bebidas,reg_residuos,regtiancom,reg_com_ind,reg_movilidad FROM C_infraccion WHERE infraccion like '%"+arrayincaseF.get(i).trim()+"%'";
 
                     }
 
@@ -4243,6 +4245,9 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             }
                             if(cursor1.getString(cursor1.getColumnIndex("reg_movilidad")).length()>2){
                                 condicion+="'reg_movilidad',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_trato_animales")).length()>2){
+                                condicion+="'reg_trato_animales',";
                             }
 
 
@@ -5361,15 +5366,20 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         array.clear();
         //Log.e("regex",var);
         String[] num = var.split(regex);
-        Log.e("infraccion",var);
-
+        //Log.e("infraccion",var);
+        //Log.e("tamaño array", String.valueOf(num.length));
      for (int i = 0; i < num.length; i++) {
-         array.add(num[i]);
+
+            array.add(num[i]);
+
+
+
      }
      hs.addAll(array);
      array.clear();
      array.addAll(hs);
-     Collections.reverse(array);
+     //Collections.reverse(array);
+        Collections.sort(array);
      var = "";
      for (int j = 0; j < array.size(); j++) {
          var += array.get(j) + ",";
