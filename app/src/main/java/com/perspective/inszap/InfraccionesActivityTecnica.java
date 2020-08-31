@@ -96,9 +96,11 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Formatter;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 public class InfraccionesActivityTecnica extends AppCompatActivity implements View.OnClickListener, Runnable, CompoundButton.OnCheckedChangeListener, AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
@@ -2265,6 +2267,177 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 							ne = (!ne.equals("")) ? ordenar(ne) : "";
 							leeep = (!leeep.equals("")) ? ordenar(leeep) : "";*/
 
+                                GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
+                                SQLiteDatabase db = gestion.getReadableDatabase();
+// 66 Quater y 105
+                                if(!camp1.equalsIgnoreCase("")){
+                                    if(camp1.contains("Quater") ||camp1.contains("numeral") || camp1.contains("inciso") || camp1.contains(")") || camp1.contains("párrafo")|| camp1.contains("Bis")|| camp1.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp1,db);
+                                        camp1=ordenar(db);
+                                    }
+
+
+                                }
+                                if(!camp2.equalsIgnoreCase("")){
+                                    if(camp2.contains("Quater") ||camp2.contains("numeral") || camp2.contains("inciso") || camp2.contains(")") || camp2.contains("párrafo")|| camp2.contains("Bis")|| camp2.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp2,db);
+                                        camp2=ordenar(db);
+                                    }
+
+
+                                }
+                                if(!camp3.equalsIgnoreCase("")){
+                                    if(camp3.contains("Quater") ||camp3.contains("numeral") || camp3.contains("inciso") || camp3.contains(")") || camp3.contains("párrafo")|| camp3.contains("Bis")|| camp3.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp3,db);
+                                        camp3=ordenar(db);
+                                    }
+
+
+                                }
+                                if(!camp4.equalsIgnoreCase("")){
+                                    if(camp4.contains("Quater") ||camp4.contains("numeral") || camp4.contains("inciso") || camp4.contains(")") || camp4.contains("párrafo")|| camp4.contains("Bis")|| camp4.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp4,db);
+                                        camp4=ordenar(db);
+                                    }
+                                }
+                                if(!camp5.equalsIgnoreCase("")){
+                                    if(camp5.contains("Quater") ||camp5.contains("numeral") || camp5.contains("inciso") || camp5.contains(")") || camp5.contains("párrafo")|| camp5.contains("Bis")|| camp5.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp5,db);
+                                        camp5=ordenar(db);
+                                    }
+                                }
+                                if(!camp6.equalsIgnoreCase("")){
+                                    if(camp6.contains("Quater") ||camp6.contains("numeral") || camp6.contains("inciso") || camp6.contains(")") || camp6.contains("párrafo")|| camp6.contains("Bis")|| camp6.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp6,db);
+                                        camp6=ordenar(db);
+                                    }
+                                }
+                                if(!camp7.equalsIgnoreCase("")){
+                                    if(camp7.contains("Quater") ||camp7.contains("numeral") || camp7.contains("inciso") || camp7.contains(")") || camp7.contains("párrafo")|| camp7.contains("Bis")|| camp7.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp7,db);
+                                        camp7=ordenar(db);
+                                    }
+                                }
+                                if(!camp8.equalsIgnoreCase("")){
+                                    if(camp8.contains("Quater") ||camp8.contains("numeral") || camp8.contains("inciso") || camp8.contains(")") || camp8.contains("párrafo")|| camp8.contains("Bis")|| camp8.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp8,db);
+                                        camp8=ordenar(db);
+                                    }
+                                }
+                                if(!camp9.equalsIgnoreCase("")){
+                                    if(camp9.contains("Quater") ||camp9.contains("numeral") || camp9.contains("inciso") || camp9.contains(")") || camp9.contains("párrafo")|| camp9.contains("Bis")|| camp9.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp9,db);
+                                        camp9=ordenar(db);
+                                    }
+                                }
+                                if(!camp0.equalsIgnoreCase("")){
+                                    if(camp0.contains("Quater") ||camp0.contains("numeral") || camp0.contains("inciso") || camp0.contains(")") || camp0.contains("párrafo")|| camp0.contains("Bis")|| camp0.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp0,db);
+                                        camp0=ordenar(db);
+                                    }
+                                }
+                                if(!camp11.equalsIgnoreCase("")){
+                                    if(camp11.contains("Quater") ||camp11.contains("numeral") || camp11.contains("inciso") || camp11.contains(")") || camp11.contains("párrafo")|| camp11.contains("Bis")|| camp11.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp11,db);
+                                        camp11=ordenar(db);
+                                    }
+                                }
+                                if(!camp12.equalsIgnoreCase("")){
+                                    if(camp12.contains("Quater") ||camp12.contains("numeral") || camp12.contains("inciso") || camp12.contains(")") || camp12.contains("párrafo")|| camp12.contains("Bis")|| camp12.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp12,db);
+                                        camp12=ordenar(db);
+                                    }
+                                }
+                                if(!camp13.equalsIgnoreCase("")){
+                                    if(camp13.contains("Quater") ||camp13.contains("numeral") || camp13.contains("inciso") || camp13.contains(")") || camp13.contains("párrafo")|| camp13.contains("Bis")|| camp13.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp13,db);
+                                        camp13=ordenar(db);
+                                    }
+                                }
+                                if(!camp14.equalsIgnoreCase("")){
+                                    if(camp14.contains("Quater") ||camp14.contains("numeral") || camp14.contains("inciso") || camp14.contains(")") || camp14.contains("párrafo")|| camp14.contains("Bis")|| camp14.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp14,db);
+                                        camp14=ordenar(db);
+                                    }
+                                }
+                                if(!camp15.equalsIgnoreCase("")){
+                                    if(camp15.contains("Quater") ||camp15.contains("numeral") || camp15.contains("inciso") || camp15.contains(")") || camp15.contains("párrafo")|| camp15.contains("Bis")|| camp15.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp15,db);
+                                        camp15=ordenar(db);
+                                    }
+                                }
+                                if(!camp16.equalsIgnoreCase("")){
+                                    if(camp16.contains("Quater") ||camp16.contains("numeral") || camp16.contains("inciso") || camp16.contains(")") || camp16.contains("párrafo")|| camp16.contains("Bis")|| camp16.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp16,db);
+                                        camp16=ordenar(db);
+                                    }
+                                }
+                                if(!camp17.equalsIgnoreCase("")){
+                                    if(camp17.contains("Quater") ||camp17.contains("numeral") || camp17.contains("inciso") || camp17.contains(")") || camp17.contains("párrafo")|| camp17.contains("Bis")|| camp17.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp17,db);
+                                        camp17=ordenar(db);
+                                    }
+                                }
+                                if(!camp18.equalsIgnoreCase("")){
+                                    if(camp18.contains("Quater") ||camp18.contains("numeral") || camp18.contains("inciso") || camp18.contains(")") || camp18.contains("párrafo")|| camp18.contains("Bis")|| camp18.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp18,db);
+                                        camp18=ordenar(db);
+                                    }
+                                }
+                                if(!camp19.equalsIgnoreCase("")){
+                                    if(camp19.contains("Quater") ||camp19.contains("numeral") || camp19.contains("inciso") || camp19.contains(")") || camp19.contains("párrafo")|| camp19.contains("Bis")|| camp19.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp19,db);
+                                        camp19=ordenar(db);
+                                    }
+                                }
+                                if(!camp20.equalsIgnoreCase("")){
+                                    if(camp20.contains("Quater") ||camp20.contains("numeral") || camp20.contains("inciso") || camp20.contains(")") || camp20.contains("párrafo")|| camp20.contains("Bis")|| camp20.contains("Apartado")){
+
+                                    }else{
+                                        algoritmo(camp20,db);
+                                        camp20=ordenar(db);
+                                    }
+                                }
+
+
                                 text += (!camp1.equals("")) ? "Articulo(s) " + camp1 + " " + campo1 + ";" : "";
                                 text += (!camp2.equals("")) ? "Articulo(s) " + camp2 + " " + campo2 + ";" : "";
                                 text += (!camp3.equals("")) ? "Articulo(s) " + camp3 + " " + campo3 + ";" : "";
@@ -2701,6 +2874,243 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     }
     public static boolean isNumeric(String str) {
         return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+    }
+    public boolean isnumeric(String cadena){
+        boolean resultado;
+
+        try {
+            Integer.parseInt(cadena);
+            resultado = true;
+        } catch (NumberFormatException excepcion) {
+            resultado = false;
+        }
+
+        return resultado;
+    }
+
+    public boolean isromano(String cadena){
+        return cadena.matches("(^(?=[MDCLXVI])M*(C[MD]|D?C{0,3})(X[CL]|L?X{0,3})(I[XV]|V?I{0,3})$)");
+    }
+
+    public boolean iscaracter(String cadena){
+        return cadena.matches("[^XIVL]");
+    }
+    public void algoritmo(String camp1, SQLiteDatabase db){
+        String v1 = "";
+        ArrayList<String> arr_art=new ArrayList<>();
+        int es_fraccion = 0;
+        String car1="";
+        eliminarT(db);
+        if(camp1!=" "){
+            if(camp1.contains(".")){
+                camp1=camp1.replace(".","");
+            }
+            System.out.println(camp1.trim().length());
+            for(int w=0; w<camp1.trim().length();w++) {
+                int tamaño = camp1.length();
+                if (w<tamaño)
+                    car1 = camp1.trim().substring(w,w+1);
+                else{
+                    car1 = camp1.substring(tamaño-1);
+                }
+                if (car1.equals("ó")) {
+                    car1 = car1.replace("ó", "o");
+                }
+                if (es_fraccion == 0) {
+                    if (isnumeric(car1)) {
+                        v1 += car1;
+                    } else if (car1.equals(",") || car1.equals(" ") ||  car1.equals("y")) {
+                        if(isnumeric(v1)){
+                            if(validarArticulo(db,v1,0)){
+                                arr_art.add(v1);
+                            }else{
+                                arr_art.add(v1);
+                                ingresarArticulos(db,Integer.valueOf(v1),"0",0);
+                            }
+                        }
+                        v1 = "";
+                    } else if (es_fraccion == 0 && !car1.equals(",") || !car1.equals(" ") && es_fraccion == 0 ) {
+                        if (iscaracter(car1)) {
+                            v1 += car1;
+                            if(v1.contains("fraccion")||v1.contains("Fraccion")||v1.contains("fracciones")||v1.contains("Fracciones")){
+                                es_fraccion=1;
+                                v1="";
+                            }
+                            continue;
+                        }
+                    }
+                }else{
+                    if(isromano(car1)){
+                        if(w<tamaño-1){
+                            v1+=car1;
+                        }else{
+                            v1=car1;
+
+                            int orden=transform_roman_numeral_to_number(v1);
+                            if(validarArticulo(db,arr_art.get(arr_art.size()-1),orden)){
+
+                            }else{
+                                ingresarArticulos(db,Integer.valueOf(arr_art.get(arr_art.size()-1)),v1,orden);
+                            }
+                        }
+                    }
+                    if (car1.equals(",")  || car1.equals(" ")||car1.equals("y")|| !isromano(car1)|| isnumeric(car1)  ) {
+                        if(v1!=""){
+
+                            int orden=transform_roman_numeral_to_number(v1);
+                            if(validarArticulo(db,arr_art.get(arr_art.size()-1),orden)){
+
+                            }else{
+                                ingresarArticulos(db,Integer.valueOf(arr_art.get(arr_art.size()-1)),v1,orden);
+                            }
+                        }
+                        v1="";
+                        if(isnumeric(car1)){
+                            v1="";
+                            w-=1;
+                            es_fraccion=0;
+                        }
+                    }
+                }
+            }
+            System.out.println("Termino");
+        }
+    }
+
+    public void ingresarArticulos(SQLiteDatabase db, int art, String fraccion, int orden){
+
+        try{
+            if(db != null){
+
+                ContentValues cv = new ContentValues();
+
+                cv.put("art", art);
+                cv.put("fraccion", fraccion);
+                cv.put("orden",orden);
+
+
+                db.insert("Articulos_fracciones", null, cv);
+
+            }
+        }catch (Exception e) {
+            Log.i("insertar", e.getMessage());
+            System.out.println("no inserto");
+        }
+
+
+
+    }
+    public void eliminarT(SQLiteDatabase db){
+        try{
+            if(db != null){
+
+
+
+                //db.insert("Articulos_fracciones", null, cv);
+                db.delete("Articulos_fracciones","1",null);
+
+            }
+        }catch (Exception e) {
+            Log.i("no elimino", e.getMessage());
+            System.out.println("no elimino");
+        }
+
+    }
+
+    public boolean validarArticulo(SQLiteDatabase db, String art, int orden){
+
+        try{
+            Cursor c=null;
+            if(db != null){
+
+
+                c = db.rawQuery("SELECT art, orden  FROM Articulos_fracciones where art='"+art+"'and orden='"+orden+"'", null);
+
+            }
+            return c.getCount()>0;
+        }catch (Exception e) {
+            Log.i("insertar", e.getMessage());
+            System.out.println("no inserto");
+            return false;
+        }
+
+
+
+    }
+
+    public String ordenar(SQLiteDatabase db){
+        try{
+            Cursor c=null;
+            String completo="";
+            if(db != null){
+                c = db.rawQuery("SELECT *  FROM Articulos_fracciones order by art ,orden asc ", null);
+                String art="";
+                String fraccion="";
+                int fracciones=0;
+
+                if(c.moveToFirst()){
+                    do{
+                        if(art.equalsIgnoreCase(c.getString(c.getColumnIndex("art")).trim())){
+                            if(fraccion.equalsIgnoreCase(c.getString(c.getColumnIndex("fraccion"))) || c.getString(c.getColumnIndex("fraccion")).equalsIgnoreCase("0")){
+                            }else{
+                                fraccion=c.getString(c.getColumnIndex("fraccion")).trim();
+
+                                if(fracciones<1){
+                                    completo+=" fraccion(es) "+fraccion+",";
+                                    fracciones++;
+                                }else {
+                                    completo+=fraccion+",";
+                                }
+
+                            }
+                        }else{
+                            fracciones=0;
+                            fraccion="";
+                            art=c.getString(c.getColumnIndex("art")).trim();
+                            if(fraccion.equalsIgnoreCase(c.getString(c.getColumnIndex("fraccion")))||c.getString(c.getColumnIndex("fraccion")).equalsIgnoreCase("0")){
+                            }else{
+                                fraccion=c.getString(c.getColumnIndex("fraccion")).trim();
+                            }
+                            if(c.getPosition()>0)
+                                completo += ", ";
+                            if(fraccion.equalsIgnoreCase("")){
+                                completo+=art + "";
+
+                            }else{
+                                completo+=art+" fracción "+fraccion;
+                            }
+
+                        }
+
+
+                        System.out.println(c.getString(c.getColumnIndex("art"))+" "+c.getString(c.getColumnIndex("fraccion"))+" "+c.getString(c.getColumnIndex("orden")));
+                    }while (c.moveToNext());
+                }
+                return completo.replace(",,",",");
+            }
+        }catch (Exception e) {
+            Log.i("insertar", e.getMessage());
+            System.out.println("no inserto");
+        }
+        return "f";
+    }
+    public static int transform_roman_numeral_to_number(String roman_numeral) {
+        Map<Character, Integer> roman_char_dict = new HashMap<Character, Integer>();
+        roman_char_dict.put('I', 1);
+        roman_char_dict.put('V', 5);
+        roman_char_dict.put('X', 10);
+        roman_char_dict.put('L', 50);
+        roman_char_dict.put('C', 100);
+        roman_char_dict.put('D', 500);
+        roman_char_dict.put('M', 1000);
+        int res = 0;
+        for (int i = 0; i < roman_numeral.length(); i += 1) {
+            if (i == 0 || roman_char_dict.get(roman_numeral.charAt(i)) <= roman_char_dict.get(roman_numeral.charAt(i - 1)))
+                res += roman_char_dict.get(roman_numeral.charAt(i));
+            else
+                res += roman_char_dict.get(roman_numeral.charAt(i)) - 2 * roman_char_dict.get(roman_numeral.charAt(i - 1));
+        }
+        return res;
     }
 
     View.OnClickListener getOnClick(final CheckBox b) {
