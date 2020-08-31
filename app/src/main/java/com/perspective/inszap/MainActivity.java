@@ -232,7 +232,19 @@ public class MainActivity extends Activity {
 		spDireccion.setFocusable(true);
 		
 		//listarInf();
-		
+		if(!isTableExists("Articulos_fracciones")) {
+			System.out.println("false");
+
+			try {
+				GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+				SQLiteDatabase db1 = gestionBD.getReadableDatabase();
+				db1.execSQL("create table Articulos_fracciones(id_articulo INTEGER PRIMARY KEY AUTOINCREMENT,art Integer,fraccion TEXT,orden Integer)");
+				System.out.println("false");
+			} catch(SQLiteException e) {
+				System.err.println(e.getMessage());
+			}
+		} else
+			System.out.println("true");
 		if(!isTableExists("c_tabletas")) {
 			System.out.println("false");
 			
