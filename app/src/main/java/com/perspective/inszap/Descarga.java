@@ -2038,11 +2038,11 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			if (x>0){
 				btnInfraccion.setVisibility(View.GONE);
 				msj="no se actualizo ";
-				msj+="INCORRECTO!!!!!!  "+mensaje;
+				msj+=mensaje;
 				editor.putInt("values_cr",0);
 			} else{
-				msj=" se actualizo correctamente ";
-				msj+="COORRECTO!!! "+mensaje;
+				msj=" Se actualizo correctamente ";
+				msj+=mensaje;
 				btnInfraccion.setVisibility(View.VISIBLE);
 				editor.putInt("values_cr",1);
 			}
@@ -2101,12 +2101,12 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			mProgressBar.setVisibility(View.INVISIBLE);
 			if (x>0){
 				btnInfraccion.setVisibility(View.GONE);
-				msj="no se actualizo correctamente";
-				msj+="INCORRECTO!!!!!!  "+mensaje;
+				msj=" Se actualizo correctamente,";
+				msj+=mensaje+"si se bloquean los botones presione otra ves descarga de datos";
 				editor.putInt("values_cr",0);
 			} else{
-				msj=" se actualizo correctamente ";
-				msj+="COORRECTO!!! "+mensaje;
+				msj=" Se actualizo correctamente ";
+				msj+=mensaje;
 				btnInfraccion.setVisibility(View.VISIBLE);
 				editor.putInt("values_cr",1);
 			}

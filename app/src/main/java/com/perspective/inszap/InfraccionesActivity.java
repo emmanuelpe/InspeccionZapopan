@@ -1402,6 +1402,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				etEntreC1.setEnabled(false);
 				etMedida.setEnabled(false);
 				etArticulo.setEnabled(false);
+				if(id==5||id==2)
+				btnImprimirResum.setEnabled(true);
 				/*btnFtp.setEnabled(true);
 				btnFtp.setVisibility(View.VISIBLE);*/
 				InfraccionesActivity.this.btnTomarF.setVisibility(View.VISIBLE);
@@ -6928,6 +6930,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			infrac = 2;
 			if(id == 2 || id == 3  || id == 5)
 				rlProp.setVisibility(View.VISIBLE);
+
 			else
 				rlProp.setVisibility(View.GONE);
 			rlTestA.setVisibility(View.GONE);
@@ -6992,19 +6995,22 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 etDondeActua.setVisibility(View.GONE);
             }
 			if(id == 2 | id == 5) {
+                System.out.println("entro a quitar componentes");
                 tvReg.setVisibility(View.GONE);
                 llfundamento.setVisibility(View.GONE);
                 etCondominio.setVisibility(View.GONE);
                 tvCondominio.setVisibility(View.GONE);
+
                 tvPropietario.setText("NOMBRE Y/O RAZON SOCIAL");
                 etDondeActua.setVisibility(View.GONE);
                 rlLicencias.setVisibility(View.GONE);
             }
 			if(id == 5) {
                 rlDonde_actua.setVisibility(View.GONE);
-                rlProp.setVisibility(View.GONE);
+               // rlProp.setVisibility(View.GONE);
                 tvMC.setVisibility(View.GONE);
                 spMeConstitui.setVisibility(View.GONE);
+
             }
 			if(id == 2) {
                 tvMC.setVisibility(View.GONE);
@@ -9731,7 +9737,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
                             canvas.moveText(80, 857.8f + c);
-                            canvas.showText(etNombreV.getText().toString());
+                            canvas.showText(etPropietario.getText().toString() + " " + etApellidoP.getText().toString() + " " + etApellidoM.getText().toString());
                             canvas.endText();
                             canvas.restoreState();
                         } else {
