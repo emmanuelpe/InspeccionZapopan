@@ -2103,7 +2103,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				btnInfraccion.setVisibility(View.GONE);
 				msj=" Se actualizo correctamente,";
 				msj+=mensaje+"si se bloquean los botones presione otra ves descarga de datos";
-				editor.putInt("values_cr",0);
+				editor.putInt("values_cr",1);
 			} else{
 				msj=" Se actualizo correctamente ";
 				msj+=mensaje;
