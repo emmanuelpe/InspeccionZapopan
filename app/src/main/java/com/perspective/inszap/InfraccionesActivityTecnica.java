@@ -1915,6 +1915,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             @Override
             public void onClick(View v) {
                 if(contador>=1){
+                    etArticulo.setEnabled(false);
                     mostrarArt(contador);
                 }else{
 
@@ -8369,6 +8370,8 @@ public String vigencia_inicial(String v){
                 String vigencia_inicial=MainActivity.vigencia_inicial;
                 String []recorte1=vigencia.split("-");
                 String []recorte2=vigencia_inicial.split("-");
+                String diaIni=recorte2[2];
+                String diavigen=recorte1[2];
                 vigencia_inicial=vigencia_inicial(recorte2[1]);
                 vigencia=vigencia_final(recorte1[1]);
 
@@ -8392,7 +8395,7 @@ public String vigencia_inicial(String v){
                             datos + " me constituí física y legalmente  "+ spMeConstitui.getSelectedItem().toString().toLowerCase() + " marcada (o) con el número "
                         + etNumero.getText().toString()+" "+etNuemroInterior.getText().toString() + " de la calle " + etCalle.getText().toString() + " entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " + etFraccionamiento.getText().toString()
                             + "  cerciorándome de ser este el domicilio correcto  donde se realiza la visita de inspección, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el   artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco, con credencial oficial con fotografía folio número "
-                            +"  "+ folio + " , vigente de "+vigencia_inicial+" 2020 a "+vigencia+" 2020 , expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString()
+                            +"  "+ folio + " , vigente de "+diaIni+" de " +vigencia_inicial+ " del "+recorte2[0]+ " a "+diavigen+" de "+vigencia+" del "+recorte1[0]+", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString()
                             + " manifiesta ser " + etVManifiesta.getText().toString() + " , propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello, el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. "
                             + etNombreT.getText().toString() + " y " + etNombreT1.getText().toString() + " por el " + spdesignado.getSelectedItem().toString() + ", "+testigos + " respectivamente; así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: "
                             + hechos + "Los cuales constituyen infracción a lo dispuesto por los " + etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim().trim()
