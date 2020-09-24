@@ -17,9 +17,9 @@
 
         <ImageView
             android:id="@+id/ivLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo2020"
+            android:layout_width="1920dp"
+            android:layout_height="210dp"
+            android:src="@drawable/logoapp2"
             android:layout_centerHorizontal="true"
             android:contentDescription="@string/sistema"
             android:visibility="visible"/>
@@ -29,7 +29,7 @@
 			 android:layout_height="wrap_content"
 			 android:paddingTop="10dp"
 			 android:paddingBottom="10dp"
-			 android:text="Version 1.1.5 22/09/2020"
+			 android:text="Version 1.1.6 24/09/2020"
 			 android:gravity="center"
 			 android:layout_below="@id/ivLogo"
 			 android:textSize="19px"

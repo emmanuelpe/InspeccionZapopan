@@ -773,6 +773,19 @@
                         android:prompt="@string/iden"/>
 
                     <EditText
+                        android:id="@+id/folioapeticion"
+                        android:layout_width="fill_parent"
+                        android:layout_height="70dp"
+                        android:inputType="textCapSentences"
+                        android:hint="Folio de peticion(opcional)"
+                        android:layout_below="@+id/spPeticion"
+                        android:imeOptions="actionNext"
+                        android:visibility="gone"
+                        >
+
+                    </EditText>
+
+                    <EditText
                         android:id="@+id/etInpeccionFue"
                         android:layout_width="fill_parent"
                         android:layout_height="70dp"
@@ -1873,10 +1886,11 @@
                             <EditText
                                 android:id="@+id/etObs"
                                 android:layout_width="match_parent"
-                                android:layout_height="70dp"
+                                android:layout_height="90dp"
                                 android:hint="Motivacion"
                                 android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="true"
+                                android:scrollbars="vertical"
 
                                 android:layout_below="@+id/etdato"
                                 android:visibility="gone"/>
@@ -1937,10 +1951,11 @@
                             <EditText
                                 android:id="@+id/etObs1"
                                 android:layout_width="match_parent"
-                                android:layout_height="70dp"
+                                android:layout_height="90dp"
                                 android:hint="Motivacion"
                                 android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="true"
+                                android:scrollbars="vertical"
                                 android:layout_below="@+id/etdato1"
 
                                 android:visibility="gone"/>
@@ -1997,10 +2012,11 @@
                             <EditText
                                 android:id="@+id/etObs2"
                                 android:layout_width="match_parent"
-                                android:layout_height="70dp"
+                                android:layout_height="90dp"
                                 android:hint="Motivacion"
                                 android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="true"
+                                android:scrollbars="vertical"
                                 android:layout_below="@+id/etdato2"
                                 android:visibility="gone"/>
                             <Button
@@ -2057,8 +2073,9 @@
                             <EditText
                                 android:id="@+id/etObs3"
                                 android:layout_width="match_parent"
-                                android:layout_height="70dp"
+                                android:layout_height="90dp"
                                 android:hint="Motivacion"
+                                android:scrollbars="vertical"
                                 android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="true"
 
@@ -2117,8 +2134,9 @@
                             <EditText
                                 android:id="@+id/etObs4"
                                 android:layout_width="match_parent"
-                                android:layout_height="70dp"
+                                android:layout_height="90dp"
                                 android:hint="Motivacion"
+                                android:scrollbars="vertical"
                                 android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="true"
                                 android:layout_below="@+id/spUni4"
