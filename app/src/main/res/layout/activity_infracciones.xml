@@ -852,6 +852,13 @@
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:text="No proporciono datos"/>
+
+						<CheckBox
+							android:id="@+id/cbDatos2"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_below="@+id/cbDatos"
+							android:text="No atendio persona alguna o se retiró el visitado antes del término de la presente diligencia"/>
 						
 					   	<TextView
 					   		android:id="@+id/tvDatoVisitado"
@@ -861,7 +868,7 @@
 							android:text="@string/nombreV"
 							android:layout_gravity="center" 
 							style="@style/Subtitle"
-							android:layout_below="@id/cbDatos"/>
+							android:layout_below="@id/cbDatos2"/>
 		    
 						<EditText 
 							android:id="@+id/etNombreV"
@@ -871,7 +878,7 @@
 							android:layout_toRightOf="@id/tvDatoVisitado"
 							android:hint="@string/nombreV"
 							android:imeOptions="actionNext"
-							android:layout_below="@id/cbDatos"/>
+							android:layout_below="@id/cbDatos2"/>
 					
 					</RelativeLayout>
 			 	

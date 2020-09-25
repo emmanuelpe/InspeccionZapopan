@@ -182,7 +182,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	private Thread thread = null;
 	private ArrayList<String> campo = new ArrayList<String>();
 	private String campo1="",campo2="",campo3="",campo4="",campo5="",campo6="",campo7="",campo8="",campo9="",campo0="",campo11="",campo12="",campo13="",campo14 = "",campo15 = "",campo16 = "",campo17 = "",campo18 = "",campo19 = "",campo20 = "",campo21 = "",c1="",c2="",c3="",c4="",c5="",c6="",c7="",c8="",c9="",c0="",c11="",c12="",c13="",c14="",c15="",c16="",c17="",c18="",c19="",c20="",camp1="",camp2="",camp3="",camp4="",camp5="",camp6="",camp7="",camp8="",camp9="",camp0="",camp11="",camp12="",camp13="",camp14="",camp15="",camp16="",camp17="",camp18="",camp19="",camp20="",hech = "los hechos antes descritos, constituyen una infracciÔøΩn a lo dispuesto por los artÔøΩculos:",conti = "Los cuales constituyen infracciÔøΩn de conformidad con lo dispuesto por los artÔøΩculos:",na = "";
-	private CheckBox cbFlag,cbFirma,cbDatos;
+	private CheckBox cbFlag,cbFirma,cbDatos,cbDatos2;
 	private Button rbaper,rborden,rbcitatorio,rbHechos,radioInfraccion;
 	private List<Levantamiento> lev = new ArrayList<Levantamiento>();
 	private List<String> reglamento = new ArrayList<String>();
@@ -571,6 +571,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         tvUso = findViewById(R.id.tvUso);
         llPla = findViewById(R.id.llPla);
         cbDatos = findViewById(R.id.cbDatos);
+        cbDatos2=findViewById(R.id.cbDatos2);
 
 
         tvPropietario = findViewById(R.id.tvPropietario);
@@ -862,6 +863,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         radioInfraccion.setOnClickListener(this);
         cbFlag.setOnCheckedChangeListener(this);
         cbDatos.setOnCheckedChangeListener(this);
+        cbDatos2.setOnCheckedChangeListener(this);
         this.btnOrden1.setOnClickListener(this);
         btnVista.setOnClickListener(this);
 
@@ -5054,6 +5056,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     }
 
     public void conceptosOV() {
+	    //select*from concepto_ov
         GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarDB.getReadableDatabase();
         if(db != null) {
@@ -5801,6 +5804,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     }
                 }
             }
+            if(!cbDatos2.isChecked()) {
+                if (validarCampos(this.etNombreV)) {
+                    sb.append("Ingrese en nombre del visitado. \n");
+                    valid = false;
+                }
+                if(!spIdentifica.getSelectedItem().toString().trim().equalsIgnoreCase("No se identifica")) {
+                    if (validarCampos(this.etVIdentifica)) {
+                        sb.append("Ingrese la identificacion del visitado. \n");
+                        valid = false;
+                    }
+                }
+            }
             if(validarSpinner(this.spMedida)) {
                 sb.append("Ingrese las medidas precautorias. \n");
                 valid = false;
@@ -5987,6 +6002,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     }
                 }
             }
+            if(!cbDatos2.isChecked()) {
+                if (validarCampos(this.etNombreV)) {
+                    sb.append("Ingrese el nombre del visitado. \n");
+                    valid = false;
+                }
+                if(!spIdentifica.getSelectedItem().toString().trim().equalsIgnoreCase("No se identifica")) {
+                    if (validarCampos(this.etVIdentifica)) {
+                        sb.append("Ingrese la identificacion del visitado. \n");
+                        valid = false;
+                    }
+                }
+            }
 	    	if(validarCampos(this.etFraccionamiento)){
 	    		sb.append("Ingrese el fraccionamiento. \n");
 	    		valid = false;
@@ -6040,6 +6067,19 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	else {
     	    if(id != 4) {
                 if (!cbDatos.isChecked()) {
+                    if (validarCampos(this.etNombreV)) {
+                        sb.append("Ingrese el nombre del visitado. \n");
+                        valid = false;
+                    }
+                    if (!spIdentifica.getSelectedItem().toString().trim().equalsIgnoreCase("No se identifica")) {
+                        if (validarCampos(this.etVIdentifica)) {
+                            sb.append("Ingrese la identificacion del visitado. \n");
+                            valid = false;
+                        }
+                    }
+
+                }
+                if (!cbDatos2.isChecked()) {
                     if (validarCampos(this.etNombreV)) {
                         sb.append("Ingrese el nombre del visitado. \n");
                         valid = false;
@@ -9755,6 +9795,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					
 					ByteArrayOutputStream stream = new ByteArrayOutputStream();
 				    Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.hoja_blanca);
+                    //Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.ov_2020_test);
 				    bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
 				    Image img;
 				    
@@ -9794,28 +9835,28 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 12);
-			        canvas.moveText(240, 896+c);
+			        canvas.moveText(420, 896+c);
 			        canvas.showText(etNumeroActa.getText().toString());
 			        canvas.endText();
 			        canvas.restoreState();
 
-                    canvas.saveState();
+                    /*canvas.saveState();
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 7);
                     canvas.moveText(244, 886+c);
                     canvas.showText("FOLIO DE VISITA DE INSPECCION");
                     canvas.endText();
-                    canvas.restoreState();
+                    canvas.restoreState();*/
 
-                    canvas.saveState();
+                    /*canvas.saveState();
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 7);
                     canvas.moveText(399, 892+c);
                     canvas.showText("INTERNO");
                     canvas.endText();
-                    canvas.restoreState();
+                    canvas.restoreState();*/
 
 				    
 				    doc.add(new Paragraph(" "));
@@ -10030,7 +10071,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					doc.add(new Paragraph(" ",new Font(Font.HELVETICA,14f,Color.BLACK)));
 					
 				    //p = new Paragraph("  " + spnombre.getSelectedItem().toString() + ", " + spNombreA.getSelectedItem().toString() + "," + spNombreA1.getSelectedItem().toString() + "," + spNombreA2.getSelectedItem().toString()+ "," + spNombreA3.getSelectedItem().toString()+ "," + spNombreA4.getSelectedItem().toString(),font1);
-				    p = new Paragraph("" + insp,new Font(Font.HELVETICA,8.8f,Color.BLACK));
+				    p = new Paragraph("" + insp,new Font(Font.HELVETICA,9f,Color.BLACK));
 				    p.setAlignment(Paragraph.ALIGN_LEFT);
 				    doc.add(p);
 				    
@@ -10133,8 +10174,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         for (int i = 0; i < reg.length; i++) {
                             if (reg[i] > 0) {
                                 motivo += (x) + " " + conceptos.get(i) + ",";
-                                art += articulo.get(i) + " Fracción " + fraccion.get(i) + ",";
-                                x+=1;
+                                if(fraccion.get(i).length()>0) {
+                                    art += articulo.get(i) + " Fracción " + fraccion.get(i) + ",";
+                                    x += 1;
+                                }else{
+                                    art += articulo.get(i) + ",";
+                                    x += 1;
+                                }
                             }
                         }
                         art = art.substring(0, art.length() - 1);
@@ -10153,7 +10199,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     p.setFont(new Font(Font.HELVETICA,3));
                     doc.add(p);*/
 
-			        txt = Justificar.justifocarTexto1(motivo, 132);
+			        txt = Justificar.justifocarTexto1(motivo, 140);
 				    float li = 443+c;
 				    
 				    for (int i = 0; i < txt.length; i++) {
@@ -10161,13 +10207,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				    	canvas.saveState();
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(23, li);
+				        canvas.setFontAndSize(bf, 9.5f);
+				        canvas.moveText(13, li);
 				        canvas.showText(txt[i]);
 				        canvas.endText();
 				        canvas.restoreState();
 				        
-				        li-=10.2;
+				        li-=10.9;
 					}
 				    
 				    int d = 5;
@@ -10200,7 +10246,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        canvas.restoreState();
 
 			        if(id == 2) {
-                        if(!cbDatos.isChecked()) {
+                        if(!cbDatos.isChecked() ) {
+                            if(!cbDatos2.isChecked()){
+
+
                             canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
@@ -10209,33 +10258,78 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
                             canvas.endText();
                             canvas.restoreState();
+                            }
                         }else{
                             canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
                             canvas.moveText(86, 138.2f);
-                            canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
+                            canvas.showText(spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
                             canvas.endText();
                             canvas.restoreState();
                         }
                     } else {
 			            if(!cbDatos.isChecked()) {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(86, 138.2f);
-                            canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
+                            if(!cbDatos2.isChecked()) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(86, 138.2f);
+                                canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
+                                canvas.endText();
+                                canvas.restoreState();
+                            }
+                        }else{
+			                String leyenda="El visitado no proporciono dato alguno de su identidad, por lo que se lleva a cabo la presente diligencia con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus articulos 86 y 87, con descripcion de su media afiliacion";
+
+
+                            float brinco=250.2f;
+                            String []txt2=Justificar.justifocarTexto1(leyenda, 34);
+			                if(!cbDatos2.isChecked()) {
+                                for(int i=0;i<txt2.length;i++) {
+
+                                        canvas.saveState();
+
+                                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                        canvas.beginText();
+                                        canvas.setFontAndSize(bf, 6.8f);
+                                        canvas.moveText(40, brinco);
+                                        canvas.showText(txt2[i]);
+                                        canvas.endText();
+                                        canvas.restoreState();
+                                        brinco-=9;
+
+                                }
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9.5f);
+                                canvas.moveText(86, 138f);
+                                canvas.showText(etVIdentifica.getText().toString() );
+                                canvas.endText();
+                                canvas.restoreState();
+                            }
+                        }
+                        if(!cbDatos2.isChecked()) {
+                            if(!cbDatos.isChecked()) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9);
+                                canvas.moveText(86, 138.2f);
+                                canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
+                                canvas.endText();
+                                canvas.restoreState();
+                            }
                         }else{
                             canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
                             canvas.moveText(86, 138.2f);
-                            canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
+                            //canvas.showText("En ausencia de persona alguna, se llevó a cabo la presente diligencia por cedula; con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus articulos 86 y 87");
                             canvas.endText();
                             canvas.restoreState();
                         }
