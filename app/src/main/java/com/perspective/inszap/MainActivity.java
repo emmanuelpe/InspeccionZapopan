@@ -712,6 +712,33 @@ public class MainActivity extends Activity {
 
 			System.err.println("tipo_cedula");
 		}
+		if(validarCampo("Levantamiento","folio_peticion") == 0) {
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Levantamiento add folio_peticion TEXT";
+			db1.execSQL(sql);
+
+			System.err.println("folio_peticion");
+		}
+		if(validarCampo("Levantamiento","folio_apercibimiento") == 0) {
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Levantamiento add folio_apercibimiento TEXT";
+			db1.execSQL(sql);
+
+			System.err.println("folio_apercibimiento");
+		}
+		if(validarCampo("Levantamiento","fecha_apercibimiento") == 0) {
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Levantamiento add fecha_apercibimiento TEXT";
+			db1.execSQL(sql);
+
+			System.err.println("fecha_apercibimiento");
+		}
 		if(!isTableExists("c_peticion")) {
 			System.out.println("false");
 			
