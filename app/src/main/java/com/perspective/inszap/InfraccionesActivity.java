@@ -3676,18 +3676,36 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					    reincidencia = "SI";
 					else
 					    reincidencia = "NO";
-						Log.i("levanta", ingresar(etNumeroActa.getText().toString(), tvC.getText().toString() + fmt + "-" + etAnoCitatorio.getText().toString(),infrac, tipoActa,id, fecha, hora, longitud, latitud, 
-								orden, etFecham.getText().toString(),zon, id_inspector1, id_inspector2, 
-								etNombreV.getText().toString(), spIdentifica.getSelectedItem().toString() + ":" + etVIdentifica.getText().toString(), etVManifiesta.getText().toString(), 
-								etFraccionamiento.getText().toString(), etCalle.getText().toString(), etNumero.getText().toString(), 
-								etNuemroInterior.getText().toString(), etApellidoP.getText().toString(), etApellidoM.getText().toString(), 
-								etPropietario.getText().toString(), etNombreT.getText().toString(), spIdentificaT.getSelectedItem().toString() + ":" + etIfeT.getText().toString(), 
-								spdesignado.getSelectedItem().toString(), etNombreT1.getText().toString(), spIdentificaT1.getSelectedItem().toString() + ":" +  etIfeT2.getText().toString(), 
-								spdesignado1.getSelectedItem().toString(), usoCatalogo,etSeleccion.getText().toString(), etInfraccion.getText().toString(), id_hechos, 
-								spuso.getSelectedItem().toString() , spDensidad.getSelectedItem().toString()/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
-								Integer.parseInt(spgravedad.getSelectedItem().toString()), Integer.parseInt(etDiaPlazo.getText().toString()), etfecha.getText().toString(), hr, etCondominio.getText().toString(), etLote.getText().toString(), etManzana.getText().toString(), etReferencia.getText().toString(), "", "", etConstruccion.getText().toString(),idComp,etEntreC.getText().toString(),etEntreC1.getText().toString(),etResponsable.getText().toString(),etRegistro.getText().toString(),"N",identifica,
-								spPeticion.getSelectedItem().toString(),firmas,etMotivo.getText().toString(),etMedida.getText().toString().trim() + " "+ etNumeroSellos.getText().toString().trim(),etArticulo.getText().toString(),
-								id_inspector3,id_inspector4,id_inspector5,id_inspector6,idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5,etLGiro.getText().toString().trim(),etAGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),spNE.getSelectedItem().toString(),reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etfechap.getText().toString()) + "");
+
+
+					if(id!=4){
+                        Log.i("levanta", ingresar(etNumeroActa.getText().toString(), tvC.getText().toString() + fmt + "-" + etAnoCitatorio.getText().toString(),infrac, tipoActa,id, fecha, hora, longitud, latitud,
+                                orden, etFecham.getText().toString(),zon, id_inspector1, id_inspector2,
+                                etNombreV.getText().toString(), spIdentifica.getSelectedItem().toString() + ":" + etVIdentifica.getText().toString(), etVManifiesta.getText().toString(),
+                                etFraccionamiento.getText().toString(), etCalle.getText().toString(), etNumero.getText().toString(),
+                                etNuemroInterior.getText().toString(), etApellidoP.getText().toString(), etApellidoM.getText().toString(),
+                                etPropietario.getText().toString(), etNombreT.getText().toString(), spIdentificaT.getSelectedItem().toString() + ":" + etIfeT.getText().toString(),
+                                spdesignado.getSelectedItem().toString(), etNombreT1.getText().toString(), spIdentificaT1.getSelectedItem().toString() + ":" +  etIfeT2.getText().toString(),
+                                spdesignado1.getSelectedItem().toString(), usoCatalogo,etSeleccion.getText().toString(), etInfraccion.getText().toString(), id_hechos,
+                                spuso.getSelectedItem().toString() , spDensidad.getSelectedItem().toString()/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
+                                Integer.parseInt(spgravedad.getSelectedItem().toString()), Integer.parseInt(etDiaPlazo.getText().toString()), etfecha.getText().toString(), hr, etCondominio.getText().toString(), etLote.getText().toString(), etManzana.getText().toString(), etReferencia.getText().toString(), "", "", etConstruccion.getText().toString(),idComp,etEntreC.getText().toString(),etEntreC1.getText().toString(),etResponsable.getText().toString(),etRegistro.getText().toString(),"N",identifica,
+                                spPeticion.getSelectedItem().toString(),firmas,etMotivo.getText().toString(),etMedida.getText().toString().trim() + " "+ etNumeroSellos.getText().toString().trim(),etArticulo.getText().toString(),
+                                id_inspector3,id_inspector4,id_inspector5,id_inspector6,idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5,etLGiro.getText().toString().trim(),etAGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),spNE.getSelectedItem().toString(),reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etfechap.getText().toString()) + "");
+                    }else{
+                        Log.i("levanta", ingresar(etNumeroActa.getText().toString(), tvC.getText().toString() + fmt + "-" + etAnoCitatorio.getText().toString(),infrac, tipoActa,id, fecha, hora, longitud, latitud,
+                                orden, etFecham.getText().toString(),zon, id_inspector1, id_inspector2,
+                                etNombreV.getText().toString(), spIdentifica.getSelectedItem().toString() + ":" + etVIdentifica.getText().toString(), etVManifiesta.getText().toString(),
+                                etFraccionamiento.getText().toString(), etCalle.getText().toString(), etNumero.getText().toString(),
+                                etNuemroInterior.getText().toString(), etApellidoP.getText().toString(), etApellidoM.getText().toString(),
+                                etPropietario.getText().toString(), etNombreT.getText().toString(), spIdentificaT.getSelectedItem().toString() + ":" + etIfeT.getText().toString(),
+                                spdesignado.getSelectedItem().toString(), etNombreT1.getText().toString(), spIdentificaT1.getSelectedItem().toString() + ":" +  etIfeT2.getText().toString(),
+                                spdesignado1.getSelectedItem().toString(), usoCatalogo,etSeleccion.getText().toString(), etInfraccion.getText().toString(), id_hechos,
+                                spuso.getSelectedItem().toString() , spDensidad.getSelectedItem().toString()/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
+                                Integer.parseInt(spgravedad.getSelectedItem().toString()), Integer.parseInt(etDiaPlazo.getText().toString()), etfecha.getText().toString(), hr, etCondominio.getText().toString(), etLote.getText().toString(), etManzana.getText().toString(), etReferencia.getText().toString(), "", "", etConstruccion.getText().toString(),idComp,etEntreC.getText().toString(),etEntreC1.getText().toString(),etResponsable.getText().toString(),etRegistro.getText().toString(),"N",identifica,
+                                "",firmas,etMotivo.getText().toString(),etMedida.getText().toString().trim() + " "+ etNumeroSellos.getText().toString().trim(),etArticulo.getText().toString(),
+                                id_inspector3,id_inspector4,id_inspector5,id_inspector6,idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5,etLGiro.getText().toString().trim(),etAGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),spNE.getSelectedItem().toString(),reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etfechap.getText().toString()) + "");
+                    }
+
 					
 						//String peticion,String v_firma,String motivo_orden,String medida_seguridad,String articulo_medida
 						String[] iHecho = null;
@@ -3779,27 +3797,52 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             if (!conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
                                 Log.i("sii", "internet " + id_inspector2);
                                 //nv
+
                                 Log.e("DATOSNUEVOS",etfoliopeticion.getText().toString()+"folioap"+etfolioap.getText().toString()+""+etfechap.getText().toString());
-                                if (Connection.inserta(etNumeroActa.getText().toString(), citatorio, infrac, tipoActa, id, fecha, fecha + " " + hora,
-                                        longitud, latitud, orden, etFecham.getText().toString(), zon, id_inspector1, id_inspector2,
-                                        etNombreV.getText().toString(), spIdentifica.getSelectedItem().toString() + ":" + etVIdentifica.getText().toString(), etVManifiesta.getText().toString(),
-                                        etFraccionamiento.getText().toString(), etCalle.getText().toString(), etNumero.getText().toString(),
-                                        etNuemroInterior.getText().toString(), etApellidoP.getText().toString(), etApellidoM.getText().toString(),
-                                        etPropietario.getText().toString(), etNombreT.getText().toString(), spIdentificaT.getSelectedItem().toString() + ":" + etIfeT.getText().toString(),
-                                        spdesignado.getSelectedItem().toString(), etNombreT1.getText().toString(), spIdentificaT1.getSelectedItem().toString() + ":" + etIfeT2.getText().toString(),
-                                        spdesignado1.getSelectedItem().toString(), usoCatalogo, etSeleccion.getText().toString(), etInfraccion.getText().toString(), id_hechos,
-                                        spuso.getSelectedItem().toString().trim(), spDensidad.getSelectedItem().toString()/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
-                                        Integer.parseInt(spgravedad.getSelectedItem().toString()), Integer.parseInt(etDiaPlazo.getText().toString()), etfecha.getText().toString(),
-                                        fecha + " " + hr, "POR CALIFICAR", etCondominio.getText().toString() + " ", etManzana.getText().toString(), etLote.getText().toString(), etReferencia.getText().toString(), "", /*etAlineamiento.getText().toString()*/"", etConstruccion.getText().toString(), etEntreC.getText().toString(), etEntreC1.getText().toString(), etResponsable.getText().toString(), etRegistro.getText().toString(), idComp,
-                                        etMedida.getText().toString().trim() + " " + etNumeroSellos.getText().toString().trim(), etArticulo.getText().toString().trim(), etMotivo.getText().toString().trim(), id_inspector3, id_inspector4, id_inspector5, id_inspector6,
-                                        idCompetencia1, idCompetencia2, idCompetencia3, idCompetencia4, idCompetencia5
-                                        , etLGiro.getText().toString().trim(), etAGiro.getText().toString(), axo, etNombreComercial.getText().toString(), etSector.getText().toString(), conf, spPeticion.getSelectedItem().toString(), spNE.getSelectedItem().toString(), reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etfechap.getText().toString(),/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
+                               if(id!=4){
+                                   if (Connection.inserta(etNumeroActa.getText().toString(), citatorio, infrac, tipoActa, id, fecha, fecha + " " + hora,
+                                           longitud, latitud, orden, etFecham.getText().toString(), zon, id_inspector1, id_inspector2,
+                                           etNombreV.getText().toString(), spIdentifica.getSelectedItem().toString() + ":" + etVIdentifica.getText().toString(), etVManifiesta.getText().toString(),
+                                           etFraccionamiento.getText().toString(), etCalle.getText().toString(), etNumero.getText().toString(),
+                                           etNuemroInterior.getText().toString(), etApellidoP.getText().toString(), etApellidoM.getText().toString(),
+                                           etPropietario.getText().toString(), etNombreT.getText().toString(), spIdentificaT.getSelectedItem().toString() + ":" + etIfeT.getText().toString(),
+                                           spdesignado.getSelectedItem().toString(), etNombreT1.getText().toString(), spIdentificaT1.getSelectedItem().toString() + ":" + etIfeT2.getText().toString(),
+                                           spdesignado1.getSelectedItem().toString(), usoCatalogo, etSeleccion.getText().toString(), etInfraccion.getText().toString(), id_hechos,
+                                           spuso.getSelectedItem().toString().trim(), spDensidad.getSelectedItem().toString()/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
+                                           Integer.parseInt(spgravedad.getSelectedItem().toString()), Integer.parseInt(etDiaPlazo.getText().toString()), etfecha.getText().toString(),
+                                           fecha + " " + hr, "POR CALIFICAR", etCondominio.getText().toString() + " ", etManzana.getText().toString(), etLote.getText().toString(), etReferencia.getText().toString(), "", /*etAlineamiento.getText().toString()*/"", etConstruccion.getText().toString(), etEntreC.getText().toString(), etEntreC1.getText().toString(), etResponsable.getText().toString(), etRegistro.getText().toString(), idComp,
+                                           etMedida.getText().toString().trim() + " " + etNumeroSellos.getText().toString().trim(), etArticulo.getText().toString().trim(), etMotivo.getText().toString().trim(), id_inspector3, id_inspector4, id_inspector5, id_inspector6,
+                                           idCompetencia1, idCompetencia2, idCompetencia3, idCompetencia4, idCompetencia5
+                                           , etLGiro.getText().toString().trim(), etAGiro.getText().toString(), axo, etNombreComercial.getText().toString(), etSector.getText().toString(), conf, spPeticion.getSelectedItem().toString(), spNE.getSelectedItem().toString(), reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etfechap.getText().toString(),/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
 
-                                    resu = true;
+                                       resu = true;
 
-                                    Log.i("inserto", "true");
-                                } else
-                                    Log.i("inserto", "false");
+                                       Log.i("inserto", "true");
+                                   } else
+                                       Log.i("inserto", "false");
+                               }else{
+                                   if (Connection.inserta(etNumeroActa.getText().toString(), citatorio, infrac, tipoActa, id, fecha, fecha + " " + hora,
+                                           longitud, latitud, orden, etFecham.getText().toString(), zon, id_inspector1, id_inspector2,
+                                           etNombreV.getText().toString(), spIdentifica.getSelectedItem().toString() + ":" + etVIdentifica.getText().toString(), etVManifiesta.getText().toString(),
+                                           etFraccionamiento.getText().toString(), etCalle.getText().toString(), etNumero.getText().toString(),
+                                           etNuemroInterior.getText().toString(), etApellidoP.getText().toString(), etApellidoM.getText().toString(),
+                                           etPropietario.getText().toString(), etNombreT.getText().toString(), spIdentificaT.getSelectedItem().toString() + ":" + etIfeT.getText().toString(),
+                                           spdesignado.getSelectedItem().toString(), etNombreT1.getText().toString(), spIdentificaT1.getSelectedItem().toString() + ":" + etIfeT2.getText().toString(),
+                                           spdesignado1.getSelectedItem().toString(), usoCatalogo, etSeleccion.getText().toString(), etInfraccion.getText().toString(), id_hechos,
+                                           spuso.getSelectedItem().toString().trim(), spDensidad.getSelectedItem().toString()/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
+                                           Integer.parseInt(spgravedad.getSelectedItem().toString()), Integer.parseInt(etDiaPlazo.getText().toString()), etfecha.getText().toString(),
+                                           fecha + " " + hr, "POR CALIFICAR", etCondominio.getText().toString() + " ", etManzana.getText().toString(), etLote.getText().toString(), etReferencia.getText().toString(), "", /*etAlineamiento.getText().toString()*/"", etConstruccion.getText().toString(), etEntreC.getText().toString(), etEntreC1.getText().toString(), etResponsable.getText().toString(), etRegistro.getText().toString(), idComp,
+                                           etMedida.getText().toString().trim() + " " + etNumeroSellos.getText().toString().trim(), etArticulo.getText().toString().trim(), etMotivo.getText().toString().trim(), id_inspector3, id_inspector4, id_inspector5, id_inspector6,
+                                           idCompetencia1, idCompetencia2, idCompetencia3, idCompetencia4, idCompetencia5
+                                           , etLGiro.getText().toString().trim(), etAGiro.getText().toString(), axo, etNombreComercial.getText().toString(), etSector.getText().toString(), conf, "", spNE.getSelectedItem().toString(), reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etfechap.getText().toString(),/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
+
+                                       resu = true;
+
+                                       Log.i("inserto", "true");
+                                   } else
+                                       Log.i("inserto", "false");
+                               }
+
                             }
 						} else{
 						    resu=false;
@@ -10024,7 +10067,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9);
 			        canvas.moveText(80, 820+c);
-			        canvas.showText(etFraccionamiento.getText().toString() + " CONDOMINIO: " + etCondominio.getText().toString());
+			        canvas.showText("FRACCIONAMIENTO: "+etFraccionamiento.getText().toString() + " CONDOMINIO: " + etCondominio.getText().toString());
 			        canvas.endText();
 			        canvas.restoreState();
 					
@@ -10267,7 +10310,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9.35f);
-				        canvas.moveText(20.3f, li);
+				        canvas.moveText(20.4f, li);
 				        canvas.showText(txt[i]);
 				        canvas.endText();
 				        canvas.restoreState();
@@ -10299,7 +10342,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.35f);
-			        canvas.moveText(450f, 165.3f);
+			        canvas.moveText(453f, 165.3f);
 			        canvas.showText(String.valueOf(a).substring(2,4) + "");
 			        canvas.endText();
 			        canvas.restoreState();
@@ -10313,7 +10356,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9.35f);
-                            canvas.moveText(86, 138.2f);
+                            canvas.moveText(86, 148.2f);
                             canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
                             canvas.endText();
                             canvas.restoreState();
@@ -10406,7 +10449,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9.35f);
-                                canvas.moveText(86, 138.2f);
+                                canvas.moveText(86, 148.2f);
                                 canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
                                 canvas.endText();
                                 canvas.restoreState();
@@ -10444,14 +10487,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     }
                     if(!cbDatos2.isChecked()) {
                         if(!cbDatos.isChecked()) {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9.35f);
-                            canvas.moveText(86, 138.2f);
-                            canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
+                           
                         }
                     }else{
                         String leyenda2="En ausencia de persona alguna, se llevó a cabo la presente diligencia por cedula; con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus articulos 86 y 87";
@@ -10489,7 +10525,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.25f);
-			        canvas.moveText(515, 148.5f);
+			        canvas.moveText(516, 148.9f);
 			        canvas.showText(hr);
 			        canvas.endText();
 			        canvas.restoreState();
@@ -10498,7 +10534,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.25f);
-			        canvas.moveText(65, 134.5f);
+			        canvas.moveText(65, 134.4f);
 			        canvas.showText(dia + "");
 			        canvas.endText();
 			        canvas.restoreState();
@@ -10507,7 +10543,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.25f);
-			        canvas.moveText(156, 134.5f);
+			        canvas.moveText(156, 134.4f);
 			        canvas.showText(me.toUpperCase(Locale.getDefault()));
 			        canvas.endText();
 			        canvas.restoreState();
@@ -10516,7 +10552,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.25f);
-			        canvas.moveText(263.2f, 124.2f);
+			        canvas.moveText(263.8f, 134.4f);
 			        canvas.showText(a + "");
 			        canvas.endText();
 			        canvas.restoreState();

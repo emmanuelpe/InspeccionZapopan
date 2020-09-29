@@ -9476,7 +9476,7 @@ public String vigencia_inicial(String v){
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
                 canvas.moveText(80, 820+c);
-                canvas.showText(etFraccionamiento.getText().toString() + "CONDOMINIO: " + etCondominio.getText().toString());
+                canvas.showText("FRACCIONAMIENTO: "+etFraccionamiento.getText().toString() + " CONDOMINIO: " + etCondominio.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
 
@@ -9625,7 +9625,7 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9.35f);
-                canvas.moveText(150, 491.1f+c);
+                canvas.moveText(150, 491.5f+c);
                 //canvas.showText("01 de Abril");
                 canvas.showText(recorte2[2]+" de "+ vigencia_inicial);
                 canvas.endText();
@@ -9635,7 +9635,7 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9.35f);
-                canvas.moveText(288, 491.1f+c);
+                canvas.moveText(288, 491.5f+c);
                 canvas.showText("20");
                 canvas.endText();
                 canvas.restoreState();
@@ -9644,7 +9644,7 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9.35f);
-                canvas.moveText(350, 491.1f+c);
+                canvas.moveText(350, 491.5f+c);
                 canvas.showText(recorte1[2] + " de " + vigencia);
                 canvas.endText();
                 canvas.restoreState();
@@ -9653,7 +9653,7 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9.35f);
-                canvas.moveText(527, 491.1f+c);
+                canvas.moveText(524, 491.5f+c);
                 canvas.showText(String.valueOf(ax).substring(2, 4));
                 canvas.endText();
                 canvas.restoreState();
@@ -9662,7 +9662,7 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9.35f);
-                canvas.moveText(208, 480.3f+c);
+                canvas.moveText(207.7f, 480.5f+c);
                 canvas.showText(fol + "," + f1);
                 canvas.endText();
                 canvas.restoreState();
@@ -9707,7 +9707,7 @@ public String vigencia_inicial(String v){
                     p.setFont(new Font(Font.HELVETICA,3));
                     doc.add(p);*/
 
-                txt = Justificar.justifocarTexto1(motivo, 132);
+                txt = Justificar.justifocarTexto1(motivo, 133);
                 float li = 458+c;
 
                 for (int i = 0; i < txt.length; i++) {
@@ -9716,7 +9716,7 @@ public String vigencia_inicial(String v){
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9.35f);
-                    canvas.moveText(20.3f, li);
+                    canvas.moveText(18.8f, li);
                     canvas.showText(txt[i]);
                     canvas.endText();
                     canvas.restoreState();
@@ -9730,7 +9730,7 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9.35f);
-                canvas.moveText(267, 165.3f);
+                canvas.moveText(267, 165.6f);
                 canvas.showText(dia + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -9739,7 +9739,7 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(315, 165.3f);
+                canvas.moveText(313, 165.6f);
                 canvas.showText(me.toUpperCase());
                 canvas.endText();
                 canvas.restoreState();
@@ -9748,7 +9748,7 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(450f, 165.3f);
+                canvas.moveText(450f, 165.6f);
                 canvas.showText(String.valueOf(a).substring(2,4) + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -9785,7 +9785,7 @@ public String vigencia_inicial(String v){
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9.35f);
-                            canvas.moveText(86, 138.2f);
+                            canvas.moveText(86, 145.2f);
                             canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
                             canvas.endText();
                             canvas.restoreState();
@@ -9961,7 +9961,7 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9.25f);
-                canvas.moveText(515, 148.5f);
+                canvas.moveText(515, 149f);
                 canvas.showText(hr);
                 canvas.endText();
                 canvas.restoreState();
@@ -9970,7 +9970,7 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(65, 134.2f);
+                canvas.moveText(65, 134.5f);
                 canvas.showText(dia + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -9979,7 +9979,7 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(156, 134.2f);
+                canvas.moveText(156, 134.5f);
                 canvas.showText(me.toUpperCase(Locale.getDefault()));
                 canvas.endText();
                 canvas.restoreState();
@@ -9988,7 +9988,7 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(263.2f, 124.2f);
+                canvas.moveText(263.2f, 134.5f);
                 canvas.showText(a + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -9998,7 +9998,7 @@ public String vigencia_inicial(String v){
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(155, 119.8f);
+                    canvas.moveText(155, 120.4f);
                     canvas.showText("Si");
                     canvas.endText();
                     canvas.restoreState();
@@ -10007,7 +10007,7 @@ public String vigencia_inicial(String v){
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(155, 119.8f);
+                    canvas.moveText(155, 120.4f);
                     canvas.showText("No");
                     canvas.endText();
                     canvas.restoreState();
