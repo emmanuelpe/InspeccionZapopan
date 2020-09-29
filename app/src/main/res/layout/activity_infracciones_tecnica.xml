@@ -645,6 +645,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="No proporciono datos"/>
+                        <CheckBox
+                            android:id="@+id/cbDatos2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/cbDatos"
+                            android:text="No atendio persona alguna o se retiró el visitado antes del término de la presente diligencia"/>
 
                         <TextView
                             android:id="@+id/tvDatoVisitado"
@@ -654,7 +660,7 @@
                             android:text="@string/nombreV"
                             android:layout_gravity="center"
                             style="@style/Subtitle"
-                            android:layout_below="@id/cbDatos"/>
+                            android:layout_below="@id/cbDatos2"/>
 
                         <EditText
                             android:id="@+id/etNombreV"
@@ -664,7 +670,7 @@
                             android:layout_toRightOf="@id/tvDatoVisitado"
                             android:hint="@string/nombreV"
                             android:imeOptions="actionNext"
-                            android:layout_below="@id/cbDatos"/>
+                            android:layout_below="@id/cbDatos2"/>
 
                     </RelativeLayout>
 
@@ -1156,6 +1162,50 @@
                             android:layout_below="@id/etCondominio">
 
                             <TextView
+                                android:id="@+id/tvfolioap"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:text="Folio AP"
+                                android:layout_gravity="center"
+
+                                style="@style/Subtitle"
+                                android:visibility="gone"/>
+
+                            <EditText
+                                android:id="@+id/etfolioap"
+                                android:layout_width="fill_parent"
+                                android:layout_height="70dp"
+                                android:hint="Folio apercibimiento"
+                                android:layout_toRightOf="@id/tvfolioap"
+                                android:inputType="textCapSentences"
+
+                                android:imeOptions="actionNext"
+                                android:visibility="gone"/>
+
+                            <TextView
+                                android:id="@+id/tvfechaap"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="45dp"
+                                android:text="Fecha AP"
+                                android:layout_gravity="center"
+                                android:layout_below="@id/tvfolioap"
+                                style="@style/Subtitle"
+                                android:visibility="gone"/>
+
+                            <EditText
+                                android:id="@+id/etfechap"
+                                android:layout_width="fill_parent"
+                                android:layout_height="70dp"
+                                android:hint="aaaa-mm-dd"
+                                android:layout_toRightOf="@id/tvfechaap"
+                                android:inputType="textCapSentences"
+                                android:layout_below="@id/etfolioap"
+                                android:imeOptions="actionNext"
+                                android:visibility="gone"/>
+
+                            <TextView
                                 android:id="@+id/tvManzana"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -1202,7 +1252,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
                                 android:text="@string/referencia"
-                                android:layout_toRightOf="@id/etLote"
+
+                                android:layout_below="@id/etfechap"
                                 android:layout_gravity="center"
                                 style="@style/Subtitle"/>
 
@@ -1212,6 +1263,7 @@
                                 android:layout_height="70dp"
                                 android:hint="@string/referencia"
                                 android:layout_toRightOf="@id/tvReferencia"
+                                android:layout_below="@id/etfechap"
                                 android:inputType="textCapSentences"
                                 android:imeOptions="actionNext"/>
 
@@ -2503,7 +2555,8 @@
                             android:layout_height="wrap_content"
                             android:text="@string/Tipo_entrega_informacion"
                             android:gravity="center"
-                            style="@style/Div"/>
+                            style="@style/Div"
+                            android:visibility="gone"/>
 
                         <RadioGroup
                             android:id="@+id/rgTipo"
@@ -2511,26 +2564,30 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp">
+                            android:layout_marginBottom="5dp"
+                            android:visibility="gone">
 
                             <RadioButton
                                 android:id="@+id/rbF"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Entrega fisica"
-                                android:checked="true"/>
+                                android:checked="true"
+                                android:visibility="gone"/>
 
                             <RadioButton
                                 android:id="@+id/rbN"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/negativo"/>
+                                android:text="@string/negativo"
+                                android:visibility="gone"/>
 
                             <RadioButton
                                 android:id="@+id/rbC"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/cerrado"/>
+                                android:text="@string/cerrado"
+                                android:visibility="gone"/>
 
                         </RadioGroup>
 

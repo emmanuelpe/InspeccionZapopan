@@ -2793,7 +2793,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         	spMedida.setAdapter(adapter);
 
         	tvMC.setVisibility(View.GONE);
-            cbDatos2.setVisibility(View.GONE);
+            //cbDatos2.setVisibility(View.GONE);
         }
 
         if(id == 5) {
@@ -2809,12 +2809,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
             adapter = new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida);
             spMedida.setAdapter(adapter);
-            cbDatos2.setVisibility(View.GONE);
+            //cbDatos2.setVisibility(View.GONE);
         }
         
         if(id == 3) {
         	tvCondominio.setText(getResources().getString(R.string.coto) + " o Mercado Tianguis");
-            cbDatos2.setVisibility(View.GONE);
+            //cbDatos2.setVisibility(View.GONE);
         }
 
         if(id == 4) {
@@ -2971,6 +2971,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 tvAcomp.setVisibility(View.GONE);
                 llconcepto.setVisibility(View.GONE);
 
+
                 if(id == 4) {
                     etNombreComercial.setHint("Nombre del Propietario o Representante Legal");
                     tvNombreComercial.setText("Nombre del Propietario o Representante Legal");
@@ -2984,8 +2985,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 }
                 if(id == 2 | id == 5) {
                     llNota.setVisibility(View.GONE);
-                    tvCondominio.setVisibility(View.GONE);
-                    etCondominio.setVisibility(View.GONE);
+                    //tvCondominio.setVisibility(View.GONE);
+                    //etCondominio.setVisibility(View.GONE);
+                    etfolioap.setVisibility(View.VISIBLE);
+                    etfecha.setVisibility(View.VISIBLE);
+
                 }
             } else {
                 inicio();
@@ -3039,7 +3043,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     tvPeticion.setVisibility(View.GONE);
                     spPeticion.setVisibility(View.GONE);
                     tvReg.setVisibility(View.GONE);
-                    cbDatos2.setVisibility(View.GONE);
+                    //cbDatos2.setVisibility(View.GONE);
                 }
                 if(id==4){
                     tvPeticion.setVisibility(View.GONE);
@@ -7106,8 +7110,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 System.out.println("entro a quitar componentes");
                 tvReg.setVisibility(View.GONE);
                 llfundamento.setVisibility(View.GONE);
-                etCondominio.setVisibility(View.GONE);
-                tvCondominio.setVisibility(View.GONE);
+                //etCondominio.setVisibility(View.GONE);
+                //tvCondominio.setVisibility(View.GONE);
 
                 tvPropietario.setText("NOMBRE Y/O RAZON SOCIAL");
                 etDondeActua.setVisibility(View.GONE);
@@ -7118,12 +7122,21 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                // rlProp.setVisibility(View.GONE);
                 tvMC.setVisibility(View.GONE);
                 spMeConstitui.setVisibility(View.GONE);
+                tvfechap.setVisibility(View.VISIBLE);
+                tvfolioap.setVisibility(View.VISIBLE);
+                etfechap.setVisibility(View.VISIBLE);
+                etfolioap.setVisibility(View.VISIBLE);
+
 
             }
 			if(id == 2) {
                 tvMC.setVisibility(View.GONE);
                 spMeConstitui.setVisibility(View.GONE);
                 rlDonde_actua.setVisibility(View.GONE);
+                tvfechap.setVisibility(View.VISIBLE);
+                tvfolioap.setVisibility(View.VISIBLE);
+                etfechap.setVisibility(View.VISIBLE);
+                etfolioap.setVisibility(View.VISIBLE);
             }
 
 			if(id == 2 | id == 5)
@@ -7199,8 +7212,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             }
             if(id == 2 | id == 5) {
                 llNota.setVisibility(View.GONE);
-                tvCondominio.setVisibility(View.GONE);
-                etCondominio.setVisibility(View.GONE);
+                //tvCondominio.setVisibility(View.GONE);
+                //etCondominio.setVisibility(View.GONE);
                 tvReg.setVisibility(View.GONE);
                 etManifiesta.setText("Se reserva el derecho");
                 etPropietario.setVisibility(View.GONE);
@@ -7209,10 +7222,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 rlDonde_actua.setVisibility(View.VISIBLE);
                 etGiro.setVisibility(View.VISIBLE);
                 llfundamento.setVisibility(View.GONE);
-                etCondominio.setVisibility(View.GONE);
-                tvCondominio.setVisibility(View.GONE);
+                //etCondominio.setVisibility(View.GONE);
+                //tvCondominio.setVisibility(View.GONE);
                 tvPropietario.setText("NOMBRE Y/O RAZON SOCIAL");
                 llPla.setVisibility(View.GONE);
+                tvfolioap.setVisibility(View.VISIBLE);
+                tvfechap.setVisibility(View.VISIBLE);
+                etfolioap.setVisibility(View.VISIBLE);
+                etfechap.setVisibility(View.VISIBLE);
             }
             if(id == 2) {
                 tvMC.setVisibility(View.GONE);
@@ -8678,7 +8695,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             datos = "en términos de lo dispuesto por el artículo 73, segundo párrafo, de la Ley del Procedimiento Administrativo del Estado de Jalisco,";
                         }
                         String tipoentrega="";
-                        if(id==2 && id==3 &&id==5){
+                        /*if(id==2 && id==3 &&id==5){
                             if(tipoEntrega == 2){
                                 tipoentrega="fijándose un tanto del acta en lugar seguro y visible del domicilio en que se actúa al encontrar cerrado el domicilio, en términos de lo dispuesto por el artículo 87 de la Ley del Procedimiento Administrativo del Estado de Jalisco.";
                             }else if(tipoEntrega == 1){
@@ -8686,14 +8703,16 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             }else if(tipoEntrega == 0){
                                 tipoentrega="quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.";
                             }
-                        }else{
-                            if(cbDatos.isChecked()){
+                        }else{*/
+                            if(cbDatos.isChecked() && !cbDatos2.isChecked()){
                                 tipoentrega="el visitado no proporciono dato alguno de su identidad, por lo que se lleva a cabo la presente diligencia con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus artículos 86 y 87, con descripcion de media filiacion.";
+                                tipoEntrega=0;
                             }
-                            if(cbDatos2.isChecked()){
+                            if(cbDatos2.isChecked() && !cbDatos.isChecked()){
                                 tipoentrega="en ausencia de persona alguna, se llevó a cabo la presente diligencia por cédula; con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus articulos 86 y 87.";
+                                tipoEntrega=2;
                             }
-                        }
+                        /*}*/
 
 
 
@@ -8739,7 +8758,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 				        if(id == 4) {
                             String apercibimiento="";
-				            if(etCondominio.getText().toString().trim().length()>1 ){
+				            if(etCondominio.getText().toString().trim().length()>1 && etfolioap.getText().toString().length()>1 && etfechap.getText().toString().length()>1){
 				                String folioa=etfolioap.getText().toString();
 				                String fechap=etfechap.getText().toString();
 				                apercibimiento="Dar seguimiento a lo señalado en el previo apercibimiento folio "+folioa+ " de fecha "+fechap+" en lo conducente y en concordancia con la reglamentación aplicable,";
@@ -8779,6 +8798,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
                                     hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+"  =Fin del texto=",font1);
                         } else if(id == 2) {
+                            String apercibimiento="";
+                            if(etCondominio.getText().toString().trim().length()>1 && etfolioap.getText().toString().length()>1 && etfechap.getText().toString().length()>1 ){
+                                String folioa=etfolioap.getText().toString();
+                                String fechap=etfechap.getText().toString();
+                                apercibimiento="Dar seguimiento a lo señalado en el previo apercibimiento folio "+folioa+ " de fecha "+fechap+" en lo conducente y en concordancia con la reglamentación aplicable,";
+
+                            }
                             String numeroS="";
                             if(etNumeroSellos.getText().toString().trim().length()>3){
                                 numeroS="con numero de sello(s) "+etNumeroSellos.getText().toString().trim();
@@ -8787,7 +8813,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del  año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
                                     " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en  " +
                                     etDondeActua.getText().toString().trim() + " marcada (o)  con el número  " + numero + " de  la  calle " + etCalle.getText().toString().trim() + " entre las calles " + etEntreC.getText().toString().trim() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " +
-                                    etFraccionamiento.getText().toString().trim() + " condominio" + etCondominio.getText().toString().trim() + ", cerciorándome de ser este el domicilio donde se realiza la visita de inspección y la actividad comercial, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado " +
+                                    etFraccionamiento.getText().toString().trim() + " condominio" + etCondominio.getText().toString().trim() + ", "+apercibimiento+" cerciorándome de ser este el domicilio donde se realiza la visita de inspección y la actividad comercial, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado " +
                                     "por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número " +" "+ folio + ", vigente del "+diaIni+" de " +vigencia_inicial+ " del "+recorte2[0]+ " a "+diavigen+" de " +  vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del " +
                                     "Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString().trim() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString() + " manifiesta ser " + etVManifiesta.getText().toString().trim() + " del giro " +
                                     etGiro.getText().toString().trim() + ", propiedad de " + prop + ", le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. " +
@@ -10293,46 +10319,32 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             canvas.restoreState();
                             }
                         }else{
-                            canvas.saveState();
+                            /*canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9.35f);
                             canvas.moveText(86, 138.2f);
                             canvas.showText(spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
                             canvas.endText();
-                            canvas.restoreState();
-                        }
-                    } else {
-			            if(!cbDatos.isChecked()) {
-                            if(!cbDatos2.isChecked()) {
-                                canvas.saveState();
-                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                                canvas.beginText();
-                                canvas.setFontAndSize(bf, 9.35f);
-                                canvas.moveText(86, 138.2f);
-                                canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
-                                canvas.endText();
-                                canvas.restoreState();
-                            }
-                        }else{
-			                String leyenda="El visitado no proporciono dato alguno de su identidad, por lo que se lleva a cabo la presente diligencia con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus articulos 86 y 87, con descripcion de su media afiliacion";
+                            canvas.restoreState();*/
+                            String leyenda="El visitado no proporciono dato alguno de su identidad, por lo que se lleva a cabo la presente diligencia con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus articulos 86 y 87, con descripcion de su media afiliacion";
 
 
                             float brinco=250f;
                             String []txt2=Justificar.justifocarTexto1(leyenda, 40);
-			                if(!cbDatos2.isChecked()) {
+                            if(!cbDatos2.isChecked()) {
                                 for(int i=0;i<txt2.length;i++) {
 
-                                        canvas.saveState();
+                                    canvas.saveState();
 
-                                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                                        canvas.beginText();
-                                        canvas.setFontAndSize(bf, 9.35f);
-                                        canvas.moveText(22, brinco);
-                                        canvas.showText(txt2[i]);
-                                        canvas.endText();
-                                        canvas.restoreState();
-                                        brinco-=9;
+                                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                    canvas.beginText();
+                                    canvas.setFontAndSize(bf, 9.35f);
+                                    canvas.moveText(22, brinco);
+                                    canvas.showText(txt2[i]);
+                                    canvas.endText();
+                                    canvas.restoreState();
+                                    brinco-=9;
 
                                 }
                                 canvas.saveState();
@@ -10385,7 +10397,92 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 canvas.restoreState();
                             }
 
+
                         }
+                    } else {
+			            if(!cbDatos.isChecked()) {
+                            if(!cbDatos2.isChecked()) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9.35f);
+                                canvas.moveText(86, 138.2f);
+                                canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
+                                canvas.endText();
+                                canvas.restoreState();
+                            }
+                        }else{
+			                String leyenda="El visitado no proporciono dato alguno de su identidad, por lo que se lleva a cabo la presente diligencia con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus articulos 86 y 87, con descripcion de su media afiliacion";
+
+
+                        float brinco=250f;
+                        String []txt2=Justificar.justifocarTexto1(leyenda, 40);
+                        if(!cbDatos2.isChecked()) {
+                            for(int i=0;i<txt2.length;i++) {
+
+                                canvas.saveState();
+
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9.35f);
+                                canvas.moveText(22, brinco);
+                                canvas.showText(txt2[i]);
+                                canvas.endText();
+                                canvas.restoreState();
+                                brinco-=9;
+
+                            }
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9.35f);
+                            canvas.moveText(86, 138f);
+                            canvas.showText(etVIdentifica.getText().toString() );
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
+                    }
+                    if(!cbDatos2.isChecked()) {
+                        if(!cbDatos.isChecked()) {
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9.35f);
+                            canvas.moveText(86, 138.2f);
+                            canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
+                    }else{
+                        String leyenda2="En ausencia de persona alguna, se llevó a cabo la presente diligencia por cedula; con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus articulos 86 y 87";
+                        String []txt2=Justificar.justifocarTexto1(leyenda2, 40);
+                        float brinco=250f;
+                        if(!cbDatos.isChecked()){
+                            for(int i=0;i<txt2.length;i++) {
+
+                                canvas.saveState();
+
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 9.35f);
+                                canvas.moveText(22, brinco);
+                                canvas.showText(txt2[i]);
+                                canvas.endText();
+                                canvas.restoreState();
+                                brinco-=9;
+
+                            }
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 9.35f);
+                            canvas.moveText(86, 138f);
+                            canvas.showText("Ausencia de persona alguna, se llevó a cabo la presente diligencia por cedula" );
+                            canvas.endText();
+                            canvas.restoreState();
+                        }
+
+                    }
                     }
 			        
 			        canvas.saveState();
@@ -10419,7 +10516,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.25f);
-			        canvas.moveText(263.2f, 134.5f);
+			        canvas.moveText(263.2f, 124.2f);
 			        canvas.showText(a + "");
 			        canvas.endText();
 			        canvas.restoreState();

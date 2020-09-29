@@ -2580,7 +2580,8 @@
 							android:layout_height="wrap_content"
 							android:text="@string/Tipo_entrega_informacion"
 							android:gravity="center"
-							style="@style/Div"/>
+							style="@style/Div"
+							android:visibility="gone"/>
 
 						<RadioGroup
 							android:id="@+id/rgTipo"
@@ -2588,26 +2589,30 @@
 							android:layout_height="wrap_content"
 							android:layout_marginLeft="5dp"
 							android:layout_marginTop="5dp"
-							android:layout_marginBottom="5dp">
+							android:layout_marginBottom="5dp"
+							android:visibility="gone">
 
 							<RadioButton
 								android:id="@+id/rbF2"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:text="Entrega fisica"
-								android:checked="true"/>
+								android:checked="true"
+								android:visibility="gone"/>
 
 							<RadioButton
 								android:id="@+id/rbN2"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
-								android:text="@string/negativo"/>
+								android:text="@string/negativo"
+								android:visibility="gone"/>
 
 							<RadioButton
 								android:id="@+id/rbC2"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
-								android:text="@string/cerrado"/>
+								android:text="@string/cerrado"
+								android:visibility="gone"/>
 
 						</RadioGroup>
 
