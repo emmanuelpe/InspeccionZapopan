@@ -2823,10 +2823,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             tvNombreComercial.setText("Nombre del Propietario o Representante Legal");
             etReferencia.setVisibility(View.GONE);
             tvReferencia.setVisibility(View.GONE);
-            tvfolioap.setVisibility(View.VISIBLE);
+           /* tvfolioap.setVisibility(View.VISIBLE);
             etfolioap.setVisibility(View.VISIBLE);
             tvfechap.setVisibility(View.VISIBLE);
-            etfechap.setVisibility(View.VISIBLE);
+            etfechap.setVisibility(View.VISIBLE);*/
+
             etAGiro.setHint("Area");
             etAGiro.setText(direccion);
             tvgiro.setText("Area");
@@ -3393,6 +3394,17 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 }
                 for(int i = 0;i < reg.length; i++) {
                     System.err.println(reg[i] + " " + i);
+                    if(reg[i]==13 && i==12){
+                        tvfolioap.setVisibility(View.VISIBLE);
+                        tvfechap.setVisibility(View.VISIBLE);
+                        etfolioap.setVisibility(View.VISIBLE);
+                        etfechap.setVisibility(View.VISIBLE);
+                    }else if(reg[i]==-1 && i==12){
+                        tvfolioap.setVisibility(View.GONE);
+                        tvfechap.setVisibility(View.GONE);
+                        etfolioap.setVisibility(View.GONE);
+                        etfechap.setVisibility(View.GONE);
+                    }
                 }
             }
 
@@ -5214,11 +5226,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	    String sql = "select * from C_uso_suelo where uso_suelo like '%**%'";
     		//Cursor c = db.query("C_uso_suelo", null, "id_c_uso_suelo", null, null, null, "uso_suelo");
             Cursor c = db.rawQuery(sql,null);
+            usoSuelo.add("");
     		if (c.moveToFirst()){
     			do {
 					usoSuelo.add(c.getString(2));
 				} while (c.moveToNext());
-    			usoSuelo.add("");
+
     		}
     		c.close();
     	}
@@ -7279,6 +7292,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 btnImprimirResum.setVisibility(View.GONE);
                 tvUso.setVisibility(View.GONE);
                 tvNota.setText("Uso de Suelo");
+                tvfolioap.setVisibility(View.VISIBLE);
+                etfolioap.setVisibility(View.VISIBLE);
+                tvfechap.setVisibility(View.VISIBLE);
+                etfechap.setVisibility(View.VISIBLE);
             }
             if(id == 2 | id == 5) {
                 llNota.setVisibility(View.GONE);
@@ -8782,6 +8799,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 tipoentrega="en ausencia de persona alguna, se llevó a cabo la presente diligencia por cédula; con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus articulos 86 y 87.";
                                 tipoEntrega=2;
                             }
+
+                            /*243, 197*/
                         /*}*/
 
 
@@ -8866,7 +8885,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     ", "+ testigos + "así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " +
                                     hechos + " Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en "+peticionb+", se procede indistintamente con las siguientes medidas: " + medidasP + " "+ numeroS+".Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
                                     ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
-                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+"  =Fin del texto=",font1);
+                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=",font1);
                         } else if(id == 2) {
                             String apercibimiento="";
                             if(etCondominio.getText().toString().trim().length()>1 && etfolioap.getText().toString().length()>1 && etfechap.getText().toString().length()>1 ){
@@ -9752,6 +9771,48 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
 				        //GRAVEDAD
+                        if(id==4){
+                            if(cbDatos.isChecked() && !cbDatos2.isChecked()){
+                                tipoentrega="El visitado no proporciono dato alguno de su identidad, por lo que se lleva a cabo la presente diligencia con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus artículos 86 y 87, con descripcion de media filiacion.";
+                                String []imprimir = Justificar.justifocarTexto1(tipoentrega, 35);
+                                float salto=320;
+                                for(int i=0;i<imprimir.length;i++){
+                                    canvas.saveState();
+                                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                    canvas.beginText();
+                                    canvas.setFontAndSize(bf, 9);
+                                    canvas.moveText(175, salto);
+                                    canvas.showText(imprimir[i]);
+                                    canvas.endText();
+                                    canvas.restoreState();
+
+                                    salto-=10;
+                                }
+                                //tipoEntrega=0;
+                            }
+                            if(cbDatos2.isChecked() && !cbDatos.isChecked()){
+                                tipoentrega="En ausencia de persona alguna, se llevó a cabo la presente diligencia por cédula; con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus articulos 86 y 87.";
+                                //tipoEntrega=2;
+                                String []imprimir = Justificar.justifocarTexto1(tipoentrega, 35);
+                                float salto=290;
+                                for(int i=0;i<imprimir.length;i++){
+                                    canvas.saveState();
+                                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                    canvas.beginText();
+                                    canvas.setFontAndSize(bf, 9);
+                                    canvas.moveText(175, salto);
+                                    canvas.showText(imprimir[i]);
+                                    canvas.endText();
+                                    canvas.restoreState();
+
+                                    salto-=10;
+                                }
+                            }
+                        }
+
+
+                        /*243, 197*/
+
 
                             if (spgravedad.getSelectedItem().toString().equalsIgnoreCase("1")) {
                                 canvas.saveState();
@@ -10319,7 +10380,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                         for (int i = 0; i < reg.length; i++) {
                             if (reg[i] > 0) {
-                                motivo += (x) + " " + conceptos.get(i) + ",";
+                                if(reg[i]==13){
+                                    motivo+= (x) + " Dar seguimiento a lo señalado en el previo apercibimiento folio "+etfolioap.getText().toString()+" de fecha "+etfechap.getText().toString()+" en lo conducente y en concordancia con la reglamentacion aplicable.";
+                                }else{
+                                    motivo += (x) + " " + conceptos.get(i) + ",";
+                                }
+
                                 if(fraccion.get(i).length()>0) {
                                     art += articulo.get(i) + " Fracción " + fraccion.get(i) + ",";
                                     x += 1;
@@ -10479,7 +10545,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9.35f);
                                 canvas.moveText(86, 153.3f);
-                                canvas.showText("Ausencia de persona alguna, se llevó a cabo la presente diligencia por cedula" );
+                                canvas.showText("-----------------------------------------------------------------------------" );
                                 canvas.endText();
                                 canvas.restoreState();
                             }
@@ -10557,7 +10623,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9.35f);
                             canvas.moveText(86, 153.3f);
-                            canvas.showText("Ausencia de persona alguna, se llevó a cabo la presente diligencia por cedula" );
+                            canvas.showText("-----------------------------------------------------------------------------" );
                             canvas.endText();
                             canvas.restoreState();
                         }
