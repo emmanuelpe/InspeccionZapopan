@@ -2358,6 +2358,16 @@
                                 android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="true"/>
 
+                            <EditText
+                                android:id="@+id/etNumeroSellos"
+                                android:layout_width="fill_parent"
+                                android:layout_height="140dp"
+                                android:hint="Numero de sellos"
+                                android:layout_below="@id/etMedida"
+                                android:inputType="textMultiLine|textCapSentences"
+                                android:enabled="true"
+                                android:visibility="gone"/>
+
                             <!-- <TextView
                                 android:id="@+id/tvArticulos"
                                 android:layout_width="wrap_content"
@@ -2373,7 +2383,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Aceptar medidas "
                                 android:textSize="12sp"
-                                android:layout_below="@id/etMedida"
+                                android:layout_below="@id/etNumeroSellos"
                                 android:visibility="gone"
 
                                 ></Button>
@@ -2383,7 +2393,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Eliminar "
                                 android:textSize="12sp"
-                                android:layout_below="@id/etMedida"
+                                android:layout_below="@id/etNumeroSellos"
                                 android:layout_toRightOf="@id/etAcepA"
                                 android:visibility="gone"
 
