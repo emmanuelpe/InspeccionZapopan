@@ -8129,9 +8129,15 @@ public String vigencia_inicial(String v){
         FileOutputStream ficheroPdf = null;
         PdfWriter write = null;
         BaseFont bf = null;
+        int marginleft=0;
+        if(formato.equalsIgnoreCase("infraccion")){
+            marginleft=25;
+        }else{
+            marginleft=17;
+        }
 
         try {
-            doc = new Document(PageSize.LEGAL,25,35,20,20);
+            doc = new Document(PageSize.LEGAL,marginleft,35,20,20);
             doc.setPageCount(1);
             file = new File(Environment.getExternalStorageDirectory() + "/Infracciones/fotografias/" + etNumeroActa.getText().toString().replace("/", "_") + "/" + etNumeroActa.getText().toString().replace("/", "_")+ ".pdf");
             ficheroPdf = new FileOutputStream(file.getAbsoluteFile());
@@ -9730,15 +9736,20 @@ String numeroS="";
 
                 doc.add(new Paragraph(" ",font1));
                 doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
+                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,5f,Color.BLACK)));
+                p = new Paragraph(motivo,new Font(Font.HELVETICA,9.35f,Color.BLACK));
+                p.setLeading(10);
+                p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+                //p.setFont(new Font(Font.HELVETICA,3));
+                doc.add(p);
+                //doc.add(new Paragraph(" ",font1));
 
                     /*p = new Paragraph("                                                                       " + motivo.toLowerCase());
                     p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
                     p.setFont(new Font(Font.HELVETICA,3));
                     doc.add(p);*/
 
-                txt = Justificar.justifocarTexto1(motivo, 133);
+                /*txt = Justificar.justifocarTexto1(motivo, 133);
                 float li = 468+c;
 
                 for (int i = 0; i < txt.length; i++) {
@@ -9753,7 +9764,7 @@ String numeroS="";
                     canvas.restoreState();
 
                     li-=11;
-                }
+                }*/
 
                 int d = 5;
 

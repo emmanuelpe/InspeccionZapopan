@@ -8613,9 +8613,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		FileOutputStream ficheroPdf = null;
 		PdfWriter write = null;
 		BaseFont bf = null;
-		
+		int marginleft=0;
+		if(formato.equalsIgnoreCase("infraccion")){
+		    marginleft=25;
+        }else{
+		    marginleft=17;
+        }
 		try {
-			doc = new Document(PageSize.LEGAL,25,35,20,20);
+			doc = new Document(PageSize.LEGAL,marginleft,35,20,20);
 		    file = new File(Environment.getExternalStorageDirectory() + "/Infracciones/fotografias/" + etNumeroActa.getText().toString().replace("/", "_") + "/" + etNumeroActa.getText().toString().replace("/", "_")+ ".pdf");
 		    ficheroPdf = new FileOutputStream(file.getAbsoluteFile());
 		    
@@ -9969,13 +9974,15 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     }*/
 		} else if(formato.equalsIgnoreCase("orden")) {
 			//construccion
-				try {
+
+
+                try {
 					
 					//ambiental
 					//File file = new File(Environment.getExternalStorageDirectory() + "/Infracciones/fotografias/" + etNumeroActa.getText().toString().replace("/", "_") + "/" + etNumeroActa.getText().toString().replace("/", "_")+ ".txt");
 					
 					int c = 10;
-					
+                    //doc = new Document(PageSize.LEGAL,25,35,20,20);
 					MimeTypeMap mime = MimeTypeMap.getSingleton();
 					String  ext = file.getName().substring(file.getName().indexOf(".")+1);
 					String tipo = mime.getMimeTypeFromExtension(ext);
@@ -10410,15 +10417,17 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                     doc.add(new Paragraph(" ",font1));
                     doc.add(new Paragraph(" ",font1));
-                    doc.add(new Paragraph(" ",font1));
-                    doc.add(new Paragraph(" ",font1));
-
-                    /*p = new Paragraph("                                                                       " + motivo.toLowerCase());
+                    doc.add(new Paragraph(" ",new Font(Font.HELVETICA,5f,Color.BLACK)));
+                    //doc.add(new Paragraph(" ",font1));
+                    //doc.setMargins(35,35,20,20);
+                    p = new Paragraph(motivo,new Font(Font.HELVETICA,9.35f,Color.BLACK));
+                    p.setLeading(10);
                     p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
-                    p.setFont(new Font(Font.HELVETICA,3));
-                    doc.add(p);*/
+                    //p.setFont(new Font(Font.HELVETICA,3));
+                    doc.add(p);
+                    //doc.setMargins(25,35,20,20);
 
-			        txt = Justificar.justifocarTexto1(motivo, 133);
+			        /*txt = Justificar.justifocarTexto1(motivo, 133);
 				    float li = 462+c;
 				    
 				    for (int i = 0; i < txt.length; i++) {
@@ -10433,7 +10442,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        canvas.restoreState();
 				        
 				        li-=11;
-					}
+					}*/
 				    
 				    int d = 5;
 				    
