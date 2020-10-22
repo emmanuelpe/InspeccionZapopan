@@ -24,6 +24,7 @@ import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -89,6 +90,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
@@ -202,6 +206,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private List<String> folios = new ArrayList<>();
     private String fa="";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -220,6 +225,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         System.out.println("id " + id);
         System.err.println(conf + " con");
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
 
         String n1 = "09";
         int n2 = Integer.parseInt(n1) + 1;
@@ -4560,7 +4566,28 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         }
 
     }
+    private void setMobileDataEnabled(Context context, boolean enabled) {
+        final ConnectivityManager conman = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
+        try {
+            Class conmanClass;
+            conmanClass = Class.forName(conman.getClass().getName());
+            Field iConnectivityManagerField = conmanClass.getDeclaredField("mService");
+            iConnectivityManagerField.setAccessible(true);
+            Object iConnectivityManager = iConnectivityManagerField.get(conman);
+            Class iConnectivityManagerClass = Class.forName(iConnectivityManager.getClass().getName());
+            Method setMobileDataEnabledMethod;
+            setMobileDataEnabledMethod = iConnectivityManagerClass.getDeclaredMethod("setMobileDataEnabled", Boolean.TYPE);
+            setMobileDataEnabledMethod.setAccessible(true);
+            setMobileDataEnabledMethod.invoke(iConnectivityManager, enabled);
+        } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+
+    }
     public void medidas(String condicion) {
         GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarDB.getReadableDatabase();
