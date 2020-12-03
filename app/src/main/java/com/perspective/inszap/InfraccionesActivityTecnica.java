@@ -3451,7 +3451,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         }
     }
     public void guardar() {
-        //try {
+        /*try {*/
         if (validarI()) {
             int idLevantamiento, idLevantamientoSQL = 0;
             if(!etInfraccion.getText().toString().equalsIgnoreCase("") | infrac == 2 | infrac == 3 | infrac == 4) {
@@ -3565,6 +3565,13 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     reincidencia = "SI";
                 else
                     reincidencia = "NO";
+
+                String medidasEn="";
+                if(etNumeroSellos.length()>2){
+                    medidasEn= etMedida.getText().toString()+" (numero sello(s):"+etNumeroSellos.getText().toString()+")";
+                }else{
+                    medidasEn=etMedida.getText().toString();
+                }
                 Log.i("levanta", ingresar(etNumeroActa.getText().toString(), tvC.getText().toString() + fmt + "-" + etAnoCitatorio.getText().toString(),infrac, tipoActa,id, fecha, hora, longitud, latitud,
                         orden, etFecham.getText().toString(),zon, id_inspector1, id_inspector2,
                         etNombreV.getText().toString(), spIdentifica.getSelectedItem().toString() + ":" + etVIdentifica.getText().toString(), etVManifiesta.getText().toString(),
@@ -3575,7 +3582,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         spdesignado1.getSelectedItem().toString(), usoCatalogo,etSeleccion.getText().toString(), etInfraccion.getText().toString(), id_hechos,
                         spuso.getSelectedItem().toString() , ""/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
                         Integer.parseInt(spgravedad.getSelectedItem().toString()), Integer.parseInt(etDiaPlazo.getText().toString()), etfecha.getText().toString(), hr, etCondominio.getText().toString(), etLote.getText().toString(), etManzana.getText().toString(), etReferencia.getText().toString(), "", "", etConstruccion.getText().toString(),idComp,etEntreC.getText().toString(),etEntreC1.getText().toString(),etResponsable.getText().toString(),etRegistro.getText().toString(),"N",identifica,
-                        spPeticion.getSelectedItem().toString(),firmas,etMotivo.getText().toString(),etMedida.getText().toString()+" "+etNumeroSellos,etArticulo.getText().toString(),
+                        spPeticion.getSelectedItem().toString(),firmas,etMotivo.getText().toString(),medidasEn,etArticulo.getText().toString(),
                         id_inspector3,id_inspector4,id_inspector5,id_inspector6,idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5,etLGiro.getText().toString().trim(),etAGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),spNE.getSelectedItem().toString(),reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etfechap.getText().toString()) + "");
 
                 //String peticion,String v_firma,String motivo_orden,String medida_seguridad,String articulo_medida
@@ -3628,7 +3635,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                 if(formato == "infraccion") {
                     for(int i = 0; i < iHecho.length; i++) {
-                        int can = 0;
+                        float can = 0;
                         int iHec;
                         String iUni = "";
                         if(idLevantamiento == 0) {
@@ -3643,7 +3650,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         for (int j = 0; j < iCantidad.length; j++) {
                             if (j == i) {
                                 if(!iCantidad[i].equalsIgnoreCase("")) {
-                                    can = Integer.parseInt(iCantidad[i]);
+                                    can = Float.parseFloat(iCantidad[i]);
                                 }
                             }
                         }
@@ -3665,11 +3672,17 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 //imprimir();
                 imprimir(formato);
                 System.out.println("despues");
-
+                String medidasEn2="";
                 //10.84.35.153
                 if (conn.validarConexion(InfraccionesActivityTecnica.this)) {
                     Log.i("sii", "internet " + id_inspector2);
-                    //nv
+
+                    if(etNumeroSellos.length()>2){
+                      medidasEn2= etMedida.getText().toString()+" (numero sello(s):"+etNumeroSellos.getText().toString()+")";
+                    }else{
+                        medidasEn2=etMedida.getText().toString();
+                    }
+
                     if (Connection.inserta(etNumeroActa.getText().toString(), citatorio,infrac, tipoActa,id, fecha, fecha + " " + hora,
                             longitud, latitud, orden, etFecham.getText().toString(),zon, id_inspector1, id_inspector2,
                             etNombreV.getText().toString(),spIdentifica.getSelectedItem().toString() + ":" + etVIdentifica.getText().toString(), etVManifiesta.getText().toString(),
@@ -3681,7 +3694,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             spuso.getSelectedItem().toString().trim(), ""/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
                             Integer.parseInt(spgravedad.getSelectedItem().toString()), Integer.parseInt(etDiaPlazo.getText().toString()), etfecha.getText().toString(),
                             fecha + " " + hr, "POR CALIFICAR",etCondominio.getText().toString() + " ",etManzana.getText().toString(),etLote.getText().toString(), etReferencia.getText().toString(), "", /*etAlineamiento.getText().toString()*/"", etConstruccion.getText().toString(), etEntreC.getText().toString(),etEntreC1.getText().toString(),etResponsable.getText().toString(),etRegistro.getText().toString(),idComp,
-                            etMedida.getText().toString()+" "+etNumeroSellos.getText().toString(),etArticulo.getText().toString().trim(),etMotivo.getText().toString().trim(),id_inspector3,id_inspector4,id_inspector5,id_inspector6,
+                            medidasEn2,etArticulo.getText().toString().trim(),etMotivo.getText().toString().trim(),id_inspector3,id_inspector4,id_inspector5,id_inspector6,
                             idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5
                             ,etLGiro.getText().toString().trim(),etAGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),conf,spPeticion.getSelectedItem().toString(),spNE.getSelectedItem().toString(),reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etfechap.getText().toString(),/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
 
@@ -3718,7 +3731,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                 if(formato.equalsIgnoreCase("infraccion")) {
                     for(int i = 0; i < iHecho.length; i++) {
-                        int can = 0;
+                        float can = 0;
                         int iHec;
                         String iUni = "";
                         if(idLevantamiento == 0) {
@@ -3733,7 +3746,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         for (int j = 0; j < iCantidad.length; j++) {
                             if (j == i) {
                                 if(!iCantidad[i].equalsIgnoreCase("")) {
-                                    can = Integer.parseInt(iCantidad[i]);
+                                    can = Float.parseFloat(iCantidad[i]);
                                 }
                             }
                         }
@@ -3785,17 +3798,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             }
         }
     	/*}catch (Exception e) {
-			Log.e("Guardar", e.getMessage() + " l");
-			/*btnGuardar.setEnabled(false);
-			btnImprimir.setEnabled(true);
-			btnmodificar.setEnabled(false);
-			this.tvEvidencia.setVisibility(View.VISIBLE);
-	        this.btnTomarF.setVisibility(View.VISIBLE);
-	        //btnFtp.setEnabled(true);
-	        btnTomarF.setEnabled(true);
-			Toast toast = Toast.makeText(getApplicationContext(), "Los datos se han guardado en la base de datos local", Toast.LENGTH_LONG);
+
+			Toast toast = Toast.makeText(getApplicationContext(), "No se ha podido guardar verifique los datos", Toast.LENGTH_LONG);
 			toast.setGravity(0, 0, 15);
-			toast.show();*
+			toast.show();
 		}*/
     }
 
@@ -5005,7 +5011,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         return n;
     }
 
-    public long ingresarDetalleInfraccion(int idLevantamiento,String numeroActa,int idInfraccion, int cantidad,String estatus,String unidad ) {
+    public long ingresarDetalleInfraccion(int idLevantamiento,String numeroActa,int idInfraccion, float cantidad,String estatus,String unidad ) {
 
         long n = 0;
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
@@ -13491,11 +13497,15 @@ String numeroS="";
                                 res = true;
                             }else
                                 res = false;
+
                             System.out.println("valor si es clausura:"+res);
-                            if(res)
+                            if(res){
                                 etNumeroSellos.setVisibility(View.VISIBLE);
-                            else
+
+                            }else{
                                 etNumeroSellos.setVisibility(View.GONE);
+                            }
+
 
                             //etMedida.setText(spMedida.getSelectedItem().toString());
                             //etArticulo.setText(art.get(spMedida.getSelectedItemPosition()).trim() + " del " + orden.get(spMedida.getSelectedItemPosition()).trim());
