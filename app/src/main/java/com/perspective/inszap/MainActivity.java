@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,8 +24,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -766,10 +772,25 @@ public class MainActivity extends Activity {
 			}
 		} else
 			System.out.println("true");
+
+		if(validarCampo("Levantamiento","numero_sellos") == 0) {
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Levantamiento add numero_sellos TEXT";
+			db1.execSQL(sql);
+
+			sql = "alter table Levantamiento add decomiso TEXT";
+			db1.execSQL(sql);
+
+			System.err.println("numero_sellos");
+		}
 		
 		consultade();
 		consultaf();
 		consultaTodo1();
+
+		setMobileDataEnabled(getApplicationContext(),true);
 	}
 
 
@@ -1364,6 +1385,30 @@ public class MainActivity extends Activity {
 		finally {
 			db.close();
 			c.close();
+		}
+	}
+
+	public static void setMobileDataEnabled(Context context, boolean enabled) {
+		final ConnectivityManager conman = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		try {
+			Class conmanClass;
+			conmanClass = Class.forName(conman.getClass().getName());
+			Log.v("name",conman.getClass().getName());
+			Field iConnectivityManagerField = conmanClass.getDeclaredField("mService");
+			iConnectivityManagerField.setAccessible(true);
+			Object iConnectivityManager = iConnectivityManagerField.get(conman);
+			Class iConnectivityManagerClass = Class.forName(iConnectivityManager.getClass().getName());
+			Method setMobileDataEnabledMethod;
+			setMobileDataEnabledMethod = iConnectivityManagerClass.getDeclaredMethod("setMobileDataEnabled", Boolean.TYPE);
+			setMobileDataEnabledMethod.setAccessible(true);
+			setMobileDataEnabledMethod.invoke(iConnectivityManager, enabled);
+			Thread.sleep(5000);
+		} catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException | InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException x) {
+			Log.e("error",x.getMessage());
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 }

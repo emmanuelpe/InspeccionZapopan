@@ -2357,11 +2357,23 @@
 									android:id="@+id/etNumeroSellos"
 									android:layout_width="fill_parent"
 									android:layout_height="140dp"
-									android:hint="Numero de sellos"
+									android:hint="@string/numero_de_sellos"
 									android:layout_below="@id/etMedida"
 									android:inputType="textMultiLine|textCapSentences"
 									android:enabled="true"
-									android:visibility="gone"/>
+									android:visibility="gone"
+									android:maxLength="49"/>
+
+								<EditText
+									android:id="@+id/etDecomiso"
+									android:layout_width="fill_parent"
+									android:layout_height="140dp"
+									android:hint="@string/decomiso"
+									android:layout_below="@id/etNumeroSellos"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="true"
+									android:visibility="gone"
+									android:maxLength="499"/>
 
 								<LinearLayout
 									android:id="@+id/llfundamento"
@@ -2369,7 +2381,7 @@
 									android:layout_height="wrap_content"
 									android:gravity="center"
 									android:layout_gravity="center_vertical"
-									android:layout_below="@id/etNumeroSellos"
+									android:layout_below="@id/etDecomiso"
 									android:orientation="vertical">
 
 								</LinearLayout>

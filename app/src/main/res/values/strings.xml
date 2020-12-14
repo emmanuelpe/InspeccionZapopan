@@ -216,6 +216,8 @@
     <string name="title_activity_infracciones">Infracción</string>
     <string name="ne">Nivel Economico</string>
     <string name="re">Reincidencia</string>
+    <string name="decomiso">Decomiso</string>
+    <string name="numero_de_sellos">Numero de sellos</string>
     <string-array name="densidad">
         <item></item>
         <item>Minima (1)</item>
