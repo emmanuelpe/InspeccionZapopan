@@ -999,7 +999,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			return 0;
 		} else {
 			System.out.println("no entro");
-			return 1;
+			return 0;
 		}
 	}
 	public String fechasicronizacion(String catalogo){
