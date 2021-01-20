@@ -317,7 +317,7 @@ public class Connection {
 			levanta.add(new BasicNameValuePair("actividad_giro", actividad_giro));
 			levanta.add(new BasicNameValuePair("axo_licencia", String.valueOf(axo_licencia)));
 			
-			levanta.add(new BasicNameValuePair("nombre_comercial", licencia_giro));
+			levanta.add(new BasicNameValuePair("nombre_comercial", nombre_comercial));
 			levanta.add(new BasicNameValuePair("sector", sector));
 			
 			levanta.add(new BasicNameValuePair("id_tableta", String.valueOf(id_tableta)));
