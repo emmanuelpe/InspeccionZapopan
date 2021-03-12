@@ -81,9 +81,9 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v7.view.menu.MenuView;
+//import android.support.v4.content.ContextCompat;
+//import android.support.v4.content.FileProvider;
+//import android.support.v7.view.menu.MenuView;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -111,6 +111,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+
+import androidx.core.content.FileProvider;
 
 public class InfraccionesActivity extends Activity implements OnClickListener, Runnable, OnCheckedChangeListener, OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
 
@@ -10360,7 +10362,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9.35f);
                     canvas.moveText(288, 496f+c);
-                    canvas.showText("20");
+                    canvas.showText(recorte2[0].substring(2, 4));
                     canvas.endText();
                     canvas.restoreState();
 
@@ -10426,7 +10428,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             }
                         }
                         art = art.substring(0, art.length() - 1);
-                        motivo += " Asi mismo, cualquier otra actividad relacionada con la normatividad aplicable y que sea regulada por el Municipio de Zapopan Jalisco, con respecto a la ejecución de trabajos de construcción, remodelación, demolición, movimiento de tierras, excavación, reparación o restauración de cualquier género, así como cualquier acto de ocupacion o utilizacion del suelo que se lleve a cabo en el Municipio de Zapopan. Con base a los articulos: 2, 3, 5, 7  Fracciones I a la VI, 167, 168, 169, 171. ";
+                        motivo += " Asi mismo inspeccionar, cualquier otra actividad relacionada con la normatividad aplicable y que sea regulada por el Municipio de Zapopan Jalisco, con respecto a la ejecución de trabajos de construcción, remodelación, demolición, movimiento de tierras, excavación, reparación o restauración de cualquier género, así como cualquier acto de ocupacion o utilizacion del suelo que se lleve a cabo en el Municipio de Zapopan. Con base a los articulos: 2, 3, 5, 7  Fracciones I a la VI, 167, 168, 169, 171. ";
                         motivo += art + " del Reglamento de Construccion para el Municipio de Zapopan Jalisco";
 
                     }
@@ -10466,7 +10468,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.35f);
-			        canvas.moveText(265, 171f);
+			        canvas.moveText(265, 181f);
 			        canvas.showText(dia + "");
 			        canvas.endText();
 			        canvas.restoreState();
@@ -10475,7 +10477,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.35f);
-			        canvas.moveText(315, 171f);
+			        canvas.moveText(315, 181f);
 			        canvas.showText(me.toUpperCase());
 			        canvas.endText();
 			        canvas.restoreState();
@@ -10484,7 +10486,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.35f);
-			        canvas.moveText(452f, 171f);
+			        canvas.moveText(452f, 181f);
 			        canvas.showText(String.valueOf(a).substring(2,4) + "");
 			        canvas.endText();
 			        canvas.restoreState();
@@ -10498,7 +10500,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9.35f);
-                            canvas.moveText(86, 153.3f);
+                            canvas.moveText(86, 163.3f);
                             canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
                             canvas.endText();
                             canvas.restoreState();
@@ -10667,7 +10669,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.25f);
-			        canvas.moveText(518, 154.6f);
+			        canvas.moveText(518, 164.6f);
 			        canvas.showText(hr);
 			        canvas.endText();
 			        canvas.restoreState();
@@ -10676,7 +10678,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.25f);
-			        canvas.moveText(65, 139.4f);
+			        canvas.moveText(65, 149.4f);
 			        canvas.showText(dia + "");
 			        canvas.endText();
 			        canvas.restoreState();
@@ -10685,7 +10687,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.25f);
-			        canvas.moveText(156, 139.4f);
+			        canvas.moveText(156, 149.4f);
 			        canvas.showText(me.toUpperCase(Locale.getDefault()));
 			        canvas.endText();
 			        canvas.restoreState();
@@ -10694,7 +10696,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.25f);
-			        canvas.moveText(263.3f, 139.4f);
+			        canvas.moveText(263.3f, 149.4f);
 			        canvas.showText(a + "");
 			        canvas.endText();
 			        canvas.restoreState();
@@ -10704,7 +10706,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9.25f);
-				        canvas.moveText(155, 125.5f);
+				        canvas.moveText(155, 135.5f);
 				        canvas.showText("Si");
 				        canvas.endText();
 				        canvas.restoreState();
@@ -10713,11 +10715,44 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9.25f);
-				        canvas.moveText(155, 125.5f);
+				        canvas.moveText(155, 135.5f);
 				        canvas.showText("No");
 				        canvas.endText();
 				        canvas.restoreState();
 			        }
+
+			        if(id==4){
+                        String leyenda3="Inspeccionar y Verificar que el estado de Clausurado señalado en el Acta de Infraccion con clausura folio ____________________ del dia _______________; se respeta ; que los sellos de Clausurado no se encuentren violentados con su retiro, ruptura, ocultamiento y/o personal al interior laborando en ecualquier actividad directamente relacionada con la edificacion en proceso y acotada en el propio cuerpo del acta de infraccion antes señalada.";
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+
+                        p = new Paragraph(leyenda3,new Font(Font.HELVETICA,6.00f,Color.BLACK));
+                        p.setLeading(10);
+                        p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+                        //p.setFont(new Font(Font.HELVETICA,3));
+                        doc.add(p);
+
+                    }
+
+
+
 			        doc.close();	
 				} catch (DocumentException e) {
 					System.err.println(e.getMessage() + " doc ");

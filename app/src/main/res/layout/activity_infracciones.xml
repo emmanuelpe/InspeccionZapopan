@@ -2511,7 +2511,7 @@
 								style="@style/Subtitle"
 								 android:gravity="center"/>
 
-							 <android.support.v7.widget.AppCompatSpinner
+							 <androidx.appcompat.widget.AppCompatSpinner
 								 android:id="@+id/spDensidad"
 								 android:layout_width="match_parent"
 								 android:layout_height="wrap_content"

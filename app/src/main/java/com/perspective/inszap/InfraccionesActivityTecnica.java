@@ -33,8 +33,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
+//import android.support.v4.content.FileProvider;
+//import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
@@ -59,6 +59,10 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import com.bixolon.printer.BixolonPrinter;
 import com.lowagie.text.BadElementException;
@@ -4572,6 +4576,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         }
 
     }
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void setMobileDataEnabled(Context context, boolean enabled) {
         final ConnectivityManager conman = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -4586,7 +4591,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             setMobileDataEnabledMethod = iConnectivityManagerClass.getDeclaredMethod("setMobileDataEnabled", Boolean.TYPE);
             setMobileDataEnabledMethod.setAccessible(true);
             setMobileDataEnabledMethod.invoke(iConnectivityManager, enabled);
-        } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException | InvocationTargetException e) {
+        } catch (@SuppressLint("NewApi") ClassNotFoundException | NoSuchFieldException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
             e.printStackTrace();

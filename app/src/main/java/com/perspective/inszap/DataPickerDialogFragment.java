@@ -3,15 +3,19 @@ package com.perspective.inszap;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
+//import android.support.annotation.NonNull;
+//import android.support.annotation.Nullable;
+//import android.support.v4.app.DialogFragment;
+
+import androidx.fragment.app.DialogFragment;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Calendar;
 
 public class DataPickerDialogFragment extends DialogFragment {
 
-    @NonNull
+    //@NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Calendar calendar = Calendar.getInstance();
