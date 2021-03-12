@@ -5818,7 +5818,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	}
     
     public boolean validarSpinner(Spinner sp){
-    	return((sp.getSelectedItem().toString() == null) || (sp.getSelectedItem() == null) || sp.getSelectedItem().toString().equals(""));
+    	return(/*(sp.getSelectedItem().toString() == null) ||*/ (sp.getSelectedItem() == null) || sp.getSelectedItem().toString().equals(""));
     }
     
     protected boolean validarI() {
@@ -8852,7 +8852,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         String testigos="";
                         String nombresT="";
                         if(etNombreT.getText().toString().length()>4 && etNombreT1.getText().toString().length()>4){
-                           testigos= "mismos que se identifican con "+spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString() + ", " + spIdentificaT1.getSelectedItem().toString().trim() + " " + etIfeT2.getText().toString()+" respectivamente; ";
+                           testigos= "mismos que se identifican con "+spIdentificaT.getSelectedItem().toString().trim() + " " + etIfeT.getText().toString() + "e" + spIdentificaT1.getSelectedItem().toString().trim() + " " + etIfeT2.getText().toString()+" respectivamente; ";
                             nombresT=etNombreT.getText().toString().trim() + " y " + etNombreT1.getText().toString().trim();
                         }
                         if(etNombreT.getText().toString().length()>4 && etNombreT1.getText().toString().length()<=1){
@@ -8865,7 +8865,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         }
                         String textC="";
                         if(!etCondominio.getText().toString().equals(""))
-                            textC=etCondominio.getText().toString();
+                            textC="condominio "+etCondominio.getText().toString();
 
                         String decomiso = "";
                         if(!TextUtils.isEmpty(etDecomiso.getText().toString().trim()))
@@ -8904,12 +8904,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             else
                                 uso = spuso.getSelectedItem().toString();
                             p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
-                                    " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en " + uso +" marcada (o)  con el número " +
+                                    " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en " + uso +" marcada con el número " +
                                     numero + " de la calle " + etCalle.getText().toString() + " entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " + etFraccionamiento.getText().toString().trim() + " "+textC+ ", "+apercibimiento+" cerciorándome de ser este el domicilio por coincidir con la nomenclatura oficial y/o georreferencia, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número" +
                                     " "+folio + ", vigente del " +diaIni+" de " +vigencia_inicial+ " del "+recorte2[0]+ " a "+diavigen+ " de "+ vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString().trim() +
                                     " manifiesta ser " + etVManifiesta.getText().toString() + " del lugar en que se actúa, propiedad de " + prop + ", le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía por lo que fueron designados los C.C. " + nombresT + " por el " + spdesignado.getSelectedItem().toString().trim() +
                                     ", "+ testigos + "así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " +
-                                    hechos + " Lo anterior de conformidad a lo dispuesto por los articulos: 2, 3, 5, 7  FRACCIONES I  a la VI, 167, 168, 169, 171  del Reglamento de Construcción para el Municipio de Zapopan Jalisco. Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en "+peticionb+", se procede indistintamente con las siguientes medidas: " + medidasP + " "+ numeroS+".Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
+                                    hechos + "Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en "+peticionb+", se procede indistintamente con las siguientes medidas: " + medidasP + " "+ numeroS+".Lo anterior de conformidad a lo dispuesto por los artículo(s):  2, 3, 5, 7  FRACCIONES I  a la VI, 167, 168, 169, 171 ," + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
                                     ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
                                     hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=",font1);
                         } else if(id == 2) {
@@ -11709,7 +11709,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 String datos = "";
                 if(!numeroOV.equalsIgnoreCase("")) {
                     datos = "mediante y en cumplimiento de la Orden de Visita folio número "
-                            + numeroOV +"  dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fechaOV + " misma que en original exhibo y en copia legible entrego " +
+                            + numeroOV +"  dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fechaOV + " misma que en original exhibo y en original legible entrego " +
                             "al visitado, " + etNombreV.getText().toString() + ",";
                 } else {
                     datos = "en términos de lo dispuesto por el artículo 73, segundo párrafo, de la Ley del Procedimiento Administrativo del Estado de Jalisco,";
