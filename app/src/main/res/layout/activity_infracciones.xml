@@ -1446,6 +1446,50 @@
 							android:imeOptions="actionNext"
 							android:visibility="gone"/>
 
+						<TextView
+							android:id="@+id/tvfolioclau"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="20dp"
+							android:text="Folio clausura"
+							android:layout_gravity="center"
+							android:layout_below="@id/etfechap"
+							style="@style/Subtitle"
+							android:visibility="gone"/>
+
+						<EditText
+							android:id="@+id/etfolioclau"
+							android:layout_width="fill_parent"
+							android:layout_height="70dp"
+							android:hint="folio clausura"
+							android:layout_toRightOf="@id/tvfolioclau"
+							android:inputType="textCapSentences"
+							android:layout_below="@id/tvfechaap"
+							android:imeOptions="actionNext"
+							android:visibility="gone"/>
+
+						<TextView
+							android:id="@+id/tvfechaClau"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="20dp"
+							android:text="Fecha clausura"
+							android:layout_gravity="center"
+							android:layout_below="@id/etfolioclau"
+							style="@style/Subtitle"
+							android:visibility="gone"/>
+
+						<EditText
+							android:id="@+id/etfechaclau"
+							android:layout_width="fill_parent"
+							android:layout_height="70dp"
+							android:hint="dd-mm-aaaa"
+							android:layout_toRightOf="@id/tvfechaClau"
+							android:inputType="textCapSentences"
+							android:layout_below="@id/etfolioclau"
+							android:imeOptions="actionNext"
+							android:visibility="gone"/>
+
 					</RelativeLayout>
 						
 						<RelativeLayout android:id="@+id/rlML"

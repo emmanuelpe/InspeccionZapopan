@@ -745,6 +745,24 @@ public class MainActivity extends Activity {
 
 			System.err.println("fecha_apercibimiento");
 		}
+		if(validarCampo("Levantamiento","folio_clausura") == 0) {
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Levantamiento add folio_clausura TEXT";
+			db1.execSQL(sql);
+
+			System.err.println("folio_clausura");
+		}
+		if(validarCampo("Levantamiento","fecha_clausura") == 0) {
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Levantamiento add fecha_clausura TEXT";
+			db1.execSQL(sql);
+
+			System.err.println("fecha_clausura");
+		}
 		if(!isTableExists("c_peticion")) {
 			System.out.println("false");
 			

@@ -237,7 +237,7 @@ public class Connection {
 			String medida_seguridad,String articulo_medida,String motivo_orden,int id_c_inspector3,int id_c_inspector4,int id_c_inspector5,int id_c_inspector6,
 			int idCompetencia1,int idCompetencia2,int idCompetencia3,int idCompetencia4,int idCompetencia5,
 			String licencia_giro,String actividad_giro,int axo_licencia,String nombre_comercial,String sector,int id_tableta,String peticion,String nivel_economico,
-			String reincidencia,int tipo_cedula,String etfoliopeticion,String etfolioap,String etfechap,String numero_sellos,String decomiso,String url){
+			String reincidencia,int tipo_cedula,String etfoliopeticion,String etfolioap,String etfechap,String numero_sellos,String decomiso,String folio_clausura,String fechaclau,String url){
     	
     	try {
 			ArrayList<NameValuePair> levanta = new ArrayList<NameValuePair>();
@@ -333,6 +333,8 @@ public class Connection {
 
 			levanta.add(new BasicNameValuePair("numero_sellos", numero_sellos));
 			levanta.add(new BasicNameValuePair("decomiso", decomiso));
+			levanta.add(new BasicNameValuePair("folio_clausura",folio_clausura));
+			levanta.add(new BasicNameValuePair("fecha_clausura",fechaclau));
 			JSONObject json = jsonParser.realizarHttpRequest(url, "POST", levanta);
 			
 			

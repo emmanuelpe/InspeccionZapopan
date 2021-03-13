@@ -29,8 +29,8 @@ public class ClassConnection extends AsyncTask<String, String, String> {
             httpURLConnection.connect();
             int code= httpURLConnection.getResponseCode();
             if (code== HttpURLConnection.HTTP_OK){
-                System.out.println("pito2");
-                System.out.println("entro");
+               // System.out.println("pito2");
+                //System.out.println("entro");
                 InputStream in= new BufferedInputStream(httpURLConnection.getInputStream());
                 BufferedReader reader= new BufferedReader(new InputStreamReader(in));
                 String line="";
