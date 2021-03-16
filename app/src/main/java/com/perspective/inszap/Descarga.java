@@ -1236,6 +1236,14 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 						mensaje=mensaje+" c_me_constitui";
 					}
 				}
+				if(!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCgiro.php").trim().equalsIgnoreCase("null")){
+					eliminaRegistros("c_giro");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCgiro.php", "c_giro2");
+					//x += sicrof("c_giro", url,"0");
+				/*	if(x>0){
+						mensaje=mensaje+"c_giro";
+					}*/
+				}
 				mProgressBar.setProgress(i);
 
 				i++;

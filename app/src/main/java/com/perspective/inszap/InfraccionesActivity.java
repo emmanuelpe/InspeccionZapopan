@@ -120,8 +120,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	private TextView tvfechaClau,tvfolioclau,tvfechap,tvfolioap,tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvPropiedad,spselec1,tvDonde;
 	private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",unidades="",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",fracciones = "",articulos = "",folio = "",clave = "",fol = "",Axmedidas="",concatM="";;
 	private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:"; 
-	private int mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0,tipoEntrega = 0;
-	private Spinner spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spMeConstitui,spDensidad,spCreglamentos;
+	private int banderagiro=0, mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0,tipoEntrega = 0;
+	private Spinner spgiro,spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spMeConstitui,spDensidad,spCreglamentos;
 	private EditText etfechaClau,etfolioclau,etfoliopeticion,etfolioap,etfechap,etNum,etFecham,etfecha,etDiaPlazo,etIfeI,etNoI,etVigI,etIfeA,etIfeA1,etIfeA2,etIfeA3,etIfeA4,etNoA,etNoA1,etNoA2,etNoA3,etNoA4,etVigA,etVigA1,etVigA2,etVigA3,etVigA4,etNombreT,etIfeT,etDesc,etDesc1,etDesc2,etDesc3,etDesc4,etdato,etdato1,etdato2,etdato3,etdato4,desf,desf1,desf2,etNombreV,etFraccionamiento,etCalle,etNumero,etPropietario,etNombreT1,etIfeT2,etManifiesta,etNuemroInterior,etApellidoP,etApellidoM,etCitatorio,etNumeroActa,etEspecificacion,etDFoto,etDFoto1,etDFoto2,etDFoto3,etVManifiesta,etVIdentifica,etLatitud,etLongitud,etAnoCitatorio,etAnoOrden,etCondominio/*etDensidad*/,etManzana,etLote,etReferencia,etBuscar,etfolio,/*etAlineamiento,*/etConstruccion, etGiro, etMotivo,etOrden1,etEntreC,etEntreC1,etResponsable,etRegistro,etMedida,etArticulo,etInspccionFue,etDFoto4,etDFoto5,etDFoto6,etDFoto7,etDFoto8,etDFoto9,etDFoto10,etDFoto11,etDFoto12,etDFoto13,etDFoto14,etDFoto15,etDFoto16,etDFoto17,etDFoto18,etDFoto19,etLGiro,etAGiro,etAlicencia,etSector,etNombreComercial,etObs,etObs1,etObs2,etObs3,etObs4,etBCol,etOtro,etDondeActua,etNumeroSellos,etDecomiso;
 	private LinearLayout lldiv,cons,llNota,llplazo,llreincidencia,llcomp,llconcepto,llPla,llfundamento;
 	private RelativeLayout rlcampo,rlProp,rlTestA,rlVisita,rlLicencias,rlDonde_actua;
@@ -160,6 +160,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     final ArrayList<String> usoSueloH = new ArrayList<String>();
 	final ArrayList<String> poblacion = new ArrayList<String>();
 	final ArrayList<String> fraccionamiento = new ArrayList<String>();
+	final ArrayList<String> giros = new ArrayList<String>();
 	final ArrayList<String> zonas = new ArrayList<String>();
 	private ArrayList<String> campos = new ArrayList<String>();
 	private ArrayList<String> cmedida = new ArrayList<String>();
@@ -209,7 +210,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	public static final String TAG = "BixolonPrinterSample";
 	private AlertDialog mSampleDialog;
 	private Switch swReincidencia;
-	private ArrayAdapter adapterCol,adapterMeC,adapterDensidad;
+	private ArrayAdapter adapterCol,adapterMeC,adapterDensidad,adapterGiro;
 	private List<String> conceptos,articulo,fraccion,unis,unis1,unis2,unis3,unis4;
 	private ArrayAdapter adapterUni,adapterUni1,adapterUni2,adapterUni3,adapterUni4;
 	private List<String> fundam = new ArrayList<>();
@@ -440,6 +441,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         this.btnSalir = (Button)findViewById(R.id.btnSalirIn);
         this.spPoblacion = (Spinner)findViewById(R.id.spPoblacion);
         this.spFraccionamiento = (Spinner)findViewById(R.id.spFraccionamiento);
+        this.spgiro=(Spinner)findViewById(R.id.spGiro);
         this.tvOV = (TextView)findViewById(R.id.tvOV);
         this.etAnoCitatorio = (EditText)findViewById(R.id.etAnoCitatorio);
         this.tvC = (TextView)findViewById(R.id.tvC);
@@ -614,10 +616,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         adapterUni3 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis3);
         adapterUni4 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis4);
         adapterMeC = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,meConstitui);
+        adapterGiro=new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,giros);
         adapterDensidad = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,getResources().getStringArray(R.array.densidad));
         spMeConstitui.setAdapter(adapterMeC);
         spDensidad.setAdapter(adapterDensidad);
-
+        spgiro.setAdapter(adapterGiro);
         spuni.setAdapter(adapterUni);
         spuni1.setAdapter(adapterUni1);
         spuni2.setAdapter(adapterUni2);
@@ -991,6 +994,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         identifica();
         usoSuelo();
         poblacion();
+        C_giro();
 
         buscarNombreCampo();
         buscarOrdenamientos();
@@ -1017,6 +1021,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         //if(!fraccionamiento.isEmpty())
         spFraccionamiento.setAdapter(adapterCol);
         fraccionamiento();
+
 
 
         
@@ -1083,6 +1088,22 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				
 			}
 		});
+
+        spgiro.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(!spgiro.getItemAtPosition(position).toString().equals("")){
+                    etGiro.setText(spgiro.getItemAtPosition(position).toString());
+                }else{
+                    etGiro.setText("");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         
@@ -1488,6 +1509,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
                 arrayincaseF.add((String) spInfraccion.getItemAtPosition(position));
+
+
 			    if(con == 0){
 					Log.i("Ento al if", (String)spInfraccion.getSelectedItem());
 					con ++;
@@ -1730,6 +1753,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					}
 					else {*/
 						//guardar();
+
                 if (validarI()) {
                     if(!etInfraccion.getText().toString().equalsIgnoreCase("") | infrac == 2 | infrac == 3 | infrac == 4) {
 
@@ -1896,7 +1920,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         //ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.uso_array, android.R.layout.simple_spinner_dropdown_item);
         spuso.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, usoSuelo));
         adapterUso = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, usoSueloH);
+        adapterGiro = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,giros);
+
         spUsoH.setAdapter(adapterUso);
+        spgiro.setAdapter(adapterGiro);
 
         
         ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, R.array.gravedad_array, android.R.layout.simple_spinner_dropdown_item);
@@ -2956,6 +2983,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 ante = "IN";
                 formato = "infraccion";
                 InfraccionesActivity.this.btnOrden1.setVisibility(View.VISIBLE);
+
                 etOrden1.setVisibility(View.VISIBLE);
                 etGiro.setVisibility(View.GONE);
                 etMotivo.setVisibility(View.GONE);
@@ -5275,6 +5303,28 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	}
     	db.close();
     }
+    public void C_giro(){
+        GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
+        SQLiteDatabase db = gestionarDB.getReadableDatabase();
+        if (db != null) {
+            Cursor c;
+            String sql="select * from c_giro2 order by giro ";
+            Log.i("entro",sql);
+            c=db.rawQuery(sql,null);
+            giros.clear();
+            giros.add("");
+            if (c.moveToFirst()){
+                do {
+                    Log.i(TAG, "C_giro: entro");
+                    Log.i(TAG, "C_giro: "+c.getString(1));
+                    giros.add(c.getString(1));
+                } while (c.moveToNext());
+
+            }
+            c.close();
+        }
+        db.close();
+    }
 
     public void usoSueloH(String uso) {
         GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
@@ -5706,6 +5756,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						etFecham.setEnabled(false);
 						etNombreV.setText(c.getString(15));
 						etNombreV.setEnabled(false);
+
 						spIdentifica.setAdapter(null);
 						spIdentifica.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,identifica));
 						spIdentifica.setEnabled(false);
@@ -5952,6 +6003,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             if(validarSpinner(this.spMedida)) {
                 sb.append("Ingrese las medidas precautorias. \n");
                 valid = false;
+            }
+            if(id==5){
+                if (validarCampos(this.etGiro)) {
+                    sb.append("Ingrese el giro de donde se actua \n");
+                    valid = false;
+                }
             }
             if(id == 2 | id == 4) {
                 if (etMedida.getText().toString().trim().contains("Clausura") | etMedida.getText().toString().trim().contains("clausura")) {
@@ -6742,6 +6799,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             do {
                 id_infra = c.getInt(0);
                 unidad = c.getString(3);
+                if(c.getString(c.getColumnIndex("pedir_giro"))!=null){
+                    banderagiro=1;
+
+                }
+
+
 
                 for (int i = 0; i < campo.size(); i++) {
                     if (!campo.get(i).equalsIgnoreCase("")) {
@@ -7346,6 +7409,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 tvPropietario.setVisibility(View.GONE);
                 rlProp.setVisibility(View.GONE);
                 rlDonde_actua.setVisibility(View.VISIBLE);
+                tvgiro.setVisibility(View.VISIBLE);
                 etGiro.setVisibility(View.VISIBLE);
                 llfundamento.setVisibility(View.GONE);
                 //etCondominio.setVisibility(View.GONE);
@@ -13541,6 +13605,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			
 			Log.i("idinspector3", id_inspector3 + "");
 			break;
+
 		case R.id.spNombreAcompanante2:
 			etIfeA2.setEnabled(false);
 			etNoA2.setEnabled(false);
@@ -13971,6 +14036,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         reglaArt2.clear();
         etArticulo.setText("");
         etMedida.setText("");
+
         contador=0;
         concatA="";
         concatB="";
@@ -14016,6 +14082,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	}
     	
     }
+
+
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {

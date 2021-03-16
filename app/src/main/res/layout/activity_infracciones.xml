@@ -2481,13 +2481,21 @@
 									android:layout_gravity="center" 
 									style="@style/Subtitle"
 									android:visibility="gone"/>
-								
+
+								<Spinner android:id="@+id/spGiro"
+									android:layout_width="fill_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@id/tvgiro"
+									android:spinnerMode="dialog"
+									android:maxLines="3"/>
+
+
 								<EditText 
 									android:id="@+id/etGiro"
 									android:layout_width="fill_parent"
 									android:layout_height="100dp"
 									android:hint="@string/giro"
-									android:layout_below="@id/etArticulos"
+									android:layout_below="@id/spGiro"
 									android:layout_toRightOf="@id/tvgiro"
 									android:inputType="textCapSentences"
 									android:visibility="gone"/>

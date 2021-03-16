@@ -119,7 +119,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,unidades="",usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",clave = "",folio = "",fol = "";;
     private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:";
     private int mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0,tipoEntrega = 0;
-    private Spinner spCreglamentos,spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spMeConstitui;
+    private Spinner spgiro,spCreglamentos,spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spMeConstitui;
     private EditText etdecomiso,etNumeroSellos,etfoliopeticion,etfolioap,etfechap,etNum,etFecham,etfecha,etDiaPlazo,etIfeI,etNoI,etVigI,etIfeA,etIfeA1,etIfeA2,etIfeA3,etIfeA4,etNoA,etNoA1,etNoA2,etNoA3,etNoA4,etVigA,etVigA1,etVigA2,etVigA3,etVigA4,etNombreT,etIfeT,etDesc,etDesc1,etDesc2,etDesc3,etDesc4,etdato,etdato1,etdato2,etdato3,etdato4,desf,desf1,desf2,etNombreV,etFraccionamiento,etCalle,etNumero,etPropietario,etNombreT1,etIfeT2,etManifiesta,etNuemroInterior,etApellidoP,etApellidoM,etCitatorio,etNumeroActa,etEspecificacion,etDFoto,etDFoto1,etDFoto2,etDFoto3,etVManifiesta,etVIdentifica,etLatitud,etLongitud,etAnoCitatorio,etAnoOrden,etCondominio/*etDensidad*/,etManzana,etLote,etReferencia,etBuscar,etfolio,/*etAlineamiento,*/etConstruccion, etGiro, etMotivo,etOrden1,etEntreC,etEntreC1,etResponsable,etRegistro,etMedida,etArticulo,etInspccionFue,etDFoto4,etDFoto5,etDFoto6,etDFoto7,etDFoto8,etDFoto9,etDFoto10,etDFoto11,etDFoto12,etDFoto13,etDFoto14,etDFoto15,etDFoto16,etDFoto17,etDFoto18,etDFoto19,etLGiro,etAGiro,etAlicencia,etSector,etNombreComercial,etObs,etObs1,etObs2,etObs3,etObs4,etBCol,etOtro,etDondeActua,etCoordenada;
     private LinearLayout lldiv,cons,llNota,llplazo,llreincidencia,llcomp,llconcepto,llPla;
     private RelativeLayout rlcampo,rlProp,rlTestA,rlVisita,rlLicencias,rlDonde_actua;
@@ -160,6 +160,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     final ArrayList<String> usoSueloH = new ArrayList<String>();
     final ArrayList<String> poblacion = new ArrayList<String>();
     final ArrayList<String> fraccionamiento = new ArrayList<String>();
+    final ArrayList<String> giros = new ArrayList<String>();
     final ArrayList<String> zonas = new ArrayList<String>();
     private ArrayList<String> campos = new ArrayList<String>();
     private ArrayList<String> cmedida = new ArrayList<String>();
@@ -199,7 +200,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private CheckBox cb/*,checkNegativo,checkCerrado*/;
     private String [] comp;
     private int [] iComp,reg;
-    private ArrayAdapter<String> adapter,adapter1,adapterUso;
+    private ArrayAdapter<String> adapter,adapter1,adapterUso,adapterGiro;
     public static BixolonPrinter mBixolonPrinter;
     public static final String TAG = "BixolonPrinterSample";
     private AlertDialog mSampleDialog;
@@ -306,6 +307,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         this.etFecham = (EditText)findViewById(R.id.etfecham);
         this.btnInicio = (Button)findViewById(R.id.btnInicio);
         this.spZona = (Spinner)findViewById(R.id.spZona);
+        this.spgiro=(Spinner)findViewById(R.id.spGiro);
         this.spdesignado = (Spinner)findViewById(R.id.spdesignado);
         this.spdesignado1 = (Spinner)findViewById(R.id.spdesignado1);
         this.etfecha = (EditText)findViewById(R.id.etfecha);
@@ -591,8 +593,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         adapterUni2 = new ArrayAdapter(getApplicationContext(),R.layout.multiline_spinner_dropdown_item,unis2);
         adapterUni3 = new ArrayAdapter(getApplicationContext(),R.layout.multiline_spinner_dropdown_item,unis3);
         adapterUni4 = new ArrayAdapter(getApplicationContext(),R.layout.multiline_spinner_dropdown_item,unis4);
+        adapterGiro=new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,giros);
         adapterMeC = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,meConstitui);
         spMeConstitui.setAdapter(adapterMeC);
+        spgiro.setAdapter(adapterGiro);
 
         spuni.setAdapter(adapterUni);
         spuni1.setAdapter(adapterUni1);
@@ -964,6 +968,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         identifica();
         usoSuelo();
         poblacion();
+        C_giro();
 
         buscarNombreCampo();
         buscarOrdenamientos();
@@ -1052,6 +1057,21 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
+
+            }
+        });
+        spgiro.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(!spgiro.getItemAtPosition(position).toString().equals("")){
+                    etGiro.setText(spgiro.getItemAtPosition(position).toString());
+                }else{
+                    etGiro.setText("");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
@@ -1897,6 +1917,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         //ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.uso_array, android.R.layout.simple_spinner_dropdown_item);
         spuso.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, usoSuelo));
         adapterUso = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, usoSueloH);
+        adapterGiro = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,giros);
+        spgiro.setAdapter(adapterGiro);
         spUsoH.setAdapter(adapterUso);
 
 
@@ -4942,6 +4964,29 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         db.close();
     }
 
+    public void C_giro(){
+        GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
+        SQLiteDatabase db = gestionarDB.getReadableDatabase();
+        if (db != null) {
+            Cursor c;
+            String sql="select * from c_giro2 order by giro ";
+            Log.i("entro",sql);
+            c=db.rawQuery(sql,null);
+            giros.clear();
+            giros.add("");
+            if (c.moveToFirst()){
+                do {
+                    Log.i(TAG, "C_giro: entro");
+                    Log.i(TAG, "C_giro: "+c.getString(1));
+                    giros.add(c.getString(1));
+                } while (c.moveToNext());
+
+            }
+            c.close();
+        }
+        db.close();
+    }
+
     public void usoSueloH(String uso) {
         GestionBD gestionarDB = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarDB.getReadableDatabase();
@@ -5575,7 +5620,13 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     sb.append("Limite de caracteres del motivo fue rebasado \n");
                     valid=false;
                 }
+
             }
+            if (validarCampos(this.etGiro)) {
+                sb.append("Ingrese el giro de donde se actua \n");
+                valid = false;
+            }
+
             if(validarCampos(this.etNombreT)){
                 sb.append("Ingrese el nombre del primer testigo. \n");
                 valid = false;
@@ -6879,6 +6930,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     tvPropietario.setVisibility(View.GONE);
                     etPropietario.setVisibility(View.GONE);
                     rlProp.setVisibility(View.GONE);
+                    tvgiro.setVisibility(View.VISIBLE);
                     tvfolioap.setVisibility(View.VISIBLE);
                     tvfechap.setVisibility(View.VISIBLE);
                     etfechap.setVisibility(View.VISIBLE);

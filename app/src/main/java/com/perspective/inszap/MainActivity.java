@@ -264,6 +264,19 @@ public class MainActivity extends Activity {
 			}
 		} else
 			System.out.println("true");
+		if(!isTableExists("c_giro2")) {
+			System.out.println("false");
+
+			try {
+				GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+				SQLiteDatabase db1 = gestionBD.getReadableDatabase();
+				db1.execSQL("create table c_giro2(id integer PRIMARY KEY AUTOINCREMENT,giro TEXT, capturo TEXT, fecha TEXT)");
+				System.out.println("false");
+			} catch(SQLiteException e) {
+				System.err.println(e.getMessage());
+			}
+		} else
+			System.out.println("true");
 		if(!isTableExists("SeguimientoM")) {
 			System.out.println("false");
 
