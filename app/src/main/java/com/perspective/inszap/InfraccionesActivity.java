@@ -2340,6 +2340,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp1,db);
                                     camp1=ordenar(db);
+                                    Log.i("text", camp1);
                                 }
 
 
@@ -2350,6 +2351,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp2,db);
                                     camp2=ordenar(db);
+                                    Log.i("text", camp2);
                                 }
 
 
@@ -2360,6 +2362,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp3,db);
                                     camp3=ordenar(db);
+                                    Log.i("text", camp3);
                                 }
 
 
@@ -2370,6 +2373,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp4,db);
                                     camp4=ordenar(db);
+                                    Log.i("text", camp4);
                                 }
                             }
                             if(!camp5.equalsIgnoreCase("")){
@@ -2378,6 +2382,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp5,db);
                                     camp5=ordenar(db);
+                                    Log.i("text", camp5);
                                 }
                             }
                             if(!camp6.equalsIgnoreCase("")){
@@ -2386,6 +2391,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp6,db);
                                     camp6=ordenar(db);
+                                    Log.i("text", camp6);
                                 }
                             }
                             if(!camp7.equalsIgnoreCase("")){
@@ -2394,6 +2400,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp7,db);
                                     camp7=ordenar(db);
+                                    Log.i("text", camp7);
                                 }
                             }
                             if(!camp8.equalsIgnoreCase("")){
@@ -2402,6 +2409,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp8,db);
                                     camp8=ordenar(db);
+                                    Log.i("text", camp8);
                                 }
                             }
                             if(!camp9.equalsIgnoreCase("")){
@@ -2410,6 +2418,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp9,db);
                                     camp9=ordenar(db);
+                                    Log.i("text", camp9);
                                 }
                             }
                             if(!camp0.equalsIgnoreCase("")){
@@ -2418,6 +2427,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp0,db);
                                     camp0=ordenar(db);
+                                    Log.i("text", camp0);
                                 }
                             }
                             if(!camp11.equalsIgnoreCase("")){
@@ -2426,6 +2436,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp11,db);
                                     camp11=ordenar(db);
+                                    Log.i("text", camp11);
                                 }
                             }
                             if(!camp12.equalsIgnoreCase("")){
@@ -2434,6 +2445,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp12,db);
                                     camp12=ordenar(db);
+                                    Log.i("text", camp12);
                                 }
                             }
                             if(!camp13.equalsIgnoreCase("")){
@@ -2442,6 +2454,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp13,db);
                                     camp13=ordenar(db);
+                                    Log.i("text", camp13);
                                 }
                             }
                             if(!camp14.equalsIgnoreCase("")){
@@ -2450,6 +2463,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp14,db);
                                     camp14=ordenar(db);
+                                    Log.i("text", camp14);
                                 }
                             }
                             if(!camp15.equalsIgnoreCase("")){
@@ -2458,6 +2472,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp15,db);
                                     camp15=ordenar(db);
+                                    Log.i("text", camp15);
                                 }
                             }
                             if(!camp16.equalsIgnoreCase("")){
@@ -2466,6 +2481,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp16,db);
                                     camp16=ordenar(db);
+                                    Log.i("text", camp16);
                                 }
                             }
                             if(!camp17.equalsIgnoreCase("")){
@@ -2474,6 +2490,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp17,db);
                                     camp17=ordenar(db);
+                                    Log.i("text", camp17);
                                 }
                             }
                             if(!camp18.equalsIgnoreCase("")){
@@ -2482,6 +2499,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp18,db);
                                     camp18=ordenar(db);
+                                    Log.i("text", camp18);
                                 }
                             }
                             if(!camp19.equalsIgnoreCase("")){
@@ -2490,6 +2508,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp19,db);
                                     camp19=ordenar(db);
+                                    Log.i("text", camp19);
                                 }
                             }
                             if(!camp20.equalsIgnoreCase("")){
@@ -2498,6 +2517,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }else{
                                     algoritmo(camp20,db);
                                     camp20=ordenar(db);
+                                    Log.i("text", camp20);
                                 }
                             }
 
@@ -6838,18 +6858,15 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             do {
                 id_infra = c.getInt(0);
                 unidad = c.getString(3);
-                if(c.getString(c.getColumnIndex("pedir_giro"))!=null){
-                    banderagiro=1;
 
-                }
 
 
 
                 for (int i = 0; i < campo.size(); i++) {
                     if (!campo.get(i).equalsIgnoreCase("")) {
-                        System.out.println(c.getColumnIndex(campo.get(i)));
+                        System.out.println("-entro"+c.getColumnIndex(campo.get(i)));
                         if (c.getColumnIndex(campo.get(i)) >= 0) {
-                            System.err.println(c.getString(c.getColumnIndex(campo.get(i))));
+                            System.err.println("-entro"+c.getString(c.getColumnIndex(campo.get(i))));
                             if (i == 0) {
                                 c1 = c.getString(c.getColumnIndex(campo.get(i)));
                                 if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
@@ -6949,7 +6966,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
                 String sql = "";
-                if ( id == 4)
+                if ( id == 4 )
                     sql = "select competencia,ordenamiento from c_ordenamiento where campo = '" + cam + "' and id_c_direccion = " + id;
 
 
@@ -13539,12 +13556,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     etVIdentifica.setEnabled(true);
                     //etVIdentifica.setHint("Indique descripcion del visitado");
                    if(id==2)
-                       spIdentifica.setSelection(5);
+                       spIdentifica.setSelection(4);
 
                     if(id==4)
                     spIdentifica.setSelection(4);
                     if(id==5)
-                        spIdentifica.setSelection(5);
+                        spIdentifica.setSelection(4);
 
                     spIdentifica.setEnabled(false);
                     etPropietario.setText("Se desconoce");

@@ -13279,7 +13279,7 @@ String numeroS="";
                     etVIdentifica.setEnabled(true);
                     //etVIdentifica.setHint("Indique descripcion del visitado");
 
-                    spIdentifica.setSelection(5);
+                    spIdentifica.setSelection(4);
                     spIdentifica.setEnabled(false);
                     etPropietario.setEnabled(false);
 
@@ -13630,7 +13630,7 @@ String numeroS="";
 
                 etNombreT.setText(spInspectorT.getSelectedItem().toString().trim());
                 etIfeT.setText(idT);
-                spIdentificaT.setSelection(1);
+                spIdentificaT.setSelection(0);
                 break;
 
             case R.id.spInspectorT1:
@@ -13638,7 +13638,7 @@ String numeroS="";
 
                 etNombreT1.setText(spInspectorT1.getSelectedItem().toString().trim());
                 etIfeT2.setText(idT1);
-                spIdentificaT1.setSelection(1);
+                spIdentificaT1.setSelection(0);
                 break;
 
             case R.id.spdesignado1:
