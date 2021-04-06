@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -20,6 +21,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -38,6 +40,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -71,6 +75,7 @@ public class MainActivity extends Activity {
 	private ArrayList<String> f = new ArrayList<String>();
 	private ContentValues cv = null;
 
+	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -174,13 +179,17 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				pass = etContrasena.getText().toString();
+
+
 				if(validarCampos(etContrasena)){
 					Toast toast = Toast.makeText(MainActivity.this, "Ingrese la contraseña", Toast.LENGTH_SHORT);
 					toast.setGravity(0, 0, 15);
 					toast.show();
 				}
 				else{
+
 					if(ingresar(usuario, pass)){
+
 
 						Intent intent = new Intent(MainActivity.this,Descarga.class);
 						//Intent intent = new Intent(MainActivity.this,TestActivity.class);
@@ -188,7 +197,17 @@ public class MainActivity extends Activity {
 						bundle.putString("direccion", direccion);
 						bundle.putString("usuario", usuario.trim());
 						bundle.putInt("id", id_);
+
+
 						intent.putExtras(bundle);
+						SharedPreferences preferencias=getSharedPreferences("datos",Context.MODE_PRIVATE);
+						SharedPreferences.Editor editor=preferencias.edit();
+						editor.putString("usuario", usuario.trim());
+						editor.putInt("id_usuario", id_);
+						editor.putString("direccion",direccion);
+
+
+						editor.commit();
 						startActivity(intent);
 						MainActivity.this.finish();
 						mensaje=null;
@@ -271,6 +290,19 @@ public class MainActivity extends Activity {
 				GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
 				SQLiteDatabase db1 = gestionBD.getReadableDatabase();
 				db1.execSQL("create table c_giro2(id integer PRIMARY KEY AUTOINCREMENT,giro TEXT, capturo TEXT, fecha TEXT)");
+				System.out.println("false");
+			} catch(SQLiteException e) {
+				System.err.println(e.getMessage());
+			}
+		} else
+			System.out.println("true");
+		if(!isTableExists("tablet_user")) {
+			System.out.println("false");
+
+			try {
+				GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+				SQLiteDatabase db1 = gestionBD.getReadableDatabase();
+				db1.execSQL("create table tablet_user(id integer PRIMARY KEY AUTOINCREMENT,codigo TEXT)");
 				System.out.println("false");
 			} catch(SQLiteException e) {
 				System.err.println(e.getMessage());
@@ -1419,6 +1451,7 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 	public static void setMobileDataEnabled(Context context, boolean enabled) {
 		final ConnectivityManager conman = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		try {

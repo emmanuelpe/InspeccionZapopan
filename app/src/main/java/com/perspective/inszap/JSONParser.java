@@ -95,6 +95,10 @@ public class JSONParser {
 		return jObject;
 	}
 
+
+
+
+
 	//Se crea un metodo de tipo JSONObject
 	public JSONArray realizarHttpRequest1(String url, String metodo, ArrayList<NameValuePair> parametro)
 	{
@@ -105,6 +109,7 @@ public class JSONParser {
 				DefaultHttpClient httpClient = new DefaultHttpClient();
 				HttpPost httpPost = new HttpPost(url);
 				httpPost.setEntity(new UrlEncodedFormEntity(parametro));
+				//System.out.println(httpPost.getEntity());
 
 				HttpResponse httpResponse = httpClient.execute(httpPost);
 				HttpEntity httpEntity = httpResponse.getEntity();
@@ -115,14 +120,13 @@ public class JSONParser {
 				DefaultHttpClient httpClient = new DefaultHttpClient();
 				String parametros = URLEncodedUtils.format(parametro, "utf-8");
 				url += "?" + parametros;
+				System.out.println(url);
 				HttpGet httpGet = new HttpGet(url);
 
 				HttpResponse httpResponse = httpClient.execute(httpGet);
 				HttpEntity httpEntity = httpResponse.getEntity();
 				is= httpEntity.getContent();
 			}
-		} catch (UnsupportedEncodingException e) {
-			Log.e("UnsupportedEncodingException", e.getMessage());
 		}catch (ClientProtocolException e) {
 			Log.e("IOException", e.getMessage());
 		}catch (IOException e) {

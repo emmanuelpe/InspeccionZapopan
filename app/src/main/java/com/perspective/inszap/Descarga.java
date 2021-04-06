@@ -57,6 +57,7 @@ import android.widget.Toast;
 
 public class Descarga extends Activity implements android.content.DialogInterface.OnClickListener, OnClickListener {
 
+	static final JSONParser jParser = new JSONParser();
 	private Button btnReporte,btnDescargarD, btnDescargarF, btnActualizar, btnInfraccion, btnSalir, btnPrueba, btnConfig, btnUpdate, btnConsultarL, btnConsultar, btnReimprimir1, btnConsultarLicenciaC, btnLicencias;
 	private String mFTP = "172.16.1.21"/*"servicios.tlajomulco.gob.mx"/*"pgt.no-ip.biz"*/, dir, arch, result, us, msj, res, direccion, config = "";
 	private int id, aux = 0, id_l, count = 0, countF = 0, ve = 0, con,values_cr = 0,totalCR = 0;
@@ -1388,7 +1389,14 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 		SQLiteDatabase db = gestion.getWritableDatabase();
 		if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
 			if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_insepctor.php").trim().equalsIgnoreCase("null")) {
-           if(c.cambiosT("C_inspector",fechasicro,url2)>0){
+
+				if(this.id!=0){
+					ArrayList<NameValuePair> inspector = new ArrayList<>();
+
+					inspector.add(new BasicNameValuePair("numero", String.valueOf(this.id)));
+					JSONArray jsonArray = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getfoliolast.php", "POST",inspector);
+				}
+				if(c.cambiosT("C_inspector",fechasicro,url2)>0){
            	Log.e("entro en cambios","Yes C_inspector");
 			   x = sicrof("C_inspector", url,"1");
 			   if (x<=0){
@@ -1580,11 +1588,23 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 		final String url = "http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/contarreglones.php";
 		GestionBD gestion = new GestionBD(f, "inspeccion", null, 1);
 		SQLiteDatabase db = gestion.getWritableDatabase();
+
 		if (!c2.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
 			if (!c2.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_insepctor.php").trim().equalsIgnoreCase("null")) {
+				ArrayList<NameValuePair> inspector = new ArrayList<>();
+             if(InfraccionesActivity.id_inspectorQ!=0) {
+
+				 inspector.add(new BasicNameValuePair("numero", String.valueOf(InfraccionesActivity.id_inspectorQ)));
+			 }
+             if(InfraccionesActivityTecnica.id_inspectorQ!=0){
+				 inspector.add(new BasicNameValuePair("numero", String.valueOf(InfraccionesActivityTecnica.id_inspectorQ)));
+			 }
+				 //inspector.add(new BasicNameValuePair("numero", String.valueOf(InfraccionesActivity.id_inspectorQ)));
+				 JSONArray jsonArray = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getfoliolast.php", "POST",inspector);
+
+
 				eliminaRegistros2("C_inspector",f);
 				c2.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_insepctor.php"/*"http://pgt.no-ip.biz/serverSQL/getc_insepctor.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_inspector");
-
 
 			}
 		}

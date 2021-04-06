@@ -25,6 +25,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -113,7 +114,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class InfraccionesActivityTecnica extends AppCompatActivity implements View.OnClickListener, Runnable, CompoundButton.OnCheckedChangeListener, AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
-
+    static int id_inspectorQ=0;
+    private Connection conect;
     private Button btncopiar,btneliminarA,btnArticulos,btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
     private TextView tvfechap,tvfolioap,tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvCoordenada,tvPropiedad,spselec1;
     private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,unidades="",usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",clave = "",folio = "",fol = "";;
@@ -1222,7 +1224,18 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
             }
         });
+        class actualizarInspector extends AsyncTask<String,Integer,Boolean>{
 
+            @Override
+            protected Boolean doInBackground(String... strings) {
+                Context main=getApplicationContext();
+                conect=new Connection(main);
+                Descarga.actualiza2(conect,main);
+                return null;
+
+            }
+
+        }
         spnombre.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -1240,8 +1253,151 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 id_inspector1 = id_i1.get(position);
                 Log.i("id inspector", id_inspector1+ "");
                 int n;
+                id_inspectorQ = id_inspector1;
+                int folio=0;
+                int max=0;
+                int min=0;
+                int next_min=0;
+                int next_max=0;
+                final Descarga d= new Descarga();
 
-                if(!citatorio){
+                Log.i("id inspector", id_inspector1+ "");
+
+                GestionBD gestion = new GestionBD(getApplicationContext(),"inspeccion",null,1);
+                SQLiteDatabase db = gestion.getReadableDatabase();
+
+                Cursor c = db.rawQuery("SELECT  numero_acta FROM levantamiento where id_c_inspector1= '"+id_inspector1+"' order by id_levantamiento desc LIMIT 1" , null);
+                String column = "",dato = "";
+
+                try {
+                    if(db != null){
+                        if (c.moveToFirst()) {
+                            do {
+                                for (int i = 0; i < c.getColumnCount(); i++) {
+                                    System.err.println(c.getColumnName(i) + " " + c.getString(i));
+                                    folio=Integer.parseInt(c.getString(i));
+                                }
+                            } while (c.moveToNext());
+                        }
+                    }
+                    Cursor c2 = db.rawQuery("SELECT  f_max FROM C_inspector where id_c_inspector= '"+id_inspector1+"'  LIMIT 1" , null);
+                    if(db != null){
+                        if (c2.moveToFirst()) {
+                            do {
+                                for (int i = 0; i < c2.getColumnCount(); i++) {
+                                    System.err.println(c2.getColumnName(i) + " " + c2.getString(i));
+                                    max=Integer.parseInt(c2.getString(i));
+                                }
+                            } while (c2.moveToNext());
+                        }
+                    }
+                    Cursor c3 = db.rawQuery("SELECT  f_min FROM C_inspector where id_c_inspector= '"+id_inspector1+"'  LIMIT 1" , null);
+                    if(db != null){
+                        if (c3.moveToFirst()) {
+                            do {
+                                for (int i = 0; i < c3.getColumnCount(); i++) {
+                                    System.err.println(c3.getColumnName(i) + " " + c3.getString(i));
+                                    min=Integer.parseInt(c3.getString(i));
+                                }
+                            } while (c3.moveToNext());
+                        }
+                    }
+                    Cursor c4 = db.rawQuery("SELECT  next_min FROM C_inspector where id_c_inspector= '"+id_inspector1+"'  LIMIT 1" , null);
+                    if(db != null){
+                        if (c4.moveToFirst()) {
+                            do {
+                                for (int i = 0; i < c4.getColumnCount(); i++) {
+                                    System.err.println(c4.getColumnName(i) + " " + c4.getString(i));
+                                    next_min=Integer.parseInt(c4.getString(i));
+                                }
+                            } while (c4.moveToNext());
+                        }
+                    }
+                    Cursor c5 = db.rawQuery("SELECT  next_max FROM C_inspector where id_c_inspector= '"+id_inspector1+"'  LIMIT 1" , null);
+                    if(db != null){
+                        if (c5.moveToFirst()) {
+                            do {
+                                for (int i = 0; i < c5.getColumnCount(); i++) {
+                                    System.err.println(c5.getColumnName(i) + " " + c5.getString(i));
+                                    next_max=Integer.parseInt(c5.getString(i));
+                                }
+                            } while (c5.moveToNext());
+                        }
+                    }
+
+                    if(folio==0){
+                        folio=min;
+
+                    }else if(folio>=min && folio<=max){
+                        folio=folio+1;
+
+                    }
+
+                    if(folio>=next_min &&  folio<=next_max){
+                        folio=folio+1;
+
+                    }
+                    if(folio>next_max){
+                        System.out.println("proceso de bd");
+                        System.out.println("actualizar tabla");
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(InfraccionesActivityTecnica.this);
+                        dialog.setTitle("Se actualizaran los folios!");
+                        dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        dialog.setMessage("¿Esta seguro?").setPositiveButton("SI", new DialogInterface.OnClickListener() {
+
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+                                if (networkInfo != null && networkInfo.isConnected()) {
+                                    // Si hay conexión a Internet en este momento
+                                    //JSONArray jsonArray = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getfoliolast.php", "POST",null);
+
+                                    new actualizarInspector().execute();
+                                } else {
+                                    // No hay conexión a Internet en este momento
+                                    AlertDialog.Builder dialog2 = new AlertDialog.Builder(InfraccionesActivityTecnica.this);
+                                    dialog2.setTitle("No hay conexion a internet!");
+                                    AlertDialog alert2 = dialog2.create();
+                                    alert2.show();
+                                    finish();
+
+                                }
+
+
+                            }
+                        });
+                        AlertDialog alert = dialog.create();
+                        alert.show();
+
+
+                    }
+
+
+
+
+
+                    etNumeroActa.setText(String.valueOf(folio));
+
+
+
+                } catch (SQLiteException e) {
+                    Log.e("SQLite", e.getMessage());
+                }
+                finally {
+                    db.close();
+                    c.close();
+                }
+
+                /*if(!citatorio){
                     String [] na;
                     if(consultarActa() == 0){
                         Log.i("consultar", "si");
@@ -1299,7 +1455,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             }
                         }
                     }
-                }
+                }*/
             }
 
 
