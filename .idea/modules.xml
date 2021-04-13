@@ -5,10 +5,12 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Android-InspeccionZapopan.iml" filepath="$PROJECT_DIR$/.idea/modules/Android-InspeccionZapopan.iml" group="InspeccionZapopan" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Android-InspeccionZapopan-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Android-InspeccionZapopan-app.iml" group="InspeccionZapopan/app" />
       <module fileurl="file://$PROJECT_DIR$/AndroidStudioProjects-InspeccionZapopan.iml" filepath="$PROJECT_DIR$/AndroidStudioProjects-InspeccionZapopan.iml" group="InspeccionZapopan" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidStudioProjects.InspeccionZapopan.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidStudioProjects.InspeccionZapopan.iml" />
       <module fileurl="file://$PROJECT_DIR$/Escritorio-InspeccionZapopan.iml" filepath="$PROJECT_DIR$/Escritorio-InspeccionZapopan.iml" group="InspeccionZapopan" />
       <module fileurl="file://$PROJECT_DIR$/app/Escritorio-InspeccionZapopan-app.iml" filepath="$PROJECT_DIR$/app/Escritorio-InspeccionZapopan-app.iml" group="InspeccionZapopan/app" />
       <module fileurl="file://$PROJECT_DIR$/InspeccionZapopan.iml" filepath="$PROJECT_DIR$/InspeccionZapopan.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/InspeccionZapopan-app.iml" filepath="$PROJECT_DIR$/app/InspeccionZapopan-app.iml" group="InspeccionZapopan/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/InspeccionZapopan.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/InspeccionZapopan.app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/InspeccionZapopan2.iml" filepath="$PROJECT_DIR$/.idea/modules/InspeccionZapopan2.iml" group="InspeccionZapopan2" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/InspeccionZapopan2-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/InspeccionZapopan2-app.iml" group="InspeccionZapopan2/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/InspeccionZapopanFinish.iml" filepath="$PROJECT_DIR$/.idea/modules/InspeccionZapopanFinish.iml" group="InspeccionZapopanFinish" />
