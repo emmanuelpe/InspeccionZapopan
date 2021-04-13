@@ -57,6 +57,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
  *
  */
 
+
 public class Descarga extends Activity implements android.content.DialogInterface.OnClickListener, OnClickListener {
 
 	static final JSONParser jParser = new JSONParser();
@@ -396,7 +397,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 
 		comprobarFolio(idIns);
 
-		//clearFolio(idIns);
+		clearFolio(idIns);
 	}
 
 	private void clearFolio(int id) {

@@ -1318,70 +1318,16 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         }
                     }
 
-                    System.out.println(folio);
+                    System.out.println(folio+"---");
                     if (folio == 0) {
                         folio = min;
                         etNumeroActa.setText(String.valueOf(folio));
 
-                    } else if (folio >= min && folio <= max) {
-                        System.out.println(folio + "-1");
-                        folio = folio + 1;
-                        etNumeroActa.setText(String.valueOf(folio));
-
-                    } else if (folio >= next_min && folio <= next_max) {
-                        System.out.println(folio + "-2");
-                        folio = folio + 1;
-                        etNumeroActa.setText(String.valueOf(folio));
-
-                    }
-                    if (folio < min) {
-                        folio = min;
+                    }else{
+                        folio = folio+1;
                         etNumeroActa.setText(String.valueOf(folio));
                     }
-                    if (folio > next_max) {
-                        System.out.println("proceso de bd");
-                        System.out.println("actualizar tabla");
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(InfraccionesActivityTecnica.this);
-                        dialog.setTitle("Se actualizaran los folios!");
-                        dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
 
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                        dialog.setMessage("¿Esta seguro?").setPositiveButton("SI", new DialogInterface.OnClickListener() {
-
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-
-                                if (networkInfo != null && networkInfo.isConnected()) {
-                                    // Si hay conexión a Internet en este momento
-                                    //JSONArray jsonArray = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getfoliolast.php", "POST",null);
-
-                                    new actualizarInspector().execute();
-
-                                } else {
-                                    // No hay conexión a Internet en este momento
-                                    AlertDialog.Builder dialog2 = new AlertDialog.Builder(InfraccionesActivityTecnica.this);
-                                    dialog2.setTitle("No hay conexion a internet!");
-                                    AlertDialog alert2 = dialog2.create();
-                                    alert2.show();
-                                    finish();
-
-                                }
-
-
-                            }
-                        });
-                        AlertDialog alert = dialog.create();
-                        alert.show();
-
-
-                    }
 
 
 

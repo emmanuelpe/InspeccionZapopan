@@ -1261,156 +1261,104 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				etVigI.setText(vigI);
 				id_inspector1 = id_i1.get(position);
 				id_inspectorQ=id_inspector1;
-				/*if(!valW.isEmpty()){
-				    etNumeroActa.setText(valW);
-				    valW="";
-                }else {
-                    int folio = 0;
-                    int max = 0;
-                    int min = 0;
-                    int next_min = 0;
-                    int next_max = 0;
-                    final Descarga d = new Descarga();
+                //id_inspectorQ = id_inspector1;
+                int folio=0;
+                int max=0;
+                int min=0;
+                int next_min=0;
+                int next_max=0;
+                final Descarga d= new Descarga();
 
-                    Log.i("id inspector", id_inspector1 + "");
-                    int n;
-                    GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
-                    SQLiteDatabase db = gestion.getReadableDatabase();
+                Log.i("id inspector", id_inspector1+ "");
 
-                    Cursor c = db.rawQuery("SELECT  numero_acta FROM levantamiento where id_c_inspector1= '" + id_inspector1 + "' order by id_levantamiento desc LIMIT 1", null);
-                    String column = "", dato = "";
+                GestionBD gestion = new GestionBD(getApplicationContext(),"inspeccion",null,1);
+                SQLiteDatabase db = gestion.getReadableDatabase();
 
-                    try {
-                        if (db != null) {
-                            if (c.moveToFirst()) {
-                                do {
-                                    for (int i = 0; i < c.getColumnCount(); i++) {
-                                        System.err.println(c.getColumnName(i) + " " + c.getString(i));
-                                        folio = Integer.parseInt(c.getString(i));
-                                    }
-                                } while (c.moveToNext());
-                            }
-                        }
-                        Cursor c2 = db.rawQuery("SELECT  f_max FROM C_inspector where id_c_inspector= '" + id_inspector1 + "'  LIMIT 1", null);
-                        if (db != null) {
-                            if (c2.moveToFirst()) {
-                                do {
-                                    for (int i = 0; i < c2.getColumnCount(); i++) {
-                                        System.err.println(c2.getColumnName(i) + " " + c2.getString(i));
-                                        max = Integer.parseInt(c2.getString(i));
-                                    }
-                                } while (c2.moveToNext());
-                            }
-                        }
-                        Cursor c3 = db.rawQuery("SELECT  f_min FROM C_inspector where id_c_inspector= '" + id_inspector1 + "'  LIMIT 1", null);
-                        if (db != null) {
-                            if (c3.moveToFirst()) {
-                                do {
-                                    for (int i = 0; i < c3.getColumnCount(); i++) {
-                                        System.err.println(c3.getColumnName(i) + " " + c3.getString(i));
-                                        min = Integer.parseInt(c3.getString(i));
-                                    }
-                                } while (c3.moveToNext());
-                            }
-                        }
-                        Cursor c4 = db.rawQuery("SELECT  next_min FROM C_inspector where id_c_inspector= '" + id_inspector1 + "'  LIMIT 1", null);
-                        if (db != null) {
-                            if (c4.moveToFirst()) {
-                                do {
-                                    for (int i = 0; i < c4.getColumnCount(); i++) {
-                                        System.err.println(c4.getColumnName(i) + " " + c4.getString(i));
-                                        next_min = Integer.parseInt(c4.getString(i));
-                                    }
-                                } while (c4.moveToNext());
-                            }
-                        }
-                        Cursor c5 = db.rawQuery("SELECT  next_max FROM C_inspector where id_c_inspector= '" + id_inspector1 + "'  LIMIT 1", null);
-                        if (db != null) {
-                            if (c5.moveToFirst()) {
-                                do {
-                                    for (int i = 0; i < c5.getColumnCount(); i++) {
-                                        System.err.println(c5.getColumnName(i) + " " + c5.getString(i));
-                                        next_max = Integer.parseInt(c5.getString(i));
-                                    }
-                                } while (c5.moveToNext());
-                            }
-                        }
-                        System.out.println(folio);
-                        if (folio == 0) {
-                            folio = min;
-                            etNumeroActa.setText(String.valueOf(folio));
+                Cursor c = db.rawQuery("SELECT  numero_acta FROM levantamiento where id_c_inspector1= '"+id_inspector1+"' order by id_levantamiento desc LIMIT 1" , null);
+                String column = "",dato = "";
 
-                        } else if (folio >= min && folio <= max) {
-                            System.out.println(folio + "-1");
-                            folio = folio + 1;
-                            etNumeroActa.setText(String.valueOf(folio));
-
-                        } else if (folio >= next_min && folio <= next_max) {
-                            System.out.println(folio + "-2");
-                            folio = folio + 1;
-                            etNumeroActa.setText(String.valueOf(folio));
-
-                        }
-                        if (folio < min) {
-                            folio = min;
-                            etNumeroActa.setText(String.valueOf(folio));
-                        }
-                        if (folio > next_max) {
-                            System.out.println("proceso de bd");
-                            System.out.println("actualizar tabla");
-                            AlertDialog.Builder dialog = new AlertDialog.Builder(InfraccionesActivity.this);
-                            dialog.setTitle("Se actualizaran los folios!");
-                            dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
+                try {
+                    if(db != null){
+                        if (c.moveToFirst()) {
+                            do {
+                                for (int i = 0; i < c.getColumnCount(); i++) {
+                                    System.err.println(c.getColumnName(i) + " " + c.getString(i));
+                                    folio=Integer.parseInt(c.getString(i));
                                 }
-                            });
-                            dialog.setMessage("¿Esta seguro?").setPositiveButton("SI", new DialogInterface.OnClickListener() {
-
-
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                                    NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-
-                                    if (networkInfo != null && networkInfo.isConnected()) {
-                                        // Si hay conexión a Internet en este momento
-                                        //JSONArray jsonArray = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getfoliolast.php", "POST",null);
-
-                                        new actualizarInspector().execute();
-
-                                    } else {
-                                        // No hay conexión a Internet en este momento
-                                        AlertDialog.Builder dialog2 = new AlertDialog.Builder(InfraccionesActivity.this);
-                                        dialog2.setTitle("No hay conexion a internet!");
-                                        AlertDialog alert2 = dialog2.create();
-                                        alert2.show();
-                                        finish();
-
-                                    }
-
-
-                                }
-                            });
-                            AlertDialog alert = dialog.create();
-                            alert.show();
-
-
+                            } while (c.moveToNext());
                         }
-
-
-                    } catch (SQLiteException e) {
-                        Log.e("SQLite", e.getMessage());
-                    } finally {
-                        db.close();
-                        c.close();
                     }
-                    //26/03/21
+                    Cursor c2 = db.rawQuery("SELECT  f_max FROM C_inspector where id_c_inspector= '"+id_inspector1+"'  LIMIT 1" , null);
+                    if(db != null){
+                        if (c2.moveToFirst()) {
+                            do {
+                                for (int i = 0; i < c2.getColumnCount(); i++) {
+                                    System.err.println(c2.getColumnName(i) + " " + c2.getString(i));
+                                    max=Integer.parseInt(c2.getString(i));
+                                }
+                            } while (c2.moveToNext());
+                        }
+                    }
+                    Cursor c3 = db.rawQuery("SELECT  f_min FROM C_inspector where id_c_inspector= '"+id_inspector1+"'  LIMIT 1" , null);
+                    if(db != null){
+                        if (c3.moveToFirst()) {
+                            do {
+                                for (int i = 0; i < c3.getColumnCount(); i++) {
+                                    System.err.println(c3.getColumnName(i) + " " + c3.getString(i));
+                                    min=Integer.parseInt(c3.getString(i));
+                                }
+                            } while (c3.moveToNext());
+                        }
+                    }
+                    Cursor c4 = db.rawQuery("SELECT  next_min FROM C_inspector where id_c_inspector= '"+id_inspector1+"'  LIMIT 1" , null);
+                    if(db != null){
+                        if (c4.moveToFirst()) {
+                            do {
+                                for (int i = 0; i < c4.getColumnCount(); i++) {
+                                    System.err.println(c4.getColumnName(i) + " " + c4.getString(i));
+                                    next_min=Integer.parseInt(c4.getString(i));
+                                }
+                            } while (c4.moveToNext());
+                        }
+                    }
+                    Cursor c5 = db.rawQuery("SELECT  next_max FROM C_inspector where id_c_inspector= '"+id_inspector1+"'  LIMIT 1" , null);
+                    if(db != null){
+                        if (c5.moveToFirst()) {
+                            do {
+                                for (int i = 0; i < c5.getColumnCount(); i++) {
+                                    System.err.println(c5.getColumnName(i) + " " + c5.getString(i));
+                                    next_max=Integer.parseInt(c5.getString(i));
+                                }
+                            } while (c5.moveToNext());
+                        }
+                    }
+
+                    System.out.println(folio+"---");
+                    if (folio == 0) {
+                        folio = min;
+                        etNumeroActa.setText(String.valueOf(folio));
+
+                    }else{
+                        folio = folio+1;
+                        etNumeroActa.setText(String.valueOf(folio));
+                    }
 
 
-                }*/
+
+
+
+
+
+
+
+                } catch (SQLiteException e) {
+                    Log.e("SQLite", e.getMessage());
+                }
+                finally {
+                    db.close();
+                    c.close();
+                }
+
 
 
 
