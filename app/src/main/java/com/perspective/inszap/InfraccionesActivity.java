@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
-import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,13 +23,8 @@ import java.util.Map;
 import java.util.Set;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
 import com.bixolon.printer.BixolonPrinter;
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Chunk;
@@ -38,16 +32,13 @@ import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.BaseFont;
-import com.lowagie.text.pdf.ColumnText;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.pdf.draw.DottedLineSeparator;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -62,7 +53,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -77,7 +67,6 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -85,11 +74,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.os.StrictMode;
 import android.provider.MediaStore;
-//import android.support.v4.content.ContextCompat;
-//import android.support.v4.content.FileProvider;
-//import android.support.v7.view.menu.MenuView;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -1276,7 +1261,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				etVigI.setText(vigI);
 				id_inspector1 = id_i1.get(position);
 				id_inspectorQ=id_inspector1;
-				if(!valW.isEmpty()){
+				/*if(!valW.isEmpty()){
 				    etNumeroActa.setText(valW);
 				    valW="";
                 }else {
@@ -1425,7 +1410,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     //26/03/21
 
 
-                }
+                }*/
 
 
 

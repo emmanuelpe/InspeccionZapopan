@@ -23,6 +23,14 @@
         android:roundIcon="@drawable/logo_pf"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".ClearFolios"
+            android:enabled="true"
+            android:exported="true"></service>
+        <service
+            android:name=".UpdateFolio"
+            android:enabled="true"
+            android:exported="true" />
 
         <activity android:name=".ActivityTestSend" />
         <activity android:name=".Reporte1" />
