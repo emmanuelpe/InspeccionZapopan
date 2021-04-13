@@ -6,7 +6,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.perspective.inszap.InfraccionesActivity" >
+    tools:context="com.perspective.inszap.InfraccionesActivity"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:layout_width="wrap_content"
@@ -1920,12 +1921,49 @@
 								android:layout_below="@id/spselectregla"
 								android:spinnerMode="dialog"
 								android:maxLines="3"/>
+
+						<TextView
+							android:id="@+id/tvBuscar"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:text="@string/buscar_por_aticulo"
+							android:layout_below="@id/spCreglamento"
+							style="@style/SubtitleR">
+
+						</TextView>
+						<com.google.android.material.textfield.TextInputLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:id="@+id/tilArticulo"
+							android:hint="@string/articulo"
+							android:layout_below="@+id/tvBuscar"
+							app:useMaterialThemeColors="false"
+							app:helperTextEnabled="true"
+							app:counterEnabled="true"
+							app:errorEnabled="true"
+							app:helperText="@string/articulo"
+							style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+							<com.google.android.material.textfield.TextInputEditText
+								android:id="@+id/etArticulo"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content">
+							</com.google.android.material.textfield.TextInputEditText>
+
+						</com.google.android.material.textfield.TextInputLayout>
+						<Button
+							android:id="@+id/btnBusArt"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_below="@+id/tilArticulo"
+							android:text="@string/buscar"
+							android:drawableLeft="@drawable/ic_search"/>
 							<TextView
 								android:id="@+id/spselec"
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								android:text="Seleccione su Hecho"
-								android:layout_below="@id/spCreglamento"
+								android:layout_below="@id/btnBusArt"
 								style="@style/SubtitleR">
 							</TextView>
 			    	

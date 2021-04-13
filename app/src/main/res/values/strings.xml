@@ -220,6 +220,8 @@
     <string name="numero_de_sellos">Numero de sellos</string>
     <string name="actualizar_folios">S actualizaran los folios</string>
     <string name="esta_suguro">Esta seguro ?</string>
+    <string name="buscar_por_aticulo">Buscar por aticulo</string>
+    <string name="articulo">Artículo</string>
     <string-array name="densidad">
         <item></item>
         <item>Minima (1)</item>
