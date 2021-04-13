@@ -2,12 +2,12 @@ package com.perspective.inszap;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-//import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 
 public class Licencias extends AppCompatActivity {
 
