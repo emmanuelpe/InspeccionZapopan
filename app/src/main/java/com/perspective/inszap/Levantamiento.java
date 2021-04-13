@@ -94,6 +94,7 @@ public class Levantamiento {
 		this.id_c_inspector5 = id_c_inspector5;
 		this.id_c_inspector6 = id_c_inspector6;
 		this.Zona = zona;
+		System.out.println(zona);
 		this.referencia = referencia;
 		this.l_construccion = construccion;
 		this.condominio = condominio;

@@ -1325,19 +1325,27 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         }
                     }
 
-                    if(folio==0){
-                        folio=min;
+                    System.out.println(folio);
+                    if (folio == 0) {
+                        folio = min;
+                        etNumeroActa.setText(String.valueOf(folio));
 
-                    }else if(folio>=min && folio<=max){
-                        folio=folio+1;
+                    } else if (folio >= min && folio <= max) {
+                        System.out.println(folio + "-1");
+                        folio = folio + 1;
+                        etNumeroActa.setText(String.valueOf(folio));
+
+                    } else if (folio >= next_min && folio <= next_max) {
+                        System.out.println(folio + "-2");
+                        folio = folio + 1;
+                        etNumeroActa.setText(String.valueOf(folio));
 
                     }
-
-                    if(folio>=next_min &&  folio<=next_max){
-                        folio=folio+1;
-
+                    if (folio < min) {
+                        folio = min;
+                        etNumeroActa.setText(String.valueOf(folio));
                     }
-                    if(folio>next_max){
+                    if (folio > next_max) {
                         System.out.println("proceso de bd");
                         System.out.println("actualizar tabla");
                         AlertDialog.Builder dialog = new AlertDialog.Builder(InfraccionesActivityTecnica.this);
@@ -1362,6 +1370,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                     //JSONArray jsonArray = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getfoliolast.php", "POST",null);
 
                                     new actualizarInspector().execute();
+
                                 } else {
                                     // No hay conexión a Internet en este momento
                                     AlertDialog.Builder dialog2 = new AlertDialog.Builder(InfraccionesActivityTecnica.this);
@@ -1385,7 +1394,6 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
 
-                    etNumeroActa.setText(String.valueOf(folio));
 
 
 
@@ -3756,7 +3764,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     medidasEn=etMedida.getText().toString();
                 }
                 Log.i("levanta", ingresar(etNumeroActa.getText().toString(), tvC.getText().toString() + fmt + "-" + etAnoCitatorio.getText().toString(),infrac, tipoActa,id, fecha, hora, longitud, latitud,
-                        etOrden1.getText().toString(), etFecham.getText().toString(),zon, id_inspector1, id_inspector2,
+                        etOrden1.getText().toString(), etFecham.getText().toString(),spZona.getSelectedItem().toString(), id_inspector1, id_inspector2,
                         etNombreV.getText().toString(), spIdentifica.getSelectedItem().toString() + ":" + etVIdentifica.getText().toString(), etVManifiesta.getText().toString(),
                         etFraccionamiento.getText().toString(), etCalle.getText().toString(), etNumero.getText().toString(),
                         etNuemroInterior.getText().toString(), etApellidoP.getText().toString(), etApellidoM.getText().toString(),
@@ -3867,7 +3875,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     }
 
                     if (Connection.inserta(etNumeroActa.getText().toString(), citatorio,infrac, tipoActa,id, fecha, fecha + " " + hora,
-                            longitud, latitud, etOrden1.getText().toString(), etFecham.getText().toString(),zon, id_inspector1, id_inspector2,
+                            longitud, latitud, etOrden1.getText().toString(), etFecham.getText().toString(),spZona.getSelectedItem().toString(), id_inspector1, id_inspector2,
                             etNombreV.getText().toString(),spIdentifica.getSelectedItem().toString() + ":" + etVIdentifica.getText().toString(), etVManifiesta.getText().toString(),
                             etFraccionamiento.getText().toString(), etCalle.getText().toString(), etNumero.getText().toString(),
                             etNuemroInterior.getText().toString(), etApellidoP.getText().toString(), etApellidoM.getText().toString(),
@@ -3909,7 +3917,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
 
-                if (conn.validarConexion((getApplicationContext())) & resu)
+                if (conn.validarConexion((getApplicationContext())))
                     idLevantamientoSQL = getIdLevantamiento();
 
                 if(formato.equalsIgnoreCase("infraccion")) {
@@ -3937,7 +3945,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             iUni = "";
                         else
                             iUni = iUnidad[i];
-                        if (conn.validarConexion(getApplicationContext()) & resu)
+                        if (conn.validarConexion(getApplicationContext()))
                             conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, iUni,/*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
                     }
                 }
@@ -7302,6 +7310,14 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             etRegistro.setText(lev.get(0).getRegistro_responsable());
             ident = lev.get(0).getIdentifica();
             zon = lev.get(0).getZona();
+            System.out.println("ffffff"+zon);
+            //selectValue(spZona,zon);
+            for (int i=0;i<spZona.getCount();i++){
+                if (spZona.getItemAtPosition(i).toString().equalsIgnoreCase(zon)){
+                    spZona.setSelection(i);
+                    break;
+                }
+            }
             etNombreV.setText(lev.get(0).getNombre_visitado());
 
             etResponsable.setText(lev.get(0).getResponsable_obra());
@@ -8402,9 +8418,12 @@ public String vigencia_inicial(String v){
         }
 
 
-        String [] na = etNumeroActa.getText().toString().split("/");
-        Log.i("fecha", na[3] + "/" + na[4] + "/" + na[5]);
-        fecha = na[3] + "/" + na[4] + "/" + na[5];
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
+        Date todayDate = new Date();
+        String thisDate = currentDate.format(todayDate);
+        String [] na = thisDate.split("/");
+        Log.i("fecha", na[0] + "/" + na[1] + "/" + na[2]);
+        fecha = na[0] + "/" + na[1] + "/" + na[2];
         String [] fechas = fecha.split("/");
         int dia, mes,a;
         String me;
@@ -10997,9 +11016,12 @@ String numeroS="";
         }
 
 
-        String [] na = etNumeroActa.getText().toString().split("/");
-        Log.i("fecha", na[3] + "/" + na[4] + "/" + na[5]);
-        fecha = na[3] + "/" + na[4] + "/" + na[5];
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
+        Date todayDate = new Date();
+        String thisDate = currentDate.format(todayDate);
+        String [] na = thisDate.split("/");
+        Log.i("fecha", na[0] + "/" + na[1] + "/" + na[2]);
+        fecha = na[0] + "/" + na[1] + "/" + na[2];
         String [] fechas = fecha.split("/");
         int dia, mes,a;
         String me;
@@ -12385,7 +12407,7 @@ String numeroS="";
                 doc.add(new Paragraph(" ",font1));
                 doc.add(new Paragraph(" ",font1));
                 doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,13,Color.BLACK)));
+                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,15,Color.BLACK)));
 
                 //p = new Paragraph("  " + spnombre.getSelectedItem().toString() + ", " + spNombreA.getSelectedItem().toString() + "," + spNombreA1.getSelectedItem().toString() + "," + spNombreA2.getSelectedItem().toString()+ "," + spNombreA3.getSelectedItem().toString()+ "," + spNombreA4.getSelectedItem().toString(),font1);
                 p = new Paragraph("" + insp,new Font(Font.HELVETICA,8.5f,Color.BLACK));
@@ -12423,7 +12445,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(150, 447+c);
+                canvas.moveText(150, 415+c);
                 //canvas.showText("01 de Abril");
                 canvas.showText(recorte2[2]+" de "+ vigencia_inicial);
                 canvas.endText();
@@ -12433,8 +12455,8 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(280, 447+c);
-                canvas.showText("20");
+                canvas.moveText(280, 415+c);
+                canvas.showText(String.valueOf(ax).substring(2, 4));
                 canvas.endText();
                 canvas.restoreState();
 
@@ -12442,7 +12464,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(350, 447+c);
+                canvas.moveText(350, 415+c);
                 canvas.showText(recorte1[2] + " de " + vigencia);
                 canvas.endText();
                 canvas.restoreState();
@@ -12451,7 +12473,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(505, 447+c);
+                canvas.moveText(505, 415+c);
                 canvas.showText(String.valueOf(ax).substring(2, 4));
                 canvas.endText();
                 canvas.restoreState();
@@ -12492,7 +12514,7 @@ String numeroS="";
                 if(!motivo.trim().equalsIgnoreCase(""))
                     txt = Justificar.justifocarTexto1(motivo, 135);
 
-                int li = 390+c;
+                int li = 383+c;
 
                 for (int i = 0; i < txt.length; i++) {
 

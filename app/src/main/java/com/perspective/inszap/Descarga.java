@@ -1535,13 +1535,13 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
 			//fechas = fechaR.split("/");
 			//fechaR = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
-			fechas = fechaC.split("/");
-			fechaC = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
-			System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
-			if(fechaC.equalsIgnoreCase(cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.YEAR)))
-				bc = false;
-			else
-				bc = true;
+			//fechas = fechaC.split("/");
+			//fechaC = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
+			//System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
+			//if(fechaC.equalsIgnoreCase(cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.YEAR)))
+			//	bc = false;
+			//else
+			//	bc = true;
 			/*if(fechaR.equalsIgnoreCase(cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.YEAR)))
 				br = false;
 			else
@@ -1563,7 +1563,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				i++;
 			}*/
 			//Construccion
-			if(!bc) {
+			/*if(!bc) {
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 					int x1;
 					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getLicenciasConstruccion.php", "vs_InspM2", fechaC);
@@ -1578,7 +1578,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				mProgressBar.setProgress(i);
 				i++;
 			}
-			msj = "Datos Actualizados";
+			msj = "Datos Actualizados";*/
 		}
 		else
 			msj = "No se pudo conectar con el servidor";
