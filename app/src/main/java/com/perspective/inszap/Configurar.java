@@ -156,6 +156,9 @@ public void validarFrom() {
 			bundle.putString("direccion", direccio);
 			bundle.putString("usuario", usuario.trim());
 			bundle.putInt("id", id_);
+			if(result.isEmpty()){
+				toast = Toast.makeText(getApplicationContext(), "Verifique su conexion a internet", Toast.LENGTH_LONG);
+			}
 			if(result.equalsIgnoreCase("S")) {
 				//String loc = String.format(Locale.getDefault(), "%04d", res);
 				System.err.println(res + " num");

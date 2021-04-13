@@ -4,11 +4,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -17,12 +21,16 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+//import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +40,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -65,6 +75,7 @@ public class MainActivity extends Activity {
 	private ArrayList<String> f = new ArrayList<String>();
 	private ContentValues cv = null;
 
+	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -168,13 +179,17 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				pass = etContrasena.getText().toString();
+
+
 				if(validarCampos(etContrasena)){
 					Toast toast = Toast.makeText(MainActivity.this, "Ingrese la contraseña", Toast.LENGTH_SHORT);
 					toast.setGravity(0, 0, 15);
 					toast.show();
 				}
 				else{
+
 					if(ingresar(usuario, pass)){
+
 
 						Intent intent = new Intent(MainActivity.this,Descarga.class);
 						//Intent intent = new Intent(MainActivity.this,TestActivity.class);
@@ -182,7 +197,17 @@ public class MainActivity extends Activity {
 						bundle.putString("direccion", direccion);
 						bundle.putString("usuario", usuario.trim());
 						bundle.putInt("id", id_);
+
+
 						intent.putExtras(bundle);
+						SharedPreferences preferencias=getSharedPreferences("datos",Context.MODE_PRIVATE);
+						SharedPreferences.Editor editor=preferencias.edit();
+						editor.putString("usuario", usuario.trim());
+						editor.putInt("id_usuario", id_);
+						editor.putString("direccion",direccion);
+
+
+						editor.commit();
 						startActivity(intent);
 						MainActivity.this.finish();
 						mensaje=null;
@@ -252,6 +277,32 @@ public class MainActivity extends Activity {
 				GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
 				SQLiteDatabase db1 = gestionBD.getReadableDatabase();
 				db1.execSQL("create table c_tabletas(id_c_tabletas integer PRIMARY KEY AUTOINCREMENT,tableta TEXT, usuario_tableta TEXT, capturo TEXT, fecha numeric)");
+				System.out.println("false");
+			} catch(SQLiteException e) {
+				System.err.println(e.getMessage());
+			}
+		} else
+			System.out.println("true");
+		if(!isTableExists("c_giro2")) {
+			System.out.println("false");
+
+			try {
+				GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+				SQLiteDatabase db1 = gestionBD.getReadableDatabase();
+				db1.execSQL("create table c_giro2(id integer PRIMARY KEY AUTOINCREMENT,giro TEXT, capturo TEXT, fecha TEXT)");
+				System.out.println("false");
+			} catch(SQLiteException e) {
+				System.err.println(e.getMessage());
+			}
+		} else
+			System.out.println("true");
+		if(!isTableExists("tablet_user")) {
+			System.out.println("false");
+
+			try {
+				GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+				SQLiteDatabase db1 = gestionBD.getReadableDatabase();
+				db1.execSQL("create table tablet_user(id integer PRIMARY KEY AUTOINCREMENT,codigo TEXT)");
 				System.out.println("false");
 			} catch(SQLiteException e) {
 				System.err.println(e.getMessage());
@@ -712,6 +763,51 @@ public class MainActivity extends Activity {
 
 			System.err.println("tipo_cedula");
 		}
+		if(validarCampo("Levantamiento","folio_peticion") == 0) {
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Levantamiento add folio_peticion TEXT";
+			db1.execSQL(sql);
+
+			System.err.println("folio_peticion");
+		}
+		if(validarCampo("Levantamiento","folio_apercibimiento") == 0) {
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Levantamiento add folio_apercibimiento TEXT";
+			db1.execSQL(sql);
+
+			System.err.println("folio_apercibimiento");
+		}
+		if(validarCampo("Levantamiento","fecha_apercibimiento") == 0) {
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Levantamiento add fecha_apercibimiento TEXT";
+			db1.execSQL(sql);
+
+			System.err.println("fecha_apercibimiento");
+		}
+		if(validarCampo("Levantamiento","folio_clausura") == 0) {
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Levantamiento add folio_clausura TEXT";
+			db1.execSQL(sql);
+
+			System.err.println("folio_clausura");
+		}
+		if(validarCampo("Levantamiento","fecha_clausura") == 0) {
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Levantamiento add fecha_clausura TEXT";
+			db1.execSQL(sql);
+
+			System.err.println("fecha_clausura");
+		}
 		if(!isTableExists("c_peticion")) {
 			System.out.println("false");
 			
@@ -739,10 +835,25 @@ public class MainActivity extends Activity {
 			}
 		} else
 			System.out.println("true");
+
+		if(validarCampo("Levantamiento","numero_sellos") == 0) {
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Levantamiento add numero_sellos TEXT";
+			db1.execSQL(sql);
+
+			sql = "alter table Levantamiento add decomiso TEXT";
+			db1.execSQL(sql);
+
+			System.err.println("numero_sellos");
+		}
 		
 		consultade();
 		consultaf();
 		consultaTodo1();
+
+		setMobileDataEnabled(getApplicationContext(),true);
 	}
 
 
@@ -1337,6 +1448,31 @@ public class MainActivity extends Activity {
 		finally {
 			db.close();
 			c.close();
+		}
+	}
+
+	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
+	public static void setMobileDataEnabled(Context context, boolean enabled) {
+		final ConnectivityManager conman = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		try {
+			Class conmanClass;
+			conmanClass = Class.forName(conman.getClass().getName());
+			Log.v("name",conman.getClass().getName());
+			Field iConnectivityManagerField = conmanClass.getDeclaredField("mService");
+			iConnectivityManagerField.setAccessible(true);
+			Object iConnectivityManager = iConnectivityManagerField.get(conman);
+			Class iConnectivityManagerClass = Class.forName(iConnectivityManager.getClass().getName());
+			Method setMobileDataEnabledMethod;
+			setMobileDataEnabledMethod = iConnectivityManagerClass.getDeclaredMethod("setMobileDataEnabled", Boolean.TYPE);
+			setMobileDataEnabledMethod.setAccessible(true);
+			setMobileDataEnabledMethod.invoke(iConnectivityManager, enabled);
+			Thread.sleep(5000);
+		} catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException | InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException x) {
+			Log.e("error",x.getMessage());
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 }

@@ -57,6 +57,7 @@ import android.widget.Toast;
 
 public class Descarga extends Activity implements android.content.DialogInterface.OnClickListener, OnClickListener {
 
+	static final JSONParser jParser = new JSONParser();
 	private Button btnReporte,btnDescargarD, btnDescargarF, btnActualizar, btnInfraccion, btnSalir, btnPrueba, btnConfig, btnUpdate, btnConsultarL, btnConsultar, btnReimprimir1, btnConsultarLicenciaC, btnLicencias;
 	private String mFTP = "172.16.1.21"/*"servicios.tlajomulco.gob.mx"/*"pgt.no-ip.biz"*/, dir, arch, result, us, msj, res, direccion, config = "";
 	private int id, aux = 0, id_l, count = 0, countF = 0, ve = 0, con,values_cr = 0,totalCR = 0;
@@ -328,7 +329,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 this.btnUpdate.setOnClickListener(new OnClickListener() {
 	@Override
 	public void onClick(View v) {
-		Uri uri = Uri.parse("https://github.com/emmanuelpe/AppZap/blob/master/app-debug.apk");
+		Uri uri = Uri.parse("https://github.com/CristianOmarSandovalAceves/APKZapopan/blob/master/app-debug.apk");
 		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 		startActivity(intent);
 	}
@@ -423,7 +424,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 									c.getInt(c.getColumnIndex("id_c_inspector3")), c.getInt(c.getColumnIndex("id_c_inspector4")), c.getInt(c.getColumnIndex("id_c_inspector5")), c.getInt(c.getColumnIndex("id_c_inspector6")),
 									c.getInt(c.getColumnIndex("id_c_competencia1")), c.getInt(c.getColumnIndex("id_c_competencia2")), c.getInt(c.getColumnIndex("id_c_competencia3")), c.getInt(c.getColumnIndex("id_c_competencia4")), c.getInt(c.getColumnIndex("id_c_competencia5")),
 									c.getString(c.getColumnIndex("licencia_giro")), c.getString(c.getColumnIndex("actividad_giro")), c.getInt(c.getColumnIndex("axo_licencia")),
-									c.getString(c.getColumnIndex("nombre_comercial")), c.getString(c.getColumnIndex("sector")), con, c.getString(c.getColumnIndex("peticion")), c.getString(c.getColumnIndex("nivel_economico")), c.getString(c.getColumnIndex("reincidencia")),c.getInt(c.getColumnIndex("tipo_cedula")),/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/ "http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php" "http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
+									c.getString(c.getColumnIndex("nombre_comercial")), c.getString(c.getColumnIndex("sector")), con, c.getString(c.getColumnIndex("peticion")), c.getString(c.getColumnIndex("nivel_economico")), c.getString(c.getColumnIndex("reincidencia")),c.getInt(c.getColumnIndex("tipo_cedula")),c.getString(c.getColumnIndex("folio_peticion")),c.getString(c.getColumnIndex("folio_apercibimiento")),c.getString(c.getColumnIndex("fecha_apercibimiento")),c.getString(c.getColumnIndex("numero_sellos")),c.getString(c.getColumnIndex("decomiso")),c.getString(c.getColumnIndex("folio_clausura")),c.getString(c.getColumnIndex("fecha_clausura")),/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/ "http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php" "http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
 
 								System.out.println("si");
 								ContentValues cv = new ContentValues();
@@ -999,7 +1000,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			return 0;
 		} else {
 			System.out.println("no entro");
-			return 1;
+			return 0;
 		}
 	}
 	public String fechasicronizacion(String catalogo){
@@ -1236,6 +1237,14 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 						mensaje=mensaje+" c_me_constitui";
 					}
 				}
+				if(!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCgiro.php").trim().equalsIgnoreCase("null")){
+					eliminaRegistros("c_giro");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCgiro.php", "c_giro2");
+					//x += sicrof("c_giro", url,"0");
+				/*	if(x>0){
+						mensaje=mensaje+"c_giro";
+					}*/
+				}
 				mProgressBar.setProgress(i);
 
 				i++;
@@ -1380,7 +1389,14 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 		SQLiteDatabase db = gestion.getWritableDatabase();
 		if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
 			if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_insepctor.php").trim().equalsIgnoreCase("null")) {
-           if(c.cambiosT("C_inspector",fechasicro,url2)>0){
+
+				if(this.id!=0){
+					ArrayList<NameValuePair> inspector = new ArrayList<>();
+
+					inspector.add(new BasicNameValuePair("numero", String.valueOf(this.id)));
+					JSONArray jsonArray = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getfoliolast.php", "POST",inspector);
+				}
+				if(c.cambiosT("C_inspector",fechasicro,url2)>0){
            	Log.e("entro en cambios","Yes C_inspector");
 			   x = sicrof("C_inspector", url,"1");
 			   if (x<=0){
@@ -1519,13 +1535,13 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
 			//fechas = fechaR.split("/");
 			//fechaR = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
-			fechas = fechaC.split("/");
-			fechaC = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
-			System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
-			if(fechaC.equalsIgnoreCase(cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.YEAR)))
-				bc = false;
-			else
-				bc = true;
+			//fechas = fechaC.split("/");
+			//fechaC = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
+			//System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
+			//if(fechaC.equalsIgnoreCase(cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.YEAR)))
+			//	bc = false;
+			//else
+			//	bc = true;
 			/*if(fechaR.equalsIgnoreCase(cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.YEAR)))
 				br = false;
 			else
@@ -1547,7 +1563,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				i++;
 			}*/
 			//Construccion
-			if(!bc) {
+			/*if(!bc) {
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 					int x1;
 					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getLicenciasConstruccion.php", "vs_InspM2", fechaC);
@@ -1562,7 +1578,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				mProgressBar.setProgress(i);
 				i++;
 			}
-			msj = "Datos Actualizados";
+			msj = "Datos Actualizados";*/
 		}
 		else
 			msj = "No se pudo conectar con el servidor";
@@ -1572,11 +1588,23 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 		final String url = "http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/contarreglones.php";
 		GestionBD gestion = new GestionBD(f, "inspeccion", null, 1);
 		SQLiteDatabase db = gestion.getWritableDatabase();
+
 		if (!c2.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
 			if (!c2.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_insepctor.php").trim().equalsIgnoreCase("null")) {
+				ArrayList<NameValuePair> inspector = new ArrayList<>();
+             if(InfraccionesActivity.id_inspectorQ!=0) {
+
+				 inspector.add(new BasicNameValuePair("numero", String.valueOf(InfraccionesActivity.id_inspectorQ)));
+			 }
+             if(InfraccionesActivityTecnica.id_inspectorQ!=0){
+				 inspector.add(new BasicNameValuePair("numero", String.valueOf(InfraccionesActivityTecnica.id_inspectorQ)));
+			 }
+				 //inspector.add(new BasicNameValuePair("numero", String.valueOf(InfraccionesActivity.id_inspectorQ)));
+				 JSONArray jsonArray = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getfoliolast.php", "POST",inspector);
+
+
 				eliminaRegistros2("C_inspector",f);
 				c2.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_insepctor.php"/*"http://pgt.no-ip.biz/serverSQL/getc_insepctor.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_inspector");
-
 
 			}
 		}
@@ -2103,7 +2131,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				btnInfraccion.setVisibility(View.GONE);
 				msj=" Se actualizo correctamente,";
 				msj+=mensaje+"si se bloquean los botones presione otra ves descarga de datos";
-				editor.putInt("values_cr",0);
+				editor.putInt("values_cr",1);
 			} else{
 				msj=" Se actualizo correctamente ";
 				msj+=mensaje;

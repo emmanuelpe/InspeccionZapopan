@@ -237,7 +237,7 @@ public class Connection {
 			String medida_seguridad,String articulo_medida,String motivo_orden,int id_c_inspector3,int id_c_inspector4,int id_c_inspector5,int id_c_inspector6,
 			int idCompetencia1,int idCompetencia2,int idCompetencia3,int idCompetencia4,int idCompetencia5,
 			String licencia_giro,String actividad_giro,int axo_licencia,String nombre_comercial,String sector,int id_tableta,String peticion,String nivel_economico,
-			String reincidencia,int tipo_cedula,String url){
+			String reincidencia,int tipo_cedula,String etfoliopeticion,String etfolioap,String etfechap,String numero_sellos,String decomiso,String folio_clausura,String fechaclau,String url){
     	
     	try {
 			ArrayList<NameValuePair> levanta = new ArrayList<NameValuePair>();
@@ -317,7 +317,7 @@ public class Connection {
 			levanta.add(new BasicNameValuePair("actividad_giro", actividad_giro));
 			levanta.add(new BasicNameValuePair("axo_licencia", String.valueOf(axo_licencia)));
 			
-			levanta.add(new BasicNameValuePair("nombre_comercial", licencia_giro));
+			levanta.add(new BasicNameValuePair("nombre_comercial", nombre_comercial));
 			levanta.add(new BasicNameValuePair("sector", sector));
 			
 			levanta.add(new BasicNameValuePair("id_tableta", String.valueOf(id_tableta)));
@@ -327,7 +327,14 @@ public class Connection {
 			levanta.add(new BasicNameValuePair("reincidencia", reincidencia));
 
 			levanta.add(new BasicNameValuePair("tipo_cedula", tipo_cedula + ""));
-			
+			levanta.add(new BasicNameValuePair("folio_peticion", etfoliopeticion));
+			levanta.add(new BasicNameValuePair("folio_apercibimiento", etfolioap));
+			levanta.add(new BasicNameValuePair("fecha_apercibimiento", etfechap));
+
+			levanta.add(new BasicNameValuePair("numero_sellos", numero_sellos));
+			levanta.add(new BasicNameValuePair("decomiso", decomiso));
+			levanta.add(new BasicNameValuePair("folio_clausura",folio_clausura));
+			levanta.add(new BasicNameValuePair("fecha_clausura",fechaclau));
 			JSONObject json = jsonParser.realizarHttpRequest(url, "POST", levanta);
 			
 			

@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -22,7 +23,8 @@
         android:roundIcon="@drawable/logo_pf"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityTestSend"></activity>
+
+        <activity android:name=".ActivityTestSend" />
         <activity android:name=".Reporte1" />
 
         <uses-library
@@ -40,7 +42,7 @@
             android:configChanges="orientation|screenSize|screenLayout|navigation" />
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -51,7 +53,8 @@
 
         <activity
             android:name=".ActivitySplash"
-            android:configChanges="orientation|screenSize|screenLayout|navigation">
+            android:configChanges="orientation|screenSize|screenLayout|navigation"
+            android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

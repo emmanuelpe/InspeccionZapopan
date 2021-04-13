@@ -143,10 +143,10 @@
 
                 <LinearLayout
                     android:id="@+id/llall"
-                    android:orientation="vertical"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
+                    android:orientation="vertical"
                     android:visibility="gone">
 
                     <RelativeLayout
@@ -155,197 +155,194 @@
                         android:layout_gravity="center">
 
 
-
                         <Button
                             android:id="@+id/btnDatos"
                             android:layout_width="wrap_content"
                             android:layout_height="70dp"
                             android:layout_alignParentRight="true"
                             android:text="@string/mostrar"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                         <EditText
                             android:id="@+id/etnActa"
                             android:layout_width="wrap_content"
                             android:layout_height="70dp"
-                            android:hint="@string/num_acta"
+                            android:layout_below="@id/btnDatos"
                             android:layout_alignParentRight="true"
-                            android:imeOptions="actionNext"
-                            android:layout_below="@id/btnDatos"/>
+                            android:hint="@string/num_acta"
+                            android:imeOptions="actionNext" />
 
                         <TextView
                             android:id="@+id/tvActa"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/num_acta"
-                            style="@style/Subtitle"
+                            android:layout_below="@id/btnDatos"
                             android:layout_marginTop="20dp"
                             android:layout_toLeftOf="@id/etnActa"
-                            android:layout_below="@id/btnDatos"/>
+                            android:text="@string/num_acta" />
 
                         <EditText
                             android:id="@+id/etOrden1"
                             android:layout_width="350dp"
                             android:layout_height="70dp"
-                            android:hint="@string/ordenvisita"
                             android:layout_below="@+id/etnActa"
-                            android:imeOptions="actionNext"/>
+                            android:hint="@string/ordenvisita"
+                            android:imeOptions="actionNext" />
 
                         <Button
                             android:id="@+id/btnBorden"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="70dp"
+                            android:layout_below="@+id/etnActa"
                             android:layout_alignParentRight="true"
                             android:layout_toRightOf="@+id/etOrden1"
-                            android:layout_below="@+id/etnActa"
                             android:text="@string/buscar"
-                            android:visibility="visible"
-                            style="@style/Boton"/>
+                            android:visibility="visible" />
 
                     </RelativeLayout>
 
                     <TextView
+                        style="@style/Div"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/ordenvisita"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        style="@style/Div"/>
+                        android:text="@string/ordenvisita" />
 
                     <RelativeLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_gravity="center">
+                        android:layout_gravity="center"
+                        android:gravity="center">
 
                         <TextView
                             android:id="@+id/tvOrden"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/ordenvisita"
                             android:layout_marginTop="20dp"
-                            style="@style/Subtitle"
-                            android:visibility="gone"/>
+                            android:text="@string/ordenvisita"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tvOV"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/ov"
-                            android:layout_toRightOf="@id/tvOrden"
-                            android:layout_marginTop="20dp"
                             android:layout_marginLeft="5dp"
-                            style="@style/Subtitle"
-                            android:visibility="gone"/>
+                            android:layout_marginTop="20dp"
+                            android:layout_toRightOf="@id/tvOrden"
+                            android:text="@string/ov"
+                            android:visibility="gone" />
 
                         <EditText
                             android:id="@+id/etnumero"
                             android:layout_width="wrap_content"
                             android:layout_height="70dp"
-                            android:inputType="number"
-                            android:hint="@string/numero"
-                            android:maxLength="4"
                             android:layout_toRightOf="@id/tvOV"
+                            android:hint="@string/numero"
                             android:imeOptions="actionNext"
-                            android:visibility="gone"/>
+                            android:inputType="number"
+                            android:maxLength="4"
+                            android:visibility="gone" />
 
                         <EditText
                             android:id="@+id/etAnoNumero"
                             android:layout_width="wrap_content"
                             android:layout_height="70dp"
-                            android:inputType="number"
-                            android:maxLength="2"
                             android:layout_toRightOf="@id/etnumero"
                             android:imeOptions="actionNext"
-                            android:visibility="gone"/>
+                            android:inputType="number"
+                            android:maxLength="2"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tvNC"
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:text="@string/citatorio"
-                            android:layout_toRightOf="@id/etAnoNumero"
                             style="@style/Subtitle"
-                            android:layout_marginTop="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:visibility="gone"/>
+                            android:layout_marginTop="20dp"
+                            android:layout_toRightOf="@id/etAnoNumero"
+                            android:text="@string/citatorio"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tvC"
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:text="@string/c"
-                            android:layout_toRightOf="@id/tvNC"
                             style="@style/Subtitle"
-                            android:layout_marginTop="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
-                            android:visibility="gone"/>
+                            android:layout_marginTop="20dp"
+                            android:layout_toRightOf="@id/tvNC"
+                            android:text="@string/c"
+                            android:visibility="gone" />
 
                         <EditText
                             android:id="@+id/etCitatorio"
                             android:layout_width="wrap_content"
                             android:layout_height="70dp"
-                            android:inputType="number"
-                            android:hint="@string/citatorio"
-                            android:maxLength="6"
                             android:layout_centerHorizontal="true"
                             android:layout_toRightOf="@id/tvC"
+                            android:hint="@string/citatorio"
                             android:imeOptions="actionNext"
-                            android:visibility="gone"/>
+                            android:inputType="number"
+                            android:maxLength="6"
+                            android:visibility="gone" />
 
                         <EditText
                             android:id="@+id/etAnoCitatorio"
                             android:layout_width="wrap_content"
                             android:layout_height="70dp"
-                            android:inputType="number"
                             android:layout_centerHorizontal="true"
                             android:layout_toRightOf="@id/etCitatorio"
                             android:imeOptions="actionNext"
-                            android:visibility="gone"/>
+                            android:inputType="number"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tvFechaElaboracion"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/fecha_elaboracion"
                             android:layout_below="@id/etCitatorio"
-                            android:layout_marginTop="20dp"
                             android:layout_marginLeft="5dp"
-                            style="@style/Subtitle"/>
+                            android:layout_marginTop="20dp"
+                            android:text="@string/fecha_elaboracion" />
 
                         <EditText
                             android:id="@+id/etfecham"
                             android:layout_width="wrap_content"
                             android:layout_height="70dp"
-                            android:hint="@string/fecham"
-                            android:enabled="false"
                             android:layout_below="@id/etCitatorio"
                             android:layout_toRightOf="@+id/tvFechaElaboracion"
-                            android:imeOptions="actionNext">
-                        </EditText>
+                            android:enabled="false"
+                            android:hint="@string/fecham"
+                            android:imeOptions="actionNext"></EditText>
 
                         <Button
                             android:id="@+id/btnFecha"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="70dp"
-                            android:layout_gravity="center"
-                            android:text="@string/fecha"
                             android:layout_below="@id/etCitatorio"
+                            android:layout_gravity="center"
                             android:layout_toRightOf="@+id/etfecham"
-                            style="@style/Boton"/>
+                            android:text="@string/fecha" />
 
                     </RelativeLayout>
 
                     <TextView
                         android:id="@+id/tvTipo"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
                         style="@style/Subtitle"
-                        android:text="@string/type"
-                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        />
+                        android:layout_marginTop="10dp"
+                        android:text="@string/type" />
 
                     <RelativeLayout
                         android:id="@+id/rllicencias"
@@ -356,13 +353,13 @@
 
                         <TextView
                             android:id="@+id/tvlicencia"
-                            android:layout_height="wrap_content"
-                            android:layout_width="fill_parent"
                             style="@style/Div"
-                            android:text="@string/licencia"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:visibility="visible"/>
+                            android:text="@string/licencia"
+                            android:visibility="visible" />
 
                         <!-- <TextView
                             android:id="@+id/tvAlineamiento"
@@ -389,35 +386,34 @@
 
                         <TextView
                             android:id="@+id/tvConstruccion"
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
                             style="@style/Subtitle"
-                            android:text="@string/construccion"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginLeft="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_below="@id/tvlicencia"
-                            android:visibility="gone"/>
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/construccion"
+                            android:visibility="gone" />
 
                         <EditText
                             android:id="@+id/etcontruccion"
                             android:layout_width="fill_parent"
                             android:layout_height="70dp"
-                            android:hint="@string/construccion"
                             android:layout_below="@id/tvlicencia"
-                            android:layout_toRightOf="@+id/tvConstruccion"
                             android:layout_marginRight="10dp"
-                            android:maxLength="12"
+                            android:layout_toRightOf="@+id/tvConstruccion"
+                            android:hint="@string/construccion"
                             android:imeOptions="actionNext"
-                            android:visibility="gone">
-                        </EditText>
+                            android:maxLength="12"
+                            android:visibility="gone"></EditText>
 
                         <LinearLayout
                             android:id="@+id/llresponsable"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
+                            android:layout_below="@id/etcontruccion"
                             android:layout_gravity="center_horizontal"
-                            android:layout_below="@id/etcontruccion">
+                            android:orientation="vertical">
 
                             <LinearLayout
                                 android:layout_width="fill_parent"
@@ -425,19 +421,19 @@
                                 android:visibility="gone">
 
                                 <TextView
+                                    style="@style/Subtitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/director_responsable"
                                     android:layout_marginTop="5dp"
-                                    style="@style/Subtitle"/>
+                                    android:text="@string/director_responsable" />
 
                                 <EditText
                                     android:id="@+id/etResponsable"
                                     android:layout_width="fill_parent"
                                     android:layout_height="70dp"
-                                    android:inputType="textCapWords"
                                     android:hint="@string/director_responsable"
-                                    android:imeOptions="actionNext"/>
+                                    android:imeOptions="actionNext"
+                                    android:inputType="textCapWords" />
 
                             </LinearLayout>
 
@@ -447,19 +443,19 @@
                                 android:visibility="gone">
 
                                 <TextView
+                                    style="@style/Subtitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/registro"
                                     android:layout_marginTop="5dp"
-                                    style="@style/Subtitle"/>
+                                    android:text="@string/registro" />
 
                                 <EditText
                                     android:id="@+id/etRegistro"
                                     android:layout_width="fill_parent"
                                     android:layout_height="70dp"
-                                    android:inputType="textCapWords"
                                     android:hint="@string/registro"
-                                    android:imeOptions="actionNext"/>
+                                    android:imeOptions="actionNext"
+                                    android:inputType="textCapWords" />
 
                             </LinearLayout>
 
@@ -470,20 +466,20 @@
 
                                 <TextView
                                     android:id="@+id/tvNLicencia"
+                                    style="@style/Subtitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/l_giro"
                                     android:layout_marginTop="5dp"
-                                    style="@style/Subtitle"/>
+                                    android:text="@string/l_giro" />
 
                                 <EditText
                                     android:id="@+id/etLicGiro"
                                     android:layout_width="fill_parent"
                                     android:layout_height="70dp"
-                                    android:inputType="textCapWords"
                                     android:hint="@string/l_giro"
                                     android:imeOptions="actionNext"
-                                    android:maxLength="30"/>
+                                    android:inputType="textCapWords"
+                                    android:maxLength="30" />
 
                             </LinearLayout>
 
@@ -494,21 +490,20 @@
 
                                 <TextView
                                     android:id="@+id/tvagiro"
+                                    style="@style/Subtitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/giro1"
                                     android:layout_marginTop="5dp"
-                                    style="@style/Subtitle"/>
+                                    android:text="@string/giro1" />
 
                                 <EditText
                                     android:id="@+id/etGiro1"
                                     android:layout_width="fill_parent"
                                     android:layout_height="70dp"
-                                    android:inputType="textCapWords"
                                     android:hint="@string/giro1"
-                                    android:maxLength="300"
                                     android:imeOptions="actionNext"
-                                    />
+                                    android:inputType="textCapWords"
+                                    android:maxLength="300" />
 
                             </LinearLayout>
 
@@ -519,47 +514,47 @@
 
                                 <TextView
                                     android:id="@+id/tvALicencia"
+                                    style="@style/Subtitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/al"
                                     android:layout_marginTop="5dp"
-                                    style="@style/Subtitle"/>
+                                    android:text="@string/al" />
 
                                 <EditText
                                     android:id="@+id/etALicencia"
                                     android:layout_width="fill_parent"
                                     android:layout_height="70dp"
-                                    android:inputType="number"
                                     android:hint="@string/al"
                                     android:imeOptions="actionNext"
-                                    android:maxLength="4"/>
+                                    android:inputType="number"
+                                    android:maxLength="4" />
 
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:visibility="visible"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+                                android:visibility="visible">
 
                                 <TextView
                                     android:id="@+id/tvNombreComercial"
+                                    style="@style/Subtitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/nombre_comercial"
                                     android:layout_marginTop="5dp"
-                                    android:visibility="visible"
-                                    style="@style/Subtitle"/>
+                                    android:text="@string/nombre_comercial"
+                                    android:visibility="visible" />
 
                                 <EditText
                                     android:id="@+id/etNombreComercia"
                                     android:layout_width="fill_parent"
                                     android:layout_height="70dp"
-                                    android:inputType="textCapWords"
                                     android:hint="@string/nombre_comercial"
                                     android:imeOptions="actionNext"
-                                    android:visibility="visible"
-                                    android:maxLength="50"/>
+                                    android:inputType="textCapWords"
+                                    android:maxLength="50"
+                                    android:visibility="visible" />
 
                             </LinearLayout>
 
@@ -575,46 +570,46 @@
                         android:visibility="gone">
 
                         <TextView
+                            style="@style/Div"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/reincidencia"
-                            style="@style/Div"/>
+                            android:text="@string/reincidencia" />
 
                         <RadioGroup
                             android:id="@+id/rgreincidencia"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_horizontal">
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
 
                             <RadioButton
                                 android:id="@+id/rbNReincidencia"
+                                style="@style/title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:checked="true"
-                                android:text="@string/no_reincidencia"
-                                style="@style/title"/>
+                                android:text="@string/no_reincidencia" />
 
                             <RadioButton
                                 android:id="@+id/rbOrdenvisita"
+                                style="@style/title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/ordenvisita"
-                                style="@style/title"/>
+                                android:text="@string/ordenvisita" />
 
                             <RadioButton
                                 android:id="@+id/rbApercebimiento"
+                                style="@style/title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/apercibimiento"
-                                style="@style/title"/>
+                                android:text="@string/apercibimiento" />
 
                             <RadioButton
                                 android:id="@+id/rbCitatorio"
+                                style="@style/title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/citatorio"
-                                style="@style/title"/>
+                                android:text="@string/citatorio" />
 
                         </RadioGroup>
 
@@ -622,105 +617,110 @@
                             android:id="@+id/etFolio"
                             android:layout_width="fill_parent"
                             android:layout_height="70dp"
-                            android:hint="@string/folio"/>
+                            android:hint="@string/folio" />
 
                     </LinearLayout>
 
 
                     <TextView
+                        style="@style/Div"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/datoVisitado"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        style="@style/Div"/>
+                        android:text="@string/datoVisitado" />
 
-                    <RelativeLayout android:layout_width="fill_parent"
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_gravity="center">
+                        android:layout_gravity="center"
+                        android:gravity="center">
 
                         <CheckBox
                             android:id="@+id/cbDatos"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="No proporciono datos"/>
+                            android:text="No proporciono datos" />
+
+                        <CheckBox
+                            android:id="@+id/cbDatos2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/cbDatos"
+                            android:text="No atendio persona alguna o se retiró el visitado antes del término de la presente diligencia" />
 
                         <TextView
                             android:id="@+id/tvDatoVisitado"
-                            android:layout_marginTop="20dp"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/nombreV"
+                            android:layout_below="@id/cbDatos2"
                             android:layout_gravity="center"
-                            style="@style/Subtitle"
-                            android:layout_below="@id/cbDatos"/>
+                            android:layout_marginTop="20dp"
+                            android:text="@string/nombreV" />
 
                         <EditText
                             android:id="@+id/etNombreV"
                             android:layout_width="fill_parent"
                             android:layout_height="70dp"
-                            android:inputType="textCapWords"
+                            android:layout_below="@id/cbDatos2"
                             android:layout_toRightOf="@id/tvDatoVisitado"
                             android:hint="@string/nombreV"
                             android:imeOptions="actionNext"
-                            android:layout_below="@id/cbDatos"/>
+                            android:inputType="textCapWords" />
 
                     </RelativeLayout>
 
 
-
-
-
                     <TextView
+                        style="@style/Subtitle"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/identifica"
                         android:layout_gravity="center"
-                        style="@style/Subtitle"/>
+                        android:text="@string/identifica" />
 
                     <Spinner
                         android:id="@+id/spIdentifica"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:prompt="@string/iden"/>
+                        android:prompt="@string/iden" />
 
                     <EditText
                         android:id="@+id/etnumeroife"
                         android:layout_width="fill_parent"
                         android:layout_height="70dp"
-                        android:inputType="textCapWords"
                         android:hint="@string/indique"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapWords" />
 
                     <TextView
+                        style="@style/Subtitle"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/manifiesta"
                         android:layout_gravity="center"
-                        style="@style/Subtitle"/>
+                        android:text="@string/manifiesta" />
 
                     <Spinner
                         android:id="@+id/spManifiesta"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:prompt="@string/iden"/>
+                        android:prompt="@string/iden" />
 
                     <EditText
                         android:id="@+id/etspecifique"
                         android:layout_width="fill_parent"
                         android:layout_height="70dp"
-                        android:inputType="textCapSentences"
                         android:hint="@string/especificar"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapSentences" />
 
                     <TextView
                         android:id="@+id/tvPropiedad"
+                        style="@style/Subtitle"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="Propiedad de"
                         android:layout_gravity="center"
-                        style="@style/Subtitle"/>
+                        android:text="Propiedad de" />
 
                     <RadioGroup
                         android:id="@+id/rgPropiedad"
@@ -731,23 +731,23 @@
                             android:id="@+id/rbVisitado"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="true"
                             android:text="El visitado"
-                            android:textSize="14sp"
-                            android:checked="true"/>
+                            android:textSize="14sp" />
 
                         <RadioButton
                             android:id="@+id/rbdesconoce"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Se desconoce"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
 
                         <RadioButton
                             android:id="@+id/rbOtro"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Otro"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
 
                     </RadioGroup>
 
@@ -756,30 +756,42 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/especificar"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/tvPeticion"
+                        style="@style/Subtitle"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/inspecion_fue"
                         android:layout_gravity="center"
-                        style="@style/Subtitle"/>
+                        android:text="@string/inspecion_fue" />
 
                     <Spinner
                         android:id="@+id/spPeticion"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:prompt="@string/iden"/>
+                        android:prompt="@string/iden" />
+
+                    <EditText
+                        android:id="@+id/folioapeticion"
+                        android:layout_width="fill_parent"
+                        android:layout_height="70dp"
+                        android:layout_below="@+id/spPeticion"
+                        android:hint="Folio de peticion(opcional)"
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapSentences"
+                        android:visibility="gone">
+
+                    </EditText>
 
                     <EditText
                         android:id="@+id/etInpeccionFue"
                         android:layout_width="fill_parent"
                         android:layout_height="70dp"
-                        android:inputType="textCapSentences"
                         android:hint="@string/inspecion_fue"
                         android:imeOptions="actionNext"
-                        android:visibility="gone"/>
+                        android:inputType="textCapSentences"
+                        android:visibility="gone" />
 
                     <!--<CheckBox
                         android:id="@+id/cbedificacion"
@@ -810,8 +822,8 @@
                         android:id="@+id/llconcepto"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
                         android:layout_gravity="center_vertical"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                     </LinearLayout>
@@ -819,388 +831,435 @@
 
                     <TextView
                         android:id="@+id/tvReg"
+                        style="@style/Subtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="visible"
                         android:paddingTop="43dp"
                         android:text="@string/competerncia"
-                        style="@style/Subtitle"/>
+                        android:visibility="visible" />
 
                     <Spinner
                         android:id="@+id/spReglamento"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:id="@+id/llcomp"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
                         android:layout_gravity="center_vertical"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                     </LinearLayout>
 
 
-
                     <RelativeLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_gravity="center_vertical">
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center">
 
                         <TextView
                             android:id="@+id/tvUbicacion"
-                            android:layout_marginTop="20dp"
+                            style="@style/Div"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/ubicacion"
                             android:layout_gravity="center"
+                            android:layout_marginTop="20dp"
                             android:gravity="center"
-                            style="@style/Div"/>
+                            android:text="@string/ubicacion" />
 
                         <TextView
                             android:id="@+id/tvMeConstituye"
+                            style="@style/Subtitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="Me Constitui fisica y legalmente"
-                            android:gravity="center"
                             android:layout_below="@+id/tvUbicacion"
-                            style="@style/Subtitle"/>
+                            android:layout_marginTop="20dp"
+                            android:gravity="center"
+                            android:text="Me Constitui fisica y legalmente" />
 
                         <Spinner
                             android:id="@+id/spMeConstitui"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tvMeConstituye"/>
+                            android:layout_below="@+id/tvMeConstituye" />
 
                         <TextView
                             android:id="@+id/tvNombreCalle"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="@string/calle"
-                            android:layout_gravity="center"
                             android:layout_below="@+id/spMeConstitui"
-                            style="@style/Subtitle"/>
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp"
+                            android:text="@string/calle" />
 
                         <EditText
                             android:id="@+id/etcalle"
                             android:layout_width="wrap_content"
                             android:layout_height="70dp"
-                            android:hint="@string/calle"
-                            android:layout_toRightOf="@id/tvNombreCalle"
-                            android:inputType="textCapSentences"
                             android:layout_below="@+id/spMeConstitui"
-                            android:imeOptions="actionNext"/>
+                            android:layout_toRightOf="@id/tvNombreCalle"
+                            android:hint="@string/calle"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapSentences" />
 
                         <TextView
                             android:id="@+id/tvNumeroCalle"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="@string/numeroc"
                             android:layout_below="@+id/spMeConstitui"
-                            android:layout_toRightOf="@id/etcalle"
                             android:layout_gravity="center"
-                            style="@style/Subtitle"/>
+                            android:layout_marginTop="20dp"
+                            android:layout_toRightOf="@id/etcalle"
+                            android:text="@string/numeroc" />
 
                         <EditText
                             android:id="@+id/etnumerocalle"
                             android:layout_width="wrap_content"
                             android:layout_height="70dp"
-                            android:hint="@string/numeroc"
                             android:layout_below="@+id/etcalle"
-                            android:inputType="textCapSentences"
-                            android:imeOptions="actionNext"/>
+                            android:hint="@string/numeroc"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapSentences" />
 
                         <TextView
                             android:id="@+id/tvNumeroInt"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="@string/numero_interior"
-                            android:layout_toRightOf="@id/etnumerocalle"
                             android:layout_below="@+id/etcalle"
                             android:layout_gravity="center"
-                            style="@style/Subtitle"/>
+                            android:layout_marginTop="20dp"
+                            android:layout_toRightOf="@id/etnumerocalle"
+                            android:text="@string/numero_interior" />
 
                         <EditText
                             android:id="@+id/etnumerointerior"
                             android:layout_width="100dp"
                             android:layout_height="70dp"
-                            android:hint="@string/numero_interior"
-                            android:layout_toRightOf="@id/tvNumeroInt"
                             android:layout_below="@+id/etcalle"
-                            android:inputType="textCapSentences"
                             android:layout_alignParentRight="true"
-                            android:imeOptions="actionNext"/>
+                            android:layout_toRightOf="@id/tvNumeroInt"
+                            android:hint="@string/numero_interior"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapSentences" />
 
-                        <LinearLayout android:id="@+id/llEntre"
-                            android:gravity="center"
-                            android:orientation="horizontal"
+                        <LinearLayout
+                            android:id="@+id/llEntre"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/etnumerointerior" >
+                            android:layout_below="@id/etnumerointerior"
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
                             <TextView
-                                android:text="@string/entre"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
-                                style="@style/Subtitle"/>
+                                android:text="@string/entre" />
 
                             <EditText
                                 android:id="@+id/etEntreC"
-                                android:hint="@string/entre"
                                 android:layout_width="wrap_content"
                                 android:layout_height="70dp"
-                                android:inputType="textCapSentences"
-                                android:imeOptions="actionNext"/>
+                                android:hint="@string/entre"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences" />
 
                             <TextView
-                                android:text="@string/entre1"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
-                                style="@style/Subtitle"/>
+                                android:text="@string/entre1" />
 
                             <EditText
                                 android:id="@+id/etEntreC1"
-                                android:hint="@string/entre1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="70dp"
-                                android:inputType="textCapSentences"
-                                android:imeOptions="actionNext"/>
+                                android:hint="@string/entre1"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences" />
 
                         </LinearLayout>
 
                         <TextView
                             android:id="@+id/tvCoordenada"
+                            style="@style/Subtitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Coordenadas"
                             android:layout_below="@id/llEntre"
-                            android:layout_marginTop="20dp"
                             android:layout_marginLeft="5dp"
+                            android:layout_marginTop="20dp"
                             android:gravity="center"
-                            style="@style/Subtitle"
-                            android:visibility="gone"/>
+                            android:text="Coordenadas"
+                            android:visibility="gone" />
 
                         <EditText
                             android:id="@+id/etCordenada"
-                            android:hint="Coordenadas"
                             android:layout_width="match_parent"
                             android:layout_height="70dp"
-                            android:inputType="textCapSentences"
-                            android:imeOptions="actionNext"
                             android:layout_below="@id/tvCoordenada"
-                            android:visibility="gone"/>
+                            android:hint="Coordenadas"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapSentences"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tvSPoblacion"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/poblacion"
                             android:layout_below="@id/etCordenada"
-                            android:layout_marginTop="20dp"
                             android:layout_marginLeft="5dp"
-                            style="@style/Subtitle"
-                            android:visibility="gone"/>
+                            android:layout_marginTop="20dp"
+                            android:text="@string/poblacion"
+                            android:visibility="gone" />
 
                         <Spinner
                             android:id="@+id/spPoblacion"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:prompt="@string/iden"
                             android:layout_below="@id/tvSPoblacion"
-                            android:visibility="gone"/>
+                            android:prompt="@string/iden"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tvSFraccionamiento"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/fracc"
                             android:layout_below="@id/spPoblacion"
-                            android:layout_marginTop="20dp"
                             android:layout_marginLeft="5dp"
-                            style="@style/Subtitle"/>
+                            android:layout_marginTop="20dp"
+                            android:text="@string/fracc" />
 
                         <EditText
                             android:id="@+id/etBCol"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@android:string/search_go"
-                            android:layout_below="@+id/tvSFraccionamiento"/>
+                            android:layout_below="@+id/tvSFraccionamiento"
+                            android:hint="@android:string/search_go" />
 
                         <Button
                             android:id="@+id/btnBCol"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@android:string/search_go"
-                            android:layout_below="@+id/etBCol"/>
+                            android:layout_below="@+id/etBCol"
+                            android:text="@android:string/search_go" />
 
                         <Spinner
                             android:id="@+id/spFraccionamiento"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:prompt="@string/iden"
                             android:layout_below="@id/btnBCol"
-                            android:spinnerMode="dialog"/>
+                            android:prompt="@string/iden"
+                            android:spinnerMode="dialog" />
 
                         <TextView
                             android:id="@+id/tvFraccionamiento"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_below="@id/spFraccionamiento"
+                            android:layout_gravity="center"
                             android:layout_marginTop="20dp"
                             android:text="@string/fraccionamiento"
-                            android:layout_gravity="center"
-                            android:layout_below="@id/spFraccionamiento"
-                            style="@style/Subtitle"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
                         <EditText
                             android:id="@+id/etfraccionamiento"
                             android:layout_width="fill_parent"
                             android:layout_height="70dp"
-                            android:hint="@string/fraccionamiento"
-                            android:layout_toRightOf="@id/tvFraccionamiento"
-                            android:inputType="textCapSentences"
                             android:layout_below="@id/spFraccionamiento"
+                            android:layout_toRightOf="@id/tvFraccionamiento"
+                            android:hint="@string/fraccionamiento"
                             android:imeOptions="actionNext"
-                            android:visibility="visible"/>
+                            android:inputType="textCapSentences"
+                            android:visibility="visible" />
 
                         <TextView
                             android:id="@+id/tvZona"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/zona"
+                            android:layout_below="@id/etfraccionamiento"
                             android:layout_gravity="center"
-                            android:gravity="center"
-                            style="@style/Subtitle"
                             android:layout_marginTop="20dp"
-                            android:visibility="visible"
-                            android:layout_below="@id/etfraccionamiento"/>
+                            android:gravity="center"
+                            android:text="@string/zona"
+                            android:visibility="visible" />
 
                         <Spinner
                             android:id="@+id/spZona"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:prompt="@string/iden"
+                            android:layout_below="@id/tvZona"
                             android:layout_gravity="center_horizontal"
-                            android:visibility="visible"
-                            android:layout_below="@id/tvZona"/>
+                            android:prompt="@string/iden"
+                            android:visibility="visible" />
 
 
                         <TextView
                             android:id="@+id/tvSector"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_below="@id/spZona"
+                            android:layout_gravity="center"
                             android:layout_marginTop="20dp"
                             android:text="@string/sector"
-                            android:layout_gravity="center"
-                            android:layout_below="@id/spZona"
-                            style="@style/Subtitle"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
                         <EditText
                             android:id="@+id/etSector"
                             android:layout_width="fill_parent"
                             android:layout_height="70dp"
-                            android:hint="@string/sector"
-                            android:layout_toRightOf="@id/tvSector"
-                            android:inputType="textCapSentences"
                             android:layout_below="@id/spZona"
+                            android:layout_toRightOf="@id/tvSector"
+                            android:hint="@string/sector"
                             android:imeOptions="actionNext"
-                            android:visibility="gone"/>
+                            android:inputType="textCapSentences"
+                            android:visibility="gone" />
 
 
                         <TextView
                             android:id="@+id/tvCondominio"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="@string/coto"
-                            android:layout_gravity="center"
                             android:layout_below="@id/etSector"
-                            style="@style/Subtitle"/>
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp"
+                            android:text="@string/coto" />
 
                         <EditText
                             android:id="@+id/etCondominio"
                             android:layout_width="fill_parent"
                             android:layout_height="70dp"
-                            android:hint="@string/coto"
-                            android:layout_toRightOf="@id/tvCondominio"
-                            android:inputType="textCapSentences"
                             android:layout_below="@id/etSector"
-                            android:imeOptions="actionNext"/>
+                            android:layout_toRightOf="@id/tvCondominio"
+                            android:hint="@string/coto"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapSentences" />
 
-                        <RelativeLayout android:id="@+id/rlML"
-                            android:gravity="center"
+                        <RelativeLayout
+                            android:id="@+id/rlML"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/etCondominio">
+                            android:layout_below="@id/etCondominio"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/tvfolioap"
+                                style="@style/Subtitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="20dp"
+
+                                android:text="Folio AP"
+                                android:visibility="gone" />
+
+                            <EditText
+                                android:id="@+id/etfolioap"
+                                android:layout_width="fill_parent"
+                                android:layout_height="70dp"
+                                android:layout_toRightOf="@id/tvfolioap"
+                                android:hint="Folio apercibimiento"
+                                android:imeOptions="actionNext"
+
+                                android:inputType="textCapSentences"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/tvfechaap"
+                                style="@style/Subtitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/tvfolioap"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="45dp"
+                                android:text="Fecha AP"
+                                android:visibility="gone" />
+
+                            <EditText
+                                android:id="@+id/etfechap"
+                                android:layout_width="fill_parent"
+                                android:layout_height="70dp"
+                                android:layout_below="@id/etfolioap"
+                                android:layout_toRightOf="@id/tvfechaap"
+                                android:hint="dd-mm-aaaa"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences"
+                                android:visibility="gone" />
 
                             <TextView
                                 android:id="@+id/tvManzana"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_marginTop="20dp"
                                 android:text="@string/manzana"
-                                android:layout_gravity="center"
-                                android:visibility="gone"
-                                style="@style/Subtitle"/>
+                                android:visibility="gone" />
 
                             <EditText
                                 android:id="@+id/etManzana"
                                 android:layout_width="wrap_content"
                                 android:layout_height="70dp"
-                                android:hint="@string/manzana"
                                 android:layout_toRightOf="@id/tvManzana"
+                                android:hint="@string/manzana"
+                                android:imeOptions="actionNext"
                                 android:inputType="textCapSentences"
-                                android:visibility="gone"
-                                android:imeOptions="actionNext"/>
+                                android:visibility="gone" />
 
                             <TextView
                                 android:id="@+id/tvLote"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
-                                android:text="@string/lote"
-                                android:layout_toRightOf="@id/etManzana"
                                 android:layout_gravity="center"
-                                android:visibility="gone"
-                                style="@style/Subtitle"/>
+                                android:layout_marginTop="20dp"
+                                android:layout_toRightOf="@id/etManzana"
+                                android:text="@string/lote"
+                                android:visibility="gone" />
 
                             <EditText
                                 android:id="@+id/etLote"
                                 android:layout_width="wrap_content"
                                 android:layout_height="70dp"
-                                android:hint="@string/lote"
                                 android:layout_toRightOf="@id/tvLote"
+                                android:hint="@string/lote"
+                                android:imeOptions="actionNext"
                                 android:inputType="textCapSentences"
-                                android:visibility="gone"
-                                android:imeOptions="actionNext"/>
+                                android:visibility="gone" />
 
                             <TextView
                                 android:id="@+id/tvReferencia"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
-                                android:text="@string/referencia"
-                                android:layout_toRightOf="@id/etLote"
+                                android:layout_below="@id/etfechap"
+
                                 android:layout_gravity="center"
-                                style="@style/Subtitle"/>
+                                android:layout_marginTop="20dp"
+                                android:text="@string/referencia" />
 
                             <EditText
                                 android:id="@+id/etReferencia"
                                 android:layout_width="wrap_content"
                                 android:layout_height="70dp"
-                                android:hint="@string/referencia"
+                                android:layout_below="@id/etfechap"
                                 android:layout_toRightOf="@id/tvReferencia"
-                                android:inputType="textCapSentences"
-                                android:imeOptions="actionNext"/>
+                                android:hint="@string/referencia"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences" />
 
                         </RelativeLayout>
 
@@ -1208,223 +1267,218 @@
                             android:id="@+id/llInspectores"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_below="@+id/rlML">
+                            android:layout_below="@+id/rlML"
+                            android:orientation="vertical">
+
                             <TextView
+                                style="@style/Div"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/inspector"
                                 android:layout_gravity="center"
                                 android:gravity="center"
-                                style="@style/Div" />
+                                android:text="@string/inspector" />
 
 
                             <Spinner
                                 android:id="@+id/spNombre"
                                 android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content" />
 
                             <EditText
                                 android:id="@+id/etIfe"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/ife"
-                                android:inputType="textCapSentences"
                                 android:enabled="false"
-                                android:imeOptions="actionNext">
-                            </EditText>
+                                android:hint="@string/ife"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences"></EditText>
 
                             <EditText
                                 android:id="@+id/etnoempleado"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/noEmpleado"
-                                android:inputType="textCapSentences"
                                 android:enabled="false"
-                                android:imeOptions="actionNext"/>
+                                android:hint="@string/noEmpleado"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences" />
 
                             <EditText
                                 android:id="@+id/etvigenciaIns"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/vigencia"
-                                android:inputType="text"
                                 android:enabled="false"
-                                android:imeOptions="actionNext"/>
+                                android:hint="@string/vigencia"
+                                android:imeOptions="actionNext"
+                                android:inputType="text" />
 
                             <TextView
                                 android:id="@+id/tvAcomp"
+                                style="@style/Div"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/acompanante"
                                 android:layout_gravity="center"
                                 android:gravity="center"
-                                style="@style/Div"/>
+                                android:text="@string/acompanante" />
 
                             <Spinner
                                 android:id="@+id/spNombreAcompanante"
                                 android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content" />
 
                             <EditText
                                 android:id="@+id/etIfeAcompanante"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/ifeAcompanante"
-                                android:inputType="textCapSentences"
                                 android:enabled="false"
-                                android:imeOptions="actionNext">
-                            </EditText>
+                                android:hint="@string/ifeAcompanante"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences"></EditText>
 
                             <EditText
                                 android:id="@+id/etnoempleadoAcompanante"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/noEmpleadoAc"
                                 android:enabled="false"
-                                android:imeOptions="actionNext"/>
+                                android:hint="@string/noEmpleadoAc"
+                                android:imeOptions="actionNext" />
 
                             <EditText
                                 android:id="@+id/etvigenciaAcom"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/vigencia"
                                 android:enabled="false"
-                                android:imeOptions="actionNext"/>
+                                android:hint="@string/vigencia"
+                                android:imeOptions="actionNext" />
 
                             <Spinner
                                 android:id="@+id/spNombreAcompanante1"
                                 android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content" />
 
                             <EditText
                                 android:id="@+id/etIfeAcompanante1"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/ifeAcompanante"
-                                android:inputType="textCapSentences"
                                 android:enabled="false"
-                                android:imeOptions="actionNext">
-                            </EditText>
+                                android:hint="@string/ifeAcompanante"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences"></EditText>
 
                             <EditText
                                 android:id="@+id/etnoempleadoAcompanante1"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/noEmpleadoAc"
                                 android:enabled="false"
-                                android:imeOptions="actionNext"/>
+                                android:hint="@string/noEmpleadoAc"
+                                android:imeOptions="actionNext" />
 
                             <EditText
                                 android:id="@+id/etvigenciaAcom1"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/vigencia"
                                 android:enabled="false"
-                                android:imeOptions="actionNext"/>
+                                android:hint="@string/vigencia"
+                                android:imeOptions="actionNext" />
 
                             <Spinner
                                 android:id="@+id/spNombreAcompanante2"
                                 android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content" />
 
                             <EditText
                                 android:id="@+id/etIfeAcompanante2"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/ifeAcompanante"
-                                android:inputType="textCapSentences"
                                 android:enabled="false"
-                                android:imeOptions="actionNext">
-                            </EditText>
+                                android:hint="@string/ifeAcompanante"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences"></EditText>
 
                             <EditText
                                 android:id="@+id/etnoempleadoAcompanante2"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/noEmpleadoAc"
                                 android:enabled="false"
-                                android:imeOptions="actionNext"/>
+                                android:hint="@string/noEmpleadoAc"
+                                android:imeOptions="actionNext" />
 
                             <EditText
                                 android:id="@+id/etvigenciaAcom2"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/vigencia"
                                 android:enabled="false"
-                                android:imeOptions="actionNext"/>
+                                android:hint="@string/vigencia"
+                                android:imeOptions="actionNext" />
 
                             <Spinner
                                 android:id="@+id/spNombreAcompanante3"
                                 android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content" />
 
                             <EditText
                                 android:id="@+id/etIfeAcompanante3"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/ifeAcompanante"
-                                android:inputType="textCapSentences"
                                 android:enabled="false"
-                                android:imeOptions="actionNext">
-                            </EditText>
+                                android:hint="@string/ifeAcompanante"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences"></EditText>
 
                             <EditText
                                 android:id="@+id/etnoempleadoAcompanante3"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/noEmpleadoAc"
                                 android:enabled="false"
-                                android:imeOptions="actionNext"/>
+                                android:hint="@string/noEmpleadoAc"
+                                android:imeOptions="actionNext" />
 
                             <EditText
                                 android:id="@+id/etvigenciaAcom3"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/vigencia"
                                 android:enabled="false"
-                                android:imeOptions="actionNext"/>
+                                android:hint="@string/vigencia"
+                                android:imeOptions="actionNext" />
 
                             <Spinner
                                 android:id="@+id/spNombreAcompanante4"
                                 android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content" />
 
                             <EditText
                                 android:id="@+id/etIfeAcompanante4"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/ifeAcompanante"
-                                android:inputType="textCapSentences"
                                 android:enabled="false"
-                                android:imeOptions="actionNext">
-                            </EditText>
+                                android:hint="@string/ifeAcompanante"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences"></EditText>
 
                             <EditText
                                 android:id="@+id/etnoempleadoAcompanante4"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/noEmpleadoAc"
                                 android:enabled="false"
-                                android:imeOptions="actionNext"/>
+                                android:hint="@string/noEmpleadoAc"
+                                android:imeOptions="actionNext" />
 
                             <EditText
                                 android:id="@+id/etvigenciaAcom4"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/vigencia"
                                 android:enabled="false"
-                                android:imeOptions="actionNext"/>
+                                android:hint="@string/vigencia"
+                                android:imeOptions="actionNext" />
 
                             <TextView
                                 android:id="@+id/tvMotivo"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_marginTop="20dp"
                                 android:text="@string/motivo"
-                                android:layout_gravity="center"
-                                style="@style/Subtitle"
-                                android:visibility="gone"/>
+                                android:visibility="gone" />
 
                             <EditText
                                 android:id="@+id/etMotivo"
@@ -1432,92 +1486,92 @@
                                 android:layout_height="80dp"
                                 android:hint="@string/motivo"
                                 android:inputType="textCapSentences"
-                                android:visibility="gone"/>
+                                android:visibility="gone" />
 
                         </LinearLayout>
 
                         <RelativeLayout
                             android:id="@+id/rlPropietar"
-                            android:layout_height="wrap_content"
                             android:layout_width="fill_parent"
-                            android:layout_below="@id/llInspectores" >
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/llInspectores">
 
                             <TextView
                                 android:id="@+id/tvPropieta"
-                                android:layout_marginTop="20dp"
+                                style="@style/Div"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/dato_l"
                                 android:layout_gravity="center"
+                                android:layout_marginTop="20dp"
                                 android:gravity="center"
-                                style="@style/Div"/>
+                                android:text="@string/dato_l" />
 
                             <TextView
                                 android:id="@+id/tvApellidoP"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
-                                android:text="@string/apellido_paterno"
                                 android:layout_below="@id/tvPropieta"
                                 android:layout_gravity="center"
-                                style="@style/Subtitle"
-                                android:visibility="gone"/>
+                                android:layout_marginTop="20dp"
+                                android:text="@string/apellido_paterno"
+                                android:visibility="gone" />
 
                             <EditText
                                 android:id="@+id/etApellidoP"
                                 android:layout_width="wrap_content"
                                 android:layout_height="70dp"
-                                android:hint="@string/apellido_paterno"
-                                android:inputType="textCapSentences"
                                 android:layout_below="@id/tvPropieta"
                                 android:layout_toRightOf="@+id/tvApellidoP"
+                                android:hint="@string/apellido_paterno"
                                 android:imeOptions="actionNext"
-                                android:visibility="gone"/>
+                                android:inputType="textCapSentences"
+                                android:visibility="gone" />
 
                             <TextView
                                 android:id="@+id/tvApellidoM"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
-                                android:text="@string/apellido_materno"
                                 android:layout_below="@id/tvPropieta"
-                                android:layout_toRightOf="@id/etApellidoP"
                                 android:layout_gravity="center"
-                                style="@style/Subtitle"
-                                android:visibility="gone"/>
+                                android:layout_marginTop="20dp"
+                                android:layout_toRightOf="@id/etApellidoP"
+                                android:text="@string/apellido_materno"
+                                android:visibility="gone" />
 
                             <EditText
                                 android:id="@+id/etApellidoM"
                                 android:layout_width="wrap_content"
                                 android:layout_height="70dp"
-                                android:hint="@string/apellido_materno"
-                                android:inputType="textCapSentences"
                                 android:layout_below="@id/tvPropieta"
-                                android:layout_toRightOf="@id/tvApellidoM"
                                 android:layout_alignParentRight="true"
+                                android:layout_toRightOf="@id/tvApellidoM"
+                                android:hint="@string/apellido_materno"
                                 android:imeOptions="actionNext"
-                                android:visibility="gone"/>
+                                android:inputType="textCapSentences"
+                                android:visibility="gone" />
 
                             <TextView
                                 android:id="@+id/tvPropietario"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
-                                android:text="@string/titular"
                                 android:layout_below="@id/etApellidoP"
-                                android:maxLength="199"
                                 android:layout_gravity="center"
-                                style="@style/Subtitle"/>
+                                android:layout_marginTop="20dp"
+                                android:maxLength="199"
+                                android:text="@string/titular" />
 
                             <EditText
                                 android:id="@+id/etpropietario"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/titular"
-                                android:inputType="textCapWords"
                                 android:layout_below="@id/etApellidoP"
                                 android:layout_toRightOf="@id/tvPropietario"
-                                android:imeOptions="actionNext"/>
+                                android:hint="@string/titular"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapWords" />
 
                             <!--<TextView
                                 android:id="@+id/tvEmail"
@@ -1548,133 +1602,133 @@
                         android:id="@+id/rlTestAsist"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_gravity="center_vertical">
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center">
 
                         <TextView
                             android:id="@+id/tvTest"
+                            style="@style/Div"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/testigos"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            style="@style/Div"/>
+                            android:text="@string/testigos" />
 
                         <Spinner
                             android:id="@+id/spdesignado"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/tvTest"
-                            android:prompt="@string/iden"/>
+                            android:prompt="@string/iden" />
 
                         <Spinner
                             android:id="@+id/spInspectorT"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/spdesignado"
-                            android:prompt="@string/iden"/>
+                            android:prompt="@string/iden" />
 
                         <TextView
                             android:id="@+id/tvNombreT"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="@string/nombreTestigo"
                             android:layout_below="@id/spInspectorT"
                             android:layout_gravity="center"
-                            style="@style/Subtitle"/>
+                            android:layout_marginTop="20dp"
+                            android:text="@string/nombreTestigo" />
 
                         <EditText
                             android:id="@+id/etnombretestigo"
                             android:layout_width="fill_parent"
                             android:layout_height="70dp"
-                            android:hint="@string/nombreTestigo"
-                            android:layout_toRightOf="@id/tvNombreT"
                             android:layout_below="@id/spInspectorT"
-                            android:inputType="textCapWords"
-                            android:imeOptions="actionNext"/>
+                            android:layout_toRightOf="@id/tvNombreT"
+                            android:hint="@string/nombreTestigo"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords" />
 
                         <TextView
                             android:id="@+id/tvIdentificaT"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="@string/identifica"
                             android:layout_below="@id/etnombretestigo"
                             android:layout_gravity="center"
-                            style="@style/Subtitle"/>
+                            android:layout_marginTop="20dp"
+                            android:text="@string/identifica" />
 
                         <Spinner
                             android:id="@+id/spIdentificaT"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:layout_below="@id/etnombretestigo"
                             android:layout_toRightOf="@id/tvIdentificaT"
-                            android:prompt="@string/iden"
-                            android:layout_below="@id/etnombretestigo"/>
+                            android:prompt="@string/iden" />
 
                         <TextView
                             android:id="@+id/tvIfeT"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="@string/identificacion"
                             android:layout_below="@id/spIdentificaT"
                             android:layout_gravity="center"
-                            style="@style/Subtitle"/>
+                            android:layout_marginTop="20dp"
+                            android:text="@string/identificacion" />
 
                         <EditText
                             android:id="@+id/etifetestigo"
                             android:layout_width="fill_parent"
                             android:layout_height="70dp"
-                            android:hint="@string/identificacion"
                             android:layout_below="@id/spIdentificaT"
                             android:layout_toRightOf="@id/tvIfeT"
-                            android:inputType="textCapSentences"
-                            android:imeOptions="actionNext"/>
+                            android:hint="@string/identificacion"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapSentences" />
 
                         <Spinner
                             android:id="@+id/spdesignado1"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/etifetestigo"
-                            android:prompt="@string/iden"/>
+                            android:prompt="@string/iden" />
 
                         <Spinner
                             android:id="@+id/spInspectorT1"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/spdesignado1"
-                            android:prompt="@string/iden"/>
+                            android:prompt="@string/iden" />
 
                         <TextView
                             android:id="@+id/tvNombreT2"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="@string/nombreTestigo"
                             android:layout_below="@id/spInspectorT1"
                             android:layout_gravity="center"
-                            style="@style/Subtitle"/>
+                            android:layout_marginTop="20dp"
+                            android:text="@string/nombreTestigo" />
 
                         <EditText
                             android:id="@+id/etnombretestigo1"
                             android:layout_width="fill_parent"
                             android:layout_height="70dp"
-                            android:hint="@string/nombreTestigo"
                             android:layout_below="@id/spInspectorT1"
                             android:layout_toRightOf="@id/tvNombreT2"
-                            android:inputType="textCapWords"
-                            android:imeOptions="actionNext"/>
+                            android:hint="@string/nombreTestigo"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords" />
 
                         <TextView
                             android:id="@+id/tvIdentificaT1"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="@string/identifica"
                             android:layout_below="@id/etnombretestigo1"
                             android:layout_gravity="center"
-                            style="@style/Subtitle"/>
+                            android:layout_marginTop="20dp"
+                            android:text="@string/identifica" />
 
                         <Spinner
                             android:id="@+id/spIdentificaT1"
@@ -1682,52 +1736,52 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/etnombretestigo1"
                             android:layout_toRightOf="@id/tvIdentificaT1"
-                            android:prompt="@string/iden"/>
+                            android:prompt="@string/iden" />
 
                         <TextView
                             android:id="@+id/tvIfeT2"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="@string/identificacion"
                             android:layout_below="@id/spIdentificaT1"
                             android:layout_gravity="center"
-                            style="@style/Subtitle"/>
+                            android:layout_marginTop="20dp"
+                            android:text="@string/identificacion" />
 
                         <EditText
                             android:id="@+id/etifetestigo1"
                             android:layout_width="fill_parent"
                             android:layout_height="70dp"
-                            android:hint="@string/identificacion"
                             android:layout_below="@id/spIdentificaT1"
                             android:layout_toRightOf="@id/tvIfeT2"
-                            android:inputType="textCapSentences"
-                            android:imeOptions="actionNext"/>
+                            android:hint="@string/identificacion"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapSentences" />
 
                     </RelativeLayout>
 
-                    <RelativeLayout android:id="@+id/rlVisita"
+                    <RelativeLayout
+                        android:id="@+id/rlVisita"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content">
 
                         <TextView
                             android:id="@+id/tvVisita"
+                            style="@style/Div"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/visita"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            style="@style/Div"/>
+                            android:text="@string/visita" />
 
                         <TextView
                             android:id="@+id/tvHec"
+                            style="@style/Subtitle"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/hechos"
-                            android:layout_gravity="center"
                             android:layout_below="@id/tvVisita"
-                            style="@style/Subtitle"
-                            />
+                            android:layout_gravity="center"
+                            android:text="@string/hechos" />
 
                         <RelativeLayout
                             android:id="@+id/rlopcion"
@@ -1737,170 +1791,169 @@
 
                             <TextView
                                 android:id="@+id/tvOpcion"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/opcion"
                                 android:layout_alignParentLeft="true"
-                                style="@style/Subtitle"
-                                android:visibility="gone"/>
+                                android:text="@string/opcion"
+                                android:visibility="gone" />
 
                             <Button
                                 android:id="@+id/btnSi"
+                                style="@style/Boton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toRightOf="@id/tvOpcion"
                                 android:text="@string/si"
-                                style="@style/Boton"
-                                android:visibility="gone"/>
+                                android:visibility="gone" />
 
                             <Button
                                 android:id="@+id/btnNo"
+                                style="@style/Boton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toRightOf="@id/btnSi"
                                 android:text="@string/no"
-                                style="@style/Boton"
-                                android:visibility="gone"/>
+                                android:visibility="gone" />
 
                             <EditText
                                 android:id="@+id/etBuscar"
                                 android:layout_width="150dp"
                                 android:layout_height="70dp"
                                 android:layout_below="@id/btnSi"
-                                android:hint="@string/buscar_p"/>
+                                android:hint="@string/buscar_p" />
 
                             <Button
                                 android:id="@+id/btnBuscar"
+                                style="@style/Boton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/btnSi"
                                 android:layout_toRightOf="@id/etBuscar"
-                                android:hint="@string/buscar"
-                                style="@style/Boton"/>
+                                android:hint="@string/buscar" />
 
                         </RelativeLayout>
+
                         <TextView
                             android:id="@+id/spselectregla"
+                            style="@style/SubtitleR"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Seleccione su reglamento"
                             android:layout_below="@id/rlopcion"
-                            style="@style/SubtitleR">
+                            android:text="Seleccione su reglamento">
 
                         </TextView>
+
                         <Spinner
                             android:id="@+id/spCreglamento"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/spselectregla"
-                            android:spinnerMode="dialog"
-                            android:maxLines="3"/>
+                            android:maxLines="3"
+                            android:spinnerMode="dialog" />
+
                         <TextView
                             android:id="@+id/spselec"
+                            style="@style/SubtitleR"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Seleccione su Hecho"
                             android:layout_below="@id/spCreglamento"
-                            style="@style/SubtitleR">
-                        </TextView>
+                            android:text="Seleccione su Hecho"></TextView>
 
                         <Spinner
                             android:id="@+id/spHechos"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/spselec"
-                            android:spinnerMode="dialog"
-                            android:maxLines="3"/>
+                            android:maxLines="3"
+                            android:spinnerMode="dialog" />
 
                         <TextView
                             android:id="@+id/spselec1"
+                            style="@style/SubtitleR"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Hechos Seleccionados 0"
                             android:layout_below="@id/spHechos"
-                            style="@style/SubtitleR">
-                        </TextView>
+                            android:text="Hechos Seleccionados 0"></TextView>
 
                         <RelativeLayout
                             android:id="@+id/rlcampos"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
+                            android:layout_below="@id/spselec1"
                             android:layout_gravity="center"
-                            android:layout_below="@id/spselec1">
+                            android:gravity="center">
 
 
                             <EditText
                                 android:id="@+id/etdescripcion"
                                 android:layout_width="wrap_content"
                                 android:layout_height="70dp"
+                                android:enabled="false"
                                 android:hint="@string/descripcion"
                                 android:inputType="textMultiLine|textCapSentences"
-                                android:enabled="false"
-                                android:visibility="gone"/>
+                                android:visibility="gone" />
 
                             <Spinner
                                 android:id="@+id/spUni"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/etdescripcion"
-                                android:visibility="gone">
-                            </Spinner>
+                                android:visibility="gone"></Spinner>
 
                             <EditText
                                 android:id="@+id/etdato"
                                 android:layout_width="wrap_content"
                                 android:layout_height="70dp"
                                 android:layout_below="@+id/spUni"
-                                android:inputType="numberDecimal"
                                 android:height="5dp"
-                                android:maxLength="6"
                                 android:hint="@string/unidad"
-                                android:visibility="gone"/>
+                                android:inputType="numberDecimal"
+                                android:maxLength="6"
+                                android:visibility="gone" />
 
                             <TextView
                                 android:id="@+id/tvuni"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:visibility="gone"
+                                android:layout_below="@+id/spUni"
                                 android:layout_toRightOf="@+id/etdato"
                                 android:paddingTop="43dp"
-                                android:layout_below="@+id/spUni"
-                                style="@style/Subtitle"/>
-
+                                android:visibility="gone" />
 
 
                             <EditText
                                 android:id="@+id/etObs"
                                 android:layout_width="match_parent"
-                                android:layout_height="70dp"
+                                android:layout_height="90dp"
+                                android:layout_below="@+id/etdato"
+                                android:enabled="true"
                                 android:hint="Motivacion"
                                 android:inputType="textMultiLine|textCapSentences"
-                                android:enabled="true"
 
-                                android:layout_below="@+id/etdato"
-                                android:visibility="gone"/>
+                                android:scrollbars="vertical"
+                                android:visibility="gone" />
 
                             <Button
                                 android:id="@+id/tveliminar"
+                                style="@style/Subtitle"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:text="@string/eliminar"
                                 android:layout_below="@+id/etObs"
                                 android:paddingLeft="10dp"
-                                style="@style/Subtitle"/>
+                                android:text="@string/eliminar"
+                                android:visibility="gone" />
 
                             <EditText
                                 android:id="@+id/etdescripcion1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="70dp"
+                                android:layout_below="@+id/tveliminar"
+                                android:enabled="false"
                                 android:hint="@string/descripcion"
                                 android:inputType="textMultiLine|textCapSentences"
-                                android:enabled="false"
-                                android:layout_below="@+id/tveliminar"
-                                android:visibility="gone"/>
-
+                                android:visibility="gone" />
 
 
                             <Spinner
@@ -1908,358 +1961,359 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/etdescripcion1"
-                                android:visibility="gone">
-                            </Spinner>
+                                android:visibility="gone"></Spinner>
 
                             <EditText
                                 android:id="@+id/etdato1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="70dp"
                                 android:layout_below="@+id/spUni1"
-                                android:inputType="numberDecimal"
-                                android:maxLength="6"
-                                android:maxHeight="10dp"
                                 android:hint="@string/unidad"
-                                android:visibility="gone"/>
+                                android:inputType="numberDecimal"
+                                android:maxHeight="10dp"
+                                android:maxLength="6"
+                                android:visibility="gone" />
 
                             <TextView
                                 android:id="@+id/tvuni1"
+                                style="@style/Subtitle"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:visibility="gone"
+                                android:layout_below="@+id/spUni1"
                                 android:layout_toRightOf="@+id/etdato1"
                                 android:paddingTop="43dp"
-                                android:layout_below="@+id/spUni1"
-                                style="@style/Subtitle"/>
-
+                                android:visibility="gone" />
 
 
                             <EditText
                                 android:id="@+id/etObs1"
                                 android:layout_width="match_parent"
-                                android:layout_height="70dp"
+                                android:layout_height="90dp"
+                                android:layout_below="@+id/etdato1"
+                                android:enabled="true"
                                 android:hint="Motivacion"
                                 android:inputType="textMultiLine|textCapSentences"
-                                android:enabled="true"
-                                android:layout_below="@+id/etdato1"
+                                android:scrollbars="vertical"
 
-                                android:visibility="gone"/>
+                                android:visibility="gone" />
+
                             <Button
                                 android:id="@+id/tveliminar1"
+                                style="@style/Subtitle"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:text="@string/eliminar"
-                                android:paddingLeft="10dp"
                                 android:layout_below="@+id/etObs1"
-                                style="@style/Subtitle"/>
+                                android:paddingLeft="10dp"
+                                android:text="@string/eliminar"
+                                android:visibility="gone" />
 
                             <EditText
                                 android:id="@+id/etdescripcion2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="70dp"
+                                android:layout_below="@+id/tveliminar1"
+                                android:enabled="false"
                                 android:hint="@string/descripcion"
                                 android:inputType="textMultiLine|textCapSentences"
-                                android:enabled="false"
-                                android:layout_below="@+id/tveliminar1"
-                                android:visibility="gone"/>
+                                android:visibility="gone" />
 
                             <Spinner
                                 android:id="@+id/spUni2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/etdescripcion2"
-                                android:visibility="gone">
-                            </Spinner>
+                                android:visibility="gone"></Spinner>
 
                             <EditText
                                 android:id="@+id/etdato2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="70dp"
                                 android:layout_below="@+id/spUni2"
+                                android:hint="@string/unidad"
                                 android:inputType="numberDecimal"
                                 android:maxLength="6"
-                                android:hint="@string/unidad"
-                                android:visibility="gone"/>
+                                android:visibility="gone" />
 
                             <TextView
                                 android:id="@+id/tvuni2"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:paddingTop="43dp"
-                                android:layout_toRightOf="@+id/etdato2"
                                 android:layout_below="@+id/spUni2"
-                                style="@style/Subtitle"/>
-
+                                android:layout_toRightOf="@+id/etdato2"
+                                android:paddingTop="43dp"
+                                android:visibility="gone" />
 
 
                             <EditText
                                 android:id="@+id/etObs2"
                                 android:layout_width="match_parent"
-                                android:layout_height="70dp"
+                                android:layout_height="90dp"
+                                android:layout_below="@+id/etdato2"
+                                android:enabled="true"
                                 android:hint="Motivacion"
                                 android:inputType="textMultiLine|textCapSentences"
-                                android:enabled="true"
-                                android:layout_below="@+id/etdato2"
-                                android:visibility="gone"/>
+                                android:scrollbars="vertical"
+                                android:visibility="gone" />
+
                             <Button
                                 android:id="@+id/tveliminar2"
+                                style="@style/Subtitle"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:text="@string/eliminar"
+                                android:layout_below="@+id/etObs2"
                                 android:paddingLeft="10dp"
 
-                                android:layout_below="@+id/etObs2"
-                                style="@style/Subtitle"/>
+                                android:text="@string/eliminar"
+                                android:visibility="gone" />
 
                             <EditText
                                 android:id="@+id/etdescripcion3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="70dp"
+                                android:layout_below="@+id/tveliminar2"
+                                android:enabled="false"
                                 android:hint="@string/descripcion"
                                 android:inputType="textMultiLine|textCapSentences"
-                                android:enabled="false"
-                                android:layout_below="@+id/tveliminar2"
-                                android:visibility="gone"/>
+                                android:visibility="gone" />
 
                             <Spinner
                                 android:id="@+id/spUni3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/etdescripcion3"
-                                android:visibility="gone"/>
+                                android:visibility="gone" />
 
                             <EditText
                                 android:id="@+id/etdato3"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="70dp"
                                 android:layout_below="@+id/spUni3"
+                                android:hint="@string/unidad"
                                 android:inputType="numberDecimal"
                                 android:maxLength="6"
-                                android:hint="@string/unidad"
-                                android:visibility="gone"
-                                style="@style/Subtitle"/>
+                                android:visibility="gone" />
 
                             <TextView
                                 android:id="@+id/tvuni3"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:paddingTop="43dp"
-                                android:layout_toRightOf="@+id/etdato3"
                                 android:layout_below="@+id/spUni3"
-                                style="@style/Subtitle"/>
-
+                                android:layout_toRightOf="@+id/etdato3"
+                                android:paddingTop="43dp"
+                                android:visibility="gone" />
 
 
                             <EditText
                                 android:id="@+id/etObs3"
                                 android:layout_width="match_parent"
-                                android:layout_height="70dp"
+                                android:layout_height="90dp"
+                                android:layout_below="@+id/etdato3"
+                                android:enabled="true"
                                 android:hint="Motivacion"
                                 android:inputType="textMultiLine|textCapSentences"
-                                android:enabled="true"
 
-                                android:layout_below="@+id/etdato3"
-                                android:visibility="gone"/>
+                                android:scrollbars="vertical"
+                                android:visibility="gone" />
+
                             <Button
                                 android:id="@+id/tveliminar3"
+                                style="@style/Subtitle"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:text="@string/eliminar"
-                                android:paddingLeft="10dp"
                                 android:layout_below="@+id/etObs3"
+                                android:paddingLeft="10dp"
+                                android:text="@string/eliminar"
 
-                                style="@style/Subtitle"/>
+                                android:visibility="gone" />
 
                             <EditText
                                 android:id="@+id/etdescripcion4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="70dp"
+                                android:layout_below="@+id/tveliminar3"
+                                android:enabled="false"
                                 android:hint="@string/descripcion"
                                 android:inputType="textMultiLine|textCapSentences"
-                                android:enabled="false"
-                                android:layout_below="@+id/tveliminar3"
-                                android:visibility="gone"/>
+                                android:visibility="gone" />
 
                             <EditText
                                 android:id="@+id/etdato4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="70dp"
                                 android:layout_below="@+id/etdescripcion4"
+                                android:hint="@string/unidad"
                                 android:inputType="numberDecimal"
                                 android:maxLength="6"
-                                android:hint="@string/unidad"
-                                android:visibility="gone"/>
+                                android:visibility="gone" />
 
                             <TextView
                                 android:id="@+id/tvuni4"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:paddingTop="43dp"
-                                android:layout_toRightOf="@+id/etdato4"
                                 android:layout_below="@+id/etdescripcion4"
-                                style="@style/Subtitle"/>
+                                android:layout_toRightOf="@+id/etdato4"
+                                android:paddingTop="43dp"
+                                android:visibility="gone" />
 
                             <Spinner
                                 android:id="@+id/spUni4"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tvuni4"
-                                android:visibility="gone"/>
-
+                                android:visibility="gone" />
 
 
                             <EditText
                                 android:id="@+id/etObs4"
                                 android:layout_width="match_parent"
-                                android:layout_height="70dp"
+                                android:layout_height="90dp"
+                                android:layout_below="@+id/spUni4"
+                                android:enabled="true"
                                 android:hint="Motivacion"
                                 android:inputType="textMultiLine|textCapSentences"
-                                android:enabled="true"
-                                android:layout_below="@+id/spUni4"
-                                android:visibility="gone"/>
+                                android:scrollbars="vertical"
+                                android:visibility="gone" />
+
                             <Button
                                 android:id="@+id/tveliminar4"
+                                style="@style/Subtitle"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:text="@string/eliminar"
                                 android:paddingLeft="10dp"
+                                android:text="@string/eliminar"
 
-                                style="@style/Subtitle"/>
+                                android:visibility="gone" />
 
                         </RelativeLayout>
 
                         <CheckBox
                             android:id="@+id/cbFlag"
+                            style="@style/Subtitle"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/flagancia"
-                            android:checked="false"
                             android:layout_below="@id/rlcampos"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            style="@style/Subtitle"
-                            android:visibility="gone"/>
+                            android:checked="false"
+                            android:text="@string/flagancia"
+                            android:visibility="gone" />
 
 
                         <RelativeLayout
                             android:id="@+id/rlvm"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
+                            android:layout_below="@id/cbFlag"
                             android:layout_gravity="center"
-                            android:layout_below="@id/cbFlag">
-
+                            android:gravity="center">
 
 
                             <TextView
                                 android:id="@+id/tvVisitadoM"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
-                                android:text="@string/visitadom"
                                 android:layout_gravity="center"
-                                style="@style/Subtitle"/>
+                                android:layout_marginTop="20dp"
+                                android:text="@string/visitadom" />
 
                             <EditText
                                 android:id="@+id/etvisitadom"
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
-                                android:hint="@string/visitadom"
                                 android:layout_toRightOf="@id/tvVisitadoM"
-                                android:inputType="textCapSentences"
-                                android:imeOptions="actionNext"/>
+                                android:hint="@string/visitadom"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences" />
 
                             <RelativeLayout
                                 android:id="@+id/rlaceptar"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:layout_below="@id/etvisitadom">
+                                android:layout_below="@id/etvisitadom"
+                                android:gravity="center">
 
                                 <Button
                                     android:id="@+id/btnaceptar"
+                                    style="@style/Boton"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/aceptar"
-                                    android:visibility="gone"
-                                    style="@style/Boton"/>
+                                    android:visibility="gone" />
 
                                 <Button
                                     android:id="@+id/btnModificar"
+                                    style="@style/Boton"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/agregar"
-                                    android:visibility="gone"
                                     android:layout_toRightOf="@id/btnaceptar"
-                                    style="@style/Boton"/>
+                                    android:text="@string/agregar"
+                                    android:visibility="gone" />
 
                             </RelativeLayout>
 
                             <TextView
                                 android:id="@+id/tvSelecion"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/rlaceptar"
-                                android:text="@string/hechos"
                                 android:layout_gravity="center"
-                                style="@style/Subtitle"/>
+                                android:text="@string/hechos" />
 
 
                             <TextView
                                 android:id="@+id/etSelecion"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="@string/hechos"
                                 android:layout_below="@id/rlaceptar"
                                 android:layout_toRightOf="@id/tvSelecion"
                                 android:background="@color/white"
-                                android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="false"
-                                android:textSize="16sp"
                                 android:gravity="fill"
-                                android:textStyle="bold"/>
+                                android:hint="@string/hechos"
+                                android:inputType="textMultiLine|textCapSentences"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/tvInfraccion"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/etSelecion"
-                                android:text="@string/infraccion"
                                 android:layout_gravity="center"
-                                style="@style/Subtitle"/>
+                                android:text="@string/infraccion" />
 
                             <TextView
                                 android:id="@+id/etinfraccion"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="@string/infraccion"
                                 android:layout_below="@id/etSelecion"
                                 android:layout_toRightOf="@id/tvInfraccion"
                                 android:background="@color/white"
-                                android:inputType="textMultiLine|textCapSentences"
                                 android:enabled="false"
-                                android:textSize="16sp"
                                 android:gravity="fill"
-                                android:textStyle="bold"/>
+                                android:hint="@string/infraccion"
+                                android:inputType="textMultiLine|textCapSentences"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
 
 
                             <TextView
                                 android:id="@+id/tvMedidaSeguridad"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
                                 android:layout_below="@id/etinfraccion"
-                                android:text="@string/medida"
                                 android:layout_gravity="center"
-                                style="@style/Subtitle"/>
+                                android:layout_marginTop="20dp"
+                                android:text="@string/medida" />
 
                             <!--
                             <Spinner
@@ -2271,22 +2325,44 @@
                             android:maxLines="3"/>
                             -->
 
-                            <Spinner android:id="@+id/spMedida"
+                            <Spinner
+                                android:id="@+id/spMedida"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/tvMedidaSeguridad"
-                                android:spinnerMode="dialog"
-                                android:maxLines="3"/>
+                                android:maxLines="3"
+                                android:spinnerMode="dialog" />
 
 
                             <EditText
                                 android:id="@+id/etMedida"
                                 android:layout_width="fill_parent"
                                 android:layout_height="140dp"
-                                android:hint="@string/medida"
                                 android:layout_below="@+id/spMedida"
+                                android:enabled="true"
+                                android:hint="@string/medida"
+                                android:inputType="textMultiLine|textCapSentences" />
+
+                            <EditText
+                                android:id="@+id/etDecomiso"
+                                android:layout_width="fill_parent"
+                                android:layout_height="140dp"
+                                android:layout_below="@id/etMedida"
+                                android:enabled="true"
+                                android:hint="@string/decomiso"
                                 android:inputType="textMultiLine|textCapSentences"
-                                android:enabled="true"/>
+                                android:maxLength="499"
+                                android:visibility="gone" />
+
+                            <EditText
+                                android:id="@+id/etNumeroSellos"
+                                android:layout_width="fill_parent"
+                                android:layout_height="140dp"
+                                android:layout_below="@id/etDecomiso"
+                                android:enabled="true"
+                                android:hint="Numero de sellos"
+                                android:inputType="textMultiLine|textCapSentences"
+                                android:visibility="gone" />
 
                             <!-- <TextView
                                 android:id="@+id/tvArticulos"
@@ -2301,55 +2377,61 @@
                                 android:id="@+id/etAcepA"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_below="@id/etNumeroSellos"
                                 android:text="Aceptar medidas "
                                 android:textSize="12sp"
-                                android:layout_below="@id/etMedida"
                                 android:visibility="gone"
 
                                 ></Button>
+
                             <Button
                                 android:id="@+id/etdeleA"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_below="@id/etNumeroSellos"
+                                android:layout_toRightOf="@id/etAcepA"
                                 android:text="Eliminar "
                                 android:textSize="12sp"
-                                android:layout_below="@id/etMedida"
-                                android:layout_toRightOf="@id/etAcepA"
                                 android:visibility="gone"
 
                                 ></Button>
+
                             <EditText
                                 android:id="@+id/etArticulos"
                                 android:layout_width="fill_parent"
                                 android:layout_height="100dp"
-                                android:hint="@string/art"
                                 android:layout_below="@id/etAcepA"
-                                android:inputType="textMultiLine|textCapSentences"
-                                android:enabled="true"/>
+                                android:enabled="true"
+                                android:hint="@string/art"
+                                android:inputType="textMultiLine|textCapSentences" />
 
-
+                            <Spinner android:id="@+id/spGiro"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/tvgiro"
+                                android:spinnerMode="dialog"
+                                android:maxLines="3"/>
 
                             <TextView
                                 android:id="@+id/tvgiro"
+                                style="@style/Subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
                                 android:layout_below="@id/etArticulos"
-                                android:text="@string/giro"
                                 android:layout_gravity="center"
-                                style="@style/Subtitle"
-                                android:visibility="gone"/>
+                                android:layout_marginTop="20dp"
+                                android:text="@string/giro"
+                                android:visibility="gone" />
 
                             <EditText
                                 android:id="@+id/etGiro"
                                 android:layout_width="fill_parent"
                                 android:layout_height="100dp"
-                                android:hint="@string/giro"
-                                android:layout_below="@id/etArticulos"
+                                android:layout_below="@id/spGiro"
                                 android:layout_toRightOf="@id/tvgiro"
+                                android:hint="@string/giro"
                                 android:inputType="textCapSentences"
-                                android:visibility="gone"/>
-
+                                android:visibility="visible" />
 
 
                         </RelativeLayout>
@@ -2360,42 +2442,39 @@
                         android:id="@+id/rlNota"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_gravity="center_horizontal"
+                        android:orientation="vertical"
                         android:visibility="gone">
 
                         <TextView
                             android:id="@+id/tvNota"
+                            style="@style/Div"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/nota"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            style="@style/Div"/>
-
+                            android:text="@string/nota" />
 
 
                         <TextView
                             android:id="@+id/tvUso"
+                            style="@style/Subtitle"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/uso"
                             android:layout_gravity="center"
-                            style="@style/Subtitle"/>
+                            android:text="@string/uso" />
 
                         <Spinner
                             android:id="@+id/spuso"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:prompt="@string/iden"
-                            />
+                            android:prompt="@string/iden" />
 
                         <Spinner
                             android:id="@+id/spusoH"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:prompt="@string/iden"
-                            />
+                            android:prompt="@string/iden" />
 
                         <!-- <RelativeLayout
                             android:layout_width="fill_parent"
@@ -2441,11 +2520,11 @@
                             android:orientation="vertical">
 
                             <TextView
+                                style="@style/Div"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/plazo"
                                 android:gravity="center"
-                                style="@style/Div"/>
+                                android:text="@string/plazo" />
 
                             <RelativeLayout
                                 android:layout_width="fill_parent"
@@ -2457,35 +2536,36 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="70dp"
                                     android:hint="@string/diasplazo"
-                                    android:inputType="number"
-                                    android:imeOptions="actionNext"/>
+                                    android:imeOptions="actionNext"
+                                    android:inputType="number" />
 
                                 <Button
+                                    android:id="@+id/btnVFecha"
+                                    style="@style/Boton"
                                     android:layout_width="wrap_content"
                                     android:layout_height="70dp"
                                     android:layout_toRightOf="@id/etdiasplazo"
-                                    android:id="@+id/btnVFecha"
-                                    android:text="@string/v_fecha"
-                                    style="@style/Boton"
-                                    />
+                                    android:text="@string/v_fecha" />
 
                                 <EditText
                                     android:id="@+id/etfecha"
                                     android:layout_width="wrap_content"
                                     android:layout_height="70dp"
-                                    android:hint="@string/fecham"
-                                    android:inputType="date"
                                     android:layout_toRightOf="@+id/btnVFecha"
-                                    android:imeOptions="actionNext"/>
+                                    android:hint="@string/fecham"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="date" />
 
                             </RelativeLayout>
                         </LinearLayout>
+
                         <TextView
+                            style="@style/Div"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/Tipo_entrega_informacion"
                             android:gravity="center"
-                            style="@style/Div"/>
+                            android:text="@string/Tipo_entrega_informacion"
+                            android:visibility="gone" />
 
                         <RadioGroup
                             android:id="@+id/rgTipo"
@@ -2493,26 +2573,30 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp">
+                            android:layout_marginBottom="5dp"
+                            android:visibility="gone">
 
                             <RadioButton
                                 android:id="@+id/rbF"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:checked="true"
                                 android:text="Entrega fisica"
-                                android:checked="true"/>
+                                android:visibility="gone" />
 
                             <RadioButton
                                 android:id="@+id/rbN"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/negativo"/>
+                                android:text="@string/negativo"
+                                android:visibility="gone" />
 
                             <RadioButton
                                 android:id="@+id/rbC"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/cerrado"/>
+                                android:text="@string/cerrado"
+                                android:visibility="gone" />
 
                         </RadioGroup>
 
@@ -2541,29 +2625,29 @@
 
 
                         <TextView
+                            style="@style/Div"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/gravedad"
                             android:gravity="center"
-                            style="@style/Div"/>
+                            android:text="@string/gravedad" />
 
 
                         <Spinner
                             android:id="@+id/spgravedad"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:prompt="@string/iden"
-                            android:layout_gravity="center_horizontal"/>
+                            android:layout_gravity="center_horizontal"
+                            android:prompt="@string/iden" />
 
                         <TextView
                             android:id="@+id/tvEspecificacion"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginTop="20dp"
                             android:text="@string/especificacion"
-                            android:layout_gravity="center"
-                            android:visibility="gone"
-                            style="@style/Subtitle"	/>
+                            android:visibility="gone" />
 
                         <EditText
                             android:id="@+id/etespecificacion"
@@ -2571,127 +2655,127 @@
                             android:layout_height="70dp"
                             android:layout_toRightOf="@id/tvEspecificacion"
                             android:hint="@string/especificacion"
-                            android:visibility="gone"
-                            android:inputType="textCapSentences"/>
+                            android:inputType="textCapSentences"
+                            android:visibility="gone" />
 
                         <TextView
+                            style="@style/Div"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/ne"
                             android:gravity="center"
-                            style="@style/Div"/>
+                            android:text="@string/ne" />
 
 
                         <Spinner
                             android:id="@+id/spNE"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:prompt="@string/iden"
-                            android:layout_gravity="center_horizontal"/>
+                            android:layout_gravity="center_horizontal"
+                            android:prompt="@string/iden" />
 
                         <TextView
+                            style="@style/Div"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/re"
                             android:gravity="center"
-                            style="@style/Div"/>
+                            android:text="@string/re" />
 
                         <Switch
                             android:id="@+id/swReincidencia"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/re"
                             android:checked="true"
-                            android:textOn="@android:string/yes"
-                            android:textOff="@android:string/no"/>
-
+                            android:text="@string/re"
+                            android:textOff="@android:string/no"
+                            android:textOn="@android:string/yes" />
 
 
                     </LinearLayout>
 
                     <CheckBox
                         android:id="@+id/cbFirma"
+                        style="@style/Subtitle"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/firma"
-                        android:checked="false"
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
-                        style="@style/Subtitle"
-                        android:visibility="visible"/>
+                        android:checked="false"
+                        android:text="@string/firma"
+                        android:visibility="visible" />
 
                     <TextView
+                        style="@style/Div"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/posicion"
                         android:gravity="center"
-                        style="@style/Div"/>
+                        android:text="@string/posicion" />
 
                     <RelativeLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_gravity="center">
+                        android:layout_gravity="center"
+                        android:gravity="center">
+
                         <TextView
                             android:id="@+id/tvLatitud"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/latitud"
-                            style="@style/Subtitle"
-                            />
+                            android:text="@string/latitud" />
 
                         <EditText
+                            android:id="@+id/etLatitud"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/etLatitud"
-                            android:inputType="numberDecimal"
                             android:layout_toRightOf="@id/tvLatitud"
-                            android:imeOptions="actionNext"/>
+                            android:imeOptions="actionNext"
+                            android:inputType="numberDecimal" />
+
                         <TextView
                             android:id="@+id/tvLongitud"
+                            style="@style/Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/longitud"
-                            android:layout_toRightOf="@+id/etLatitud"
                             android:layout_marginLeft="10dp"
-                            style="@style/Subtitle"/>
+                            android:layout_toRightOf="@+id/etLatitud"
+                            android:text="@string/longitud" />
 
                         <EditText
+                            android:id="@+id/etLongitud"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/etLongitud"
-                            android:inputType="numberDecimal"
-                            android:layout_toRightOf="@id/tvLongitud"/>
+                            android:layout_toRightOf="@id/tvLongitud"
+                            android:inputType="numberDecimal" />
 
                     </RelativeLayout>
 
                     <TextView
                         android:id="@+id/evidencia"
+                        style="@style/Div"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/evidencia"
                         android:gravity="center"
-                        style="@style/Div"/>
+                        android:text="@string/evidencia" />
 
                     <Button
                         android:id="@+id/btnTomarF"
+                        style="@style/Boton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tomarFoto"
                         android:drawableRight="@android:drawable/ic_menu_camera"
-                        style="@style/Boton"/>
+                        android:text="@string/tomarFoto" />
 
                     <ImageView
+                        android:id="@+id/ivCap"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/ivCap"/>
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/etDesFoto"
@@ -2699,28 +2783,28 @@
                             android:layout_height="70dp"
                             android:hint="@string/descripcion"
                             android:inputType="textCapSentences"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
                         <Button
                             android:id="@+id/btnVer1"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ver_f"
-                            style="@style/Boton"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/ivCap1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/ivCap1"/>
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/etDesFoto1"
@@ -2728,28 +2812,28 @@
                             android:layout_height="70dp"
                             android:hint="@string/descripcion"
                             android:inputType="textCapSentences"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
                         <Button
                             android:id="@+id/btnVer2"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ver_f"
-                            style="@style/Boton"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/ivCap2"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/ivCap2"/>
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/etDesFoto2"
@@ -2757,28 +2841,28 @@
                             android:layout_height="70dp"
                             android:hint="@string/descripcion"
                             android:inputType="textCapSentences"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
                         <Button
                             android:id="@+id/btnVer3"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ver_f"
-                            style="@style/Boton"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/ivCap3"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/ivCap3"/>
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/etDesFoto3"
@@ -2786,38 +2870,26 @@
                             android:layout_height="70dp"
                             android:hint="@string/descripcion"
                             android:inputType="textCapSentences"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                         <Button
                             android:id="@+id/btnVer4"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ver_f"
-                            style="@style/Boton"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                     </LinearLayout>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/etDesFoto4"
@@ -2825,16 +2897,16 @@
                             android:layout_height="70dp"
                             android:hint="@string/descripcion"
                             android:inputType="textCapSentences"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                         <Button
                             android:id="@+id/btnVer5"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ver_f"
-                            style="@style/Boton"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                     </LinearLayout>
@@ -2842,8 +2914,8 @@
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/etDesFoto5"
@@ -2851,16 +2923,16 @@
                             android:layout_height="70dp"
                             android:hint="@string/descripcion"
                             android:inputType="textCapSentences"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                         <Button
                             android:id="@+id/btnVer6"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ver_f"
-                            style="@style/Boton"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                     </LinearLayout>
@@ -2868,8 +2940,8 @@
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/etDesFoto6"
@@ -2877,16 +2949,16 @@
                             android:layout_height="70dp"
                             android:hint="@string/descripcion"
                             android:inputType="textCapSentences"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                         <Button
                             android:id="@+id/btnVer7"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ver_f"
-                            style="@style/Boton"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                     </LinearLayout>
@@ -2894,8 +2966,8 @@
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/etDesFoto7"
@@ -2903,16 +2975,16 @@
                             android:layout_height="70dp"
                             android:hint="@string/descripcion"
                             android:inputType="textCapSentences"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                         <Button
                             android:id="@+id/btnVer8"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ver_f"
-                            style="@style/Boton"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                     </LinearLayout>
@@ -2920,8 +2992,8 @@
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/etDesFoto8"
@@ -2929,16 +3001,16 @@
                             android:layout_height="70dp"
                             android:hint="@string/descripcion"
                             android:inputType="textCapSentences"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                         <Button
                             android:id="@+id/btnVer9"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ver_f"
-                            style="@style/Boton"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                     </LinearLayout>
@@ -2946,8 +3018,8 @@
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/etDesFoto9"
@@ -2955,16 +3027,16 @@
                             android:layout_height="70dp"
                             android:hint="@string/descripcion"
                             android:inputType="textCapSentences"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                         <Button
                             android:id="@+id/btnVer10"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ver_f"
-                            style="@style/Boton"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                     </LinearLayout>
@@ -2972,8 +3044,8 @@
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/etDesFoto10"
@@ -2981,16 +3053,16 @@
                             android:layout_height="70dp"
                             android:hint="@string/descripcion"
                             android:inputType="textCapSentences"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                         <Button
                             android:id="@+id/btnVer11"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ver_f"
-                            style="@style/Boton"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                     </LinearLayout>
@@ -2998,8 +3070,8 @@
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/etDesFoto11"
@@ -3007,16 +3079,16 @@
                             android:layout_height="70dp"
                             android:hint="@string/descripcion"
                             android:inputType="textCapSentences"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                         <Button
                             android:id="@+id/btnVer12"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ver_f"
-                            style="@style/Boton"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                     </LinearLayout>
@@ -3024,8 +3096,8 @@
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/etDesFoto12"
@@ -3033,16 +3105,16 @@
                             android:layout_height="70dp"
                             android:hint="@string/descripcion"
                             android:inputType="textCapSentences"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                         <Button
                             android:id="@+id/btnVer13"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ver_f"
-                            style="@style/Boton"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                     </LinearLayout>
@@ -3050,8 +3122,8 @@
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/etDesFoto13"
@@ -3059,16 +3131,16 @@
                             android:layout_height="70dp"
                             android:hint="@string/descripcion"
                             android:inputType="textCapSentences"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                         <Button
                             android:id="@+id/btnVer14"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ver_f"
-                            style="@style/Boton"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                     </LinearLayout>
@@ -3076,8 +3148,8 @@
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/etDesFoto14"
@@ -3085,100 +3157,93 @@
                             android:layout_height="70dp"
                             android:hint="@string/descripcion"
                             android:inputType="textCapSentences"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                         <Button
                             android:id="@+id/btnVer15"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ver_f"
-                            style="@style/Boton"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                     </LinearLayout>
 
 
-
-
-
-
-
-
-
-
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:background="#ff8000"
                         android:gravity="center"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:background="#ff8000"/>
+                        android:textStyle="bold" />
 
-                    <RelativeLayout android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
                         <Button
                             android:id="@+id/btnVista"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/vista"
-                            style="@style/Boton"/>
+                            android:text="@string/vista" />
 
                         <Button
                             android:id="@+id/btnCopiar"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/copiar"
                             android:layout_toRightOf="@id/btnVista"
-                            style="@style/Boton"/>
+                            android:text="@string/copiar" />
 
                         <Button
                             android:id="@+id/btnguardar"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/guardar"
                             android:layout_below="@id/btnVista"
-                            style="@style/Boton"/>
+                            android:text="@string/guardar" />
 
                         <Button
                             android:id="@+id/btnImprimir"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/imprimir"
-                            android:drawableRight="@drawable/printer_icon"
-                            android:enabled="false"
                             android:layout_below="@id/btnVista"
                             android:layout_toRightOf="@id/btnguardar"
-                            style="@style/Boton"/>
+                            android:drawableRight="@drawable/printer_icon"
+                            android:enabled="false"
+                            android:text="@string/imprimir" />
 
                         <Button
                             android:id="@+id/btnEnviaFTP"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/ftp_foto"
                             android:layout_below="@id/btnVista"
                             android:layout_toRightOf="@id/btnImprimir"
                             android:enabled="false"
-                            style="@style/Boton"/>
+                            android:text="@string/ftp_foto" />
 
                         <Button
                             android:id="@+id/btnSalirIn"
+                            style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/salir"
                             android:layout_below="@id/btnVista"
                             android:layout_toRightOf="@id/btnEnviaFTP"
-                            style="@style/Boton"/>
+                            android:text="@string/salir" />
 
                         <Button
                             android:id="@+id/btnImprimirResum"
+                            style="@style/Boton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/imprimir"
                             android:layout_below="@id/btnSalirIn"
-                            style="@style/Boton"/>
+                            android:text="@string/imprimir" />
 
                         <!-- btnImprimirResum -->
 
