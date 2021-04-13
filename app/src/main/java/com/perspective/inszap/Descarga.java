@@ -49,6 +49,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 /**
  *
  * @author Emmanuel
@@ -93,6 +95,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 	int contador=0;
     TextView prog;
     private SharedPreferences.Editor editor = null;
+    private int idIns = 0;
 
 	/**
 	 * @see android.app.Activity#onCreate(Bundle)
@@ -105,6 +108,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		savedInstanceState = getIntent().getExtras();
 		this.us = savedInstanceState.getString("usuario");
 		this.id = savedInstanceState.getInt("id");
+		this.idIns = savedInstanceState.getInt("idInps");
 		System.out.println(MainActivity.id_ins_sesion);
 		this.direccion = savedInstanceState.getString("direccion");
         prog=(TextView) findViewById(R.id.progresoF);
@@ -390,6 +394,109 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 
 		consultaTabletas();
 
+		comprobarFolio(idIns);
+
+		//clearFolio(idIns);
+	}
+
+	private void clearFolio(int id) {
+		int fol = 0;
+		int folioMax = 0;
+
+		GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
+		SQLiteDatabase db = gestion.getReadableDatabase();
+		String sql = "Select max(numero_acta) from Levantamiento";
+		Cursor cursor = db.rawQuery(sql,null);
+		if(cursor.moveToFirst()) {
+			do{
+				fol = cursor.getInt(0);
+			}while (cursor.moveToNext());
+		}
+		cursor.close();
+		sql = "SELECT f_max FROM c_inspector where id_c_inspector = " + id;
+		cursor = db.rawQuery(sql,null);
+		if(cursor.moveToFirst()) {
+			do{
+				folioMax = cursor.getInt(0);
+			}while (cursor.moveToNext());
+		}
+		cursor.close();
+
+		if(fol == folioMax)
+			startService(new Intent(Descarga.this, ClearFolios.class));
+	}
+
+	private void comprobarFolio(final int id) {
+		int folio=0;
+		int max=0;
+		int colchon;
+		int next=0;
+        /*int next_min=0;
+        int next_max=0;*/
+		GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
+		SQLiteDatabase db = gestion.getReadableDatabase();
+		String sql = "SELECT max(numero_acta) FROM Levantamiento where id_c_inspector1 = " + id;
+		Log.v("sql",sql);
+		Cursor cursor = db.rawQuery(sql,null);
+		if(cursor.moveToFirst()) {
+			do{
+				folio = cursor.getInt(0);
+			}while(cursor.moveToNext());
+		}
+		cursor.close();
+		sql = "SELECT f_max FROM c_inspector where id_c_inspector = " + id;
+		Log.v("sql1",sql);
+		cursor = db.rawQuery(sql,null);
+		if(cursor.moveToFirst()) {
+			do{
+				max = cursor.getInt(0);
+			}while(cursor.moveToNext());
+		}
+		Log.v("folios",max + " " + folio);
+		cursor.close();
+		sql = "SELECT next_min FROM c_inspector where id_c_inspector = " + id;
+		Log.v("sql1",sql);
+		cursor = db.rawQuery(sql,null);
+		if(cursor.moveToFirst()) {
+			do{
+				next = cursor.getInt(0);
+			}while(cursor.moveToNext());
+		}
+		Log.v("next",next + " ");
+		cursor.close();
+		colchon = max-folio;
+		if(next == 0) {
+			if (colchon <= 5) {
+				if (folio > 0) {
+					MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Descarga.this)
+							.setTitle(getResources().getString(R.string.actualizar_folios))
+							.setMessage(getResources().getString(R.string.esta_suguro))
+							.setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									actualizaFolios(id);
+									startService(new Intent(Descarga.this, UpdateFolio.class));
+								}
+							})
+							.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+
+								}
+							});
+					builder.create().show();
+				}
+			}
+		}
+	}
+
+	private int actualizaFolios(int id) {
+		ContentValues cv = new ContentValues();
+		cv.put("next_min",1);
+		GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
+		SQLiteDatabase db = gestion.getReadableDatabase();
+		return db.update("c_inspector",cv,"id_c_inspector = " + id,null);
+		//startService(new Intent(MainActivity.this,UpdateFolio.class));
 	}
 
 	public void mostrarMsg() {

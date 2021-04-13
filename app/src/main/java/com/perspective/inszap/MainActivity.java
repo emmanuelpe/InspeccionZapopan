@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -59,6 +61,8 @@ public class MainActivity extends Activity {
 	private DateFormat sdf = new SimpleDateFormat("dd/MM/yy");
 	private ArrayList<String> f = new ArrayList<String>();
 	private ContentValues cv = null;
+	private int idI = 0;
+	private List<Integer> idInsp = new ArrayList<>();
 
 	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 	@Override
@@ -149,6 +153,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 				usuario = spUsuario.getItemAtPosition(position).toString();
+				idI = idInsp.get(position);
 				Log.i("mes2", usuario);
 			}
 
@@ -182,6 +187,7 @@ public class MainActivity extends Activity {
 						bundle.putString("direccion", direccion);
 						bundle.putString("usuario", usuario.trim());
 						bundle.putInt("id", id_);
+						bundle.putInt("idInps", idI);
 
 
 						intent.putExtras(bundle);
@@ -1058,6 +1064,7 @@ public class MainActivity extends Activity {
 		if(user.isEmpty()){
 			spUsuario.setEnabled(false);
 			user.add("");
+			idInsp.add(0);
 			spUsuario.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,user));
 			Toast toast = Toast.makeText(this, "No hay usuarios en la direcci�n que selecciono", Toast.LENGTH_SHORT);
 			toast.setGravity(0, 0, 15);
@@ -1141,12 +1148,14 @@ public class MainActivity extends Activity {
 		GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
     	SQLiteDatabase db = gestionarBD.getReadableDatabase();
     	user.clear();
+    	idInsp.clear();
     	try{
     		Cursor c = db.rawQuery("Select * from C_inspector where id_c_direccion = '" + id + "' and (trim(vigente) = 'S' or trim(vigente) = 's') order by nombre asc", null);
     		if(c.moveToFirst()){
     			do{
     				System.out.println(c.getString(1) + " " + c.getColumnName(1));
     				user.add(c.getString(1));
+    				idInsp.add(c.getInt(0));
     			}while(c.moveToNext());
     			c.close();
     		}

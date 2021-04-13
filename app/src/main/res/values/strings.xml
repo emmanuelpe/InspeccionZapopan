@@ -218,6 +218,8 @@
     <string name="re">Reincidencia</string>
     <string name="decomiso">Decomiso</string>
     <string name="numero_de_sellos">Numero de sellos</string>
+    <string name="actualizar_folios">S actualizaran los folios</string>
+    <string name="esta_suguro">Esta seguro ?</string>
     <string-array name="densidad">
         <item></item>
         <item>Minima (1)</item>

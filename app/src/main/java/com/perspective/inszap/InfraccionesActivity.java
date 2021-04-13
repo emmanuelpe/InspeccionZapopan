@@ -1261,7 +1261,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				etVigI.setText(vigI);
 				id_inspector1 = id_i1.get(position);
 				id_inspectorQ=id_inspector1;
-				if(!valW.isEmpty()){
+				/*if(!valW.isEmpty()){
 				    etNumeroActa.setText(valW);
 				    valW="";
                 }else {
@@ -1410,7 +1410,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     //26/03/21
 
 
-                }
+                }*/
 
 
 
