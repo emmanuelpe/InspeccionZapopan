@@ -64,6 +64,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import com.bixolon.printer.BixolonPrinter;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.lowagie.text.BadElementException;
@@ -1333,6 +1334,19 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     if (folio == 0) {
                         folio = min;
                         etNumeroActa.setText(String.valueOf(folio));
+
+                    }else if(folio==max){
+                        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivityTecnica.this)
+                                .setTitle(getResources().getString(R.string.avertencia))
+                                .setMessage(getResources().getString(R.string.continuar))
+                                .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                       finish();
+                                    }
+                                });
+
+                        builder.create().show();
 
                     }else{
                         folio = folio+1;
