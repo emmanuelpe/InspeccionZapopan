@@ -26,6 +26,8 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import com.bixolon.printer.BixolonPrinter;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
@@ -212,6 +214,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	private List<String> folios = new ArrayList<>();
 	private ProgressBar pb;
     String reglamentoC = "";
+    private Button btnBusArt;
+    private TextInputLayout tilArticulo;
+    private TextInputEditText etArti;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -598,6 +603,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
         etDecomiso=findViewById(R.id.etDecomiso);
 
+        btnBusArt = findViewById(R.id.btnBusArt);
+        tilArticulo = findViewById(R.id.tilArticulo);
+        etArti = findViewById(R.id.etArticulo);
+
         unis = new ArrayList<>();
         unis1 = new ArrayList<>();
         unis2 = new ArrayList<>();
@@ -729,6 +738,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         spZona.setOnItemSelectedListener(this);
         rgTipo.setOnCheckedChangeListener(this);
         rgPopiedad.setOnCheckedChangeListener(this);
+        btnBusArt.setOnClickListener(this);
         mostrarReglamentos();
         
         if(id == 1) {
@@ -7784,12 +7794,49 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             adapterCol.notifyDataSetChanged();
             break;
 
+            case R.id.btnBusArt:
+                tilArticulo.setError(null);
+                if(TextUtils.isEmpty(etArti.getText().toString())){
+                    tilArticulo.setError("Ingrese el articulo");
+                } else if(TextUtils.isEmpty(spCreglamentos.getSelectedItem().toString()) | spCreglamentos.getSelectedItem().toString().trim().equalsIgnoreCase("Buscar en Todos los reglamentos")) {
+                    tilArticulo.setError("Seleccione el reglamento");
+                } else {
+                    Log.v("reglamento",arregloCreglamentosx.get(spCreglamentos.getSelectedItemPosition()));
+                    buscarInfraccionA(arregloCreglamentosx.get(spCreglamentos.getSelectedItemPosition()),etArti.getText().toString());
+                    if(!arregloInfraccion.isEmpty())
+                        spInfraccion.setAdapter(new ArrayAdapter<>(this, R.layout.multiline_spinner_dropdown_item, arregloInfraccion));
+                    else
+                        spInfraccion.setAdapter(new ArrayAdapter<>(this, R.layout.multiline_spinner_dropdown_item));
+                }
+                break;
+
 		default:
 			break;
 		}
 	}
-	
-	public void mostrarImagen(String foto){
+
+    private void buscarInfraccionA(String articulo, String search) {
+        GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
+        SQLiteDatabase db = gestionarBD.getReadableDatabase();
+        String sql = "SELECT distinct infraccion FROM c_infraccion WHERE " + articulo + " LIKE '%" + search + "%' and id_c_direccion = '" + id + "' and trim(vigente) = 'S' order by id_c_infraccion";
+        Cursor cursor = db.rawQuery(sql, null);
+        Log.v("sql",sql);
+        arregloInfraccion.clear();
+        if(cursor.moveToFirst()){
+            arregloInfraccion.add("");
+            do{
+                //if(cursor.getString(cursor.getColumnIndex("vigente")).trim().equalsIgnoreCase("S")) {
+                //id_hecho.add(cursor.getInt(1));
+                arregloInfraccion.add(cursor.getString(0));
+                Log.i("listado", "Infraccion: " + cursor.getString(0));
+                //}
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        con++;
+    }
+
+    public void mostrarImagen(String foto){
 		
 		
 		AlertDialog.Builder dialog = new AlertDialog.Builder(InfraccionesActivity.this);
@@ -15760,6 +15807,7 @@ Por recibida el Acta número ____________________________________ por la cual s
 
         if(cursor.moveToFirst()){
             arregloCreglamentos.add("Buscar en Todos los reglamentos");
+            arregloCreglamentosx.add("");
             do{
 
 
