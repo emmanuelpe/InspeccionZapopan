@@ -403,69 +403,74 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 	private void clearFolio(int id) {
 		int fol = 0;
 		int folioMax = 0;
+         if(id!=5) {
+			 GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
+			 SQLiteDatabase db = gestion.getReadableDatabase();
+			 String sql = "Select max(numero_acta) from Levantamiento";
+			 Cursor cursor = db.rawQuery(sql, null);
+			 if (cursor.moveToFirst()) {
+				 do {
+					 fol = cursor.getInt(0);
+				 } while (cursor.moveToNext());
+			 }
+			 cursor.close();
+			 sql = "SELECT f_max FROM c_inspector where id_c_inspector = " + id;
+			 cursor = db.rawQuery(sql, null);
+			 if (cursor.moveToFirst()) {
+				 do {
+					 folioMax = cursor.getInt(0);
+				 } while (cursor.moveToNext());
+			 }
+			 cursor.close();
 
-		GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
-		SQLiteDatabase db = gestion.getReadableDatabase();
-		String sql = "Select max(numero_acta) from Levantamiento";
-		Cursor cursor = db.rawQuery(sql,null);
-		if(cursor.moveToFirst()) {
-			do{
-				fol = cursor.getInt(0);
-			}while (cursor.moveToNext());
-		}
-		cursor.close();
-		sql = "SELECT f_max FROM c_inspector where id_c_inspector = " + id;
-		cursor = db.rawQuery(sql,null);
-		if(cursor.moveToFirst()) {
-			do{
-				folioMax = cursor.getInt(0);
-			}while (cursor.moveToNext());
-		}
-		cursor.close();
-
-		if(fol == folioMax)
-			startService(new Intent(Descarga.this, ClearFolios.class));
+			 if (fol == folioMax)
+				 startService(new Intent(Descarga.this, ClearFolios.class));
+		 }
 	}
 
 	private void comprobarFolio(final int id) {
 		int folio=0;
 		int max=0;
-		int colchon;
+		int colchon = 0;
 		int next=0;
         /*int next_min=0;
         int next_max=0;*/
-		GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
-		SQLiteDatabase db = gestion.getReadableDatabase();
-		String sql = "SELECT max(numero_acta) FROM Levantamiento where id_c_inspector1 = " + id;
-		Log.v("sql",sql);
-		Cursor cursor = db.rawQuery(sql,null);
-		if(cursor.moveToFirst()) {
-			do{
-				folio = cursor.getInt(0);
-			}while(cursor.moveToNext());
+        if(id!=5) {
+			GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
+			SQLiteDatabase db = gestion.getReadableDatabase();
+
+
+			String sql = "SELECT max(numero_acta) FROM Levantamiento where id_c_inspector1 = " + id;
+			Log.v("sql", sql);
+			Cursor cursor = db.rawQuery(sql, null);
+			if (cursor.moveToFirst()) {
+				do {
+					folio = cursor.getInt(0);
+				} while (cursor.moveToNext());
+			}
+			cursor.close();
+			sql = "SELECT f_max FROM c_inspector where id_c_inspector = " + id;
+			Log.v("sql1", sql);
+			cursor = db.rawQuery(sql, null);
+			if (cursor.moveToFirst()) {
+				do {
+					max = cursor.getInt(0);
+				} while (cursor.moveToNext());
+			}
+			Log.v("folios", max + " " + folio);
+			cursor.close();
+			sql = "SELECT next_min FROM c_inspector where id_c_inspector = " + id;
+			Log.v("sql1", sql);
+			cursor = db.rawQuery(sql, null);
+			if (cursor.moveToFirst()) {
+				do {
+					next = cursor.getInt(0);
+				} while (cursor.moveToNext());
+			}
+			Log.v("next", next + " ");
+			cursor.close();
+			colchon = max - folio;
 		}
-		cursor.close();
-		sql = "SELECT f_max FROM c_inspector where id_c_inspector = " + id;
-		Log.v("sql1",sql);
-		cursor = db.rawQuery(sql,null);
-		if(cursor.moveToFirst()) {
-			do{
-				max = cursor.getInt(0);
-			}while(cursor.moveToNext());
-		}
-		Log.v("folios",max + " " + folio);
-		cursor.close();
-		sql = "SELECT next_min FROM c_inspector where id_c_inspector = " + id;
-		Log.v("sql1",sql);
-		cursor = db.rawQuery(sql,null);
-		if(cursor.moveToFirst()) {
-			do{
-				next = cursor.getInt(0);
-			}while(cursor.moveToNext());
-		}
-		Log.v("next",next + " ");
-		cursor.close();
-		colchon = max-folio;
 		if(next == 0) {
 			if (colchon <= 5) {
 				if (folio > 0) {
