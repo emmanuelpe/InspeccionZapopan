@@ -403,7 +403,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 	private void clearFolio(int id) {
 		int fol = 0;
 		int folioMax = 0;
-         if(id!=5) {
+         if(id!=5 && id!=1) {
 			 GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
 			 SQLiteDatabase db = gestion.getReadableDatabase();
 			 String sql = "Select max(numero_acta) from Levantamiento";
@@ -435,7 +435,8 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 		int next=0;
         /*int next_min=0;
         int next_max=0;*/
-        if(id!=5) {
+		System.out.println(id);
+        if(id!=5 && id!=1) {
 			GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
 			SQLiteDatabase db = gestion.getReadableDatabase();
 

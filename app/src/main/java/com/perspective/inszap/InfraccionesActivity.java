@@ -1328,7 +1328,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                do {
                                    for (int i = 0; i < c4.getColumnCount(); i++) {
                                        System.err.println(c4.getColumnName(i) + " " + c4.getString(i));
-                                       if(c4.getString(i)==null){
+                                       if(c4.getString(i)==""|| c4.getString(i).isEmpty()){
                                            next_min=0;
                                        }else{
                                            next_min = Integer.parseInt(c4.getString(i));
@@ -1344,8 +1344,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                do {
                                    for (int i = 0; i < c5.getColumnCount(); i++) {
                                        System.err.println(c5.getColumnName(i) + " " + c5.getString(i));
-                                       if(c5.getString(i)==null){
-
+                                       if(c5.getString(i)=="" || c5.getString(i).isEmpty()){
+                                          next_max=0;
                                        }else{
                                            next_max = Integer.parseInt(c5.getString(i));
                                        }
@@ -1373,6 +1373,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                            builder.create().show();
 
+                       }else if(folio<min) {
+                           MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivity.this)
+                                   .setTitle(getResources().getString(R.string.avertencia))
+                                   .setMessage(getResources().getString(R.string.continuar))
+                                   .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+                                       @Override
+                                       public void onClick(DialogInterface dialog, int which) {
+                                           finish();
+                                       }
+                                   });
+
+                           builder.create().show();
                        } else {
                            folio = folio + 1;
                            etNumeroActa.setText(String.valueOf(folio));
