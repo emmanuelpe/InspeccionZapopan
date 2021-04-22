@@ -1328,7 +1328,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                do {
                                    for (int i = 0; i < c4.getColumnCount(); i++) {
                                        System.err.println(c4.getColumnName(i) + " " + c4.getString(i));
-                                       next_min = Integer.parseInt(c4.getString(i));
+                                       if(c4.getString(i)==null){
+                                           next_min=0;
+                                       }else{
+                                           next_min = Integer.parseInt(c4.getString(i));
+                                       }
+                                       //next_min = Integer.parseInt(c4.getString(i));
                                    }
                                } while (c4.moveToNext());
                            }
@@ -1339,7 +1344,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                do {
                                    for (int i = 0; i < c5.getColumnCount(); i++) {
                                        System.err.println(c5.getColumnName(i) + " " + c5.getString(i));
-                                       next_max = Integer.parseInt(c5.getString(i));
+                                       if(c5.getString(i)==null){
+
+                                       }else{
+                                           next_max = Integer.parseInt(c5.getString(i));
+                                       }
+                                       //next_max = Integer.parseInt(c5.getString(i));
                                    }
                                } while (c5.moveToNext());
                            }
