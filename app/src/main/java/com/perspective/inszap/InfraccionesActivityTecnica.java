@@ -1088,8 +1088,9 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(!spCreglamentos.getItemAtPosition(position).toString().equals("Buscar en Todos los reglamentos")){
                     System.out.println(position);
-                    reglamentoC[0] =arregloCreglamentosx.get(position-1);
-                    Axmedidas+="'"+arregloCreglamentosx.get(position-1)+"',";
+
+                    reglamentoC[0] =arregloCreglamentosx.get(position);
+                    Axmedidas+="'"+arregloCreglamentosx.get(position)+"',";
                 } else{
                     reglamentoC[0] =" ";
                 }
@@ -1252,7 +1253,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                 buscarIdInspector(sel.toString());
 
-                etIfeI.setText(ifeI);
+                etIfeI.setText(folio);
                 etNoI.setText(noI);
                 etVigI.setText(vigI);
                 id_inspector1 = id_i1.get(position);
@@ -1313,7 +1314,12 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             do {
                                 for (int i = 0; i < c4.getColumnCount(); i++) {
                                     System.err.println(c4.getColumnName(i) + " " + c4.getString(i));
-                                    next_min=Integer.parseInt(c4.getString(i));
+                                    if(c4.getString(i)==null){
+                                        next_min=0;
+                                    }else{
+                                        next_min=Integer.parseInt(c4.getString(i));
+                                    }
+
                                 }
                             } while (c4.moveToNext());
                         }
@@ -1324,7 +1330,12 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             do {
                                 for (int i = 0; i < c5.getColumnCount(); i++) {
                                     System.err.println(c5.getColumnName(i) + " " + c5.getString(i));
-                                    next_max=Integer.parseInt(c5.getString(i));
+                                    if(c4.getString(i)==null){
+                                        next_max=0;
+                                    }else{
+                                        next_max=Integer.parseInt(c5.getString(i));
+                                    }
+
                                 }
                             } while (c5.moveToNext());
                         }
@@ -7203,10 +7214,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 } else {
                     Log.v("reglamento",arregloCreglamentosx.get(spCreglamentos.getSelectedItemPosition()));
                     buscarInfraccionA(arregloCreglamentosx.get(spCreglamentos.getSelectedItemPosition()),etArti.getText().toString());
-                    if(!arregloInfraccion.isEmpty())
-                        spInfraccion.setAdapter(new ArrayAdapter<>(this, R.layout.multiline_spinner_dropdown_item, arregloInfraccion));
+                    if(!arregloInfraccion.isEmpty() && !arregloInfraccion1.isEmpty())
+                        spInfraccion.setAdapter(new ArrayAdapter<>(this, R.layout.multiline_spinner_dropdown_item, arregloInfraccion1));
                     else
-                        spInfraccion.setAdapter(new ArrayAdapter<>(this, R.layout.multiline_spinner_dropdown_item));
+                        spInfraccion.setAdapter(new ArrayAdapter<>(this, R.layout.multiline_spinner_dropdown_item,arregloInfraccion));
                 }
                 break;
 
@@ -7218,14 +7229,35 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private void buscarInfraccionA(String articulo, String search) {
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarBD.getReadableDatabase();
+        if(search.contains("Articulo") || search.contains("Art") || search.contains("Artículo") || search.contains("Articulos") || search.contains("Artículos") || search.contains("ARTICULOS") || search.contains("ARTÍCULOS") || search.contains("ARTICULO") || search.contains("ARTÍCULO") ){
+            String cadena="";
+            int position=0;
+            for(int i=0; i<=search.length();i++){
+
+                cadena+=search.substring(i,i+1);
+                System.out.println(cadena);
+                if(cadena.equals("Articulos") || cadena.equals("Artículos") || cadena.equals("Artículo") || cadena.equals("Articulo") || cadena.equals("ARTICULOS") || cadena.equals("ARTÍCULOS") || cadena.equals("ARTICULO") || cadena.equals("ARTÍCULO")){
+                    System.out.println("entro");
+                    position=i+1;
+                    break;
+                }
+            }
+            int tamas=search.length();
+            search=search.substring(position+1,tamas);
+
+
+        }
         String sql = "SELECT distinct infraccion FROM c_infraccion WHERE " + articulo + " LIKE '%" + search + "%' and id_c_direccion = '" + id + "' and trim(vigente) = 'S' order by id_c_infraccion";
         Cursor cursor = db.rawQuery(sql, null);
         Log.v("sql",sql);
         arregloInfraccion.clear();
+        arregloInfraccion1.clear();
         if(cursor.moveToFirst()){
             arregloInfraccion.add("");
+            arregloInfraccion1.add("");
             do{
                 arregloInfraccion.add(cursor.getString(0));
+                arregloInfraccion1.add(cursor.getString(0)+".- "+ cursor.getString(1));
                 Log.i("listado", "Infraccion: " + cursor.getString(0));
             }while(cursor.moveToNext());
         }

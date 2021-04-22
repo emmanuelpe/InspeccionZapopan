@@ -1956,7 +1956,7 @@
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:layout_below="@+id/tilArticulo"
-							android:text="@string/buscar"
+							android:text= "@string/buscar1"
 							android:drawableLeft="@drawable/ic_search"/>
 							<TextView
 								android:id="@+id/spselec"

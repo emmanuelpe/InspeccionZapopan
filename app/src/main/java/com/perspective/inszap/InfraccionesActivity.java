@@ -1267,7 +1267,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				
 				buscarIdInspector(sel.toString());
 
-				etIfeI.setText(ifeI);
+				etIfeI.setText(folio);
 				etNoI.setText(noI);
 				etVigI.setText(vigI);
 				id_inspector1 = id_i1.get(position);
@@ -1278,110 +1278,166 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 int min=0;
                 int next_min=0;
                 int next_max=0;
-                final Descarga d= new Descarga();
+                int n=0;
+                //final Descarga d= new Descarga();
+               if(infrac==1) {
+                   Log.i("id inspector", id_inspector1 + "");
 
-                Log.i("id inspector", id_inspector1+ "");
+                   GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
+                   SQLiteDatabase db = gestion.getReadableDatabase();
 
-                GestionBD gestion = new GestionBD(getApplicationContext(),"inspeccion",null,1);
-                SQLiteDatabase db = gestion.getReadableDatabase();
+                   Cursor c = db.rawQuery("SELECT  numero_acta FROM levantamiento where id_c_inspector1= '" + id_inspector1 + "' order by id_levantamiento desc LIMIT 1", null);
+                   String column = "", dato = "";
 
-                Cursor c = db.rawQuery("SELECT  numero_acta FROM levantamiento where id_c_inspector1= '"+id_inspector1+"' order by id_levantamiento desc LIMIT 1" , null);
-                String column = "",dato = "";
+                   try {
+                       if (db != null) {
+                           if (c.moveToFirst()) {
+                               do {
+                                   for (int i = 0; i < c.getColumnCount(); i++) {
+                                       System.err.println(c.getColumnName(i) + " " + c.getString(i));
+                                       folio = Integer.parseInt(c.getString(i));
+                                   }
+                               } while (c.moveToNext());
+                           }
+                       }
+                       Cursor c2 = db.rawQuery("SELECT  f_max FROM C_inspector where id_c_inspector= '" + id_inspector1 + "'  LIMIT 1", null);
+                       if (db != null) {
+                           if (c2.moveToFirst()) {
+                               do {
+                                   for (int i = 0; i < c2.getColumnCount(); i++) {
+                                       System.err.println(c2.getColumnName(i) + " " + c2.getString(i));
+                                       max = Integer.parseInt(c2.getString(i));
+                                   }
+                               } while (c2.moveToNext());
+                           }
+                       }
+                       Cursor c3 = db.rawQuery("SELECT  f_min FROM C_inspector where id_c_inspector= '" + id_inspector1 + "'  LIMIT 1", null);
+                       if (db != null) {
+                           if (c3.moveToFirst()) {
+                               do {
+                                   for (int i = 0; i < c3.getColumnCount(); i++) {
+                                       System.err.println(c3.getColumnName(i) + " " + c3.getString(i));
+                                       min = Integer.parseInt(c3.getString(i));
+                                   }
+                               } while (c3.moveToNext());
+                           }
+                       }
+                       Cursor c4 = db.rawQuery("SELECT  next_min FROM C_inspector where id_c_inspector= '" + id_inspector1 + "'  LIMIT 1", null);
+                       if (db != null) {
+                           if (c4.moveToFirst()) {
+                               do {
+                                   for (int i = 0; i < c4.getColumnCount(); i++) {
+                                       System.err.println(c4.getColumnName(i) + " " + c4.getString(i));
+                                       next_min = Integer.parseInt(c4.getString(i));
+                                   }
+                               } while (c4.moveToNext());
+                           }
+                       }
+                       Cursor c5 = db.rawQuery("SELECT  next_max FROM C_inspector where id_c_inspector= '" + id_inspector1 + "'  LIMIT 1", null);
+                       if (db != null) {
+                           if (c5.moveToFirst()) {
+                               do {
+                                   for (int i = 0; i < c5.getColumnCount(); i++) {
+                                       System.err.println(c5.getColumnName(i) + " " + c5.getString(i));
+                                       next_max = Integer.parseInt(c5.getString(i));
+                                   }
+                               } while (c5.moveToNext());
+                           }
+                       }
 
-                try {
-                    if(db != null){
-                        if (c.moveToFirst()) {
-                            do {
-                                for (int i = 0; i < c.getColumnCount(); i++) {
-                                    System.err.println(c.getColumnName(i) + " " + c.getString(i));
-                                    folio=Integer.parseInt(c.getString(i));
-                                }
-                            } while (c.moveToNext());
-                        }
-                    }
-                    Cursor c2 = db.rawQuery("SELECT  f_max FROM C_inspector where id_c_inspector= '"+id_inspector1+"'  LIMIT 1" , null);
-                    if(db != null){
-                        if (c2.moveToFirst()) {
-                            do {
-                                for (int i = 0; i < c2.getColumnCount(); i++) {
-                                    System.err.println(c2.getColumnName(i) + " " + c2.getString(i));
-                                    max=Integer.parseInt(c2.getString(i));
-                                }
-                            } while (c2.moveToNext());
-                        }
-                    }
-                    Cursor c3 = db.rawQuery("SELECT  f_min FROM C_inspector where id_c_inspector= '"+id_inspector1+"'  LIMIT 1" , null);
-                    if(db != null){
-                        if (c3.moveToFirst()) {
-                            do {
-                                for (int i = 0; i < c3.getColumnCount(); i++) {
-                                    System.err.println(c3.getColumnName(i) + " " + c3.getString(i));
-                                    min=Integer.parseInt(c3.getString(i));
-                                }
-                            } while (c3.moveToNext());
-                        }
-                    }
-                    Cursor c4 = db.rawQuery("SELECT  next_min FROM C_inspector where id_c_inspector= '"+id_inspector1+"'  LIMIT 1" , null);
-                    if(db != null){
-                        if (c4.moveToFirst()) {
-                            do {
-                                for (int i = 0; i < c4.getColumnCount(); i++) {
-                                    System.err.println(c4.getColumnName(i) + " " + c4.getString(i));
-                                    next_min=Integer.parseInt(c4.getString(i));
-                                }
-                            } while (c4.moveToNext());
-                        }
-                    }
-                    Cursor c5 = db.rawQuery("SELECT  next_max FROM C_inspector where id_c_inspector= '"+id_inspector1+"'  LIMIT 1" , null);
-                    if(db != null){
-                        if (c5.moveToFirst()) {
-                            do {
-                                for (int i = 0; i < c5.getColumnCount(); i++) {
-                                    System.err.println(c5.getColumnName(i) + " " + c5.getString(i));
-                                    next_max=Integer.parseInt(c5.getString(i));
-                                }
-                            } while (c5.moveToNext());
-                        }
-                    }
+                       System.out.println(folio + "---");
+                       if (folio == 0) {
+                           folio = min;
+                           etNumeroActa.setText(String.valueOf(folio));
 
-                    System.out.println(folio+"---");
-                    if (folio == 0) {
-                        folio = min;
-                        etNumeroActa.setText(String.valueOf(folio));
+                       } else if (folio == max) {
+                           MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivity.this)
+                                   .setTitle(getResources().getString(R.string.avertencia))
+                                   .setMessage(getResources().getString(R.string.continuar))
+                                   .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+                                       @Override
+                                       public void onClick(DialogInterface dialog, int which) {
+                                           finish();
+                                       }
+                                   });
 
-                    }else if(folio==max){
-                        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivity.this)
-                                .setTitle(getResources().getString(R.string.avertencia))
-                                .setMessage(getResources().getString(R.string.continuar))
-                                .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        finish();
-                                    }
-                                });
+                           builder.create().show();
 
-                        builder.create().show();
-
-                    }else{
-                        folio = folio+1;
-                        etNumeroActa.setText(String.valueOf(folio));
-                    }
-
-
-
+                       } else {
+                           folio = folio + 1;
+                           etNumeroActa.setText(String.valueOf(folio));
+                       }
 
 
+                   } catch (SQLiteException e) {
+                       Log.e("SQLite", e.getMessage());
+                   } finally {
+                       db.close();
+                       c.close();
+                   }
+               }else{
+                   if(!citatorio){
+                       String [] na;
+                       if(consultarActa() == 0){
+                           Log.i("consultar", "si");
+                           numero = "01";
+                           etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
+                           Log.i("acta", "entro aqui");
+                           buscarNumeroActa();
+                           if (!numero_acta.isEmpty()) {
+                               if (na()) {
+                                   Log.i("acta", "entro aqui2");
+                                   //aqui consultar el ultimo y asignar
+                                   na = ultimo().split("/");
+                                   n = Integer.parseInt(na[6]) + 1;
+                                   numero = String.valueOf(n);
+                                   if (numero.length() == 1)
+                                       numero = "0" + n;
+                                   etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
+                               }
+                           }
+                       }
+                       else{
+                           Log.i("acta", "entro aqui3");
+                           Log.i("consultar", "no");
+                           asignarActa();
+                           n = Integer.valueOf(numero)+1;
+                           Log.i("Numero1", numero);
+                           if(n > 0 & n <= 9){
+                               Log.i("acta", "entro aqui4");
+                               numero = "0"+String.valueOf(n);
+                               etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/"  + numero);
+                               Log.i("numeros", "n " + etNumeroActa.getText().toString().substring(0, 16) + " v " + s.substring(0, 16));
+                               if(!etNumeroActa.getText().toString().substring(0, 16).equalsIgnoreCase(s.substring(0, 16))){
+                                   Log.i("numero acta", "si");
+                                   numero = "01";
+                                   Log.i("acta", "entro aqui5");
+                                   etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
+                                   Log.i("nueva ", InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + infrac + "/" + numero);
+                               }
+                           }
+                           else{
+                               Log.i("acta", "entro aqui6");
+                               numero = String.valueOf(n);
+                               etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/"  + numero);
+                           }
 
-
-
-
-                } catch (SQLiteException e) {
-                    Log.e("SQLite", e.getMessage());
-                }
-                finally {
-                    db.close();
-                    c.close();
-                }
+                           buscarNumeroActa();
+                           if (!numero_acta.isEmpty()) {
+                               if (na()) {
+                                   Log.i("acta", "entro aqui");
+                                   //aqui consultar el ultimo y asignar
+                                   na = ultimo().split("/");
+                                   n = Integer.parseInt(na[6]) + 1;
+                                   numero = String.valueOf(n);
+                                   if (numero.length() == 1)
+                                       numero = "0" + n;
+                                   etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
+                               }
+                           }
+                       }
+                   }
+               }
 
 
 
@@ -3260,8 +3316,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(!spCreglamentos.getItemAtPosition(position).toString().equals("Buscar en Todos los reglamentos")){
                     System.out.println(position);
-                    reglamentoC =arregloCreglamentosx.get(position-1);
-                    Axmedidas+="'"+arregloCreglamentosx.get(position-1)+"',";
+                    System.out.println(arregloCreglamentosx.get(position));;
+                    reglamentoC =arregloCreglamentosx.get(position);
+                    Axmedidas+="'"+arregloCreglamentosx.get(position)+"',";
                 } else{
                     reglamentoC ="";
                 }
@@ -6670,7 +6727,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    			//if(c.getString(c.getColumnIndex("vigente")).trim().equalsIgnoreCase("S")) {
 		    			id_hecho.add(c.getInt(0));
 		    			arregloInfraccion.add(c.getString(2));
-                        arregloInfraccion1.add(c.getString(2));
+                        arregloInfraccion1.add(c.getString(2) );
 		    			//System.out.println(c.getString(2) + " do " + c.getString(c.getColumnIndex("id_c_direccion")));
 		    			//Log.i("listado", "Infraccion: " + c.getString(2));
 	    			//}
@@ -7765,10 +7822,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 } else {
                     Log.v("reglamento",arregloCreglamentosx.get(spCreglamentos.getSelectedItemPosition()));
                     buscarInfraccionA(arregloCreglamentosx.get(spCreglamentos.getSelectedItemPosition()),etArti.getText().toString());
-                    if(!arregloInfraccion.isEmpty())
-                        spInfraccion.setAdapter(new ArrayAdapter<>(this, R.layout.multiline_spinner_dropdown_item, arregloInfraccion));
+                    if(!arregloInfraccion.isEmpty() && !arregloInfraccion1.isEmpty())
+                        spInfraccion.setAdapter(new ArrayAdapter<>(this, R.layout.multiline_spinner_dropdown_item, arregloInfraccion1));
                     else
-                        spInfraccion.setAdapter(new ArrayAdapter<>(this, R.layout.multiline_spinner_dropdown_item));
+                        spInfraccion.setAdapter(new ArrayAdapter<>(this, R.layout.multiline_spinner_dropdown_item,arregloInfraccion));
                 }
                 break;
 
@@ -7780,16 +7837,37 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     private void buscarInfraccionA(String articulo, String search) {
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarBD.getReadableDatabase();
-        String sql = "SELECT distinct infraccion FROM c_infraccion WHERE " + articulo + " LIKE '%" + search + "%' and id_c_direccion = '" + id + "' and trim(vigente) = 'S' order by id_c_infraccion";
+        if(search.contains("art.")||search.contains("art")||search.contains("Articulo") || search.contains("Art") || search.contains("Artículo") || search.contains("Articulos") || search.contains("Artículos") || search.contains("ARTICULOS") || search.contains("ARTÍCULOS") || search.contains("ARTICULO") || search.contains("ARTÍCULO") ){
+           String cadena="";
+           int position=0;
+            for(int i=0; i<=search.length();i++){
+
+               cadena+=search.substring(i,i+1);
+                System.out.println(cadena);
+                if(cadena.equals("art.")||cadena.equals("art")||cadena.equals("Articulos") || cadena.equals("Artículos") || cadena.equals("Artículo") || cadena.equals("Articulo") || cadena.equals("ARTICULOS") || cadena.equals("ARTÍCULOS") || cadena.equals("ARTICULO") || cadena.equals("ARTÍCULO")){
+                    System.out.println("entro");
+                    position=i+1;
+                    break;
+                }
+           }
+            int tamas=search.length();
+         search=search.substring(position+1,tamas);
+
+
+        }
+        String sql = "SELECT distinct infraccion,"+articulo+" FROM c_infraccion WHERE " + articulo + " LIKE '%" + search + "%' and id_c_direccion = '" + id + "' and trim(vigente) = 'S' order by id_c_infraccion";
         Cursor cursor = db.rawQuery(sql, null);
         Log.v("sql",sql);
         arregloInfraccion.clear();
+        arregloInfraccion1.clear();
         if(cursor.moveToFirst()){
             arregloInfraccion.add("");
+            arregloInfraccion1.add("");
             do{
                 //if(cursor.getString(cursor.getColumnIndex("vigente")).trim().equalsIgnoreCase("S")) {
                 //id_hecho.add(cursor.getInt(1));
                 arregloInfraccion.add(cursor.getString(0));
+                arregloInfraccion1.add(cursor.getString(0)+".- "+ cursor.getString(1));
                 Log.i("listado", "Infraccion: " + cursor.getString(0));
                 //}
             }while(cursor.moveToNext());
@@ -14489,12 +14567,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		SQLiteDatabase db = gestionar.getReadableDatabase();
 		Cursor cursor;
         String textofiltro="";
+        String Vyu="";
         Log.e("campo",reglamentoC);
        if(reglamentoC.length()>3) {
            if (reglamentoC == "Buscar en Todos los reglamentos" || reglamentoC.equals("Buscar en Todos los reglamentos") || reglamentoC.contains("Buscar en Todos los reglamentos")) {
                textofiltro = " ";
            }else{
              textofiltro="length(rtrim("+reglamentoC.trim()+")) >2 and";
+             Vyu=reglamentoC.trim();
            }
        }else{
             textofiltro=" ";
@@ -14582,11 +14662,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     		do{
     			if(cursor.getString(cursor.getColumnIndex("vigente")).trim().equalsIgnoreCase("S")) {
                     id_hecho.add(cursor.getInt(0));
-                    if(reglamentoC.length()<1){
+                    Log.i("listado", "reglamento: " + reglamentoC);
+                    if(textofiltro.length()<1){
                         arregloInfraccion.add(cursor.getString(2));
                         arregloInfraccion1.add(cursor.getString(2) );
-                        Log.i("listado", "Infraccion: " + cursor.getString(2));
+                        //Log.i("listado", "Infraccion: " + cursor.getString(2));
                     } else{
+                        Log.i("listado", "Infraccion: " + textofiltro);
 
                         arregloInfraccion.add(cursor.getString(2));
                         arregloInfraccion1.add(cursor.getString(2) + " " + cursor.getString(cursor.getColumnIndex(reglamentoC.trim())));
