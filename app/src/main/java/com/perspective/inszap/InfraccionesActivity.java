@@ -56,6 +56,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -218,6 +219,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     private Button btnBusArt;
     private TextInputLayout tilArticulo;
     private TextInputEditText etArti;
+    private SharedPreferences sp;
+    private int foliox = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -1273,20 +1276,20 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				id_inspector1 = id_i1.get(position);
 				id_inspectorQ=id_inspector1;
                 //id_inspectorQ = id_inspector1;
-                int folio=0;
-                int max=0;
-                int min=0;
-                int next_min=0;
-                int next_max=0;
+
+
                 int n=0;
                 //final Descarga d= new Descarga();
                if(infrac==1) {
+                   int folio=0;
+                   int max=0;
+                   int min=0;
                    Log.i("id inspector", id_inspector1 + "");
 
                    GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
                    SQLiteDatabase db = gestion.getReadableDatabase();
 
-                   Cursor c = db.rawQuery("SELECT  numero_acta FROM levantamiento where id_c_inspector1= '" + id_inspector1 + "' order by id_levantamiento desc LIMIT 1", null);
+                   Cursor c = db.rawQuery("SELECT  numero_acta FROM levantamiento where id_c_inspector1= '" + id_inspector1 + "' and infraccion=1  order by id_levantamiento desc LIMIT 1", null);
                    String column = "", dato = "";
 
                    try {
@@ -1295,7 +1298,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                do {
                                    for (int i = 0; i < c.getColumnCount(); i++) {
                                        System.err.println(c.getColumnName(i) + " " + c.getString(i));
-                                       folio = Integer.parseInt(c.getString(i));
+                                       if(c.getString(i).isEmpty() ||  c.getString(i)==null || c.getString(i)=="" ){
+                                           folio=0;
+                                       }else{
+                                           folio = Integer.parseInt(c.getString(i));
+                                       }
+
                                    }
                                } while (c.moveToNext());
                            }
@@ -1322,42 +1330,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                } while (c3.moveToNext());
                            }
                        }
-                       Cursor c4 = db.rawQuery("SELECT  next_min FROM C_inspector where id_c_inspector= '" + id_inspector1 + "'  LIMIT 1", null);
-                       if (db != null) {
-                           if (c4.moveToFirst()) {
-                               do {
-                                   for (int i = 0; i < c4.getColumnCount(); i++) {
-                                       System.err.println(c4.getColumnName(i) + " " + c4.getString(i));
-                                       if(c4.getString(i)==""|| c4.getString(i).isEmpty()){
-                                           next_min=0;
-                                       }else{
-                                           next_min = Integer.parseInt(c4.getString(i));
-                                       }
-                                       //next_min = Integer.parseInt(c4.getString(i));
-                                   }
-                               } while (c4.moveToNext());
-                           }
-                       }
-                       Cursor c5 = db.rawQuery("SELECT  next_max FROM C_inspector where id_c_inspector= '" + id_inspector1 + "'  LIMIT 1", null);
-                       if (db != null) {
-                           if (c5.moveToFirst()) {
-                               do {
-                                   for (int i = 0; i < c5.getColumnCount(); i++) {
-                                       System.err.println(c5.getColumnName(i) + " " + c5.getString(i));
-                                       if(c5.getString(i)=="" || c5.getString(i).isEmpty()){
-                                          next_max=0;
-                                       }else{
-                                           next_max = Integer.parseInt(c5.getString(i));
-                                       }
-                                       //next_max = Integer.parseInt(c5.getString(i));
-                                   }
-                               } while (c5.moveToNext());
-                           }
-                       }
+                       sp = getSharedPreferences("infracciones", Context.MODE_PRIVATE);
+                       foliox = sp.getInt("folio",0);
 
-                       System.out.println(folio + "---");
-                       if (folio == 0) {
-                           folio = min;
+
+                       System.out.println(foliox + "---");
+                       if (foliox > 0) {
+                           folio = foliox;
                            etNumeroActa.setText(String.valueOf(folio));
 
                        } else if (folio == max) {
@@ -1367,26 +1346,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                    .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
                                        @Override
                                        public void onClick(DialogInterface dialog, int which) {
-                                           finish();
+                                           startService(new Intent(InfraccionesActivity.this, ClearFolios.class));
                                        }
                                    });
 
                            builder.create().show();
 
-                       }else if(folio<min) {
-                           MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivity.this)
-                                   .setTitle(getResources().getString(R.string.avertencia))
-                                   .setMessage(getResources().getString(R.string.continuar))
-                                   .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
-                                       @Override
-                                       public void onClick(DialogInterface dialog, int which) {
-                                           finish();
-                                       }
-                                   });
-
-                           builder.create().show();
                        } else {
-                           folio = folio + 1;
+                           Log.v("folios ", folio + " " + min + " max");
+                           if(folio >= min & folio <= max) {
+                               folio = folio + 1;
+                           }else
+                               folio = min;
                            etNumeroActa.setText(String.valueOf(folio));
                        }
 
@@ -4041,7 +4012,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 id_inspector3,id_inspector4,id_inspector5,id_inspector6,idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5,etLGiro.getText().toString().trim(),etGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),spNE.getSelectedItem().toString(),reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etNumeroSellos.getText().toString(),etDecomiso.getText().toString(),fechaap,etfolioclau.getText().toString(),fechaclau) + "");
                     resu=true;
 					}
-
+        if (foliox > 0) {
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putInt("folio", 0);
+            editor.apply();
+        }
 					
 						//String peticion,String v_firma,String motivo_orden,String medida_seguridad,String articulo_medida
 						String[] iHecho = null;

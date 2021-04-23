@@ -222,9 +222,11 @@
     <string name="actualizar_folios">S actualizaran los folios</string>
     <string name="esta_suguro">Esta seguro ?</string>
     <string name="continuar">Continuar</string>
-    <string name="avertencia">Avertencia!! Requiere nuevos folios. Favor de volver de Registrarse en la aplicacion!!</string>
+    <string name="avertencia">Avertencia!! Se inicia  proceso de actualizacion de folios!!</string>
     <string name="buscar_por_aticulo">Buscar por articulo</string>
     <string name="articulo">Artículo</string>
+    <string name="msj">AVISO</string>
+    <string name="debe_sinconizar">DEBE SICRONIZAR FOLIO</string>
     <string-array name="densidad">
         <item></item>
         <item>Minima (1)</item>

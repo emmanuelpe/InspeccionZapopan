@@ -39,9 +39,7 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity
-            android:name=".InfraccionesActivityTecnica"
-            android:configChanges="orientation|screenSize|screenLayout|navigation" />
+
         <activity
             android:name=".Licencias"
             android:configChanges="orientation|screenSize|screenLayout|navigation" />
@@ -70,8 +68,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".InfraccionesActivityTecnica"
+            android:configChanges="orientation|screenSize|screenLayout|navigation"
+            android:label="@string/title_activity_infracciones"
+            android:theme="@style/AppTheme"/>
+        <activity
             android:name=".MainActivity"
-            android:configChanges="orientation|screenSize|screenLayout|navigation" />
+            android:configChanges="orientation|screenSize|screenLayout|navigation"
+            />
         <activity
             android:name=".Descarga"
             android:configChanges="orientation|screenSize|screenLayout|navigation"

@@ -23,7 +23,7 @@
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimary">@color/gray</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/black</item>
     </style>
@@ -41,6 +41,7 @@
     <style name = "Boton">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
     </style>
     <style name = "title">
         <item name="android:textSize">22sp</item>
@@ -61,6 +62,7 @@
     <style name = "BotonI">
         <item name="android:textSize">23sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
     <style name = "BtnS">
         <item name="android:textSize">20sp</item>

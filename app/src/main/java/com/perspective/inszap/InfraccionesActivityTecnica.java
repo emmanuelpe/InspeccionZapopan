@@ -13,6 +13,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -211,6 +212,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private Button btnBusArt;
     private TextInputLayout tilArticulo;
     private TextInputEditText etArti;
+    private SharedPreferences sp;
+    private int foliox = 0;
 
 
     @Override
@@ -1257,188 +1260,167 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 etNoI.setText(noI);
                 etVigI.setText(vigI);
                 id_inspector1 = id_i1.get(position);
-                Log.i("id inspector", id_inspector1+ "");
-                int n;
-                id_inspectorQ = id_inspector1;
-                int folio=0;
-                int max=0;
-                int min=0;
-                int next_min=0;
-                int next_max=0;
-                final Descarga d= new Descarga();
+                id_inspectorQ=id_inspector1;
+                //id_inspectorQ = id_inspector1;
 
-                Log.i("id inspector", id_inspector1+ "");
 
-                GestionBD gestion = new GestionBD(getApplicationContext(),"inspeccion",null,1);
-                SQLiteDatabase db = gestion.getReadableDatabase();
+                int n=0;
+                //final Descarga d= new Descarga();
+                if(infrac==1) {
+                    int folio=0;
+                    int max=0;
+                    int min=0;
+                    Log.i("id inspector", id_inspector1 + "");
 
-                Cursor c = db.rawQuery("SELECT  numero_acta FROM levantamiento where id_c_inspector1= '"+id_inspector1+"' order by id_levantamiento desc LIMIT 1" , null);
-                String column = "",dato = "";
+                    GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
+                    SQLiteDatabase db = gestion.getReadableDatabase();
 
-                try {
-                    if(db != null){
-                        if (c.moveToFirst()) {
-                            do {
-                                for (int i = 0; i < c.getColumnCount(); i++) {
-                                    System.err.println(c.getColumnName(i) + " " + c.getString(i));
-                                    folio=Integer.parseInt(c.getString(i));
-                                }
-                            } while (c.moveToNext());
-                        }
-                    }
-                    Cursor c2 = db.rawQuery("SELECT  f_max FROM C_inspector where id_c_inspector= '"+id_inspector1+"'  LIMIT 1" , null);
-                    if(db != null){
-                        if (c2.moveToFirst()) {
-                            do {
-                                for (int i = 0; i < c2.getColumnCount(); i++) {
-                                    System.err.println(c2.getColumnName(i) + " " + c2.getString(i));
-                                    max=Integer.parseInt(c2.getString(i));
-                                }
-                            } while (c2.moveToNext());
-                        }
-                    }
-                    Cursor c3 = db.rawQuery("SELECT  f_min FROM C_inspector where id_c_inspector= '"+id_inspector1+"'  LIMIT 1" , null);
-                    if(db != null){
-                        if (c3.moveToFirst()) {
-                            do {
-                                for (int i = 0; i < c3.getColumnCount(); i++) {
-                                    System.err.println(c3.getColumnName(i) + " " + c3.getString(i));
-                                    min=Integer.parseInt(c3.getString(i));
-                                }
-                            } while (c3.moveToNext());
-                        }
-                    }
-                    Cursor c4 = db.rawQuery("SELECT  next_min FROM C_inspector where id_c_inspector= '"+id_inspector1+"'  LIMIT 1" , null);
-                    if(db != null){
-                        if (c4.moveToFirst()) {
-                            do {
-                                for (int i = 0; i < c4.getColumnCount(); i++) {
-                                    System.err.println(c4.getColumnName(i) + " " + c4.getString(i));
-                                    if(c4.getString(i)==null){
-                                        next_min=0;
-                                    }else{
-                                        next_min=Integer.parseInt(c4.getString(i));
+                    Cursor c = db.rawQuery("SELECT  numero_acta FROM levantamiento where id_c_inspector1= '" + id_inspector1 + "' and infraccion=1  order by id_levantamiento desc LIMIT 1", null);
+                    String column = "", dato = "";
+
+                    try {
+                        if (db != null) {
+                            if (c.moveToFirst()) {
+                                do {
+                                    for (int i = 0; i < c.getColumnCount(); i++) {
+                                        System.err.println(c.getColumnName(i) + " " + c.getString(i));
+                                        if(c.getString(i).isEmpty() ||  c.getString(i)==null || c.getString(i)=="" ){
+                                            folio=0;
+                                        }else{
+                                            folio = Integer.parseInt(c.getString(i));
+                                        }
+
                                     }
-
-                                }
-                            } while (c4.moveToNext());
-                        }
-                    }
-                    Cursor c5 = db.rawQuery("SELECT  next_max FROM C_inspector where id_c_inspector= '"+id_inspector1+"'  LIMIT 1" , null);
-                    if(db != null){
-                        if (c5.moveToFirst()) {
-                            do {
-                                for (int i = 0; i < c5.getColumnCount(); i++) {
-                                    System.err.println(c5.getColumnName(i) + " " + c5.getString(i));
-                                    if(c4.getString(i)==null){
-                                        next_max=0;
-                                    }else{
-                                        next_max=Integer.parseInt(c5.getString(i));
-                                    }
-
-                                }
-                            } while (c5.moveToNext());
-                        }
-                    }
-
-                    System.out.println(folio+"---");
-                    if (folio == 0) {
-                        folio = min;
-                        etNumeroActa.setText(String.valueOf(folio));
-
-                    }else if(folio==max){
-                        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivityTecnica.this)
-                                .setTitle(getResources().getString(R.string.avertencia))
-                                .setMessage(getResources().getString(R.string.continuar))
-                                .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                       finish();
-                                    }
-                                });
-
-                        builder.create().show();
-
-                    }else{
-                        folio = folio+1;
-                        etNumeroActa.setText(String.valueOf(folio));
-                    }
-
-
-
-
-
-
-
-
-
-                } catch (SQLiteException e) {
-                    Log.e("SQLite", e.getMessage());
-                }
-                finally {
-                    db.close();
-                    c.close();
-                }
-
-                /*if(!citatorio){
-                    String [] na;
-                    if(consultarActa() == 0){
-                        Log.i("consultar", "si");
-                        numero = "01";
-                        etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
-
-                        buscarNumeroActa();
-                        if (!numero_acta.isEmpty()) {
-                            if (na()) {
-                                //aqui consultar el ultimo y asignar
-                                na = ultimo().split("/");
-                                n = Integer.parseInt(na[6]) + 1;
-                                numero = String.valueOf(n);
-                                if (numero.length() == 1)
-                                    numero = "0" + n;
-                                etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
+                                } while (c.moveToNext());
                             }
                         }
+                        Cursor c2 = db.rawQuery("SELECT  f_max FROM C_inspector where id_c_inspector= '" + id_inspector1 + "'  LIMIT 1", null);
+                        if (db != null) {
+                            if (c2.moveToFirst()) {
+                                do {
+                                    for (int i = 0; i < c2.getColumnCount(); i++) {
+                                        System.err.println(c2.getColumnName(i) + " " + c2.getString(i));
+                                        max = Integer.parseInt(c2.getString(i));
+                                    }
+                                } while (c2.moveToNext());
+                            }
+                        }
+                        Cursor c3 = db.rawQuery("SELECT  f_min FROM C_inspector where id_c_inspector= '" + id_inspector1 + "'  LIMIT 1", null);
+                        if (db != null) {
+                            if (c3.moveToFirst()) {
+                                do {
+                                    for (int i = 0; i < c3.getColumnCount(); i++) {
+                                        System.err.println(c3.getColumnName(i) + " " + c3.getString(i));
+                                        min = Integer.parseInt(c3.getString(i));
+                                    }
+                                } while (c3.moveToNext());
+                            }
+                        }
+                        sp = getSharedPreferences("infracciones", Context.MODE_PRIVATE);
+                        foliox = sp.getInt("folio",0);
+
+
+                        System.out.println(foliox + "---");
+                        if (foliox > 0) {
+                            folio = foliox;
+                            etNumeroActa.setText(String.valueOf(folio));
+
+                        } else if (folio == max) {
+                            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivityTecnica.this)
+                                    .setTitle(getResources().getString(R.string.avertencia))
+                                    .setMessage(getResources().getString(R.string.continuar))
+                                    .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            startService(new Intent(InfraccionesActivityTecnica.this, ClearFolios.class));
+                                        }
+                                    });
+
+                            builder.create().show();
+
+                        } else {
+                            Log.v("folios ", folio + " " + min + " max");
+                            if(folio >= min & folio <= max) {
+                                folio = folio + 1;
+                            }else
+                                folio = min;
+                            etNumeroActa.setText(String.valueOf(folio));
+                        }
+
+
+                    } catch (SQLiteException e) {
+                        Log.e("SQLite", e.getMessage());
+                    } finally {
+                        db.close();
+                        c.close();
                     }
-                    else{
-                        Log.i("consultar", "no");
-                        asignarActa();
-                        n = Integer.valueOf(numero)+1;
-                        Log.i("Numero1", numero);
-                        if(n > 0 & n <= 9){
-                            numero = "0"+String.valueOf(n);
-                            //etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/"  + numero);
-                            //Log.i("numeros", "n " + etNumeroActa.getText().toString().substring(0, 16) + " v " + s.substring(0, 16));
-                            if(!etNumeroActa.getText().toString().equalsIgnoreCase("")) {
-                                if (!etNumeroActa.getText().toString().substring(0, 14).equalsIgnoreCase(s.substring(0, 14))) {
-                                    Log.i("numero acta", "si");
-                                    numero = "01";
+                }else{
+                    if(!citatorio){
+                        String [] na;
+                        if(consultarActa() == 0){
+                            Log.i("consultar", "si");
+                            numero = "01";
+                            etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
+                            Log.i("acta", "entro aqui");
+                            buscarNumeroActa();
+                            if (!numero_acta.isEmpty()) {
+                                if (na()) {
+                                    Log.i("acta", "entro aqui2");
+                                    //aqui consultar el ultimo y asignar
+                                    na = ultimo().split("/");
+                                    n = Integer.parseInt(na[6]) + 1;
+                                    numero = String.valueOf(n);
+                                    if (numero.length() == 1)
+                                        numero = "0" + n;
                                     etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
-                                    Log.i("nueva ", InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/" + infrac + "/" + numero);
                                 }
-                            } else {
-                                etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
                             }
                         }
                         else{
-                            numero = String.valueOf(n);
-                            etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/"  + numero);
-                        }
-
-                        buscarNumeroActa();
-                        if (!numero_acta.isEmpty()) {
-                            if (na()) {
-                                //aqui consultar el ultimo y asignar
-                                na = ultimo().split("/");
-                                n = Integer.parseInt(na[6]) + 1;
+                            Log.i("acta", "entro aqui3");
+                            Log.i("consultar", "no");
+                            asignarActa();
+                            n = Integer.valueOf(numero)+1;
+                            Log.i("Numero1", numero);
+                            if(n > 0 & n <= 9){
+                                Log.i("acta", "entro aqui4");
+                                numero = "0"+String.valueOf(n);
+                                etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/"  + numero);
+                                Log.i("numeros", "n " + etNumeroActa.getText().toString().substring(0, 16) + " v " + s.substring(0, 16));
+                                if(!etNumeroActa.getText().toString().substring(0, 16).equalsIgnoreCase(s.substring(0, 16))){
+                                    Log.i("numero acta", "si");
+                                    numero = "01";
+                                    Log.i("acta", "entro aqui5");
+                                    etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
+                                    Log.i("nueva ", InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/" + infrac + "/" + numero);
+                                }
+                            }
+                            else{
+                                Log.i("acta", "entro aqui6");
                                 numero = String.valueOf(n);
-                                if (numero.length() == 1)
-                                    numero = "0" + n;
-                                etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
+                                etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/"  + numero);
+                            }
+
+                            buscarNumeroActa();
+                            if (!numero_acta.isEmpty()) {
+                                if (na()) {
+                                    Log.i("acta", "entro aqui");
+                                    //aqui consultar el ultimo y asignar
+                                    na = ultimo().split("/");
+                                    n = Integer.parseInt(na[6]) + 1;
+                                    numero = String.valueOf(n);
+                                    if (numero.length() == 1)
+                                        numero = "0" + n;
+                                    etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
+                                }
                             }
                         }
                     }
-                }*/
+                }
+
+
+
+
             }
 
 

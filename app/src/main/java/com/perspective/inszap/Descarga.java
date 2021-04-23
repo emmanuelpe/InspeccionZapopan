@@ -98,6 +98,13 @@ public class Descarga extends Activity implements android.content.DialogInterfac
     private SharedPreferences.Editor editor = null;
     private int idIns = 0;
 
+	private int folio=0;
+	private int max=0;
+	private int colchon;
+	private int next=0;
+	private int min = 0;
+	private int auxId = 0;
+
 	/**
 	 * @see android.app.Activity#onCreate(Bundle)
 	 */
@@ -170,6 +177,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		//if(us.equalsIgnoreCase("administrador") | us.equalsIgnoreCase("subadministrador")) {
 
 		System.out.println(direccion.equalsIgnoreCase("Administración"));
+		sp = getSharedPreferences("infracciones", Context.MODE_PRIVATE);
 
 		if (direccion.equalsIgnoreCase("administracion") | direccion.equalsIgnoreCase("Administración")) {
 			btnInfraccion.setEnabled(false);
@@ -181,6 +189,8 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 			btnActualizar.setEnabled(false);
 			btnConfig.setEnabled(false);
 			btnUpdate.setEnabled(false);
+			auxId = sp.getInt("idIns",0);
+			Log.v("ids",idIns + " " + auxId);
 		}
 		Log.v("direccion", direccion.trim().contains("Comercio") + "");
 		if (direccion.trim().contains("Comercio")) {
@@ -191,13 +201,12 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		}
 
 		if (direccion.trim().contains("Construcc")) {
-			btnConsultarLicenciaC.setEnabled(true);
+			btnConsultarLicenciaC.setEnabled(false);
 			btnConsultarL.setVisibility(View.GONE);
 		} else {
 			btnConsultarLicenciaC.setEnabled(false);
 		}
 
-		sp = getSharedPreferences("infracciones", Context.MODE_PRIVATE);
 
 		editor = sp.edit();
 
@@ -220,6 +229,29 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 				btnInfraccion.setEnabled(false);
 			} else {
 				btnInfraccion.setEnabled(true);
+				if(auxId == idIns) {
+					Log.v("no","pasa nada");
+				} else if(auxId == 0) {
+					editor.putInt("idIns",idIns);
+					editor.apply();
+				} else {
+					Log.v("si","sincronizar");
+					btnInfraccion.setEnabled(false);
+					MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Descarga.this)
+							.setTitle(getResources().getString(R.string.msj))
+							.setMessage(getResources().getString(R.string.debe_sinconizar))
+							.setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									if(Connection.validarConexion(Descarga.this))
+										new Sincronizar().execute(String.valueOf(idIns));
+								}
+							});
+					builder.create().show();
+
+				}
+				auxId = sp.getInt("idIns",0);
+				Log.v("ids",idIns + " " + auxId);
 			}
 
 		}
@@ -394,16 +426,19 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 		});
 
 		consultaTabletas();
+//23/04
+		if(direccion.equalsIgnoreCase("administracion") | direccion.equalsIgnoreCase("administración")) {
 
-		comprobarFolio(idIns);
-
-		clearFolio(idIns);
+		} else {
+			comprobarFolio(idIns);
+			clearFolio(idIns);
+		}
 	}
 
 	private void clearFolio(int id) {
 		int fol = 0;
 		int folioMax = 0;
-         if(id!=5 && id!=1) {
+
 			 GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
 			 SQLiteDatabase db = gestion.getReadableDatabase();
 			 String sql = "Select max(numero_acta) from Levantamiento";
@@ -425,18 +460,18 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 
 			 if (fol == folioMax)
 				 startService(new Intent(Descarga.this, ClearFolios.class));
-		 }
+
 	}
 
 	private void comprobarFolio(final int id) {
-		int folio=0;
+		/*int folio=0;
 		int max=0;
 		int colchon = 0;
 		int next=0;
         /*int next_min=0;
         int next_max=0;*/
-		System.out.println(id);
-        if(id!=5 && id!=1) {
+
+
 			GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
 			SQLiteDatabase db = gestion.getReadableDatabase();
 
@@ -447,6 +482,17 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			if (cursor.moveToFirst()) {
 				do {
 					folio = cursor.getInt(0);
+				} while (cursor.moveToNext());
+			}
+			cursor.close();
+			sql = "SELECT  f_min FROM C_inspector where id_c_inspector= '" + id + "'  LIMIT 1";
+			cursor = db.rawQuery(sql, null);
+			if (cursor.moveToFirst()) {
+				do {
+					for (int i = 0; i < cursor.getColumnCount(); i++) {
+						System.err.println(cursor.getColumnName(i) + " " + cursor.getString(i));
+						min = Integer.parseInt(cursor.getString(i));
+					}
 				} while (cursor.moveToNext());
 			}
 			cursor.close();
@@ -471,7 +517,8 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			Log.v("next", next + " ");
 			cursor.close();
 			colchon = max - folio;
-		}
+
+
 		if(next == 0) {
 			if (colchon <= 5) {
 				if (folio > 0) {
@@ -495,6 +542,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				}
 			}
 		}
+
 	}
 
 	private int actualizaFolios(int id) {
@@ -1393,15 +1441,15 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 					//mProgressBar.setProgress(i);
 					//i++;
 
-					if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
+					/*if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 						eliminaRegistros("vs_InspM2");
 						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/get_vs_InspM21.php", "vs_InspM2");
 						//x += sicrof("vs_InspM21", url);
 
 					}
 					mProgressBar.setProgress(i);
-					i++;
-					if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
+					i++;*/
+					/*if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 						//eliminaRegistros("vs_InspM2");
 						int x1;
 						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/get_vs_InspM22.php", "vs_InspM2");
@@ -1413,42 +1461,42 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 							x++;
 							mensaje += mensaje + " vs_InspM2 " + c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
 						}
-					}
+					}*/
 					mProgressBar.setProgress(i);
 					i++;
 				} else {
-					String fechaR = "",fechaC = "";
-					String fechas [];
-					boolean br,bc;
-					Calendar cal = Calendar.getInstance();
-					Cursor cursor;
+					//String fechaR = "",fechaC = "";
+					//String fechas [];
+					//boolean br,bc;
+					//Calendar cal = Calendar.getInstance();
+					//Cursor cursor;
 					//cursor = db.rawQuery("SELECT fechaA FROM v_LicenciasReglamentos order by fechaA desc limit 1",null);
 					/*if(cursor.moveToFirst())
 						fechaR = cursor.getString(0);*/
-					cursor = db.rawQuery("SELECT fechaA FROM vs_InspM2 order by fechaA desc limit 1",null);
-					if(cursor.moveToFirst())
-						fechaC = cursor.getString(0);
+					//cursor = db.rawQuery("SELECT fechaA FROM vs_InspM2 order by fechaA desc limit 1",null);
+					//if(cursor.moveToFirst())
+					//	fechaC = cursor.getString(0);
 					//System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
-					String dia = cal.get(Calendar.DATE) > 9 ?  String.valueOf(cal.get(Calendar.DATE)) : ("0" + cal.get(Calendar.DATE));
-					String mes = (cal.get(Calendar.MONTH) + 1) > 9 ? (String.valueOf(cal.get(Calendar.MONTH)) + 1) : "0" + (cal.get(Calendar.MONTH) + 1);
-					String f = dia + "/" + mes + "/" + cal.get(Calendar.YEAR);
-					Log.i("fechac",fechaC + " " + f);
+					//String dia = cal.get(Calendar.DATE) > 9 ?  String.valueOf(cal.get(Calendar.DATE)) : ("0" + cal.get(Calendar.DATE));
+					//String mes = (cal.get(Calendar.MONTH) + 1) > 9 ? (String.valueOf(cal.get(Calendar.MONTH)) + 1) : "0" + (cal.get(Calendar.MONTH) + 1);
+					//String f = dia + "/" + mes + "/" + cal.get(Calendar.YEAR);
+					//Log.i("fechac",fechaC + " " + f);
 					//Log.i("fechar",fechaR + " " + f);
-					if(fechaC.equalsIgnoreCase(f))
-						bc = true;
-					else
-						bc = false;
+					//if(fechaC.equalsIgnoreCase(f))
+						//bc = true;
+					//else
+						//bc = false;
 					//if(fechaR.equalsIgnoreCase(f))
 						//br = true;
 					//else
 					//	br = false;
 					//fechas = fechaR.split("/");
 					//fechaR = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
-                    if(fechaC.length() > 0) {
-                        fechas = fechaC.split("/");
-                        fechaC = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
-                    } else
-                        fechaC = "01/01/1970";
+                    //if(fechaC.length() > 0) {
+                      //  fechas = fechaC.split("/");
+                      //  fechaC = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
+                   // } else
+                      //  fechaC = "01/01/1970";
 					//System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
 					//reglamentos
 					/*if(!br) {
@@ -1468,7 +1516,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 						i++;
 					}*/
 					//Construccion
-					if(!bc) {
+					/*if(!bc) {
 						if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 							int x1;
 							c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getLicenciasConstruccion.php", "vs_InspM2", fechaC);
@@ -1483,7 +1531,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 						}
 						mProgressBar.setProgress(i);
 						i++;
-					}
+					}*/
 
 				}
 				msj = "Datos Actualizados";
@@ -2364,6 +2412,54 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			toast.show();
 		}
 
+	}
+	public class Sincronizar extends AsyncTask<String,Void,Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			mProgressBar.setVisibility(View.VISIBLE);
+		}
+
+		@Override
+		protected Boolean doInBackground(String... strings) {
+			ArrayList<NameValuePair> folio = new ArrayList<>();
+			folio.add(new BasicNameValuePair("id",strings[0]));
+			JSONObject json = jsonParser.realizarHttpRequest("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/ultimoFolio.php","GET",folio);
+			int estatus = 0;
+			try {
+				estatus = json.getInt("estatus");
+				if(estatus == 1)
+					Descarga.this.folio = json.getInt("folio")+1;
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			return estatus == 1;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean aBoolean) {
+			super.onPostExecute(aBoolean);
+			mProgressBar.setVisibility(View.GONE);
+			String m = "";
+			if(aBoolean) {
+				SharedPreferences.Editor editor = sp.edit();
+				if(folio == 1)
+					folio = min;
+				editor.putInt("folio", folio);
+				editor.apply();
+				editor.putInt("idIns",idIns);
+				editor.apply();
+				m = "Se sincronizo correctamente";
+				btnInfraccion.setEnabled(true);
+			}else {
+				btnInfraccion.setEnabled(false);
+				m = "Se sincronizo correctamente";
+			}
+			Toast toast = Toast.makeText(getApplicationContext(),m,Toast.LENGTH_SHORT);
+			toast.setGravity(0,0,15);
+			toast.show();
+		}
 	}
 
 }
