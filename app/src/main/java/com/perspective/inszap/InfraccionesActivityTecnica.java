@@ -113,6 +113,7 @@ import java.util.Set;
 public class InfraccionesActivityTecnica extends AppCompatActivity implements View.OnClickListener, Runnable, CompoundButton.OnCheckedChangeListener, AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
     static int id_inspectorQ=0;
     private Connection conect;
+    static String valW="";
     private Button btncopiar,btneliminarA,btnArticulos,btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
     private TextView tvfechap,tvfolioap,tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvCoordenada,tvPropiedad,spselec1;
     private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,unidades="",usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",clave = "",folio = "",fol = "";;
@@ -1266,7 +1267,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                 int n=0;
                 //final Descarga d= new Descarga();
-                if(infrac==1) {
+                if(infrac==1 ) {
                     int folio=0;
                     int max=0;
                     int min=0;
@@ -1321,31 +1322,36 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
                         System.out.println(foliox + "---");
-                        if (foliox > 0) {
-                            folio = foliox;
-                            etNumeroActa.setText(String.valueOf(folio));
+                        if(valW =="") {
+                            System.out.println(consultarActa()+"/GGGGG");
+                            if (foliox > 0) {
+                                folio = foliox;
+                                etNumeroActa.setText(String.valueOf(folio));
 
-                        } else if (folio == max) {
-                            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivityTecnica.this)
-                                    .setTitle(getResources().getString(R.string.avertencia))
-                                    .setMessage(getResources().getString(R.string.continuar))
-                                    .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            startService(new Intent(InfraccionesActivityTecnica.this, ClearFolios.class));
-                                        }
-                                    });
+                            } else if (folio == max) {
+                                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivityTecnica.this)
+                                        .setTitle(getResources().getString(R.string.avertencia))
+                                        .setMessage(getResources().getString(R.string.continuar))
+                                        .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                startService(new Intent(InfraccionesActivityTecnica.this, ClearFolios.class));
+                                            }
+                                        });
 
-                            builder.create().show();
+                                builder.create().show();
 
-                        } else {
-                            Log.v("folios ", folio + " " + min + " max");
-                            if(folio >= min & folio <= max) {
-                                folio = folio + 1;
-                            }else
-                                folio = min;
-                            etNumeroActa.setText(String.valueOf(folio));
+                            } else {
+                                Log.v("folios ", folio + " " + min + " max");
+                                if (folio >= min & folio <= max) {
+                                    folio = folio + 1;
+                                } else
+                                    folio = min;
+                                etNumeroActa.setText(String.valueOf(folio));
+                            }
                         }
+
+
 
 
                     } catch (SQLiteException e) {
@@ -1358,21 +1364,24 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     if(!citatorio){
                         String [] na;
                         if(consultarActa() == 0){
-                            Log.i("consultar", "si");
-                            numero = "01";
-                            etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
-                            Log.i("acta", "entro aqui");
-                            buscarNumeroActa();
-                            if (!numero_acta.isEmpty()) {
-                                if (na()) {
-                                    Log.i("acta", "entro aqui2");
-                                    //aqui consultar el ultimo y asignar
-                                    na = ultimo().split("/");
-                                    n = Integer.parseInt(na[6]) + 1;
-                                    numero = String.valueOf(n);
-                                    if (numero.length() == 1)
-                                        numero = "0" + n;
-                                    etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
+                            System.out.println(consultarActa()+"/GGGGG");
+                            if(infrac!=1) {
+                                Log.i("consultar", "si");
+                                numero = "01";
+                                etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
+                                Log.i("acta", "entro aqui");
+                                buscarNumeroActa();
+                                if (!numero_acta.isEmpty()) {
+                                    if (na()) {
+                                        Log.i("acta", "entro aqui2");
+                                        //aqui consultar el ultimo y asignar
+                                        na = ultimo().split("/");
+                                        n = Integer.parseInt(na[6]) + 1;
+                                        numero = String.valueOf(n);
+                                        if (numero.length() == 1)
+                                            numero = "0" + n;
+                                        etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
+                                    }
                                 }
                             }
                         }
@@ -1417,6 +1426,11 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         }
                     }
                 }
+
+
+
+                valW="";
+
 
 
 
@@ -1600,6 +1614,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     lldiv.setVisibility(View.VISIBLE);
                     consultarLevantamiento(spconsultar.getItemAtPosition(position).toString());
                     System.out.println("entro else consult");
+                    valW="y";
                     System.err.println(spconsultar.getSelectedItem().toString().substring(0, 2));
                     String ante = spconsultar.getSelectedItem().toString().substring(0, 2);
 
@@ -5280,7 +5295,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         try {
             if(db != null){
                 //Cursor c  = db.query("Levantamiento", null, "id_levantamiento", null, null, null, null);
-                Cursor c = db.rawQuery("select * from Levantamiento where id_c_direccion = '" + id + "'", null);
+                Cursor c = db.rawQuery("select * from Levantamiento where id_c_direccion = '" + id + "' and infraccion='"+infrac+"'", null);
                 if(c.moveToFirst()){
                     do {
                         r = true;
@@ -7229,7 +7244,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
         }
-        String sql = "SELECT distinct infraccion FROM c_infraccion WHERE " + articulo + " LIKE '%" + search + "%' and id_c_direccion = '" + id + "' and trim(vigente) = 'S' order by id_c_infraccion";
+        String sql = "SELECT distinct infraccion,"+articulo+" FROM c_infraccion WHERE " + articulo + " LIKE '%" + search + "%' and id_c_direccion = '" + id + "' and trim(vigente) = 'S' order by id_c_infraccion";
         Cursor cursor = db.rawQuery(sql, null);
         Log.v("sql",sql);
         arregloInfraccion.clear();
@@ -7239,7 +7254,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             arregloInfraccion1.add("");
             do{
                 arregloInfraccion.add(cursor.getString(0));
-                arregloInfraccion1.add(cursor.getString(0)+".- "+ cursor.getString(1));
+                arregloInfraccion1.add(cursor.getString(0)+" "+ cursor.getString(1));
                 Log.i("listado", "Infraccion: " + cursor.getString(0));
             }while(cursor.moveToNext());
         }

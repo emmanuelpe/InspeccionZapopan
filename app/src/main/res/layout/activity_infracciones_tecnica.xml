@@ -1291,7 +1291,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="70dp"
                                 android:enabled="false"
-                                android:hint="@string/ife"
+                                android:hint="@string/folio"
                                 android:imeOptions="actionNext"
                                 android:inputType="textCapSentences"></EditText>
 

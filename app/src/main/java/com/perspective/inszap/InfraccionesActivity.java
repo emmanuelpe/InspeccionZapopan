@@ -6609,8 +6609,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	
     	GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
     	SQLiteDatabase db = gestionarBD.getReadableDatabase();
+        Cursor  c=null;
     	try{
-	    	Cursor  c = db.rawQuery("SELECT * FROM C_inspector WHERE id_c_direccion = '" + id + "' AND nombre <> '" + us + "' AND nombre <> 'administrador' and trim(vigente) = 'S' order by nombre", null);
+    	    if(id==5)
+                 c = db.rawQuery("SELECT * FROM C_inspector WHERE  nombre <> '" + us + "' AND nombre <> 'administrador' and trim(vigente) = 'S' order by nombre", null);
+    	    else
+                 c = db.rawQuery("SELECT * FROM C_inspector WHERE id_c_direccion = '" + id + "' AND nombre <> '" + us + "' AND nombre <> 'administrador' and trim(vigente) = 'S' order by nombre", null);
+
+
 	    	//Cursor c = db.query("Inspectores", null, "id_inspector", null, null, null, null);
 	    	id_i2.clear();
 			id_i3.clear();
@@ -7522,7 +7528,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             }
 
 			if(id == 2 | id == 5)
-			    btnImprimirResum.setVisibility(View.VISIBLE);
+			    btnImprimirResum.setVisibility(View.GONE);
 			
 			break;
 			
@@ -15551,9 +15557,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 			final View view = inflater.inflate(R.layout.order, null);
 
-            String [] na = etNumeroActa.getText().toString().split("/");
-            Log.i("fecha", na[3] + "/" + na[4] + "/" + na[5]);
-            fecha = na[3] + "/" + na[4] + "/" + na[5];
+            SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
+            Date todayDate = new Date();
+            String thisDate = currentDate.format(todayDate);
+            String [] na = thisDate.split("/");
+            Log.i("fecha", na[0] + "/" + na[1] + "/" + na[2]);
+            fecha = na[0] + "/" + na[1] + "/" + na[2];
             String [] fechas = fecha.split("/");
             int dia, mes,a;
             String me;
@@ -15563,6 +15572,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
             dia = Integer.parseInt(fechas[0]);
             mes = Integer.parseInt(fechas[1]);
+            String an = fechas[2];
+            //a = Integer.parseInt(fechas[2].substring(2, 4));
+            a = Integer.parseInt(fechas[2]);
+            System.out.println("entro");
 			
 			TextView tvMulta = (TextView)view.findViewById(R.id.tvText);
 			tvMulta.setMovementMethod(new ScrollingMovementMethod());

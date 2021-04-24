@@ -647,7 +647,7 @@
 						android:id="@+id/etIfe"
 						android:layout_width="fill_parent"
 						android:layout_height="70dp"
-						android:hint="@string/ife"
+						android:hint="@string/folio"
 						android:inputType="textCapSentences"
 						android:enabled="false"
 						android:imeOptions="actionNext">

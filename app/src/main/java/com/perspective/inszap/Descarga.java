@@ -399,12 +399,15 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 					//}
 					/*else
 						msj = "Problemas con el servidor";*/
-				} else
+				} else{
 					msj = "No se encontro conexion a internet";
+					Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
+					toast.setGravity(0, 0, 15);
+					toast.show();
+				}
 
-				Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
-				toast.setGravity(0, 0, 15);
-				toast.show();
+
+
 			}
 		});
 
@@ -492,7 +495,12 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			Cursor cursor = db.rawQuery(sql, null);
 			if (cursor.moveToFirst()) {
 				do {
-					folio = cursor.getInt(0);
+					if(cursor.getString(0)==null){
+						folio=0;
+					}else{
+						folio = cursor.getInt(0);
+					}
+
 				} while (cursor.moveToNext());
 			}
 			cursor.close();
@@ -502,7 +510,12 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				do {
 					for (int i = 0; i < cursor.getColumnCount(); i++) {
 						System.err.println(cursor.getColumnName(i) + " " + cursor.getString(i));
-						min = Integer.parseInt(cursor.getString(i));
+						if(cursor.getString(i)==null || cursor.getString(i)=="" || cursor.getString(i).isEmpty()){
+							min=0;
+						}else{
+							min = Integer.parseInt(cursor.getString(i));
+						}
+
 					}
 				} while (cursor.moveToNext());
 			}
@@ -512,7 +525,12 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			cursor = db.rawQuery(sql, null);
 			if (cursor.moveToFirst()) {
 				do {
-					max = cursor.getInt(0);
+					if(cursor.getString(0)==null || cursor.getString(0)==""){
+						max=0;
+					}else{
+						max = cursor.getInt(0);
+					}
+
 				} while (cursor.moveToNext());
 			}
 			Log.v("folios", max + " " + folio);
@@ -522,7 +540,12 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			cursor = db.rawQuery(sql, null);
 			if (cursor.moveToFirst()) {
 				do {
-					next = cursor.getInt(0);
+					if(cursor.getString(0)==null || cursor.getString(0)==""){
+						next=0;
+					}else{
+						next = cursor.getInt(0);
+					}
+
 				} while (cursor.moveToNext());
 			}
 			Log.v("next", next + " ");
@@ -532,7 +555,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 
 		if(next == 0) {
 			if (colchon <= 5) {
-				if (folio > 0) {
+				if (folio >= 0) {
 					MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Descarga.this)
 							.setTitle(getResources().getString(R.string.actualizar_folios))
 							.setMessage(getResources().getString(R.string.esta_suguro))
@@ -2237,26 +2260,45 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				msj+=mensaje;
 				editor.putInt("values_cr",0);
 			} else{
-				msj=" Se actualizo correctamente ";
-				msj+=mensaje;
-				btnInfraccion.setVisibility(View.VISIBLE);
-				editor.putInt("values_cr",1);
+				if(msj.equals("No se pudo conectar con el servidor")){
+					AlertDialog.Builder builder =
+							new AlertDialog.Builder(Descarga.this);
 
-				AlertDialog.Builder builder =
-						new AlertDialog.Builder(Descarga.this);
+					builder.setMessage(msj)
+							.setTitle("Información")
+							.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int id) {
+									dialog.cancel();
+								}
+							});
 
-				builder.setMessage(msj)
-						.setTitle("Información")
-						.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								dialog.cancel();
-							}
-						});
+					builder.create().show();
+					Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
+					toast.setGravity(0, 0, 15);
+					toast.show();
+				}else{
+					msj=" Se actualizo correctamente ";
+					msj+=mensaje;
+					btnInfraccion.setVisibility(View.VISIBLE);
+					editor.putInt("values_cr",1);
 
-				builder.create().show();
-				Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
-				toast.setGravity(0, 0, 15);
-				toast.show();
+					AlertDialog.Builder builder =
+							new AlertDialog.Builder(Descarga.this);
+
+					builder.setMessage(msj)
+							.setTitle("Información")
+							.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int id) {
+									dialog.cancel();
+								}
+							});
+
+					builder.create().show();
+					Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
+					toast.setGravity(0, 0, 15);
+					toast.show();
+				}
+
 			}
 			editor.commit();
 
@@ -2340,7 +2382,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 
 		@Override
 		protected String doInBackground(String... params) {
-			if (!conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+			if (!conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor") ||!conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase(null)) {
 				//if (!conn.search("http://172.16.1.21/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
 				//if (!conn.search("http://192.168.0.15/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
 				if (conn.validarConexion(getApplicationContext())) {

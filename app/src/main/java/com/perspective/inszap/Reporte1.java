@@ -238,7 +238,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                                 totalF = cursor1.getInt(cursor1.getColumnIndex("Total"));
                                                 fotografias = cursor1.getString(cursor1.getColumnIndex("numero_acta"));
                                                 System.out.println("variable fotografias: "+fotografias);
-                                                if(fotografias.contains("IN")){
+                                                if(!fotografias.contains("OV")){
                                                     in[mov]=fotografias;
                                                     inT[mov]=totalF;
                                                     Log.e("fotografias: ", String.valueOf(totalF));
@@ -258,7 +258,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                             Log.e("fotografias: ", fotografias);
 
                                         }else{
-                                            if(arrSplit[f].contains("IN")){
+                                            if(!arrSplit[f].contains("OV")){
                                                 in[mov]=arrSplit[f];
                                                 inT[mov]=0;
 
@@ -719,9 +719,21 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, monthOfYear, dayOfMonth);
+        String f="";
         String mes = "";
         //mes = monthOfYear+1 > 9 ? String.valueOf( monthOfYear+1 ) : 0 + "" + (monthOfYear+1);
-        fecha = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+        if(monthOfYear>=10){
+
+        }else{
+             f="0"+String.valueOf(monthOfYear+1);
+
+        }
+        if(f!=""){
+            fecha = dayOfMonth + "/" + f + "/" + year;
+        }else{
+            fecha = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+        }
+       // fecha = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
         if (boton2 == 1 && boton1 == 0)
             updateDisplay1(edif2);
         boton2 = 0;
@@ -768,6 +780,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                 fotografias = "";
                 total = 0;
                 String sql = "select * from Levantamiento where fecha between '" + fecha1 + "' and '" + fecha2 + "' and id_c_inspector1="+MainActivity.id_ins_sesion;
+                System.out.println(sql);
                 Cursor cursor;
                 GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
                 SQLiteDatabase db = gestion.getReadableDatabase();
@@ -776,9 +789,11 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                     do {
                         total++;
                         numeros += "'" + cursor.getString(cursor.getColumnIndex("numero_acta")) + "',";
+
                         nal.add(cursor.getString(cursor.getColumnIndex("numero_acta")));
                     } while (cursor.moveToNext());
                 }
+                System.out.println(numeros);
                 if (!TextUtils.isEmpty(numeros)) {
                     numeros = numeros.substring(0, numeros.length() - 1);
                     Log.i("numeros", numeros);
