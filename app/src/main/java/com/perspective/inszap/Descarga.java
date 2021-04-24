@@ -401,6 +401,10 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 						msj = "Problemas con el servidor";*/
 				} else
 					msj = "No se encontro conexion a internet";
+
+				Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
+				toast.setGravity(0, 0, 15);
+				toast.show();
 			}
 		});
 
@@ -1236,14 +1240,14 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				mProgressBar.setProgress(i);
 
 				i++;
-				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_dia_no_habil.php").trim().equalsIgnoreCase("null")) {
+				/*if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_dia_no_habil.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("C_dia_no_habil");
 					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_dia_no_habil.php", "C_dia_no_habil");
 					x += sicrof("C_dia_no_habil", url,"0");
 					if (x>0){
 						mensaje=mensaje+" C_dia_no_habil";
 					}
-				}
+				}*/
 				mProgressBar.setProgress(i);
 				i++;
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_ley_ingesos.php").trim().equalsIgnoreCase("null")) {
@@ -1559,12 +1563,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 		if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
 			if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_insepctor.php").trim().equalsIgnoreCase("null")) {
 
-				if(this.id!=0){
-					ArrayList<NameValuePair> inspector = new ArrayList<>();
 
-					inspector.add(new BasicNameValuePair("numero", String.valueOf(this.id)));
-					JSONArray jsonArray = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getfoliolast.php", "POST",inspector);
-				}
 				if(c.cambiosT("C_inspector",fechasicro,url2)>0){
            	Log.e("entro en cambios","Yes C_inspector");
 			   x = sicrof("C_inspector", url,"1");
@@ -2242,23 +2241,25 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				msj+=mensaje;
 				btnInfraccion.setVisibility(View.VISIBLE);
 				editor.putInt("values_cr",1);
+
+				AlertDialog.Builder builder =
+						new AlertDialog.Builder(Descarga.this);
+
+				builder.setMessage(msj)
+						.setTitle("Información")
+						.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								dialog.cancel();
+							}
+						});
+
+				builder.create().show();
+				Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
+				toast.setGravity(0, 0, 15);
+				toast.show();
 			}
 			editor.commit();
-			AlertDialog.Builder builder =
-					new AlertDialog.Builder(Descarga.this);
 
-			builder.setMessage(msj)
-					.setTitle("Información")
-					.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int id) {
-							dialog.cancel();
-						}
-					});
-
-			builder.create().show();
-			Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
-			toast.setGravity(0, 0, 15);
-			toast.show();
 		}
 
 	}
@@ -2298,31 +2299,35 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			mProgressBar.setVisibility(View.INVISIBLE);
 			if (x>0){
 				btnInfraccion.setVisibility(View.GONE);
-				msj=" Se actualizo correctamente,";
-				msj+=mensaje+"si se bloquean los botones presione otra ves descarga de datos";
+				msj=" No se actualizo,";
+
 				editor.putInt("values_cr",1);
 			} else{
+				if(msj==null)
 				msj=" Se actualizo correctamente ";
+
+
 				msj+=mensaje;
 				btnInfraccion.setVisibility(View.VISIBLE);
 				editor.putInt("values_cr",1);
+				AlertDialog.Builder builder =
+						new AlertDialog.Builder(Descarga.this);
+
+				builder.setMessage(msj)
+						.setTitle("Información")
+						.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								dialog.cancel();
+							}
+						});
+
+				builder.create().show();
+				Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
+				toast.setGravity(0, 0, 15);
+				toast.show();
 			}
 			editor.commit();
-			AlertDialog.Builder builder =
-					new AlertDialog.Builder(Descarga.this);
 
-			builder.setMessage(msj)
-					.setTitle("Información")
-					.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int id) {
-							dialog.cancel();
-						}
-					});
-
-			builder.create().show();
-			Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
-			toast.setGravity(0, 0, 15);
-			toast.show();
 		}
 	}
 

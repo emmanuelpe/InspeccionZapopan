@@ -1280,7 +1280,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                 int n=0;
                 //final Descarga d= new Descarga();
-               if(infrac==1) {
+
+               if(infrac==1 ) {
                    int folio=0;
                    int max=0;
                    int min=0;
@@ -1335,31 +1336,36 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
                        System.out.println(foliox + "---");
-                       if (foliox > 0) {
-                           folio = foliox;
-                           etNumeroActa.setText(String.valueOf(folio));
+                       if(valW =="") {
+                           System.out.println(consultarActa()+"/GGGGG");
+                           if (foliox > 0) {
+                               folio = foliox;
+                               etNumeroActa.setText(String.valueOf(folio));
 
-                       } else if (folio == max) {
-                           MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivity.this)
-                                   .setTitle(getResources().getString(R.string.avertencia))
-                                   .setMessage(getResources().getString(R.string.continuar))
-                                   .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
-                                       @Override
-                                       public void onClick(DialogInterface dialog, int which) {
-                                           startService(new Intent(InfraccionesActivity.this, ClearFolios.class));
-                                       }
-                                   });
+                           } else if (folio == max) {
+                               MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivity.this)
+                                       .setTitle(getResources().getString(R.string.avertencia))
+                                       .setMessage(getResources().getString(R.string.continuar))
+                                       .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+                                           @Override
+                                           public void onClick(DialogInterface dialog, int which) {
+                                               startService(new Intent(InfraccionesActivity.this, ClearFolios.class));
+                                           }
+                                       });
 
-                           builder.create().show();
+                               builder.create().show();
 
-                       } else {
-                           Log.v("folios ", folio + " " + min + " max");
-                           if(folio >= min & folio <= max) {
-                               folio = folio + 1;
-                           }else
-                               folio = min;
-                           etNumeroActa.setText(String.valueOf(folio));
+                           } else {
+                               Log.v("folios ", folio + " " + min + " max");
+                               if (folio >= min & folio <= max) {
+                                   folio = folio + 1;
+                               } else
+                                   folio = min;
+                               etNumeroActa.setText(String.valueOf(folio));
+                           }
                        }
+
+
 
 
                    } catch (SQLiteException e) {
@@ -1372,21 +1378,24 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                    if(!citatorio){
                        String [] na;
                        if(consultarActa() == 0){
-                           Log.i("consultar", "si");
-                           numero = "01";
-                           etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
-                           Log.i("acta", "entro aqui");
-                           buscarNumeroActa();
-                           if (!numero_acta.isEmpty()) {
-                               if (na()) {
-                                   Log.i("acta", "entro aqui2");
-                                   //aqui consultar el ultimo y asignar
-                                   na = ultimo().split("/");
-                                   n = Integer.parseInt(na[6]) + 1;
-                                   numero = String.valueOf(n);
-                                   if (numero.length() == 1)
-                                       numero = "0" + n;
-                                   etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
+                           System.out.println(consultarActa()+"/GGGGG");
+                           if(infrac!=1) {
+                               Log.i("consultar", "si");
+                               numero = "01";
+                               etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
+                               Log.i("acta", "entro aqui");
+                               buscarNumeroActa();
+                               if (!numero_acta.isEmpty()) {
+                                   if (na()) {
+                                       Log.i("acta", "entro aqui2");
+                                       //aqui consultar el ultimo y asignar
+                                       na = ultimo().split("/");
+                                       n = Integer.parseInt(na[6]) + 1;
+                                       numero = String.valueOf(n);
+                                       if (numero.length() == 1)
+                                           numero = "0" + n;
+                                       etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
+                                   }
                                }
                            }
                        }
@@ -1434,69 +1443,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
 
-
+             valW="";
 				
-				/*if(!citatorio){
-					String [] na;
-					if(consultarActa() == 0){
-						Log.i("consultar", "si");
-						numero = "01";
-						etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
-                        Log.i("acta", "entro aqui");
-						buscarNumeroActa();
-						if (!numero_acta.isEmpty()) {
-							if (na()) {
-                                Log.i("acta", "entro aqui2");
-								//aqui consultar el ultimo y asignar
-								na = ultimo().split("/");
-								n = Integer.parseInt(na[6]) + 1;
-								numero = String.valueOf(n);
-								if (numero.length() == 1)
-									numero = "0" + n;
-								etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
-							}
-						}
-					}
-					else{
-                        Log.i("acta", "entro aqui3");
-						Log.i("consultar", "no");
-						asignarActa();
-						n = Integer.valueOf(numero)+1;
-						Log.i("Numero1", numero);
-						if(n > 0 & n <= 9){
-                            Log.i("acta", "entro aqui4");
-							numero = "0"+String.valueOf(n);
-							etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/"  + numero);
-							Log.i("numeros", "n " + etNumeroActa.getText().toString().substring(0, 16) + " v " + s.substring(0, 16));
-							if(!etNumeroActa.getText().toString().substring(0, 16).equalsIgnoreCase(s.substring(0, 16))){
-								Log.i("numero acta", "si");
-								numero = "01";
-                                Log.i("acta", "entro aqui5");
-								etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
-								Log.i("nueva ", InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + infrac + "/" + numero);
-							}
-						}
-						else{
-                            Log.i("acta", "entro aqui6");
-							numero = String.valueOf(n);
-							etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/"  + numero);
-						}
-						
-						buscarNumeroActa();
-						if (!numero_acta.isEmpty()) {
-							if (na()) {
-                                Log.i("acta", "entro aqui");
-								//aqui consultar el ultimo y asignar
-								na = ultimo().split("/");
-								n = Integer.parseInt(na[6]) + 1;
-								numero = String.valueOf(n);
-								if (numero.length() == 1)
-									numero = "0" + n;
-								etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
-							}
-						}
-					}
-				}*/
+
 			}
 			
 
@@ -1676,7 +1625,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					lldiv.setVisibility(View.VISIBLE);
 					consultarLevantamiento(spconsultar.getItemAtPosition(position).toString());
 					System.out.println("entro else consult");
-					valW=spconsultar.getItemAtPosition(position).toString();
+					valW="y";
 					//System.err.println(spconsultar.getSelectedItem().toString().substring(0, 2));
 					//String ante = spconsultar.getSelectedItem().toString().substring(0, 2);
 					
@@ -5720,7 +5669,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	try {
 			if(db != null){
 				//Cursor c  = db.query("Levantamiento", null, "id_levantamiento", null, null, null, null);
-				Cursor c = db.rawQuery("select * from Levantamiento where id_c_direccion = '" + id + "'", null);
+				Cursor c = db.rawQuery("select * from Levantamiento where id_c_direccion = '" + id + "' and infraccion='"+infrac+"'", null);
 				if(c.moveToFirst()){
 					do {
 						r = true;
