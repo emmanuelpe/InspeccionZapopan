@@ -206,6 +206,13 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		} else {
 			btnConsultarLicenciaC.setEnabled(false);
 		}
+		if (direccion.trim().contains("Tecnica")) {
+			btnConsultarL.setEnabled(false);
+			btnConsultar.setEnabled(false);
+			btnConfig.setEnabled(false);
+			btnUpdate.setEnabled(false);
+
+		}
 
 
 		editor = sp.edit();
