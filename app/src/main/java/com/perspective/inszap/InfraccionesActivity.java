@@ -2684,6 +2684,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							text += (!camp18.equals("")) ? camp18 + " " + campo18 + ";" : "";
 							text += (!camp19.equals("")) ? camp19 + " " + campo19 + ";" : "";
 							text += (!camp20.equals("")) ? camp20 + " " + campo20 + ";" : "";
+
+                            System.out.println( camp20 + " " + campo20 + ";");
+                            System.out.println(text);
 							
 							/*text += (!codi.equals("")) ? "Articulo(s) " + codi + " " + cod + ";" : "";
 							text += (!zoni.equals("")) ? "Articulo(s) " + zoni + " "  + zon + ";" : "";
@@ -3256,8 +3259,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         spCreglamentos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println(position);
                 if(!spCreglamentos.getItemAtPosition(position).toString().equals("Buscar en Todos los reglamentos")){
-                    System.out.println(position);
+
                     System.out.println(arregloCreglamentosx.get(position));;
                     reglamentoC =arregloCreglamentosx.get(position);
                     Axmedidas+="'"+arregloCreglamentosx.get(position)+"',";
@@ -5357,7 +5361,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	if(db != null) {
             Cursor cursor;
     	    if(id==5)
-    	        cursor = db.rawQuery("select * from C_ordenamiento where id_c_direccion = " + 2, null);
+    	        cursor = db.rawQuery("select * from C_ordenamiento ", null);
     	    else
                 cursor = db.rawQuery("select * from C_ordenamiento where id_c_direccion = " + id, null);
     		try {
@@ -7096,13 +7100,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             }
                         }
 
+
                     }
                 }
                 Log.i("codigo", "c1 " + c1 + " c2 " + c2 + " c3 " + c3 + " c4 " + c4 + " c5 " + c5 + "c6 " + c6 + " c7 " + c7 + " c8 " + c8 + " c9 " + c9 + " c0 " + c0 + " c11 " + c11 + " c12 " + c12 + " c13 " + c13 + " c14 " + c14 + " c15 " + c15 + " c16 " + c16 + " c17 " + c17 + " c18 " + c18 + " c19 " + c19 + " c20 " + c20);
                 Log.i("Info", "cod: " + c.getString(4) + " ord: " + c.getString(6) + " lap: " + c.getString(7) + " ordenamiento_ " + c.getString(8) + " n " + c.getString(9) + " l " + c.getString(10));
             } while (c.moveToNext());
             c.close();
-            if (id == 12) {
+            if (id == 5) {
                 medidas(cam);
                 adapter.notifyDataSetChanged();
             }
@@ -7146,7 +7151,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	try{
             Cursor c;
             if(id == 5)
-                c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE id_c_direccion = " + 2, null);
+                c = db.rawQuery("SELECT * FROM C_Ordenamiento  ", null);
             else
                 c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE id_c_direccion = " + id, null);
 
@@ -7177,7 +7182,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    		try{
                     Cursor c;
 	    		    if(id == 5) {
-	    		        c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) + "' and id_c_direccion = '" + 2 + "'", null);
+	    		        c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) , null);
                         Log.i("quer", "SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) + "' and id_c_direccion = '" + 2 + "'");
                         Log.i("i", i + "");
                     } else {
@@ -7228,6 +7233,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			    				campo19 = c.getString(1);
 			    			else if(i == 19)
 			    				campo20 = c.getString(1);
+			    			else
+                                campo20 = c.getString(1);
 			    			
 			    			System.out.println(campo5);
 			    		}while(c.moveToNext());
@@ -7807,7 +7814,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
         }
-        String sql = "SELECT distinct infraccion,"+articulo+" FROM c_infraccion WHERE " + articulo + " LIKE '%" + search + "%' and id_c_direccion = '" + id + "' and trim(vigente) = 'S' order by id_c_infraccion";
+        String sql="";
+        if(id==5){
+            sql = "SELECT distinct infraccion," + articulo + " FROM c_infraccion WHERE " + articulo + " LIKE '%" + search + "%' and trim(vigente) = 'S' order by id_c_infraccion";
+        }else {
+            sql = "SELECT distinct infraccion," + articulo + " FROM c_infraccion WHERE " + articulo + " LIKE '%" + search + "%' and id_c_direccion = '" + id + "' and trim(vigente) = 'S' order by id_c_infraccion";
+        }
         Cursor cursor = db.rawQuery(sql, null);
         Log.v("sql",sql);
         arregloInfraccion.clear();
@@ -14517,7 +14529,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	public void buscarInfraccionL(String search) {
 		GestionBD gestionar = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
 		SQLiteDatabase db = gestionar.getReadableDatabase();
-		Cursor cursor;
+		Cursor cursor = null;
         String textofiltro="";
         String Vyu="";
         Log.e("campo",reglamentoC);
@@ -14531,8 +14543,15 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
        }else{
             textofiltro=" ";
         }
-
-
+        String[] recorte=null;
+       String armado="";
+        if(search.trim().contains(" ")){
+            String replaceString=search.trim().replace(' ','/');
+            System.out.println("asignar/ "+replaceString);
+            recorte=replaceString.split("/");
+            Vyu="length(rtrim("+reglamentoC.trim()+")) >2";
+            
+        }
 
 
 
@@ -14540,35 +14559,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         Log.e("id", String.valueOf(id));
 
 
-		/*if(TextUtils.isEmpty(search)) {
-		    if(id == 5) {
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+" and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ", null);
-                Log.e("sql", "SELECT * FROM c_infraccion WHERE "+textofiltro+"  and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ");
-            } else {
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+" and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
-                Log.e("sql", "SELECT * FROM c_infraccion WHERE "+textofiltro+" and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ");
-            }
-		}
-		else {
-		    if(isNumeric(search.trim()))
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE (id_c_infraccion = " + search + ") and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
-		    else
-                //cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE (infraccion  LIKE '%" + search + "%') and id_c_direccion = '" + id + "' AND vigente = 'S' COLLATE NOACCENTS order by infraccion; ", null);
-            if(id == 5) {
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+" REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " +
-                        "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ", null);
-                Log.e("sql", "SELECT * FROM c_infraccion WHERE "+textofiltro+"  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') = " +
-                        "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('" + search + "'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ");
-            } else {
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+" REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " +
-                        "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
-                Log.e("sql", "SELECT * FROM c_infraccion WHERE "+textofiltro+"  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') = " +
-                        "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('" + search + "'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ");
-            }
-        }*/
+
         if(reglamentoC=="Buscar en Todos los reglamentos" && search.equals("") ||reglamentoC==" " && search.equals("") ){
             if(id==5){
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
+                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE  vigente = 'S' order by infraccion; ", null);
                 Log.i("entro 1 if:","entro");
             }else{
 
@@ -14579,7 +14573,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         }else if(reglamentoC=="Buscar en Todos los reglamentos" && !search.equals("") || reglamentoC==" " && !search.equals("") ){
 
             if(id==5){
-                cursor = db.rawQuery("SELECT * FROM c_infraccion where REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n')  like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
+                cursor = db.rawQuery("SELECT * FROM c_infraccion where REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n')  like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and  vigente = 'S' order by infraccion; ", null);
                 Log.i("entro 2 if:","entro");
             }else{
                 cursor = db.rawQuery("SELECT * FROM c_infraccion where REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n')  like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
@@ -14588,19 +14582,53 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
         }
         else{
-            if(id==5){
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+"  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n')   AND vigente = 'S' order by infraccion; ", null);
-                Log.i("entro else:","entro");
-                //Log.i("query:",);
-            }else{
-                if(textofiltro.equals("length(rtrim(reg_policia)) >2 and")){
-                    cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+"  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion in( '" + id + "','" + 3 + "') AND vigente = 'S' order by infraccion; ", null);
-                    Log.i("entro else:","entro");
-                }else{
-                    cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+"  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "'  AND vigente = 'S' order by infraccion; ", null);
-                    Log.i("entro else:","entro");
-                }
+            if(recorte!=null) {
+                if (recorte.length > 1) {
+                    for (int i = 0; i < recorte.length; i++) {
+                        if (recorte.length - i == 1) {
+                            armado +=   "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like"  + "  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + recorte[i] + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n')  ";
+                        } else {
+                            armado += " REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + recorte[i] + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') or ";
+                        }
+                    }
 
+
+                    if (id == 5) {
+                        cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE " + textofiltro + "   REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + armado + " AND vigente = 'S' order by infraccion ; ", null);
+                        Log.i("entro else:", "entro");
+                        Log.i("query:", armado);
+                    } else {
+                        if (textofiltro.equals("length(rtrim(reg_policia)) >2 and")) {
+                            cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE " + textofiltro + "  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + armado + " and id_c_direccion in( '" + id + "','" + 3 + "') AND vigente = 'S' order by infraccion ; ", null);
+                            Log.i("entro else:", "entro");
+                            Log.i("query:", armado);
+                        } else {
+                            cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE " + textofiltro + "  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + armado + " and id_c_direccion = '" + id + "'  AND vigente = 'S' order by infraccion; ", null);
+                            Log.i("entro else:", "entro");
+                            Log.i("query:", armado);
+                        }
+
+                    }
+
+
+                }
+            }else {
+
+
+                if (id == 5) {
+                    cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE " + textofiltro + "  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like  " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n')   AND vigente = 'S' order by infraccion; ", null);
+                    Log.i("entro else:", "entro2");
+                    //Log.i("query:",);
+                } else {
+                    if (textofiltro.equals("length(rtrim(reg_policia)) >2 and")) {
+                        cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE " + textofiltro + "  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion in( '" + id + "','" + 3 + "') AND vigente = 'S' order by infraccion; ", null);
+                        Log.i("entro else:", "entro2");
+                    } else {
+                        cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE " + textofiltro + "  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "'  AND vigente = 'S' order by infraccion; ", null);
+                        Log.i("entro else:", "entro2");
+                    }
+
+                }
             }
 
 
@@ -14615,7 +14643,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     			if(cursor.getString(cursor.getColumnIndex("vigente")).trim().equalsIgnoreCase("S")) {
                     id_hecho.add(cursor.getInt(0));
                     Log.i("listado", "reglamento: " + reglamentoC);
-                    if(textofiltro.length()<1){
+                    if(textofiltro.length()<1 || textofiltro.isEmpty() || textofiltro==""|| reglamentoC.isEmpty() || reglamentoC=="" || reglamentoC==null ){
                         arregloInfraccion.add(cursor.getString(2));
                         arregloInfraccion1.add(cursor.getString(2) );
                         //Log.i("listado", "Infraccion: " + cursor.getString(2));
