@@ -1285,6 +1285,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                    int folio=0;
                    int max=0;
                    int min=0;
+                   int next_max=0;
+                   int next_min=0;
                    Log.i("id inspector", id_inspector1 + "");
 
                    GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
@@ -1331,6 +1333,38 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                } while (c3.moveToNext());
                            }
                        }
+                       Cursor c4 = db.rawQuery("SELECT  next_max FROM C_inspector where id_c_inspector= '" + id_inspector1 + "'  LIMIT 1", null);
+                       if (db != null) {
+                           if (c4.moveToFirst()) {
+                               do {
+                                   for (int i = 0; i < c4.getColumnCount(); i++) {
+                                       System.err.println(c4.getColumnName(i) + " " + c4.getString(i));
+                                       if(c4.getString(i).isEmpty() ||  c4.getString(i)==null || c4.getString(i)=="" ){
+                                           next_max=0;
+                                       }else{
+                                           next_max = Integer.parseInt(c4.getString(i));
+                                       }
+
+                                   }
+                               } while (c4.moveToNext());
+                           }
+                       }
+                       Cursor c5 = db.rawQuery("SELECT  next_min FROM C_inspector where id_c_inspector= '" + id_inspector1 + "'  LIMIT 1", null);
+                       if (db != null) {
+                           if (c5.moveToFirst()) {
+                               do {
+                                   for (int i = 0; i < c5.getColumnCount(); i++) {
+                                       System.err.println(c5.getColumnName(i) + " " + c5.getString(i));
+                                       if(c5.getString(i).isEmpty() ||  c5.getString(i)==null || c5.getString(i)=="" ){
+                                           next_min=0;
+                                       }else{
+                                           next_min = Integer.parseInt(c5.getString(i));
+                                       }
+
+                                   }
+                               } while (c5.moveToNext());
+                           }
+                       }
                        sp = getSharedPreferences("infracciones", Context.MODE_PRIVATE);
                        foliox = sp.getInt("folio",0);
 
@@ -1342,22 +1376,34 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                folio = foliox;
                                etNumeroActa.setText(String.valueOf(folio));
 
-                           } else if (folio == max) {
-                               MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivity.this)
-                                       .setTitle(getResources().getString(R.string.avertencia))
-                                       .setMessage(getResources().getString(R.string.continuar))
-                                       .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
-                                           @Override
-                                           public void onClick(DialogInterface dialog, int which) {
-                                               startService(new Intent(InfraccionesActivity.this, ClearFolios.class));
-                                           }
-                                       });
+                           } else if (folio>=next_min && folio<=next_max) {
+                               if(folio==next_max) {
 
-                               builder.create().show();
+
+                                   MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivity.this)
+                                           .setTitle(getResources().getString(R.string.avertencia))
+                                           .setMessage(getResources().getString(R.string.continuar))
+                                           .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+                                               @Override
+                                               public void onClick(DialogInterface dialog, int which) {
+                                                   startService(new Intent(InfraccionesActivity.this, ClearFolios.class));
+                                                   finish();
+                                               }
+                                           });
+
+                                   builder.create().show();
+                               }else{
+                                   Log.v("folios ", folio + " " + next_max + " next_max");
+                                   if (folio >= next_min && folio <= next_max) {
+                                       folio = folio + 1;
+                                   } else
+                                       folio = next_min;
+                                   etNumeroActa.setText(String.valueOf(folio));
+                               }
 
                            } else {
-                               Log.v("folios ", folio + " " + min + " max");
-                               if (folio >= min & folio <= max) {
+                               Log.v("folios ", folio + " " + max + " max");
+                               if (folio >= min && folio <= max) {
                                    folio = folio + 1;
                                } else
                                    folio = min;
@@ -2267,7 +2313,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							
 							rlcampo.setVisibility(View.GONE);
 							dato = "";
-							if(id==5 || id==2  ){
+							if(id==5){
                                 Log.e("Axmedidas", Axmedidas);
                                 medidas2(Axmedidas);
                             }
@@ -5161,6 +5207,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     cMedidaC.add("");
 
                     do {
+                        Log.i("entro1",cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim());
                         campos.add(cursor.getString(cursor.getColumnIndex("campo")));
                         cmedida.add(cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim() + " " + cursor.getString(cursor.getColumnIndex("ordenamiento")).trim());
                         cMedidaC.add(cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim());
@@ -5186,7 +5233,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 db.close();
                 Log.v("change", "ok");
                 adapter.notifyDataSetChanged();
-                spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida));
+                if(id==5) {
+                    spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida));
+                }
                 if(id==4){
                     adapter.notifyDataSetChanged();
                     spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cMedidaC));
@@ -6495,7 +6544,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 sb.append("Ingrese un acompañante \n");
                 valid = false;
             }
-    	    if(id==4){
+    	    if(id==4 || id==5 ||id==2 || id==3){
                 if(etfolioclau.isShown()){
                     if(validarCampos(this.etfolioclau)){
                         sb.append("Ingrese folio de clausura. \n");
@@ -7432,10 +7481,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		case R.id.radioOrdenV:
 			inicio();
 			infrac = 2;
-			if(id == 2 || id == 3  || id == 5)
-				rlProp.setVisibility(View.VISIBLE);
-
-			else
+			if(id == 2 || id == 3  || id == 5) {
+                rlProp.setVisibility(View.VISIBLE);
+                tvfechap.setVisibility(View.GONE);
+                etfechap.setVisibility(View.GONE);
+            }else
 				rlProp.setVisibility(View.GONE);
 			rlTestA.setVisibility(View.GONE);
 			rlVisita.setVisibility(View.GONE);
@@ -7465,6 +7515,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             rgPopiedad.setVisibility(View.GONE);
 
             cbFirma.setVisibility(View.VISIBLE);
+            tvfechap.setVisibility(View.GONE);
+            etfechap.setVisibility(View.GONE);
 
 
 			if(id == 4) {
@@ -7500,6 +7552,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 tvReg.setVisibility(View.GONE);
                 llfundamento.setVisibility(View.GONE);
                 etDondeActua.setVisibility(View.GONE);
+                tvfechap.setVisibility(View.GONE);
+                etfechap.setVisibility(View.GONE);
             }
 			if(id == 2 | id == 5) {
                 System.out.println("entro a quitar componentes");
@@ -7507,7 +7561,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 llfundamento.setVisibility(View.GONE);
                 //etCondominio.setVisibility(View.GONE);
                 //tvCondominio.setVisibility(View.GONE);
-
+                tvfechap.setVisibility(View.GONE);
+                etfechap.setVisibility(View.GONE);
                 tvPropietario.setText("NOMBRE Y/O RAZON SOCIAL");
                 etDondeActua.setVisibility(View.GONE);
                 rlLicencias.setVisibility(View.GONE);
@@ -7521,6 +7576,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 tvfolioap.setVisibility(View.VISIBLE);
                 etfechap.setVisibility(View.VISIBLE);
                 etfolioap.setVisibility(View.VISIBLE);
+                tvfechap.setVisibility(View.GONE);
+                etfechap.setVisibility(View.GONE);
 
 
             }
@@ -7818,7 +7875,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         if(id==5){
             sql = "SELECT distinct infraccion," + articulo + " FROM c_infraccion WHERE " + articulo + " LIKE '%" + search + "%' and trim(vigente) = 'S' order by id_c_infraccion";
         }else {
-            sql = "SELECT distinct infraccion," + articulo + " FROM c_infraccion WHERE " + articulo + " LIKE '%" + search + "%' and id_c_direccion = '" + id + "' and trim(vigente) = 'S' order by id_c_infraccion";
+            sql = "SELECT distinct infraccion," + articulo + " FROM c_infraccion WHERE " + articulo + " LIKE '%" + search + "%'  and trim(vigente) = 'S' order by id_c_infraccion";
         }
         Cursor cursor = db.rawQuery(sql, null);
         Log.v("sql",sql);

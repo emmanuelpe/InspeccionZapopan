@@ -490,7 +490,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			SQLiteDatabase db = gestion.getReadableDatabase();
 
 
-			String sql = "SELECT max(numero_acta) FROM Levantamiento where id_c_inspector1 = " + id;
+			String sql = "SELECT max(numero_acta) FROM Levantamiento where id_c_inspector1 = " + id +" and infraccion=1";
 			Log.v("sql", sql);
 			Cursor cursor = db.rawQuery(sql, null);
 			if (cursor.moveToFirst()) {
@@ -551,6 +551,8 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			Log.v("next", next + " ");
 			cursor.close();
 			colchon = max - folio;
+
+		System.out.println("colchon : gg :"+ max +"-"+colchon);
 
 
 		if(next == 0) {

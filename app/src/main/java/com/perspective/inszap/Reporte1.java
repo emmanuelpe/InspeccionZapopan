@@ -722,12 +722,12 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
         String f="";
         String mes = "";
         //mes = monthOfYear+1 > 9 ? String.valueOf( monthOfYear+1 ) : 0 + "" + (monthOfYear+1);
-        if(monthOfYear>=10){
+        /*if(monthOfYear>=10){
 
         }else{
-             f="0"+String.valueOf(monthOfYear+1);
+             f="0"+ (monthOfYear + 1);
 
-        }
+        }*/
         if(f!=""){
             fecha = dayOfMonth + "/" + f + "/" + year;
         }else{
@@ -788,6 +788,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                 if (cursor.moveToFirst()) {
                     do {
                         total++;
+                        System.out.println(cursor.getString(cursor.getColumnIndex("numero_acta")));
                         numeros += "'" + cursor.getString(cursor.getColumnIndex("numero_acta")) + "',";
 
                         nal.add(cursor.getString(cursor.getColumnIndex("numero_acta")));
