@@ -2481,6 +2481,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 		protected Boolean doInBackground(String... strings) {
 			ArrayList<NameValuePair> folio = new ArrayList<>();
 			folio.add(new BasicNameValuePair("id",strings[0]));
+
 			JSONObject json = jsonParser.realizarHttpRequest("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/ultimoFolio.php","GET",folio);
 			int estatus = 0;
 			try {
@@ -2490,7 +2491,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			return estatus == 1;
+			return estatus==1;
 		}
 
 		@Override
@@ -2510,7 +2511,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				btnInfraccion.setEnabled(true);
 			}else {
 				btnInfraccion.setEnabled(false);
-				m = "Se sincronizo correctamente";
+				m = "No se sincronizo correctamente compruebe su conexion";
 			}
 			Toast toast = Toast.makeText(getApplicationContext(),m,Toast.LENGTH_SHORT);
 			toast.setGravity(0,0,15);

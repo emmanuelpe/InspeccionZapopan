@@ -1368,16 +1368,16 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         if(valW =="") {
                             System.out.println(consultarActa()+"/GGGGG");
                             if (foliox > 0) {
+                                folio = foliox;
+                                etNumeroActa.setText(String.valueOf(folio));
 
-                                    folio = foliox;
-                                    etNumeroActa.setText(String.valueOf(folio));
-
-
-
-                            } else if (folio>=next_min && folio<=next_max) {
-                                if(folio==next_max) {
-
-
+                            }else {
+                                Log.v("folios ", folio + " " + max + " max");
+                                if (folio >= min && folio <= max) {
+                                    folio = folio + 1;
+                                } else if(folio==0 && next_max==0 && next_min==0) {
+                                    folio = min;
+                                }else if(folio==max && folio<=next_min){
                                     MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivityTecnica.this)
                                             .setTitle(getResources().getString(R.string.avertencia))
                                             .setMessage(getResources().getString(R.string.continuar))
@@ -1390,25 +1390,26 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                             });
 
                                     builder.create().show();
-                                }else{
-                                    Log.v("folios ", folio + " " + next_max + " next_max");
-                                    if (folio >= next_min && folio < next_max) {
-                                        folio = folio + 1;
-                                    } else
-                                        folio = next_min;
-                                    etNumeroActa.setText(String.valueOf(folio));
+                                }else if(folio >= next_min && folio <= next_max && folio>max){
+                                    folio = folio + 1;
+                                }else if(folio==next_max && folio>0 && next_max>0){
+                                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivityTecnica.this)
+                                            .setTitle(getResources().getString(R.string.avertencia))
+                                            .setMessage(getResources().getString(R.string.continuar))
+                                            .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    startService(new Intent(InfraccionesActivityTecnica.this, ClearFolios.class));
+                                                    finish();
+                                                }
+                                            });
+
+                                    builder.create().show();
                                 }
 
-                            } else {
-                                Log.v("folios ", folio + " " + max + " max");
-                                if (folio >= min && folio <= max) {
-                                    folio = folio + 1;
-                                } else
-                                    folio = min;
                                 etNumeroActa.setText(String.valueOf(folio));
                             }
                         }
-
 
 
 
@@ -1723,7 +1724,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         buscarInfraccion(arregloInfraccion.get(position));
                         if (!desc) {
                             etDesc.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("")) {
+                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().equalsIgnoreCase("UNICO")|| !unidad.trim().equalsIgnoreCase("unico") )) {
                                 Log.i("uni bd", unidad);
                                 String un[];
                                 un = unidad.split(",");
@@ -1755,7 +1756,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             co++;
                         } else if (!desc1) {
                             etDesc1.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("")) {
+                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().equalsIgnoreCase("UNICO")|| !unidad.trim().equalsIgnoreCase("unico") )) {
                                 String un[];
                                 un = unidad.split(",");
                                 unis1.clear();
@@ -1784,7 +1785,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             co++;
                         } else if (!desc2) {
                             etDesc2.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("")) {
+                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().equalsIgnoreCase("UNICO")|| !unidad.trim().equalsIgnoreCase("unico") )) {
                                 String un[];
                                 un = unidad.split(",");
                                 unis2.clear();
@@ -1813,7 +1814,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             co++;
                         } else if (!desc3) {
                             etDesc3.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("")) {
+                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().equalsIgnoreCase("UNICO")|| !unidad.trim().equalsIgnoreCase("unico") )) {
                                 String un[];
                                 un = unidad.split(",");
                                 unis3.clear();
@@ -1842,7 +1843,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             co++;
                         } else {
                             etDesc4.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("")) {
+                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().equalsIgnoreCase("UNICO")|| !unidad.trim().equalsIgnoreCase("unico") )) {
                                 String un[];
                                 un = unidad.split(",");
                                 unis4.clear();
