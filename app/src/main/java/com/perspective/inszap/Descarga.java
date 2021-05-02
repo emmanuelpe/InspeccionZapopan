@@ -2486,10 +2486,12 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			int estatus = 0;
 			try {
 				estatus = json.getInt("estatus");
+				System.out.println(estatus+"ESTATUS:::");
 				if(estatus == 1)
 					Descarga.this.folio = json.getInt("folio")+1;
 			} catch (JSONException e) {
 				e.printStackTrace();
+				return false;
 			}
 			return estatus==1;
 		}
@@ -2499,6 +2501,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			super.onPostExecute(aBoolean);
 			mProgressBar.setVisibility(View.GONE);
 			String m = "";
+			System.out.println(aBoolean);
 			if(aBoolean) {
 				SharedPreferences.Editor editor = sp.edit();
 				if(folio == 1)
@@ -2509,9 +2512,12 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				editor.apply();
 				m = "Se sincronizo correctamente";
 				btnInfraccion.setEnabled(true);
+				System.out.println("entro si");
 			}else {
 				btnInfraccion.setEnabled(false);
-				m = "No se sincronizo correctamente compruebe su conexion";
+				m = "No se sincronizo correctamente";
+				System.out.println("entro no");
+
 			}
 			Toast toast = Toast.makeText(getApplicationContext(),m,Toast.LENGTH_SHORT);
 			toast.setGravity(0,0,15);
