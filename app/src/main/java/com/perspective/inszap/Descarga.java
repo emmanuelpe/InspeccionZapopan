@@ -201,7 +201,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		}
 
 		if (direccion.trim().contains("Construcc")) {
-			btnConsultarLicenciaC.setEnabled(false);
+			btnConsultarLicenciaC.setEnabled(true);
 			btnConsultarL.setVisibility(View.GONE);
 		} else {
 			btnConsultarLicenciaC.setEnabled(false);
@@ -250,8 +250,14 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 							.setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
-									if(Connection.validarConexion(Descarga.this))
+									if(Connection.validarConexion(Descarga.this)) {
 										new Sincronizar().execute(String.valueOf(idIns));
+									}else{
+										String mensjae="No hay conexion a internet!!";
+										Toast toast = Toast.makeText(Descarga.this, mensjae, Toast.LENGTH_SHORT);
+										toast.setGravity(0, 0, 15);
+										toast.show();
+									}
 								}
 							});
 					builder.create().show();
@@ -1477,27 +1483,27 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 					//mProgressBar.setProgress(i);
 					//i++;
 
-					/*if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
+					if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 						eliminaRegistros("vs_InspM2");
 						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/get_vs_InspM21.php", "vs_InspM2");
 						//x += sicrof("vs_InspM21", url);
 
 					}
 					mProgressBar.setProgress(i);
-					i++;*/
-					/*if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
+					i++;
+					if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 						//eliminaRegistros("vs_InspM2");
 						int x1;
 						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/get_vs_InspM22.php", "vs_InspM2");
-						x1 = c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
+						//x1 = c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
 
 						Cursor c2 = db.rawQuery("SELECT * FROM " + "vs_InspM2", null);
 						z = c2.getCount();
-						if (x1 > z) {
+						/*if (x1 > z) {
 							x++;
 							mensaje += mensaje + " vs_InspM2 " + c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
-						}
-					}*/
+						}*/
+					}
 					mProgressBar.setProgress(i);
 					i++;
 				} else {
@@ -2492,6 +2498,9 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			} catch (JSONException e) {
 				e.printStackTrace();
 				return false;
+			} catch (NullPointerException e){
+				e.printStackTrace();
+				return false;
 			}
 			return estatus==1;
 		}
@@ -2515,7 +2524,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				System.out.println("entro si");
 			}else {
 				btnInfraccion.setEnabled(false);
-				m = "No se sincronizo correctamente";
+				m = "No se sincronizo correctamente. Revise su conexion a internet!!";
 				System.out.println("entro no");
 
 			}
