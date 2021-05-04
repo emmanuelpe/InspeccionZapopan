@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,7 +127,7 @@ public class ConsultarLicenciaConstruccion extends AppCompatActivity implements 
             if(c.moveToFirst()){
                 Log.i("no", c.getCount() + "");
                 do{
-                    datos.add("IdLicencia:" + c.getString(c.getColumnIndex("IdLicencia")) + " Propietario:" + c.getString(c.getColumnIndex("NombrePropietario")) + " Calle:" + c.getString(c.getColumnIndex("Calle")) + " Número:" + c.getString(c.getColumnIndex("Numero")) + " Fraccionamiento:" + c.getString(c.getColumnIndex("Fraccionamiento")) + " Giro:" + c.getString(c.getColumnIndex("GiroConstruccionLic")) + " m2:" + c.getString(c.getColumnIndex("m2")) + " m3:" + c.getString(c.getColumnIndex("m3"))+ " mL:" + c.getString(c.getColumnIndex("mL")));
+                    datos.add("IdLicencia:" + c.getString(c.getColumnIndex("IdLicencia")) + " Propietario:" + c.getString(c.getColumnIndex("NombrePropietario")) + " Calle:" + c.getString(c.getColumnIndex("Calle")) + " Número:" + c.getString(c.getColumnIndex("Numero")) + " Fraccionamiento:" + c.getString(c.getColumnIndex("Fraccionamiento")) + " Giro:" + c.getString(c.getColumnIndex("GiroConstruccionLic")) + " m2:" +c.getString(c.getColumnIndex("m2")));
                 }while(c.moveToNext());
 
             }

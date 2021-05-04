@@ -1453,59 +1453,51 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 
 				i++;
 
-				if(values_cr.equalsIgnoreCase("0")) {
-					/*if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
-						eliminaRegistros("v_LicenciasReglamentos");
-						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getLicReg1.php", "v_LicenciasReglamentos");
-						//x += sicrof("v_LicenciasReglamentos", url);
+				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
+					eliminaRegistros("vs_InspM2");
+					int x1;
+					Log.e("ENTRO", "insertar: LICENCIAS CONSTRUCCION" );
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/get_vs_InspM22.php", "vs_InspM2");
+					//x1 = c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
 
-					}
-					mProgressBar.setProgress(i);
-					i++;
-
-					if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
-						//eliminaRegistros("v_LicenciasReglamentos");
-						int x1;
-						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getLicReg2.php", "v_LicenciasReglamentos");
-						x1 = c.validar3("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros.php", "parametros");
-
-						Cursor c2 = db.rawQuery("SELECT * FROM " + "v_LicenciasReglamentos", null);
-						//System.out.println(c2.getCount());
-
-						z = c2.getCount();
-						//mensaje+=x1+" x tabla v_LicenciasReglamentos  "+z+ " z tabla v_LicenciasReglamentos";
-						if (x1 > z) {
-							x++;
-							mensaje += mensaje + " v_LicenciasReglamentos " + c.validar3("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros.php", "parametros");
-						}
-
-					}*/
-					//mProgressBar.setProgress(i);
-					//i++;
-
-					if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
-						eliminaRegistros("vs_InspM2");
-						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/get_vs_InspM21.php", "vs_InspM2");
-						//x += sicrof("vs_InspM21", url);
-
-					}
-					mProgressBar.setProgress(i);
-					i++;
-					if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
-						//eliminaRegistros("vs_InspM2");
-						int x1;
-						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/get_vs_InspM22.php", "vs_InspM2");
-						//x1 = c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
-
-						Cursor c2 = db.rawQuery("SELECT * FROM " + "vs_InspM2", null);
-						z = c2.getCount();
+					//Cursor c2 = db.rawQuery("SELECT * FROM " + "vs_InspM2", null);
+					//z = c2.getCount();
 						/*if (x1 > z) {
 							x++;
 							mensaje += mensaje + " vs_InspM2 " + c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
 						}*/
+				}
+				mProgressBar.setProgress(i);
+				i++;
+
+
+
+				if(values_cr.equalsIgnoreCase("0")) {
+
+					/*if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
+						eliminaRegistros("vs_InspM2");
+						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/get_vs_InspM21.php", "vs_InspM2");
+						//x += sicrof("vs_InspM21", url);
+
+					}*/
+					/*mProgressBar.setProgress(i);
+					i++;
+					if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
+						//eliminaRegistros("vs_InspM2");
+						int x1;
+						Log.e("ENTRO", "insertar: LICENCIAS CONSTRUCCION" );
+						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/get_vs_InspM22.php", "vs_InspM2");
+						//x1 = c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
+
+						//Cursor c2 = db.rawQuery("SELECT * FROM " + "vs_InspM2", null);
+						//z = c2.getCount();
+						/*if (x1 > z) {
+							x++;
+							mensaje += mensaje + " vs_InspM2 " + c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
+						}
 					}
 					mProgressBar.setProgress(i);
-					i++;
+					i++;*/
 				} else {
 					//String fechaR = "",fechaC = "";
 					//String fechas [];

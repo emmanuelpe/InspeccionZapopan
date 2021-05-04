@@ -2418,6 +2418,29 @@
 									android:text="@string/medida"
 									android:layout_gravity="center" 
 									style="@style/Subtitle"/>
+								<TextView
+									android:id="@+id/tvfudamentoEx"
+									style="@style/Subtitle"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_below="@id/etinfraccion"
+									android:layout_gravity="center"
+									android:text="@string/fundamentoEx"
+									android:visibility="gone"/>
+								<EditText
+									android:id="@+id/etfudamentoEx"
+									android:layout_width="fill_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@id/etinfraccion"
+									android:layout_toRightOf="@id/tvfudamentoEx"
+									android:background="@color/white"
+									android:enabled="true"
+									android:gravity="fill"
+									android:hint="@string/fundamentoEx"
+									android:inputType="textMultiLine|textCapSentences"
+									android:textSize="16sp"
+									android:textStyle="bold"
+									android:visibility="gone"/>
 
 								<Spinner android:id="@+id/spMedida"
 									android:layout_width="fill_parent"

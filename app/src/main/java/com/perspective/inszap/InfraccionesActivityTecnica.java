@@ -1093,7 +1093,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(!spCreglamentos.getItemAtPosition(position).toString().equals("Buscar en Todos los reglamentos")){
-                    if(position==1){
+                    if(spCreglamentos.getItemAtPosition(position).toString().contains("Anuncios")){
                         System.out.println("entro a campos ggg");
                         tvfudamentoEx.setVisibility(View.VISIBLE);
                         etfudamentoEx.setVisibility(View.VISIBLE);
