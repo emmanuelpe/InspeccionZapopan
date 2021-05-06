@@ -558,11 +558,11 @@
 									android:id="@+id/etNombreComercia"
 									android:layout_width="fill_parent"
 									android:layout_height="70dp"
-									android:inputType="textCapWords"
+									android:inputType="textCapWords|textMultiLine"
 									android:hint="@string/nombre_comercial"
 									android:imeOptions="actionNext"
 									android:visibility="visible"
-									android:maxLength="50"/>
+									android:maxLength="1500"/>
 							    
 					    	</LinearLayout>
 					    
@@ -2467,7 +2467,7 @@
 									android:inputType="textMultiLine|textCapSentences"
 									android:enabled="true"
 									android:visibility="gone"
-									android:maxLength="49"/>
+									android:maxLength="1500"/>
 
 								<EditText
 									android:id="@+id/etDecomiso"
@@ -2478,7 +2478,7 @@
 									android:inputType="textMultiLine|textCapSentences"
 									android:enabled="true"
 									android:visibility="gone"
-									android:maxLength="499"/>
+									android:maxLength="600"/>
 
 								<LinearLayout
 									android:id="@+id/llfundamento"

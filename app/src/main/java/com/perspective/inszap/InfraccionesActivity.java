@@ -1731,7 +1731,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         buscarInfraccion(arregloInfraccion.get(position));
                         if (!desc) {
                             etDesc.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().equalsIgnoreCase("UNICO")|| !unidad.trim().equalsIgnoreCase("unico") )) {
+                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().contains("UNICO")|| !unidad.trim().contains("unico") )) {
                                 Log.i("uni bd", unidad);
                                 String un[];
                                 un = unidad.split(",");
@@ -1763,7 +1763,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             co++;
                         } else if (!desc1) {
                             etDesc1.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().equalsIgnoreCase("UNICO")|| !unidad.trim().equalsIgnoreCase("unico") )) {
+                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().contains("UNICO")|| !unidad.trim().contains("unico") )) {
                                 String un[];
                                 un = unidad.split(",");
                                 unis1.clear();
@@ -1792,7 +1792,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             co++;
                         } else if (!desc2) {
                             etDesc2.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().equalsIgnoreCase("UNICO")|| !unidad.trim().equalsIgnoreCase("unico") )) {
+                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().contains("UNICO")|| !unidad.trim().contains("unico") )) {
                                 String un[];
                                 un = unidad.split(",");
                                 unis2.clear();
@@ -1821,7 +1821,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             co++;
                         } else if (!desc3) {
                             etDesc3.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().equalsIgnoreCase("UNICO")|| !unidad.trim().equalsIgnoreCase("unico") )) {
+                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().contains("UNICO")|| !unidad.trim().contains("unico") )) {
                                 String un[];
                                 un = unidad.split(",");
                                 unis3.clear();
@@ -1850,7 +1850,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             co++;
                         } else {
                             etDesc4.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().equalsIgnoreCase("UNICO")|| !unidad.trim().equalsIgnoreCase("unico") )) {
+                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().contains("UNICO")|| !unidad.trim().contains("unico") )) {
                                 String un[];
                                 un = unidad.split(",");
                                 unis4.clear();
@@ -4301,7 +4301,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 //if (!conn.search("http://172.16.1.21/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
                 //if (!conn.search("http://192.168.0.15/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
                 //if (conn.validarConexion(getApplicationContext()))
-                    guardar();
+            
+            guardar();
             //}
             return null;
         }
@@ -10772,7 +10773,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					doc.add(new Paragraph(" ",new Font(Font.HELVETICA,8.25f,Color.BLACK)));
 					
 					//p = new Paragraph("  " + spnombre.getSelectedItem().toString() + ", " + spNombreA.getSelectedItem().toString() + "," + spNombreA1.getSelectedItem().toString() + "," + spNombreA2.getSelectedItem().toString()+ "," + spNombreA3.getSelectedItem().toString()+ "," + spNombreA4.getSelectedItem().toString(),font1);
-                   String []txt3 = Justificar.justifocarTexto1(insp, 123);
+                   String []txt3 = Justificar.justifocarTexto1(insp, 119);
                     float li2 = 530+c;
 
                     for (int i = 0; i < txt3.length; i++) {
@@ -10786,7 +10787,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         canvas.endText();
                         canvas.restoreState();
 
-                        li2-=11;
+                        li2-=9.5;
                     }
 
                     //p = new Paragraph("" + insp,new Font(Font.HELVETICA,9.35f,Color.BLACK));
