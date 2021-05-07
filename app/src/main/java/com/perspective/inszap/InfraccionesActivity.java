@@ -114,7 +114,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     static int id_inspectorQ=0;
     static String valW="";
 	private Button btncopiar,btneliminarA,btnArticulos,btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
-	private TextView tvfudamentoEx,tvfechaClau,tvfolioclau,tvfechap,tvfolioap,tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvPropiedad,spselec1,tvDonde;
+	private TextView tvBuscar,tvfudamentoEx,tvfechaClau,tvfolioclau,tvfechap,tvfolioap,tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvPropiedad,spselec1,tvDonde;
 	private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",unidades="",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",fracciones = "",articulos = "",folio = "",clave = "",fol = "",Axmedidas="",concatM="";;
 	private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:"; 
 	private int banderagiro=0, mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0,tipoEntrega = 0;
@@ -607,7 +607,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         spCreglamentos=findViewById(R.id.spCreglamento);
 
         etDecomiso=findViewById(R.id.etDecomiso);
-
+        tvBuscar=findViewById(R.id.tvBuscar);
         btnBusArt = findViewById(R.id.btnBusArt);
         tilArticulo = findViewById(R.id.tilArticulo);
         etArti = findViewById(R.id.etArticulo);
@@ -1302,7 +1302,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                do {
                                    for (int i = 0; i < c.getColumnCount(); i++) {
                                        System.err.println(c.getColumnName(i) + " " + c.getString(i));
-                                       if(c.getString(i).isEmpty() ||  c.getString(i)==null || c.getString(i)=="" ){
+                                       if(c.getString(i).equals("") ||c.getString(i).isEmpty() ||  c.getString(i)==null || c.getString(i)=="" ){
                                            folio=0;
                                        }else{
                                            folio = Integer.parseInt(c.getString(i));
@@ -1318,7 +1318,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                do {
                                    for (int i = 0; i < c2.getColumnCount(); i++) {
                                        System.err.println(c2.getColumnName(i) + " " + c2.getString(i));
-                                       max = Integer.parseInt(c2.getString(i));
+                                       if(c2.getString(i).equals("") ||c2.getString(i).isEmpty() ||  c2.getString(i)==null || c2.getString(i)=="" ) {
+
+                                           max = 0;
+                                       }else{
+                                           max = Integer.parseInt(c2.getString(i));
+                                       }
                                    }
                                } while (c2.moveToNext());
                            }
@@ -1329,7 +1334,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                do {
                                    for (int i = 0; i < c3.getColumnCount(); i++) {
                                        System.err.println(c3.getColumnName(i) + " " + c3.getString(i));
-                                       min = Integer.parseInt(c3.getString(i));
+                                       if(c3.getString(i).equals("") ||c3.getString(i).isEmpty() ||  c3.getString(i)==null || c3.getString(i)=="" ) {
+
+                                           min=0;
+                                       }else{
+                                           min = Integer.parseInt(c3.getString(i));
+                                       }
                                    }
                                } while (c3.moveToNext());
                            }
@@ -1731,7 +1741,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         buscarInfraccion(arregloInfraccion.get(position));
                         if (!desc) {
                             etDesc.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().contains("UNICO")|| !unidad.trim().contains("unico") )) {
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
                                 Log.i("uni bd", unidad);
                                 String un[];
                                 un = unidad.split(",");
@@ -1763,7 +1773,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             co++;
                         } else if (!desc1) {
                             etDesc1.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().contains("UNICO")|| !unidad.trim().contains("unico") )) {
+                            if ( !unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
                                 String un[];
                                 un = unidad.split(",");
                                 unis1.clear();
@@ -1792,7 +1802,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             co++;
                         } else if (!desc2) {
                             etDesc2.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().contains("UNICO")|| !unidad.trim().contains("unico") )) {
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
                                 String un[];
                                 un = unidad.split(",");
                                 unis2.clear();
@@ -1821,7 +1831,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             co++;
                         } else if (!desc3) {
                             etDesc3.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().contains("UNICO")|| !unidad.trim().contains("unico") )) {
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
                                 String un[];
                                 un = unidad.split(",");
                                 unis3.clear();
@@ -1850,7 +1860,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             co++;
                         } else {
                             etDesc4.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("") && (!unidad.trim().contains("UNICO")|| !unidad.trim().contains("unico") )) {
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
                                 String un[];
                                 un = unidad.split(",");
                                 unis4.clear();
@@ -7659,6 +7669,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			llconcepto.setVisibility(View.GONE);
 
             if(id == 4) {
+                tvBuscar.setVisibility((View.GONE));
+                tilArticulo.setVisibility(View.GONE);
+                btnBusArt.setVisibility(View.GONE);
+
                 etNombreComercial.setHint("Nombre del Propietario o Representante Legal");
                 tvNombreComercial.setText("Nombre del Propietario o Representante Legal");
                 etReferencia.setVisibility(View.GONE);
