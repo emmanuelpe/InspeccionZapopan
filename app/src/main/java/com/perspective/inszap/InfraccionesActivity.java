@@ -2505,63 +2505,32 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							camp20 = (!camp20.equals("")) ? camp20 : "";
 
 							String text2="";
-                            text2 += (!camp1.equals("")) ? camp1 + " " + campo1 + ";" : "";
-                            text2 += (!camp2.equals("")) ? camp2 + " " + campo2 + ";" : "";
-                            text2 += (!camp3.equals("")) ? camp3 + " " + campo3 + ";" : "";
-                            text2 += (!camp4.equals("")) ? camp4 + " " + campo4 + ";" : "";
-                            text2 += (!camp5.equals("")) ? camp5 + " " + campo5 + ";" : "";
 
-                            text2 += (!camp6.equals("")) ? camp6 + " " + campo6 + ";" : "";
-                            text2 += (!camp7.equals("")) ? camp7 + " " + campo7 + ";" : "";
-                            text2 += (!camp8.equals("")) ? camp8 + " " + campo8 + ";" : "";
-                            text2 += (!camp9.equals("")) ? camp9 + " " + campo9 + ";" : "";
-                            text2 += (!camp0.equals("")) ? camp0 + " " + campo0 + ";" : "";
+                            text2 += (!camp1.equals("")) ? campo1 + " " + camp1 +" ": "";
+                            text2 += (!camp2.equals("")) ? campo2 + " " + camp2 +" ": "";
+                            text2 += (!camp3.equals("")) ? campo3 + " " + camp3 +" ": "";
+                            text2 += (!camp4.equals("")) ? campo4 + " " + camp4 +" ": "";
+                            text2 += (!camp5.equals("")) ? campo5 + " " + camp5 +" ": "";
+                            text2 += (!camp6.equals("")) ? campo6 + " " + camp6 +" ": "";
+                            text2 += (!camp7.equals("")) ? campo7 + " " + camp7 +" ": "";
+                            text2 += (!camp8.equals("")) ? campo8 + " " + camp8 +" ": "";
+                            text2 += (!camp9.equals("")) ? campo9 + " " + camp9 +" ": "";
+                            text2 += (!camp0.equals("")) ? campo0 + " " + camp0 +" ": "";
+                            text2 += (!camp11.equals("")) ? campo11 + " " + camp11 +" ": "";
+                            text2 += (!camp12.equals("")) ? campo12 + " " + camp12 +" ": "";
+                            text2 += (!camp13.equals("")) ? campo13 + " " + camp13 +" ": "";
+                            text2 += (!camp14.equals("")) ? campo14 + " " + camp14 +" ": "";
+                            text2 += (!camp15.equals("")) ? campo15 + " " + camp15 +" ": "";
+                            text2 += (!camp16.equals("")) ? campo16 + " " + camp16 +" ": "";
+                            text2 += (!camp17.equals("")) ? campo17 + " " + camp17 +" ": "";
+                            text2 += (!camp18.equals("")) ? campo18 + " " + camp18 +" ": "";
+                            text2 += (!camp19.equals("")) ? campo19 + " " + camp19 +" ": "";
+                            text2 += (!camp20.equals("")) ? campo20 + " " + camp20 +" ": "";
 
-                            text2 += (!camp11.equals("")) ? camp11 + " " + campo11 + ";" : "";
-                            text2 += (!camp12.equals("")) ? camp12 + " " + campo12 + ";" : "";
-                            text2 += (!camp13.equals("")) ? camp13 + " " + campo13 + ";" : "";
-                            text2 += (!camp14.equals("")) ? camp14 + " " + campo14 + ";" : "";
 
-                            text2 += (!camp15.equals("")) ? camp15 + " " + campo15 + ";" : "";
-                            text2 += (!camp16.equals("")) ? camp16 + " " + campo16 + ";" : "";
-                            text2 += (!camp17.equals("")) ? camp17 + " " + campo17 + ";" : "";
-                            text2 += (!camp18.equals("")) ? camp18 + " " + campo18 + ";" : "";
-                            text2 += (!camp19.equals("")) ? camp19 + " " + campo19 + ";" : "";
-                            text2 += (!camp20.equals("")) ? camp20 + " " + campo20 + ";" : "";
-							
-							/*codi = (!codi.equals("")) ? ordenar(codi) : "";
-							zoni = (!zoni.equals("")) ? ordenar(zoni) : "";
-							regla = (!regla.equals("")) ? ordenar(regla) : "";
-							l = (!l.equals("")) ? ordenar(l) : "";
-							oe = (!oe.equals("")) ? ordenar(oe) : "";
-							ne = (!ne.equals("")) ? ordenar(ne) : "";
-							leeep = (!leeep.equals("")) ? ordenar(leeep) : "";*/
-							
-							/*text += (!camp1.equals("")) ? "Articulo(s) " + camp1 + " " + campo1 + ";" : "";
-							text += (!camp2.equals("")) ? "Articulo(s) " + camp2 + " " + campo2 + ";" : "";
-							text += (!camp3.equals("")) ? "Articulo(s) " + camp3 + " " + campo3 + ";" : "";
-							text += (!camp4.equals("")) ? "Articulo(s) " + camp4 + " " + campo4 + ";" : "";
-							text += (!camp5.equals("")) ? "Articulo(s) " + camp5 + " " + campo5 + ";" : "";
-							
-							text += (!camp6.equals("")) ? "Articulo(s) " + camp6 + " " + campo6 + ";" : "";
-							text += (!camp7.equals("")) ? "Articulo(s) " + camp7 + " " + campo7 + ";" : "";
-							text += (!camp8.equals("")) ? "Articulo(s) " + camp8 + " " + campo8 + ";" : "";
-							text += (!camp9.equals("")) ? "Articulo(s) " + camp9 + " " + campo9 + ";" : "";
-							text += (!camp0.equals("")) ? "Articulo(s) " + camp0 + " " + campo0 + ";" : "";
-							
-							text += (!camp11.equals("")) ? "Articulo(s) " + camp11 + " " + campo11 + ";" : "";
-							text += (!camp12.equals("")) ? "Articulo(s) " + camp12 + " " + campo12 + ";" : "";
-							text += (!camp13.equals("")) ? "Articulo(s) " + camp13 + " " + campo13 + ";" : "";
-							text += (!camp14.equals("")) ? "Articulo(s) " + camp14 + " " + campo14 + ";" : "";
-							
-							text += (!camp15.equals("")) ? "Articulo(s) " + camp15 + " " + campo15 + ";" : "";
-							text += (!camp16.equals("")) ? "Articulo(s) " + camp16 + " " + campo16 + ";" : "";
-							text += (!camp17.equals("")) ? "Articulo(s) " + camp17 + " " + campo17 + ";" : "";
-							text += (!camp18.equals("")) ? "Articulo(s) " + camp18 + " " + campo18 + ";" : "";
-							text += (!camp19.equals("")) ? "Articulo(s) " + camp19 + " " + campo19 + ";" : "";
-							text += (!camp20.equals("")) ? "Articulo(s) " + camp20 + " " + campo20 + ";" : "";*/
                             GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
                             SQLiteDatabase db = gestion.getReadableDatabase();
+
                             if(!camp1.equalsIgnoreCase("")){
                                 if(camp1.contains("-")|| camp1.contains("cimo") ||camp1.contains("eno") ||camp1.contains("avo") ||camp1.contains("timo") ||camp1.contains("ex") ||camp1.contains("int") ||camp1.contains("uar") ||camp1.contains("er") ||camp1.contains("eg") ||camp1.contains("rim") ||camp1.contains("Quater") ||camp1.contains("num") || camp1.contains("inc")  || camp1.contains(")") || camp1.contains("párrafo")|| camp1.contains("Bis")|| camp1.contains("Apartado")){
 
@@ -2778,23 +2747,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							text += (!camp19.equals("")) ? camp19 + " " + campo19 + ";" : "";
 							text += (!camp20.equals("")) ? camp20 + " " + campo20 + ";" : "";
 
-                            System.out.println( camp20 + " " + campo20 + ";");
-                            System.out.println(text);
 
-                            text2 = algoritmoRem(text2);
-							/*text += (!codi.equals("")) ? "Articulo(s) " + codi + " " + cod + ";" : "";
-							text += (!zoni.equals("")) ? "Articulo(s) " + zoni + " "  + zon + ";" : "";
-							text += (!regla.equals("")) ? "Articulo(s) " + regla + " "  + reg +";" : "";
-							text += (!l.equals("")) ? "Articulo(s) " + l + la + ";": "";
-							text += (!oe.equals("")) ? "Articulo(s) " + oe + ordeco + ";" : "";
-							text += (!ne.equals("")) ? "Articulo(s) " + ne + na + ";" : "";
-							text += (!leeep.equals("")) ? "Articulo(s) " + leeep + lee + ";" : "";*/
+                            System.out.println("EJEMPLO:"+camp20 + " " + campo20 + ";");
+                            System.out.println("EJEMPLO:"+text);
 
-                            System.out.println(text2);
-							System.out.println(text);
+                            System.out.println("+++++TEXT2:"+text2+"++++++++++++++");
+                            String articulos = algoritmoRem(text2);
+                            System.out.println("+++++ALGORITMO: "+text2+"++++++");
+
+//							System.out.println(text);
 							Log.i("text", text);
 							etEspecificacion.setEnabled(false);
-							etInfraccion.setText(text);
+							etInfraccion.setText(articulos);
 							btnaceptar.setVisibility(View.GONE);
 							btnmodificar.setVisibility(View.VISIBLE);
 							spInfraccion.setEnabled(false); 
@@ -2815,7 +2779,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							len += txt.length;
 							txt = Justificar.justifocarTexto(hech);
 							len += txt.length;
-							txt = Justificar.justifocarTexto(text);
+							txt = Justificar.justifocarTexto(articulos);
 							len += txt.length;
 							txt = Justificar.justifocarTexto(DECLARA);
 							len += txt.length;
@@ -3455,6 +3419,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
     //Busca en la cadena que contengan reglamento
     private int buscarReglamento(String cadena, String subcadena, int inicio){
+        int reglamento;
+        int buscar;
+
         if(subcadena.contains("Reglamento")){
             return cadena.indexOf("Reglamento", inicio);
         } else
@@ -6841,49 +6808,49 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     		id_hechos += id_infra + ",";
     	}
     	if(!c1.trim().equalsIgnoreCase("")) 
-			camp1 += this.reglamentoSP.getSelectedItem().toString()+":"+c1+",";
+			camp1 += c1+",";
 		if(!c2.trim().equalsIgnoreCase(""))
-			camp2 += this.reglamentoSP.getSelectedItem().toString()+":"+c2+",";
+			camp2 += c2+",";
 		if(!c3.trim().equalsIgnoreCase(""))
-			camp3 += this.reglamentoSP.getSelectedItem().toString()+":"+c3+",";
+			camp3 += c3+",";
 		if(!c4.trim().equalsIgnoreCase(""))
-			camp4 += this.reglamentoSP.getSelectedItem().toString()+":"+c4+",";
+			camp4 += c4+",";
 		if(!c5.trim().equalsIgnoreCase(""))
-			camp5 += this.reglamentoSP.getSelectedItem().toString()+":"+c5+",";
+			camp5 += c5+",";
 		
 		if(!c6.trim().equalsIgnoreCase("")) 
-			camp6 += this.reglamentoSP.getSelectedItem().toString()+":"+c6+",";
+			camp6 += c6+",";
 		if(!c7.trim().equalsIgnoreCase(""))
-			camp7 += this.reglamentoSP.getSelectedItem().toString()+":"+c7+",";
+			camp7 += c7+",";
 		if(!c8.trim().equalsIgnoreCase(""))
-			camp8 += this.reglamentoSP.getSelectedItem().toString()+":"+c8+",";
+			camp8 += c8+",";
 		if(!c9.trim().equalsIgnoreCase(""))
-			camp9 += this.reglamentoSP.getSelectedItem().toString()+":"+c9+",";
+			camp9 += c9+",";
 		if(!c0.trim().equalsIgnoreCase(""))
-			camp0 += this.reglamentoSP.getSelectedItem().toString()+":"+c0+",";
+			camp0 += c0+",";
 		
 		if(!c11.trim().equalsIgnoreCase(""))
-			camp11 += this.reglamentoSP.getSelectedItem().toString()+":"+c11+",";
+			camp11 += c11+",";
 		if(!c12.trim().equalsIgnoreCase(""))
-			camp12 += this.reglamentoSP.getSelectedItem().toString()+":"+c12+",";
+			camp12 += c12+",";
 		if(!c13.trim().equalsIgnoreCase(""))
-			camp13 += this.reglamentoSP.getSelectedItem().toString()+":"+c13+",";
+			camp13 += c13+",";
 		if(!c14.trim().equalsIgnoreCase(""))
-			camp14 += this.reglamentoSP.getSelectedItem().toString()+":"+c14+",";
+			camp14 += c14+",";
 		
 		if(!c15.trim().equalsIgnoreCase(""))
-			camp15 += this.reglamentoSP.getSelectedItem().toString()+":"+c15+",";
+			camp15 += c15+",";
 		if(!c16.trim().equalsIgnoreCase(""))
-			camp16 += this.reglamentoSP.getSelectedItem().toString()+":"+c16+",";
+			camp16 += c16+",";
 		if(!c17.trim().equalsIgnoreCase(""))
-			camp17 += this.reglamentoSP.getSelectedItem().toString()+":"+c17+",";
+			camp17 += c17+",";
 		if(!c18.trim().equalsIgnoreCase(""))
-			camp18 += this.reglamentoSP.getSelectedItem().toString()+":"+c18+",";
+			camp18 += c18+",";
 		if(!c19.trim().equalsIgnoreCase(""))
-			camp19 += this.reglamentoSP.getSelectedItem().toString()+":"+c19+",";
+			camp19 += c19+",";
 		if(!c20.trim().equalsIgnoreCase(""))
-			camp20 += this.reglamentoSP.getSelectedItem().toString()+":"+c20+",";
-		
+			camp20 += c20+",";
+
 		System.out.println("CAMPOS " + c1 + " " + c2 + " " + c3 + " " + c4 + " "  + c5 + c6 + " " + c7 + " " + c8 + " " + c9 + " "  + c0 + " " + c11 + " " + c12 + " " + c13 + " "  + c14);
 		Log.e("valores",camp1);
 
@@ -7281,7 +7248,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     
     
     public void buscarInfraccion(String nom){
-    	
+        System.out.println(this.reglamentoSP);
     	GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
     	SQLiteDatabase db = gestionarBD.getReadableDatabase();
     	String cam = "";

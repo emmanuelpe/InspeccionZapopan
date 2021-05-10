@@ -28,7 +28,8 @@ public class MapaReglamentos {
         ArrayList<Articulo> listaArticulos;
         for(String reglamento : reglamentos){
             listaArticulos = this.mapaReglamentos.get(reglamento);
-            cadena+=reglamento+": ";
+            if(listaArticulos.size()!=0)
+                cadena+=reglamento+": ";
             for(Articulo art : listaArticulos){
                 cadena += art.getDescripcion()+", ";
             }
