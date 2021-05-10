@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.HashMap;
@@ -222,7 +223,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     private SharedPreferences sp;
     private int foliox = 0;
 
-	@Override
+    private MapaReglamentos mr = new MapaReglamentos();
+    private Spinner reglamentoSP;
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_infracciones);
@@ -305,6 +309,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             	Log.i("Levantamiento", "False");
     		}
         }
+
+        this.reglamentoSP = (Spinner)findViewById(R.id.spCreglamento);
         
         this.btnFecha = (Button)findViewById(R.id.btnFecha);
         this.btncopiar=(Button)findViewById(R.id.btnCopiar);
@@ -2497,6 +2503,31 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							camp18 = (!camp18.equals("")) ? camp18 : "";
 							camp19 = (!camp19.equals("")) ? camp19 : "";
 							camp20 = (!camp20.equals("")) ? camp20 : "";
+
+							String text2="";
+                            text2 += (!camp1.equals("")) ? camp1 + " " + campo1 + ";" : "";
+                            text2 += (!camp2.equals("")) ? camp2 + " " + campo2 + ";" : "";
+                            text2 += (!camp3.equals("")) ? camp3 + " " + campo3 + ";" : "";
+                            text2 += (!camp4.equals("")) ? camp4 + " " + campo4 + ";" : "";
+                            text2 += (!camp5.equals("")) ? camp5 + " " + campo5 + ";" : "";
+
+                            text2 += (!camp6.equals("")) ? camp6 + " " + campo6 + ";" : "";
+                            text2 += (!camp7.equals("")) ? camp7 + " " + campo7 + ";" : "";
+                            text2 += (!camp8.equals("")) ? camp8 + " " + campo8 + ";" : "";
+                            text2 += (!camp9.equals("")) ? camp9 + " " + campo9 + ";" : "";
+                            text2 += (!camp0.equals("")) ? camp0 + " " + campo0 + ";" : "";
+
+                            text2 += (!camp11.equals("")) ? camp11 + " " + campo11 + ";" : "";
+                            text2 += (!camp12.equals("")) ? camp12 + " " + campo12 + ";" : "";
+                            text2 += (!camp13.equals("")) ? camp13 + " " + campo13 + ";" : "";
+                            text2 += (!camp14.equals("")) ? camp14 + " " + campo14 + ";" : "";
+
+                            text2 += (!camp15.equals("")) ? camp15 + " " + campo15 + ";" : "";
+                            text2 += (!camp16.equals("")) ? camp16 + " " + campo16 + ";" : "";
+                            text2 += (!camp17.equals("")) ? camp17 + " " + campo17 + ";" : "";
+                            text2 += (!camp18.equals("")) ? camp18 + " " + campo18 + ";" : "";
+                            text2 += (!camp19.equals("")) ? camp19 + " " + campo19 + ";" : "";
+                            text2 += (!camp20.equals("")) ? camp20 + " " + campo20 + ";" : "";
 							
 							/*codi = (!codi.equals("")) ? ordenar(codi) : "";
 							zoni = (!zoni.equals("")) ? ordenar(zoni) : "";
@@ -2749,7 +2780,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                             System.out.println( camp20 + " " + campo20 + ";");
                             System.out.println(text);
-							
+
+                            text2 = algoritmoRem(text2);
 							/*text += (!codi.equals("")) ? "Articulo(s) " + codi + " " + cod + ";" : "";
 							text += (!zoni.equals("")) ? "Articulo(s) " + zoni + " "  + zon + ";" : "";
 							text += (!regla.equals("")) ? "Articulo(s) " + regla + " "  + reg +";" : "";
@@ -2757,8 +2789,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							text += (!oe.equals("")) ? "Articulo(s) " + oe + ordeco + ";" : "";
 							text += (!ne.equals("")) ? "Articulo(s) " + ne + na + ";" : "";
 							text += (!leeep.equals("")) ? "Articulo(s) " + leeep + lee + ";" : "";*/
-							
-							
+
+                            System.out.println(text2);
 							System.out.println(text);
 							Log.i("text", text);
 							etEspecificacion.setEnabled(false);
@@ -3447,7 +3479,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     }
 
 
-    public void algoritmo(String cadena){
+    public String algoritmoRem(String cadena){
         ArrayList <Articulo> listaArticulos = new ArrayList<>();
         Articulo art;
         int aux;
@@ -3463,7 +3495,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         cadena = limpiarCadena(cadena);
         tamanio = cadena.length();
 
-        if(tamanio==0) return;
+        if(tamanio==0) return "";
 
         cadena = cadena+" ";
         caracter = cadena.substring(i,i+1);
@@ -3526,8 +3558,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
         System.out.println(this.mr.mostrar());
 
-
-//        return listaArticulos;
+        return this.mr.mostrar();
     }
 
     private boolean buscar(Articulo art, ArrayList<Articulo> al){
@@ -6810,48 +6841,48 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     		id_hechos += id_infra + ",";
     	}
     	if(!c1.trim().equalsIgnoreCase("")) 
-			camp1 += c1+",";
+			camp1 += this.reglamentoSP.getSelectedItem().toString()+":"+c1+",";
 		if(!c2.trim().equalsIgnoreCase(""))
-			camp2 += c2+",";
+			camp2 += this.reglamentoSP.getSelectedItem().toString()+":"+c2+",";
 		if(!c3.trim().equalsIgnoreCase(""))
-			camp3 += c3+","; 
+			camp3 += this.reglamentoSP.getSelectedItem().toString()+":"+c3+",";
 		if(!c4.trim().equalsIgnoreCase(""))
-			camp4 += c4+",";
+			camp4 += this.reglamentoSP.getSelectedItem().toString()+":"+c4+",";
 		if(!c5.trim().equalsIgnoreCase(""))
-			camp5 += c5+",";
+			camp5 += this.reglamentoSP.getSelectedItem().toString()+":"+c5+",";
 		
 		if(!c6.trim().equalsIgnoreCase("")) 
-			camp6 += c6+",";
+			camp6 += this.reglamentoSP.getSelectedItem().toString()+":"+c6+",";
 		if(!c7.trim().equalsIgnoreCase(""))
-			camp7 += c7+",";
+			camp7 += this.reglamentoSP.getSelectedItem().toString()+":"+c7+",";
 		if(!c8.trim().equalsIgnoreCase(""))
-			camp8 += c8+","; 
+			camp8 += this.reglamentoSP.getSelectedItem().toString()+":"+c8+",";
 		if(!c9.trim().equalsIgnoreCase(""))
-			camp9 += c9+",";
+			camp9 += this.reglamentoSP.getSelectedItem().toString()+":"+c9+",";
 		if(!c0.trim().equalsIgnoreCase(""))
-			camp0 += c0+",";
+			camp0 += this.reglamentoSP.getSelectedItem().toString()+":"+c0+",";
 		
 		if(!c11.trim().equalsIgnoreCase(""))
-			camp11 += c11+",";
+			camp11 += this.reglamentoSP.getSelectedItem().toString()+":"+c11+",";
 		if(!c12.trim().equalsIgnoreCase(""))
-			camp12 += c12+","; 
+			camp12 += this.reglamentoSP.getSelectedItem().toString()+":"+c12+",";
 		if(!c13.trim().equalsIgnoreCase(""))
-			camp13 += c13+",";
+			camp13 += this.reglamentoSP.getSelectedItem().toString()+":"+c13+",";
 		if(!c14.trim().equalsIgnoreCase(""))
-			camp14 += c14+",";
+			camp14 += this.reglamentoSP.getSelectedItem().toString()+":"+c14+",";
 		
 		if(!c15.trim().equalsIgnoreCase(""))
-			camp15 += c15+",";
+			camp15 += this.reglamentoSP.getSelectedItem().toString()+":"+c15+",";
 		if(!c16.trim().equalsIgnoreCase(""))
-			camp16 += c16+","; 
+			camp16 += this.reglamentoSP.getSelectedItem().toString()+":"+c16+",";
 		if(!c17.trim().equalsIgnoreCase(""))
-			camp17 += c17+",";
+			camp17 += this.reglamentoSP.getSelectedItem().toString()+":"+c17+",";
 		if(!c18.trim().equalsIgnoreCase(""))
-			camp18 += c18+",";
+			camp18 += this.reglamentoSP.getSelectedItem().toString()+":"+c18+",";
 		if(!c19.trim().equalsIgnoreCase(""))
-			camp19 += c19+",";
+			camp19 += this.reglamentoSP.getSelectedItem().toString()+":"+c19+",";
 		if(!c20.trim().equalsIgnoreCase(""))
-			camp20 += c20+",";
+			camp20 += this.reglamentoSP.getSelectedItem().toString()+":"+c20+",";
 		
 		System.out.println("CAMPOS " + c1 + " " + c2 + " " + c3 + " " + c4 + " "  + c5 + c6 + " " + c7 + " " + c8 + " " + c9 + " "  + c0 + " " + c11 + " " + c12 + " " + c13 + " "  + c14);
 		Log.e("valores",camp1);
