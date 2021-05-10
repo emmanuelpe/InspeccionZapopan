@@ -3374,6 +3374,181 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     public boolean iscaracter(String cadena){
         return cadena.matches("[^XIVL]");
     }
+
+    /*Codigo Esteban: Inicio*/
+    // Iterara la cadena hasta encontrar un carácter que no sea numero
+    private int whileIsNotNumber(int i, String cadena){
+        int tamanio = cadena.length();
+        String caracter = cadena.substring(i,i+1);
+        while(!isnumeric(caracter)){
+            i++;
+            if(i+1<=tamanio) //Comprueba que no haya llegado al final de la cadena
+                caracter = cadena.substring(i,i+1);
+            else
+                return -1;
+        }
+        return i;
+    }
+
+    // Iterara la cadena hasta encontrar un carácter que no sea numero
+    private int whileIsNumber(int i, String cadena){
+        int tamanio = cadena.length();
+        String caracter = cadena.substring(i,i+1);
+        while(isnumeric(caracter)){
+            i++;
+            if(i+1<=tamanio) //Comprueba que no haya llegado al final de la cadena
+                caracter = cadena.substring(i,i+1);
+            else
+                return -1;
+        }
+        return i;
+    }
+
+    // Elimina las siguientes las palabras de la cadena
+    private String limpiarCadena(String cadena){
+        cadena = cadena.trim();
+        cadena = cadena.replace("\n","");
+        cadena = cadena.replace("Artículos", "");
+        cadena = cadena.replace("Artículo", "");
+        cadena = cadena.replace("Artícuos", "");
+        return cadena;
+    }
+
+    //Limpia al final de la cadena
+    private String limpiarFinalCadena(String subcadena){
+        subcadena = subcadena.replaceAll(" y$", "");
+        subcadena = subcadena.replaceAll(",$", "");
+        return subcadena;
+    }
+
+    //Busca en la cadena que contengan reglamento
+    private int buscarReglamento(String cadena, String subcadena, int inicio){
+        if(subcadena.contains("Reglamento")){
+            return cadena.indexOf("Reglamento", inicio);
+        } else
+
+        if(subcadena.contains("Buscar")){
+            return cadena.indexOf("Buscar", inicio);
+        } else
+
+        if(subcadena.contains("Código")){
+            return cadena.indexOf("Código", inicio);
+        } else
+
+        if(subcadena.contains("Disposiciones")){
+            return cadena.indexOf("Disposiciones", inicio);
+        } else
+
+        if(subcadena.contains("Ley")){
+            return cadena.indexOf("Ley", inicio);
+        }
+
+        return -1;
+    }
+
+
+    public void algoritmo(String cadena){
+        ArrayList <Articulo> listaArticulos = new ArrayList<>();
+        Articulo art;
+        int aux;
+        int inicio;
+        int tamanio;
+        int i=0;
+        int antesI;
+        String caracter;
+        String subcadena;
+        String numero="";
+        String tipo="";
+
+        cadena = limpiarCadena(cadena);
+        tamanio = cadena.length();
+
+        if(tamanio==0) return;
+
+        cadena = cadena+" ";
+        caracter = cadena.substring(i,i+1);
+
+        while(i<tamanio){
+            art = new Articulo();
+
+            antesI=i;
+            i = whileIsNotNumber(i,cadena);
+            if(i==-1)break;
+            inicio=i;
+
+            if(cadena.substring(antesI, i).length()>10){
+                tipo = cadena.substring(antesI,i).trim();
+            }
+
+            i=whileIsNumber(i, cadena);
+            if(i==-1) break;
+            numero = cadena.substring(inicio, i);
+
+            i=whileIsNotNumber(i, cadena);
+            if(i==-1) i=cadena.length()-1;
+            caracter = cadena.substring(i,i+1);
+
+            if(cadena.substring(inicio, i).contains("numeral")){
+                i=whileIsNumber(i, cadena);
+                if(i==-1)break;
+
+                i=whileIsNotNumber(i, cadena);
+                if(i==-1) i=cadena.length()-1;
+
+                caracter = cadena.substring(i,i+1);
+            }
+
+            subcadena = cadena.substring(inicio,i).trim();
+            subcadena = limpiarFinalCadena(subcadena);
+
+            aux = this.buscarReglamento(cadena, subcadena, inicio);
+
+            if(aux!=-1){
+                i=aux;
+
+                subcadena = cadena.substring(inicio,i).trim();
+                subcadena = limpiarFinalCadena(subcadena);
+            }
+
+            art.setDescripcion(subcadena);
+            art.setTipo(tipo);
+            art.setArticulo(Integer.parseInt(numero));
+
+            if(!buscar(art,listaArticulos))
+                listaArticulos.add(art);
+
+            numero="";
+        }
+
+        ordenar(listaArticulos);
+
+        this.mr.ordenar(listaArticulos);
+
+        System.out.println(this.mr.mostrar());
+
+
+//        return listaArticulos;
+    }
+
+    private boolean buscar(Articulo art, ArrayList<Articulo> al){
+        for(int i=0;i<al.size(); i++)
+            if(art.getDescripcion().equalsIgnoreCase(al.get(i).getDescripcion()))
+                if(art.getTipo().equalsIgnoreCase(al.get(i).getTipo()))
+                    return true;
+        return false;
+    }
+
+
+    private void ordenar(ArrayList la){
+        Collections.sort(la, new Comparator<Articulo>() {
+            @Override
+            public int compare(Articulo art1, Articulo art2) {
+                return new Integer(art1.getArticulo()).compareTo(new Integer(art2.getArticulo()));
+            }
+        });
+    }
+    /*Codigo Esteban: Final*/
+
     public void algoritmo(String camp1, SQLiteDatabase db){
         String v1 = "";
         ArrayList<String> arr_art=new ArrayList<>();
