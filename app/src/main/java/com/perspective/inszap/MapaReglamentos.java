@@ -33,11 +33,18 @@ public class MapaReglamentos {
             for(Articulo art : listaArticulos){
                 cadena += art.getDescripcion()+", ";
             }
+            cadena.replaceAll(", $",".");
         }
         return cadena;
     }
 
     public void ordenar(ArrayList<Articulo> lista){
+        for(Articulo art : lista){
+            this.mapaReglamentos.get(art.getTipo()).add(art);
+        }
+    }
+
+    public void cargarLista(ArrayList<Articulo> lista){
         for(Articulo art : lista){
             this.mapaReglamentos.get(art.getTipo()).add(art);
         }
