@@ -2749,8 +2749,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
 //                            System.out.println("EJEMPLO:"+camp20 + " " + campo20 + ";");
-                            System.out.println("EJEMPLO:"+text2);
+                            System.out.println("");
 
+                            findViewById(R.id.spCreglamento)
                             System.out.println("+++++TEXT2:"+text2+"++++++++++++++");
                             String articulos = algoritmoRem(text2);
                             System.out.println("+++++ALGORITMO: "+text2+"++++++");
