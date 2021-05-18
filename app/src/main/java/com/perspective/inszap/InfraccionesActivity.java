@@ -2749,9 +2749,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
 //                            System.out.println("EJEMPLO:"+camp20 + " " + campo20 + ";");
-                            System.out.println("");
 
-                            findViewById(R.id.spCreglamento)
                             System.out.println("+++++TEXT2:"+text2+"++++++++++++++");
                             String articulos = algoritmoRem(text2);
                             System.out.println("+++++ALGORITMO: "+text2+"++++++");
@@ -3415,6 +3413,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     private String limpiarFinalCadena(String subcadena){
         subcadena = subcadena.replaceAll(" y$", "");
         subcadena = subcadena.replaceAll(",$", "");
+        subcadena = subcadena.replaceAll(", :$", "");
         return subcadena;
     }
 
@@ -3493,6 +3492,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         return pos;
     }
 
+    public String reemplazar(String cadena){
+        String cadenaProcesada = cadena;
+        cadenaProcesada = cadena.replace("numeral","abcdefg")
+    }
+
 
     public String algoritmoRem(String cadena){
         ArrayList <Articulo> listaArticulos = new ArrayList<>();
@@ -3543,7 +3547,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             caracter = cadena.substring(i,i+1);
 
 
-            if(cadena.substring(inicio, i).contains("numeral")){
+            if(cadena.substring(inicio, i).contains("numeral") || cadena.substring(inicio, i).contains("punto")){
 
                 i=whileIsNumberOrReglamento(i, cadena);
                 if(i==-1) i=cadena.length()-1;;
@@ -3557,7 +3561,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             subcadena = limpiarFinalCadena(subcadena);
 
             art.setDescripcion(subcadena);
-            art.setTipo(tipo);
+            art.setTipo((tipo.isEmpty())?"Articulo(s):":tipo);
             art.setArticulo(Integer.parseInt(numero));
 
             if(!buscar(art,listaArticulos)){

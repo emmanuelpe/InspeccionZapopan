@@ -33,7 +33,7 @@ public class MapaReglamentos {
             for(Articulo art : listaArticulos){
                 cadena += art.getDescripcion()+", ";
             }
-            cadena.replaceAll(", $",".");
+            cadena = cadena.replaceAll(", $",".");
         }
         return cadena;
     }

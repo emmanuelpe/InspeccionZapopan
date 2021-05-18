@@ -32,6 +32,7 @@ public class Reglamento {
     final static String TIPO23 = "Reglamento de Tianguis y Comercio en Espacios Públicos del Municipio de Zapopan, Jalisco";
     final static String TIPO24 = "Reglamento de Sanidad, Protección y Trato Digno para los Animales en el Municipio de Zapopan, Jalisco";
     final static String TIPO25 = "Reglamento para los Fumadores en la Ciudad de Zapopan, Jalisco.";
+    final static String TIPO26 = "General";
 
 
     public static ArrayList<String> reglamentos(){
@@ -61,7 +62,7 @@ public class Reglamento {
         lista.add(TIPO23);
         lista.add(TIPO24);
         lista.add(TIPO25);
-
+        lista.add(TIPO26);
         return lista;
     }
 
