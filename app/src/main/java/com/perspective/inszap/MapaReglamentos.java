@@ -28,11 +28,19 @@ public class MapaReglamentos {
         ArrayList<Articulo> listaArticulos;
         for(String reglamento : reglamentos){
             listaArticulos = this.mapaReglamentos.get(reglamento);
+
             if(listaArticulos.size()!=0)
                 cadena+=reglamento+": ";
             for(Articulo art : listaArticulos){
-                cadena += art.getDescripcion()+", ";
+                if(cadena.contains(String.valueOf(art.getArticulo()))){
+                    cadena = cadena.replace(" "+String.valueOf(art.getArticulo()),art.getDescripcion());
+                }else {
+                    cadena += art.getDescripcion()+", ";
+                }
             }
+
+
+
             cadena = cadena.replaceAll(", $",".");
         }
         return cadena;
@@ -42,6 +50,17 @@ public class MapaReglamentos {
         for(Articulo art : lista){
             this.mapaReglamentos.get(art.getTipo()).add(art);
         }
+    }
+
+    public int buscar(Articulo art, String reglamento){
+        ArrayList<Articulo> listaArticulos = this.mapaReglamentos.get(reglamento);
+
+        for(int i=0; i<listaArticulos.size(); i++){
+            if(listaArticulos.get(i).getDescripcion() == art.getDescripcion()){
+                return i;
+            }
+        }
+        return -1;
     }
 
     public void cargarLista(ArrayList<Articulo> lista){

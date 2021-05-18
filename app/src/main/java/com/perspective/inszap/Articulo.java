@@ -19,7 +19,11 @@ public class Articulo {
         this.articulo = articulo;
     }
 
-    public String getDescripcion() {
+    public String getArticuloDescripcion() {
+        return articulo+" "+descripcion;
+    }
+
+    public String getDescripcion(){
         return descripcion;
     }
 

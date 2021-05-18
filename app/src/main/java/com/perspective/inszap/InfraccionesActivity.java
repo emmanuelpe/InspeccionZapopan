@@ -3404,8 +3404,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         cadena = cadena.trim();
         cadena = cadena.replace("\n","");
         cadena = cadena.replace("Artículos", "");
+        cadena = cadena.replace("Articulos", "");
         cadena = cadena.replace("Artículo", "");
+        cadena = cadena.replace("Articulo", "");
         cadena = cadena.replace("Artícuos", "");
+        cadena = cadena.replace(".", "");
         return cadena;
     }
 
@@ -3443,6 +3446,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         }
         return false;
     }
+
     private int whileIsNotNumberOrReglamento(int i, String cadena){
         int tamanio = cadena.length();
         String caracter = cadena.substring(i,i+1);
@@ -3492,10 +3496,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         return pos;
     }
 
-    public String reemplazar(String cadena){
-        String cadenaProcesada = cadena;
-        cadenaProcesada = cadena.replace("numeral","abcdefg")
-    }
+//    public String reemplazar(String cadena){
+//        String cadenaProcesada = cadena;
+//        cadenaProcesada = cadena.replace("numeral","abcdefg");
+//    }
 
 
     public String algoritmoRem(String cadena){
@@ -3660,12 +3664,16 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 //    }
 
     private boolean buscar(Articulo art, ArrayList<Articulo> al){
-        for(int i=0;i<al.size(); i++)
-            if(art.getDescripcion().equalsIgnoreCase(al.get(i).getDescripcion()))
+        for(int i=0;i<al.size(); i++){
+            if(art.getDescripcion().equalsIgnoreCase(al.get(i).getDescripcion())){
                 if(art.getTipo().equalsIgnoreCase(al.get(i).getTipo()))
                     return true;
+            }
+
+        }
         return false;
     }
+
 
 
     private void ordenar(ArrayList la){
@@ -7562,8 +7570,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				
 	    		try{
                     Cursor c;
-	    		    if(id == 5) {
-	    		        c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) , null);
+	    		    if(id == 5) { //TODO:
+	    		        //c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) , null);
+                        c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) + "' and id_c_direccion = '" + id + "'", null);
                         Log.i("quer", "SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) + "' and id_c_direccion = '" + 2 + "'");
                         Log.i("i", i + "");
                     } else {
