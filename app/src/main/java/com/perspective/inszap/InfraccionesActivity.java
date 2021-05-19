@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
-import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -70,8 +69,6 @@ import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -3285,7 +3282,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             art.setTipo((tipo.isEmpty())?"Articulo(s):":tipo);
             art.setArticulo(Integer.parseInt(numero));
 
-            if(!buscar(art,listaArticulos)){
+            if(!buscar(art, listaArticulos)){
                 listaArticulos.add(art);
             }
         }

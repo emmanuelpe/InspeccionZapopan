@@ -55,7 +55,7 @@ public class MapaReglamentos {
     public int buscar(Articulo art, String reglamento){
         ArrayList<Articulo> listaArticulos = this.mapaReglamentos.get(reglamento);
 
-        for(int i=0; i<listaArticulos.size(); i++){
+        for(int i = 0; i< listaArticulos.size(); i++){
             if(listaArticulos.get(i).getDescripcion() == art.getDescripcion()){
                 return i;
             }
