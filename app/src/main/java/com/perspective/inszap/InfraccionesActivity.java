@@ -2477,8 +2477,31 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							camp18 = (!camp18.equals("")) ? ordenar(camp18) : "";
 							camp19 = (!camp19.equals("")) ? ordenar(camp19) : "";
 							camp20 = (!camp20.equals("")) ? ordenar(camp20) : "";*/
+
+                            String text2="";
+
+                            text2 += (!camp1.equals("")) ? campo1 + ":" + camp1 +" ": "";
+                            text2 += (!camp2.equals("")) ? campo2 + ":" + camp2 +" ": "";
+                            text2 += (!camp3.equals("")) ? campo3 + ":" + camp3 +" ": "";
+                            text2 += (!camp4.equals("")) ? campo4 + ":" + camp4 +" ": "";
+                            text2 += (!camp5.equals("")) ? campo5 + ":" + camp5 +" ": "";
+                            text2 += (!camp6.equals("")) ? campo6 + ":" + camp6 +" ": "";
+                            text2 += (!camp7.equals("")) ? campo7 + ":" + camp7 +" ": "";
+                            text2 += (!camp8.equals("")) ? campo8 + ":" + camp8 +" ": "";
+                            text2 += (!camp9.equals("")) ? campo9 + ":" + camp9 +" ": "";
+                            text2 += (!camp0.equals("")) ? campo0 + ":" + camp0 +" ": "";
+                            text2 += (!camp11.equals("")) ? campo11 + ":" + camp11 +" ": "";
+                            text2 += (!camp12.equals("")) ? campo12 + ":" + camp12 +" ": "";
+                            text2 += (!camp13.equals("")) ? campo13 + ":" + camp13 +" ": "";
+                            text2 += (!camp14.equals("")) ? campo14 + ":" + camp14 +" ": "";
+                            text2 += (!camp15.equals("")) ? campo15 + ":" + camp15 +" ": "";
+                            text2 += (!camp16.equals("")) ? campo16 + ":" + camp16 +" ": "";
+                            text2 += (!camp17.equals("")) ? campo17 + ":" + camp17 +" ": "";
+                            text2 += (!camp18.equals("")) ? campo18 + ":" + camp18 +" ": "";
+                            text2 += (!camp19.equals("")) ? campo19 + ":" + camp19 +" ": "";
+                            text2 += (!camp20.equals("")) ? campo20 + ":" + camp20 +" ": "";
 							
-							
+							///* ELIMINAR PSG
 							camp1 = (!camp1.equals("")) ? camp1 : "";
 							camp2 = (!camp2.equals("")) ? camp2 : "";
 							camp3 = (!camp3.equals("")) ? camp3 : "";
@@ -2504,28 +2527,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							camp19 = (!camp19.equals("")) ? camp19 : "";
 							camp20 = (!camp20.equals("")) ? camp20 : "";
 
-							String text2="";
 
-                            text2 += (!camp1.equals("")) ? campo1 + ":" + camp1 +" ": "";
-                            text2 += (!camp2.equals("")) ? campo2 + ":" + camp2 +" ": "";
-                            text2 += (!camp3.equals("")) ? campo3 + ":" + camp3 +" ": "";
-                            text2 += (!camp4.equals("")) ? campo4 + ":" + camp4 +" ": "";
-                            text2 += (!camp5.equals("")) ? campo5 + ":" + camp5 +" ": "";
-                            text2 += (!camp6.equals("")) ? campo6 + ":" + camp6 +" ": "";
-                            text2 += (!camp7.equals("")) ? campo7 + ":" + camp7 +" ": "";
-                            text2 += (!camp8.equals("")) ? campo8 + ":" + camp8 +" ": "";
-                            text2 += (!camp9.equals("")) ? campo9 + ":" + camp9 +" ": "";
-                            text2 += (!camp0.equals("")) ? campo0 + ":" + camp0 +" ": "";
-                            text2 += (!camp11.equals("")) ? campo11 + ":" + camp11 +" ": "";
-                            text2 += (!camp12.equals("")) ? campo12 + ":" + camp12 +" ": "";
-                            text2 += (!camp13.equals("")) ? campo13 + ":" + camp13 +" ": "";
-                            text2 += (!camp14.equals("")) ? campo14 + ":" + camp14 +" ": "";
-                            text2 += (!camp15.equals("")) ? campo15 + ":" + camp15 +" ": "";
-                            text2 += (!camp16.equals("")) ? campo16 + ":" + camp16 +" ": "";
-                            text2 += (!camp17.equals("")) ? campo17 + ":" + camp17 +" ": "";
-                            text2 += (!camp18.equals("")) ? campo18 + ":" + camp18 +" ": "";
-                            text2 += (!camp19.equals("")) ? campo19 + ":" + camp19 +" ": "";
-                            text2 += (!camp20.equals("")) ? campo20 + ":" + camp20 +" ": "";
 
 
                             GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
@@ -2746,13 +2748,26 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							text += (!camp18.equals("")) ? camp18 + " " + campo18 + ";" : "";
 							text += (!camp19.equals("")) ? camp19 + " " + campo19 + ";" : "";
 							text += (!camp20.equals("")) ? camp20 + " " + campo20 + ";" : "";
-
+                            // ELIMINAR PSG*/
 
 //                            System.out.println("EJEMPLO:"+camp20 + " " + campo20 + ";");
 
-                            System.out.println("+++++TEXT2:"+text2+"++++++++++++++");
-                            String articulos = algoritmoRem(text2);
+                            System.out.println("+++++TEXT:"+text+"++++++++++++++");
+
+                            String articulos = "";
+                            try{
+
+                                if(text2.isEmpty()){
+                                    articulos = "No se recibieron las infracciones, pero se subieron a la base de datos";
+                                } else {
+                                    articulos = algoritmoRem(text2);
+                                }
+                            } catch(Exception e){
+                                articulos = "No se pudieron procesar las infracciones, pero se subieron a la base de datos";
+                            }
+
                             System.out.println("+++++ALGORITMO: "+text2+"++++++");
+                            System.out.println("++Algoritmo: "+articulos);
 
 //							System.out.println(text);
 							Log.i("text", text);

@@ -1,6 +1,7 @@
 package com.perspective.inszap;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Reglamento {
     final static String TIPO1 = "Buscar en Todos los reglamentos";
@@ -33,6 +34,10 @@ public class Reglamento {
     final static String TIPO24 = "Reglamento de Sanidad, Protección y Trato Digno para los Animales en el Municipio de Zapopan, Jalisco";
     final static String TIPO25 = "Reglamento para los Fumadores en la Ciudad de Zapopan, Jalisco.";
     final static String TIPO26 = "General";
+
+//    public static HashMap referencias(){
+//
+//    }
 
 
     public static ArrayList<String> reglamentos(){

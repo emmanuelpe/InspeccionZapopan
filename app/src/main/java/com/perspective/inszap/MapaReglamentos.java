@@ -39,8 +39,6 @@ public class MapaReglamentos {
                 }
             }
 
-
-
             cadena = cadena.replaceAll(", $",".");
         }
         return cadena;
