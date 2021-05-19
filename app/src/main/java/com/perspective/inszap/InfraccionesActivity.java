@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -2501,7 +2502,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             text2 += (!camp19.equals("")) ? campo19 + ":" + camp19 +" ": "";
                             text2 += (!camp20.equals("")) ? campo20 + ":" + camp20 +" ": "";
 							
-							///* ELIMINAR PSG
+							/* ELIMINAR PSG
 							camp1 = (!camp1.equals("")) ? camp1 : "";
 							camp2 = (!camp2.equals("")) ? camp2 : "";
 							camp3 = (!camp3.equals("")) ? camp3 : "";
@@ -2748,7 +2749,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							text += (!camp18.equals("")) ? camp18 + " " + campo18 + ";" : "";
 							text += (!camp19.equals("")) ? camp19 + " " + campo19 + ";" : "";
 							text += (!camp20.equals("")) ? camp20 + " " + campo20 + ";" : "";
-                            // ELIMINAR PSG*/
+                            ELIMINAR PSG*/
 
 //                            System.out.println("EJEMPLO:"+camp20 + " " + campo20 + ";");
 
@@ -2763,7 +2764,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     articulos = algoritmoRem(text2);
                                 }
                             } catch(Exception e){
-                                articulos = "No se pudieron procesar las infracciones, pero se subieron a la base de datos";
+                                articulos = text2;
                             }
 
                             System.out.println("+++++ALGORITMO: "+text2+"++++++");
@@ -3386,33 +3387,6 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     }
 
     /*Codigo Esteban: Inicio*/
-    // Iterara la cadena hasta encontrar un carácter que no sea numero
-    private int whileIsNotNumber(int i, String cadena){
-        int tamanio = cadena.length();
-        String caracter = cadena.substring(i,i+1);
-        while(!isnumeric(caracter)){
-            i++;
-            if(i+1<=tamanio) //Comprueba que no haya llegado al final de la cadena
-                caracter = cadena.substring(i,i+1);
-            else
-                return -1;
-        }
-        return i;
-    }
-
-    // Iterara la cadena hasta encontrar un carácter que no sea numero
-    private int whileIsNumber(int i, String cadena){
-        int tamanio = cadena.length();
-        String caracter = cadena.substring(i,i+1);
-        while(isnumeric(caracter)){
-            i++;
-            if(i+1<=tamanio) //Comprueba que no haya llegado al final de la cadena
-                caracter = cadena.substring(i,i+1);
-            else
-                return -1;
-        }
-        return i;
-    }
 
     // Elimina las siguientes las palabras de la cadena
     private String limpiarCadena(String cadena){
@@ -3424,6 +3398,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         cadena = cadena.replace("Articulo", "");
         cadena = cadena.replace("Artícuos", "");
         cadena = cadena.replace(".", "");
+        cadena = cadena.replace(" :", ":");
         return cadena;
     }
 
@@ -3511,21 +3486,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         return pos;
     }
 
-//    public String reemplazar(String cadena){
-//        String cadenaProcesada = cadena;
-//        cadenaProcesada = cadena.replace("numeral","abcdefg");
-//    }
-
 
     public String algoritmoRem(String cadena){
         ArrayList <Articulo> listaArticulos = new ArrayList<>();
         Articulo art;
-        int aux;
         int inicio;
         int tamanio;
         int i=0;
-        int antesI;
-        String caracter;
         String subcadena;
         String numero="";
         String tipo="";
@@ -3536,45 +3503,34 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         if(tamanio==0) return "";
 
         cadena = cadena+" ";
-        caracter = cadena.substring(i,i+1);
+
+        String auxCadena = cadena.replaceAll("numeral \\d","numeral x");
+        auxCadena = auxCadena.replaceAll("punto \\d","punto x");
 
         while(i<tamanio){
             art = new Articulo();
-            if(this.isReglamento(cadena.substring(i,i+1))){
-                if(this.isReglamento2(cadena.substring(i,cadena.indexOf(" ",i)))){
-                    antesI=i;
+
+            if(this.isReglamento(auxCadena.substring(i,i+1))){
+                if(this.isReglamento2(cadena.substring(i,auxCadena.indexOf(" ",i)))){
+                    inicio=i;
                     i=cadena.indexOf(":",i);
-                    tipo=cadena.substring(antesI,i);
+                    tipo=cadena.substring(inicio,i);
                 }
             }
 
             i = this.ignorar(cadena, i);
-
             inicio=i;
 
-
-            if(isnumeric(cadena.substring(i, i+1))){
-                i=whileIsNumberOrReglamento(i, cadena);
+            if(isnumeric(auxCadena.substring(i, i+1))){
+                i=whileIsNumberOrReglamento(i, auxCadena);
                 if(i==-1) break;
                 numero = cadena.substring(inicio, i);
             } else {
                 numero="0";
             }
 
-            i=whileIsNotNumberOrReglamento(i, cadena);
+            i=whileIsNotNumberOrReglamento(i, auxCadena);
             if(i==-1) i=cadena.length()-1;
-            caracter = cadena.substring(i,i+1);
-
-
-            if(cadena.substring(inicio, i).contains("numeral") || cadena.substring(inicio, i).contains("punto")){
-
-                i=whileIsNumberOrReglamento(i, cadena);
-                if(i==-1) i=cadena.length()-1;;
-
-                i=whileIsNotNumberOrReglamento(i, cadena);
-                if(i==-1) i=cadena.length()-1;
-                caracter = cadena.substring(i,i+1);
-            }
 
             subcadena = cadena.substring(inicio,i).trim();
             subcadena = limpiarFinalCadena(subcadena);
@@ -3586,97 +3542,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             if(!buscar(art,listaArticulos)){
                 listaArticulos.add(art);
             }
-
-            numero="";
         }
 
         ordenar(listaArticulos);
-//        this.mapaReglamentos.cargarLista(listaArticulos);
         this.mapaReglamentos.cargarLista(listaArticulos);
+
         return mapaReglamentos.mostrar();
     }
-
-//    public String algoritmoRem(String cadena){
-//        ArrayList <Articulo> listaArticulos = new ArrayList<>();
-//        Articulo art;
-//        int aux;
-//        int inicio;
-//        int tamanio;
-//        int i=0;
-//        int antesI;
-//        String caracter;
-//        String subcadena;
-//        String numero="";
-//        String tipo="";
-//
-//        cadena = limpiarCadena(cadena);
-//        tamanio = cadena.length();
-//
-//        if(tamanio==0) return "";
-//
-//        cadena = cadena+" ";
-//        caracter = cadena.substring(i,i+1);
-//
-//        while(i<tamanio){
-//            art = new Articulo();
-//
-//            antesI=i;
-//            i = whileIsNotNumber(i,cadena);
-//            if(i==-1)break;
-//            inicio=i;
-//
-//            if(cadena.substring(antesI, i).length()>10){
-//                tipo = cadena.substring(antesI,i).trim();
-//            }
-//
-//            i=whileIsNumber(i, cadena);
-//            if(i==-1) break;
-//            numero = cadena.substring(inicio, i);
-//
-//            i=whileIsNotNumber(i, cadena);
-//            if(i==-1) i=cadena.length()-1;
-//            caracter = cadena.substring(i,i+1);
-//
-//            if(cadena.substring(inicio, i).contains("numeral")){
-//                i=whileIsNumber(i, cadena);
-//                if(i==-1)break;
-//
-//                i=whileIsNotNumber(i, cadena);
-//                if(i==-1) i=cadena.length()-1;
-//
-//                caracter = cadena.substring(i,i+1);
-//            }
-//
-//            subcadena = cadena.substring(inicio,i).trim();
-//            subcadena = limpiarFinalCadena(subcadena);
-//
-//            aux = this.buscarReglamento(cadena, subcadena, inicio);
-//
-//            if(aux!=-1){
-//                i=aux;
-//
-//                subcadena = cadena.substring(inicio,i).trim();
-//                subcadena = limpiarFinalCadena(subcadena);
-//            }
-//
-//            art.setDescripcion(subcadena);
-//            art.setTipo(tipo);
-//            art.setArticulo(Integer.parseInt(numero));
-//
-//            if(!buscar(art,listaArticulos))
-//                listaArticulos.add(art);
-//
-//            numero="";
-//        }
-//
-//        ordenar(listaArticulos);
-//
-//        this.mr.ordenar(listaArticulos);
-//
-//        System.out.println(this.mr.mostrar());
-//
-//        return this.mr.mostrar();
-//    }
 
     private boolean buscar(Articulo art, ArrayList<Articulo> al){
         for(int i=0;i<al.size(); i++){
@@ -7555,7 +7427,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	try{
             Cursor c;
             if(id == 5)
-                c = db.rawQuery("SELECT * FROM C_Ordenamiento  ", null);
+                c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE id_c_direccion = " + id, null);
             else
                 c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE id_c_direccion = " + id, null);
 

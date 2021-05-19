@@ -31,9 +31,11 @@ public class MapaReglamentos {
 
             if(listaArticulos.size()!=0)
                 cadena+=reglamento+": ";
+
             for(Articulo art : listaArticulos){
+                System.out.println("NETRA: "+art);
                 if(cadena.contains(String.valueOf(art.getArticulo()))){
-                    cadena = cadena.replace(" "+String.valueOf(art.getArticulo()),art.getDescripcion());
+                    cadena = cadena.replace(" "+String.valueOf(art.getArticulo())," "+art.getDescripcion());
                 }else {
                     cadena += art.getDescripcion()+", ";
                 }
@@ -60,6 +62,38 @@ public class MapaReglamentos {
         }
         return -1;
     }
+
+    public String concatenar(String cad1, String cad2){
+        int cont = 0;
+        String aux;
+
+        if(cad1.contains("fracción")){
+            if(cad2.contains("fraccion")){
+
+            }
+        }
+
+        return "";
+    }
+
+    public int ignorar(String cadena, int pos){
+        boolean bandera=true;
+        while(bandera){
+            switch(cadena.substring(pos,pos+1)){
+                case ":":
+                case " ":
+                case ",":
+                case "y":
+                    pos++;
+                    break;
+                default:
+                    bandera=false;
+            }
+        }
+        return pos;
+    }
+
+    //Fraccion Numeral Inciso parrafo Bis
 
     public void cargarLista(ArrayList<Articulo> lista){
         for(Articulo art : lista){
