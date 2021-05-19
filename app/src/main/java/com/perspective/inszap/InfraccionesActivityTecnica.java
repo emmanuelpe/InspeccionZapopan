@@ -101,6 +101,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.HashMap;
@@ -215,6 +216,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private TextInputEditText etArti;
     private SharedPreferences sp;
     private int foliox = 0;
+    private MapaReglamentos mapaReglamentos = new MapaReglamentos();
 
 
     @Override
@@ -1243,6 +1245,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
             }
         });
+
         class actualizarInspector extends AsyncTask<String,Integer,Boolean>{
 
             @Override
@@ -1296,9 +1299,14 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 do {
                                     for (int i = 0; i < c.getColumnCount(); i++) {
                                         System.err.println(c.getColumnName(i) + " " + c.getString(i));
-                                        if(c.getString(i).isEmpty() ||  c.getString(i)==null || c.getString(i)=="" ){
-                                            folio=0;
-                                        }else{
+                                        if(c.getString(i)!=null){
+                                            if(c.getString(i).equals("") || c.getString(i)=="" ){
+                                                folio=0;
+                                            }else{
+                                                folio = Integer.parseInt(c.getString(i));
+                                            }
+
+                                        } else{
                                             folio = Integer.parseInt(c.getString(i));
                                         }
 
@@ -1334,10 +1342,15 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 do {
                                     for (int i = 0; i < c4.getColumnCount(); i++) {
                                         System.err.println(c4.getColumnName(i) + " " + c4.getString(i));
-                                        if(c4.getString(i).isEmpty() ||  c4.getString(i)==null || c4.getString(i)=="" ){
-                                            next_max=0;
-                                        }else{
-                                            next_max = Integer.parseInt(c4.getString(i));
+                                        if(c4.getString(i)!=null){
+                                            if(c4.getString(i).equals("") || c4.getString(i)=="" ){
+                                                next_max=0;
+                                            }else{
+                                                next_max = Integer.parseInt(c4.getString(i));
+                                            }
+
+                                        } else{
+                                            next_max = 0;
                                         }
 
                                     }
@@ -1350,10 +1363,15 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 do {
                                     for (int i = 0; i < c5.getColumnCount(); i++) {
                                         System.err.println(c5.getColumnName(i) + " " + c5.getString(i));
-                                        if(c5.getString(i).isEmpty() ||  c5.getString(i)==null || c5.getString(i)=="" ){
-                                            next_min=0;
-                                        }else{
-                                            next_min = Integer.parseInt(c5.getString(i));
+                                        if(c5.getString(i)!=null){
+                                            if(c5.getString(i).equals("") || c5.getString(i)=="" ){
+                                                next_min=0;
+                                            }else{
+                                                next_min = Integer.parseInt(c5.getString(i));
+                                            }
+
+                                        } else{
+                                            next_min = 0;
                                         }
 
                                     }
@@ -1485,16 +1503,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         }
                     }
                 }
-
-
-
                 valW="";
-
-
-
-
-
-
             }
 
 
@@ -2449,300 +2458,51 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 Log.i("unidades", unidades.split(",").length + "");
                                 Log.e("camp1", camp1);
 
+                                String text2="";
+
+                                text2 += (!camp1.equals("")) ? campo1 + ":" + camp1 +" ": "";
+                                text2 += (!camp2.equals("")) ? campo2 + ":" + camp2 +" ": "";
+                                text2 += (!camp3.equals("")) ? campo3 + ":" + camp3 +" ": "";
+                                text2 += (!camp4.equals("")) ? campo4 + ":" + camp4 +" ": "";
+                                text2 += (!camp5.equals("")) ? campo5 + ":" + camp5 +" ": "";
+                                text2 += (!camp6.equals("")) ? campo6 + ":" + camp6 +" ": "";
+                                text2 += (!camp7.equals("")) ? campo7 + ":" + camp7 +" ": "";
+                                text2 += (!camp8.equals("")) ? campo8 + ":" + camp8 +" ": "";
+                                text2 += (!camp9.equals("")) ? campo9 + ":" + camp9 +" ": "";
+                                text2 += (!camp0.equals("")) ? campo0 + ":" + camp0 +" ": "";
+                                text2 += (!camp11.equals("")) ? campo11 + ":" + camp11 +" ": "";
+                                text2 += (!camp12.equals("")) ? campo12 + ":" + camp12 +" ": "";
+                                text2 += (!camp13.equals("")) ? campo13 + ":" + camp13 +" ": "";
+                                text2 += (!camp14.equals("")) ? campo14 + ":" + camp14 +" ": "";
+                                text2 += (!camp15.equals("")) ? campo15 + ":" + camp15 +" ": "";
+                                text2 += (!camp16.equals("")) ? campo16 + ":" + camp16 +" ": "";
+                                text2 += (!camp17.equals("")) ? campo17 + ":" + camp17 +" ": "";
+                                text2 += (!camp18.equals("")) ? campo18 + ":" + camp18 +" ": "";
+                                text2 += (!camp19.equals("")) ? campo19 + ":" + camp19 +" ": "";
+                                text2 += (!camp20.equals("")) ? campo20 + ":" + camp20 +" ": "";
 
 
-                               /* camp1 = (!camp1.equals("")) ? ordenar(camp1) : "";
-                                Log.e("camp1a", camp1);
+                                System.out.println("+++++TEXT:"+text+"++++++++++++++");
 
-                                camp2 = (!camp2.equals("")) ? ordenar(camp2) : "";
-                                camp3 = (!camp3.equals("")) ? ordenar(camp3) : "";
-                                camp4 = (!camp4.equals("")) ? ordenar(camp4) : "";
-                                camp5 = (!camp5.equals("")) ? ordenar(camp5) : "";
+                                String articulos = "";
+                                try{
 
-                                camp6 = (!camp6.equals("")) ? ordenar(camp6) : "";
-                                camp7 = (!camp7.equals("")) ? ordenar(camp7) : "";
-                                camp8 = (!camp8.equals("")) ? ordenar(camp8) : "";
-                                camp9 = (!camp9.equals("")) ? ordenar(camp9) : "";
-                                camp0 = (!camp0.equals("")) ? ordenar(camp0) : "";
-
-                                camp11 = (!camp11.equals("")) ? ordenar(camp11) : "";
-                                camp12 = (!camp12.equals("")) ? ordenar(camp12) : "";
-                                camp13 = (!camp13.equals("")) ? ordenar(camp13) : "";
-                                camp14 = (!camp14.equals("")) ? ordenar(camp14) : "";
-
-
-                                camp15 = (!camp15.equals("")) ? ordenar(camp15) : "";
-                                camp16 = (!camp16.equals("")) ? ordenar(camp16) : "";
-                                camp17 = (!camp17.equals("")) ? ordenar(camp17) : "";
-                                camp18 = (!camp18.equals("")) ? ordenar(camp18) : "";
-                                camp19 = (!camp19.equals("")) ? ordenar(camp19) : "";
-                                camp20 = (!camp20.equals("")) ? ordenar(camp20) : "";*/
-
-
-                                camp1 = (!camp1.equals("")) ? camp1 : "";
-                                camp2 = (!camp2.equals("")) ? camp2 : "";
-                                camp3 = (!camp3.equals("")) ? camp3 : "";
-                                camp4 = (!camp4.equals("")) ? camp4 : "";
-                                camp5 = (!camp5.equals("")) ? camp5 : "";
-
-                                camp6 = (!camp6.equals("")) ? camp6 : "";
-                                camp7 = (!camp7.equals("")) ? camp7 : "";
-                                camp8 = (!camp8.equals("")) ? camp8 : "";
-                                camp9 = (!camp9.equals("")) ? camp9 : "";
-                                camp0 = (!camp0.equals("")) ? camp0 : "";
-
-                                camp11 = (!camp11.equals("")) ? camp11 : "";
-                                camp12 = (!camp12.equals("")) ? camp12 : "";
-                                camp13 = (!camp13.equals("")) ? camp13 : "";
-                                camp14 = (!camp14.equals("")) ? camp14 : "";
-
-
-                                camp15 = (!camp15.equals("")) ? camp15 : "";
-                                camp16 = (!camp16.equals("")) ? camp16 : "";
-                                camp17 = (!camp17.equals("")) ? camp17 : "";
-                                camp18 = (!camp18.equals("")) ? camp18 : "";
-                                camp19 = (!camp19.equals("")) ? camp19 : "";
-                                camp20 = (!camp20.equals("")) ? camp20 : "";
-
-							/*codi = (!codi.equals("")) ? ordenar(codi) : "";
-							zoni = (!zoni.equals("")) ? ordenar(zoni) : "";
-							regla = (!regla.equals("")) ? ordenar(regla) : "";
-							l = (!l.equals("")) ? ordenar(l) : "";
-							oe = (!oe.equals("")) ? ordenar(oe) : "";
-							ne = (!ne.equals("")) ? ordenar(ne) : "";
-							leeep = (!leeep.equals("")) ? ordenar(leeep) : "";*/
-
-                                GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
-                                SQLiteDatabase db = gestion.getReadableDatabase();
-// 66 Quater y 105
-                                if(!camp1.equalsIgnoreCase("")){
-                                    if(camp1.contains("-")|| camp1.contains("cimo") ||camp1.contains("eno") ||camp1.contains("avo") ||camp1.contains("timo") ||camp1.contains("ex") ||camp1.contains("int") ||camp1.contains("uar") ||camp1.contains("er") ||camp1.contains("eg") ||camp1.contains("rim") ||camp1.contains("Quater") ||camp1.contains("num") || camp1.contains("inc")  || camp1.contains(")") || camp1.contains("párrafo")|| camp1.contains("Bis")|| camp1.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp1,db);
-                                        camp1=ordenar(db);
+                                    if(text2.isEmpty()){
+                                        articulos = "No se recibieron las infracciones, pero se subieron a la base de datos";
+                                    } else {
+                                        articulos = algoritmoRem(text2);
                                     }
-
-
-                                }
-                                if(!camp2.equalsIgnoreCase("")){
-                                    if(camp2.contains("-")||camp2.contains("cimo") ||camp2.contains("eno") ||camp2.contains("avo") ||camp2.contains("timo") ||camp2.contains("ex") ||camp2.contains("int") ||camp2.contains("uar") ||camp2.contains("er") ||camp2.contains("eg") ||camp2.contains("rim") ||camp2.contains("Quater") ||camp2.contains("numeral") || camp2.contains("inciso") || camp2.contains(")") || camp2.contains("párrafo")|| camp2.contains("Bis")|| camp2.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp2,db);
-                                        camp2=ordenar(db);
-                                    }
-
-
-                                }
-                                if(!camp3.equalsIgnoreCase("")){
-                                    if(camp3.contains("-")||camp3.contains("cimo") ||camp3.contains("eno") ||camp3.contains("avo") ||camp3.contains("timo") ||camp3.contains("ex") ||camp3.contains("int") ||camp3.contains("uar") ||camp3.contains("er") ||camp3.contains("eg") ||camp3.contains("rim") ||camp3.contains("Quater") ||camp3.contains("num") || camp3.contains("inc") || camp3.contains(")") || camp3.contains("p")|| camp3.contains("Bis")|| camp3.contains("Apart")){
-
-                                    }else{
-                                        algoritmo(camp3,db);
-                                        camp3=ordenar(db);
-                                    }
-
-
-                                }
-                                if(!camp4.equalsIgnoreCase("")){
-                                    if(camp4.contains("-")||camp4.contains("cimo") ||camp4.contains("eno") ||camp4.contains("avo") ||camp4.contains("timo") ||camp4.contains("ex") ||camp4.contains("int") ||camp4.contains("uar") ||camp4.contains("er") ||camp4.contains("eg") ||camp4.contains("rim") ||camp4.contains("Quater") ||camp4.contains("numeral") || camp4.contains("inciso") || camp4.contains(")") || camp4.contains("párrafo")|| camp4.contains("Bis")|| camp4.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp4,db);
-                                        camp4=ordenar(db);
-                                    }
-                                }
-                                if(!camp5.equalsIgnoreCase("")){
-                                    if(camp5.contains("-")||camp5.contains("cimo") ||camp5.contains("eno") ||camp5.contains("avo") ||camp5.contains("timo") ||camp5.contains("ex") ||camp5.contains("int") ||camp5.contains("uar") ||camp5.contains("er") ||camp5.contains("eg") ||camp5.contains("rim") ||camp5.contains("Quater") ||camp5.contains("numeral") || camp5.contains("inciso") || camp5.contains(")") || camp5.contains("párrafo")|| camp5.contains("Bis")|| camp5.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp5,db);
-                                        camp5=ordenar(db);
-                                    }
-                                }
-                                if(!camp6.equalsIgnoreCase("")){
-                                    if(camp6.contains("-")||camp6.contains("cimo") ||camp6.contains("eno") ||camp6.contains("avo") ||camp6.contains("timo") ||camp6.contains("ex") ||camp6.contains("int") ||camp6.contains("uar") ||camp6.contains("er") ||camp6.contains("eg") ||camp6.contains("rim") ||camp6.contains("Quater") ||camp6.contains("numeral") || camp6.contains("inciso") || camp6.contains(")") || camp6.contains("párrafo")|| camp6.contains("Bis")|| camp6.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp6,db);
-                                        camp6=ordenar(db);
-                                    }
-                                }
-                                if(!camp7.equalsIgnoreCase("")){
-                                    if(camp7.contains("-")||camp7.contains("cimo") ||camp7.contains("eno") ||camp7.contains("avo") ||camp7.contains("timo") ||camp7.contains("ex") ||camp7.contains("int") ||camp7.contains("uar") ||camp7.contains("er") ||camp7.contains("eg") ||camp7.contains("rim") ||camp7.contains("Quater") ||camp7.contains("numeral") || camp7.contains("inciso") || camp7.contains(")") || camp7.contains("párrafo")|| camp7.contains("Bis")|| camp7.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp7,db);
-                                        camp7=ordenar(db);
-                                    }
-                                }
-                                if(!camp8.equalsIgnoreCase("")){
-                                    if(camp8.contains("-")||camp8.contains("cimo") ||camp8.contains("eno") ||camp8.contains("avo") ||camp8.contains("timo") ||camp8.contains("ex") ||camp8.contains("int") ||camp8.contains("uar") ||camp8.contains("er") ||camp8.contains("eg") ||camp8.contains("rim") ||camp8.contains("Quater") ||camp8.contains("numeral") || camp8.contains("inciso") || camp8.contains(")") || camp8.contains("párrafo")|| camp8.contains("Bis")|| camp8.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp8,db);
-                                        camp8=ordenar(db);
-                                    }
-                                }
-                                if(!camp9.equalsIgnoreCase("")){
-                                    if(camp9.contains("-")||camp9.contains("cimo") ||camp9.contains("eno") ||camp9.contains("avo") ||camp9.contains("timo") ||camp9.contains("ex") ||camp9.contains("int") ||camp9.contains("uar") ||camp9.contains("er") ||camp9.contains("eg") ||camp9.contains("rim") ||camp9.contains("Quater") ||camp9.contains("numeral") || camp9.contains("inciso") || camp9.contains(")") || camp9.contains("párrafo")|| camp9.contains("Bis")|| camp9.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp9,db);
-                                        camp9=ordenar(db);
-                                    }
-                                }
-                                if(!camp0.equalsIgnoreCase("")){
-                                    if(camp0.contains("-")||camp0.contains("cimo") ||camp0.contains("eno") ||camp0.contains("avo") ||camp0.contains("timo") ||camp0.contains("ex") ||camp0.contains("int") ||camp0.contains("uar") ||camp0.contains("er") ||camp0.contains("eg") ||camp0.contains("rim") ||camp0.contains("Quater") ||camp0.contains("numeral") || camp0.contains("inciso") || camp0.contains(")") || camp0.contains("párrafo")|| camp0.contains("Bis")|| camp0.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp0,db);
-                                        camp0=ordenar(db);
-                                    }
-                                }
-                                if(!camp11.equalsIgnoreCase("")){
-                                    if(camp11.contains("-")||camp11.contains("cimo") ||camp11.contains("eno") ||camp11.contains("avo") ||camp11.contains("timo") ||camp11.contains("ex") ||camp11.contains("int") ||camp11.contains("uar") ||camp11.contains("er") ||camp11.contains("eg") ||camp11.contains("rim") ||camp11.contains("Quater") ||camp11.contains("numeral") || camp11.contains("inciso") || camp11.contains(")") || camp11.contains("párrafo")|| camp11.contains("Bis")|| camp11.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp11,db);
-                                        camp11=ordenar(db);
-                                    }
-                                }
-                                if(!camp12.equalsIgnoreCase("")){
-                                    if(camp12.contains("-")||camp12.contains("cimo") ||camp12.contains("eno") ||camp12.contains("avo") ||camp12.contains("timo") ||camp12.contains("ex") ||camp12.contains("int") ||camp12.contains("uar") ||camp12.contains("er") ||camp12.contains("eg") ||camp12.contains("rim") ||camp12.contains("Quater") ||camp12.contains("numeral") || camp12.contains("inciso") || camp12.contains(")") || camp12.contains("párrafo")|| camp12.contains("Bis")|| camp12.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp12,db);
-                                        camp12=ordenar(db);
-                                    }
-                                }
-                                if(!camp13.equalsIgnoreCase("")){
-                                    if(camp13.contains("-")||camp13.contains("cimo") ||camp13.contains("eno") ||camp13.contains("avo") ||camp13.contains("timo") ||camp13.contains("ex") ||camp13.contains("int") ||camp13.contains("uar") ||camp13.contains("er") ||camp13.contains("eg") ||camp13.contains("rim") ||camp13.contains("Quater") ||camp13.contains("numeral") || camp13.contains("inciso") || camp13.contains(")") || camp13.contains("párrafo")|| camp13.contains("Bis")|| camp13.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp13,db);
-                                        camp13=ordenar(db);
-                                    }
-                                }
-                                if(!camp14.equalsIgnoreCase("")){
-                                    if(camp14.contains("-")||camp14.contains("cimo") ||camp14.contains("eno") ||camp14.contains("avo") ||camp14.contains("timo") ||camp14.contains("ex") ||camp14.contains("int") ||camp14.contains("uar") ||camp14.contains("er") ||camp14.contains("eg") ||camp14.contains("rim") ||camp14.contains("Quater") ||camp14.contains("numeral") || camp14.contains("inciso") || camp14.contains(")") || camp14.contains("párrafo")|| camp14.contains("Bis")|| camp14.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp14,db);
-                                        camp14=ordenar(db);
-                                    }
-                                }
-                                if(!camp15.equalsIgnoreCase("")){
-                                    if(camp15.contains("-")||camp15.contains("cimo") ||camp15.contains("eno") ||camp15.contains("avo") ||camp15.contains("timo") ||camp15.contains("ex") ||camp15.contains("int") ||camp15.contains("uar") ||camp15.contains("er") ||camp15.contains("eg") ||camp15.contains("rim") ||camp15.contains("Quater") ||camp15.contains("numeral") || camp15.contains("inciso") || camp15.contains(")") || camp15.contains("párrafo")|| camp15.contains("Bis")|| camp15.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp15,db);
-                                        camp15=ordenar(db);
-                                    }
-                                }
-                                if(!camp16.equalsIgnoreCase("")){
-                                    if(camp16.contains("-")||camp16.contains("cimo") ||camp16.contains("eno") ||camp16.contains("avo") ||camp16.contains("timo") ||camp16.contains("ex") ||camp16.contains("int") ||camp16.contains("uar") ||camp16.contains("er") ||camp16.contains("eg") ||camp16.contains("rim") ||camp16.contains("Quater") ||camp16.contains("numeral") || camp16.contains("inciso") || camp16.contains(")") || camp16.contains("párrafo")|| camp16.contains("Bis")|| camp16.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp16,db);
-                                        camp16=ordenar(db);
-                                    }
-                                }
-                                if(!camp17.equalsIgnoreCase("")){
-                                    if(camp17.contains("-")||camp17.contains("cimo") ||camp17.contains("eno") ||camp17.contains("avo") ||camp17.contains("timo") ||camp17.contains("ex") ||camp17.contains("int") ||camp17.contains("uar") ||camp17.contains("er") ||camp17.contains("eg") ||camp17.contains("rim") ||camp17.contains("Quater") ||camp17.contains("numeral") || camp17.contains("inciso") || camp17.contains(")") || camp17.contains("párrafo")|| camp17.contains("Bis")|| camp17.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp17,db);
-                                        camp17=ordenar(db);
-                                    }
-                                }
-                                if(!camp18.equalsIgnoreCase("")){
-                                    if(camp18.contains("-")||camp18.contains("cimo") ||camp18.contains("eno") ||camp18.contains("avo") ||camp18.contains("timo") ||camp18.contains("ex") ||camp18.contains("int") ||camp18.contains("uar") ||camp18.contains("er") ||camp18.contains("eg") ||camp18.contains("rim") ||camp18.contains("Quater") ||camp18.contains("numeral") || camp18.contains("inciso") || camp18.contains(")") || camp18.contains("párrafo")|| camp18.contains("Bis")|| camp18.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp18,db);
-                                        camp18=ordenar(db);
-                                    }
-                                }
-                                if(!camp19.equalsIgnoreCase("")){
-                                    if(camp19.contains("-")||camp19.contains("cimo") ||camp19.contains("eno") ||camp19.contains("avo") ||camp19.contains("timo") ||camp19.contains("ex") ||camp19.contains("int") ||camp19.contains("uar") ||camp19.contains("er") ||camp19.contains("eg") ||camp19.contains("rim") ||camp19.contains("Quater") ||camp19.contains("numeral") || camp19.contains("inciso") || camp19.contains(")") || camp19.contains("párrafo")|| camp19.contains("Bis")|| camp19.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp19,db);
-                                        camp19=ordenar(db);
-                                    }
-                                }
-                                if(!camp20.equalsIgnoreCase("")){
-                                    if(camp20.contains("-")||camp20.contains("cimo") ||camp20.contains("eno") ||camp20.contains("avo") ||camp20.contains("timo") ||camp20.contains("ex") ||camp20.contains("int") ||camp20.contains("uar") ||camp20.contains("er") ||camp20.contains("eg") ||camp20.contains("rim") ||camp20.contains("Quater") ||camp20.contains("numeral") || camp20.contains("inciso") || camp20.contains(")") || camp20.contains("párrafo")|| camp20.contains("Bis")|| camp20.contains("Apartado")){
-
-                                    }else{
-                                        algoritmo(camp20,db);
-                                        camp20=ordenar(db);
-                                    }
+                                } catch(Exception e){
+                                    articulos = text2;
                                 }
 
-                                text += (!camp1.equals("")) ? "Articulo(s) " + camp1 + " " + campo1 + ";" : "";
-                                text += (!camp2.equals("")) ? "Articulo(s) " + camp2 + " " + campo2 + ";" : "";
-                                text += (!camp3.equals("")) ? "Articulo(s) " + camp3 + " " + campo3 + ";" : "";
-                                text += (!camp4.equals("")) ? "Articulo(s) " + camp4 + " " + campo4 + ";" : "";
-                                text += (!camp5.equals("")) ? "Articulo(s) " + camp5 + " " + campo5 + ";" : "";
-
-                                text += (!camp6.equals("")) ? "Articulo(s) " + camp6 + " " + campo6 + ";" : "";
-                                text += (!camp7.equals("")) ? "Articulo(s) " + camp7 + " " + campo7 + ";" : "";
-                                text += (!camp8.equals("")) ? "Articulo(s) " + camp8 + " " + campo8 + ";" : "";
-                                text += (!camp9.equals("")) ? "Articulo(s) " + camp9 + " " + campo9 + ";" : "";
-                                text += (!camp0.equals("")) ? "Articulo(s) " + camp0 + " " + campo0 + ";" : "";
-
-                                text += (!camp11.equals("")) ? "Articulo(s) " + camp11 + " " + campo11 + ";" : "";
-                                text += (!camp12.equals("")) ? "Articulo(s) " + camp12 + " " + campo12 + ";" : "";
-                                text += (!camp13.equals("")) ? "Articulo(s) " + camp13 + " " + campo13 + ";" : "";
-                                text += (!camp14.equals("")) ? "Articulo(s) " + camp14 + " " + campo14 + ";" : "";
-
-                                text += (!camp15.equals("")) ? "Articulo(s) " + camp15 + " " + campo15 + ";" : "";
-                                text += (!camp16.equals("")) ? "Articulo(s) " + camp16 + " " + campo16 + ";" : "";
-                                text += (!camp17.equals("")) ? "Articulo(s) " + camp17 + " " + campo17 + ";" : "";
-                                text += (!camp18.equals("")) ? "Articulo(s) " + camp18 + " " + campo18 + ";" : "";
-                                text += (!camp19.equals("")) ? "Articulo(s) " + camp19 + " " + campo19 + ";" : "";
-                                text += (!camp20.equals("")) ? "Articulo(s) " + camp20 + " " + campo20 + ";" : "";
-                                Log.e("campo1", campo1);
-                           /* text += (!camp1.equals("")) ? camp1 + " " + campo1 + ";" : "";
-                            text += (!camp2.equals("")) ? camp2 + " " + campo2 + ";" : "";
-                            text += (!camp3.equals("")) ? camp3 + " " + campo3 + ";" : "";
-                            text += (!camp4.equals("")) ? camp4 + " " + campo4 + ";" : "";
-                            text += (!camp5.equals("")) ? camp5 + " " + campo5 + ";" : "";
-
-                            text += (!camp6.equals("")) ? camp6 + " " + campo6 + ";" : "";
-                            text += (!camp7.equals("")) ? camp7 + " " + campo7 + ";" : "";
-                            text += (!camp8.equals("")) ? camp8 + " " + campo8 + ";" : "";
-                            text += (!camp9.equals("")) ? camp9 + " " + campo9 + ";" : "";
-                            text += (!camp0.equals("")) ? camp0 + " " + campo0 + ";" : "";
-
-                            text += (!camp11.equals("")) ? camp11 + " " + campo11 + ";" : "";
-                            text += (!camp12.equals("")) ? camp12 + " " + campo12 + ";" : "";
-                            text += (!camp13.equals("")) ? camp13 + " " + campo13 + ";" : "";
-                            text += (!camp14.equals("")) ? camp14 + " " + campo14 + ";" : "";
-
-                            text += (!camp15.equals("")) ? camp15 + " " + campo15 + ";" : "";
-                            text += (!camp16.equals("")) ? camp16 + " " + campo16 + ";" : "";
-                            text += (!camp17.equals("")) ? camp17 + " " + campo17 + ";" : "";
-                            text += (!camp18.equals("")) ? camp18 + " " + campo18 + ";" : "";
-                            text += (!camp19.equals("")) ? camp19 + " " + campo19 + ";" : "";
-                            text += (!camp20.equals("")) ? camp20 + " " + campo20 + ";" : "";*/
-
-							/*text += (!codi.equals("")) ? "Articulo(s) " + codi + " " + cod + ";" : "";
-							text += (!zoni.equals("")) ? "Articulo(s) " + zoni + " "  + zon + ";" : "";
-							text += (!regla.equals("")) ? "Articulo(s) " + regla + " "  + reg +";" : "";
-							text += (!l.equals("")) ? "Articulo(s) " + l + la + ";": "";
-							text += (!oe.equals("")) ? "Articulo(s) " + oe + ordeco + ";" : "";
-							text += (!ne.equals("")) ? "Articulo(s) " + ne + na + ";" : "";
-							text += (!leeep.equals("")) ? "Articulo(s) " + leeep + lee + ";" : "";*/
-
+                                System.out.println("+++++ALGORITMO: "+text2+"++++++");
+                                System.out.println("++Algoritmo: "+articulos);
 
                                 System.out.println(text);
                                 Log.i("text", text);
                                 etEspecificacion.setEnabled(false);
-                                etInfraccion.setText(text);
+                                etInfraccion.setText(articulos);
                                 btnaceptar.setVisibility(View.GONE);
                                 btnmodificar.setVisibility(View.VISIBLE);
                                 spInfraccion.setEnabled(false);
@@ -2763,7 +2523,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 len += txt.length;
                                 txt = Justificar.justifocarTexto(hech);
                                 len += txt.length;
-                                txt = Justificar.justifocarTexto(text);
+                                txt = Justificar.justifocarTexto(articulos);
                                 len += txt.length;
                                 txt = Justificar.justifocarTexto(DECLARA);
                                 len += txt.length;
@@ -2793,6 +2553,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 }
             }
         });
+
+
 
         btnmodificar.setOnClickListener(new View.OnClickListener() {
 
@@ -3139,6 +2901,192 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     public boolean iscaracter(String cadena){
         return cadena.matches("[^XIVL]");
     }
+
+    // Elimina las siguientes las palabras de la cadena
+    private String limpiarCadena(String cadena){
+        cadena = cadena.trim();
+        cadena = cadena.replace("\n","");
+        cadena = cadena.replace("Artículos", "");
+        cadena = cadena.replace("Articulos", "");
+        cadena = cadena.replace("Artículo", "");
+        cadena = cadena.replace("Articulo", "");
+        cadena = cadena.replace("Artícuos", "");
+        cadena = cadena.replace(".", "");
+        cadena = cadena.replace(" :", ":");
+        return cadena;
+    }
+
+    //Limpia al final de la cadena
+    private String limpiarFinalCadena(String subcadena){
+        subcadena = subcadena.replaceAll(" y$", "");
+        subcadena = subcadena.replaceAll(",$", "");
+        subcadena = subcadena.replaceAll(", :$", "");
+        return subcadena;
+    }
+
+
+
+
+    private boolean isReglamento(String caracter){
+        switch(caracter){
+            case "R":
+            case "B":
+            case "C":
+            case "D":
+            case "L":
+                return true;
+        }
+        return false;
+    }
+
+    private boolean isReglamento2(String palabra){
+        switch(palabra){
+            case "Reglamento":
+            case "Buscar":
+            case "Código":
+            case "Disposiciones":
+            case "Ley":
+                return true;
+        }
+        return false;
+    }
+
+    private int whileIsNotNumberOrReglamento(int i, String cadena){
+        int tamanio = cadena.length();
+        String caracter = cadena.substring(i,i+1);
+        while(!isnumeric(caracter)){
+            i++;
+            if(i+1<=tamanio) //Comprueba que no haya llegado al final de la cadena
+                caracter = cadena.substring(i,i+1);
+            else
+                return -1;
+            if(this.isReglamento(cadena.substring(i,i+1))){
+                if(this.isReglamento2(cadena.substring(i,cadena.indexOf(" ",i)))){
+                    return i;
+                }
+            }
+        }
+        return i;
+    }
+
+    // Iterara la cadena hasta encontrar un carácter que no sea numero
+    private int whileIsNumberOrReglamento(int i, String cadena){
+        int tamanio = cadena.length();
+        String caracter = cadena.substring(i,i+1);
+        while(isnumeric(caracter)){
+            i++;
+            if(i+1<=tamanio) //Comprueba que no haya llegado al final de la cadena
+                caracter = cadena.substring(i,i+1);
+            else
+                return -1;
+        }
+        return i;
+    }
+
+    public int ignorar(String cadena, int pos){
+        boolean bandera=true;
+        while(bandera){
+            switch(cadena.substring(pos,pos+1)){
+                case ":":
+                case " ":
+                case ",":
+                case "y":
+                    pos++;
+                    break;
+                default:
+                    bandera=false;
+            }
+        }
+        return pos;
+    }
+
+
+    public String algoritmoRem(String cadena){
+        ArrayList <Articulo> listaArticulos = new ArrayList<>();
+        Articulo art;
+        int inicio;
+        int tamanio;
+        int i=0;
+        String subcadena;
+        String numero="";
+        String tipo="";
+
+        cadena = limpiarCadena(cadena);
+        tamanio = cadena.length();
+
+        if(tamanio==0) return "";
+
+        cadena = cadena+" ";
+
+        String auxCadena = cadena.replaceAll("numeral \\d","numeral x");
+        auxCadena = auxCadena.replaceAll("punto \\d","punto x");
+
+        while(i<tamanio){
+            art = new Articulo();
+
+            if(this.isReglamento(auxCadena.substring(i,i+1))){
+                if(this.isReglamento2(cadena.substring(i,auxCadena.indexOf(" ",i)))){
+                    inicio=i;
+                    i=cadena.indexOf(":",i);
+                    tipo=cadena.substring(inicio,i);
+                }
+            }
+
+            i = this.ignorar(cadena, i);
+            inicio=i;
+
+            if(isnumeric(auxCadena.substring(i, i+1))){
+                i=whileIsNumberOrReglamento(i, auxCadena);
+                if(i==-1) break;
+                numero = cadena.substring(inicio, i);
+            } else {
+                numero="0";
+            }
+
+            i=whileIsNotNumberOrReglamento(i, auxCadena);
+            if(i==-1) i=cadena.length()-1;
+
+            subcadena = cadena.substring(inicio,i).trim();
+            subcadena = limpiarFinalCadena(subcadena);
+
+            art.setDescripcion(subcadena);
+            art.setTipo((tipo.isEmpty())?"Articulo(s):":tipo);
+            art.setArticulo(Integer.parseInt(numero));
+
+            if(!buscar(art,listaArticulos)){
+                listaArticulos.add(art);
+            }
+        }
+
+        ordenar(listaArticulos);
+        this.mapaReglamentos.cargarLista(listaArticulos);
+
+        return mapaReglamentos.mostrar();
+    }
+
+    private boolean buscar(Articulo art, ArrayList<Articulo> al){
+        for(int i=0;i<al.size(); i++){
+            if(art.getDescripcion().equalsIgnoreCase(al.get(i).getDescripcion())){
+                if(art.getTipo().equalsIgnoreCase(al.get(i).getTipo()))
+                    return true;
+            }
+
+        }
+        return false;
+    }
+
+
+
+    private void ordenar(ArrayList la){
+        Collections.sort(la, new Comparator<Articulo>() {
+            @Override
+            public int compare(Articulo art1, Articulo art2) {
+                return new Integer(art1.getArticulo()).compareTo(new Integer(art2.getArticulo()));
+            }
+        });
+    }
+
+
     public void algoritmo(String camp1, SQLiteDatabase db){
         String v1 = "";
         ArrayList<String> arr_art=new ArrayList<>();
