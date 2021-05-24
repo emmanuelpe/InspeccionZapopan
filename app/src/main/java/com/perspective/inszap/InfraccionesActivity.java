@@ -114,7 +114,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     static String valW="";
 	private Button btncopiar,btneliminarA,btnArticulos,btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
 	private TextView tvBuscar,tvfudamentoEx,tvfechaClau,tvfolioclau,tvfechap,tvfolioap,tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvPropiedad,spselec1,tvDonde;
-	private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",unidades="",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",fracciones = "",articulos = "",folio = "",clave = "",fol = "",Axmedidas="",concatM="";;
+	private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",unidades="",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",fracciones = "",articulos = "",folio = "",clave = "",fol = "",Axmedidas="",concatM="";
 	private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:"; 
 	private int banderagiro=0, mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0,tipoEntrega = 0;
 	private Spinner spgiro,spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spMeConstitui,spDensidad,spCreglamentos;
@@ -221,7 +221,6 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     private SharedPreferences sp;
     private int foliox = 0;
 
-    private MapaReglamentos mapaReglamentos = new MapaReglamentos();
     private Spinner reglamentoSP;
 
     @Override
@@ -2494,9 +2493,6 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             text2 += (!camp18.equals("")) ? campo18 + ":" + camp18 +" ": "";
                             text2 += (!camp19.equals("")) ? campo19 + ":" + camp19 +" ": "";
                             text2 += (!camp20.equals("")) ? campo20 + ":" + camp20 +" ": "";
-							
-
-                            System.out.println("+++++TEXT:"+text+"++++++++++++++");
 
                             String articulos = "";
                             try{
@@ -2516,8 +2512,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 //							System.out.println(text);
 							Log.i("text", text);
 							etEspecificacion.setEnabled(false);
+							etInfraccion.setText("");
 							etInfraccion.setText(articulos);
-							btnaceptar.setVisibility(View.GONE);
+                            articulos="";
+                            btnaceptar.setVisibility(View.GONE);
 							btnmodificar.setVisibility(View.VISIBLE);
 							spInfraccion.setEnabled(false); 
 							etSeleccion.setVisibility(View.VISIBLE);
@@ -3231,6 +3229,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
     public String algoritmoRem(String cadena){
+        MapaReglamentos mapaReglamentos = new MapaReglamentos();
         ArrayList <Articulo> listaArticulos = new ArrayList<>();
         Articulo art;
         int inicio;
@@ -3288,7 +3287,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         }
 
         ordenar(listaArticulos);
-        this.mapaReglamentos.cargarLista(listaArticulos);
+        mapaReglamentos.cargarLista(listaArticulos);
 
         return mapaReglamentos.mostrar();
     }

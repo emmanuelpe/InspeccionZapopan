@@ -216,7 +216,6 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private TextInputEditText etArti;
     private SharedPreferences sp;
     private int foliox = 0;
-    private MapaReglamentos mapaReglamentos = new MapaReglamentos();
 
 
     @Override
@@ -3002,6 +3001,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
     public String algoritmoRem(String cadena){
+        MapaReglamentos mapaReglamentos = new MapaReglamentos();
         ArrayList <Articulo> listaArticulos = new ArrayList<>();
         Articulo art;
         int inicio;
@@ -3059,7 +3059,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         }
 
         ordenar(listaArticulos);
-        this.mapaReglamentos.cargarLista(listaArticulos);
+        mapaReglamentos.cargarLista(listaArticulos);
 
         return mapaReglamentos.mostrar();
     }
