@@ -2353,7 +2353,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							
 							rlcampo.setVisibility(View.GONE);
 							dato = "";
-							if(id==5){
+							if(id==5 || id==2){
                                 Log.e("Axmedidas", Axmedidas);
                                 medidas2(Axmedidas);
                             }
@@ -5168,6 +5168,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     cmedida.clear();
                     art.clear();
                     orden.clear();
+                    cMedidaC.clear();
 
                     campos.add("");
                     cmedida.add("");
@@ -5193,7 +5194,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cMedidaC));
                 }
                 if(id==2){
-                    spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cMedidaC));
+                    spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida));
                 }
             } catch (SQLiteException e) {
                 System.out.println(e.getMessage());
@@ -5210,7 +5211,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cMedidaC));
                 }
                 if(id==2){
-                    spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cMedidaC));
+                    spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida));
                 }
             }
         }
@@ -7030,13 +7031,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 unidad = c.getString(3);
 
 
-
-
                 for (int i = 0; i < campo.size(); i++) {
                     if (!campo.get(i).equalsIgnoreCase("")) {
-                        System.out.println("-entro"+c.getColumnIndex(campo.get(i)));
+                        System.out.println("-entro" + c.getColumnIndex(campo.get(i)));
                         if (c.getColumnIndex(campo.get(i)) >= 0) {
-                            System.err.println("-entro"+c.getString(c.getColumnIndex(campo.get(i))));
+                            System.err.println("-entro" + c.getString(c.getColumnIndex(campo.get(i))));
                             if (i == 0) {
                                 c1 = c.getString(c.getColumnIndex(campo.get(i)));
                                 if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
@@ -7125,29 +7124,30 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 Log.i("Info", "cod: " + c.getString(4) + " ord: " + c.getString(6) + " lap: " + c.getString(7) + " ordenamiento_ " + c.getString(8) + " n " + c.getString(9) + " l " + c.getString(10));
             } while (c.moveToNext());
             c.close();
-            if (id == 5) {
+            /*if (id == 5) {
                 medidas(cam);
                 adapter.notifyDataSetChanged();
-            }
-            if (id == 2) {
+            }*/
+            /*if (id == 2) {
                 medidas(cam);
                 adapter.notifyDataSetChanged();
-            }
-            if (id != 5 || id!=2) {
+            }*/
+            if (id != 5 || id != 2) {
 
 
                 String sql = "";
-                if ( id == 4 )
+                if (id == 4) {
                     sql = "select competencia,ordenamiento from c_ordenamiento where campo = '" + cam + "' and id_c_direccion = " + id;
 
 
-                System.err.println(sql);
-                c = db.rawQuery(sql, null);
-                if (c.moveToFirst()) {
-                    do {
-                        System.err.println(c.getString(0) + " " + c.getString(1));
-                        competencias = c.getString(0) + " " + c.getString(1);
-                    } while (c.moveToNext());
+                    System.err.println(sql);
+                    c = db.rawQuery(sql, null);
+                    if (c.moveToFirst()) {
+                        do {
+                            System.err.println(c.getString(0) + " " + c.getString(1));
+                            competencias = c.getString(0) + " " + c.getString(1);
+                        } while (c.moveToNext());
+                    }
                 }
             }
         }
@@ -15036,6 +15036,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             concatM = spMedida.getSelectedItem().toString();
                         else
                             concatM = ", "+spMedida.getSelectedItem().toString();
+
                         contador++;
                         // }
 

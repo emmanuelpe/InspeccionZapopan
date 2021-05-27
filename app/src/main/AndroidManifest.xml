@@ -46,6 +46,9 @@
         <activity
             android:name=".ConsultarLicenciaConstruccion"
             android:configChanges="orientation|screenSize|screenLayout|navigation" />
+        <activity
+            android:name=".navegador"
+            android:configChanges="orientation|screenSize|screenLayout|navigation" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
