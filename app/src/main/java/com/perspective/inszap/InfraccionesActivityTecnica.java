@@ -2416,7 +2416,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         unidades += spuni3.getSelectedItem().toString().trim() + ",";
                                         if (!spuni3.getSelectedItem().toString().equals("")) {
                                             // Log.e("Primer hecho",des1);
-                                            seleccion += x + " " + des3 + " (" + etdato.getText().toString().trim() + " " + spuni3.getSelectedItem().toString() + " " + etObs3.getText().toString() + "). ";
+                                            seleccion += x + " " + des3 + " (" + etdato3.getText().toString().trim() + " " + spuni3.getSelectedItem().toString() + " " + etObs3.getText().toString() + "). ";
                                         }
                                     } else {
                                         unidades += " ,";
@@ -2436,7 +2436,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         unidades += spuni4.getSelectedItem().toString().trim() + ",";
                                         if (!spuni4.getSelectedItem().toString().equals("")) {
                                             //Log.e("Primer hecho",des1);
-                                            seleccion += x + " " + des4 + " (" + etdato.getText().toString().trim() + " " + spuni4.getSelectedItem().toString() + " " + etObs4.getText().toString() + "). ";
+                                            seleccion += x + " " + des4 + " (" + etdato4.getText().toString().trim() + " " + spuni4.getSelectedItem().toString() + " " + etObs4.getText().toString() + "). ";
                                         }
                                     } else {
                                         unidades += " ,";

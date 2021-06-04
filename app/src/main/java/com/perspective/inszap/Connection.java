@@ -20,6 +20,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -76,7 +77,7 @@ public class Connection {
 			httpost.setEntity(new UrlEncodedFormEntity(detalle));
 			HttpResponse response = httpclient.execute(httpost);
 			String responseText = EntityUtils.toString(response.getEntity()); 
-	        Log.i("msj", responseText);
+	        Log.i("msjque guardo", responseText);
 	    
 		}catch (ClientProtocolException e) {
 			Log.e("ClientProtocolException", e.getMessage());
@@ -84,6 +85,8 @@ public class Connection {
 		catch (IOException e) {
 			Log.e("IOException", e.getMessage());
 		}
+
+
 		
 	}
 	

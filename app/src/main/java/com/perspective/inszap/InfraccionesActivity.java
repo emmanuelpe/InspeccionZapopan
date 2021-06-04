@@ -1489,14 +1489,25 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             Log.i("acta", "entro aqui3");
                             Log.i("consultar", "no");
                             asignarActa();
+                            if(numero.equals("")){
+                                numero="0";
+                            }
                             n = Integer.valueOf(numero)+1;
                             Log.i("Numero1", numero);
                             if(n > 0 & n <= 9){
                                 Log.i("acta", "entro aqui4");
                                 numero = "0"+String.valueOf(n);
                                 etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/"  + numero);
-                                Log.i("numeros", "n " + etNumeroActa.getText().toString().substring(0, 16) + " v " + s.substring(0, 16));
-                                if(!etNumeroActa.getText().toString().substring(0, 16).equalsIgnoreCase(s.substring(0, 16))){
+                              //  Log.i("numeros", "n " + etNumeroActa.getText().toString().substring(0, 16) + " v " + s.substring(0, 16));
+                                if(s!=null) {
+                                    if (s.equals("")) {
+                                        s = "";
+                                    } else {
+                                        s = s.substring(0, 16);
+                                    }
+                                }
+
+                                if(!etNumeroActa.getText().toString().substring(0, 16).equalsIgnoreCase(s)){
                                     Log.i("numero acta", "si");
                                     numero = "01";
                                     Log.i("acta", "entro aqui5");
@@ -2432,7 +2443,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 if(spuni3.getVisibility() != View.GONE) {
                                     unidades += spuni3.getSelectedItem().toString().trim()+",";
                                     if (!spuni3.getSelectedItem().toString().equals("")) {
-                                        seleccion += x + " " + des3 + " (" + etdato.getText().toString().trim() + " " + spuni3.getSelectedItem().toString() + " " + etObs3.getText().toString() +"); ";
+                                        seleccion += x + " " + des3 + " (" + etdato3.getText().toString().trim() + " " + spuni3.getSelectedItem().toString() + " " + etObs3.getText().toString() +"); ";
                                     }
                                 } else {
                                     unidades+=" ,";
@@ -2452,7 +2463,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 if(spuni4.getVisibility() != View.GONE) {
                                     unidades += spuni4.getSelectedItem().toString().trim()+",";
                                     if (!spuni4.getSelectedItem().toString().equals("")) {
-                                        seleccion += x + " " + des4 + " (" + etdato.getText().toString().trim() + " " + spuni4.getSelectedItem().toString() + " " + etObs4.getText().toString() +"); ";
+                                        seleccion += x + " " + des4 + " (" + etdato4.getText().toString().trim() + " " + spuni4.getSelectedItem().toString() + " " + etObs4.getText().toString() +"); ";
                                     }
                                 } else {
                                     unidades+=" ,";
@@ -4055,7 +4066,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     iUni = "";
                                 else
                                     iUni = iUnidad[i];
-								Log.i("Detalle infacciÔøΩn", idLevantamiento + " " + etNumeroActa.getText().toString() + " " + iHec + " " + can);
+								//Log.i("Detalle infacciÔøΩn", idLevantamiento + " " + etNumeroActa.getText().toString() + " " + iHec + " " + can);
 								ingresarDetalleInfraccion(idLevantamiento, etNumeroActa.getText().toString(), iHec, can,"N",iUni);
 							}
 						}
@@ -4171,9 +4182,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 iUni = "";
                             else
                                 iUni = iUnidad[i];
-							if (conn.validarConexion(getApplicationContext())) {
+							//if (conn.validarConexion(getApplicationContext())) {
                                 conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, iUni,/*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
-                            }
+                            //}
 						}
 					}
 					//}
@@ -6514,7 +6525,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 sb.append("Ingrese un acompañante \n");
                 valid = false;
             }
-    	    if(id==4 || id==5 ||id==2 || id==3){
+    	    if(id==4 || id==5  || id==3){
                 if(etfolioclau.isShown()){
                     if(validarCampos(this.etfolioclau)){
                         sb.append("Ingrese folio de clausura. \n");
@@ -9123,7 +9134,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					    
 					    try {
 					    	
-					    	img = Image.getInstance(stream.toByteArray());
+					    	img = Jpeg.getInstance(stream.toByteArray());
 					        img.setAbsolutePosition(0, 0);
 					        
 					        float width = doc.getPageSize().getWidth();
@@ -10455,7 +10466,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				    
 				    try {
 				    	
-				    	img = Image.getInstance(stream.toByteArray());
+				    	img = Jpeg.getInstance(stream.toByteArray());
 				        img.setAbsolutePosition(0, 0);
 				        
 				        float width = doc.getPageSize().getWidth();
@@ -11931,7 +11942,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                 try {
 
-                    img = Image.getInstance(stream.toByteArray());
+                    img = Jpeg.getInstance(stream.toByteArray());
                     img.setAbsolutePosition(0, 0);
 
                     float width = doc.getPageSize().getWidth();
@@ -13299,7 +13310,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                 try {
 
-                    img = Image.getInstance(stream.toByteArray());
+                    img = Jpeg.getInstance(stream.toByteArray());
                     img.setAbsolutePosition(0, 0);
 
                     float width = doc.getPageSize().getWidth();
@@ -14800,7 +14811,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		default:
 			break;
 		}
-		etMotivo.setText(m1);
+		//etMotivo.setText(m1);
 		System.out.println(hech);
 	}
 
