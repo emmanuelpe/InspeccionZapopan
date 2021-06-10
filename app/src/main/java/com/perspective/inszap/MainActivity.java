@@ -47,6 +47,9 @@ public class MainActivity extends Activity {
 	private Spinner spDireccion, spUsuario;
 	private EditText etContrasena;
 	private Button btnIngresar;
+//	//Esteban
+//	private Button btnActualizar;
+
 	private TextView tvInpector,tvContrasena,tvDireccion,title;
 	private int id_;
 	private Connection conn = new Connection();
@@ -69,8 +72,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		 //final Context main=getApplicationContext();
-		
+
 		Typeface helvetica = Typeface.createFromAsset(getAssets(), "font/HelveticaNeueLTStd-Bd.otf");
 		
 		title = (TextView)findViewById(R.id.title);
@@ -78,6 +80,10 @@ public class MainActivity extends Activity {
 		tvInpector = (TextView)findViewById(R.id.tvUsuario);
 		tvContrasena = (TextView)findViewById(R.id.tvcontrasena);
 		btnIngresar = (Button)findViewById(R.id.btnIngresar);
+
+////		ESTEBAN
+//		btnActualizar = (Button)findViewById(R.id.btnActualizar);
+
 		spDireccion = (Spinner)findViewById(R.id.spDireccion);
 		spUsuario = (Spinner)findViewById(R.id.spUsuario);
 		etContrasena = (EditText)findViewById(R.id.etContrasena);
@@ -87,6 +93,9 @@ public class MainActivity extends Activity {
 		tvInpector.setTypeface(helvetica);
 		tvContrasena.setTypeface(helvetica);
 		btnIngresar.setTypeface(helvetica);
+
+//		//Esteban
+//		btnActualizar.setTypeface(helvetica);
 		
 		spDireccion.setFocusable(true);
 		
@@ -163,6 +172,25 @@ public class MainActivity extends Activity {
 				
 			}
 		});
+
+//		//ESTEBAN
+//		btnActualizar.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View view) {
+//				Toast.makeText(MainActivity.this, "Espera un momento...", Toast.LENGTH_SHORT).show();
+//				String version,xyz[],x,y,z;
+//				version = getString(R.string.version);
+//
+//				xyz = version.split("\\.");
+//				x = xyz[0].substring(xyz[0].length()-1,xyz[0].length());
+//				y = xyz[1];
+//				z = xyz[2].substring(0,1);
+//
+//				Actualizador actualizador = new Actualizador(MainActivity.this);
+//				actualizador.execute("https://github.com/esteban1810/Inspeccion/raw/main","inspeccion",x,y,z);
+//			}
+//		});
+//		//Fin ESTEBAN
 		
 		btnIngresar.setOnClickListener(new View.OnClickListener() {
 			

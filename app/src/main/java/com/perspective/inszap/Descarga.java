@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -61,7 +62,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 public class Descarga extends Activity implements android.content.DialogInterface.OnClickListener, OnClickListener {
 
 	static final JSONParser jParser = new JSONParser();
-	private Button btnReporte,btnDescargarD, btnDescargarF, btnActualizar, btnInfraccion, btnSalir, btnPrueba, btnConfig, btnUpdate, btnConsultarL, btnConsultar, btnReimprimir1, btnConsultarLicenciaC, btnLicencias;
+	private Button btnReporte,btnDescargarD, btnDescargarF, btnActualizar, btnInfraccion, btnSalir, btnPrueba, btnConfig, btnUpdate, btnConsultarL, btnConsultar, btnReimprimir1, btnConsultarLicenciaC, btnLicencias,btnActualizarApp;
 	private String mFTP = "172.16.1.21"/*"servicios.tlajomulco.gob.mx"/*"pgt.no-ip.biz"*/, dir, arch, result, us, msj, res, direccion, config = "";
 	private int id, aux = 0, id_l, count = 0, countF = 0, ve = 0, con,values_cr = 0,totalCR = 0;
 	private int v = 0, v1;
@@ -137,6 +138,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		btnLicencias = findViewById(R.id.btnLicencias);
 		mProgressBar = findViewById(R.id.mProgressBar);
 		btnReporte=findViewById(R.id.btnReporte);
+		this.btnActualizarApp = (Button)findViewById(R.id.btnActualizarApp);
 
 		titleD = (TextView) findViewById(R.id.titleD);
 
@@ -155,6 +157,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		btnReimprimir1.setTypeface(helvetica);
 		btnLicencias.setTypeface(helvetica);
 		btnReporte.setTypeface(helvetica);
+		btnActualizar.setTypeface(helvetica);
 
 		btnPrueba.setOnClickListener(this);
 		btnConfig.setOnClickListener(this);
@@ -178,6 +181,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 
 		System.out.println(direccion.equalsIgnoreCase("Administración"));
 		sp = getSharedPreferences("infracciones", Context.MODE_PRIVATE);
+
 
 		if (direccion.equalsIgnoreCase("administracion") | direccion.equalsIgnoreCase("Administración")) {
 			btnInfraccion.setEnabled(false);
@@ -345,6 +349,52 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 
 			}
 		});
+
+
+		//ESTEBAN
+		btnActualizarApp.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				String x,y,z;
+				String url = getString(R.string.url);
+				String nombreApk = getString(R.string.nombreApk);
+				String version = getString(R.string.version);
+				String xyz[];
+
+				btnActualizarApp.setEnabled(false);
+				Toast.makeText(Descarga.this, "Espera un momento...", Toast.LENGTH_SHORT).show();
+
+				xyz = version.split("\\.");
+
+				x = xyz[0].substring(xyz[0].length()-1);
+				y = xyz[1];
+				z = xyz[2].substring(0,1);
+
+				Actualizador actualizador = new Actualizador(Descarga.this);
+				actualizador.execute(url,nombreApk,x,y,z);
+			}
+
+			public boolean validarUrl(String direccion){
+				try{
+					final URL u = new URL(direccion);
+					HttpURLConnection huc = (HttpURLConnection) u.openConnection();
+					huc.setRequestMethod("HEAD");
+					int responseCode = huc.getResponseCode();
+
+					if (responseCode != 404) {
+						System.out.println("GOOD");
+						return true;
+					} else {
+						System.out.println("BAD");
+						return false;
+					}
+				} catch (Exception e){
+					System.out.println("ERROR");
+					return false;
+				}
+			}
+		});
+		//Fin ESTEBAN
 
 		this.btnDescargarD.setOnClickListener(new OnClickListener() {
 

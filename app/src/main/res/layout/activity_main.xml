@@ -29,7 +29,9 @@
 			 android:layout_height="wrap_content"
 			 android:paddingTop="10dp"
 			 android:paddingBottom="10dp"
-			 android:text="Version 1.3.6 04/06/2021"
+
+			 android:text="@string/version"
+
 			 android:gravity="center"
 			 android:layout_below="@id/ivLogo"
 			 android:textSize="19px"
@@ -144,7 +146,19 @@
             	 android:layout_marginTop="5dp"
             	 android:layout_marginRight="10dp"
 	             style="@style/Boton"/>
-        
+
+<!--			<Button-->
+<!--				android:id="@+id/btnActualizar"-->
+<!--				android:layout_width="wrap_content"-->
+<!--				android:layout_height="70dp"-->
+<!--				android:layout_below="@id/btnIngresar"-->
+<!--				android:text="@string/actualizar"-->
+<!--				android:layout_alignParentRight="true"-->
+<!--				android:layout_marginTop="5dp"-->
+<!--				android:layout_marginRight="0dp"-->
+<!--				android:layout_marginLeft="0dp"-->
+<!--				style="@style/Boton"/>-->
+
     	</RelativeLayout>
     </ScrollView>
 </RelativeLayout>
