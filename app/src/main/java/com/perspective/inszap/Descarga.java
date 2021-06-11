@@ -22,6 +22,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -372,26 +374,6 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 
 				Actualizador actualizador = new Actualizador(Descarga.this);
 				actualizador.execute(url,nombreApk,x,y,z);
-			}
-
-			public boolean validarUrl(String direccion){
-				try{
-					final URL u = new URL(direccion);
-					HttpURLConnection huc = (HttpURLConnection) u.openConnection();
-					huc.setRequestMethod("HEAD");
-					int responseCode = huc.getResponseCode();
-
-					if (responseCode != 404) {
-						System.out.println("GOOD");
-						return true;
-					} else {
-						System.out.println("BAD");
-						return false;
-					}
-				} catch (Exception e){
-					System.out.println("ERROR");
-					return false;
-				}
 			}
 		});
 		//Fin ESTEBAN
