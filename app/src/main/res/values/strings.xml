@@ -13,12 +13,12 @@
 
     <!--    ESTEBAN-->
     <string name="actualizar">Actualizar App</string>
-    <string name="version">Version 1.3.7 11/06/2021</string>
+    <string name="version">Version 1.3.8 15/06/2021</string>
     <string name="downloading_new_version">Downloading New Version</string>
     <string name="download_failed">Download Failed Please Try Again Later</string>
     <string name="installing_new_version">Installing New Version</string>
     <string name="download_completed">New Version Download Completed</string>
-    <string name="url">https://github.com/esteban1810/Inspeccion/raw/main</string>
+    <string name="url">https://github.com/CristianPGM/APKZapopan/raw/master</string>
     <string name="nombreApk">inspeccionzpn</string>
 
     <string name="updating">Updating..</string>
