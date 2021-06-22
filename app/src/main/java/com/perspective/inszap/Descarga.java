@@ -420,7 +420,18 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				new EFoto().execute();
+				if (conn.validarConexion(getApplicationContext())) {
+					new EFoto().execute();
+					Toast toast = Toast.makeText(getApplicationContext(), "Proceso de actualizar iniciado espere por favor!!", Toast.LENGTH_LONG);
+					toast.setGravity(0, 0, 15);
+					toast.show();
+					new Ingresar().execute(String.valueOf(values_cr));
+				}else{
+					msj = "No se encontro conexion a internet";
+					Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
+					toast.setGravity(0, 0, 15);
+					toast.show();
+				}
 			}
 		});
 
