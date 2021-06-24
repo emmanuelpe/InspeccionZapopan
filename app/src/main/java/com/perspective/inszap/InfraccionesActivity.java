@@ -2331,7 +2331,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		});
         
         this.btnaceptar.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				if(validar()>0){
@@ -2364,9 +2364,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							
 							rlcampo.setVisibility(View.GONE);
 							dato = "";
-							if(id==5 || id==2){
-                                Log.e("Axmedidas", Axmedidas);
-                                medidas2(Axmedidas);
+							if(id==5|| id==2){
+
+                                    Log.e("Axmedidas", Axmedidas);
+                                    medidas2(Axmedidas);
+
+
                             }
 							String descrip = etEspecificacion.getText().toString()+".";
 							/*if (!Double.toString(latitud).equals("0.0") & !Double.toString(longitud).equals("0.0"))   
@@ -5095,13 +5098,15 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 String sqlI="";
                 for(int i=0;i<arrayincaseF.size();i++){
                     if(arrayincaseF.get(i).length()>2){
+                        System.out.println("holaaaaa- "+arrayincaseF.get(i).trim());
                         sqlI="SELECT reg_trato_animales,reg_anuncion,reg_gestion,reg_cementerio,reg_proteccion_conservacion,reg_proteccion_ambiente,reg_sonido,reg_alumbrado,reg_inclusion,reg_rastro,reg_policia,ley_bebidas,reg_residuos,regtiancom,reg_com_ind,reg_movilidad FROM C_infraccion WHERE infraccion like '%"+arrayincaseF.get(i).trim()+"%'";
 
                     }
 
-                    Cursor cursor1 = db.rawQuery(sqlI, null);
-                    Log.e("sql:",sqlI);
+
                     try {
+                        Cursor cursor1 = db.rawQuery(sqlI, null);
+                        Log.e("sql:",sqlI);
                         if(cursor1.moveToFirst()) {
                             if(cursor1.getString(cursor1.getColumnIndex("reg_anuncion")).length()>2){
                                 condicion+="'reg_anuncion',";
@@ -6202,10 +6207,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     }
                 }
             }
-            if(validarSpinner(this.spMedida)) {
+            /*if(validarSpinner(this.spMedida)) {
                 sb.append("Ingrese las medidas precautorias. \n");
                 valid = false;
-            }
+            }*/
+
             if(id==5){
                 if (validarCampos(this.etGiro)) {
                     sb.append("Ingrese el giro de donde se actua \n");
@@ -6525,7 +6531,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 sb.append("Ingrese un acompañante \n");
                 valid = false;
             }
-    	    if(id==4 || id==5  || id==3){
+    	    if(id==4){
                 if(etfolioclau.isShown()){
                     if(validarCampos(this.etfolioclau)){
                         sb.append("Ingrese folio de clausura. \n");
@@ -7553,10 +7559,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                // rlProp.setVisibility(View.GONE);
                 tvMC.setVisibility(View.GONE);
                 spMeConstitui.setVisibility(View.GONE);
-                tvfechap.setVisibility(View.VISIBLE);
-                tvfolioap.setVisibility(View.VISIBLE);
-                etfechap.setVisibility(View.VISIBLE);
-                etfolioap.setVisibility(View.VISIBLE);
+
                 tvfechap.setVisibility(View.GONE);
                 etfechap.setVisibility(View.GONE);
 

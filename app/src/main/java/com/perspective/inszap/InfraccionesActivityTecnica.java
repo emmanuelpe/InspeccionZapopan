@@ -4836,9 +4836,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                     }
 
-                    Cursor cursor1 = db.rawQuery(sqlI, null);
-                    Log.e("sql:",sqlI);
+
                     try {
+                        Cursor cursor1 = db.rawQuery(sqlI, null);
+                        Log.e("sql:",sqlI);
                         if(cursor1.moveToFirst()) {
                             if(cursor1.getString(cursor1.getColumnIndex("reg_anuncion")).length()>2){
                                 condicion+="'reg_anuncion',";
