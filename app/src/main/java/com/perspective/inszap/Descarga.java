@@ -422,10 +422,10 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				if (conn.validarConexion(getApplicationContext())) {
 					new EFoto().execute();
-					Toast toast = Toast.makeText(getApplicationContext(), "Proceso de actualizar iniciado espere por favor!!", Toast.LENGTH_LONG);
+					/*Toast toast = Toast.makeText(getApplicationContext(), "Proceso de actualizar iniciado espere por favor!!", Toast.LENGTH_LONG);
 					toast.setGravity(0, 0, 15);
-					toast.show();
-					new Ingresar().execute(String.valueOf(values_cr));
+					toast.show();*/
+					//new Ingresar().execute(String.valueOf(values_cr));
 				}else{
 					msj = "No se encontro conexion a internet";
 					Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
@@ -504,7 +504,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 
 			 GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
 			 SQLiteDatabase db = gestion.getReadableDatabase();
-			 String sql = "Select max(numero_acta) from Levantamiento";
+			 String sql = "Select max(cast(numero_acta as int)) from Levantamiento where id_c_inspector1 = "+ id;
 			 Cursor cursor = db.rawQuery(sql, null);
 			 if (cursor.moveToFirst()) {
 				 do {
@@ -520,7 +520,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				 } while (cursor.moveToNext());
 			 }
 			 cursor.close();
-
+		System.out.println(fol == folioMax);
 			 if (fol == folioMax)
 				 startService(new Intent(Descarga.this, ClearFolios.class));
 
@@ -539,8 +539,10 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			SQLiteDatabase db = gestion.getReadableDatabase();
 
 
-			String sql = "SELECT max(numero_acta) FROM Levantamiento where id_c_inspector1 = " + id +" and infraccion=1";
-			Log.v("sql", sql);
+			String sql = "SELECT max(cast (numero_acta as int)) FROM Levantamiento where id_c_inspector1 = " + id +" and infraccion=1";
+		//String sql = "SELECT id_c_inspector1 FROM Levantamiento where numero_acta = '3469'";
+
+		Log.v("sql", sql);
 			Cursor cursor = db.rawQuery(sql, null);
 			if (cursor.moveToFirst()) {
 				do {
@@ -553,6 +555,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				} while (cursor.moveToNext());
 			}
 			cursor.close();
+		Log.v("folio actual tableta", String.valueOf(folio));
 			sql = "SELECT  f_min FROM C_inspector where id_c_inspector= '" + id + "'  LIMIT 1";
 			cursor = db.rawQuery(sql, null);
 			if (cursor.moveToFirst()) {
@@ -1281,7 +1284,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("C_Direccion");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php", "C_Direccion");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/getC_Direccion.php", "C_Direccion");
 					x += sicrof("c_direccion", url,"0");
 					if (x>0){
 						mensaje=mensaje+" c_direccion";
@@ -1293,7 +1296,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				i++;
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_insepctor.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("C_inspector");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_insepctor.php", "C_inspector");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/getc_insepctor.php", "C_inspector");
 					x += sicrof("C_inspector", url,"1");
 					if (x>0){
 						mensaje=mensaje+" C_inspector";
@@ -1304,7 +1307,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				i++;
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_infraccion.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("C_infraccion");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_infraccion.php", "C_infraccion");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/getC_infraccion.php", "C_infraccion");
 					x += sicrof("C_infraccion", url,"1");
 					if (x>0){
 						mensaje+=" C_infraccion";
@@ -1314,19 +1317,19 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				mProgressBar.setProgress(i);
 
 				i++;
-				/*if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_dia_no_habil.php").trim().equalsIgnoreCase("null")) {
+				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_dia_no_habil.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("C_dia_no_habil");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_dia_no_habil.php", "C_dia_no_habil");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/getc_dia_no_habil.php", "C_dia_no_habil");
 					x += sicrof("C_dia_no_habil", url,"0");
 					if (x>0){
 						mensaje=mensaje+" C_dia_no_habil";
 					}
-				}*/
+				}
 				mProgressBar.setProgress(i);
 				i++;
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_ley_ingesos.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("C_ley_ingresos");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_ley_ingesos.php", "C_ley_ingresos");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/getC_ley_ingesos.php", "C_ley_ingresos");
 					x += sicrof("C_ley_ingresos", url,"0");
 					if (x>0){
 						mensaje=mensaje+" C_ley_ingresos";
@@ -1337,7 +1340,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				i++;
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_zonas.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("C_zonas");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_zonas.php", "C_zonas");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/getc_zonas.php", "C_zonas");
 					x += sicrof("C_zonas", url,"0");
 					if (x>0){
 						mensaje=mensaje+" C_zonas";
@@ -1348,7 +1351,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				i++;
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_fraccionamiento.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("C_fraccionamiento");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_fraccionamiento.php", "C_fraccionamiento");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/getC_fraccionamiento.php", "C_fraccionamiento");
 					x += sicrof("C_fraccionamiento", url,"0");
 					if (x>0){
 						mensaje=mensaje+" C_fraccionamiento";
@@ -1360,7 +1363,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				i++;
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_poblacion.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("C_poblacion");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_poblacion.php", "C_poblacion");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/getC_poblacion.php", "C_poblacion");
 					x += sicrof("C_poblacion", url,"0");
 					if (x>0){
 						mensaje=mensaje+" C_poblacion";
@@ -1371,7 +1374,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				i++;
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_visitado_identifica.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("C_visitado_identifica");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_visitado_identifica.php", "C_visitado_identifica");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/getC_visitado_identifica.php", "C_visitado_identifica");
 					x += sicrof("C_visitado_identifica", url,"0");
 					if (x>0){
 						mensaje=mensaje+" C_visitado_identifica";
@@ -1382,7 +1385,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				i++;
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_visitado_manifiesta.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("C_visitado_manifiesta");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_visitado_manifiesta.php", "C_visitado_manifiesta");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/getC_visitado_manifiesta.php", "C_visitado_manifiesta");
 					x += sicrof("C_visitado_manifiesta", url,"0");
 					if (x>0){
 						mensaje=mensaje+" C_visitado_manifiesta";
@@ -1393,7 +1396,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				i++;
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_uso_suelo.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("C_uso_suelo");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_uso_suelo.php", "C_uso_suelo");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/getC_uso_suelo.php", "C_uso_suelo");
 					x += sicrof("C_uso_suelo", url,"0");
 					if (x>0){
 						mensaje=mensaje+" C_uso_suelo";
@@ -1405,7 +1408,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				i++;
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_ordenamiento.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("C_ordenamiento");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_ordenamiento.php", "C_ordenamiento");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/getC_ordenamiento.php", "C_ordenamiento");
 					x += sicrof("C_ordenamiento", url,"0");
 					if (x>0){
 						mensaje=mensaje+" C_ordenamiento";
@@ -1416,7 +1419,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				i++;
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getTabletas.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("c_tabletas");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getTabletas.php", "c_tabletas");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/getTabletas.php", "c_tabletas");
 					x += sicrof("c_tabletas", url,"1");
 					if (x>0){
 						mensaje=mensaje+" c_tabletas";
@@ -1428,7 +1431,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_medida.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("c_medida_precautoria");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getc_medida.php", "c_medida_precautoria");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/getc_medida.php", "c_medida_precautoria");
 					x += sicrof("c_medida_precautoria", url,"0");
 					if (x>0){
 						mensaje=mensaje+" c_medida_precautoria";
@@ -1439,7 +1442,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				i++;
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("c_peticion");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php", "c_peticion");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/getCPeticion.php", "c_peticion");
 					x += sicrof("c_peticion", url,"0");
 					if (x>0){
 						mensaje=mensaje+" c_peticion";
@@ -1450,7 +1453,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				i++;
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/get_c_medida_tabla.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("c_medida_tabla");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/get_c_medida_tabla.php", "c_medida_tabla");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/get_c_medida_tabla.php", "c_medida_tabla");
 					x += sicrof("c_medida_tabla", url,"0");
 					if (x>0){
 						mensaje=mensaje+" c_medida_tabla";
@@ -1462,7 +1465,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/get_c_medida_tabla_fraccion.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("c_medida_tabla_fraccion");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/get_c_medida_tabla_fraccion.php", "c_medida_tabla_fraccion");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/get_c_medida_tabla_fraccion.php", "c_medida_tabla_fraccion");
 					x += sicrof("c_medida_tabla_fraccion", url,"0");
 					if (x>0){
 						mensaje=mensaje+" c_medida_tabla_fraccion";
@@ -1470,7 +1473,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				}
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/get_concepto_ov.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("concepto_ov");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/get_concepto_ov.php", "concepto_ov");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/get_concepto_ov.php", "concepto_ov");
 					x += sicrof("concepto_ov", url,"0");
 					if (x>0){
 						mensaje=mensaje+" concepto_ov";
@@ -1478,15 +1481,15 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				}
 				if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getcmeconstitui.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("c_me_constitui");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getcmeconstitui.php", "c_me_constitui");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/getcmeconstitui.php", "c_me_constitui");
 					x += sicrof("c_me_constitui", url,"0");
 					if (x>0){
 						mensaje=mensaje+" c_me_constitui";
 					}
 				}
 				if(!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCgiro.php").trim().equalsIgnoreCase("null")){
-					eliminaRegistros("c_giro");
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCgiro.php", "c_giro2");
+					eliminaRegistros("c_giro2");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/getCgiro.php", "c_giro2");
 					//x += sicrof("c_giro", url,"0");
 				/*	if(x>0){
 						mensaje=mensaje+"c_giro";
@@ -1500,115 +1503,15 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 					eliminaRegistros("vs_InspM2");
 					int x1;
 					Log.e("ENTRO", "insertar: LICENCIAS CONSTRUCCION" );
-					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/get_vs_InspM22.php", "vs_InspM2");
+					c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/get_vs_InspM22.php", "vs_InspM2");
 					//x1 = c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
 
-					//Cursor c2 = db.rawQuery("SELECT * FROM " + "vs_InspM2", null);
-					//z = c2.getCount();
-						/*if (x1 > z) {
-							x++;
-							mensaje += mensaje + " vs_InspM2 " + c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
-						}*/
-				}
+
 				mProgressBar.setProgress(i);
 				i++;
 
 
 
-				if(values_cr.equalsIgnoreCase("0")) {
-
-					/*if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
-						eliminaRegistros("vs_InspM2");
-						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/get_vs_InspM21.php", "vs_InspM2");
-						//x += sicrof("vs_InspM21", url);
-
-					}*/
-					/*mProgressBar.setProgress(i);
-					i++;
-					if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
-						//eliminaRegistros("vs_InspM2");
-						int x1;
-						Log.e("ENTRO", "insertar: LICENCIAS CONSTRUCCION" );
-						c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/get_vs_InspM22.php", "vs_InspM2");
-						//x1 = c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
-
-						//Cursor c2 = db.rawQuery("SELECT * FROM " + "vs_InspM2", null);
-						//z = c2.getCount();
-						/*if (x1 > z) {
-							x++;
-							mensaje += mensaje + " vs_InspM2 " + c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
-						}
-					}
-					mProgressBar.setProgress(i);
-					i++;*/
-				} else {
-					//String fechaR = "",fechaC = "";
-					//String fechas [];
-					//boolean br,bc;
-					//Calendar cal = Calendar.getInstance();
-					//Cursor cursor;
-					//cursor = db.rawQuery("SELECT fechaA FROM v_LicenciasReglamentos order by fechaA desc limit 1",null);
-					/*if(cursor.moveToFirst())
-						fechaR = cursor.getString(0);*/
-					//cursor = db.rawQuery("SELECT fechaA FROM vs_InspM2 order by fechaA desc limit 1",null);
-					//if(cursor.moveToFirst())
-					//	fechaC = cursor.getString(0);
-					//System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
-					//String dia = cal.get(Calendar.DATE) > 9 ?  String.valueOf(cal.get(Calendar.DATE)) : ("0" + cal.get(Calendar.DATE));
-					//String mes = (cal.get(Calendar.MONTH) + 1) > 9 ? (String.valueOf(cal.get(Calendar.MONTH)) + 1) : "0" + (cal.get(Calendar.MONTH) + 1);
-					//String f = dia + "/" + mes + "/" + cal.get(Calendar.YEAR);
-					//Log.i("fechac",fechaC + " " + f);
-					//Log.i("fechar",fechaR + " " + f);
-					//if(fechaC.equalsIgnoreCase(f))
-						//bc = true;
-					//else
-						//bc = false;
-					//if(fechaR.equalsIgnoreCase(f))
-						//br = true;
-					//else
-					//	br = false;
-					//fechas = fechaR.split("/");
-					//fechaR = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
-                    //if(fechaC.length() > 0) {
-                      //  fechas = fechaC.split("/");
-                      //  fechaC = (Integer.parseInt(fechas[0]) + 1) + "/" + fechas[1] + "/" + fechas[2];
-                   // } else
-                      //  fechaC = "01/01/1970";
-					//System.err.println(fechaC + " fechaC " + fechaR + " fechaR");
-					//reglamentos
-					/*if(!br) {
-						if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
-							int x1;
-							c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getLicenciasReglamentos.php", "v_LicenciasReglamentos", fechaR);
-							x1 = c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros.php", "parametros");
-
-							Cursor c2 = db.rawQuery("SELECT * FROM " + "vs_InspM2", null);
-							z = c2.getCount();
-							if (x1 > z) {
-								x++;
-								mensaje += mensaje + " vs_InspM2 " + c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
-							}
-						}
-						mProgressBar.setProgress(i);
-						i++;
-					}*/
-					//Construccion
-					/*if(!bc) {
-						if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getCPeticion.php").trim().equalsIgnoreCase("null")) {
-							int x1;
-							c.insetarRegistros("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getLicenciasConstruccion.php", "vs_InspM2", fechaC);
-							x1 = c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
-
-							Cursor c2 = db.rawQuery("SELECT * FROM " + "vs_InspM2", null);
-							z = c2.getCount();
-							if (x1 > z) {
-								x++;
-								mensaje += mensaje + " vs_InspM2 " + c.validar2("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getparametros2.php", "parametros");
-							}
-						}
-						mProgressBar.setProgress(i);
-						i++;
-					}*/
 
 				}
 				msj = "Datos Actualizados";
@@ -1648,7 +1551,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			System.out.println(x);
 			mProgressBar.setProgress(i);
 			i++;
-			if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_infraccion.php").trim().equalsIgnoreCase("null")) {
+			if (!c.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("null")) {
 
 				if(c.cambiosT("C_infraccion",fechasicro,url2)>0) {
 					Log.e("entro en cambios","Yes C_infraccion");
@@ -2289,6 +2192,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 
 		@Override
 		protected Boolean doInBackground(String... params) {
+
 			insertar(params[0]);
 			return null;
 		}

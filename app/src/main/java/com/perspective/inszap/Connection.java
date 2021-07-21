@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -639,6 +640,8 @@ public class Connection {
 		ArrayList<NameValuePair> dat = new ArrayList<NameValuePair>();
 		dat.add(new BasicNameValuePair("id", "0"));
 		dat.add(new BasicNameValuePair("a", "2016"));
+
+		String json = "?key=PGM2021";
 		
 		try {
 			/*HttpClient httpclient = new DefaultHttpClient();
@@ -654,7 +657,10 @@ public class Connection {
 
 
 			try {
-				url1 = new URL(url);
+				url1 = new URL(url+json);
+
+				Log.e("url", url+json);
+
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			}
@@ -678,7 +684,12 @@ public class Connection {
 			result = sb.toString();*/
 
 			try {
+
+
+
 				HttpURLConnection httpURLConnection = (HttpURLConnection) url1.openConnection();
+
+
 				httpURLConnection.connect();
 				int code= httpURLConnection.getResponseCode();
 				if (code== HttpURLConnection.HTTP_OK){

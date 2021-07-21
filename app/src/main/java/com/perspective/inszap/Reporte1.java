@@ -61,7 +61,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
     private EditText ediF1, edif2;
     private int boton1, boton2, total, totalF = 0;
     private int re = 0, rn = 0, re2 = 0, rn2 = 0;
-    private String fecha, numeros, fotografias = "", na = "", msj, fecha1 = "", fecha2 = "", na2 = "", msj2 = "",nombre;
+    private String fecha,fechaconvert, numeros, fotografias = "", na = "", msj, fecha1 = "", fecha2 = "", na2 = "", msj2 = "",nombre;
     private ProgressBar pb;
     private JSONParser jParser = new JSONParser();
     private List<String> nal = new ArrayList<>();
@@ -722,17 +722,18 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
         String f="";
         String mes = "";
         //mes = monthOfYear+1 > 9 ? String.valueOf( monthOfYear+1 ) : 0 + "" + (monthOfYear+1);
-        /*if(monthOfYear>=10){
+        if(monthOfYear>=10){
 
         }else{
              f="0"+ (monthOfYear + 1);
 
-        }*/
+        }
         if(f!=""){
             fecha = dayOfMonth + "/" + f + "/" + year;
         }else{
             fecha = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
         }
+        fechaconvert=dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
        // fecha = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
         if (boton2 == 1 && boton1 == 0)
             updateDisplay1(edif2);
@@ -766,11 +767,11 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
             cancel = true;
         }
 
-        if (TextUtils.isEmpty(fecha1)) {
+       /* if (TextUtils.isEmpty(fecha1)) {
             edif2.setError("Seleccione una fecha");
             focusView = ediF1;
             cancel = true;
-        }
+        }*/
 
         if (cancel)
             focusView.requestFocus();
@@ -779,7 +780,11 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                 numeros = "";
                 fotografias = "";
                 total = 0;
-                String sql = "select * from Levantamiento where fecha between '" + fecha1 + "' and '" + fecha2 + "' and id_c_inspector1="+MainActivity.id_ins_sesion;
+                //select * from Levantamiento where id_c_direccion = '" + id + "' and infraccion='"+infrac+"'
+                //String sql = "select * from levantamiento where fecha  between '" + fecha1 + "' and '" + fecha2 + "' and id_c_inspector1="+MainActivity.id_ins_sesion;
+                String sql = "select * from levantamiento where (fecha like '"+fecha1+"' ) or (fecha like '"+fechaconvert+"') and id_c_inspector1="+MainActivity.id_ins_sesion;
+                //String sql = "select * from levantamiento where  id_c_inspector1="+MainActivity.id_ins_sesion;
+
                 System.out.println(sql);
                 Cursor cursor;
                 GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
@@ -788,7 +793,11 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                 if (cursor.moveToFirst()) {
                     do {
                         total++;
-                        System.out.println(cursor.getString(cursor.getColumnIndex("numero_acta")));
+                        /*System.out.println(cursor.getString(cursor.getColumnIndex("fecha")));
+                        System.out.println(cursor.getString(cursor.getColumnIndex("numero_acta")));*/
+                        Log.e("hora_inicio: ", cursor.getString(cursor.getColumnIndex("hora_inicio")));
+                        Log.e("fecha: ", cursor.getString(cursor.getColumnIndex("fecha")));
+                        Log.e("numero acta: ", cursor.getString(cursor.getColumnIndex("numero_acta")));
                         numeros += "'" + cursor.getString(cursor.getColumnIndex("numero_acta")) + "',";
 
                         nal.add(cursor.getString(cursor.getColumnIndex("numero_acta")));

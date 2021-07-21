@@ -63,7 +63,10 @@
             android:enabled="false"
             android:hint="@string/fecham"
             android:imeOptions="actionNext"
-            android:textSize="24sp"></EditText>
+            android:textSize="24sp"
+            android:visibility="gone"
+
+            ></EditText>
 
         <Button
             android:id="@+id/btnFecha2"
@@ -74,7 +77,8 @@
             android:layout_marginTop="250dp"
             android:layout_toRightOf="@+id/etfecham2"
             android:drawableBottom="@drawable/calendario"
-            android:background="@color/white" />
+            android:background="@color/white"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/textView"
@@ -91,7 +95,8 @@
             android:textIsSelectable="false"
             android:textSize="22sp"
 
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+           />
 
         <Button
             android:id="@+id/aceptarF"
