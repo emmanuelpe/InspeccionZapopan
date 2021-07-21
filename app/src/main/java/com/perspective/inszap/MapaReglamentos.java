@@ -33,7 +33,6 @@ public class MapaReglamentos {
                 cadena+=reglamento+": ";
 
             for(Articulo art : listaArticulos){
-                System.out.println("NETRA: "+art);
                 if(cadena.contains(String.valueOf(art.getArticulo()))){
                     cadena = cadena.replace(" "+String.valueOf(art.getArticulo())," "+art.getDescripcion());
                 }else {

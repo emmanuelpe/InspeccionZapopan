@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,6 +21,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -76,7 +78,7 @@ public class Connection {
 			httpost.setEntity(new UrlEncodedFormEntity(detalle));
 			HttpResponse response = httpclient.execute(httpost);
 			String responseText = EntityUtils.toString(response.getEntity()); 
-	        Log.i("msj", responseText);
+	        Log.i("msjque guardo", responseText);
 	    
 		}catch (ClientProtocolException e) {
 			Log.e("ClientProtocolException", e.getMessage());
@@ -84,6 +86,8 @@ public class Connection {
 		catch (IOException e) {
 			Log.e("IOException", e.getMessage());
 		}
+
+
 		
 	}
 	
@@ -636,6 +640,8 @@ public class Connection {
 		ArrayList<NameValuePair> dat = new ArrayList<NameValuePair>();
 		dat.add(new BasicNameValuePair("id", "0"));
 		dat.add(new BasicNameValuePair("a", "2016"));
+
+		String json = "?key=PGM2021";
 		
 		try {
 			/*HttpClient httpclient = new DefaultHttpClient();
@@ -651,7 +657,10 @@ public class Connection {
 
 
 			try {
-				url1 = new URL(url);
+				url1 = new URL(url+json);
+
+				Log.e("url", url+json);
+
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			}
@@ -675,7 +684,12 @@ public class Connection {
 			result = sb.toString();*/
 
 			try {
+
+
+
 				HttpURLConnection httpURLConnection = (HttpURLConnection) url1.openConnection();
+
+
 				httpURLConnection.connect();
 				int code= httpURLConnection.getResponseCode();
 				if (code== HttpURLConnection.HTTP_OK){

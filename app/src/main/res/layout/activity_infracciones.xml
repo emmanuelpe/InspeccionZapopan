@@ -102,8 +102,19 @@
 	                		android:layout_marginTop="5dp"
 	                		android:layout_marginRight="10dp"
 	                		android:layout_marginLeft="10dp"/>
-	            		
-	            		<Button android:id="@+id/radioCitatorio"
+
+					<Button android:id="@+id/radioEventoEspecial"
+						android:text="@string/evento"
+						android:checked="true"
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"
+						style="@style/title"
+						android:layout_marginTop="5dp"
+						android:layout_marginRight="10dp"
+						android:layout_marginLeft="10dp"/>
+
+
+					<Button android:id="@+id/radioCitatorio"
 	                		android:text="@string/citatorio"
 	                		android:layout_width="fill_parent"
 	                		android:layout_height="wrap_content"
@@ -853,6 +864,8 @@
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:text="No proporciono datos"/>
+
+
 
 						<CheckBox
 							android:id="@+id/cbDatos2"
@@ -2241,16 +2254,25 @@
 									android:enabled="false"
 									android:layout_below="@+id/etObs3"
 									android:visibility="gone"/>
-			    			
+
+								<Spinner
+									android:id="@+id/spUni4"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/etdescripcion4"
+									android:visibility="gone"/>
+
+
 								<EditText 
 									android:id="@+id/etdato4"
 									android:layout_width="wrap_content"
 									android:layout_height="70dp"
-									android:layout_below="@+id/etdescripcion4"
+									android:layout_below="@+id/spUni4"
 									android:inputType="numberDecimal"
 									android:maxLength="8"
 									android:hint="@string/unidad"
-									android:visibility="gone"/>
+									android:visibility="gone"
+									style="@style/Subtitle"/>
 			    			
 								<TextView 
 									android:id="@+id/tvuni4"
@@ -2259,25 +2281,18 @@
 									android:visibility="gone"
 									android:paddingTop="43dp"
 									android:layout_toRightOf="@+id/etdato4"
-									android:layout_below="@+id/etdescripcion4"
+									android:layout_below="@+id/spUni4"
 									style="@style/Subtitle"/>
 
-								<Spinner
-									android:id="@+id/spUni4"
-									android:layout_width="match_parent"
-									android:layout_height="wrap_content"
-									android:layout_below="@+id/tvuni4"
-                                    android:visibility="gone"/>
-			    			
+
 								<Button
 									android:id="@+id/tveliminar4"
-									android:layout_width="match_parent"
+									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"
 									android:visibility="gone"
 									android:text="@string/eliminar"
 									android:paddingLeft="10dp"
-									android:paddingTop="43dp"
-									android:layout_below="@+id/spUni4"
+									android:layout_below="@+id/etdato4"
 									style="@style/Subtitle"/>
 
 								<EditText

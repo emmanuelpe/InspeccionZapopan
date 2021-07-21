@@ -10,6 +10,19 @@
     <string name="usuario">Inspector</string>
     <string name="contrasena">Contraseña</string>
     <string name="ingresar">Ingresar</string>
+
+    <!--    ESTEBAN-->
+    <string name="actualizar">Actualizar App</string>
+    <string name="version">Version 1.4.9 7/07/2021</string>
+    <string name="downloading_new_version">Downloading New Version</string>
+    <string name="download_failed">Download Failed Please Try Again Later</string>
+    <string name="installing_new_version">Installing New Version</string>
+    <string name="download_completed">New Version Download Completed</string>
+    <string name="url">https://github.com/CristianPGM/APKZapopan/raw/master</string>
+    <string name="nombreApk">inspeccionzpn</string>
+
+    <string name="updating">Updating..</string>
+
     <string name="title_activity_descarga">Descarga</string>
     <string name="ordenvisita">Orden de visita</string>
     <string name="numero">Número</string>
@@ -50,6 +63,7 @@
     <string name="visita">Visita</string>
     <string name="especificacion">Especificación</string>
     <string name="infraccion">Infracción</string>
+    <string name="evento">Eventos Especiales</string>
     <string name="fundamentoEx">Fundamento Anuncio</string>
     <string name="nota">Nota aclaratoria</string>
     <string name="uso">Uso de suelo</string>
@@ -220,7 +234,7 @@
     <string name="re">Reincidencia</string>
     <string name="decomiso">Decomiso</string>
     <string name="numero_de_sellos">Numero de sellos</string>
-    <string name="actualizar_folios">S actualizaran los folios</string>
+    <string name="actualizar_folios">Se actualizaran los folios</string>
     <string name="esta_suguro">Esta seguro ?</string>
     <string name="continuar">Continuar</string>
     <string name="avertencia">Avertencia!! Se inicia  proceso de actualizacion de folios!!</string>

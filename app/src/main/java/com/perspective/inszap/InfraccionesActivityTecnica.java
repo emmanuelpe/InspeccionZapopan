@@ -188,7 +188,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private String campo1="",campo2="",campo3="",campo4="",campo5="",campo6="",campo7="",campo8="",campo9="",campo0="",campo11="",campo12="",campo13="",campo14 = "",campo15 = "",campo16 = "",campo17 = "",campo18 = "",campo19 = "",campo20 = "",campo21 = "",c1="",c2="",c3="",c4="",c5="",c6="",c7="",c8="",c9="",c0="",c11="",c12="",c13="",c14="",c15="",c16="",c17="",c18="",c19="",c20="",camp1="",camp2="",camp3="",camp4="",camp5="",camp6="",camp7="",camp8="",camp9="",camp0="",camp11="",camp12="",camp13="",camp14="",camp15="",camp16="",camp17="",camp18="",camp19="",camp20="",hech = "los hechos antes descritos, constituyen una infracciÔøΩn a lo dispuesto por los artÔøΩculos:",conti = "Los cuales constituyen infracciÔøΩn de conformidad con lo dispuesto por los artÔøΩculos:",na = "";
     private CheckBox cbFlag,cbFirma,cbDatos,cbDatos2;
     final String[] reglamentoC = {""};
-    private Button rbaper,rborden,rbcitatorio,rbHechos,radioInfraccion;
+    private Button rbaper,rborden,rbcitatorio,rbHechos,radioInfraccion,radioEvento;
     private List<Levantamiento> lev = new ArrayList<Levantamiento>();
     private List<String> reglamento = new ArrayList<String>();
     private List<String> competencia = new ArrayList<String>();
@@ -216,7 +216,6 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private TextInputEditText etArti;
     private SharedPreferences sp;
     private int foliox = 0;
-    private MapaReglamentos mapaReglamentos = new MapaReglamentos();
 
 
     @Override
@@ -495,6 +494,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         cbFirma = (CheckBox)findViewById(R.id.cbFirma);
         etInspccionFue = (EditText)findViewById(R.id.etInpeccionFue);
         radioInfraccion = (Button)findViewById(R.id.radioInfraccion);
+        radioEvento =(Button)findViewById(R.id.radioEventoEspecial);
 
         tvCondominio = (TextView)findViewById(R.id.tvCondominio);
 
@@ -862,6 +862,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         btnB.setOnClickListener(this);
         rborden.setOnClickListener(this);
         radioInfraccion.setOnClickListener(this);
+        radioEvento.setOnClickListener(this);
         cbFlag.setOnCheckedChangeListener(this);
         cbDatos.setOnCheckedChangeListener(this);
         cbDatos2.setOnCheckedChangeListener(this);
@@ -1320,7 +1321,17 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 do {
                                     for (int i = 0; i < c2.getColumnCount(); i++) {
                                         System.err.println(c2.getColumnName(i) + " " + c2.getString(i));
-                                        max = Integer.parseInt(c2.getString(i));
+                                        //max = Integer.parseInt(c2.getString(i));
+                                        if(c2.getString(i)!=null){
+                                            if(c2.getString(i).equals("") || c2.getString(i)=="" ){
+                                                max=0;
+                                            }else{
+                                                max = Integer.parseInt(c2.getString(i));
+                                            }
+
+                                        } else{
+                                            max = 0;
+                                        }
                                     }
                                 } while (c2.moveToNext());
                             }
@@ -1331,7 +1342,17 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 do {
                                     for (int i = 0; i < c3.getColumnCount(); i++) {
                                         System.err.println(c3.getColumnName(i) + " " + c3.getString(i));
-                                        min = Integer.parseInt(c3.getString(i));
+                                        //min = Integer.parseInt(c3.getString(i));
+                                        if(c3.getString(i)!=null){
+                                            if(c3.getString(i).equals("") || c3.getString(i)=="" ){
+                                                min=0;
+                                            }else{
+                                                min = Integer.parseInt(c3.getString(i));
+                                            }
+
+                                        } else{
+                                            min = 0;
+                                        }
                                     }
                                 } while (c3.moveToNext());
                             }
@@ -1385,39 +1406,28 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         System.out.println(foliox + "---");
                         if(valW =="") {
                             System.out.println(consultarActa()+"/GGGGG");
-                            if (foliox > 0) {
+                            if (foliox > 0 && foliox > min && foliox < max) {
                                 folio = foliox;
                                 etNumeroActa.setText(String.valueOf(folio));
 
                             }else {
                                 Log.v("folios ", folio + " " + max + " max");
-                                if (folio >= min && folio <= max) {
+                                if (folio >= min && folio < max) {
                                     folio = folio + 1;
                                 } else if(folio==0 && next_max==0 && next_min==0) {
                                     folio = min;
-                                }else if(folio==max && folio<=next_min){
+                                }else if(folio<min  ) {
+                                    folio = min;
+                                }
+                                else if(folio==max && folio<=next_min){
                                     MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivityTecnica.this)
-                                            .setTitle(getResources().getString(R.string.avertencia))
+                                            .setTitle("Requiere nuevo foliaje, reinicie con internet")
                                             .setMessage(getResources().getString(R.string.continuar))
                                             .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                    startService(new Intent(InfraccionesActivityTecnica.this, ClearFolios.class));
-                                                    finish();
-                                                }
-                                            });
 
-                                    builder.create().show();
-                                }else if(folio >= next_min && folio <= next_max && folio>max){
-                                    folio = folio + 1;
-                                }else if(folio==next_max && folio>0 && next_max>0){
-                                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivityTecnica.this)
-                                            .setTitle(getResources().getString(R.string.avertencia))
-                                            .setMessage(getResources().getString(R.string.continuar))
-                                            .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    startService(new Intent(InfraccionesActivityTecnica.this, ClearFolios.class));
+
                                                     finish();
                                                 }
                                             });
@@ -2417,7 +2427,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         unidades += spuni3.getSelectedItem().toString().trim() + ",";
                                         if (!spuni3.getSelectedItem().toString().equals("")) {
                                             // Log.e("Primer hecho",des1);
-                                            seleccion += x + " " + des3 + " (" + etdato.getText().toString().trim() + " " + spuni3.getSelectedItem().toString() + " " + etObs3.getText().toString() + "). ";
+                                            seleccion += x + " " + des3 + " (" + etdato3.getText().toString().trim() + " " + spuni3.getSelectedItem().toString() + " " + etObs3.getText().toString() + "). ";
                                         }
                                     } else {
                                         unidades += " ,";
@@ -2437,7 +2447,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         unidades += spuni4.getSelectedItem().toString().trim() + ",";
                                         if (!spuni4.getSelectedItem().toString().equals("")) {
                                             //Log.e("Primer hecho",des1);
-                                            seleccion += x + " " + des4 + " (" + etdato.getText().toString().trim() + " " + spuni4.getSelectedItem().toString() + " " + etObs4.getText().toString() + "). ";
+                                            seleccion += x + " " + des4 + " (" + etdato4.getText().toString().trim() + " " + spuni4.getSelectedItem().toString() + " " + etObs4.getText().toString() + "). ";
                                         }
                                     } else {
                                         unidades += " ,";
@@ -3002,6 +3012,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
     public String algoritmoRem(String cadena){
+        MapaReglamentos mapaReglamentos = new MapaReglamentos();
         ArrayList <Articulo> listaArticulos = new ArrayList<>();
         Articulo art;
         int inicio;
@@ -3059,7 +3070,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         }
 
         ordenar(listaArticulos);
-        this.mapaReglamentos.cargarLista(listaArticulos);
+        mapaReglamentos.cargarLista(listaArticulos);
 
         return mapaReglamentos.mostrar();
     }
@@ -3575,14 +3586,14 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     if (foto >= 1) {
                         btnImprimir.setEnabled(true);
                     } else {
-                        btnImprimir.setEnabled(false);
+                        btnImprimir.setEnabled(true);
                     }
                 } else {
                     if(infrac == 1) {
                         if (foto >= 1)
                             btnImprimir.setEnabled(true);
                         else
-                            btnImprimir.setEnabled(false);
+                            btnImprimir.setEnabled(true);
                     }
                     else
                         btnImprimir.setEnabled(true);
@@ -4836,9 +4847,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                     }
 
-                    Cursor cursor1 = db.rawQuery(sqlI, null);
-                    Log.e("sql:",sqlI);
+
                     try {
+                        Cursor cursor1 = db.rawQuery(sqlI, null);
+                        Log.e("sql:",sqlI);
                         if(cursor1.moveToFirst()) {
                             if(cursor1.getString(cursor1.getColumnIndex("reg_anuncion")).length()>2){
                                 condicion+="'reg_anuncion',";
@@ -5765,10 +5777,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 valid = false;
             }
             if (!(this.id == 4 | id == 3)) {
-                if (validarCampos(this.etPropietario)) {
+                /*if (validarCampos(this.etPropietario)) {
                     sb.append("Ingrese el propietario o razón social.\n");
                     valid = false;
-                }
+                }*/
                 if(etMotivo.length()>1500){
                     sb.append("Limite de caracteres del motivo fue rebasado \n");
                     valid=false;
@@ -6966,6 +6978,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                 btnConsultar.setVisibility(View.VISIBLE);
                 radioInfraccion.setVisibility(View.GONE);
+                radioEvento.setVisibility(View.GONE);
                 rborden.setVisibility(View.GONE);
 
                 spgravedad.setSelection(1);
@@ -7048,6 +7061,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                 btnConsultar.setVisibility(View.VISIBLE);
                 radioInfraccion.setVisibility(View.GONE);
+                radioEvento.setVisibility(View.GONE);
                 rborden.setVisibility(View.GONE);
 
                 spNombreA.setVisibility(View.GONE);
@@ -7099,6 +7113,118 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 etNumeroActa.setText(ante + "/" + InfraccionesActivityTecnica.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
 
                 break;
+            case R.id.radioEventoEspecial:
+                id=5;
+                //evento=5;
+                //competencia2();
+                infrac = 1;
+                campo.clear();
+                buscarNombreCampo();
+                buscarOrdenamientos();
+
+
+
+                arregloCreglamentosx.clear();
+                arregloCreglamentos.clear();
+                mostrarReglamentos();
+
+                listar();
+                direccion="Horarios Especiales";
+                if(!arregloLista1.isEmpty()){
+                    spInspectorT.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,arregloLista1));
+                }
+
+                if(!arregloLista2.isEmpty()){
+                    spInspectorT1.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,arregloLista2));
+                }
+
+                inicio();
+                infrac = 1;
+               // rlDonde_actua.setVisibility(View.GONE);
+                etDiaPlazo.setText("20");
+                etDiaPlazo.setEnabled(false);
+                if(id == 4)
+                    rlProp.setVisibility(View.GONE);
+                else
+                    rlProp.setVisibility(View.VISIBLE);
+                rlTestA.setVisibility(View.VISIBLE);
+                rlVisita.setVisibility(View.VISIBLE);
+                llNota.setVisibility(View.VISIBLE);
+                llplazo.setVisibility(View.VISIBLE);
+                llreincidencia.setVisibility(View.GONE);
+                ante = "IN";
+                formato = "infraccion";
+                InfraccionesActivityTecnica.this.btnOrden1.setVisibility(View.VISIBLE);
+                etOrden1.setVisibility(View.VISIBLE);
+                //ettvgiro.setVisibility(View.VISIBLE);
+                etGiro.setVisibility(View.VISIBLE);
+                etMotivo.setVisibility(View.GONE);
+                tvMotivo.setVisibility(View.GONE);
+                //spReglamento.setVisibility(View.VISIBLE);
+                //spReglamento.setVisibility(View.GONE);
+                //tvReg.setVisibility(View.GONE);
+                competencias = "";
+                regla = "";
+                idComp = 0;
+                etOrden1.setText("");
+                tvActa.setText("Número Acta");
+
+                btnConsultar.setVisibility(View.VISIBLE);
+                radioInfraccion.setVisibility(View.GONE);
+                radioEvento.setVisibility(View.GONE);
+                rborden.setVisibility(View.GONE);
+
+                spNombreA.setVisibility(View.GONE);
+                spNombreA1.setVisibility(View.GONE);
+                spNombreA2.setVisibility(View.GONE);
+                spNombreA3.setVisibility(View.GONE);
+                spNombreA4.setVisibility(View.GONE);
+
+                tvAcomp.setVisibility(View.GONE);
+                llconcepto.setVisibility(View.GONE);
+
+
+                if(id == 2 | id == 5 ) {
+                    Log.e(TAG, "onClick: entro aqui" );
+
+                    llNota.setVisibility(View.GONE);
+                    //tvCondominio.setVisibility(View.GONE);
+                    //etCondominio.setVisibility(View.GONE);
+                    tvReg.setVisibility(View.GONE);
+                    etManifiesta.setText("Se reserva el derecho");
+                    etPropietario.setVisibility(View.VISIBLE);
+                    tvPropietario.setVisibility(View.VISIBLE);
+                    rlProp.setVisibility(View.GONE);
+                    //rlDonde_actua.setVisibility(View.VISIBLE);
+                    tvgiro.setVisibility(View.VISIBLE);
+                    etGiro.setVisibility(View.VISIBLE);
+
+                    btnArticulos.setVisibility(View.VISIBLE);
+                    llcomp.setVisibility(View.GONE);
+                    //llconcepto.setVisibility(View.GONE);
+                    //etCondominio.setVisibility(View.GONE);
+                    //tvCondominio.setVisibility(View.GONE);
+                    tvPropietario.setText("NOMBRE Y/O RAZON SOCIAL");
+                    llPla.setVisibility(View.GONE);
+                    tvfolioap.setVisibility(View.VISIBLE);
+                    tvfechap.setVisibility(View.VISIBLE);
+                    etfolioap.setVisibility(View.VISIBLE);
+                    etfechap.setVisibility(View.VISIBLE);
+                    etArticulo.setVisibility(View.VISIBLE);
+                    etfoliopeticion.setVisibility(View.VISIBLE);
+                }
+
+
+                if(id == 5) {
+                    Log.e(TAG, "onClick: entro aqui" );
+                   // rlDonde_actua.setVisibility(View.GONE);
+                }
+                if(id == 2 | id == 5) {
+                    Log.e(TAG, "onClick: entro aqui" );
+                    btnImprimirResum.setVisibility(View.VISIBLE);
+                }
+                break;
+
 
             case R.id.btnVista:
 
@@ -8519,7 +8645,7 @@ public String vigencia_inicial(String v){
 
                 try {
 
-                    img = Image.getInstance(stream.toByteArray());
+                    img = Jpeg.getInstance(stream.toByteArray());
                     img.setAbsolutePosition(0, 0);
 
                     float width = doc.getPageSize().getWidth();
@@ -9661,7 +9787,7 @@ String numeroS="";
 
                 try {
 
-                    img = Image.getInstance(stream.toByteArray());
+                    img = Jpeg.getInstance(stream.toByteArray());
                     img.setAbsolutePosition(0, 0);
 
                     float width = doc.getPageSize().getWidth();
@@ -11109,9 +11235,9 @@ String numeroS="";
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 Bitmap bitmap = null;
-                if(id == 2 | id == 5)
+                if(id == 2 )
                     bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_1);
-                else if(id == 3)
+                else if(id == 3 || id==5)
                     bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_inspeccion_vista_previa);
                     //bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_t);
                 else
@@ -11121,7 +11247,7 @@ String numeroS="";
 
                 try {
 
-                    img = Image.getInstance(stream.toByteArray());
+                    img = Jpeg.getInstance(stream.toByteArray());
                     img.setAbsolutePosition(0, 0);
 
                     float width = doc.getPageSize().getWidth();
@@ -12222,7 +12348,7 @@ String numeroS="";
 
                 try {
 
-                    img = Image.getInstance(stream.toByteArray());
+                    img = Jpeg.getInstance(stream.toByteArray());
                     img.setAbsolutePosition(0, 0);
 
                     float width = doc.getPageSize().getWidth();
@@ -13507,6 +13633,9 @@ String numeroS="";
                 Log.i("entro 2 if:","entro");
 
 
+        }else if(reglamentoC[0]!="Buscar en Todos los reglamentos" && search.equals("") ){
+            cursor = db.rawQuery("SELECT * FROM c_infraccion  where  " + textofiltro + "  id_c_direccion in( '" + id + "','" +  2 + "','"+ 4 + "','"+3+"' )  AND vigente = 'S' order by infraccion; ", null);
+            Log.i("entro 3 if:","SELECT * FROM c_infraccion  where  " + textofiltro + "  id_c_direccion in( '" + id + "','" +  2 + "','"+ 4 + "' )  AND vigente = 'S' order by infraccion; ");
         }
         else{
             if(recorte!=null) {
@@ -13541,7 +13670,7 @@ String numeroS="";
                         Log.i("entro else:", "entro2");
                     } else {
                         cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE " + textofiltro + "  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion in( '" + id + "','" + 2 + "','"+ 4 + "')  AND vigente = 'S' order by infraccion; ", null);
-                        Log.i("entro else:", "entro2");
+                        Log.i("entro else:","SELECT * FROM c_infraccion WHERE " + textofiltro + "  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion in( '" + id + "','" + 2 + "','"+ 4 + "')  AND vigente = 'S' order by infraccion; " );
                     }
 
 
@@ -13886,9 +14015,9 @@ String numeroS="";
                 if(!spMedida.getSelectedItem().toString().equalsIgnoreCase("")) {
                     medidas1 = spMedida.getSelectedItem().toString();
 
-                    if(id == 12 || id == 2 | id == 3) {
+                    if(id == 12 || id == 2 || id == 3 || id==5) {
 
-                        if(id==3){
+                        if(id==3 || id==5){
                             Log.i("i",spMedida.getSelectedItem().toString() + " " + spMedida.getSelectedItem().toString().contains("CLAU"));
                             if(spMedida.getSelectedItem().toString().contains("clausura") || spMedida.getSelectedItem().toString().contains("CLAUSURA")||spMedida.getSelectedItem().toString().contains("Clausura")) {
                                 Toast toast = Toast.makeText(getApplicationContext(),"Agregar sellos de clausura",Toast.LENGTH_LONG);
@@ -14277,6 +14406,210 @@ public void reiniciarA(){
             return true;
         }
     });
+    public String horaTOletra(String hora){
+        String [] corteHora = hora.split(":");
+
+        //Hora
+        if(corteHora[0].trim().equals("07")){
+            if(Integer.valueOf(corteHora[1])<=10){
+                if(corteHora[0].trim().equals("01"))
+                    return "siete horas con un minuto";
+                if(corteHora[0].trim().equals("02"))
+                    return "siete horas con dos minutos";
+                if(corteHora[0].trim().equals("03"))
+                    return "siete horas con tres minutos";
+                if(corteHora[0].trim().equals("04"))
+                    return "siete horas con cuatro minutos";
+                if(corteHora[0].trim().equals("05"))
+                    return "siete horas con cinco minutos";
+                if(corteHora[0].trim().equals("06"))
+                    return "siete horas con seis minutos";
+                if(corteHora[0].trim().equals("07"))
+                    return "siete horas con siete minutos";
+                if(corteHora[0].trim().equals("08"))
+                    return "siete horas con ocho minutos";
+                if(corteHora[0].trim().equals("09"))
+                    return "siete horas con nueve minutos";
+                if(corteHora[0].trim().equals("10"))
+                    return "siete horas con diez minutos";
+            }
+            if(Integer.valueOf(corteHora[1])>10 && Integer.valueOf(corteHora[1])<=20){
+                if(corteHora[0].trim().equals("11"))
+                    return "siete horas con once minutos";
+                if(corteHora[0].trim().equals("12"))
+                    return "siete horas con doce minutos";
+                if(corteHora[0].trim().equals("13"))
+                    return "siete horas con trece minutos";
+                if(corteHora[0].trim().equals("14"))
+                    return "siete horas con catorce minutos";
+                if(corteHora[0].trim().equals("15"))
+                    return "siete horas con quince minutos";
+                if(corteHora[0].trim().equals("16"))
+                    return "siete horas con dieciseis minutos";
+                if(corteHora[0].trim().equals("17"))
+                    return "siete horas con diecisiete minutos";
+                if(corteHora[0].trim().equals("18"))
+                    return "siete horas con dieciocho minutos";
+                if(corteHora[0].trim().equals("19"))
+                    return "siete horas con diecinueve minutos";
+                if(corteHora[0].trim().equals("20"))
+                    return "siete horas con veinte minutos";
+            }
+            if(Integer.valueOf(corteHora[1])>20 && Integer.valueOf(corteHora[1])<=30){
+                if(corteHora[0].trim().equals("21"))
+                    return "siete horas con veintiuno minutos";
+                if(corteHora[0].trim().equals("22"))
+                    return "siete horas con veintidós minutos";
+                if(corteHora[0].trim().equals("23"))
+                    return "siete horas con veintitrés minutos";
+                if(corteHora[0].trim().equals("24"))
+                    return "siete horas con veinticuatro minutos";
+                if(corteHora[0].trim().equals("25"))
+                    return "siete horas con veinticinco minutos";
+                if(corteHora[0].trim().equals("26"))
+                    return "siete horas con veintiséis minutos";
+                if(corteHora[0].trim().equals("27"))
+                    return "siete horas con veintisiete minutos";
+                if(corteHora[0].trim().equals("28"))
+                    return "siete horas con veintisiete minutos";
+                if(corteHora[0].trim().equals("29"))
+                    return "siete horas con veintinueve minutos";
+                if(corteHora[0].trim().equals("30"))
+                    return "siete horas con treinta minutos";
+            }
+            if(Integer.valueOf(corteHora[1])>30 && Integer.valueOf(corteHora[1])<=40){
+                if(corteHora[0].trim().equals("21"))
+                    return "siete horas con veintiuno minutos";
+                if(corteHora[0].trim().equals("22"))
+                    return "siete horas con veintidós minutos";
+                if(corteHora[0].trim().equals("23"))
+                    return "siete horas con veintitrés minutos";
+                if(corteHora[0].trim().equals("24"))
+                    return "siete horas con veinticuatro minutos";
+                if(corteHora[0].trim().equals("25"))
+                    return "siete horas con veinticinco minutos";
+                if(corteHora[0].trim().equals("26"))
+                    return "siete horas con veintiséis minutos";
+                if(corteHora[0].trim().equals("27"))
+                    return "siete horas con veintisiete minutos";
+                if(corteHora[0].trim().equals("28"))
+                    return "siete horas con veintisiete minutos";
+                if(corteHora[0].trim().equals("29"))
+                    return "siete horas con veintinueve minutos";
+                if(corteHora[0].trim().equals("30"))
+                    return "siete horas con treinta minutos";
+            }
+            if(Integer.valueOf(corteHora[1])>40 && Integer.valueOf(corteHora[1])<=50){
+                if(corteHora[0].trim().equals("21"))
+                    return "siete horas con veintiuno minutos";
+                if(corteHora[0].trim().equals("22"))
+                    return "siete horas con veintidós minutos";
+                if(corteHora[0].trim().equals("23"))
+                    return "siete horas con veintitrés minutos";
+                if(corteHora[0].trim().equals("24"))
+                    return "siete horas con veinticuatro minutos";
+                if(corteHora[0].trim().equals("25"))
+                    return "siete horas con veinticinco minutos";
+                if(corteHora[0].trim().equals("26"))
+                    return "siete horas con veintiséis minutos";
+                if(corteHora[0].trim().equals("27"))
+                    return "siete horas con veintisiete minutos";
+                if(corteHora[0].trim().equals("28"))
+                    return "siete horas con veintisiete minutos";
+                if(corteHora[0].trim().equals("29"))
+                    return "siete horas con veintinueve minutos";
+                if(corteHora[0].trim().equals("30"))
+                    return "siete horas con treinta minutos";
+            }
+            if(Integer.valueOf(corteHora[1])>50 && Integer.valueOf(corteHora[1])<60){
+                if(corteHora[0].trim().equals("21"))
+                    return "siete horas con veintiuno minutos";
+                if(corteHora[0].trim().equals("22"))
+                    return "siete horas con veintidós minutos";
+                if(corteHora[0].trim().equals("23"))
+                    return "siete horas con veintitrés minutos";
+                if(corteHora[0].trim().equals("24"))
+                    return "siete horas con veinticuatro minutos";
+                if(corteHora[0].trim().equals("25"))
+                    return "siete horas con veinticinco minutos";
+                if(corteHora[0].trim().equals("26"))
+                    return "siete horas con veintiséis minutos";
+                if(corteHora[0].trim().equals("27"))
+                    return "siete horas con veintisiete minutos";
+                if(corteHora[0].trim().equals("28"))
+                    return "siete horas con veintisiete minutos";
+                if(corteHora[0].trim().equals("29"))
+                    return "siete horas con veintinueve minutos";
+                if(corteHora[0].trim().equals("30"))
+                    return "siete horas con treinta minutos";
+            }
+        }
+        if(corteHora[0].trim().equals("08")){
+
+
+        }
+        if(corteHora[0].trim().equals("09")){
+
+
+        }
+        if(corteHora[0].trim().equals("10")){
+
+
+        }
+        if(corteHora[0].trim().equals("11")){
+
+
+        }
+        if(corteHora[0].trim().equals("12")){
+
+
+        }
+        if(corteHora[0].trim().equals("13")){
+
+
+        }
+        if(corteHora[0].trim().equals("14")){
+
+
+        }
+        if(corteHora[0].trim().equals("15")){
+
+
+        }
+        if(corteHora[0].trim().equals("16")){
+
+
+        }
+        if(corteHora[0].trim().equals("17")){
+
+
+        }
+        if(corteHora[0].trim().equals("18")){
+
+
+        }
+        if(corteHora[0].trim().equals("19")){
+
+
+        }
+        if(corteHora[0].trim().equals("20")){
+
+
+        }
+        if(corteHora[0].trim().equals("21")){
+
+
+        }
+        if(corteHora[0].trim().equals("22")){
+
+
+        }
+        if(corteHora[0].trim().equals("23")){
+
+
+        }
+        return " ";
+    }
 
     @SuppressLint({ "InflateParams", "DefaultLocale" })
     private void printSampleGDL() {
@@ -14284,9 +14617,62 @@ public void reiniciarA(){
             LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
             final View view = inflater.inflate(R.layout.order, null);
 
-            TextView tvMulta = (TextView)view.findViewById(R.id.tvText);
+            SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
+            Date todayDate = new Date();
+            String thisDate = currentDate.format(todayDate);
+            String [] na = thisDate.split("/");
+            Log.i("fecha", na[0] + "/" + na[1] + "/" + na[2]);
+            fecha = na[0] + "/" + na[1] + "/" + na[2];
+            String [] fechas = fecha.split("/");
+            int dia, mes,a;
+            String me;
+            for (int i = 0; i < fechas.length; i++) {
+                System.out.println(fechas[i]);
+            }
 
-            final String cuerpo = "Zapopan, Jalisco, a las 14:30 catorce horas con treinta minutos del día 10 diez de septiembre del año 2019 dos mil diecinueve. El suscrito, SAÚL LÉMUS GUERRERO, Inspector Multimodal con clave operativa IC-199, en términos de lo dispuesto por los artículos 70 y 73, segundo párrafo, de la Ley del Procedimiento Administrativo del Estado de Jalisco, me constituyo física y legalmente en la calle Hidalgo frente al número 100, entre las calles Emiliano Zapata y 20 de Enero, colonia y/o fraccionamiento Centro, cerciorado de lo anterior por haber tenido a la vista la placa de nomenclatura de la calle más próxima, y porque así lo corrobora quien manifiesta llamarse JACOBO MEDRANO CÁRDENAS, visitado, ante quien me identifico con credencial oficial con fotografía folio número 000, vigente del 1° primero de agosto al 30 treinta de septiembre del 2019 dos mil diecinueve, expedida por el Director de Inspección y Vigilancia del Ayuntamiento de Zapopan, Jalisco; haciéndole saber que el motivo de mi presencia es en atención al reporte ZAPMX377, y enterado de los alcances de la diligencia que por este acto se practica le requiero por una identificación, presentando INE 3005089789185, igualmente le hago saber el derecho que tiene de nombrar a dos personas que fungirán como testigos y estén presentes durante el desahogo de la visita y que de no designar a persona alguna para ello, el suscrito lo haré en rebeldía; en consecuencia, fueron designados por el suscrito los C.C. MA DEL ROSARIO SEDANO GONZÁLEZ, quien se identifica con credencial oficial folio número 0062, respectivamente. Acto seguido, una vez practicada la inspección, resultaron los siguientes hechos: QUE AL MOMENTO DE LA INSPECCIÓN SE CONSTATA QUE REBASA LOS METROS AUTORIZADOS EN SU PERMISO DE FOLIO NÚMERO 131584DE, FECHADO EL 22 VEINTIDÓS DE AGOSTO DEL 2019 DOS MIL DIECINUEVE. Hechos que constituyen infracción a lo dispuesto por los artículos 58, FRACCIÓN IV, DEL REGLAMENTO DE TIANGUIS Y COMERCIO EN ESPACIOS PÚBLICOS DEL MUNICIPIO DE ZAPOPAN, JALISCO. Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: SE LEVANTA LA PRESENTER ACTA PARA LOS FINES LEGALES Y ADMINISTRATIVOS QUE HAYA LUGAR Y SE PROCEDE CON EL INCAUTO PRECAUTORIO DE 2 DOS CAJAS DE CARTÓN EN CUYO INTERIOR SE ALAMCENA PLÁTANO. Lo anterior de conformidad a lo dispuesto por los artículos 5, FRACCIONES IV Y V, 10, 112, FRACCIONES II Y III, 116, 117, 118, FRACCIONES II Y III Y 123, SEGUNDO PÁRRAFO, DEL REGLAMENTO DE TIANGUIS Y COMERCIO EN ESPACIOS PÚBLICOS DEL MUNICIPIO DE ZAPOPAN, JALISCO. Se concede el uso de la voz al visitado para que a los hechos señalados manifieste lo que a su derecho convenga y aporte pruebas, enterado señala: QUE SE RESERVA EL DERECHO. Finalmente, se le informa que el acta resultado de esta diligencia podrá ser impugnada a través del RECURSO DE REVISIÓN, previsto por el artículo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, para lo cual tendrá un plazo de 20 veinte días hábiles, contados a partir del día siguiente de la fecha en que se levante el acta correspondiente; debiendo interponer dicho recurso por escrito que presente en la oficia de la Dirección Jurídica Contenciosa dependiente de Sindicatura, en avenida Hidalgo número 151, colonia Centro de esta Ciudad. Se da por concluida esta diligencia a las 15.00 quince horas del 10 diez de septiembre del presente año, levantándose acta en presencia del visitado y testigos que intervinieron, firmando para constancia los que quisieron y supieron hacerlo, quedando copia legible en poder del interesado para los efectos conducentes. Lo anterior, en términos de lo dispuesto por el artículo 74 de la Ley invocada";
+            dia = Integer.parseInt(fechas[0]);
+            mes = Integer.parseInt(fechas[1]);
+            String an = fechas[2];
+            //a = Integer.parseInt(fechas[2].substring(2, 4));
+            a = Integer.parseInt(fechas[2]);
+            System.out.println("entro");
+
+            TextView tvMulta = (TextView)view.findViewById(R.id.tvText);
+            tvMulta.setMovementMethod(new ScrollingMovementMethod());
+            String vigencia=MainActivity.vigencia;
+            String vigencia_inicial=MainActivity.vigencia_inicial;
+            String []recorte1=vigencia.split("-");
+            String []recorte2=vigencia_inicial.split("-");
+            vigencia_inicial=vigencia_inicial(recorte2[1]);
+            vigencia=vigencia_final(recorte1[1]);
+            String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
+            String exterior="";
+            String interior=" ";
+            if(etNumero.getText().toString().length()>0){
+                exterior="número exterior:"+ etNumero.getText().toString();
+            }
+            if(etNuemroInterior.getText().toString()!=" "){
+                interior="número interior:"+ etNuemroInterior.getText().toString();
+            }
+
+//03/05
+            final String cuerpo = "Zapopan, Jalisco, a las "+hora +" "+horaTOletra(hora)+" del día "+dia+" de "+ vigencia_inicial("0"+String.valueOf(mes))+"  del año "+recorte2[0]+"." +
+                    "El suscrito, "+spnombre.getSelectedItem().toString()+", Inspector Multimodal con clave operativa  "+ clave +", en términos de lo dispuesto por los artículos 70 y 73, " +
+                    "segundo párrafo, de la Ley del Procedimiento Administrativo del Estado de Jalisco, me constituyo física y legalmente en la "+ etCalle.getText().toString() +
+                    "  marcada(o) con el  "+ exterior+", "+interior+", entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + ", Fraccionamiento: " + etFraccionamiento.getText().toString()+", cerciorado de lo anterior por haber tenido " +
+                    "a la vista la placa de nomenclatura de la calle más próxima, y porque así lo corrobora quien manifiesta llamarse " + etNombreV.getText().toString() + ", " +
+                    "visitado, ante quien me identifico con credencial oficial con fotografía folio número "+ folio + " , vigente del "+vigencia_inicial+" "+recorte2[0] +" a "+vigencia+ " "+recorte1[0]+" " +
+                    " , expedida por el Director de Inspección y Vigilancia del Ayuntamiento de Zapopan, Jalisco; haciéndole " +
+                    "saber que el motivo de mi presencia es por"+spPeticion.getSelectedItem().toString()+", y enterado de los alcances de la diligencia que por este acto se practica" +
+                    " le requiero por una identificación, presentando " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString()+", igualmente le hago saber el derecho que tiene de nombrar a dos personas que " +
+                    "fungirán como testigos y estén presentes durante el desahogo de la visita y que de no designar a persona alguna para ello, el suscrito lo haré en" +
+                    " rebeldía; en consecuencia, fueron designados por el suscrito los C.C. "+etNombreT.getText().toString()+" y " + etNombreT1.getText().toString() + ", quien se identifica con " + spIdentificaT.getSelectedItem().toString() + " " + etIfeT.getText().toString() + " , " + spIdentificaT1.getSelectedItem().toString() + " " + etIfeT2.getText().toString() + " " +
+                    ", respectivamente. Acto seguido, una vez practicada la inspección, resultaron los siguientes hechos: " +hechos+
+                    " Hechos que constituyen infracción a lo dispuesto por los articulo(s): "+  etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, " +
+                    "se procede indistintamente con las siguientes medidas: "+ etMedida.getText().toString().trim().trim()+". Lo anterior de conformidad a lo dispuesto por los " +
+                    "artículo(s): "+ etArticulo.getText().toString().trim()+". Se concede el uso de la voz al visitado para que a los hechos señalados manifieste" +
+                    " lo que a su derecho convenga y aporte pruebas, enterado señala:"+  etManifiesta.getText().toString().trim()+". Finalmente, se le informa que el acta resultado de esta " +
+                    "diligencia podrá ser impugnada a través del RECURSO DE REVISIÓN, previsto por el artículo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, para lo cual tendrá un plazo de 20 veinte días hábiles, contados a partir del día siguiente de la fecha en que se levante el acta correspondiente; debiendo interponer dicho recurso por escrito que presente en la oficia de la Dirección Jurídica Contenciosa dependiente de Sindicatura, en avenida Hidalgo número 151, colonia Centro de esta Ciudad. Se da por concluida esta diligencia a las "+hr+"  del " +dia +" de "+ vigencia_final("0"+ String.valueOf(mes)) +" del presente año, levantándose acta en presencia del visitado y testigos que intervinieron, firmando para constancia los que quisieron y supieron hacerlo, quedando copia legible en poder del interesado para los efectos conducentes. Lo anterior, en términos de lo dispuesto por el artículo 74 de la Ley invocada.";
 
             //extracto pruebas
 			/*final String cuerpo = "En la ciudad de Zapopan, Jalisco, siendo las 16:30 horas del día 20 de Septiembre del año 2019, el suscrito FRANCISCO JAVIER VÁZQUEZ GARCÍA, Inspector Municipal con clave 0037, facultado para llevar a cabo la inspección y vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, mediante y en cumplimiento de la Orden de Visita folio número OV-2019 dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco el día 20 de Agosto, misma que en original exhibo y en copia legible entrego al visitado, Javier Contreras Gonzalez, me constituí física y legalmente en " +
@@ -14318,7 +14704,7 @@ Por recibida el Acta número ____________________________________ por la cual s
                     mBixolonPrinter.setSingleByteFont(BixolonPrinter.CODE_PAGE_1252_LATIN1);
 
                     mBixolonPrinter.setPageMode();
-                    InfraccionesActivityTecnica.mBixolonPrinter.setPrintArea(0, 0, 576, 200);
+                    InfraccionesActivity.mBixolonPrinter.setPrintArea(0, 0, 576, 200);
 
                     Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
 
@@ -14348,7 +14734,7 @@ Por recibida el Acta número ____________________________________ por la cual s
                     }
                     System.err.println("n " + n);
 
-                    mBixolonPrinter.printText("IN/12/1/2/9/2019/01\n\n", BixolonPrinter.ALIGNMENT_RIGHT,
+                    mBixolonPrinter.printText(etNumeroActa.getText().toString()+"\n\n", BixolonPrinter.ALIGNMENT_RIGHT,
                             BixolonPrinter.TEXT_ATTRIBUTE_FONT_A,
                             BixolonPrinter.TEXT_SIZE_HORIZONTAL1 | BixolonPrinter.TEXT_SIZE_VERTICAL1, false);
 
@@ -14399,8 +14785,43 @@ Por recibida el Acta número ____________________________________ por la cual s
                             BixolonPrinter.TEXT_SIZE_HORIZONTAL1 | BixolonPrinter.TEXT_SIZE_VERTICAL1, false);
 
                     mBixolonPrinter.lineFeed(7, false);
+                    String gravedad="";
+                    String NE="";
+                    String R="";
+                    if (spgravedad.getSelectedItem().toString().equalsIgnoreCase("1")) {
+                        gravedad="1";
+                    } else if (spgravedad.getSelectedItem().toString().equalsIgnoreCase("2")) {
+                        gravedad="2";
+                    } else if (spgravedad.getSelectedItem().toString().equalsIgnoreCase("3")) {
+                        gravedad="3";
+                    } else if (spgravedad.getSelectedItem().toString().equalsIgnoreCase("4")) {
+                        gravedad="4";
+                    } else {
+                        gravedad="5";
+                    }
 
-                    mBixolonPrinter.printText("G 1  \t  NE 1  \t R 1" + "\n", BixolonPrinter.ALIGNMENT_CENTER,
+                    if (spNE.getSelectedItem().toString().equalsIgnoreCase("1")) {
+                        NE="1";
+                    } else if (spNE.getSelectedItem().toString().equalsIgnoreCase("2")) {
+                        NE="2";
+                    } else if (spNE.getSelectedItem().toString().equalsIgnoreCase("3")) {
+                        NE="3";
+                    } else if (spNE.getSelectedItem().toString().equalsIgnoreCase("4")) {
+                        NE="4";
+                    } else {
+                        NE="5";
+                    }
+
+                    if(swReincidencia.isChecked()) {
+                        R="1";
+                    } else {
+                        R="0";
+                    }
+
+					/*mBixolonPrinter.printText("G 1  \t  NE 1  \t R 1" + "\n", BixolonPrinter.ALIGNMENT_CENTER,
+							BixolonPrinter.TEXT_ATTRIBUTE_FONT_A,
+							BixolonPrinter.TEXT_SIZE_HORIZONTAL1 | BixolonPrinter.TEXT_SIZE_VERTICAL1, false);*/
+                    mBixolonPrinter.printText("G"+gravedad+" \t "+"NE"+NE+" \t "+ "R"+R+ "\n", BixolonPrinter.ALIGNMENT_CENTER,
                             BixolonPrinter.TEXT_ATTRIBUTE_FONT_A,
                             BixolonPrinter.TEXT_SIZE_HORIZONTAL1 | BixolonPrinter.TEXT_SIZE_VERTICAL1, false);
 
