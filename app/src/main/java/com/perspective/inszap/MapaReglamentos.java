@@ -24,12 +24,12 @@ public class MapaReglamentos {
     }
 
     public String fraccionRemplazar(String cad){
-        cad.replace("Fracciones","");
-        cad.replace("fracciones","");
-        cad.replace("Fracción","");
-        cad.replace("fracción","");
-        cad.replace("Fraccion","");
-        cad.replace("fraccion","");
+        cad = cad.replaceAll("Fracciones","");
+        cad = cad.replaceAll("fracciones","");
+        cad = cad.replaceAll("Fracción","");
+        cad = cad.replaceAll("fracción","");
+        cad = cad.replaceAll("Fraccion","");
+        cad = cad.replaceAll("fraccion","");
         return cad;
     }
 
@@ -50,12 +50,17 @@ public class MapaReglamentos {
     }
 
     public String setFracciones(String cad){
-        cad.replace("Fracciones","Fraccion(es):");
-        cad.replace("fracciones","Fraccion(es):");
-        cad.replace("Fracción","Fraccion(es):");
-        cad.replace("fracción","Fraccion(es):");
-        cad.replace("Fraccion","Fraccion(es):");
-        cad.replace("fraccion","Fraccion(es):");
+        cad = cad.replaceAll("Fracciones","Fraccion(es):");
+        cad = cad.replaceAll("fracciones","Fraccion(es):");
+        cad = cad.replaceAll("Fracción","Fraccion(es):");
+        cad = cad.replaceAll("fracción","Fraccion(es):");
+        cad = cad.replaceAll("Fraccion","Fraccion(es):");
+        cad = cad.replaceAll("fraccion","Fraccion(es):");
+        return cad;
+    }
+
+    public String quitarY(String cad){
+        cad = cad.replaceAll(" y"," ");
         return cad;
     }
 
@@ -87,6 +92,8 @@ public class MapaReglamentos {
                     cadena += art.getDescripcion()+", ";
                 }
             }
+
+            cadena = cadena.replaceAll(" y","");
             cadena = cadena.replaceAll(", $",".");
 
             if(listaArticulos.size()!=0)
