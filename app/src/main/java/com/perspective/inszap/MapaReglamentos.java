@@ -23,26 +23,80 @@ public class MapaReglamentos {
         mapaReglamentos.get(art.getTipo()).add(art);
     }
 
+    public String fraccionRemplazar(String cad){
+        cad.replace("Fracciones","");
+        cad.replace("fracciones","");
+        cad.replace("Fracción","");
+        cad.replace("fracción","");
+        cad.replace("Fraccion","");
+        cad.replace("fraccion","");
+        return cad;
+    }
+
+    public boolean containFraccion(String cad){
+        if (cad.contains("Fracciones"))
+            return true;
+        if (cad.contains("fracciones"))
+            return true;
+        if (cad.contains("Fracción"))
+            return true;
+        if (cad.contains("fracción"))
+            return true;
+        if (cad.contains("Fraccion"))
+            return true;
+        if (cad.contains("fraccion"))
+            return true;
+        return false;
+    }
+
+    public String setFracciones(String cad){
+        cad.replace("Fracciones","Fraccion(es):");
+        cad.replace("fracciones","Fraccion(es):");
+        cad.replace("Fracción","Fraccion(es):");
+        cad.replace("fracción","Fraccion(es):");
+        cad.replace("Fraccion","Fraccion(es):");
+        cad.replace("fraccion","Fraccion(es):");
+        return cad;
+    }
+
     public String mostrar(){
+        int inicio;
+        String aux1;
+        String aux2;
+        String cadenaPrin = "";
         String cadena = "";
         ArrayList<Articulo> listaArticulos;
         for(String reglamento : reglamentos){
             listaArticulos = this.mapaReglamentos.get(reglamento);
 
             if(listaArticulos.size()!=0)
-                cadena+=reglamento+": ";
+                cadena+="Articulo(s): ";
 
             for(Articulo art : listaArticulos){
                 if(cadena.contains(String.valueOf(art.getArticulo()))){
+                    inicio = cadena.indexOf(String.valueOf(art.getArticulo()));
+                    try{
+                        if(containFraccion(art.getDescripcion())){
+                            aux1 = cadena.substring(inicio,inicio+14);
+                            aux2 = fraccionRemplazar(aux1);
+                            cadena = cadena.replace(aux1,aux2);
+                        }
+                    }catch (Exception ex){ }
                     cadena = cadena.replace(" "+String.valueOf(art.getArticulo())," "+art.getDescripcion());
                 }else {
                     cadena += art.getDescripcion()+", ";
                 }
             }
-
             cadena = cadena.replaceAll(", $",".");
+
+            if(listaArticulos.size()!=0)
+                cadena+=": "+reglamento+".";
+
+            cadenaPrin+=cadena;
+            cadena="";
         }
-        return cadena;
+        cadenaPrin=setFracciones(cadenaPrin);
+        return cadenaPrin;
     }
 
     public void ordenar(ArrayList<Articulo> lista){
