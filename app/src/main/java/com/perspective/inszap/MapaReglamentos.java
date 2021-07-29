@@ -50,12 +50,12 @@ public class MapaReglamentos {
     }
 
     public String setFracciones(String cad){
-        cad = cad.replaceAll("Fracciones","Fraccion(es):");
-        cad = cad.replaceAll("fracciones","Fraccion(es):");
-        cad = cad.replaceAll("Fracción","Fraccion(es):");
-        cad = cad.replaceAll("fracción","Fraccion(es):");
-        cad = cad.replaceAll("Fraccion","Fraccion(es):");
-        cad = cad.replaceAll("fraccion","Fraccion(es):");
+        cad = cad.replaceAll("Fracciones","Fracción(es) ");
+        cad = cad.replaceAll("fracciones","Fracción(es) ");
+        cad = cad.replaceAll("Fracción ","Fracción(es) ");
+        cad = cad.replaceAll("fracción ","Fracción(es) ");
+        cad = cad.replaceAll("Fraccion ","Fracción(es) ");
+        cad = cad.replaceAll("fraccion ","Fracción(es) ");
         return cad;
     }
 
@@ -75,7 +75,7 @@ public class MapaReglamentos {
             listaArticulos = this.mapaReglamentos.get(reglamento);
 
             if(listaArticulos.size()!=0)
-                cadena+="Articulo(s): ";
+                cadena+="Articulo(s) ";
 
             for(Articulo art : listaArticulos){
                 if(cadena.contains(String.valueOf(art.getArticulo()))){
@@ -94,10 +94,10 @@ public class MapaReglamentos {
             }
 
             cadena = cadena.replaceAll(" y","");
-            cadena = cadena.replaceAll(", $",".");
+            cadena = cadena.replaceAll("  "," ");
 
             if(listaArticulos.size()!=0)
-                cadena+=": "+reglamento+".";
+                cadena+=" "+reglamento+". ";
 
             cadenaPrin+=cadena;
             cadena="";
@@ -123,18 +123,6 @@ public class MapaReglamentos {
         return -1;
     }
 
-    public String concatenar(String cad1, String cad2){
-        int cont = 0;
-        String aux;
-
-        if(cad1.contains("fracción")){
-            if(cad2.contains("fraccion")){
-
-            }
-        }
-
-        return "";
-    }
 
     public int ignorar(String cadena, int pos){
         boolean bandera=true;
