@@ -56,6 +56,7 @@ public class MapaReglamentos {
         cad = cad.replaceAll("fracción ","Fracción(es) ");
         cad = cad.replaceAll("Fraccion ","Fracción(es) ");
         cad = cad.replaceAll("fraccion ","Fracción(es) ");
+        cad = cad.replaceAll("fracciones,","Fracción(es) ");
         return cad;
     }
 
@@ -71,13 +72,22 @@ public class MapaReglamentos {
         String cadenaPrin = "";
         String cadena = "";
         ArrayList<Articulo> listaArticulos;
+        boolean bandera = false;
+
+
         for(String reglamento : reglamentos){
+            System.out.println("entra1");
             listaArticulos = this.mapaReglamentos.get(reglamento);
 
-            if(listaArticulos.size()!=0)
-                cadena+="Articulo(s) ";
+            if(bandera){
+                if(listaArticulos.size()!=0)
+                    cadena+="Articulo(s) ";
+            }
+            bandera=true;
+            System.out.println("entra2");
 
             for(Articulo art : listaArticulos){
+                System.out.println(art);
                 if(cadena.contains(String.valueOf(art.getArticulo()))){
                     inicio = cadena.indexOf(String.valueOf(art.getArticulo()));
                     try{
@@ -103,6 +113,13 @@ public class MapaReglamentos {
             cadena="";
         }
         cadenaPrin=setFracciones(cadenaPrin);
+        cadenaPrin = cadenaPrin.replaceAll(",,",",");
+
+
+        System.out.println(cadenaPrin);
+        cadenaPrin = cadenaPrin.replaceFirst("Articulo\\(s\\)","");
+        System.out.println(cadenaPrin);
+
         return cadenaPrin;
     }
 
@@ -144,8 +161,11 @@ public class MapaReglamentos {
     //Fraccion Numeral Inciso parrafo Bis
 
     public void cargarLista(ArrayList<Articulo> lista){
+        System.out.println("????");
         for(Articulo art : lista){
+            System.out.println(lista);
             this.mapaReglamentos.get(art.getTipo()).add(art);
         }
+        System.out.println("salimos");
     }
 }

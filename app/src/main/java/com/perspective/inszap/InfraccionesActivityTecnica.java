@@ -2469,6 +2469,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 Log.e("camp1", camp1);
 
                                 String text2="";
+                                String text3="";
+
 
                                 text2 += (!camp1.equals("")) ? campo1 + ":" + camp1 +" ": "";
                                 text2 += (!camp2.equals("")) ? campo2 + ":" + camp2 +" ": "";
@@ -2492,6 +2494,29 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 text2 += (!camp20.equals("")) ? campo20 + ":" + camp20 +" ": "";
 
 
+                                //AGREGAR
+                                text3 += (!camp1.equals("")) ?  camp1 + " " + campo1 + ". ": "";
+                                text3 += (!camp2.equals("")) ?  camp2 + " " + campo2 + ". ": "";
+                                text3 += (!camp3.equals("")) ?  camp3 + " " + campo3 + ". ": "";
+                                text3 += (!camp4.equals("")) ?  camp4 + " " + campo4 + ". ": "";
+                                text3 += (!camp5.equals("")) ?  camp5 + " " + campo5 + ". ": "";
+                                text3 += (!camp6.equals("")) ?  camp6 + " " + campo6 + ". ": "";
+                                text3 += (!camp7.equals("")) ?  camp7 + " " + campo7 + ". ": "";
+                                text3 += (!camp8.equals("")) ?  camp8 + " " + campo8 + ". ": "";
+                                text3 += (!camp9.equals("")) ?  camp9 + " " + campo9 + ". ": "";
+                                text3 += (!camp0.equals("")) ?  camp0 + " " + campo0 + ". ": "";
+                                text3 += (!camp11.equals("")) ?  camp1 + " " + campo11 +". ": "";
+                                text3 += (!camp12.equals("")) ?  camp1 + " " + campo12 +". ": "";
+                                text3 += (!camp13.equals("")) ?  camp1 + " " + campo13 +". ": "";
+                                text3 += (!camp14.equals("")) ?  camp1 + " " + campo14 +". ": "";
+                                text3 += (!camp15.equals("")) ?  camp1 + " " + campo15 +". ": "";
+                                text3 += (!camp16.equals("")) ?  camp1 + " " + campo16 +". ": "";
+                                text3 += (!camp17.equals("")) ?  camp1 + " " + campo17 +". ": "";
+                                text3 += (!camp18.equals("")) ?  camp1 + " " + campo18 +". ": "";
+                                text3 += (!camp19.equals("")) ?  camp1 + " " + campo19 +". ": "";
+                                text3 += (!camp20.equals("")) ?  camp2 + " " + campo20 +". ": "";
+
+
                                 System.out.println("+++++TEXT:"+text+"++++++++++++++");
 
                                 String articulos = "";
@@ -2503,7 +2528,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         articulos = algoritmoRem(text2);
                                     }
                                 } catch(Exception e){
-                                    articulos = text2;
+                                    articulos = text3;
                                 }
 
                                 System.out.println("+++++ALGORITMO: "+text2+"++++++");

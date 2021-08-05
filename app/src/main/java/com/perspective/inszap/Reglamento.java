@@ -20,7 +20,7 @@ public class Reglamento {
     final static String TIPO10 = "Reglamento de Gestión Integral de Riesgos del Municipio de Zapopan, Jalisco";
     final static String TIPO11 = "Reglamento para la Atención e Inclusion Social de las Personas con Discapacidad del Municipio de Zapopa, Jalisco";
     final static String TIPO12 = "Reglamento de Protección al Medio Ambiente y Equilibrio Ecológico para el Municipio de Zapopan, Jalisco.";
-    final static String TIPO13 = "Reglamento de Movilidad, Tránsito y Seguridad Vial del Municipio de Zapopan, Jalisco.";
+    final static String TIPO13 = "Reglamento de Movilidad, Tránsito y Seguridad Vial del Municipio de Zapopan, Jalisco";
     final static String TIPO14 = "Reglamento de Policía y Buen Gobierno de Zapopan, Jalisco";
     final static String TIPO15 = "Reglamento para la Protección del Patrimonio Edificado y Mejoramiento de la Imagen del Municipio de Zapopan";
     final static String TIPO16 = "Reglamento de Protección al Medio Ambiente y Equilibrio Ecológico para el Municipio de Zapopan, Jalisco";
@@ -33,6 +33,8 @@ public class Reglamento {
     final static String TIPO23 = "Reglamento de Tianguis y Comercio en Espacios Públicos del Municipio de Zapopan, Jalisco";
     final static String TIPO24 = "Reglamento de Sanidad, Protección y Trato Digno para los Animales en el Municipio de Zapopan, Jalisco";
     final static String TIPO25 = "Reglamento para los Fumadores en la Ciudad de Zapopan, Jalisco.";
+    final static String TIPO27 = "Reglamento para los Fumadores en la Ciudad de Zapopan, Jalisco";
+
     final static String TIPO26 = "General";
 
 //    public static HashMap referencias(){
@@ -68,6 +70,7 @@ public class Reglamento {
         lista.add(TIPO24);
         lista.add(TIPO25);
         lista.add(TIPO26);
+        lista.add(TIPO27);
         return lista;
     }
 

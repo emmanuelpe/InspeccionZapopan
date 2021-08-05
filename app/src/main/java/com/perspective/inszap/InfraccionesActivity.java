@@ -2491,6 +2491,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                             String text2="";
 
+                            //AGREGAR
+                            String text3="";
+                            //FIN AGREGAR
+
                             text2 += (!camp1.equals("")) ? campo1 + ":" + camp1 +" ": "";
                             text2 += (!camp2.equals("")) ? campo2 + ":" + camp2 +" ": "";
                             text2 += (!camp3.equals("")) ? campo3 + ":" + camp3 +" ": "";
@@ -2512,6 +2516,29 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             text2 += (!camp19.equals("")) ? campo19 + ":" + camp19 +" ": "";
                             text2 += (!camp20.equals("")) ? campo20 + ":" + camp20 +" ": "";
 
+                            //AGREGAR
+                            text3 += (!camp1.equals("")) ?  camp1 + " " + campo1 + ". ": "";
+                            text3 += (!camp2.equals("")) ?  camp2 + " " + campo2 + ". ": "";
+                            text3 += (!camp3.equals("")) ?  camp3 + " " + campo3 + ". ": "";
+                            text3 += (!camp4.equals("")) ?  camp4 + " " + campo4 + ". ": "";
+                            text3 += (!camp5.equals("")) ?  camp5 + " " + campo5 + ". ": "";
+                            text3 += (!camp6.equals("")) ?  camp6 + " " + campo6 + ". ": "";
+                            text3 += (!camp7.equals("")) ?  camp7 + " " + campo7 + ". ": "";
+                            text3 += (!camp8.equals("")) ?  camp8 + " " + campo8 + ". ": "";
+                            text3 += (!camp9.equals("")) ?  camp9 + " " + campo9 + ". ": "";
+                            text3 += (!camp0.equals("")) ?  camp0 + " " + campo0 + ". ": "";
+                            text3 += (!camp11.equals("")) ?  camp1 + " " + campo11 +". ": "";
+                            text3 += (!camp12.equals("")) ?  camp1 + " " + campo12 +". ": "";
+                            text3 += (!camp13.equals("")) ?  camp1 + " " + campo13 +". ": "";
+                            text3 += (!camp14.equals("")) ?  camp1 + " " + campo14 +". ": "";
+                            text3 += (!camp15.equals("")) ?  camp1 + " " + campo15 +". ": "";
+                            text3 += (!camp16.equals("")) ?  camp1 + " " + campo16 +". ": "";
+                            text3 += (!camp17.equals("")) ?  camp1 + " " + campo17 +". ": "";
+                            text3 += (!camp18.equals("")) ?  camp1 + " " + campo18 +". ": "";
+                            text3 += (!camp19.equals("")) ?  camp1 + " " + campo19 +". ": "";
+                            text3 += (!camp20.equals("")) ?  camp2 + " " + campo20 +". ": "";
+                            //FIN AGREGAR
+
                             String articulos = "";
                             try{
 
@@ -2521,7 +2548,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     articulos = algoritmoRem(text2);
                                 }
                             } catch(Exception e){
-                                articulos = text2;
+                                articulos = text3;
                             }
 
                             System.out.println("+++++ALGORITMO: "+text2+"++++++");
@@ -2545,7 +2572,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							btnSi.setEnabled(false);
 							btnNo.setEnabled(false);
 							etManifiesta.setEnabled(true);
-							/*if(id == 2) {
+							/*if(id == 2) {algo
 								etInfraccion.setEnabled(true);
 								etSeleccion.setEnabled(true);
 							}*/
@@ -3273,6 +3300,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         auxCadena = auxCadena.replaceAll("punto \\d","punto x");
 
         while(i<tamanio){
+            System.out.println("i : "+i);
             art = new Articulo();
 
             if(this.isReglamento(auxCadena.substring(i,i+1))){
@@ -3304,13 +3332,20 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             art.setTipo((tipo.isEmpty())?"Articulo(s):":tipo);
             art.setArticulo(Integer.parseInt(numero));
 
+            System.out.println(art);
             if(!buscar(art, listaArticulos)){
                 listaArticulos.add(art);
             }
+            System.out.println("todo bien1");
+
         }
+        System.out.println("todo bien2");
 
         ordenar(listaArticulos);
+        System.out.println("todo bien3");
+
         mapaReglamentos.cargarLista(listaArticulos);
+
 
         return mapaReglamentos.mostrar();
     }
