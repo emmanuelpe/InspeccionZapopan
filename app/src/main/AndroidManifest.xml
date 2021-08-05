@@ -23,10 +23,15 @@
         android:roundIcon="@drawable/logo_pf"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ReimprimirActivity"
+            android:configChanges="orientation|screenSize|screenLayout|navigation">
+
+        </activity>
+
         <service
             android:name=".ClearFolios"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
         <service
             android:name=".UpdateFolio"
             android:enabled="true"
@@ -38,7 +43,6 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-
 
         <activity
             android:name=".Licencias"
@@ -74,11 +78,10 @@
             android:name=".InfraccionesActivityTecnica"
             android:configChanges="orientation|screenSize|screenLayout|navigation"
             android:label="@string/title_activity_infracciones"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".MainActivity"
-            android:configChanges="orientation|screenSize|screenLayout|navigation"
-            />
+            android:configChanges="orientation|screenSize|screenLayout|navigation" />
         <activity
             android:name=".Descarga"
             android:configChanges="orientation|screenSize|screenLayout|navigation"
@@ -99,10 +102,6 @@
             android:name=".ConsultarInfracciones"
             android:configChanges="orientation|screenSize|screenLayout|navigation"
             android:label="@string/title_activity_consultar_infracciones" />
-        <activity
-            android:name=".Reimprimir"
-            android:configChanges="orientation|screenSize|screenLayout|navigation"
-            android:label="@string/title_activity_reimprimir" />
         <activity
             android:name=".TestActivity"
             android:configChanges="orientation|screenSize|screenLayout|navigation"

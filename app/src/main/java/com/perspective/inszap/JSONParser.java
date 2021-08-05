@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.CookiePolicy;
 import java.util.ArrayList;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -12,13 +13,24 @@ import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.params.ClientPNames;
+import org.apache.http.client.params.HttpClientParams;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.conn.PoolingClientConnectionManager;
+import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.params.CoreProtocolPNames;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,18 +57,30 @@ public class JSONParser {
 		try{
 			System.out.println(url + " url " + metodo);
 			if(metodo == "POST"){
-				
+				int timeout = 5;
 				DefaultHttpClient httpClient = new DefaultHttpClient();
+				//HttpParams httpParams = httpClient.getParams();
+
+				HttpParams clientParams = httpClient.getParams();
+
+				HttpConnectionParams.setSoTimeout(clientParams, 30000);
+
 				HttpPost httpPost = new HttpPost(url);
 				httpPost.setEntity(new UrlEncodedFormEntity(parametro));
 				
 				HttpResponse httpResponse = httpClient.execute(httpPost);
+
+
 				HttpEntity httpEntity = httpResponse.getEntity();
+
 				is = httpEntity.getContent();
 				System.out.println(is.toString());
 			}
 			else if(metodo == "GET"){
 				DefaultHttpClient httpClient = new DefaultHttpClient();
+				HttpParams clientParams = httpClient.getParams();
+
+				HttpConnectionParams.setSoTimeout(clientParams, 30000);
 				String parametros = URLEncodedUtils.format(parametro, "utf-8");
 				url += "?" + parametros;
 				HttpGet httpGet = new HttpGet(url);
@@ -66,7 +90,7 @@ public class JSONParser {
 				is= httpEntity.getContent();	
 			}
 		} catch (UnsupportedEncodingException e) {
-			Log.e("UnsupportedEncodingException", e.getMessage());
+			Log.e("UnsupportedEncoding", e.getMessage());
 		}catch (ClientProtocolException e) {
 			Log.e("IOException", e.getMessage());
 		}catch (IOException e) {
