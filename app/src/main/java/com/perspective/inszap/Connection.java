@@ -37,6 +37,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.net.ConnectivityManager;
+import android.util.JsonReader;
 import android.util.Log;
 
 /**
@@ -341,6 +342,7 @@ public class Connection {
 			levanta.add(new BasicNameValuePair("decomiso", decomiso));
 			levanta.add(new BasicNameValuePair("folio_clausura",folio_clausura));
 			levanta.add(new BasicNameValuePair("fecha_clausura",fechaclau));
+
 			JSONObject json = jsonParser.realizarHttpRequest(url, "POST", levanta);
 			
 			
@@ -442,7 +444,7 @@ public class Connection {
 			//httpclient. = TimeSpan.FromMilliseconds(10);
 			HttpParams clientParams = httpclient.getParams();
 
-			HttpConnectionParams.setSoTimeout(clientParams, 10000);
+			HttpConnectionParams.setSoTimeout(clientParams, 240000);
 
 			HttpPost httpPost = new HttpPost(url);
 

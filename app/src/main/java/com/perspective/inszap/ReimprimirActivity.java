@@ -538,8 +538,9 @@ public class ReimprimirActivity extends AppCompatActivity implements View.OnClic
 
                 String datos = "";
                 if(!OV.equalsIgnoreCase("")) {
+                    String [] fecha_ov=fechaOV.split("/");
                     datos = "mediante y en cumplimiento de la Orden de Visita folio número "
-                            + OV +"  dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fechaOV + " misma que en original exhibo y en original legible entrego " +
+                            + OV +"  dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fecha_ov[0] +" de "+mes(fecha_ov[1]) +" del año "+fecha_ov[2]+  " misma que en original exhibo y en original legible entrego " +
                             "al visitado, " + nombreV + ",";
                 } else {
                     datos = "en términos de lo dispuesto por el artículo 73, segundo párrafo, de la Ley del Procedimiento Administrativo del Estado de Jalisco,";
@@ -696,6 +697,28 @@ public class ReimprimirActivity extends AppCompatActivity implements View.OnClic
                             horaTermino.substring(10,16)  + " horas del " + horaTermino.substring(8,10) + " de " +mes(horaTermino.substring(5,7)) + " del " + horaTermino.substring(0,4) + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=",font1);
 
 
+
+                }else if(id_c_direccion.equals("3")){
+                    String numeroS="";
+                    if(numero_sellos.length()>3){
+                        numeroS="con numero de sello(s) "+numero_sellos.trim();
+                    }
+
+                    hechos=hechos.trim().substring(0,hechos.trim().length()-1);
+                    p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + horaTermino.substring(10,16) + " horas del día de " + horaTermino.substring(8,10) + " de " + mes(horaTermino.substring(5,7)) + " del  año " +horaTermino.substring(0,4)  + ", el suscrito " + nombre +
+                            " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en  " +
+                            meConstituyo+ " marcada (o)  con el número  " + numero + " de  la  calle " + calle + " entre las calles " + entreC + " y " + entreC1 + " en la colonia y/o fraccionamiento " +
+                            fraccionamiento + textC+ ", cerciorándome de ser este el domicilio donde se realiza la visita de inspección y la actividad comercial, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado " +
+                            "por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número " +" "+ folio + ", vigente del "+diaIni+" de " +vigencia_inicial+ " del "+recorte2[0]+ " a "+diavigen+" de " +  vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del " +
+                            "Gobierno Municipal de Zapopan, Jalisco, ante " + nombreV + " quien se identifica con, " + seIdentifica  + " manifiesta ser " + manifiestaSer + " del giro " +
+                            actividad_giro + ", propiedad de " + prop + ", le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. " +
+                            nombresT + " por el " + designado1 + ", " + testigos
+                            + " así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  " +
+                            "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + hechos + "Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + infracciones + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
+                            "indicados y al haber sido detectados en "+peticionb+", se procede indistintamente con las siguientes medidas: " + medidaP + " "+numeroS+  " " + decomiso + ".Lo anterior de conformidad a lo dispuesto por los artículo(s): " + articulo_medida + ". En uso de su derecho el visitado manifiesta: " +
+                            manifiesta + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
+                            "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
+                            horaTermino.substring(10,16)  + " horas del " + horaTermino.substring(8,10) + " de " +mes(horaTermino.substring(5,7)) + " del " + horaTermino.substring(0,4) + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=",font1);
 
                 }
                 p2.setAlignment(Element.ALIGN_JUSTIFIED);

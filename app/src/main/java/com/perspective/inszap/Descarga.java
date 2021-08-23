@@ -602,12 +602,14 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			}
 			Log.v("next", next + " ");
 			cursor.close();
+
+
 			colchon = max - folio;
 
 		System.out.println("colchon : gg :"+ max +"-"+colchon);
 
 
-		if(next == 0) {
+		/*if(next == 0 ) {*/
 			if (colchon <= 5) {
 				if (folio >= 0) {
 					MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Descarga.this)
@@ -629,7 +631,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 					builder.create().show();
 				}
 			}
-		}
+		/*}*/
 
 	}
 

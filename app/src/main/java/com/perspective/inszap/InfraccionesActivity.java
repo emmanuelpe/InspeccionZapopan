@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
@@ -112,18 +113,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     private Connection conect;
     static int id_inspectorQ=0;
     static String valW="";
-	private Button btncopiar,btneliminarA,btnArticulos,btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
-	private TextView tvBuscar,tvfudamentoEx,tvfechaClau,tvfolioclau,tvfechap,tvfolioap,tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvPropiedad,spselec1,tvDonde;
-	private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",unidades="",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",fracciones = "",articulos = "",folio = "",clave = "",fol = "",Axmedidas="",concatM="";
+	private Button btncopiar,btneliminarA,btnArticulos,btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,tveliminar5,tveliminar6,tveliminar7,tveliminar8,tveliminar9,tveliminar10,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
+	private TextView tvBuscar,tvfudamentoEx,tvfechaClau,tvfolioclau,tvfechap,tvfolioap,tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvuni5,tvuni6,tvuni7,tvuni8,tvuni9,tvuni10,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvPropiedad,spselec1,tvDonde;
+	private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",des5="",des6="",des7="",des8="",des9="",des10="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",unidades="",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",fracciones = "",articulos = "",folio = "",clave = "",fol = "",Axmedidas="",concatM="";
 	private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:"; 
 	private int banderagiro=0, mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,evento,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0,tipoEntrega = 0;
-	private Spinner spgiro,spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spMeConstitui,spDensidad,spCreglamentos;
-	private EditText etfudamentoEx,etfechaClau,etfolioclau,etfoliopeticion,etfolioap,etfechap,etNum,etFecham,etfecha,etDiaPlazo,etIfeI,etNoI,etVigI,etIfeA,etIfeA1,etIfeA2,etIfeA3,etIfeA4,etNoA,etNoA1,etNoA2,etNoA3,etNoA4,etVigA,etVigA1,etVigA2,etVigA3,etVigA4,etNombreT,etIfeT,etDesc,etDesc1,etDesc2,etDesc3,etDesc4,etdato,etdato1,etdato2,etdato3,etdato4,desf,desf1,desf2,etNombreV,etFraccionamiento,etCalle,etNumero,etPropietario,etNombreT1,etIfeT2,etManifiesta,etNuemroInterior,etApellidoP,etApellidoM,etCitatorio,etNumeroActa,etEspecificacion,etDFoto,etDFoto1,etDFoto2,etDFoto3,etVManifiesta,etVIdentifica,etLatitud,etLongitud,etAnoCitatorio,etAnoOrden,etCondominio/*etDensidad*/,etManzana,etLote,etReferencia,etBuscar,etfolio,/*etAlineamiento,*/etConstruccion, etGiro, etMotivo,etOrden1,etEntreC,etEntreC1,etResponsable,etRegistro,etMedida,etArticulo,etInspccionFue,etDFoto4,etDFoto5,etDFoto6,etDFoto7,etDFoto8,etDFoto9,etDFoto10,etDFoto11,etDFoto12,etDFoto13,etDFoto14,etDFoto15,etDFoto16,etDFoto17,etDFoto18,etDFoto19,etLGiro,etAGiro,etAlicencia,etSector,etNombreComercial,etObs,etObs1,etObs2,etObs3,etObs4,etBCol,etOtro,etDondeActua,etNumeroSellos,etDecomiso;
+	private Spinner spgiro,spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spuni5,spuni6,spuni7,spuni8,spuni9,spuni10,spMeConstitui,spDensidad,spCreglamentos;
+	private EditText etfudamentoEx,etfechaClau,etfolioclau,etfoliopeticion,etfolioap,etfechap,etNum,etFecham,etfecha,etDiaPlazo,etIfeI,etNoI,etVigI,etIfeA,etIfeA1,etIfeA2,etIfeA3,etIfeA4,etNoA,etNoA1,etNoA2,etNoA3,etNoA4,etVigA,etVigA1,etVigA2,etVigA3,etVigA4,etNombreT,etIfeT,etDesc,etDesc1,etDesc2,etDesc3,etDesc4,etDesc5,etDesc6,etDesc7,etDesc8,etDesc9,etDesc10,etdato,etdato1,etdato2,etdato3,etdato4,etdato5,etdato6,etdato7,etdato8,etdato9,etdato10,desf,desf1,desf2,etNombreV,etFraccionamiento,etCalle,etNumero,etPropietario,etNombreT1,etIfeT2,etManifiesta,etNuemroInterior,etApellidoP,etApellidoM,etCitatorio,etNumeroActa,etEspecificacion,etDFoto,etDFoto1,etDFoto2,etDFoto3,etVManifiesta,etVIdentifica,etLatitud,etLongitud,etAnoCitatorio,etAnoOrden,etCondominio/*etDensidad*/,etManzana,etLote,etReferencia,etBuscar,etfolio,/*etAlineamiento,*/etConstruccion, etGiro, etMotivo,etOrden1,etEntreC,etEntreC1,etResponsable,etRegistro,etMedida,etArticulo,etInspccionFue,etDFoto4,etDFoto5,etDFoto6,etDFoto7,etDFoto8,etDFoto9,etDFoto10,etDFoto11,etDFoto12,etDFoto13,etDFoto14,etDFoto15,etDFoto16,etDFoto17,etDFoto18,etDFoto19,etLGiro,etAGiro,etAlicencia,etSector,etNombreComercial,etObs,etObs1,etObs2,etObs3,etObs4,etObs5,etObs6,etObs7,etObs8,etObs9,etObs10,etBCol,etOtro,etDondeActua,etNumeroSellos,etDecomiso;
 	private LinearLayout lldiv,cons,llNota,llplazo,llreincidencia,llcomp,llconcepto,llPla,llfundamento;
 	private RelativeLayout rlcampo,rlProp,rlTestA,rlVisita,rlLicencias,rlDonde_actua;
 	private RadioGroup /*radiogroup,*/rgReincidencia,rgPopiedad,rgTipo;
 	static final int DATE_DIALOG_ID = 0;
-	private boolean desc=false,desc1=false,desc2=false,desc3=false,desc4=false,citatorio,inicio = false, res = false,consu = false,resu = false,resov = false,guarda = false;
+	private boolean desc=false,desc1=false,desc2=false,desc3=false,desc4=false,desc5=false,desc6=false,desc7=false,desc8=false,desc9=false,desc10=false,citatorio,inicio = false, res = false,consu = false,resu = false,resov = false,guarda = false;
 	final Calendar c = Calendar.getInstance();
 	final Calendar cal = Calendar.getInstance();
     private ArrayList<String> reglaArt= new ArrayList<>();
@@ -208,8 +209,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	private AlertDialog mSampleDialog;
 	private Switch swReincidencia;
 	private ArrayAdapter adapterCol,adapterMeC,adapterDensidad,adapterGiro;
-	private List<String> conceptos,articulo,fraccion,unis,unis1,unis2,unis3,unis4;
-	private ArrayAdapter adapterUni,adapterUni1,adapterUni2,adapterUni3,adapterUni4;
+	private List<String> conceptos,articulo,fraccion,unis,unis1,unis2,unis3,unis4,unis5,unis6,unis7,unis8,unis9,unis10;
+	private ArrayAdapter adapterUni,adapterUni1,adapterUni2,adapterUni3,adapterUni4,adapterUni5,adapterUni6,adapterUni7,adapterUni8,adapterUni9,adapterUni10;
 	private List<String> fundam = new ArrayList<>();
 	private List<String> meConstitui = new ArrayList<>();
 	private List<String> folios = new ArrayList<>();
@@ -366,6 +367,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         this.etDesc2 = (EditText)findViewById(R.id.etdescripcion2);
         this.etDesc3 = (EditText)findViewById(R.id.etdescripcion3);
         this.etDesc4 = (EditText)findViewById(R.id.etdescripcion4);
+        this.etDesc5 = (EditText)findViewById(R.id.etdescripcion5);
+        this.etDesc6 = (EditText)findViewById(R.id.etdescripcion6);
+        this.etDesc7 = (EditText)findViewById(R.id.etdescripcion7);
+        this.etDesc8 = (EditText)findViewById(R.id.etdescripcion8);
+        this.etDesc9 = (EditText)findViewById(R.id.etdescripcion9);
+        this.etDesc10 = (EditText)findViewById(R.id.etdescripcion10);
         this.etdato = (EditText)findViewById(R.id.etdato);
         this.tvuni = (TextView)findViewById(R.id.tvuni);
         this.tveliminar = (Button)findViewById(R.id.tveliminar);
@@ -381,6 +388,28 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         this.etdato4 = (EditText)findViewById(R.id.etdato4);
         this.tvuni4 = (TextView)findViewById(R.id.tvuni4);
         this.tveliminar4 = (Button)findViewById(R.id.tveliminar4);
+        this.etdato5 = (EditText)findViewById(R.id.etdato5);
+        this.tvuni5 = (TextView)findViewById(R.id.tvuni5);
+        this.tveliminar5 = (Button)findViewById(R.id.tveliminar5);
+        this.etdato6 = (EditText)findViewById(R.id.etdato6);
+        this.tvuni6 = (TextView)findViewById(R.id.tvuni6);
+        this.tveliminar6 = (Button)findViewById(R.id.tveliminar6);
+        this.etdato7 = (EditText)findViewById(R.id.etdato7);
+        this.tvuni7 = (TextView)findViewById(R.id.tvuni7);
+        this.tveliminar7 = (Button)findViewById(R.id.tveliminar7);
+
+        this.etdato8 = (EditText)findViewById(R.id.etdato8);
+        this.tvuni8 = (TextView)findViewById(R.id.tvuni8);
+        this.tveliminar8 = (Button)findViewById(R.id.tveliminar8);
+
+        this.etdato9 = (EditText)findViewById(R.id.etdato9);
+        this.tvuni9 = (TextView)findViewById(R.id.tvuni9);
+        this.tveliminar9 = (Button)findViewById(R.id.tveliminar9);
+
+        this.etdato10 = (EditText)findViewById(R.id.etdato10);
+        this.tvuni10 = (TextView)findViewById(R.id.tvuni10);
+        this.tveliminar10 = (Button)findViewById(R.id.tveliminar10);
+
         this.btnaceptar = (Button)findViewById(R.id.btnaceptar);
         this.lldiv = (LinearLayout)findViewById(R.id.llall);
         this.cons = (LinearLayout)findViewById(R.id.cons);
@@ -562,6 +591,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         etObs3.setMovementMethod(new ScrollingMovementMethod());
         etObs4 = findViewById(R.id.etObs4);
         etObs4.setMovementMethod(new ScrollingMovementMethod());
+        etObs5  = findViewById(R.id.etObs5);
+        etObs5.setMovementMethod(new ScrollingMovementMethod());
+        etObs6 = findViewById(R.id.etObs6);
+        etObs6.setMovementMethod(new ScrollingMovementMethod());
+        etObs7 = findViewById(R.id.etObs7);
+        etObs7.setMovementMethod(new ScrollingMovementMethod());
+        etObs8 = findViewById(R.id.etObs8);
+        etObs8.setMovementMethod(new ScrollingMovementMethod());
+        etObs9 = findViewById(R.id.etObs9);
+        etObs9.setMovementMethod(new ScrollingMovementMethod());
+        etObs10 = findViewById(R.id.etObs10);
+        etObs10.setMovementMethod(new ScrollingMovementMethod());
 
         spUsoH = findViewById(R.id.spusoH);
 
@@ -583,6 +624,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         spuni2 = findViewById(R.id.spUni2);
         spuni3 = findViewById(R.id.spUni3);
         spuni4 = findViewById(R.id.spUni4);
+        spuni5 = findViewById(R.id.spUni5);
+        spuni6 = findViewById(R.id.spUni6);
+        spuni7 = findViewById(R.id.spUni7);
+        spuni8 = findViewById(R.id.spUni8);
+        spuni9 = findViewById(R.id.spUni9);
+        spuni10 = findViewById(R.id.spUni10);
+
 
         tvPeticion = findViewById(R.id.tvPeticion);
         tvNota = findViewById(R.id.tvNota);
@@ -622,12 +670,26 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         unis2 = new ArrayList<>();
         unis3 = new ArrayList<>();
         unis4 = new ArrayList<>();
+        unis5 = new ArrayList<>();
+        unis6 = new ArrayList<>();
+        unis7 = new ArrayList<>();
+        unis8 = new ArrayList<>();
+        unis9 = new ArrayList<>();
+        unis10 = new ArrayList<>();
 
          adapterUni = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis);
         adapterUni1 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis1);
         adapterUni2 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis2);
         adapterUni3 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis3);
         adapterUni4 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis4);
+
+        adapterUni5 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis5);
+        adapterUni6 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis6);
+        adapterUni7 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis7);
+        adapterUni8 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis8);
+        adapterUni9 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis9);
+        adapterUni10 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis10);
+
         adapterMeC = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,meConstitui);
         adapterGiro=new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,giros);
         adapterDensidad = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,getResources().getStringArray(R.array.densidad));
@@ -1885,7 +1947,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             desc3 = true;
                             etObs3.setVisibility(View.VISIBLE);
                             co++;
-                        } else {
+                        } else if(!desc4) {
                             etDesc4.setVisibility(View.VISIBLE);
                             if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
                                 String un[];
@@ -1915,11 +1977,191 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etObs4.setVisibility(View.VISIBLE);
                             co++;
                         }
+                        else if(!desc5) {
+                            etDesc5.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis5.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis5.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni5.setVisibility(View.VISIBLE);
+                                adapterUni5.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivity.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato5.setVisibility(View.VISIBLE);
+                                etdato5.setEnabled(true);
+							/*tvuni4.setVisibility(View.VISIBLE);
+							tvuni4.setText(unidad);
+							tvuni4.setFocusable(true);*/
+                            }
+                            des5 = t;
+                            tveliminar5.setVisibility(View.VISIBLE);
+                            etDesc5.setText(t);
+                            desc5 = true;
+                            etObs5.setVisibility(View.VISIBLE);
+                            co++;
+                        }
+                        else if(!desc6) {
+                            etDesc6.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis6.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis6.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni6.setVisibility(View.VISIBLE);
+                                adapterUni6.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivity.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato6.setVisibility(View.VISIBLE);
+                                etdato6.setEnabled(true);
+							/*tvuni4.setVisibility(View.VISIBLE);
+							tvuni4.setText(unidad);
+							tvuni4.setFocusable(true);*/
+                            }
+                            des6 = t;
+                            tveliminar6.setVisibility(View.VISIBLE);
+                            etDesc6.setText(t);
+                            desc6 = true;
+                            etObs6.setVisibility(View.VISIBLE);
+                            co++;
+                        }
+                        else if(!desc7) {
+                            etDesc7.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis7.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis7.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni7.setVisibility(View.VISIBLE);
+                                adapterUni7.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivity.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato7.setVisibility(View.VISIBLE);
+                                etdato7.setEnabled(true);
+							/*tvuni4.setVisibility(View.VISIBLE);
+							tvuni4.setText(unidad);
+							tvuni4.setFocusable(true);*/
+                            }
+                            des7 = t;
+                            tveliminar7.setVisibility(View.VISIBLE);
+                            etDesc7.setText(t);
+                            desc7 = true;
+                            etObs7.setVisibility(View.VISIBLE);
+                            co++;
+                        }
+                        else if(!desc8) {
+                            etDesc8.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis8.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis8.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni8.setVisibility(View.VISIBLE);
+                                adapterUni8.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivity.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato8.setVisibility(View.VISIBLE);
+                                etdato8.setEnabled(true);
+							/*tvuni4.setVisibility(View.VISIBLE);
+							tvuni4.setText(unidad);
+							tvuni4.setFocusable(true);*/
+                            }
+                            des8 = t;
+                            tveliminar8.setVisibility(View.VISIBLE);
+                            etDesc8.setText(t);
+                            desc8 = true;
+                            etObs8.setVisibility(View.VISIBLE);
+                            co++;
+                        }
+                        else if(!desc9) {
+                            etDesc9.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis9.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis9.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni9.setVisibility(View.VISIBLE);
+                                adapterUni9.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivity.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato9.setVisibility(View.VISIBLE);
+                                etdato9.setEnabled(true);
+							/*tvuni4.setVisibility(View.VISIBLE);
+							tvuni4.setText(unidad);
+							tvuni4.setFocusable(true);*/
+                            }
+                            des9 = t;
+                            tveliminar9.setVisibility(View.VISIBLE);
+                            etDesc9.setText(t);
+                            desc9 = true;
+                            etObs9.setVisibility(View.VISIBLE);
+                            co++;
+                        }
+                        else if(!desc10) {
+                            etDesc10.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis10.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis10.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni10.setVisibility(View.VISIBLE);
+                                adapterUni10.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivity.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato10.setVisibility(View.VISIBLE);
+                                etdato10.setEnabled(true);
+							/*tvuni4.setVisibility(View.VISIBLE);
+							tvuni4.setText(unidad);
+							tvuni4.setFocusable(true);*/
+                            }
+                            des10 = t;
+                            tveliminar10.setVisibility(View.VISIBLE);
+                            etDesc10.setText(t);
+                            desc10 = true;
+                            etObs10.setVisibility(View.VISIBLE);
+                            co++;
+                        }
                         spInfraccion.setSelection(0);
                         actualizarTV(infraccion);
                     }
 				}
-				if (infraccion == 5)
+				if (infraccion == 10)
 					spInfraccion.setEnabled(false);
 			}
 
@@ -2189,7 +2431,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			@Override
 			public void onClick(View v) {
 				infraccion--;
-				if (infraccion < 5) 
+				if (infraccion < 10)
 					spInfraccion.setEnabled(true);
 				co--;
 				etDesc.setText("");
@@ -2218,7 +2460,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			@Override
 			public void onClick(View v) {
 				infraccion--;
-				if (infraccion < 5) 
+				if (infraccion < 10)
 					spInfraccion.setEnabled(true);
 				co--;
 				etDesc1.setText("");
@@ -2247,7 +2489,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			@Override
 			public void onClick(View v) {
 				infraccion--;
-				if (infraccion < 5) 
+				if (infraccion < 10)
 					spInfraccion.setEnabled(true);
 				co--;
 				etDesc2.setText("");
@@ -2276,7 +2518,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			@Override
 			public void onClick(View v) {
 				infraccion--;
-				if (infraccion < 5) 
+				if (infraccion < 10)
 					spInfraccion.setEnabled(true);
 				co--;
 				etDesc3.setText("");
@@ -2305,7 +2547,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			@Override
 			public void onClick(View v) {
 				infraccion--;
-				if (infraccion < 5) 
+				if (infraccion < 10)
 					spInfraccion.setEnabled(true);
 				co--;
 				etDesc4.setText("");
@@ -2328,6 +2570,179 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 actualizarTV(infraccion);
 			}
 		});
+
+        this.tveliminar5.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                infraccion--;
+                if (infraccion < 10)
+                    spInfraccion.setEnabled(true);
+                co--;
+                etDesc5.setText("");
+                etDesc5.setVisibility(View.GONE);
+                etdato5.setText("");
+                etdato5.setVisibility(View.GONE);
+                tvuni5.setVisibility(View.GONE);
+                tvuni5.setText("");
+                etObs5.setVisibility(View.GONE);
+                tveliminar5.setVisibility(View.GONE);
+                spuni5.setVisibility(View.GONE);
+                desc5 = false;
+                des5 = "";
+                if(co==0){
+                    btnaceptar.setVisibility(View.GONE);
+                }
+                else
+                    btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
+            }
+        });
+        this.tveliminar6.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                infraccion--;
+                if (infraccion < 10)
+                    spInfraccion.setEnabled(true);
+                co--;
+                etDesc6.setText("");
+                etDesc6.setVisibility(View.GONE);
+                etdato6.setText("");
+                etdato6.setVisibility(View.GONE);
+                tvuni6.setVisibility(View.GONE);
+                tvuni6.setText("");
+                etObs6.setVisibility(View.GONE);
+                tveliminar6.setVisibility(View.GONE);
+                spuni6.setVisibility(View.GONE);
+                desc6 = false;
+                des6 = "";
+                if(co==0){
+                    btnaceptar.setVisibility(View.GONE);
+                }
+                else
+                    btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
+            }
+        });
+
+        this.tveliminar7.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                infraccion--;
+                if (infraccion < 10)
+                    spInfraccion.setEnabled(true);
+                co--;
+                etDesc7.setText("");
+                etDesc7.setVisibility(View.GONE);
+                etdato7.setText("");
+                etdato7.setVisibility(View.GONE);
+                tvuni7.setVisibility(View.GONE);
+                tvuni7.setText("");
+                etObs7.setVisibility(View.GONE);
+                tveliminar7.setVisibility(View.GONE);
+                spuni7.setVisibility(View.GONE);
+                desc7 = false;
+                des7 = "";
+                if(co==0){
+                    btnaceptar.setVisibility(View.GONE);
+                }
+                else
+                    btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
+            }
+        });
+
+        this.tveliminar8.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                infraccion--;
+                if (infraccion < 10)
+                    spInfraccion.setEnabled(true);
+                co--;
+                etDesc8.setText("");
+                etDesc8.setVisibility(View.GONE);
+                etdato8.setText("");
+                etdato8.setVisibility(View.GONE);
+                tvuni8.setVisibility(View.GONE);
+                tvuni8.setText("");
+                etObs8.setVisibility(View.GONE);
+                tveliminar8.setVisibility(View.GONE);
+                spuni8.setVisibility(View.GONE);
+                desc8 = false;
+                des8 = "";
+                if(co==0){
+                    btnaceptar.setVisibility(View.GONE);
+                }
+                else
+                    btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
+            }
+        });
+        this.tveliminar9.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                infraccion--;
+                if (infraccion < 10)
+                    spInfraccion.setEnabled(true);
+                co--;
+                etDesc9.setText("");
+                etDesc9.setVisibility(View.GONE);
+                etdato9.setText("");
+                etdato9.setVisibility(View.GONE);
+                tvuni9.setVisibility(View.GONE);
+                tvuni9.setText("");
+                etObs9.setVisibility(View.GONE);
+                tveliminar9.setVisibility(View.GONE);
+                spuni9.setVisibility(View.GONE);
+                desc9 = false;
+                des9 = "";
+                if(co==0){
+                    btnaceptar.setVisibility(View.GONE);
+                }
+                else
+                    btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
+            }
+        });
+
+        this.tveliminar10.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                infraccion--;
+                if (infraccion < 10)
+                    spInfraccion.setEnabled(true);
+                co--;
+                etDesc10.setText("");
+                etDesc10.setVisibility(View.GONE);
+                etdato10.setText("");
+                etdato10.setVisibility(View.GONE);
+                tvuni10.setVisibility(View.GONE);
+                tvuni10.setText("");
+                etObs10.setVisibility(View.GONE);
+                tveliminar10.setVisibility(View.GONE);
+                spuni10.setVisibility(View.GONE);
+                desc10 = false;
+                des10 = "";
+                if(co==0){
+                    btnaceptar.setVisibility(View.GONE);
+                }
+                else
+                    btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
+            }
+        });
+
         
         this.btnaceptar.setOnClickListener(new OnClickListener() {
 
@@ -2479,8 +2894,129 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                         seleccion += x + " " + des4 +". ";
                                     //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
                                 }
+                                x++;
 								dato += etdato4.getText().toString().trim()+ ",";
 							}
+                            if(!des5.equals("")){
+                                buscarInfraccion(des5);
+                                infraccion();
+                                tveliminar5.setEnabled(false);
+                                if(spuni5.getVisibility() != View.GONE) {
+                                    unidades += spuni5.getSelectedItem().toString().trim()+",";
+                                    if (!spuni5.getSelectedItem().toString().equals("")) {
+                                        seleccion += x + " " + des5 + " (" + etdato5.getText().toString().trim() + " " + spuni5.getSelectedItem().toString() + " " + etObs5.getText().toString() +"); ";
+                                    }
+                                } else {
+                                    unidades+=" ,";
+                                    if(etObs5.getText().toString().trim().length()>1)
+                                        seleccion += x + " " + des5 + " ("+etObs5.getText().toString()+"). ";
+                                    else
+                                        seleccion += x + " " + des5 +". ";
+                                    //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                }
+                                x++;
+                                dato += etdato5.getText().toString().trim()+ ",";
+                            }
+                            if(!des6.equals("")){
+                                buscarInfraccion(des6);
+                                infraccion();
+                                tveliminar6.setEnabled(false);
+                                if(spuni6.getVisibility() != View.GONE) {
+                                    unidades += spuni6.getSelectedItem().toString().trim()+",";
+                                    if (!spuni6.getSelectedItem().toString().equals("")) {
+                                        seleccion += x + " " + des6 + " (" + etdato6.getText().toString().trim() + " " + spuni6.getSelectedItem().toString() + " " + etObs6.getText().toString() +"); ";
+                                    }
+                                } else {
+                                    unidades+=" ,";
+                                    if(etObs6.getText().toString().trim().length()>1)
+                                        seleccion += x + " " + des6 + " ("+etObs6.getText().toString()+"). ";
+                                    else
+                                        seleccion += x + " " + des6 +". ";
+                                    //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                }
+                                x++;
+                                dato += etdato6.getText().toString().trim()+ ",";
+                            }
+                            if(!des7.equals("")){
+                                buscarInfraccion(des7);
+                                infraccion();
+                                tveliminar7.setEnabled(false);
+                                if(spuni7.getVisibility() != View.GONE) {
+                                    unidades += spuni7.getSelectedItem().toString().trim()+",";
+                                    if (!spuni7.getSelectedItem().toString().equals("")) {
+                                        seleccion += x + " " + des7 + " (" + etdato7.getText().toString().trim() + " " + spuni7.getSelectedItem().toString() + " " + etObs7.getText().toString() +"); ";
+                                    }
+                                } else {
+                                    unidades+=" ,";
+                                    if(etObs7.getText().toString().trim().length()>1)
+                                        seleccion += x + " " + des7 + " ("+etObs7.getText().toString()+"). ";
+                                    else
+                                        seleccion += x + " " + des7 +". ";
+                                    //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                }
+                                x++;
+                                dato += etdato7.getText().toString().trim()+ ",";
+                            }
+                            if(!des8.equals("")){
+                                buscarInfraccion(des8);
+                                infraccion();
+                                tveliminar8.setEnabled(false);
+                                if(spuni8.getVisibility() != View.GONE) {
+                                    unidades += spuni8.getSelectedItem().toString().trim()+",";
+                                    if (!spuni8.getSelectedItem().toString().equals("")) {
+                                        seleccion += x + " " + des8 + " (" + etdato8.getText().toString().trim() + " " + spuni8.getSelectedItem().toString() + " " + etObs8.getText().toString() +"); ";
+                                    }
+                                } else {
+                                    unidades+=" ,";
+                                    if(etObs8.getText().toString().trim().length()>1)
+                                        seleccion += x + " " + des8 + " ("+etObs8.getText().toString()+"). ";
+                                    else
+                                        seleccion += x + " " + des8 +". ";
+                                    //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                }
+                                x++;
+                                dato += etdato8.getText().toString().trim()+ ",";
+                            }
+                            if(!des9.equals("")){
+                                buscarInfraccion(des9);
+                                infraccion();
+                                tveliminar9.setEnabled(false);
+                                if(spuni9.getVisibility() != View.GONE) {
+                                    unidades += spuni9.getSelectedItem().toString().trim()+",";
+                                    if (!spuni9.getSelectedItem().toString().equals("")) {
+                                        seleccion += x + " " + des9 + " (" + etdato9.getText().toString().trim() + " " + spuni9.getSelectedItem().toString() + " " + etObs9.getText().toString() +"); ";
+                                    }
+                                } else {
+                                    unidades+=" ,";
+                                    if(etObs9.getText().toString().trim().length()>1)
+                                        seleccion += x + " " + des9 + " ("+etObs9.getText().toString()+"). ";
+                                    else
+                                        seleccion += x + " " + des9 +". ";
+                                    //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                }
+                                x++;
+                                dato += etdato9.getText().toString().trim()+ ",";
+                            }
+                            if(!des10.equals("")){
+                                buscarInfraccion(des10);
+                                infraccion();
+                                tveliminar10.setEnabled(false);
+                                if(spuni10.getVisibility() != View.GONE) {
+                                    unidades += spuni10.getSelectedItem().toString().trim()+",";
+                                    if (!spuni10.getSelectedItem().toString().equals("")) {
+                                        seleccion += x + " " + des10 + " (" + etdato10.getText().toString().trim() + " " + spuni10.getSelectedItem().toString() + " " + etObs10.getText().toString() +"); ";
+                                    }
+                                } else {
+                                    unidades+=" ,";
+                                    if(etObs10.getText().toString().trim().length()>1)
+                                        seleccion += x + " " + des10 + " ("+etObs10.getText().toString()+"). ";
+                                    else
+                                        seleccion += x + " " + des10 +". ";
+                                    //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                }
+                                x++;
+                                dato += etdato10.getText().toString().trim()+ ",";
+                            }
 							x++;
 							seleccion += descrip;
 							Log.i("Dato", dato);
@@ -3856,7 +4392,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     }
     
     public void guardar() {
-    	//try {
+    	try {
 	    		int idLevantamiento, idLevantamientoSQL = 0;
 						Calendar calendar = Calendar.getInstance();
 						String m,h;
@@ -4159,6 +4695,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                    } else
                                        Log.i("inserto", "false");
                                }else{
+
                                    if (Connection.inserta(etNumeroActa.getText().toString(), citatorio, infrac, tipoActa, id, fecha, fecha + " " + hora,
                                            longitud, latitud, etOrden1.getText().toString(), etFecham.getText().toString(), spZona.getSelectedItem().toString(), id_inspector1, id_inspector2,
                                            etNombreV.getText().toString(), spIdentifica.getSelectedItem().toString() + ":" + etVIdentifica.getText().toString(), etVManifiesta.getText().toString(),
@@ -4202,8 +4739,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					
 						
 												
-						if (conn.validarConexion((getApplicationContext())))
-							idLevantamientoSQL = getIdLevantamiento();
+						if (conn.validarConexion((getApplicationContext()))) {
+                            idLevantamientoSQL = getIdLevantamiento();
+                            //Descarga c=new Descarga();
+                          //idLevantamientoSQL= c.idLe(etNumeroActa.getText().toString());
+                        }
 					
 					if(formato.equalsIgnoreCase("infraccion")) {
 						for(int i = 0; i < iHecho.length; i++) {
@@ -4237,9 +4777,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					}
 					//}
 
-    	/*}catch (Exception e) {
+    	}catch (Exception e) {
 			Log.e("Guardar", e.getMessage() + " l");
-			/*btnGuardar.setEnabled(false);
+			btnGuardar.setEnabled(false);
 			btnImprimir.setEnabled(true);
 			btnmodificar.setEnabled(false);
 			this.tvEvidencia.setVisibility(View.VISIBLE);
@@ -4248,8 +4788,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	        btnTomarF.setEnabled(true);
 			Toast toast = Toast.makeText(getApplicationContext(), "Los datos se han guardado en la base de datos local", Toast.LENGTH_LONG);
 			toast.setGravity(0, 0, 15);
-			toast.show();*
-		}*/
+			toast.show();
+		}
     }
 
     public class Descargas extends AsyncTask<String, Integer, String> {
@@ -4503,6 +5043,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         tveliminar2.setEnabled(true);
         tveliminar3.setEnabled(true);
         tveliminar4.setEnabled(true);
+        tveliminar5.setEnabled(true);
+        tveliminar6.setEnabled(true);
+        tveliminar7.setEnabled(true);
+        tveliminar8.setEnabled(true);
+        tveliminar9.setEnabled(true);
+
         text = "";
         seleccion = "";
         dato = "";
@@ -9292,7 +9838,60 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
         return vigencia_inicial;
     }
-	
+    public String mes(String texto){
+        String retorno="";
+        if(texto.equals("01") || texto.equals("1") ){
+            retorno="Enero";
+
+        }
+        if(texto.equals("02") || texto.equals("2") ){
+            retorno= "Febrero";
+
+        }
+        if(texto.equals("03") || texto.equals("3") ){
+            retorno="Marzo";
+
+        }
+        if(texto.equals("04") || texto.equals("4") ){
+            retorno= "Abril";
+
+        }
+        if(texto.equals("05") || texto.equals("5") ){
+            retorno= "Mayo";
+
+        }
+        if(texto.equals("06") || texto.equals("6") ){
+            retorno= "Junio";
+
+        }
+        if(texto.equals("07") || texto.equals("7") ){
+            retorno="Julio";
+
+        }
+        if(texto.equals("08") || texto.equals("8") ){
+            retorno="Agosto";
+
+        }
+        if(texto.equals("09") || texto.equals("9") ){
+            retorno="Septiembre";
+
+        }
+        if(texto.equals("10") ){
+            retorno="Octubre";
+
+        }
+        if(texto.equals("11")){
+            retorno= "Noviembre";
+
+        }
+        if(texto.equals("12")){
+            retorno="Diciembre";
+
+        }
+
+
+        return retorno;
+    }
 	public void imprimir(String formato) {
 		
 		int len =0;
@@ -9481,8 +10080,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                         String datos = "";
                         if(!numeroOV.equalsIgnoreCase("")) {
+                            String [] fecha_ov=fechaOV.split("/");
+
                             datos = "mediante y en cumplimiento de la Orden de Visita folio número "
-                                    + numeroOV +"  dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fechaOV + " misma que en original exhibo y en original legible entrego " +
+                                    + numeroOV +"  dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fecha_ov[0] +" de "+mes(fecha_ov[1]) +" del año "+fecha_ov[2]+ " misma que en original exhibo y en original legible entrego " +
                                     "al visitado, " + etNombreV.getText().toString() + ",";
                         } else {
                             datos = "en términos de lo dispuesto por el artículo 73, segundo párrafo, de la Ley del Procedimiento Administrativo del Estado de Jalisco,";
