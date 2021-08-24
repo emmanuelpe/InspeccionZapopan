@@ -25,6 +25,8 @@ import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +37,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.net.ConnectivityManager;
+import android.util.JsonReader;
 import android.util.Log;
 
 /**
@@ -339,6 +342,7 @@ public class Connection {
 			levanta.add(new BasicNameValuePair("decomiso", decomiso));
 			levanta.add(new BasicNameValuePair("folio_clausura",folio_clausura));
 			levanta.add(new BasicNameValuePair("fecha_clausura",fechaclau));
+
 			JSONObject json = jsonParser.realizarHttpRequest(url, "POST", levanta);
 			
 			
@@ -437,7 +441,13 @@ public class Connection {
 		
 		try {
 			HttpClient httpclient = new DefaultHttpClient();
+			//httpclient. = TimeSpan.FromMilliseconds(10);
+			HttpParams clientParams = httpclient.getParams();
+
+			HttpConnectionParams.setSoTimeout(clientParams, 240000);
+
 			HttpPost httpPost = new HttpPost(url);
+
 			httpPost.setEntity(new UrlEncodedFormEntity(dat));
 			HttpResponse response = httpclient.execute(httpPost);
 			HttpEntity entity = response.getEntity();
@@ -463,15 +473,15 @@ public class Connection {
 			System.out.println(result + " result");
 		} catch (ClientProtocolException e) {
         	Log.e("ClientProtocolException", e.getMessage());
-        	return "null";
+        	return "No se pudo conectar con el servidor";
         }
 		catch (IOException e) {
 			Log.e("IOException", e.getMessage());
-			return "null";
+			return "No se pudo conectar con el servidor";
 		}
 		catch (Exception e) {
 			Log.e("Exception", e.getMessage());
-			return "null";
+			return "No se pudo conectar con el servidor";
 		}
 		return result;
 	}
@@ -689,7 +699,7 @@ public class Connection {
 
 				HttpURLConnection httpURLConnection = (HttpURLConnection) url1.openConnection();
 
-
+                httpURLConnection.setConnectTimeout(240000);
 				httpURLConnection.connect();
 				int code= httpURLConnection.getResponseCode();
 				if (code== HttpURLConnection.HTTP_OK){

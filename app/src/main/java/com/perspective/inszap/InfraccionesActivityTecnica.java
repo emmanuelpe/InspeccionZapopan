@@ -1291,7 +1291,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
                     SQLiteDatabase db = gestion.getReadableDatabase();
 
-                    Cursor c = db.rawQuery("SELECT  numero_acta FROM levantamiento where id_c_inspector1= '" + id_inspector1 + "' and infraccion=1  order by id_levantamiento desc LIMIT 1", null);
+                    Cursor c = db.rawQuery("SELECT  MAX(CAST(numero_acta AS int)) FROM levantamiento where id_c_inspector1= '" + id_inspector1 + "' and infraccion=1  ", null);
                     String column = "", dato = "";
 
                     try {
@@ -1301,14 +1301,14 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                     for (int i = 0; i < c.getColumnCount(); i++) {
                                         System.err.println(c.getColumnName(i) + " " + c.getString(i));
                                         if(c.getString(i)!=null){
-                                            if(c.getString(i).equals("") || c.getString(i)=="" ){
+                                            if(c.getString(i).equals("") ||c.getString(i).isEmpty() || c.getString(i)==""  ){
                                                 folio=0;
                                             }else{
                                                 folio = Integer.parseInt(c.getString(i));
                                             }
 
                                         } else{
-                                            folio = Integer.parseInt(c.getString(i));
+                                            folio = 0;
                                         }
 
                                     }
@@ -1323,7 +1323,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         System.err.println(c2.getColumnName(i) + " " + c2.getString(i));
                                         //max = Integer.parseInt(c2.getString(i));
                                         if(c2.getString(i)!=null){
-                                            if(c2.getString(i).equals("") || c2.getString(i)=="" ){
+                                            if(c2.getString(i).equals("") || c2.getString(i)=="" || c2.getString(i).isEmpty() ){
                                                 max=0;
                                             }else{
                                                 max = Integer.parseInt(c2.getString(i));
@@ -1344,7 +1344,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         System.err.println(c3.getColumnName(i) + " " + c3.getString(i));
                                         //min = Integer.parseInt(c3.getString(i));
                                         if(c3.getString(i)!=null){
-                                            if(c3.getString(i).equals("") || c3.getString(i)=="" ){
+                                            if(c3.getString(i).equals("") || c3.getString(i)=="" || c3.getString(i).isEmpty()){
                                                 min=0;
                                             }else{
                                                 min = Integer.parseInt(c3.getString(i));
@@ -1364,7 +1364,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                     for (int i = 0; i < c4.getColumnCount(); i++) {
                                         System.err.println(c4.getColumnName(i) + " " + c4.getString(i));
                                         if(c4.getString(i)!=null){
-                                            if(c4.getString(i).equals("") || c4.getString(i)=="" ){
+                                            if(c4.getString(i).equals("") || c4.getString(i)=="" || c4.getString(i).isEmpty() ){
                                                 next_max=0;
                                             }else{
                                                 next_max = Integer.parseInt(c4.getString(i));
@@ -1385,7 +1385,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                     for (int i = 0; i < c5.getColumnCount(); i++) {
                                         System.err.println(c5.getColumnName(i) + " " + c5.getString(i));
                                         if(c5.getString(i)!=null){
-                                            if(c5.getString(i).equals("") || c5.getString(i)=="" ){
+                                            if(c5.getString(i).equals("") || c5.getString(i)=="" || c5.getString(i).isEmpty() ){
                                                 next_min=0;
                                             }else{
                                                 next_min = Integer.parseInt(c5.getString(i));
@@ -1406,7 +1406,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         System.out.println(foliox + "---");
                         if(valW =="") {
                             System.out.println(consultarActa()+"/GGGGG");
-                            if (foliox > 0 && foliox > min && foliox < max) {
+                            if (foliox > 0 && foliox >= min && foliox < max) {
                                 folio = foliox;
                                 etNumeroActa.setText(String.valueOf(folio));
 
@@ -2469,6 +2469,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 Log.e("camp1", camp1);
 
                                 String text2="";
+                                String text3="";
+
 
                                 text2 += (!camp1.equals("")) ? campo1 + ":" + camp1 +" ": "";
                                 text2 += (!camp2.equals("")) ? campo2 + ":" + camp2 +" ": "";
@@ -2492,6 +2494,29 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 text2 += (!camp20.equals("")) ? campo20 + ":" + camp20 +" ": "";
 
 
+                                //AGREGAR
+                                text3 += (!camp1.equals("")) ?  camp1 + " " + campo1 + ". ": "";
+                                text3 += (!camp2.equals("")) ?  camp2 + " " + campo2 + ". ": "";
+                                text3 += (!camp3.equals("")) ?  camp3 + " " + campo3 + ". ": "";
+                                text3 += (!camp4.equals("")) ?  camp4 + " " + campo4 + ". ": "";
+                                text3 += (!camp5.equals("")) ?  camp5 + " " + campo5 + ". ": "";
+                                text3 += (!camp6.equals("")) ?  camp6 + " " + campo6 + ". ": "";
+                                text3 += (!camp7.equals("")) ?  camp7 + " " + campo7 + ". ": "";
+                                text3 += (!camp8.equals("")) ?  camp8 + " " + campo8 + ". ": "";
+                                text3 += (!camp9.equals("")) ?  camp9 + " " + campo9 + ". ": "";
+                                text3 += (!camp0.equals("")) ?  camp0 + " " + campo0 + ". ": "";
+                                text3 += (!camp11.equals("")) ?  camp1 + " " + campo11 +". ": "";
+                                text3 += (!camp12.equals("")) ?  camp1 + " " + campo12 +". ": "";
+                                text3 += (!camp13.equals("")) ?  camp1 + " " + campo13 +". ": "";
+                                text3 += (!camp14.equals("")) ?  camp1 + " " + campo14 +". ": "";
+                                text3 += (!camp15.equals("")) ?  camp1 + " " + campo15 +". ": "";
+                                text3 += (!camp16.equals("")) ?  camp1 + " " + campo16 +". ": "";
+                                text3 += (!camp17.equals("")) ?  camp1 + " " + campo17 +". ": "";
+                                text3 += (!camp18.equals("")) ?  camp1 + " " + campo18 +". ": "";
+                                text3 += (!camp19.equals("")) ?  camp1 + " " + campo19 +". ": "";
+                                text3 += (!camp20.equals("")) ?  camp2 + " " + campo20 +". ": "";
+
+
                                 System.out.println("+++++TEXT:"+text+"++++++++++++++");
 
                                 String articulos = "";
@@ -2503,7 +2528,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         articulos = algoritmoRem(text2);
                                     }
                                 } catch(Exception e){
-                                    articulos = text2;
+                                    articulos = text3;
                                 }
 
                                 System.out.println("+++++ALGORITMO: "+text2+"++++++");
@@ -2518,6 +2543,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 spInfraccion.setEnabled(false);
                                 etSeleccion.setVisibility(View.VISIBLE);
                                 etSeleccion.setEnabled(false);
+                                seleccion=seleccion.replace("..",".");
+                                seleccion=seleccion.replace(". ("," (");
+                                seleccion=seleccion.replace(". .",".");
+
                                 etSeleccion.setText(seleccion);
                                 btnSi.setEnabled(false);
                                 btnNo.setEnabled(false);
@@ -4843,7 +4872,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 String sqlI="";
                 for(int i=0;i<arrayincaseF.size();i++){
                     if(arrayincaseF.get(i).length()>2){
-                        sqlI="SELECT reg_trato_animales,reg_anuncion,reg_gestion,reg_cementerio,reg_proteccion_conservacion,reg_proteccion_ambiente,reg_sonido,reg_alumbrado,reg_inclusion,reg_rastro,reg_policia,ley_bebidas,reg_residuos,regtiancom,reg_com_ind,reg_movilidad FROM C_infraccion WHERE infraccion like '%"+arrayincaseF.get(i).trim()+"%'";
+                        sqlI="SELECT cod_urbano,dis_comple,ley_bebidas,reg_alumbrado,reg_anuncion,reg_cementerio,reg_com_ind,reg_construccion,reg_fumadores,reg_gestion," +
+                                "reg_inclusion,reg_medio_ambiente,reg_movilidad, reg_policia, reg_proteccion,  reg_proteccion_ambiente," +
+                                "reg_proteccion_conservacion,  reg_rastro,  reg_residuos,  reg_sonido,  reg_trato_animales,  reg_urbanizacion," +
+                                "reg_zonificacion,regtiancom FROM C_infraccion WHERE infraccion like '%"+arrayincaseF.get(i).trim()+"%'";
 
                     }
 
@@ -4882,9 +4914,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             if(cursor1.getString(cursor1.getColumnIndex("reg_policia")).length()>2){
                                 condicion+="'reg_policia',";
                             }
-                            if(cursor1.getString(cursor1.getColumnIndex("ley_bebidas")).length()>2){
-                                condicion+="'ley_bebidas',";
-                            }
+
                             if(cursor1.getString(cursor1.getColumnIndex("reg_residuos")).length()>2){
                                 condicion+="'reg_residuos',";
                             }
@@ -4900,6 +4930,38 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             if(cursor1.getString(cursor1.getColumnIndex("reg_trato_animales")).length()>2){
                                 condicion+="'reg_trato_animales',";
                             }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_fumadores")).length()>2){
+                                condicion+="'reg_fumadores',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("cod_urbano")).length()>2){
+                                condicion+="'cod_urbano',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("dis_comple")).length()>2){
+                                condicion+="'dis_comple',";
+                            }
+
+                            if(cursor1.getString(cursor1.getColumnIndex("ley_bebidas")).length()>2){
+                                condicion+="'ley_bebidas',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_construccion")).length()>2){
+                                condicion+="'reg_construccion',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_medio_ambiente")).length()>2){
+                                condicion+="'reg_medio_ambiente',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_proteccion")).length()>2){
+                                condicion+="'reg_proteccion',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_urbanizacion")).length()>2){
+                                condicion+="'reg_urbanizacion',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_zonificacion")).length()>2){
+                                condicion+="'reg_zonificacion',";
+                            }
+
+
+
+
 
 
                             do {
@@ -8908,7 +8970,7 @@ String numeroS="";
                 if(!etCondominio.getText().toString().equals(""))
                     textC=""+etCondominio.getText().toString();
 
-               String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
+               String hechos=etSeleccion.getText().toString().trim();
                     Paragraph p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las "+hora +" horas del día "
                         +dia+" de " + getMes2(me.trim())+ " del año "+ a+ ", el suscrito "
                         + spnombre.getSelectedItem().toString() + " Inspector Municipal con clave "+ clave + ", facultado para llevar a cabo la inspección y vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, " +
@@ -11476,7 +11538,7 @@ String numeroS="";
                 p2.add(chunk);
                 doc.add(p2);*/
 
-                String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
+                String hechos=etSeleccion.getText().toString().trim();
                 Paragraph p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las "+hora +" horas del día "
                         +dia+" de " + getMes2(me.trim())+ " del año "+ a+ ", el suscrito "
                         + spnombre.getSelectedItem().toString() + " Inspector Municipal con clave "+ clave + ", facultado para llevar a cabo la inspección y vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, " +
@@ -14645,7 +14707,7 @@ public void reiniciarA(){
             String []recorte2=vigencia_inicial.split("-");
             vigencia_inicial=vigencia_inicial(recorte2[1]);
             vigencia=vigencia_final(recorte1[1]);
-            String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
+            String hechos=etSeleccion.getText().toString().trim();
             String exterior="";
             String interior=" ";
             if(etNumero.getText().toString().length()>0){
