@@ -117,13 +117,13 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     static String valW="";
     private View linea0,linea1,linea2,linea3,linea4,linea5,linea6,linea7,linea8,linea9,linea10,linea11,linea12,linea13,linea14,linea15;
 
-    private Button btncopiar,btneliminarA,btnArticulos,btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,tveliminar5,tveliminar6,tveliminar7,tveliminar8,tveliminar9,tveliminar10,tveliminar11,tveliminar12,tveliminar13,tveliminar14,tveliminar15,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
+    private Button btncopiar,btneliminarA,btneliminarA1,btneliminarA2,btneliminarA3,btneliminarA4,btnArticulos,btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,tveliminar5,tveliminar6,tveliminar7,tveliminar8,tveliminar9,tveliminar10,tveliminar11,tveliminar12,tveliminar13,tveliminar14,tveliminar15,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
     private TextView tvfudamentoEx,tvfechap,tvfolioap,tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvuni5,tvuni6,tvuni7,tvuni8,tvuni9,tvuni10,tvuni11,tvuni12,tvuni13,tvuni14,tvuni15,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvCoordenada,tvPropiedad,spselec1;
     private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",des5="",des6="",des7="",des8="",des9="",des10="",des11="",des12="",des13="",des14="",des15="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,unidades="",usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",clave = "",folio = "",fol = "";;
     private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:";
     private int mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0,tipoEntrega = 0;
     private Spinner spgiro,spCreglamentos,spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spuni5,spuni6,spuni7,spuni8,spuni9,spuni10,spuni11,spuni12,spuni13,spuni14,spuni15,spMeConstitui;
-    private EditText etfudamentoEx,etdecomiso,etNumeroSellos,etfoliopeticion,etfolioap,etfechap,etNum,etFecham,etfecha,etDiaPlazo,etIfeI,etNoI,etVigI,etIfeA,etIfeA1,etIfeA2,etIfeA3,etIfeA4,etNoA,etNoA1,etNoA2,etNoA3,etNoA4,etVigA,etVigA1,etVigA2,etVigA3,etVigA4,etNombreT,etIfeT,etDesc,etDesc1,etDesc2,etDesc3,etDesc4,etDesc5,etDesc6,etDesc7,etDesc8,etDesc9,etDesc10,etDesc11,etDesc12,etDesc13,etDesc14,etDesc15,etdato,etdato1,etdato2,etdato3,etdato4,etdato5,etdato6,etdato7,etdato8,etdato9,etdato10,etdato11,etdato12,etdato13,etdato14,etdato15,desf,desf1,desf2,etNombreV,etFraccionamiento,etCalle,etNumero,etPropietario,etNombreT1,etIfeT2,etManifiesta,etNuemroInterior,etApellidoP,etApellidoM,etCitatorio,etNumeroActa,etEspecificacion,etDFoto,etDFoto1,etDFoto2,etDFoto3,etVManifiesta,etVIdentifica,etLatitud,etLongitud,etAnoCitatorio,etAnoOrden,etCondominio/*etDensidad*/,etManzana,etLote,etReferencia,etBuscar,etfolio,/*etAlineamiento,*/etConstruccion, etGiro, etMotivo,etOrden1,etEntreC,etEntreC1,etResponsable,etRegistro,etMedida,etArticulo,etInspccionFue,etDFoto4,etDFoto5,etDFoto6,etDFoto7,etDFoto8,etDFoto9,etDFoto10,etDFoto11,etDFoto12,etDFoto13,etDFoto14,etDFoto15,etDFoto16,etDFoto17,etDFoto18,etDFoto19,etLGiro,etAGiro,etAlicencia,etSector,etNombreComercial,etObs,etObs1,etObs2,etObs3,etObs4,etObs5,etObs6,etObs7,etObs8,etObs9,etObs10,etObs11,etObs12,etObs13,etObs14,etObs15,etBCol,etOtro,etDondeActua,etCoordenada;
+    private EditText etfudamentoEx,etdecomiso,etNumeroSellos,etfoliopeticion,etfolioap,etfechap,etNum,etFecham,etfecha,etDiaPlazo,etIfeI,etNoI,etVigI,etIfeA,etIfeA1,etIfeA2,etIfeA3,etIfeA4,etNoA,etNoA1,etNoA2,etNoA3,etNoA4,etVigA,etVigA1,etVigA2,etVigA3,etVigA4,etNombreT,etIfeT,etDesc,etDesc1,etDesc2,etDesc3,etDesc4,etDesc5,etDesc6,etDesc7,etDesc8,etDesc9,etDesc10,etDesc11,etDesc12,etDesc13,etDesc14,etDesc15,etdato,etdato1,etdato2,etdato3,etdato4,etdato5,etdato6,etdato7,etdato8,etdato9,etdato10,etdato11,etdato12,etdato13,etdato14,etdato15,desf,desf1,desf2,etNombreV,etFraccionamiento,etCalle,etNumero,etPropietario,etNombreT1,etIfeT2,etManifiesta,etNuemroInterior,etApellidoP,etApellidoM,etCitatorio,etNumeroActa,etEspecificacion,etDFoto,etDFoto1,etDFoto2,etDFoto3,etVManifiesta,etVIdentifica,etLatitud,etLongitud,etAnoCitatorio,etAnoOrden,etCondominio/*etDensidad*/,etManzana,etLote,etReferencia,etBuscar,etfolio,/*etAlineamiento,*/etConstruccion, etGiro, etMotivo,etOrden1,etEntreC,etEntreC1,etResponsable,etRegistro,etMedida,etMedida1,etMedida2,etMedida3,etMedida4,etArticulo,etInspccionFue,etDFoto4,etDFoto5,etDFoto6,etDFoto7,etDFoto8,etDFoto9,etDFoto10,etDFoto11,etDFoto12,etDFoto13,etDFoto14,etDFoto15,etDFoto16,etDFoto17,etDFoto18,etDFoto19,etLGiro,etAGiro,etAlicencia,etSector,etNombreComercial,etObs,etObs1,etObs2,etObs3,etObs4,etObs5,etObs6,etObs7,etObs8,etObs9,etObs10,etObs11,etObs12,etObs13,etObs14,etObs15,etBCol,etOtro,etDondeActua,etCoordenada;
     private LinearLayout lldiv,cons,llNota,llplazo,llreincidencia,llcomp,llconcepto,llPla;
     private RelativeLayout rlcampo,rlProp,rlTestA,rlVisita,rlLicencias,rlDonde_actua;
     private RadioGroup /*radiogroup,*/rgReincidencia,rgPopiedad,rgTipo;
@@ -305,7 +305,12 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         this.btnFecha = (Button)findViewById(R.id.btnFecha);
         this.btncopiar=(Button)findViewById(R.id.btnCopiar);
         this.btnArticulos=(Button)findViewById(R.id.etAcepA);
+
         this.btneliminarA=(Button)findViewById(R.id.etdeleA);
+        this.btneliminarA1=(Button)findViewById(R.id.etdeleA1);
+        this.btneliminarA2=(Button)findViewById(R.id.etdeleA2);
+        this.btneliminarA3=(Button)findViewById(R.id.etdeleA3);
+        this.btneliminarA4=(Button)findViewById(R.id.etdeleA4);
         this.spIdentifica = (Spinner)findViewById(R.id.spIdentifica);
         this.spManifiesta = (Spinner)findViewById(R.id.spManifiesta);
         this.spCreglamentos=(Spinner)findViewById(R.id.spCreglamento);
@@ -572,6 +577,11 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         etRegistro = (EditText)findViewById(R.id.etRegistro);
         tvActa = (TextView)findViewById(R.id.tvActa);
         etMedida = (EditText)findViewById(R.id.etMedida);
+        etMedida = (EditText)findViewById(R.id.etMedida);
+        etMedida1 = (EditText)findViewById(R.id.etMedida1);
+        etMedida2 = (EditText)findViewById(R.id.etMedida2);
+        etMedida3 = (EditText)findViewById(R.id.etMedida3);
+        etMedida4 = (EditText)findViewById(R.id.etMedida4);
         etArticulo = (EditText)findViewById(R.id.etArticulos);
         cbFirma = (CheckBox)findViewById(R.id.cbFirma);
         etInspccionFue = (EditText)findViewById(R.id.etInpeccionFue);
@@ -1894,8 +1904,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     if(position > 0) {
                         infraccion++;
                         btnaceptar.setVisibility(View.VISIBLE);
-                        btnArticulos.setVisibility(View.VISIBLE);
-                        btneliminarA.setVisibility(View.VISIBLE);
+                       btnArticulos.setVisibility(View.VISIBLE);
+                       // btneliminarA.setVisibility(View.VISIBLE);
                         Log.i("Ento al else", (String) spInfraccion.getItemAtPosition(position));
                         int pos = 0;
                         //for (int i = 0; i < spInfraccion.getItemAtPosition(position).toString().length(); i++) {
@@ -2697,9 +2707,9 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             @Override
             public void onClick(View v) {
                 if(contador>=1){
-                    etArticulo.setEnabled(false);
+                   // etArticulo.setEnabled(false);
                     mostrarArt(contador);
-                    btnArticulos.setEnabled(false);
+                    //btnArticulos.setEnabled(false);
                 }else{
 
                 }
@@ -2709,10 +2719,43 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         this.btneliminarA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reiniciarA();
+
+
+
+
+                reiniciarA(0,etMedida.getText().toString().trim());
                 btnArticulos.setEnabled(true);
             }
         });
+        this.btneliminarA1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reiniciarA(1,etMedida1.getText().toString().trim());
+                btnArticulos.setEnabled(true);
+            }
+        });
+        this.btneliminarA2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reiniciarA(2,etMedida2.getText().toString().trim());
+                btnArticulos.setEnabled(true);
+            }
+        });
+        this.btneliminarA3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reiniciarA(3,etMedida3.getText().toString().trim());
+                btnArticulos.setEnabled(true);
+            }
+        });
+        this.btneliminarA4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reiniciarA(4,etMedida4.getText().toString().trim());
+                btnArticulos.setEnabled(true);
+            }
+        });
+
 
         this.tveliminar1.setOnClickListener(new View.OnClickListener() {
 
@@ -5042,7 +5085,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         else
                             iUni = iUnidad[i];
                         if (conn.validarConexion(getApplicationContext()))
-                            conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, iUni,/*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
+                            conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, iUni,"",/*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
                         insertFotrografia(idLevantamientoSQL,etNumeroActa.getText().toString(),etNumeroActa.getText().toString()+".pdf","PDF","N","N");
 
                     }
@@ -6908,6 +6951,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 valid = false;
             }*/
             //if(cb.)
+            if (foto == 0) {
+                sb.append("Falta tomar Fotografia. \n");
+                valid = false;
+            }
             if(etMotivo.length()>1500){
                 sb.append("Limite de caracteres del motivo fue rebasado \n");
                 valid=false;
@@ -10100,7 +10147,7 @@ String numeroS="";
                        +"  "+ folio + " , vigente de "+diaIni+" de " +vigencia_inicial+ " del "+recorte2[0]+ " a "+diavigen+" de "+vigencia+" del "+recorte1[0]+", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString()
                        + " manifiesta ser " + etVManifiesta.getText().toString() + " , propiedad de " + prop + " le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello, el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. "
                        + nombresT + " por el " + spdesignado.getSelectedItem().toString() + ", "+testigos + " así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: "
-                       + hechos + "Los cuales constituyen infracción a lo dispuesto por los " + etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en "+peticionb+", se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim().trim()+" "+numeroS
+                       + hechos + "Los cuales constituyen infracción a lo dispuesto por los " + etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en "+peticionb+", se procede indistintamente con las siguientes medidas: " + medidas1+" "+numeroS
                        + ". Lo anterior de conformidad a lo dispuesto por los Artículo(s): " + etArticulo.getText().toString().trim()
                        + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim()
                        + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151)."
@@ -14771,12 +14818,52 @@ String numeroS="";
             case R.id.spMedida:
 
                 if(!spMedida.getSelectedItem().toString().equalsIgnoreCase("")) {
-                    medidas1 = spMedida.getSelectedItem().toString();
+
+                    //medidas1 = spMedida.getSelectedItem().toString();
+                    etArticulo.setText("");
+                    concatA="";
+                    concatB="";
+                    concatM="";
+                    //fa="";
+                    norepeat.clear();
+
+                    if(contador==0) {
+                        etMedida.setVisibility(View.VISIBLE);
+                        etMedida.setEnabled(false);
+                        btneliminarA.setVisibility(View.VISIBLE);
+                        etMedida.append(spMedida.getSelectedItem().toString());
+
+                    }
+                    if(contador==1) {
+                        etMedida1.setVisibility(View.VISIBLE);
+                        etMedida1.setEnabled(false);
+                        btneliminarA1.setVisibility(View.VISIBLE);
+                        etMedida1.append(spMedida.getSelectedItem().toString());
+                    }
+                    if(contador==2) {
+                        etMedida2.setVisibility(View.VISIBLE);
+                        etMedida2.setEnabled(false);
+                        btneliminarA2.setVisibility(View.VISIBLE);
+                        etMedida2.append(spMedida.getSelectedItem().toString());
+                    }
+
+                    if(contador==3) {
+                        etMedida3.setVisibility(View.VISIBLE);
+                        etMedida3.setEnabled(false);
+                        btneliminarA3.setVisibility(View.VISIBLE);
+                        etMedida3.append(spMedida.getSelectedItem().toString());
+                    }
+                    if(contador==4) {
+                        etMedida4.setVisibility(View.VISIBLE);
+                        etMedida4.setEnabled(false);
+                        btneliminarA4.setVisibility(View.VISIBLE);
+                        etMedida4.append(spMedida.getSelectedItem().toString());
+                    }
 
                     if(id == 12 || id == 2 || id == 3 || id==5) {
 
                         if(id==3 || id==5){
-                            Log.i("i",spMedida.getSelectedItem().toString() + " " + spMedida.getSelectedItem().toString().contains("CLAU"));
+                          /*  Log.i("i",spMedida.getSelectedItem().toString() + " " + spMedida.getSelectedItem().toString().contains("CLAU"));
                             if(spMedida.getSelectedItem().toString().contains("clausura") || spMedida.getSelectedItem().toString().contains("CLAUSURA")||spMedida.getSelectedItem().toString().contains("Clausura")) {
                                 Toast toast = Toast.makeText(getApplicationContext(),"Agregar sellos de clausura",Toast.LENGTH_LONG);
                                 toast.setGravity(0,0,15);
@@ -14793,7 +14880,7 @@ String numeroS="";
                             }else{
                                 etdecomiso.setVisibility(View.GONE);
                                 etNumeroSellos.setVisibility(View.GONE);
-                            }
+                            }*/
 
 
                             //etMedida.setText(spMedida.getSelectedItem().toString());
@@ -14823,7 +14910,18 @@ String numeroS="";
                             contador++;
                             // }
 
-                            etMedida.append(concatM);
+                            //etMedida.append(concatM);
+                             for(int i=0;i<SeguimientoM1.size();i++){
+                        if(SeguimientoM1.get(i).contains("Clausura") ||  SeguimientoM1.get(i).contains("CLAUSURA")){
+                            etNumeroSellos.setVisibility(View.VISIBLE);
+                            etdecomiso.setVisibility(View.VISIBLE);
+                            break;
+                        }else{
+                            etNumeroSellos.setVisibility(View.GONE);
+                            etdecomiso.setVisibility(View.GONE);
+
+                        }
+                    }
 
                         }
                         fa=spMedida.getSelectedItem().toString();
@@ -14832,16 +14930,7 @@ String numeroS="";
 
 
 
-                    if(id == 4) {
-                        Log.i("i",spMedida.getSelectedItem().toString() + " " + spMedida.getSelectedItem().toString().contains("CLAU"));
-                        if(spMedida.getSelectedItem().toString().contains("clausura") || spMedida.getSelectedItem().toString().contains("CLAUSURA")) {
-                            Toast toast = Toast.makeText(getApplicationContext(),"Agregar sellos de clausura",Toast.LENGTH_LONG);
-                            toast.setGravity(0,0,15);
-                            toast.show();
-                        }
-                        etMedida.setText(spMedida.getSelectedItem().toString());
-                        etArticulo.setText(art.get(spMedida.getSelectedItemPosition()).trim() + " del " + orden.get(spMedida.getSelectedItemPosition()).trim());
-                    }
+
                     Toast toast2 = Toast.makeText(InfraccionesActivityTecnica.this, "Medidas Precautorias seleccionadas"+contador, Toast.LENGTH_LONG);
                     toast2.setGravity(0, 0, 15);
                     toast2.show();
@@ -14906,11 +14995,30 @@ String numeroS="";
         }
     }
     public void mostrarArt(int x){
-        int tamano=etMedida.getText().toString().length();
+        /*int tamano=etMedida.getText().toString().length();
         String coma = etMedida.getText().toString().substring(tamano-1,tamano);
         if(coma.contains(",")){
             String medida=etMedida.getText().toString().trim().substring(0,etMedida.getText().toString().length()-1);
             etMedida.setText(medida);
+        }*/
+        etArticulo.setText(" ");
+        //String medidas="";
+        medidas1="";
+        for(int i=0; i< SeguimientoM1.size(); i++ ){
+            if(!SeguimientoM1.get(i).equals(" ")) {
+                medidas1 += SeguimientoM1.get(i) + ",";
+            }
+            Log.i("nice:", "medidas: "+SeguimientoM1.get(i));
+        }
+        Log.i("completo:", "medidas completa: "+medidas1);
+        int tamano=medidas1.length();
+        Log.i("tamaño:", String.valueOf(SeguimientoM1.size()));
+
+        String coma = medidas1.substring(tamano-1,tamano);
+        if(coma.contains(",")){
+           medidas1=medidas1.trim().substring(0,medidas1.length()-1);
+
+            //etMedida.setText(medidas1);
         }
 
       if(x>0) {
@@ -15052,20 +15160,101 @@ String numeroS="";
 
     }
 
-public void reiniciarA(){
-        reglaArt.clear();
-        reglaArt2.clear();
-    etArticulo.setText("");
-    etMedida.setText("");
-    contador=0;
-    concatA="";
-    concatB="";
-    concatM="";
-    fa="";
-    norepeat.clear();
-    spMedida.setSelection(0);
-    SeguimientoM1.clear();
-}
+    public void reiniciarA(int ids,String buscar){
+        /*reglaArt.clear();
+        reglaArt2.clear();*/
+
+        for(int i=0;i<SeguimientoM1.size();i++) {
+            if (SeguimientoM1.get(i).equals(buscar.trim())) {
+                SeguimientoM1.remove(i);
+                break;
+            }
+        }
+
+        int poscionSp=0;
+        for (int i = 0; i < spMedida.getCount(); i++) {
+            //Almacena la posición del ítem que coincida con la búsqueda
+            if (spMedida.getItemAtPosition(i).toString().equalsIgnoreCase(buscar.trim())) {
+                poscionSp=i;
+                break;
+            }
+        }
+
+
+        for(int i=0;i<reglaArt.size();i++){
+            Log.e("reglaArt1",reglaArt.get(i)+"=="+orden.get(poscionSp));
+            if(reglaArt.get(i).equals(orden.get(poscionSp).trim())){
+                Log.e("entro eliminar1:","si");
+                reglaArt.remove(i);
+                break;
+            }
+        }
+
+        for(int i=0;i<reglaArt2.size();i++){
+            Log.e("reglaArt2",reglaArt2.get(i)+"=="+art.get(poscionSp));
+            if(reglaArt2.get(i).equals(art.get(poscionSp).trim())){
+                Log.e("entro eliminar2:","si");
+                reglaArt2.remove(i);
+                break;
+            }
+        }
+
+
+
+
+
+
+        contador=contador-1;
+        concatA="";
+        concatB="";
+        concatM="";
+        //fa="";
+        norepeat.clear();
+        spMedida.setSelection(0);
+
+        if(ids==0) {
+            etArticulo.setText("");
+            etMedida.setText("");
+            etMedida.setVisibility(View.GONE);
+            btneliminarA.setVisibility(View.GONE);
+        }
+        if(ids==1) {
+            etArticulo.setText("");
+            etMedida1.setText("");
+            etMedida1.setVisibility(View.GONE);
+            btneliminarA1.setVisibility(View.GONE);
+        }
+        if(ids==2) {
+            etArticulo.setText("");
+            etMedida2.setText("");
+            etMedida2.setVisibility(View.GONE);
+            btneliminarA2.setVisibility(View.GONE);
+        }
+        if(ids==3) {
+            etArticulo.setText("");
+            etMedida3.setText("");
+            etMedida3.setVisibility(View.GONE);
+            btneliminarA3.setVisibility(View.GONE);
+        }
+        if(ids==4) {
+            etArticulo.setText("");
+            etMedida4.setText("");
+            etMedida4.setVisibility(View.GONE);
+            btneliminarA4.setVisibility(View.GONE);
+        }
+        if(id==4 || id==5 || id==2) {
+            for (int i = 0; i < SeguimientoM1.size(); i++) {
+                if (SeguimientoM1.get(i).contains("Clausura") || SeguimientoM1.get(i).contains("CLAUSURA")) {
+                    etNumeroSellos.setVisibility(View.VISIBLE);
+                    break;
+                } else {
+                    etNumeroSellos.setVisibility(View.GONE);
+
+                }
+            }
+        }
+
+    }
     public void buscarTestigo(Spinner sp){
 
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);

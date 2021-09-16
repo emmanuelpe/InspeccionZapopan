@@ -3206,18 +3206,149 @@
 
                             <EditText
                                 android:id="@+id/etMedida"
-                                android:layout_width="fill_parent"
-                                android:layout_height="140dp"
-                                android:layout_below="@+id/spMedida"
-                                android:enabled="true"
+                                android:layout_width="220dp"
+                                android:layout_height="150dp"
+                                android:layout_weight="1"
+                                android:textSize="12sp"
                                 android:hint="@string/medida"
-                                android:inputType="textMultiLine|textCapSentences" />
+                                android:layout_below="@id/spMedida"
+                                android:inputType="textMultiLine|textCapSentences"
+                                android:visibility="gone"
+                                android:enabled="true"
+
+                                />
+
+                            <Button
+                                android:id="@+id/etdeleA"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Eliminar "
+                                android:textSize="12sp"
+                                android:paddingLeft="20dp"
+                                android:gravity="center_horizontal"
+                                android:layout_below="@id/spMedida"
+                                android:layout_toRightOf="@id/etMedida"
+                                android:visibility="gone"
+
+                                ></Button>
+
+
+
+                            <EditText
+                                android:id="@+id/etMedida1"
+                                android:layout_width="220dp"
+                                android:layout_height="150dp"
+                                android:layout_weight="1"
+                                android:textSize="12sp"
+                                android:hint="@string/medida"
+                                android:layout_below="@id/etMedida"
+                                android:inputType="textMultiLine|textCapSentences"
+                                android:visibility="gone"
+                                android:enabled="true"
+
+                                />
+                            <Button
+                                android:id="@+id/etdeleA1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Eliminar "
+                                android:paddingLeft="20dp"
+                                android:gravity="center_horizontal"
+                                android:textSize="12sp"
+                                android:layout_below="@id/etMedida"
+                                android:layout_toRightOf="@id/etMedida1"
+                                android:visibility="gone"
+
+                                ></Button>
+
+                            <EditText
+                                android:id="@+id/etMedida2"
+                                android:layout_width="220dp"
+                                android:layout_height="150dp"
+                                android:textSize="12sp"
+                                android:hint="@string/medida"
+                                android:layout_weight="1"
+                                android:layout_below="@id/etMedida1"
+                                android:inputType="textMultiLine|textCapSentences"
+                                android:visibility="gone"
+                                android:enabled="true"
+
+                                />
+                            <Button
+                                android:id="@+id/etdeleA2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Eliminar "
+                                android:paddingLeft="20dp"
+                                android:gravity="center_horizontal"
+                                android:textSize="12sp"
+                                android:layout_below="@id/etMedida1"
+                                android:layout_toRightOf="@id/etMedida2"
+                                android:visibility="gone"
+
+                                ></Button>
+
+                            <EditText
+                                android:id="@+id/etMedida3"
+                                android:layout_width="220dp"
+                                android:layout_height="150dp"
+                                android:textSize="12sp"
+                                android:hint="@string/medida"
+                                android:layout_weight="1"
+                                android:layout_below="@id/etMedida2"
+                                android:inputType="textMultiLine|textCapSentences"
+                                android:visibility="gone"
+                                android:enabled="true"
+
+                                />
+                            <Button
+                                android:id="@+id/etdeleA3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Eliminar "
+                                android:paddingLeft="20dp"
+                                android:gravity="center_horizontal"
+                                android:textSize="12sp"
+                                android:layout_below="@id/etMedida2"
+                                android:layout_toRightOf="@id/etMedida3"
+                                android:visibility="gone"
+
+                                ></Button>
+
+
+                            <EditText
+                                android:id="@+id/etMedida4"
+                                android:layout_width="220dp"
+                                android:layout_height="150dp"
+                                android:textSize="12sp"
+                                android:hint="@string/medida"
+                                android:layout_weight="1"
+                                android:layout_below="@id/etMedida3"
+                                android:inputType="textMultiLine|textCapSentences"
+                                android:visibility="gone"
+                                android:enabled="true"
+
+                                />
+
+                            <Button
+                                android:id="@+id/etdeleA4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Eliminar "
+                                android:paddingLeft="20dp"
+                                android:gravity="center_horizontal"
+                                android:textSize="12sp"
+                                android:layout_below="@id/etMedida3"
+                                android:layout_toRightOf="@id/etMedida4"
+                                android:visibility="gone"
+
+                                ></Button>
 
                             <EditText
                                 android:id="@+id/etDecomiso"
                                 android:layout_width="fill_parent"
                                 android:layout_height="140dp"
-                                android:layout_below="@id/etMedida"
+                                android:layout_below="@id/etMedida4"
                                 android:enabled="true"
                                 android:hint="@string/decomiso"
                                 android:inputType="textMultiLine|textCapSentences"
@@ -3254,17 +3385,7 @@
 
                                 ></Button>
 
-                            <Button
-                                android:id="@+id/etdeleA"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/etNumeroSellos"
-                                android:layout_toRightOf="@id/etAcepA"
-                                android:text="Eliminar "
-                                android:textSize="12sp"
-                                android:visibility="gone"
 
-                                ></Button>
 
                             <EditText
                                 android:id="@+id/etArticulos"
