@@ -1208,7 +1208,7 @@
                                 android:layout_toRightOf="@id/tvfechaap"
                                 android:hint="dd-mm-aaaa"
                                 android:imeOptions="actionNext"
-                                android:inputType="textCapSentences"
+                                android:inputType="date"
                                 android:visibility="gone" />
 
                             <TextView

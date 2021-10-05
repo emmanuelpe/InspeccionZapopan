@@ -347,6 +347,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         this.etFecham = (EditText)findViewById(R.id.etfecham);
         this.etfechap=(EditText)findViewById(R.id.etfechap);
         this.etfolioap=(EditText)findViewById(R.id.etfolioap);
+
+
         this.etfechaClau=(EditText)findViewById(R.id.etfechaclau);
         this.etfolioclau=(EditText)findViewById(R.id.etfolioclau);
         this.etfoliopeticion=(EditText)findViewById(R.id.folioapeticion);
@@ -2724,7 +2726,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     //etArticulo.setEnabled(false);
 
                     mostrarArt(contador);
-                    //btnArticulos.setEnabled(false);
+                    btnArticulos.setEnabled(false);
                 }else{
 
                 }
@@ -4398,6 +4400,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         cadena = cadena.replace("Artícuo", "");
         cadena = cadena.replace(".", "");
         cadena = cadena.replace(" :", ":");
+        cadena = cadena.replace("fracción","fraccion");
         return cadena;
     }
 
@@ -4503,6 +4506,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         if(tamanio==0) return "";
 
         cadena = cadena+" ";
+
 
         String auxCadena = cadena.replaceAll("numeral \\d","numeral x");
         auxCadena = auxCadena.replaceAll("punto \\d","punto x");
@@ -8786,9 +8790,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				//Cursor c = db.query("C_zonas", null, "id_c_zonas", null, null, null, null);
                 Cursor c;
                 if(id == 5)
-                    c = db.rawQuery("SELECT * FROM C_zonas WHERE id_c_direccion = '" + 2 + "'", null);
+                    c = db.rawQuery("SELECT * FROM C_zonas WHERE id_c_direccion = '" + 5 + "'", null);
                 else
-                    c = db.rawQuery("SELECT * FROM C_zonas WHERE id_c_direccion = '" + id_c + "'", null);
+                    c = db.rawQuery("SELECT * FROM C_zonas WHERE id_c_direccion = '" + 5 + "'", null);
 				if(c.moveToFirst()){
 					do{
 						zona.add(c.getString(2) + "     " + c.getString(3));
@@ -11007,24 +11011,35 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
                                     hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=";
 
+                            String mocha=". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
+                            ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
+                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=";
+
+
                             if(cuerpoInfra.length()>5000) {
 
                                 String recrte = cuerpoInfra;
+                                String texto ="";
+                                int x=0;
+                                if(cuerpoInfra.length()>=5000 && cuerpoInfra.length()<=5300){
+                                    cuerpoInfra21 = recrte.substring(0,cuerpoInfra.length()-mocha.length()+1 ) + " (CONTINUA EN EL REVERSO)";
+                                    banderacorte = cuerpoInfra.length()-mocha.length()+1;
+                                }else {
+                                    for (int i = 5000; i < recrte.length(); i++) {
+                                        String substring = cuerpoInfra.substring(i, i + 1);
+                                        //Log.i(TAG, " caracteresgg1:"+ substring);. En uso
 
-                                for (int i = 5000; i < recrte.length(); i++) {
-                                    String substring = cuerpoInfra.substring(i,i+1);
-                                    //Log.i(TAG, " caracteresgg1:"+ substring);
-                                    if (substring.equals(" ")) {
-                                        //Log.i(TAG, " caracteresgg:"+ substring);
-                                        cuerpoInfra21 = recrte.substring(0,i)+" (CONTINUA EN EL REVERSO)";
-                                        banderacorte = i;
-                                        break;
+
+                                        if (substring.equals(" ")) {
+                                            //Log.i(TAG, " caracteresgg:"+ substring);
+                                            cuerpoInfra21 = recrte.substring(0, i) + " (CONTINUA EN EL REVERSO)";
+                                            banderacorte = i;
+                                            break;
+                                        }
+
+
+                                        Log.i(TAG, "imprimir: entro al maximo caracteres");
                                     }
-
-
-
-
-                                    Log.i(TAG, "imprimir: entro al maximo caracteres");
                                 }
                             }else{
                                 cuerpoInfra21=cuerpoInfra;
@@ -11056,7 +11071,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 numeroS="con numero de sello(s) "+etNumeroSellos.getText().toString().trim();
                             }
                             String hechos=etSeleccion.getText().toString().trim();
-                            Log.e(String.valueOf(hechos.length()),"Cantidad de texto");
+
 
 
 
@@ -11077,30 +11092,46 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=";
                             //Log.i(TAG, "imprimir: entro al maximo caracteres: "+cuerpoInfra.length());
 
+                            String mocha=". En uso de su derecho el visitado manifiesta: " +
+                            etManifiesta.getText().toString().trim() + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
+                                    "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
+                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=";
 
+                            Log.e(String.valueOf(cuerpoInfra.length()),"Cantidad de texto");
 
-                            if(cuerpoInfra.length()>5000) {
+                            if(cuerpoInfra.length()>5000 ) {
 
                                 String recrte = cuerpoInfra;
+                                String texto ="";
+                                int x=0;
+                                if(cuerpoInfra.length()>=5000 && cuerpoInfra.length()<=5300){
+                                    cuerpoInfra21 = recrte.substring(0,cuerpoInfra.length()-mocha.length()+1 ) + " (CONTINUA EN EL REVERSO)";
+                                    banderacorte = cuerpoInfra.length()-mocha.length()+1;
+                                }else {
 
-                                for (int i = 5000; i < recrte.length(); i++) {
-                                    String substring = cuerpoInfra.substring(i,i+1);
-                                    //Log.i(TAG, " caracteresgg1:"+ substring);
+
+                                    for (int i = 5000; i < recrte.length(); i++) {
+                                        String substring = cuerpoInfra.substring(i, i + 1);
+                                        //Log.i(TAG, " caracteresgg1:"+ substring);. En uso
+
+
                                         if (substring.equals(" ")) {
                                             //Log.i(TAG, " caracteresgg:"+ substring);
-                                            cuerpoInfra21 = recrte.substring(0,i)+" (CONTINUA EN EL REVERSO)";
+                                            cuerpoInfra21 = recrte.substring(0, i) + " (CONTINUA EN EL REVERSO)";
                                             banderacorte = i;
                                             break;
                                         }
 
 
-
-
-                                    Log.i(TAG, "imprimir: entro al maximo caracteres");
+                                        Log.i(TAG, "imprimir: entro al maximo caracteres");
+                                        Log.e("pdf:", "cortes:" + texto);
+                                    }
                                 }
+
                             }else{
                                 cuerpoInfra21=cuerpoInfra;
                             }
+
 
                             p2= new Paragraph(cuerpoInfra21,font1);
                            /* p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del  año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
@@ -11154,24 +11185,33 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
                                     hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=",font1);
 */
+                            String mocha=". En uso de su derecho el visitado manifiesta: " +
+                            etManifiesta.getText().toString().trim() + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
+                                    "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
+                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=";
                             if(cuerpoInfra.length()>5000) {
 
                                 String recrte = cuerpoInfra;
+                                String texto ="";
+                                int x=0;
+                                if(cuerpoInfra.length()>=5000 && cuerpoInfra.length()<=5300){
+                                    cuerpoInfra21 = recrte.substring(0,cuerpoInfra.length()-mocha.length()+1 ) + " (CONTINUA EN EL REVERSO)";
+                                    banderacorte = cuerpoInfra.length()-mocha.length()+1;
+                                }else {
+                                    for (int i = 5000; i < recrte.length(); i++) {
+                                        String substring = cuerpoInfra.substring(i, i + 1);
+                                        //Log.i(TAG, " caracteresgg1:"+ substring);. En uso
 
-                                for (int i = 5000; i < recrte.length(); i++) {
-                                    String substring = cuerpoInfra.substring(i,i+1);
-                                    //Log.i(TAG, " caracteresgg1:"+ substring);
                                         if (substring.equals(" ")) {
                                             //Log.i(TAG, " caracteresgg:"+ substring);
-                                            cuerpoInfra21 = recrte.substring(0,i)+" (CONTINUA EN EL REVERSO)";
+                                            cuerpoInfra21 = recrte.substring(0, i) + " (CONTINUA EN EL REVERSO)";
                                             banderacorte = i;
                                             break;
                                         }
 
 
-
-
-                                    Log.i(TAG, "imprimir: entro al maximo caracteres");
+                                        Log.i(TAG, "imprimir: entro al maximo caracteres");
+                                    }
                                 }
                             }else{
                                 cuerpoInfra21=cuerpoInfra;

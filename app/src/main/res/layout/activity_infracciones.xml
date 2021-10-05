@@ -1465,8 +1465,9 @@
 							android:layout_height="70dp"
 							android:hint="dd-mm-aaaa"
 							android:layout_toRightOf="@id/tvfechaap"
-							android:inputType="textCapSentences"
+
 							android:layout_below="@id/etfolioap"
+							android:inputType="date"
 							android:imeOptions="actionNext"
 							android:visibility="gone"/>
 

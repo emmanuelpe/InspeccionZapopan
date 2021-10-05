@@ -65,6 +65,10 @@ public class MapaReglamentos {
         return cad;
     }
 
+    public String replaceFraccion(String cadena){
+        return cadena.replaceAll("fraccion","fracción");
+    }
+
     public String mostrar(){
         int inicio;
         String aux1;
@@ -88,6 +92,7 @@ public class MapaReglamentos {
 
             for(Articulo art : listaArticulos){
                 System.out.println(art);
+                //art.setDescripcion(replaceFraccion(art.getDescripcion()));
                 if(cadena.contains(String.valueOf(art.getArticulo()))){
                     inicio = cadena.indexOf(String.valueOf(art.getArticulo()));
                     try{

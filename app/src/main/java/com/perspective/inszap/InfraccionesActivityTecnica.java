@@ -141,6 +141,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     final Calendar c = Calendar.getInstance();
     final Calendar cal = Calendar.getInstance();
     private ArrayList<String> arrayincaseF= new ArrayList<>();
+    private ArrayList<String> arrayhechosC= new ArrayList<>();
     final ArrayList<String> arregloLista = new ArrayList<String>();
     private ArrayList<String> arregloLista1 = new ArrayList<String>();
     private ArrayList<String> arregloLista2 = new ArrayList<String>();
@@ -2709,7 +2710,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 if(contador>=1){
                    // etArticulo.setEnabled(false);
                     mostrarArt(contador);
-                    //btnArticulos.setEnabled(false);
+                    btnArticulos.setEnabled(false);
                 }else{
 
                 }
@@ -3238,106 +3239,126 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 int pos = 0;
                                 int x = 1;
                                 Log.i("des", des);
-                                if (!des.equals("")) {
+                                if(!des.equals("")){
                                     buscarInfraccion(des);
                                     infraccion();
                                     tveliminar.setEnabled(false);
-                                    if (spuni.getVisibility() != View.GONE) {
-                                        unidades += spuni.getSelectedItem().toString().trim() + ",";
+                                    if(spuni.getVisibility() != View.GONE) {
+                                        unidades += spuni.getSelectedItem().toString().trim()+",";
                                         if (!spuni.getSelectedItem().toString().equalsIgnoreCase("")) {
-                                            seleccion += x + " " + des + " (" + etdato.getText().toString().trim() + " " + spuni.getSelectedItem().toString().trim() + " " + etObs.getText().toString() + "). ";
+                                            seleccion += x + " " + des + " (" + etdato.getText().toString().trim() + " " + spuni.getSelectedItem().toString().trim() + " " + etObs.getText().toString() + "); ";
+                                            arrayhechosC.add(x + " " + des + " (" + etdato.getText().toString().trim() + " " + spuni.getSelectedItem().toString().trim() + " " + etObs.getText().toString() + "); ");
                                         }
                                     } else {
-                                        //Log.e("Primer hecho",des1);
-                                        unidades += ",";
-                                        if (etObs.getText().toString().trim().length() > 1)
+                                        unidades += " ,";
+                                        if(etObs.getText().toString().trim().length()>1) {
                                             seleccion += x + " " + des + " (" + etObs.getText().toString() + "). ";
-                                        else
+                                            arrayhechosC.add( x + " " + des + " (" + etObs.getText().toString() + "). ");
+                                        }else {
                                             seleccion += x + " " + des + ". ";
+                                            arrayhechosC.add( x + " " + des + " ");
+                                        }
+                                        //seleccion += x + " " + des + "("+etObs.getText().toString()+"); ";
                                     }
                                     x++;
                                     dato += etdato.getText().toString().trim() + ",";
                                 }
-                                if (!des1.equals("")) {
+                                if(!des1.equals("")){
                                     buscarInfraccion(des1);
                                     infraccion();
                                     tveliminar1.setEnabled(false);
-                                    if (spuni1.getVisibility() != View.GONE) {
-                                        unidades += spuni1.getSelectedItem().toString().trim() + ",";
+                                    if(spuni1.getVisibility() != View.GONE) {
+                                        unidades += spuni1.getSelectedItem().toString().trim()+",";
                                         if (!spuni1.getSelectedItem().toString().equals("")) {
-
-                                            seleccion += x + " " + des1 + " (" + etdato1.getText().toString().trim() + " " + spuni1.getSelectedItem().toString().trim() + " " + etObs1.getText().toString() + "). ";
+                                            seleccion += x + " " + des1 + " (" + etdato1.getText().toString().trim() + " " + spuni1.getSelectedItem().toString().trim() + " " + etObs1.getText().toString() + "); ";
+                                            arrayhechosC.add(x + " " + des1 + " (" + etdato1.getText().toString().trim() + " " + spuni1.getSelectedItem().toString().trim() + " " + etObs1.getText().toString() + "); ");
                                         }
                                     } else {
-                                        //Log.e("Segundo hecho",des1);
-                                        unidades += " ,";
-                                        if (etObs1.getText().toString().trim().length() > 1)
+                                        unidades+=" ,";
+                                        if(etObs1.getText().toString().trim().length()>1) {
                                             seleccion += x + " " + des1 + " (" + etObs1.getText().toString() + "). ";
-                                        else
-                                            seleccion += x + " " + des1 + ". ";
+                                            arrayhechosC.add(x + " " + des1 + " (" + etObs1.getText().toString() + "). ");
+                                        }else {
+                                            seleccion += x + " " + des1 + " ";
+                                            arrayhechosC.add(x + " " + des1 + " ");
+                                            //seleccion += x + " " + des1 + "("+etObs1.getText().toString()+"); ";
+                                        }
                                     }
                                     x++;
-                                    dato += etdato1.getText().toString().trim() + ",";
+                                    dato += etdato1.getText().toString().trim()+ ",";
                                 }
-                                if (!des2.equals("")) {
+                                if(!des2.equals("")){
                                     buscarInfraccion(des2);
                                     infraccion();
                                     tveliminar2.setEnabled(false);
-                                    if (spuni2.getVisibility() != View.GONE) {
-                                        unidades += spuni2.getSelectedItem().toString().trim() + ",";
+                                    if(spuni2.getVisibility() != View.GONE) {
+                                        unidades += spuni2.getSelectedItem().toString().trim()+",";
                                         if (!spuni2.getSelectedItem().toString().equals("")) {
-                                            //Log.e("Primer hecho",des2);
-                                            seleccion += x + " " + des2 + " (" + etdato2.getText().toString().trim() + " " + spuni2.getSelectedItem().toString() + " " + etObs2.getText().toString() + "). ";
+                                            seleccion += x + " " + des2 + " (" + etdato2.getText().toString().trim() + " " + spuni2.getSelectedItem().toString() + " " + etObs2.getText().toString() +"); ";
+                                            arrayhechosC.add(x + " " + des2 + " (" + etdato2.getText().toString().trim() + " " + spuni2.getSelectedItem().toString() + " " + etObs2.getText().toString() +"); ");
                                         }
                                     } else {
-                                        unidades += " ,";
-                                        if (etObs2.getText().toString().trim().length() > 1)
+                                        unidades+=" ,";
+                                        if(etObs2.getText().toString().trim().length()>1) {
                                             seleccion += x + " " + des2 + " (" + etObs2.getText().toString() + "). ";
-                                        else
+                                            arrayhechosC.add(x + " " + des2 + " (" + etObs2.getText().toString() + "). ");
+                                        }else {
                                             seleccion += x + " " + des2 + ". ";
+                                            arrayhechosC.add(x + " " + des2 + " ");
+                                            //seleccion += x + " " + des2 + "("+etObs2.getText().toString()+"); ";
+                                        }
                                     }
                                     x++;
-                                    dato += etdato2.getText().toString().trim() + ",";
+                                    dato += etdato2.getText().toString().trim()+ ",";
                                 }
-                                if (!des3.equals("")) {
+                                if(!des3.equals("")){
                                     buscarInfraccion(des3);
                                     infraccion();
                                     tveliminar3.setEnabled(false);
-                                    if (spuni3.getVisibility() != View.GONE) {
-                                        unidades += spuni3.getSelectedItem().toString().trim() + ",";
+                                    if(spuni3.getVisibility() != View.GONE) {
+                                        unidades += spuni3.getSelectedItem().toString().trim()+",";
                                         if (!spuni3.getSelectedItem().toString().equals("")) {
-                                            // Log.e("Primer hecho",des1);
-                                            seleccion += x + " " + des3 + " (" + etdato3.getText().toString().trim() + " " + spuni3.getSelectedItem().toString() + " " + etObs3.getText().toString() + "). ";
+                                            seleccion += x + " " + des3 + " (" + etdato3.getText().toString().trim() + " " + spuni3.getSelectedItem().toString() + " " + etObs3.getText().toString() +"); ";
+                                            arrayhechosC.add(x + " " + des3 + " (" + etdato3.getText().toString().trim() + " " + spuni3.getSelectedItem().toString() + " " + etObs3.getText().toString() +"); ");
                                         }
                                     } else {
-                                        unidades += " ,";
-                                        if (etObs3.getText().toString().trim().length() > 1)
-                                            seleccion += x + " " + des3 + " (" + etObs3.getText().toString() + ").  ";
-                                        else
+                                        unidades+=" ,";
+                                        if(etObs3.getText().toString().trim().length()>1) {
+                                            seleccion += x + " " + des3 + " (" + etObs3.getText().toString() + "). ";
+                                            arrayhechosC.add(x + " " + des3 + " (" + etObs3.getText().toString() + "). ");
+                                        }else {
                                             seleccion += x + " " + des3 + ". ";
+                                            arrayhechosC.add(x + " " + des3 + " ");
+                                            //seleccion += x + " " + des3 + "("+etObs3.getText().toString()+"); ";
+                                        }
                                     }
                                     x++;
-                                    dato += etdato3.getText().toString().trim() + ",";
+                                    dato += etdato3.getText().toString().trim()+ ",";
                                 }
-                                if (!des4.equals("")) {
+                                if(!des4.equals("")){
                                     buscarInfraccion(des4);
                                     infraccion();
                                     tveliminar4.setEnabled(false);
-                                    if (spuni4.getVisibility() != View.GONE) {
-                                        unidades += spuni4.getSelectedItem().toString().trim() + ",";
+                                    if(spuni4.getVisibility() != View.GONE) {
+                                        unidades += spuni4.getSelectedItem().toString().trim()+",";
                                         if (!spuni4.getSelectedItem().toString().equals("")) {
-                                            //Log.e("Primer hecho",des1);
-                                            seleccion += x + " " + des4 + " (" + etdato4.getText().toString().trim() + " " + spuni4.getSelectedItem().toString() + " " + etObs4.getText().toString() + "). ";
+                                            seleccion += x + " " + des4 + " (" + etdato4.getText().toString().trim() + " " + spuni4.getSelectedItem().toString() + " " + etObs4.getText().toString() +"); ";
+                                            arrayhechosC.add(x + " " + des4 + " (" + etdato4.getText().toString().trim() + " " + spuni4.getSelectedItem().toString() + " " + etObs4.getText().toString() +"); ");
                                         }
                                     } else {
-                                        unidades += " ,";
-                                        if (etObs4.getText().toString().trim().length() > 1)
+                                        unidades+=" ,";
+                                        if(etObs4.getText().toString().trim().length()>1) {
                                             seleccion += x + " " + des4 + " (" + etObs4.getText().toString() + "). ";
-                                        else
+                                            arrayhechosC.add( x + " " + des4 + " (" + etObs4.getText().toString() + "). ");
+                                        } else {
                                             seleccion += x + " " + des4 + ". ";
+                                            arrayhechosC.add( x + " " + des4 + " ");
+
+                                        }
+                                        //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
                                     }
                                     x++;
-                                    dato += etdato4.getText().toString().trim() + ",";
+                                    dato += etdato4.getText().toString().trim()+ ",";
                                 }
                                 if(!des5.equals("")){
                                     buscarInfraccion(des5);
@@ -3347,14 +3368,18 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         unidades += spuni5.getSelectedItem().toString().trim()+",";
                                         if (!spuni5.getSelectedItem().toString().equals("")) {
                                             seleccion += x + " " + des5 + " (" + etdato5.getText().toString().trim() + " " + spuni5.getSelectedItem().toString() + " " + etObs5.getText().toString() +"); ";
+                                            arrayhechosC.add(x + " " + des5 + " (" + etdato5.getText().toString().trim() + " " + spuni5.getSelectedItem().toString() + " " + etObs5.getText().toString() +"); ");
                                         }
                                     } else {
                                         unidades+=" ,";
-                                        if(etObs5.getText().toString().trim().length()>1)
-                                            seleccion += x + " " + des5 + " ("+etObs5.getText().toString()+"). ";
-                                        else
-                                            seleccion += x + " " + des5 +". ";
-                                        //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                        if(etObs5.getText().toString().trim().length()>1) {
+                                            seleccion += x + " " + des5 + " (" + etObs5.getText().toString() + "). ";
+                                            arrayhechosC.add(x + " " + des5 + " (" + etObs5.getText().toString() + "). ");
+                                        }else {
+                                            seleccion += x + " " + des5 + ". ";
+                                            arrayhechosC.add(x + " " + des5 + " ");
+                                            //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                        }
                                     }
                                     x++;
                                     dato += etdato5.getText().toString().trim()+ ",";
@@ -3367,14 +3392,18 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         unidades += spuni6.getSelectedItem().toString().trim()+",";
                                         if (!spuni6.getSelectedItem().toString().equals("")) {
                                             seleccion += x + " " + des6 + " (" + etdato6.getText().toString().trim() + " " + spuni6.getSelectedItem().toString() + " " + etObs6.getText().toString() +"); ";
+                                            arrayhechosC.add(x + " " + des6 + " (" + etdato6.getText().toString().trim() + " " + spuni6.getSelectedItem().toString() + " " + etObs6.getText().toString() +"); ");
                                         }
                                     } else {
                                         unidades+=" ,";
-                                        if(etObs6.getText().toString().trim().length()>1)
-                                            seleccion += x + " " + des6 + " ("+etObs6.getText().toString()+"). ";
-                                        else
-                                            seleccion += x + " " + des6 +". ";
-                                        //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                        if(etObs6.getText().toString().trim().length()>1) {
+                                            seleccion += x + " " + des6 + " (" + etObs6.getText().toString() + "). ";
+                                            arrayhechosC.add(x + " " + des6 + " (" + etObs6.getText().toString() + "). ");
+                                        }else {
+                                            seleccion += x + " " + des6 + ". ";
+                                            arrayhechosC.add(x + " " + des6 + " ");
+                                            //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                        }
                                     }
                                     x++;
                                     dato += etdato6.getText().toString().trim()+ ",";
@@ -3387,13 +3416,17 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         unidades += spuni7.getSelectedItem().toString().trim()+",";
                                         if (!spuni7.getSelectedItem().toString().equals("")) {
                                             seleccion += x + " " + des7 + " (" + etdato7.getText().toString().trim() + " " + spuni7.getSelectedItem().toString() + " " + etObs7.getText().toString() +"); ";
+                                            arrayhechosC.add(x + " " + des7 + " (" + etdato7.getText().toString().trim() + " " + spuni7.getSelectedItem().toString() + " " + etObs7.getText().toString() +"); ");
                                         }
                                     } else {
                                         unidades+=" ,";
-                                        if(etObs7.getText().toString().trim().length()>1)
-                                            seleccion += x + " " + des7 + " ("+etObs7.getText().toString()+"). ";
-                                        else
-                                            seleccion += x + " " + des7 +". ";
+                                        if(etObs7.getText().toString().trim().length()>1) {
+                                            seleccion += x + " " + des7 + " (" + etObs7.getText().toString() + "). ";
+                                            arrayhechosC.add(x + " " + des7 + " (" + etObs7.getText().toString() + "). ");
+                                        }else {
+                                            seleccion += x + " " + des7 + ". ";
+                                            arrayhechosC.add(x + " " + des7 + " ");
+                                        }
                                         //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
                                     }
                                     x++;
@@ -3407,14 +3440,18 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         unidades += spuni8.getSelectedItem().toString().trim()+",";
                                         if (!spuni8.getSelectedItem().toString().equals("")) {
                                             seleccion += x + " " + des8 + " (" + etdato8.getText().toString().trim() + " " + spuni8.getSelectedItem().toString() + " " + etObs8.getText().toString() +"); ";
+                                            arrayhechosC.add(x + " " + des8 + " (" + etdato8.getText().toString().trim() + " " + spuni8.getSelectedItem().toString() + " " + etObs8.getText().toString() +"); ");
                                         }
                                     } else {
                                         unidades+=" ,";
-                                        if(etObs8.getText().toString().trim().length()>1)
-                                            seleccion += x + " " + des8 + " ("+etObs8.getText().toString()+"). ";
-                                        else
-                                            seleccion += x + " " + des8 +". ";
-                                        //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                        if(etObs8.getText().toString().trim().length()>1) {
+                                            seleccion += x + " " + des8 + " (" + etObs8.getText().toString() + "). ";
+                                            arrayhechosC.add(x + " " + des8 + " (" + etObs8.getText().toString() + "). ");
+                                        } else {
+                                            seleccion += x + " " + des8 + ". ";
+                                            arrayhechosC.add(x + " " + des8 + " ");
+                                            //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                        }
                                     }
                                     x++;
                                     dato += etdato8.getText().toString().trim()+ ",";
@@ -3427,14 +3464,18 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         unidades += spuni9.getSelectedItem().toString().trim()+",";
                                         if (!spuni9.getSelectedItem().toString().equals("")) {
                                             seleccion += x + " " + des9 + " (" + etdato9.getText().toString().trim() + " " + spuni9.getSelectedItem().toString() + " " + etObs9.getText().toString() +"); ";
+                                            arrayhechosC.add(x + " " + des9 + " (" + etdato9.getText().toString().trim() + " " + spuni9.getSelectedItem().toString() + " " + etObs9.getText().toString() +"); ");
                                         }
                                     } else {
                                         unidades+=" ,";
-                                        if(etObs9.getText().toString().trim().length()>1)
-                                            seleccion += x + " " + des9 + " ("+etObs9.getText().toString()+"). ";
-                                        else
-                                            seleccion += x + " " + des9 +". ";
-                                        //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                        if(etObs9.getText().toString().trim().length()>1) {
+                                            seleccion += x + " " + des9 + " (" + etObs9.getText().toString() + "). ";
+                                            arrayhechosC.add(x + " " + des9 + " (" + etObs9.getText().toString() + "). ");
+                                        }else {
+                                            seleccion += x + " " + des9 + ". ";
+                                            arrayhechosC.add(x + " " + des9 + " ");
+                                            //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                        }
                                     }
                                     x++;
                                     dato += etdato9.getText().toString().trim()+ ",";
@@ -3447,117 +3488,143 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         unidades += spuni10.getSelectedItem().toString().trim()+",";
                                         if (!spuni10.getSelectedItem().toString().equals("")) {
                                             seleccion += x + " " + des10 + " (" + etdato10.getText().toString().trim() + " " + spuni10.getSelectedItem().toString() + " " + etObs10.getText().toString() +"); ";
+                                            arrayhechosC.add(x + " " + des10 + " (" + etdato10.getText().toString().trim() + " " + spuni10.getSelectedItem().toString() + " " + etObs10.getText().toString() +"); ");
                                         }
                                     } else {
                                         unidades+=" ,";
-                                        if(etObs10.getText().toString().trim().length()>1)
-                                            seleccion += x + " " + des10 + " ("+etObs10.getText().toString()+"). ";
-                                        else
-                                            seleccion += x + " " + des10 +". ";
+                                        if(etObs10.getText().toString().trim().length()>1) {
+                                            seleccion += x + " " + des10 + " (" + etObs10.getText().toString() + "). ";
+                                            arrayhechosC.add(x + " " + des10 + " (" + etObs10.getText().toString() + "). ");
+                                        }else {
+                                            seleccion += x + " " + des10 + ". ";
+                                            arrayhechosC.add(x + " " + des10 + " ");
+                                        }
                                         //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
                                     }
                                     x++;
                                     dato += etdato10.getText().toString().trim()+ ",";
-                                }if(!des11.equals("")){
-                                buscarInfraccion(des11);
-                                infraccion();
-                                tveliminar11.setEnabled(false);
-                                if(spuni11.getVisibility() != View.GONE) {
-                                    unidades += spuni11.getSelectedItem().toString().trim()+",";
-                                    if (!spuni11.getSelectedItem().toString().equals("")) {
-                                        seleccion += x + " " + des11 + " (" + etdato11.getText().toString().trim() + " " + spuni11.getSelectedItem().toString() + " " + etObs11.getText().toString() +"); ";
-                                    }
-                                } else {
-                                    unidades+=" ,";
-                                    if(etObs11.getText().toString().trim().length()>1)
-                                        seleccion += x + " " + des11 + " ("+etObs11.getText().toString()+"). ";
-                                    else
-                                        seleccion += x + " " + des11 +". ";
-                                    //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
                                 }
-                                x++;
-                                dato += etdato11.getText().toString().trim()+ ",";
-                            }
-                            if(!des12.equals("")){
-                                buscarInfraccion(des12);
-                                infraccion();
-                                tveliminar12.setEnabled(false);
-                                if(spuni12.getVisibility() != View.GONE) {
-                                    unidades += spuni12.getSelectedItem().toString().trim()+",";
-                                    if (!spuni12.getSelectedItem().toString().equals("")) {
-                                        seleccion += x + " " + des12 + " (" + etdato12.getText().toString().trim() + " " + spuni12.getSelectedItem().toString() + " " + etObs12.getText().toString() +"); ";
+                                if(!des11.equals("")){
+                                    buscarInfraccion(des11);
+                                    infraccion();
+                                    tveliminar11.setEnabled(false);
+                                    if(spuni11.getVisibility() != View.GONE) {
+                                        unidades += spuni11.getSelectedItem().toString().trim()+",";
+                                        if (!spuni11.getSelectedItem().toString().equals("")) {
+                                            seleccion += x + " " + des11 + " (" + etdato11.getText().toString().trim() + " " + spuni11.getSelectedItem().toString() + " " + etObs11.getText().toString() +"); ";
+                                            arrayhechosC.add(x + " " + des11 + " (" + etdato11.getText().toString().trim() + " " + spuni11.getSelectedItem().toString() + " " + etObs11.getText().toString() +"); ");
+                                        }
+                                    } else {
+                                        unidades+=" ,";
+                                        if(etObs11.getText().toString().trim().length()>1) {
+                                            seleccion += x + " " + des11 + " (" + etObs11.getText().toString() + "). ";
+                                            arrayhechosC.add(x + " " + des11 + " (" + etObs11.getText().toString() + "). ");
+                                        }else {
+                                            seleccion += x + " " + des11 + ". ";
+                                            arrayhechosC.add(x + " " + des11 + " ");
+                                        }
+                                        //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
                                     }
-                                } else {
-                                    unidades+=" ,";
-                                    if(etObs12.getText().toString().trim().length()>1)
-                                        seleccion += x + " " + des12 + " ("+etObs12.getText().toString()+"). ";
-                                    else
-                                        seleccion += x + " " + des12 +". ";
-                                    //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                    x++;
+                                    dato += etdato11.getText().toString().trim()+ ",";
                                 }
-                                x++;
-                                dato += etdato12.getText().toString().trim()+ ",";
-                            }
-                            if(!des13.equals("")){
-                                buscarInfraccion(des13);
-                                infraccion();
-                                tveliminar13.setEnabled(false);
-                                if(spuni13.getVisibility() != View.GONE) {
-                                    unidades += spuni13.getSelectedItem().toString().trim()+",";
-                                    if (!spuni13.getSelectedItem().toString().equals("")) {
-                                        seleccion += x + " " + des13 + " (" + etdato13.getText().toString().trim() + " " + spuni13.getSelectedItem().toString() + " " + etObs13.getText().toString() +"); ";
+                                if(!des12.equals("")){
+                                    buscarInfraccion(des12);
+                                    infraccion();
+                                    tveliminar12.setEnabled(false);
+                                    if(spuni12.getVisibility() != View.GONE) {
+                                        unidades += spuni12.getSelectedItem().toString().trim()+",";
+                                        if (!spuni12.getSelectedItem().toString().equals("")) {
+                                            seleccion += x + " " + des12 + " (" + etdato12.getText().toString().trim() + " " + spuni12.getSelectedItem().toString() + " " + etObs12.getText().toString() +"); ";
+                                            arrayhechosC.add(x + " " + des12 + " (" + etdato12.getText().toString().trim() + " " + spuni12.getSelectedItem().toString() + " " + etObs12.getText().toString() +"); ");
+                                        }
+                                    } else {
+                                        unidades+=" ,";
+                                        if(etObs12.getText().toString().trim().length()>1) {
+                                            seleccion += x + " " + des12 + " (" + etObs12.getText().toString() + "). ";
+                                            arrayhechosC.add(x + " " + des12 + " (" + etObs12.getText().toString() + "). ");
+                                        }else {
+                                            seleccion += x + " " + des12 + ". ";
+                                            arrayhechosC.add(x + " " + des12 + " ");
+                                        }
+
+                                        //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
                                     }
-                                } else {
-                                    unidades+=" ,";
-                                    if(etObs13.getText().toString().trim().length()>1)
-                                        seleccion += x + " " + des13 + " ("+etObs13.getText().toString()+"). ";
-                                    else
-                                        seleccion += x + " " + des13 +". ";
-                                    //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                    x++;
+                                    dato += etdato12.getText().toString().trim()+ ",";
                                 }
-                                x++;
-                                dato += etdato13.getText().toString().trim()+ ",";
-                            }
-                            if(!des14.equals("")){
-                                buscarInfraccion(des14);
-                                infraccion();
-                                tveliminar14.setEnabled(false);
-                                if(spuni14.getVisibility() != View.GONE) {
-                                    unidades += spuni14.getSelectedItem().toString().trim()+",";
-                                    if (!spuni14.getSelectedItem().toString().equals("")) {
-                                        seleccion += x + " " + des14 + " (" + etdato14.getText().toString().trim() + " " + spuni14.getSelectedItem().toString() + " " + etObs14.getText().toString() +"); ";
+                                if(!des13.equals("")){
+                                    buscarInfraccion(des13);
+                                    infraccion();
+                                    tveliminar13.setEnabled(false);
+                                    if(spuni13.getVisibility() != View.GONE) {
+                                        unidades += spuni13.getSelectedItem().toString().trim()+",";
+                                        if (!spuni13.getSelectedItem().toString().equals("")) {
+                                            seleccion += x + " " + des13 + " (" + etdato13.getText().toString().trim() + " " + spuni13.getSelectedItem().toString() + " " + etObs13.getText().toString() +"); ";
+                                            arrayhechosC.add(x + " " + des13 + " (" + etdato13.getText().toString().trim() + " " + spuni13.getSelectedItem().toString() + " " + etObs13.getText().toString() +"); ");
+                                        }
+                                    } else {
+                                        unidades+=" ,";
+                                        if(etObs13.getText().toString().trim().length()>1) {
+                                            seleccion += x + " " + des13 + " (" + etObs13.getText().toString() + "). ";
+                                            arrayhechosC.add(x + " " + des13 + " (" + etObs13.getText().toString() + "). ");
+                                        }else {
+                                            seleccion += x + " " + des13 + ". ";
+                                            arrayhechosC.add(x + " " + des13 + " ");
+                                        }
+                                        //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
                                     }
-                                } else {
-                                    unidades+=" ,";
-                                    if(etObs14.getText().toString().trim().length()>1)
-                                        seleccion += x + " " + des14 + " ("+etObs14.getText().toString()+"). ";
-                                    else
-                                        seleccion += x + " " + des14 +". ";
-                                    //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                    x++;
+                                    dato += etdato13.getText().toString().trim()+ ",";
                                 }
-                                x++;
-                                dato += etdato14.getText().toString().trim()+ ",";
-                            }
-                            if(!des15.equals("")){
-                                buscarInfraccion(des15);
-                                infraccion();
-                                tveliminar15.setEnabled(false);
-                                if(spuni15.getVisibility() != View.GONE) {
-                                    unidades += spuni15.getSelectedItem().toString().trim()+",";
-                                    if (!spuni15.getSelectedItem().toString().equals("")) {
-                                        seleccion += x + " " + des15 + " (" + etdato15.getText().toString().trim() + " " + spuni15.getSelectedItem().toString() + " " + etObs15.getText().toString() +"); ";
+                                if(!des14.equals("")){
+                                    buscarInfraccion(des14);
+                                    infraccion();
+                                    tveliminar14.setEnabled(false);
+                                    if(spuni14.getVisibility() != View.GONE) {
+                                        unidades += spuni14.getSelectedItem().toString().trim()+",";
+                                        if (!spuni14.getSelectedItem().toString().equals("")) {
+                                            seleccion += x + " " + des14 + " (" + etdato14.getText().toString().trim() + " " + spuni14.getSelectedItem().toString() + " " + etObs14.getText().toString() +"); ";
+                                            arrayhechosC.add(seleccion);
+                                        }
+                                    } else {
+                                        unidades+=" ,";
+                                        if(etObs14.getText().toString().trim().length()>1) {
+                                            seleccion += x + " " + des14 + " (" + etObs14.getText().toString() + "). ";
+                                            arrayhechosC.add(x + " " + des14 + " (" + etObs14.getText().toString() + "). ");
+                                        }else {
+                                            seleccion += x + " " + des14 + ". ";
+                                            arrayhechosC.add(x + " " + des14 + " ");
+                                        }
+                                        //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
                                     }
-                                } else {
-                                    unidades+=" ,";
-                                    if(etObs15.getText().toString().trim().length()>1)
-                                        seleccion += x + " " + des15 + " ("+etObs15.getText().toString()+"). ";
-                                    else
-                                        seleccion += x + " " + des15 +". ";
-                                    //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                    x++;
+                                    dato += etdato14.getText().toString().trim()+ ",";
                                 }
-                                x++;
-                                dato += etdato15.getText().toString().trim()+ ",";
-                            }
+                                if(!des15.equals("")){
+                                    buscarInfraccion(des15);
+                                    infraccion();
+                                    tveliminar15.setEnabled(false);
+                                    if(spuni15.getVisibility() != View.GONE) {
+                                        unidades += spuni15.getSelectedItem().toString().trim()+",";
+                                        if (!spuni15.getSelectedItem().toString().equals("")) {
+                                            seleccion += x + " " + des15 + " (" + etdato15.getText().toString().trim() + " " + spuni15.getSelectedItem().toString() + " " + etObs15.getText().toString() +"); ";
+                                            arrayhechosC.add( x + " " + des15 + " (" + etdato15.getText().toString().trim() + " " + spuni15.getSelectedItem().toString() + " " + etObs15.getText().toString() +"); ");
+                                        }
+                                    } else {
+                                        unidades+=" ,";
+                                        if(etObs15.getText().toString().trim().length()>1) {
+                                            seleccion += x + " " + des15 + " (" + etObs15.getText().toString() + "). ";
+                                            arrayhechosC.add( x + " " + des15 + " (" + etObs15.getText().toString() + "). ");
+                                        }else {
+                                            seleccion += x + " " + des15 + ". ";
+                                            arrayhechosC.add(x + " " + des15 + " ");
+                                        }
+                                        //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                    }
+                                    x++;
+                                    dato += etdato15.getText().toString().trim()+ ",";
+                                }
 
 
 
@@ -5085,7 +5152,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         else
                             iUni = iUnidad[i];
                         if (conn.validarConexion(getApplicationContext()))
-                            conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, iUni,"",/*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
+                            conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, iUni,arrayhechosC.get(i),/*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
                         insertFotrografia(idLevantamientoSQL,etNumeroActa.getText().toString(),etNumeroActa.getText().toString()+".pdf","PDF","N","N");
 
                     }
@@ -8131,7 +8198,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         try {
             if(db != null){
                 //Cursor c = db.query("C_zonas", null, "id_c_zonas", null, null, null, null);
-                Cursor c = db.rawQuery("SELECT * FROM C_zonas WHERE id_c_direccion = '" + id_c + "'", null);
+                Cursor c = db.rawQuery("SELECT * FROM C_zonas WHERE id_c_direccion = '" + 5 + "'", null);
                 if(c.moveToFirst()){
                     do{
                         zona.add(c.getString(2) + "     " + c.getString(3));
@@ -10153,24 +10220,33 @@ String numeroS="";
                        + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151)."
                        + " Se da por concluida esta diligencia, siendo las " + hr + " horas del " +dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=";
 
+                String mocha=". En uso de su derecho el visitado manifiesta: " +
+                        etManifiesta.getText().toString().trim() + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
+                        "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
+                        hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=";
                 if(cuerpoInfra.length()>5000) {
 
                     String recrte = cuerpoInfra;
+                    String texto ="";
+                    int x=0;
+                    if(cuerpoInfra.length()>=5000 && cuerpoInfra.length()<=5300){
+                        cuerpoInfra21 = recrte.substring(0,cuerpoInfra.length()-mocha.length()+1 ) + " (CONTINUA EN EL REVERSO)";
+                        banderacorte = cuerpoInfra.length()-mocha.length()+1;
+                    }else {
+                        for (int i = 5000; i < recrte.length(); i++) {
+                            String substring = cuerpoInfra.substring(i, i + 1);
+                            //Log.i(TAG, " caracteresgg1:"+ substring);. En uso
 
-                    for (int i = 5000; i < recrte.length(); i++) {
-                        String substring = cuerpoInfra.substring(i,i+1);
-                        //Log.i(TAG, " caracteresgg1:"+ substring);
-                        if (substring.equals(" ")) {
-                            //Log.i(TAG, " caracteresgg:"+ substring);
-                            cuerpoInfra21 = recrte.substring(0,i)+" (CONTINUA EN EL REVERSO)";
-                            banderacorte = i;
-                            break;
+                            if (substring.equals(" ")) {
+                                //Log.i(TAG, " caracteresgg:"+ substring);
+                                cuerpoInfra21 = recrte.substring(0, i) + " (CONTINUA EN EL REVERSO)";
+                                banderacorte = i;
+                                break;
+                            }
+
+
+                            Log.i(TAG, "imprimir: entro al maximo caracteres");
                         }
-
-
-
-
-                        Log.i(TAG, "imprimir: entro al maximo caracteres");
                     }
                 }else{
                     cuerpoInfra21=cuerpoInfra;
@@ -14895,33 +14971,38 @@ String numeroS="";
                              contador++;
                          }else{*/
 
+                        Log.e("agrego medida",orden.get(spMedida.getSelectedItemPosition()).trim());
+                        Log.e("agrego articulo",art.get(spMedida.getSelectedItemPosition()).trim());
+                        reglaArt.add(orden.get(spMedida.getSelectedItemPosition()).trim());
+                        SeguimientoM1.add(spMedida.getSelectedItem().toString());
+                        reglaArt2.add(art.get(spMedida.getSelectedItemPosition()).trim());
+                        //concatM = spMedida.getSelectedItem().toString() + ",";
+                        if(contador==0)
+                            concatM = spMedida.getSelectedItem().toString();
+                        else
+                            concatM = ", "+spMedida.getSelectedItem().toString();
+                        contador++;
+                        // }
+
+                        //etMedida.append(concatM);
+                        for(int i=0;i<SeguimientoM1.size();i++){
+                            if(SeguimientoM1.get(i).contains("Clausura") ||  SeguimientoM1.get(i).contains("CLAUSURA")){
+                                etNumeroSellos.setVisibility(View.VISIBLE);
+                                etdecomiso.setVisibility(View.VISIBLE);
+                                break;
+                            }else{
+                                etNumeroSellos.setVisibility(View.GONE);
+                                etdecomiso.setVisibility(View.GONE);
+
+                            }
+                        }
+
+
+
+
                         if(!spMedida.getSelectedItem().toString().equalsIgnoreCase(fa)) {
 
-                            Log.e("agrego medida",orden.get(spMedida.getSelectedItemPosition()).trim());
-                            Log.e("agrego articulo",art.get(spMedida.getSelectedItemPosition()).trim());
-                            reglaArt.add(orden.get(spMedida.getSelectedItemPosition()).trim());
-                            SeguimientoM1.add(spMedida.getSelectedItem().toString());
-                            reglaArt2.add(art.get(spMedida.getSelectedItemPosition()).trim());
-                            //concatM = spMedida.getSelectedItem().toString() + ",";
-                            if(contador==0)
-                            concatM = spMedida.getSelectedItem().toString();
-                            else
-                                concatM = ", "+spMedida.getSelectedItem().toString();
-                            contador++;
-                            // }
 
-                            //etMedida.append(concatM);
-                             for(int i=0;i<SeguimientoM1.size();i++){
-                        if(SeguimientoM1.get(i).contains("Clausura") ||  SeguimientoM1.get(i).contains("CLAUSURA")){
-                            etNumeroSellos.setVisibility(View.VISIBLE);
-                            etdecomiso.setVisibility(View.VISIBLE);
-                            break;
-                        }else{
-                            etNumeroSellos.setVisibility(View.GONE);
-                            etdecomiso.setVisibility(View.GONE);
-
-                        }
-                    }
 
                         }
                         fa=spMedida.getSelectedItem().toString();

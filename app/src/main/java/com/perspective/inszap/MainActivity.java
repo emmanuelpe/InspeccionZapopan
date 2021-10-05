@@ -509,9 +509,19 @@ public class MainActivity extends Activity {
 		} else {
 			System.err.println("no alter");
 		}
-		
-		
-		
+
+
+		if(validarCampo("Detalle_infraccion", "especificacion") == 0) {
+
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Detalle_infraccion add especificacion text";
+			db1.execSQL(sql);
+		}
+
+
+
 		if(validarCampo("Levantamiento", "id_c_competencia1") == 0) {
 			
 			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
