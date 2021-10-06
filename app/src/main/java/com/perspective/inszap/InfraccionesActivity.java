@@ -6141,6 +6141,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     				foto--;
     				if(id==2 |id==5){
     				    btncopiar.requestFocusFromTouch();
+
                     }else{
 
                         btncopiar.requestFocusFromTouch();
@@ -8795,7 +8796,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     c = db.rawQuery("SELECT * FROM C_zonas WHERE id_c_direccion = '" + 5 + "'", null);
 				if(c.moveToFirst()){
 					do{
-						zona.add(c.getString(2) + "     " + c.getString(3));
+						//zona.add(c.getString(2) + "     " + c.getString(3));
+                        zona.add(c.getString(2));
 					}while(c.moveToNext());
 				}
 				c.close();
@@ -9837,7 +9839,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	public MedidaSeguridad cursorToMedida(Cursor cursor) {
 		return new MedidaSeguridad(cursor.getString(cursor.getColumnIndex("medida_seguridad")), cursor.getString(cursor.getColumnIndex("articulos")));
 	}
-	
+
 	public Levantamiento cursorToLevantamiento(Cursor cursor) {
 		//numero_citatorio TEXT,infraccion int,tipo_acta text,fecha numeric,hora_inicio time,longitud float,latitud float,orden_vista int,fecha_orden_v numeric,Zona text,nombre_visitado text,se_identifica text,manifiesta_ser text,fraccionamiento text,calle text,numero_ext text,numero_int text,apellidop_prop text,apellidom_prop text,nombre_razon text,nombre_testigo1 text,ife_testigo1 text,designado_por1 text,nombre_testigo2 text,ife_testigo2 text,designado_por2 text,uso_catalogo text,hechos text,infracciones text,id_c_infraccion text,uso_suelo text,densidad text,manifiesta text,gravedad int,dias_plazo int,fecha_plazo numeric,hora_termino time,tipo_visita TEXT,id_pago int,pago numeric, fecha_pago numeric, estatus text,condominio TEXT,manzana TEXT,lote TEXT,capturo text,fecha_atiende_juez numeric, fecha_cancelacion numeric,fecha_efectua_multa numeric, vigencia_multa int, fecha_vigencia numeric,multa text,observaciones text, referencia TEXT
 		System.out.println(cursor.getString(cursor.getColumnIndex("licencia_giro")));
