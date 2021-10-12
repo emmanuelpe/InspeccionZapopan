@@ -11,27 +11,27 @@
         android:layout_width="699dp"
         android:layout_height="500dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
         android:layout_marginTop="100dp"
+        android:layout_marginRight="30dp"
 
-        app:cardCornerRadius="25px"
         app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="25px"
 
         >
+
         <ProgressBar
             android:id="@+id/pb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/textView"
             android:layout_marginTop="50dp"
-            android:visibility="gone">
-        </ProgressBar>
+            android:visibility="gone"></ProgressBar>
 
         <EditText
             android:id="@+id/etfecham1"
             android:layout_width="220dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="45dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="100dp"
             android:enabled="false"
             android:hint="@string/fecham"
@@ -44,11 +44,11 @@
             android:id="@+id/btnFecha1"
             android:layout_width="63dp"
             android:layout_height="63dp"
-            android:layout_marginLeft="330dp"
+            android:layout_marginLeft="300dp"
             android:layout_marginTop="120dp"
             android:layout_toRightOf="@+id/etfecham1"
-            android:drawableBottom="@drawable/calendario"
             android:background="@color/white"
+            android:drawableBottom="@drawable/calendario"
 
             />
 
@@ -76,9 +76,9 @@
             android:layout_marginLeft="330dp"
             android:layout_marginTop="250dp"
             android:layout_toRightOf="@+id/etfecham2"
-            android:drawableBottom="@drawable/calendario"
             android:background="@color/white"
-            android:visibility="gone"/>
+            android:drawableBottom="@drawable/calendario"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textView"
@@ -88,22 +88,21 @@
 
             android:layout_alignTop="@id/btnFecha1"
 
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:text="REPORTE INFORMACION ENVIADAS"
 
+            android:text="REPORTE INFORMACION ENVIADAS"
             android:textColor="@color/black"
             android:textIsSelectable="false"
-            android:textSize="22sp"
 
-            android:layout_gravity="center_horizontal"
-           />
+            android:textSize="22sp" />
 
         <Button
             android:id="@+id/aceptarF"
             android:layout_width="190dp"
             android:layout_height="70dp"
             android:layout_below="@id/btnFecha2"
-            android:layout_marginLeft="122dp"
+            android:layout_marginLeft="100dp"
             android:layout_marginTop="400dp"
             android:background="@drawable/bordes_redondos"
             android:text="@string/reporteAceptar"
@@ -117,8 +116,8 @@
             android:id="@+id/imprimir"
             android:layout_width="60px"
             android:layout_height="60px"
+            android:layout_marginLeft="300dp"
             android:layout_marginTop="408dp"
-            android:layout_marginLeft="330dp"
             android:background="@null"
             android:drawableBottom="@android:drawable/ic_menu_send"
 
