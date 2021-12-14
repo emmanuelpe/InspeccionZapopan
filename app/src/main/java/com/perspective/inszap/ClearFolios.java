@@ -102,7 +102,7 @@ public class ClearFolios extends Service {
                 do {
                     ArrayList<NameValuePair> id = new ArrayList<>();
                     id.add(new BasicNameValuePair("id", cursor.getString(0)));
-                    JSONObject jo = parser.realizarHttpRequest("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/setNext.php", "GET", id);
+                    JSONObject jo = parser.realizarHttpRequest("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/setNext.php", "GET", id);
 
                     try {
                         int estatus = jo.getInt("estatus");

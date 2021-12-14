@@ -219,6 +219,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private TextInputEditText etArti;
     private SharedPreferences sp;
     private int foliox = 0;
+    static int validarM;
+    static String urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/";
 
 
     @Override
@@ -1274,7 +1276,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
             }
         });
-
+        etfechap.addTextChangedListener(new DateTextWatcher());
         spCreglamentos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -1324,12 +1326,14 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View v,int position, long id) {
-                if (!spFraccionamiento.getItemAtPosition(position).toString().equals("")) {
+                if (!spFraccionamiento.getItemAtPosition(position).toString().equals("Seleccionar")) {
                     etFraccionamiento.setText(spFraccionamiento.getItemAtPosition(position).toString());
                     zon = zonas.get(position);
+                    etFraccionamiento.setEnabled(false);
                 }
                 else {
                     etFraccionamiento.setText("");
+                    etFraccionamiento.setEnabled(true);
                 }
 
             }
@@ -1584,6 +1588,24 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         }
                         sp = getSharedPreferences("infracciones", Context.MODE_PRIVATE);
                         foliox = sp.getInt("folio",0);
+
+                        validarM = sp.getInt("modo",0);
+
+                        if(validarM==1) {
+                            //modoT.setChecked(true);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putInt("modo", 1);
+                            editor.apply();
+                            //titlem.setText("Modo de Tester: " + getResources().getString(R.string.version));
+                            urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/";
+                        }else {
+                            //modoT.setChecked(false);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putInt("modo", 0);
+                            editor.apply();
+                            //titlem.setText("");
+                            urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/";
+                        }
 
 
                         System.out.println(foliox + "---");
@@ -5089,7 +5111,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             fecha + " " + hr, "POR CALIFICAR",etCondominio.getText().toString() + " ",etManzana.getText().toString(),etLote.getText().toString(), etReferencia.getText().toString(), "", /*etAlineamiento.getText().toString()*/"", etConstruccion.getText().toString(), etEntreC.getText().toString(),etEntreC1.getText().toString(),etResponsable.getText().toString(),etRegistro.getText().toString(),idComp,
                             medidasEn2,etArticulo.getText().toString().trim(),etMotivo.getText().toString().trim(),id_inspector3,id_inspector4,id_inspector5,id_inspector6,
                             idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5
-                            ,etLGiro.getText().toString().trim(),etGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),conf,spPeticion.getSelectedItem().toString(),spNE.getSelectedItem().toString(),reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etfechap.getText().toString(),etNumeroSellos.getText().toString(),etdecomiso.getText().toString(),"","",/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
+                            ,etLGiro.getText().toString().trim(),etGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),conf,spPeticion.getSelectedItem().toString(),spNE.getSelectedItem().toString(),reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etfechap.getText().toString(),etNumeroSellos.getText().toString(),etdecomiso.getText().toString(),"","",/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/urlP+"insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
 
                         resu = true;
 
@@ -5109,7 +5131,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     Log.i("sii", "internet " + id_inspector2);
                     //nv
                     for(int i=0;i<SeguimientoM1.size();i++){
-                        if (Connection.insertSeguimiento(etNumeroActa.getText().toString(), String.valueOf(MainActivity.id_ins_sesion),SeguimientoM1.get(i),fecha,"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertSeguimientoM.php")) {
+                        if (Connection.insertSeguimiento(etNumeroActa.getText().toString(), String.valueOf(MainActivity.id_ins_sesion),SeguimientoM1.get(i),fecha,urlP+"insertSeguimientoM.php")) {
 
 
 
@@ -5130,6 +5152,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     for(int i = 0; i < iHecho.length; i++) {
                         float can = 0;
                         int iHec;
+
+                        Log.e("especificacion", "guardar: "+arrayhechosC.get(i) );
                         String iUni = "";
                         if(idLevantamiento == 0) {
                             idLevantamiento++;
@@ -5152,7 +5176,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         else
                             iUni = iUnidad[i];
                         if (conn.validarConexion(getApplicationContext()))
-                            conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, iUni,arrayhechosC.get(i),/*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
+                            conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, iUni,arrayhechosC.get(i),/*"http://172.16.1.21/serverSQL/insertDetalle.php"*/urlP+"insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
                         insertFotrografia(idLevantamientoSQL,etNumeroActa.getText().toString(),etNumeroActa.getText().toString()+".pdf","PDF","N","N");
 
                     }
@@ -5265,7 +5289,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             Log.i("Archivo", nom);
             //conn.insertFoto(idLevantamientoSQL, etNumeroActa.getText().toString(),nom.replace("/", "-"), desc, "http://10.0.2.2:8080/serverSQL/insertFoto.php");
             if (conn.validarConexion(getApplicationContext()) & resu)
-                conn.insertFoto(idLevantamientoSQL, etNumeroActa.getText().toString(),nom.replace("/", "-"), desc, /*"http://172.16.1.21/serverSQL/insertFoto.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertFoto.php"/*"http://pgt.no-ip.biz/serverSQL/insertFoto.php"/"http://192.168.0.11/serverSQL/insertFoto.php"*/);
+                conn.insertFoto(idLevantamientoSQL, etNumeroActa.getText().toString(),nom.replace("/", "-"), desc, /*"http://172.16.1.21/serverSQL/insertFoto.php"*/urlP+"insertFoto.php"/*"http://pgt.no-ip.biz/serverSQL/insertFoto.php"/"http://192.168.0.11/serverSQL/insertFoto.php"*/);
         }
         archivo = Environment.getExternalStorageDirectory()+"/Infracciones/fotografias/"+etNumeroActa.getText().toString().replace("/", "_")+"/";
         System.out.println(new File(archivo + etNumeroActa.getText().toString().replace("/", "_") + ".txt").exists());
@@ -5919,7 +5943,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         int id = 0;
         //this.result = conn.search("http://192.168.0.11/serverSQL/getIdLevantamientos.php");
         //this.result = conn.search("http://pgt.no-ip.biz/serverSQL/getIdLevantamientos.php");
-        this.result = conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getIdLevantamientos.php");
+        this.result = conn.search(urlP+"getIdLevantamientos.php");
         //this.result = conn.search("http://172.16.1.21/serverSQL/getIdLevantamientos.php");
 
         try {
@@ -5939,7 +5963,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     public int getIdDetalle() {
         //this.result = conn.search("http://192.168.0.11/serverSQL/getDetalleInfaccion.php");
         //this.result = conn.search("http://10.0.2.2/serverSQL/getDetalleInfaccion.php");
-        this.result = conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getDetalleInfraccion.php");
+        this.result = conn.search(urlP+"getDetalleInfraccion.php");
         //this.result = conn.search("http://172.16.1.21/serverSQL/getDetalleInfaccion.php");
 
         int id = 0;
@@ -5986,7 +6010,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             zonas.clear();
             try {
                 if (c.moveToFirst()){
-                    fraccionamiento.add("");
+                    fraccionamiento.add("Seleccionar");
                     zonas.add("");
                     do {
                         fraccionamiento.add(c.getString(1));
@@ -8201,7 +8225,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 Cursor c = db.rawQuery("SELECT * FROM C_zonas WHERE id_c_direccion = '" + 5 + "'", null);
                 if(c.moveToFirst()){
                     do{
-                        zona.add(c.getString(2) + "     " + c.getString(3));
+                        zona.add(c.getString(2));
                     }while(c.moveToNext());
                 }
                 c.close();
@@ -14628,14 +14652,24 @@ String numeroS="";
                     etVManifiesta.setEnabled(true);
                     etVManifiesta.setText("No manifiesta");
 
-                    spManifiesta.setSelection(3);
+                    //spManifiesta.setSelection(3);
+                    for(int i=0;i<spManifiesta.getCount();i++){
+                        if(spManifiesta.getItemAtPosition(i).toString().equals("Otro")){
+                            spManifiesta.setSelection(i);
+                        }
+                    }
                     spManifiesta.setEnabled(false);
 
                     //etVIdentifica.setEnabled(false);
                     etVIdentifica.setEnabled(true);
                     //etVIdentifica.setHint("Indique descripcion del visitado");
 
-                    spIdentifica.setSelection(5);
+                    //spIdentifica.setSelection(5);
+                    for(int i=0;i<spIdentifica.getCount();i++){
+                        if(spIdentifica.getItemAtPosition(i).toString().equals("Media filiacion")){
+                            spIdentifica.setSelection(i);
+                        }
+                    }
                     spIdentifica.setEnabled(false);
                     etPropietario.setEnabled(false);
 
@@ -14657,15 +14691,25 @@ String numeroS="";
                     etVManifiesta.setEnabled(true);
                     etVManifiesta.setText("No manifiesta");
 
-                    spManifiesta.setSelection(3);
-
+                   /* spManifiesta.setSelection(3);*/
+                    for(int i=0;i<spManifiesta.getCount();i++){
+                        if(spManifiesta.getItemAtPosition(i).toString().equals("Otro")){
+                            spManifiesta.setSelection(i);
+                        }
+                    }
                     spManifiesta.setEnabled(false);
 
                     //etVIdentifica.setEnabled(false);
                     etVIdentifica.setEnabled(true);
                     //etVIdentifica.setHint("Indique descripcion del visitado");
 
-                        spIdentifica.setSelection(6);
+                        //spIdentifica.setSelection(6);
+                    for(int i=0;i<spIdentifica.getCount();i++){
+                        if(spIdentifica.getItemAtPosition(i).toString().equals("No se identifica")){
+                            spIdentifica.setSelection(i);
+                        }
+                    }
+
                     etVIdentifica.setText("persona alguna");
 
                     spIdentifica.setEnabled(false);

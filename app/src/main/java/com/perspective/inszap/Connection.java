@@ -562,8 +562,10 @@ public class Connection {
 		dat.add(new BasicNameValuePair("numero_acta", numeroActa));
 		dat.add(new BasicNameValuePair("id_c_infraccion", id_c_infraccion));
 		dat.add(new BasicNameValuePair("cantidad", cantidad));
+		//dat.add(new BasicNameValuePair("especificacion",especificacion));
 		
 		try {
+			System.out.println(url);
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httpPost = new HttpPost(url);
 			httpPost.setEntity(new UrlEncodedFormEntity(dat));
@@ -735,12 +737,12 @@ public class Connection {
 			}
 
 			for (int i = 0; i < tablas.size(); i++) {
-				System.out.println("t " + tablas.get(i));
-				if (c.getColumnIndex(tablas.get(i)) > -1)
-					System.out.println("si existe " );
-				else {
+				//System.out.println("t " + tablas.get(i));
+				if (c.getColumnIndex(tablas.get(i)) > -1) {
+					//System.out.println("si existe ");
+				}else {
 					db.execSQL("ALTER TABLE " + tabla + " ADD COLUMN " + tablas.get(i) + " TEXT ");
-					System.out.println("ALTER TABLE " + tabla + " ADD COLUMN " + tablas.get(i) + " TEXT ");
+					//System.out.println("ALTER TABLE " + tabla + " ADD COLUMN " + tablas.get(i) + " TEXT ");
 				}
 			}
 			if(c.getColumnIndex("fechaA") > -1) {
@@ -748,7 +750,7 @@ public class Connection {
 			}
 			c.close();
 			for (int i = 0; i < tablas.size(); i++) {
-				System.out.println("t " + tablas.get(i));
+				//System.out.println("t " + tablas.get(i));
 			}
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Date date = new Date();
@@ -756,15 +758,15 @@ public class Connection {
 				this.json_data = this.jArray.getJSONObject(i);
 
 				for (int j = 0; j < tablas.size(); j++) {
-					System.out.println("nombre campo "+ tablas.get(j));
+					//System.out.println("nombre campo "+ tablas.get(j));
 					if (!json_data.isNull(tablas.get(j))) {
 						System.out.println("entro");
 							cv.put(tablas.get(j), json_data.getString(tablas.get(j).trim()));
-							System.out.println("registro" + i + " " + tablas.get(j) + " " + json_data.getString(tablas.get(j)));
+							//System.out.println("registro" + i + " " + tablas.get(j) + " " + json_data.getString(tablas.get(j)));
 					}
 					else {
 						cv.put(tablas.get(j), "");
-						System.out.println("registro" + i + " " + tablas.get(j) + " ");
+						//System.out.println("registro" + i + " " + tablas.get(j) + " ");
 					}
 				}
 				if(r > 0) {
@@ -777,10 +779,10 @@ public class Connection {
 			db.setTransactionSuccessful();
 
 		}catch (SQLiteException sqlite) {
-			Log.e("SQLiteException", sqlite.getMessage());
+			//Log.e("SQLiteException", sqlite.getMessage());
 			return false;
 		}catch (JSONException j) {
-			Log.e("JSONException", j.getMessage());
+			//Log.e("JSONException", j.getMessage());
 			return false;
 		}
 		/*catch (ClientProtocolException e) {
@@ -984,7 +986,7 @@ public class Connection {
 				this.is = entity.getContent();
 				Log.i("is", is + " x)");
 			} catch (Exception e) {
-				Log.e("ERROR 1", e.getMessage() + " ");
+				//Log.e("ERROR 1", e.getMessage() + " ");
 				return 0;
 			}
 			try {

@@ -70,6 +70,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
     private List<String> nal2 = new ArrayList<>();
     private List<String> numeroAc=new ArrayList<>();
     private List<String> medida=new ArrayList<>();
+    static String urlP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +89,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
         btnimprimir.setVisibility(View.GONE);
 
         nombre = getIntent().getExtras().getString("usuario");
+        urlP=getIntent().getExtras().getString("url");
 
         Log.e("user",nombre);
 
@@ -854,8 +856,8 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
             na2 = "";
 
             if (Connection.validarConexion(getApplicationContext())) {
-                JSONArray jsonArray = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getReport.php", "POST", report);
-                JSONArray jsonArray1 = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getReport1.php", "POST", report2);
+                JSONArray jsonArray = jParser.realizarHttpRequest1(urlP+"getReport.php", "POST", report);
+                JSONArray jsonArray1 = jParser.realizarHttpRequest1(urlP+"getReport1.php", "POST", report2);
                 nas.clear();
                 try {
                     for (int x = 0; x < jsonArray.length(); x++) {

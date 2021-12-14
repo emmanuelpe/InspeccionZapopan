@@ -98,7 +98,7 @@ public class UpdateFolio extends Service {
                 do {
                     ArrayList<NameValuePair> id = new ArrayList<>();
                     id.add(new BasicNameValuePair("id", cursor.getString(0)));
-                    JSONObject jo = parser.realizarHttpRequest("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getFolioLast.php", "GET", id);
+                    JSONObject jo = parser.realizarHttpRequest("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/getFolioLast.php", "GET", id);
 
                     try {
                         int estatus = jo.getInt("estatus");

@@ -1465,9 +1465,10 @@
 							android:layout_height="70dp"
 							android:hint="dd-mm-aaaa"
 							android:layout_toRightOf="@id/tvfechaap"
-
-							android:layout_below="@id/etfolioap"
+							android:maxLength="10"
 							android:inputType="date"
+							android:layout_below="@id/etfolioap"
+
 							android:imeOptions="actionNext"
 							android:visibility="gone"/>
 
@@ -1510,7 +1511,8 @@
 							android:layout_height="70dp"
 							android:hint="dd-mm-aaaa"
 							android:layout_toRightOf="@id/tvfechaClau"
-							android:inputType="textCapSentences"
+							android:maxLength="10"
+							android:inputType="date"
 							android:layout_below="@id/etfolioclau"
 							android:imeOptions="actionNext"
 							android:visibility="gone"/>
@@ -3707,6 +3709,7 @@
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:prompt="@string/iden"
+							android:textSize="24dp"
 							android:layout_gravity="center_horizontal"/>
 
 						<TextView
@@ -3741,6 +3744,7 @@
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:prompt="@string/iden"
+							android:textSize="24dp"
 							android:layout_gravity="center_horizontal"/>
 
 						<TextView

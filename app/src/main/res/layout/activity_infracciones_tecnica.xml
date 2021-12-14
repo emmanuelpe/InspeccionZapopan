@@ -1208,6 +1208,7 @@
                                 android:layout_toRightOf="@id/tvfechaap"
                                 android:hint="dd-mm-aaaa"
                                 android:imeOptions="actionNext"
+                                android:maxLength="10"
                                 android:inputType="date"
                                 android:visibility="gone" />
 
@@ -3627,6 +3628,7 @@
                             android:id="@+id/spgravedad"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="24dp"
                             android:layout_gravity="center_horizontal"
                             android:prompt="@string/iden" />
 
@@ -3661,6 +3663,7 @@
                             android:id="@+id/spNE"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="24dp"
                             android:layout_gravity="center_horizontal"
                             android:prompt="@string/iden" />
 
