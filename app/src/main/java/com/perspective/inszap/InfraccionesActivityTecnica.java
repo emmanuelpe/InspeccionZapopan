@@ -679,7 +679,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         etBCol = findViewById(R.id.etBCol);
 
         tvReferencia = findViewById(R.id.etReferencia);
-        tvgiro = findViewById(R.id.tvagiro);
+        tvgiro = findViewById(R.id.tvgiro);
         tvNLicencia = findViewById(R.id.tvNLicencia);
 
         llconcepto = findViewById(R.id.llconcepto);
@@ -979,6 +979,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             ante = "IN";
             formato = "infraccion";
            // etGiro.setVisibility(View.VISIBLE);
+            tvgiro.setVisibility(View.VISIBLE);
             etMotivo.setVisibility(View.GONE);
             spNombreA1.setVisibility(View.GONE);
             spNombreA2.setVisibility(View.GONE);
@@ -5075,7 +5076,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             iUni = iUnidad[i];
 
                         Log.i("Detalle infacciÔøΩn", idLevantamiento + " " + etNumeroActa.getText().toString() + " " + iHec + " " + can);
-                        ingresarDetalleInfraccion(idLevantamiento, etNumeroActa.getText().toString(), iHec, can,"N",iUni);
+                        ingresarDetalleInfraccion(idLevantamiento, etNumeroActa.getText().toString(), iHec, can,"N",iUni,arrayhechosC.get(i));
                     }
                 }
 
@@ -6525,7 +6526,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         return n;
     }
 
-    public long ingresarDetalleInfraccion(int idLevantamiento,String numeroActa,int idInfraccion, float cantidad,String estatus,String unidad ) {
+    public long ingresarDetalleInfraccion(int idLevantamiento,String numeroActa,int idInfraccion, float cantidad,String estatus,String unidad, String especificacion ) {
 
         long n = 0;
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
@@ -6539,6 +6540,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             cv.put("cantidad",cantidad);
             cv.put("estatus", estatus);
             cv.put("unidad", unidad);
+            cv.put("especificacion",especificacion);
 
             n = db.insert("Detalle_infraccion", null, cv);
         }
@@ -6953,6 +6955,9 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         etMotivo.setText(c.getString(c.getColumnIndex("motivo_orden")));
                         etMedida.setText(c.getString(c.getColumnIndex("medida_seguridad")));
                         etArticulo.setText(c.getString(c.getColumnIndex("articulo_medida")));
+                        etfolioap.setText(c.getString(c.getColumnIndex("folio_apercibimiento")));
+                        etfechap.setText(c.getString(c.getColumnIndex("fecha_apercibimiento")));
+                        etReferencia.setText(c.getString(c.getColumnIndex("referencia")));
 
 
                         if (c.getString(c.getColumnIndex("v_firma")) != null) {
@@ -6970,7 +6975,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
                         cbFirma.setEnabled(false);
-
+                        etfechap.setEnabled(false);
+                        etfolioap.setEnabled(false);
                         spNombreA1.setEnabled(false);
                         spNombreA2.setEnabled(false);
                         spNombreA3.setEnabled(false);
@@ -7503,9 +7509,11 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     //System.out.println(c.getString(2) + " " + c.getString(c.getColumnIndex("id_c_direccion")));
                     //if(c.getString(c.getColumnIndex("vigente")).trim().equalsIgnoreCase("S")) {
                     id_hecho.add(c.getInt(0));
-                    String recorte=c.getString(2);
+                    /*String recorte=c.getString(2);
                     arregloInfraccion.add(c.getString(2).substring(4,recorte.length()));
-                    arregloInfraccion1.add(c.getString(2).substring(4,recorte.length()));
+                    arregloInfraccion1.add(c.getString(2).substring(4,recorte.length()));*/
+                    arregloInfraccion.add(c.getString(2));
+                    arregloInfraccion1.add(c.getString(2));
                     //System.out.println(c.getString(2) + " do " + c.getString(c.getColumnIndex("id_c_direccion")));
                     //Log.i("listado", "Infraccion: " + c.getString(2));
                     //}
@@ -8370,7 +8378,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     rgPopiedad.setVisibility(View.GONE);
                 }
                 if(id == 3) {
-                    tvPeticion.setVisibility(View.INVISIBLE);
+                    tvPeticion.setVisibility(View.VISIBLE);
                     //spPeticion.setVisibility(View.INVISIBLE);
                     spPeticion.setVisibility(View.VISIBLE);
                     etfoliopeticion.setVisibility(View.VISIBLE);
@@ -8749,7 +8757,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
         }
-        String sql = "SELECT distinct infraccion,"+articulo+" FROM c_infraccion WHERE " + articulo + " LIKE '%" + search + "%' and id_c_direccion = '" + id + "' and trim(vigente) = 'S' order by id_c_infraccion";
+        String sql = "SELECT distinct infraccion,"+articulo+" FROM c_infraccion WHERE " + articulo + " LIKE '%" + search + "%' and id_c_direccion in('3','4','2') and trim(vigente) = 'S' order by id_c_infraccion";
         Cursor cursor = db.rawQuery(sql, null);
         Log.v("sql",sql);
         arregloInfraccion.clear();
@@ -8757,10 +8765,13 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         if(cursor.moveToFirst()){
             arregloInfraccion.add("");
             arregloInfraccion1.add("");
+            //Recorte indentificadores
             do{
-                String recorte=cursor.getString(2);
+                /*String recorte=cursor.getString(0);
                 arregloInfraccion.add(cursor.getString(0).substring(4,recorte.length()));
-                arregloInfraccion1.add(cursor.getString(0).substring(4,recorte.length())+" "+ cursor.getString(1));
+                arregloInfraccion1.add(cursor.getString(0).substring(4,recorte.length())+" "+ cursor.getString(1));*/
+                arregloInfraccion.add(cursor.getString(0));
+                arregloInfraccion1.add(cursor.getString(0) +" "+ cursor.getString(1));
                 Log.i("listado", "Infraccion: " + cursor.getString(0));
             }while(cursor.moveToNext());
         }
@@ -8839,6 +8850,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             idComp = lev.get(0).getIdComp();
             etEntreC.setText(lev.get(0).getEntre_calle1());
             etEntreC1.setText(lev.get(0).getEntre_calle2());
+            etfolioap.setText(lev.get(0).getFolio_apercibimiento());
             etResponsable.setText(lev.get(0).getResponsable_obra());
             etRegistro.setText(lev.get(0).getRegistro_responsable());
             ident = lev.get(0).getIdentifica();
@@ -8916,6 +8928,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
             etLGiro.setText(lev.get(0).getLicencia_giro());
             etAGiro.setText(lev.get(0).getActividad_giro());
+            etfechap.setText(lev.get(0).getFecha_apercibimiento());
             etAlicencia.setText(lev.get(0).getAxo_licencia() + "");
 
             System.err.println((id_inspector3 > 0) + " INSPECTOR");
@@ -9122,7 +9135,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         //numero_citatorio TEXT,infraccion int,tipo_acta text,fecha numeric,hora_inicio time,longitud float,latitud float,orden_vista int,fecha_orden_v numeric,Zona text,nombre_visitado text,se_identifica text,manifiesta_ser text,fraccionamiento text,calle text,numero_ext text,numero_int text,apellidop_prop text,apellidom_prop text,nombre_razon text,nombre_testigo1 text,ife_testigo1 text,designado_por1 text,nombre_testigo2 text,ife_testigo2 text,designado_por2 text,uso_catalogo text,hechos text,infracciones text,id_c_infraccion text,uso_suelo text,densidad text,manifiesta text,gravedad int,dias_plazo int,fecha_plazo numeric,hora_termino time,tipo_visita TEXT,id_pago int,pago numeric, fecha_pago numeric, estatus text,condominio TEXT,manzana TEXT,lote TEXT,capturo text,fecha_atiende_juez numeric, fecha_cancelacion numeric,fecha_efectua_multa numeric, vigencia_multa int, fecha_vigencia numeric,multa text,observaciones text, referencia TEXT
         System.out.println(cursor.getString(cursor.getColumnIndex("licencia_giro")));
         System.out.println(cursor.getString(cursor.getColumnIndex("actividad_giro")));
-        return new Levantamiento(cursor.getInt(cursor.getColumnIndex("id_c_direccion")), cursor.getInt(cursor.getColumnIndex("id_c_inspector1")), cursor.getInt(cursor.getColumnIndex("id_c_inspector2")), cursor.getString(cursor.getColumnIndex("numero_acta")), cursor.getString(cursor.getColumnIndex("nombre_visitado")), cursor.getString(cursor.getColumnIndex("se_identifica")), cursor.getString(cursor.getColumnIndex("manifiesta_ser")), cursor.getString(cursor.getColumnIndex("fraccionamiento")), cursor.getString(cursor.getColumnIndex("calle")), cursor.getString(cursor.getColumnIndex("numero_ext")), cursor.getString(cursor.getColumnIndex("numero_int")), cursor.getString(cursor.getColumnIndex("nombre_razon")), cursor.getString(cursor.getColumnIndex("apellidop_prop")), cursor.getString(cursor.getColumnIndex("apellidom_prop")), cursor.getInt(cursor.getColumnIndex("id_c_competencia")),cursor.getString(cursor.getColumnIndex("fecha")),cursor.getString(cursor.getColumnIndex("entre_calle1")),cursor.getString(cursor.getColumnIndex("entre_calle2")),cursor.getString(cursor.getColumnIndex("responsable_obra")),cursor.getString(cursor.getColumnIndex("registro_responsable")),cursor.getString(cursor.getColumnIndex("identifica")),cursor.getString(cursor.getColumnIndex("peticion")),cursor.getString(cursor.getColumnIndex("v_firma")),cursor.getString(cursor.getColumnIndex("motivo_orden")),cursor.getString(cursor.getColumnIndex("medida_seguridad")),cursor.getString(cursor.getColumnIndex("articulo_medida")),cursor.getInt(cursor.getColumnIndex("id_c_inspector3")),cursor.getInt(cursor.getColumnIndex("id_c_inspector4")),cursor.getInt(cursor.getColumnIndex("id_c_inspector5")),cursor.getInt(cursor.getColumnIndex("id_c_inspector6")),cursor.getString(cursor.getColumnIndex("Zona")),cursor.getString(cursor.getColumnIndex("referencia")),cursor.getString(cursor.getColumnIndex("l_construccion")),cursor.getString(cursor.getColumnIndex("condominio")),cursor.getString(cursor.getColumnIndex("numero_citatorio")),cursor.getString(cursor.getColumnIndex("licencia_giro")),cursor.getString(cursor.getColumnIndex("actividad_giro")),cursor.getInt(cursor.getColumnIndex("axo_licencia")),cursor.getString(cursor.getColumnIndex("nombre_comercial")),cursor.getString(cursor.getColumnIndex("sector")));
+        return new Levantamiento(cursor.getInt(cursor.getColumnIndex("id_c_direccion")), cursor.getInt(cursor.getColumnIndex("id_c_inspector1")), cursor.getInt(cursor.getColumnIndex("id_c_inspector2")), cursor.getString(cursor.getColumnIndex("numero_acta")), cursor.getString(cursor.getColumnIndex("nombre_visitado")), cursor.getString(cursor.getColumnIndex("se_identifica")), cursor.getString(cursor.getColumnIndex("manifiesta_ser")), cursor.getString(cursor.getColumnIndex("fraccionamiento")), cursor.getString(cursor.getColumnIndex("calle")), cursor.getString(cursor.getColumnIndex("numero_ext")), cursor.getString(cursor.getColumnIndex("numero_int")), cursor.getString(cursor.getColumnIndex("nombre_razon")), cursor.getString(cursor.getColumnIndex("apellidop_prop")), cursor.getString(cursor.getColumnIndex("apellidom_prop")), cursor.getInt(cursor.getColumnIndex("id_c_competencia")),cursor.getString(cursor.getColumnIndex("fecha")),cursor.getString(cursor.getColumnIndex("entre_calle1")),cursor.getString(cursor.getColumnIndex("entre_calle2")),cursor.getString(cursor.getColumnIndex("responsable_obra")),cursor.getString(cursor.getColumnIndex("registro_responsable")),cursor.getString(cursor.getColumnIndex("identifica")),cursor.getString(cursor.getColumnIndex("peticion")),cursor.getString(cursor.getColumnIndex("v_firma")),cursor.getString(cursor.getColumnIndex("motivo_orden")),cursor.getString(cursor.getColumnIndex("medida_seguridad")),cursor.getString(cursor.getColumnIndex("articulo_medida")),cursor.getInt(cursor.getColumnIndex("id_c_inspector3")),cursor.getInt(cursor.getColumnIndex("id_c_inspector4")),cursor.getInt(cursor.getColumnIndex("id_c_inspector5")),cursor.getInt(cursor.getColumnIndex("id_c_inspector6")),cursor.getString(cursor.getColumnIndex("Zona")),cursor.getString(cursor.getColumnIndex("referencia")),cursor.getString(cursor.getColumnIndex("l_construccion")),cursor.getString(cursor.getColumnIndex("condominio")),cursor.getString(cursor.getColumnIndex("numero_citatorio")),cursor.getString(cursor.getColumnIndex("licencia_giro")),cursor.getString(cursor.getColumnIndex("actividad_giro")),cursor.getInt(cursor.getColumnIndex("axo_licencia")),cursor.getString(cursor.getColumnIndex("nombre_comercial")),cursor.getString(cursor.getColumnIndex("sector")),cursor.getString(cursor.getColumnIndex("folio_apercibimiento")),cursor.getString(cursor.getColumnIndex("fecha_apercibimiento")));
     }
 
     public void validarFec(){
@@ -13255,7 +13268,8 @@ String numeroS="";
                 doc.open();
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.orden_previa);
+                //Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.orden_previa);
+                Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.ov_2022);
                 bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
                 Image img;
 
@@ -13286,19 +13300,19 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(30, 825+c);
+                canvas.moveText(30, 834+c);
                 canvas.showText(this.direccion + "   " + spZona.getSelectedItem().toString());
                 canvas.endText();
                 canvas.restoreState();
 
-                canvas.saveState();
+                /*canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 12);
                 canvas.moveText(450, 825+c);
                 canvas.showText(etNumeroActa.getText().toString());
                 canvas.endText();
-                canvas.restoreState();
+                canvas.restoreState();*/
 
                 doc.add(new Paragraph(" "));
                 doc.add(new Paragraph(" ",font1));
@@ -13320,7 +13334,7 @@ String numeroS="";
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(80, 790 + c);
+                        canvas.moveText(80, 796 + c);
                         canvas.showText("Propietario o Representante Legal");
                         canvas.endText();
                         canvas.restoreState();
@@ -13329,7 +13343,7 @@ String numeroS="";
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(80, 790 + c);
+                        canvas.moveText(80, 796 + c);
                         canvas.showText(etNombreComercial.getText().toString());
                         canvas.endText();
                         canvas.restoreState();
@@ -13339,7 +13353,7 @@ String numeroS="";
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(80, 790 + c);
+                    canvas.moveText(80, 796 + c);
                     canvas.showText(etNombreV.getText().toString());
                     canvas.endText();
                     canvas.restoreState();
@@ -13371,7 +13385,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(80, 770+c);
+                canvas.moveText(80, 785+c);
                 canvas.showText(dato);
                 canvas.endText();
                 canvas.restoreState();
@@ -13383,7 +13397,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(80, 750+c);
+                canvas.moveText(80, 765+c);
                 canvas.showText(etFraccionamiento.getText().toString() + " " + etCondominio.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
@@ -13489,11 +13503,11 @@ String numeroS="";
                 doc.add(new Paragraph(" ",font1));
                 doc.add(new Paragraph(" ",font1));
                 doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,15,Color.BLACK)));
+               // doc.add(new Paragraph(" ",font1));
+                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,4f,Color.BLACK)));
 
                 //p = new Paragraph("  " + spnombre.getSelectedItem().toString() + ", " + spNombreA.getSelectedItem().toString() + "," + spNombreA1.getSelectedItem().toString() + "," + spNombreA2.getSelectedItem().toString()+ "," + spNombreA3.getSelectedItem().toString()+ "," + spNombreA4.getSelectedItem().toString(),font1);
-                p = new Paragraph("" + insp,new Font(Font.HELVETICA,8.5f,Color.BLACK));
+                p = new Paragraph("" + insp,new Font(Font.HELVETICA,8.8f,Color.BLACK));
                 p.setAlignment(Paragraph.ALIGN_LEFT);
                 doc.add(p);
 
@@ -13528,7 +13542,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(150, 415+c);
+                canvas.moveText(150, 443+c);
                 //canvas.showText("01 de Abril");
                 canvas.showText(recorte2[2]+" de "+ vigencia_inicial);
                 canvas.endText();
@@ -13538,7 +13552,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(280, 415+c);
+                canvas.moveText(285, 443+c);
                 canvas.showText(String.valueOf(ax).substring(2, 4));
                 canvas.endText();
                 canvas.restoreState();
@@ -13547,7 +13561,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(350, 415+c);
+                canvas.moveText(350, 443+c);
                 canvas.showText(recorte1[2] + " de " + vigencia);
                 canvas.endText();
                 canvas.restoreState();
@@ -13556,16 +13570,19 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(505, 415+c);
+                canvas.moveText(509, 443+c);
                 canvas.showText(String.valueOf(ax).substring(2, 4));
                 canvas.endText();
                 canvas.restoreState();
-
+                for(int x=0;x < folios.size();x++) {
+                    if(!folios.get(x).trim().equalsIgnoreCase(""))
+                        folio+=folios.get(x) + ",";
+                }
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(205, 405+c);
+                canvas.moveText(205, 432.2f+c);
                 canvas.showText(folio);
                 canvas.endText();
                 canvas.restoreState();
@@ -13590,27 +13607,26 @@ String numeroS="";
                 }
 
                 doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
+                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,4.5f,Color.BLACK)));
+                //doc.add(new Paragraph(" ",font1));
+                //doc.add(new Paragraph(" ",font1));
 
-                if(!motivo.trim().equalsIgnoreCase(""))
-                    txt = Justificar.justifocarTexto1(motivo, 135);
+                /*doc.add(new Paragraph(" ",font1));
+                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,7f,Color.BLACK)));
+                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,9f,Color.BLACK)));*/
 
-                int li = 383+c;
-
-                for (int i = 0; i < txt.length; i++) {
-
-                    canvas.saveState();
-                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                    canvas.beginText();
-                    canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(27, li);
-                    canvas.showText(txt[i]);
-                    canvas.endText();
-                    canvas.restoreState();
-
-                    li-=10;
+                if(motivo.length()>1500){
+                    p = new Paragraph(motivo,new Font(Font.HELVETICA,6.2f,Color.BLACK));
+                    p.setLeading(10);
+                    p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+                    //p.setFont(new Font(Font.HELVETICA,3));
+                    doc.add(p);
+                }else{
+                    p = new Paragraph(motivo,new Font(Font.HELVETICA,9.35f,Color.BLACK));
+                    p.setLeading(10);
+                    p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+                    //p.setFont(new Font(Font.HELVETICA,3));
+                    doc.add(p);
                 }
 
                 int d = 5;
@@ -13619,7 +13635,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(270, 125);
+                canvas.moveText(270, 109f);
                 canvas.showText(dia + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -13628,7 +13644,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(315, 125);
+                canvas.moveText(315, 109f);
                 canvas.showText(me.toUpperCase());
                 canvas.endText();
                 canvas.restoreState();
@@ -13637,7 +13653,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(433, 125);
+                canvas.moveText(445, 109f);
                 canvas.showText(String.valueOf(a).substring(2,4) + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -13646,7 +13662,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(85,105);
+                canvas.moveText(85,91);
                 canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
@@ -13655,7 +13671,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(510, 105);
+                canvas.moveText(510, 89.5f);
                 canvas.showText(hr);
                 canvas.endText();
                 canvas.restoreState();
@@ -13664,7 +13680,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(65, 93);
+                canvas.moveText(65, 79);
                 canvas.showText(dia + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -13673,7 +13689,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(155, 93);
+                canvas.moveText(155, 79);
                 canvas.showText(me.toUpperCase(Locale.getDefault()));
                 canvas.endText();
                 canvas.restoreState();
@@ -13682,7 +13698,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(264, 93);
+                canvas.moveText(264, 79);
                 canvas.showText(a + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -13692,7 +13708,7 @@ String numeroS="";
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(150, 80);
+                    canvas.moveText(150, 65);
                     canvas.showText("Si");
                     canvas.endText();
                     canvas.restoreState();
@@ -13701,7 +13717,7 @@ String numeroS="";
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(150, 80);
+                    canvas.moveText(150, 65);
                     canvas.showText("No");
                     canvas.endText();
                     canvas.restoreState();
@@ -14602,19 +14618,27 @@ String numeroS="";
                     id_hecho.add(cursor.getInt(0));
                     Log.i("listado", "reglamento: " + textofiltro);
                     if(reglamentoC[0].equals(".")){
-                        String recorteH=cursor.getString(2);
+                        //String recorteH=cursor.getString(2);
 
-                        arregloInfraccion.add(cursor.getString(2).substring(4,recorteH.length()));
-                        arregloInfraccion1.add(cursor.getString(2).substring(4,recorteH.length()));
+                        //arregloInfraccion.add(cursor.getString(2).substring(4,recorteH.length()));
+                        //arregloInfraccion1.add(cursor.getString(2).substring(4,recorteH.length()));
+                        arregloInfraccion.add(cursor.getString(2));
+                        arregloInfraccion1.add(cursor.getString(2));
+
                         //Log.i("listado", "Infraccion: " + cursor.getString(2));
                     } else{
                         Log.i("listado", "Infraccion: " + textofiltro);
-                        String recorteH=cursor.getString(2);
+                       /* String recorteH=cursor.getString(2);
                         arregloInfraccion.add(cursor.getString(2).substring(4,recorteH.length()));
 
                         arregloInfraccion1.add(cursor.getString(2).substring(4,recorteH.length()) + " " + cursor.getString(cursor.getColumnIndex(reglamentoC[0].trim())));
-                        Log.i("listado", "Infraccion: " + cursor.getString(2) + " " + cursor.getString(cursor.getColumnIndex(reglamentoC[0].trim())));
-                        Log.i("listado", "Infraccion: " + cursor.getString(2));
+*/
+                        arregloInfraccion.add(cursor.getString(2));
+
+                        arregloInfraccion1.add(cursor.getString(2));
+
+                        /*Log.i("listado", "Infraccion: " + cursor.getString(2) + " " + cursor.getString(cursor.getColumnIndex(reglamentoC[0].trim())));
+                        Log.i("listado", "Infraccion: " + cursor.getString(2));*/
 
                     }
                 }
@@ -16015,7 +16039,7 @@ Por recibida el Acta número ____________________________________ por la cual s
         try{
             c = db.rawQuery("SELECT * FROM c_fraccionamiento where fraccionamiento like '%" + condicion + "%' order by fraccionamiento", null);
             Log.i("que", "SELECT * FROM c_fraccionamiento where fraccionamiento like '%" + condicion + "%'");
-            fraccionamiento.add("");
+            fraccionamiento.add("Seleccionar");
             zonas.add("");
             if(c.moveToFirst()){
                 Log.i("no", "no");
