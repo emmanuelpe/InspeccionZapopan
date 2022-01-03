@@ -1294,7 +1294,7 @@ public class MainActivity extends Activity {
 			Cursor c = db.rawQuery("Select * from C_inspector where nombre = '" + usuario + "' and contrasena = '" + pass + "'", null);
 			Log.e("ingresar: ","Select * from C_inspector where nombre = '" + usuario + "' and contrasena = '" + pass + "'"  );
 			if(c.moveToFirst()) {
-				if (usuario.trim().equals("Administrador")||usuario.trim().equals("administrador")) {
+				if (c.getInt(c.getColumnIndex("id_c_direccion"))==1) {
 					r = true;
 				} else {
 
@@ -1312,7 +1312,7 @@ public class MainActivity extends Activity {
 					System.out.println(date2);
 
 
-					if (date2.compareTo(date1) < 0) {
+					if (date2.compareTo(date1) < 0 ) {
 						r = true;
 						System.out.println("fechas  funka");
 					} else {

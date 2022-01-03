@@ -13,7 +13,7 @@
 
     <!--    ESTEBAN-->
     <string name="actualizar">Actualizar App</string>
-    <string name="version">Version 1.6.5 13/12/2021</string>
+    <string name="version">Version 1.6.6 01/01/2021</string>
     <string name="downloading_new_version">Downloading New Version</string>
     <string name="download_failed">Download Failed Please Try Again Later</string>
     <string name="installing_new_version">Installing New Version</string>
