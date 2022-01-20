@@ -1287,6 +1287,9 @@ public class MainActivity extends Activity {
 	public boolean ingresar(String usuario, String pass){
 		boolean r = false;
 
+		/*if(true){
+			throw new RuntimeException("pitp");
+		}*/
 
 		GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
 		SQLiteDatabase db = gestionarBD.getReadableDatabase();

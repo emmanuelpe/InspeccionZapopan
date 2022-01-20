@@ -2494,21 +2494,26 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 
 		@Override
 		protected String doInBackground(String... params) {
-			if (!conn.search(urlP+"getC_visitado_manifiesta.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor") ||!conn.search(urlP+"getC_visitado_manifiesta.php").trim().equalsIgnoreCase(null)) {
+			//No se pudo conectar con el servidor
+			Log.i("imprime:", String.valueOf(conn.search(urlP+"getC_visitado_manifiesta.php").equals("No se pudo conectar con el servidor")));
+			if (conn.search(urlP+"getC_visitado_manifiesta.php").equals("No se pudo conectar con el servidor") || conn.search(urlP+"getC_visitado_manifiesta.php").trim().equals(null)) {
 				//if (!conn.search("http://172.16.1.21/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
 				//if (!conn.search("http://192.168.0.15/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+
+				msj = "No se encontro conexion a internet";
+			}
+			else {
 				if (conn.validarConexion(getApplicationContext())) {
 
 					descargarLevantamiento();
 					descargarDetalle();
 					descargarFotografia();
 					msj = "Datos enviados al servidor";
+				} else {
+					msj = "No se encontro conexion a internet";
 				}
-				else
-					msj =  "No se encontro conexion a internet";
+
 			}
-			else
-				msj = "No se pudo conectar con el servidor";
 			return msj;
 		}
 
@@ -2552,9 +2557,13 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 		@Override
 		protected String doInBackground(String... params) {
 			if(VerificarFoto().equals("")){
-				if (!conn.search(urlP+"getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+				if (conn.search(urlP+"getC_Direccion.php").equals("No se pudo conectar con el servidor")) {
 					//if (!conn.search("http://172.16.1.21/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
 					//if (!conn.search("http://192.168.0.15/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+					msj = "No se pudo conectar con el servidor";
+
+				}else{
+
 					if (conn.validarConexion(getApplicationContext())) {
 						//foto();
 						fotografias();
@@ -2562,8 +2571,8 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 					}
 					else
 						msj = "No se encontro conexion a internet";
-				}else
-					msj = "No se pudo conectar con el servidor";
+				}
+
 			}
 			else
 				msj = "No hay datos guardados en el dispositivo";
