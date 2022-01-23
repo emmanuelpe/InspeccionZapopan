@@ -70,6 +70,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
     private List<String> nal2 = new ArrayList<>();
     private List<String> numeroAc=new ArrayList<>();
     private List<String> medida=new ArrayList<>();
+    static String urlP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +89,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
         btnimprimir.setVisibility(View.GONE);
 
         nombre = getIntent().getExtras().getString("usuario");
+        urlP=getIntent().getExtras().getString("url");
 
         Log.e("user",nombre);
 
@@ -164,7 +166,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                             ByteArrayOutputStream stream = new ByteArrayOutputStream();
                             Bitmap bitmap = null;
 
-                            bitmap = BitmapFactory.decodeResource(Reporte1.this.getResources(), R.drawable.reporte_enviadas_3);
+                            bitmap = BitmapFactory.decodeResource(Reporte1.this.getResources(), R.drawable.reporte_enviadas_4);
                             //bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
                             bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream);
                             Image img;
@@ -500,7 +502,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                 doc.newPage();
 
                                 ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
-                                Bitmap bitmap2 = BitmapFactory.decodeResource(Reporte1.this.getResources(), R.drawable.reporte_enviadas_2);
+                                Bitmap bitmap2 = BitmapFactory.decodeResource(Reporte1.this.getResources(), R.drawable.reporte_enviadas_4);
                                 bitmap2.compress(Bitmap.CompressFormat.JPEG , 100, stream1);
                                 Image img2;
 
@@ -854,8 +856,8 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
             na2 = "";
 
             if (Connection.validarConexion(getApplicationContext())) {
-                JSONArray jsonArray = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getReport.php", "POST", report);
-                JSONArray jsonArray1 = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getReport1.php", "POST", report2);
+                JSONArray jsonArray = jParser.realizarHttpRequest1(urlP+"getReport.php", "POST", report);
+                JSONArray jsonArray1 = jParser.realizarHttpRequest1(urlP+"getReport1.php", "POST", report2);
                 nas.clear();
                 try {
                     for (int x = 0; x < jsonArray.length(); x++) {

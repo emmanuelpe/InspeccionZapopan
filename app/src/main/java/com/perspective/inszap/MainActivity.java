@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -263,29 +264,38 @@ public class MainActivity extends Activity {
 
 					if(ingresar(usuario, pass)){
 
-						Log.i("id_c_direccion", String.valueOf(id_));
-						Log.i("direccion", direccion);
-						Intent intent = new Intent(MainActivity.this,Descarga.class);
-						//Intent intent = new Intent(MainActivity.this,TestActivity.class);
-						Bundle bundle = new Bundle();
-						bundle.putString("direccion", direccion);
-						bundle.putString("usuario", usuario.trim());
-						bundle.putInt("id", id_);
-						bundle.putInt("idInps", idI);
+						if(estaInstaladaAplicacion("com.dynamixsoftware.printershare",getApplicationContext())) {
+
+							Log.i("id_c_direccion", String.valueOf(id_));
+							Log.i("direccion", direccion);
+							Intent intent = new Intent(MainActivity.this, Descarga.class);
+							//Intent intent = new Intent(MainActivity.this,TestActivity.class);
+							Bundle bundle = new Bundle();
+							bundle.putString("direccion", direccion);
+							bundle.putString("usuario", usuario.trim());
+							bundle.putInt("id", id_);
+							bundle.putInt("idInps", idI);
 
 
-						intent.putExtras(bundle);
-						SharedPreferences preferencias=getSharedPreferences("datos",Context.MODE_PRIVATE);
-						SharedPreferences.Editor editor=preferencias.edit();
-						editor.putString("usuario", usuario.trim());
-						editor.putInt("id_usuario", id_);
-						editor.putString("direccion",direccion);
+							intent.putExtras(bundle);
+							SharedPreferences preferencias = getSharedPreferences("datos", Context.MODE_PRIVATE);
+							SharedPreferences.Editor editor = preferencias.edit();
+							editor.putString("usuario", usuario.trim());
+							editor.putInt("id_usuario", id_);
+							editor.putString("direccion", direccion);
 
 
-						editor.commit();
-						startActivity(intent);
-						MainActivity.this.finish();
-						mensaje=null;
+							editor.commit();
+							startActivity(intent);
+							MainActivity.this.finish();
+							mensaje = null;
+						}else{
+
+							Toast toast = Toast.makeText(MainActivity.this, "¡¡No se encuentra instalado PRINTER SHARE!! ", Toast.LENGTH_SHORT);
+							toast.setGravity(0, 0, 15);
+							toast.show();
+
+						}
 					}
 					else{
 						if(mensaje!=null){
@@ -996,7 +1006,16 @@ public class MainActivity extends Activity {
 
 		db.close();
 	}
+	private boolean estaInstaladaAplicacion(String nombrePaquete, Context context) {
 
+		PackageManager pm = context.getPackageManager();
+		try {
+			pm.getPackageInfo(nombrePaquete, PackageManager.GET_ACTIVITIES);
+			return true;
+		} catch (PackageManager.NameNotFoundException e) {
+			return false;
+		}
+	}
 	public void insertCompetencia() {
 
 		GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
@@ -1231,6 +1250,8 @@ public class MainActivity extends Activity {
     		}
     		else{
     			//Toast.makeText(this, "No hay inspectores en la bd", Toast.LENGTH_SHORT).show();
+				gestionarBD.ingresarDireccion(db);
+
     		}
     	}catch (SQLiteException e) {
     		Log.e("ERROR FATAL", e.getMessage());
@@ -1253,7 +1274,9 @@ public class MainActivity extends Activity {
     				idInsp.add(c.getInt(0));
     			}while(c.moveToNext());
     			c.close();
-    		}
+    		}else{
+				gestionarBD.ingresarInspectores(db);
+			}
     	}catch (SQLiteException e) {
     		Log.e("bd", e.getMessage());
 		}finally {
@@ -1264,6 +1287,9 @@ public class MainActivity extends Activity {
 	public boolean ingresar(String usuario, String pass){
 		boolean r = false;
 
+		/*if(true){
+			throw new RuntimeException("pitp");
+		}*/
 
 		GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
 		SQLiteDatabase db = gestionarBD.getReadableDatabase();
@@ -1271,7 +1297,7 @@ public class MainActivity extends Activity {
 			Cursor c = db.rawQuery("Select * from C_inspector where nombre = '" + usuario + "' and contrasena = '" + pass + "'", null);
 			Log.e("ingresar: ","Select * from C_inspector where nombre = '" + usuario + "' and contrasena = '" + pass + "'"  );
 			if(c.moveToFirst()) {
-				if (usuario.trim().equals("Administrador")||usuario.trim().equals("administrador")) {
+				if (c.getInt(c.getColumnIndex("id_c_direccion"))==1) {
 					r = true;
 				} else {
 
@@ -1289,7 +1315,7 @@ public class MainActivity extends Activity {
 					System.out.println(date2);
 
 
-					if (date2.compareTo(date1) < 0) {
+					if (date2.compareTo(date1) < 0 ) {
 						r = true;
 						System.out.println("fechas  funka");
 					} else {
@@ -1486,6 +1512,7 @@ public class MainActivity extends Activity {
 			//insertar(params[0]);
 			Context main=getApplicationContext();
 			c=new Connection(main);
+
 			Descarga.actualiza2(c,main);
 			return null;
 		}

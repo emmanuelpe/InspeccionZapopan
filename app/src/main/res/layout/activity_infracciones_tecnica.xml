@@ -196,7 +196,7 @@
 
                         <EditText
                             android:id="@+id/etOrden1"
-                            android:layout_width="350dp"
+                            android:layout_width="320dp"
                             android:layout_height="70dp"
                             android:layout_below="@+id/etnActa"
                             android:hint="@string/ordenvisita"
@@ -1185,8 +1185,8 @@
                                 android:layout_toRightOf="@id/tvfolioap"
                                 android:hint="Folio apercibimiento"
                                 android:imeOptions="actionNext"
+                                android:inputType="number"
 
-                                android:inputType="textCapSentences"
                                 android:visibility="gone" />
 
                             <TextView
@@ -1208,6 +1208,7 @@
                                 android:layout_toRightOf="@id/tvfechaap"
                                 android:hint="dd-mm-aaaa"
                                 android:imeOptions="actionNext"
+                                android:maxLength="10"
                                 android:inputType="date"
                                 android:visibility="gone" />
 
@@ -3396,6 +3397,8 @@
                                 android:hint="@string/art"
                                 android:inputType="textMultiLine|textCapSentences" />
 
+
+
                             <Spinner android:id="@+id/spGiro"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
@@ -3417,10 +3420,10 @@
                             <EditText
                                 android:id="@+id/etGiro"
                                 android:layout_width="fill_parent"
-                                android:layout_height="100dp"
+                                android:layout_height="wrap_content"
                                 android:layout_below="@id/spGiro"
-                                android:layout_toRightOf="@id/tvgiro"
-                                android:hint="@string/giro"
+
+                                android:hint="GIRO"
                                 android:inputType="textCapSentences"
                                 android:visibility="visible" />
 
@@ -3627,6 +3630,7 @@
                             android:id="@+id/spgravedad"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="24dp"
                             android:layout_gravity="center_horizontal"
                             android:prompt="@string/iden" />
 
@@ -3661,6 +3665,7 @@
                             android:id="@+id/spNE"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="24dp"
                             android:layout_gravity="center_horizontal"
                             android:prompt="@string/iden" />
 
