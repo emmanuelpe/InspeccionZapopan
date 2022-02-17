@@ -620,8 +620,8 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 
 		consultaTabletas();
 //23/04
-		if(direccion.equalsIgnoreCase("administracion") | direccion.equalsIgnoreCase("administración")) {
-
+		if(direccion.equalsIgnoreCase("administracion") || direccion.equalsIgnoreCase("administración") || direccion.equalsIgnoreCase("Administración")  ) {
+			Log.i("admin", "entro" );
 		} else {
 			comprobarFolio(idIns);
 			clearFolio(idIns);
@@ -651,6 +651,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			 }
 			 cursor.close();
 		System.out.println(fol == folioMax);
+		db.close();
 			 if (fol == folioMax)
 				 startService(new Intent(Descarga.this, ClearFolios.class));
 
@@ -732,7 +733,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			}
 			Log.v("next", next + " ");
 			cursor.close();
-
+            db.close();
 
 			colchon = max - folio;
 
@@ -770,7 +771,10 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 		cv.put("next_min",1);
 		GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
 		SQLiteDatabase db = gestion.getReadableDatabase();
-		return db.update("c_inspector",cv,"id_c_inspector = " + id,null);
+		db.update("c_inspector",cv,"id_c_inspector = " + id,null);
+		db.close();
+		return 1;
+
 		//startService(new Intent(MainActivity.this,UpdateFolio.class));
 	}
 
@@ -1430,8 +1434,8 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 		final String url = urlP+"contarreglones.php";
 		// consultar cantidad de renglones de comercio y renglones de construccion
 		//if (c.validar3("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getrenglonvs_InspM2.php", 0) >= c.validar2(url2, "parametros", 14) && c.validar3("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getcountlicenciasr.php", 0) >= c.validar2(url2, "parametros", 15)) {
-		GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
-		SQLiteDatabase db = gestion.getWritableDatabase();
+		//GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
+		//SQLiteDatabase db = gestion.getWritableDatabase();
 			if (!c.search(urlP+"getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
 				if (!c.search(urlP+"getC_Direccion.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("C_Direccion");

@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
@@ -71,13 +72,21 @@ public class ClearFolios extends Service {
     }
 
     public int datos() {
-        GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
-        SQLiteDatabase db = gestion.getReadableDatabase();
-        String sql = "SELECT * FROM c_inspector where next_min > 1";
+        int count=0;
+        try {
+            GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
 
-        Cursor cursor = db.rawQuery(sql, null);
-        int count = cursor.getCount();
-        cursor.close();
+            SQLiteDatabase db = gestion.getReadableDatabase();
+            String sql = "SELECT * FROM c_inspector where next_min > 1 or next_max > 1 ";
+
+            Cursor cursor = db.rawQuery(sql, null);
+            count = cursor.getCount();
+            cursor.close();
+            db.close();
+        }catch (SQLiteException e){
+            Log.e("erro", "datos: ",e );
+        }
+
         return count;
     }
 
@@ -94,7 +103,7 @@ public class ClearFolios extends Service {
             int bandera = 0;
             GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
             SQLiteDatabase db = gestion.getReadableDatabase();
-            String sql = "SELECT * FROM c_inspector where next_min > 1";
+            String sql = "SELECT * FROM c_inspector where next_min > 1 or next_max > 1 ";
 
             Cursor cursor = db.rawQuery(sql, null);
             count=cursor.getCount();
@@ -125,6 +134,7 @@ public class ClearFolios extends Service {
                 } while (cursor.moveToNext());
             }
             cursor.close();
+            db.close();
             return bandera==count;
         }
 
