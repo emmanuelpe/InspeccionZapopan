@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
@@ -67,13 +68,22 @@ public class UpdateFolio extends Service {
     }
 
     public int datos() {
-        GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
-        SQLiteDatabase db = gestion.getReadableDatabase();
-        String sql = "SELECT * FROM c_inspector where next_min = 1";
+        int count=0;
+        try{
+            GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
 
-        Cursor cursor = db.rawQuery(sql, null);
-        int count = cursor.getCount();
-        cursor.close();
+            SQLiteDatabase db = gestion.getReadableDatabase();
+            String sql = "SELECT * FROM c_inspector where next_min = 1 and next_max=0";
+
+            Cursor cursor = db.rawQuery(sql, null);
+            count = cursor.getCount();
+            cursor.close();
+            db.close();
+        }catch (SQLiteException e){
+            Log.e("erro", "datos: ",e );
+
+        }
+
         return count;
     }
 
@@ -90,7 +100,7 @@ public class UpdateFolio extends Service {
             int bandera = 0;
             GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
             SQLiteDatabase db = gestion.getReadableDatabase();
-            String sql = "SELECT * FROM c_inspector where next_min = 1";
+            String sql = "SELECT * FROM c_inspector where next_min = 1 and next_max=0";
 
             Cursor cursor = db.rawQuery(sql, null);
             count=cursor.getCount();
@@ -107,6 +117,8 @@ public class UpdateFolio extends Service {
                         if (estatus == 1) {
                             //update Local
                             ContentValues cv = new ContentValues();
+                            Log.v("nexT_min", String.valueOf(next_min));
+                            Log.v("next_max", String.valueOf(next_max));
                             cv.put("next_min", next_min);
                             cv.put("next_max", next_max);
                             int x = db.update("c_inspector", cv, "id_c_inspector = " + cursor.getInt(0), null);
@@ -121,6 +133,7 @@ public class UpdateFolio extends Service {
                 } while (cursor.moveToNext());
             }
             cursor.close();
+            db.close();
             return bandera==count;
         }
 

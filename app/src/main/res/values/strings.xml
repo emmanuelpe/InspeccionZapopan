@@ -11,9 +11,9 @@
     <string name="contrasena">Contraseña</string>
     <string name="ingresar">Ingresar</string>
 
-    <!--    ESTEBAN-->
+    <!--     ESTEBAN-->
     <string name="actualizar">Actualizar App</string>
-    <string name="version">Version 1.6.8 20/01/2022</string>
+    <string name="version">Version 1.6.9 17/02/2022</string>
     <string name="downloading_new_version">Downloading New Version</string>
     <string name="download_failed">Download Failed Please Try Again Later</string>
     <string name="installing_new_version">Installing New Version</string>
