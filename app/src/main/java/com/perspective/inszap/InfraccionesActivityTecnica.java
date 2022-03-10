@@ -1709,7 +1709,12 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                     Log.i("acta", "entro aqui");
                                     //aqui consultar el ultimo y asignar
                                     na = ultimo().split("/");
+                                    Log.i("BUG2", ultimo());
+                                    if(na.length>5)
                                     n = Integer.parseInt(na[6]) + 1;
+                                    else
+                                        n=50;
+
                                     numero = String.valueOf(n);
                                     if (numero.length() == 1)
                                         numero = "0" + n;
@@ -8179,7 +8184,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarBD.getReadableDatabase();
         if(db != null){
-            String sentencia = "select * from  Acta where id_c_direccion = '" + id + "' and id_c_inspector = '" + id_inspector1 + "' and numero <> '0' and numero_acta like '%" + ante + "%' ORDER BY id_acta";
+            String sentencia = "select * from  Acta where id_c_direccion = '" + id + "' and id_c_inspector = '" + id_inspector1 + "' and numero <> '0' and numero_acta like '%" + ante + "%'  ORDER BY id_acta";
             Log.i("Sentencia asignar", sentencia);
             Cursor c = db.rawQuery(sentencia, null);
             try {

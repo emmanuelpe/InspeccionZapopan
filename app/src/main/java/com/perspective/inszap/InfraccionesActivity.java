@@ -1737,7 +1737,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     Log.i("acta", "entro aqui");
                                     //aqui consultar el ultimo y asignar
                                     na = ultimo().split("/");
-                                    n = Integer.parseInt(na[6]) + 1;
+                                    if(na.length>5)
+                                        n = Integer.parseInt(na[6]) + 1;
+                                    else
+                                        n=50;
+                                    //n = Integer.parseInt(na[6]) + 1;
                                     numero = String.valueOf(n);
                                     if (numero.length() == 1)
                                         numero = "0" + n;
@@ -8027,11 +8031,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         Cursor  c=null;
     	try{
     	    if(id==5) {
-                c = db.rawQuery("SELECT * FROM C_inspector WHERE  nombre <> '" + us + "' AND nombre <> 'Administrador' and trim(vigente) = 'S' order by nombre", null);
+                c = db.rawQuery("SELECT * FROM C_inspector WHERE  nombre <> '" + us + "' AND nombre <> 'ADMINISTRADOR' and trim(vigente) = 'S' and clave!='' and folio!='' order by nombre", null);
                 Log.e(TAG, "SELECT * FROM C_inspector WHERE  nombre <> '" + us + "' AND nombre <> 'Administrador' and trim(vigente) = 'S' order by nombre" );
 
             }else {
-                c = db.rawQuery("SELECT * FROM C_inspector WHERE id_c_direccion = '" + id + "' AND nombre <> '" + us + "' AND nombre <> 'administrador' and trim(vigente) = 'S' order by nombre", null);
+                c = db.rawQuery("SELECT * FROM C_inspector WHERE id_c_direccion = '" + id + "' AND nombre <> '" + us + "' AND nombre <> 'ADMINISTRADOR' and trim(vigente) = 'S' and clave!='' and folio!='' order by nombre", null);
             }
             //Cursor c = db.query("Inspectores", null, "id_inspector", null, null, null, null);
 	    	id_i2.clear();
