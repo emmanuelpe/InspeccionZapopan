@@ -36,6 +36,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -83,7 +84,14 @@ import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.pdf.draw.DottedLineSeparator;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.http.NameValuePair;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -113,15 +121,19 @@ import java.util.Set;
 
 public class InfraccionesActivityTecnica extends AppCompatActivity implements View.OnClickListener, Runnable, CompoundButton.OnCheckedChangeListener, AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
     static int id_inspectorQ=0;
+    private String config = "";
     private Connection conect;
     static String valW="";
+    private String res2 = "";
     private View linea0,linea1,linea2,linea3,linea4,linea5,linea6,linea7,linea8,linea9,linea10,linea11,linea12,linea13,linea14,linea15;
-
+    private ArrayList<String> foto2 = new ArrayList<String>();
+    private ArrayList<String> archivo2 = new ArrayList<String>();
+    private JSONParser jsonParser = new JSONParser();
     private Button btncopiar,btneliminarA,btneliminarA1,btneliminarA2,btneliminarA3,btneliminarA4,btnArticulos,btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,tveliminar5,tveliminar6,tveliminar7,tveliminar8,tveliminar9,tveliminar10,tveliminar11,tveliminar12,tveliminar13,tveliminar14,tveliminar15,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
     private TextView tvfudamentoEx,tvfechap,tvfolioap,tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvuni5,tvuni6,tvuni7,tvuni8,tvuni9,tvuni10,tvuni11,tvuni12,tvuni13,tvuni14,tvuni15,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvCoordenada,tvPropiedad,spselec1;
     private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",des5="",des6="",des7="",des8="",des9="",des10="",des11="",des12="",des13="",des14="",des15="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,unidades="",usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",clave = "",folio = "",fol = "";;
     private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:";
-    private int mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0,tipoEntrega = 0;
+    private int  countF = 0,mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0,tipoEntrega = 0;
     private Spinner spgiro,spCreglamentos,spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spuni5,spuni6,spuni7,spuni8,spuni9,spuni10,spuni11,spuni12,spuni13,spuni14,spuni15,spMeConstitui;
     private EditText etfudamentoEx,etdecomiso,etNumeroSellos,etfoliopeticion,etfolioap,etfechap,etNum,etFecham,etfecha,etDiaPlazo,etIfeI,etNoI,etVigI,etIfeA,etIfeA1,etIfeA2,etIfeA3,etIfeA4,etNoA,etNoA1,etNoA2,etNoA3,etNoA4,etVigA,etVigA1,etVigA2,etVigA3,etVigA4,etNombreT,etIfeT,etDesc,etDesc1,etDesc2,etDesc3,etDesc4,etDesc5,etDesc6,etDesc7,etDesc8,etDesc9,etDesc10,etDesc11,etDesc12,etDesc13,etDesc14,etDesc15,etdato,etdato1,etdato2,etdato3,etdato4,etdato5,etdato6,etdato7,etdato8,etdato9,etdato10,etdato11,etdato12,etdato13,etdato14,etdato15,desf,desf1,desf2,etNombreV,etFraccionamiento,etCalle,etNumero,etPropietario,etNombreT1,etIfeT2,etManifiesta,etNuemroInterior,etApellidoP,etApellidoM,etCitatorio,etNumeroActa,etEspecificacion,etDFoto,etDFoto1,etDFoto2,etDFoto3,etVManifiesta,etVIdentifica,etLatitud,etLongitud,etAnoCitatorio,etAnoOrden,etCondominio/*etDensidad*/,etManzana,etLote,etReferencia,etBuscar,etfolio,/*etAlineamiento,*/etConstruccion, etGiro, etMotivo,etOrden1,etEntreC,etEntreC1,etResponsable,etRegistro,etMedida,etMedida1,etMedida2,etMedida3,etMedida4,etArticulo,etInspccionFue,etDFoto4,etDFoto5,etDFoto6,etDFoto7,etDFoto8,etDFoto9,etDFoto10,etDFoto11,etDFoto12,etDFoto13,etDFoto14,etDFoto15,etDFoto16,etDFoto17,etDFoto18,etDFoto19,etLGiro,etAGiro,etAlicencia,etSector,etNombreComercial,etObs,etObs1,etObs2,etObs3,etObs4,etObs5,etObs6,etObs7,etObs8,etObs9,etObs10,etObs11,etObs12,etObs13,etObs14,etObs15,etBCol,etOtro,etDondeActua,etCoordenada;
     private LinearLayout lldiv,cons,llNota,llplazo,llreincidencia,llcomp,llconcepto,llPla;
@@ -209,6 +221,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     public static final String TAG = "BixolonPrinterSample";
     private AlertDialog mSampleDialog;
     private Switch swReincidencia;
+
     private ArrayAdapter adapterCol,adapterMeC;
     private List<String> conceptos,articulo,fraccion,unis,unis1,unis2,unis3,unis4,unis5,unis6,unis7,unis8,unis9,unis10,unis11,unis12,unis13,unis14,unis15,meConstitui;
     private ArrayAdapter adapterUni,adapterUni1,adapterUni2,adapterUni3,adapterUni4,adapterUni5,adapterUni6,adapterUni7,adapterUni8,adapterUni9,adapterUni10,adapterUni11,adapterUni12,adapterUni13,adapterUni14,adapterUni15;
@@ -218,9 +231,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     private TextInputLayout tilArticulo;
     private TextInputEditText etArti;
     private SharedPreferences sp;
-    private int foliox = 0;
+    private int foliox = 0,id_l;
     static int validarM;
     static String urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/";
+    private JSONArray jarray;
 
 
     @Override
@@ -2486,44 +2500,11 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 }
 
 
-
-
-
-					/*if (validarCampos(etCitatorio)) {
-						AlertDialog.Builder al = new AlertDialog.Builder(InfraccionesActivityTecnica.this)
-						.setMessage("El campo Citatorio no se lleno. ÔøΩEs corecto?")
-						.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								guardar();
-							}
-						}).setNegativeButton("No", new DialogInterface.OnClickListener() {
-
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-
-							}
-						});
-						AlertDialog alert = al.create();
-						alert.show();
-					}
-					else {*/
-                //guardar();
-                //}
-				/*}catch(Exception e) {
-
-					btnGuardar.setEnabled(false);
-					btnImprimir.setEnabled(true);
-				}*/
-				/*btnGuardar.setEnabled(false);
-				btnImprimir.setEnabled(true);
-				InfraccionesActivityTecnica.this.finish();*/
-
                 if (validarI()) {
-                    if(!etInfraccion.getText().toString().equalsIgnoreCase("") | infrac == 2 | infrac == 3 | infrac == 4)
+                    if(!etInfraccion.getText().toString().equalsIgnoreCase("") | infrac == 2 | infrac == 3 | infrac == 4) {
                         new Descargas().execute();
-                    else {
+                        new EFoto().execute();
+                    }else {
                         Toast toast = Toast.makeText(getApplicationContext(), "EL CAMPO INFRACCION ESTA VACIO", Toast.LENGTH_LONG);
                         toast.setGravity(0, 0, 15);
                         toast.show();
@@ -3254,7 +3235,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
+                                arrayhechosC.clear();
                                 rlcampo.setVisibility(View.GONE);
                                 dato = "";
                                 Log.e("Axmedidas", Axmedidas);
@@ -3613,7 +3594,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         unidades += spuni14.getSelectedItem().toString().trim()+",";
                                         if (!spuni14.getSelectedItem().toString().equals("")) {
                                             seleccion += x + " " + des14 + " (" + etdato14.getText().toString().trim() + " " + spuni14.getSelectedItem().toString() + " " + etObs14.getText().toString() +"); ";
-                                            arrayhechosC.add(seleccion);
+                                            arrayhechosC.add(x + " " + des14 + " (" + etdato14.getText().toString().trim() + " " + spuni14.getSelectedItem().toString() + " " + etObs14.getText().toString() +"); ");
                                         }
                                     } else {
                                         unidades+=" ,";
@@ -4799,6 +4780,52 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             }
         }
     }
+    public  class EFoto extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //pb.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            if(VerificarFoto().equals("")){
+                if (conn.search(urlP+"getC_Direccion.php").equals("No se pudo conectar con el servidor")) {
+                    //if (!conn.search("http://172.16.1.21/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+                    //if (!conn.search("http://192.168.0.15/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+                    msj = "No se pudo conectar con el servidor";
+
+                }else{
+
+                    if (conn.validarConexion(getApplicationContext())) {
+                        //foto();
+
+
+                        descargarFotografia();
+                        fotografias();
+
+                        msj = "La(s) Imagen(es) se ha(n) enviado al servidor";
+                    }
+                    else
+                        msj = "No se encontro conexion a internet";
+                }
+
+            }
+            else
+                msj = "No hay datos guardados en el dispositivo";
+            return msj;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            //pb.setVisibility(View.GONE);
+            Toast toast = Toast.makeText(InfraccionesActivityTecnica.this, result, Toast.LENGTH_SHORT);
+            toast.setGravity(0, 0, 15);
+            toast.show();
+        }
+
+    }
     public class Descargas extends AsyncTask<String, Integer, String> {
         @Override
         protected void onPostExecute(String result) {
@@ -4864,6 +4891,187 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             super.onPreExecute();
             btnGuardar.setEnabled(false);
             //pb.setVisibility(View.VISIBLE);
+        }
+    }
+    public int idLe(String numero_acta) {
+
+        try {
+            res2 = conn.idLevantamiento(urlP+"getIdLevantamiento.php"/*"http://pgt.no-ip.biz/serverSQL/getIdLevantamiento.php"/"http://192.168.0.15/serverSQL/getIdLevantamiento.php"*/, numero_acta);
+        }catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+        //res = conn.idLevantamiento("http://172.16.1.21/serverSQL/getIdLevantamiento.php"/*"http://pgt.no-ip.biz/serverSQL/getIdLevantamiento.php""http://192.168.0.11/serverSQL/getIdLevantamiento.php"*/, numero_acta);
+        int id = 0;
+        if (res2!=null) {
+
+            try {
+                this.jarray = new JSONArray(res);
+                for (int i = 0; i < jarray.length(); i++) {
+                    this.json_data = this.jarray.getJSONObject(i);
+                    id = json_data.getInt("id_levantamiento");
+                    return  id;
+                }
+            } catch (JSONException e) {
+                Log.e("idl", e.getMessage());
+            }
+        }
+        return 0;
+    }
+    public int buscarFoto(String numeroActa, String archivo, String descripcion) {
+        try {
+            result = conn.fotografia(numeroActa, archivo, descripcion, urlP+"getNumeroActaF.php"/*"http://pgt.no-ip.biz/serverSQL/getNumeroActaF.php"/"http://192.168.0.15/serverSQL/getNumeroActaF.php"*/);
+        }catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        //result = conn.fotografia(numeroActa, archivo, descripcion, "http://172.16.1.21/serverSQL/getNumeroActaF.php"/*"http://pgt.no-ip.biz/serverSQL/getNumeroActaF.php""http://192.168.0.11/serverSQL/getNumeroActaF.php"*/);
+
+        if (result!=null) {
+            try {
+                this.jarray = new JSONArray(result);
+                return jarray.length();
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+                return 0;
+            }
+        }
+        return 0;
+    }
+    public void descargarFotografia() {
+        GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
+        SQLiteDatabase db = gestion.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM Fotografia where estatus1 = 'N' and descripcion='PDF'", null);
+
+        ContentValues cv = new ContentValues();
+        cv.put("estatus1", "S");
+        //db.update("Levantamiento", cv, "id_levantamiento = " + c.getInt(0), null);
+        try {
+            if (db != null) {
+                System.out.println(c.getCount() + " F");
+                if (c.moveToFirst()) {
+                    do {
+                        System.out.println((buscarFoto(c.getString(2), c.getString(3), c.getString(4)) == 0) + " f");
+                        if (buscarFoto(c.getString(2), c.getString(3), c.getString(4)) == 0) {
+                            id_l = idLe(c.getString(2));
+                            conn.insertFoto(id_l, c.getString(2), c.getString(3), c.getString(4), /*"http://172.16.1.21/serverSQL/insertFoto.php"*/urlP+"insertFoto.php"/*"http://pgt.no-ip.biz/serverSQL/insertFoto.php"/"http://192.168.0.15/serverSQL/insertFoto.php"*/);
+                            db.update("Fotografia", cv, "id_fotografia = " + c.getInt(0), null);
+                        } else {
+                            db.update("Fotografia", cv, "id_fotografia = " + c.getInt(0), null);
+                        }
+
+                    } while (c.moveToNext());
+                }
+
+            }
+        } catch (SQLiteException e) {
+            Log.e("descargar foto", e.getMessage());
+        } finally {
+            db.close();
+            c.close();
+        }
+    }
+    public String VerificarFoto() {
+        StringBuilder sb = new StringBuilder();
+        GestionBD gestionar = new GestionBD(this, "inspeccion", null, 1);
+        SQLiteDatabase db = gestionar.getReadableDatabase();
+        Cursor F = db.rawQuery("SELECT * FROM Fotografia where estatus = 'N' and descripcion='PDF'", null);
+        if (F.getCount() == 0)
+            sb.append(" Fotografia");
+        db.close();
+        return sb.toString();
+    }
+    public void fotografias() {
+        boolean res;
+        countF = 0;
+        GestionBD gestionarBD = new GestionBD(this, "inspeccion", null, 1);
+        SQLiteDatabase db = gestionarBD.getReadableDatabase();
+        String s, dir, ar;
+        dir = Environment.getExternalStorageDirectory() + "/Infracciones/fotografias/";
+        File f;
+        try {
+            if (db != null) {
+                Cursor c = db.rawQuery("SELECT * FROM Fotografia where estatus='N' and descripcion='PDF'", null);
+                if (c.moveToFirst()) {
+                    foto2.clear();
+                    archivo2.clear();
+
+                    do {
+                        foto2.add(c.getString(2));
+                        archivo2.add(c.getString(3));
+                        s = c.getString(2).replace("/", "_");
+                        ar = c.getString(3);
+                        Log.i("Dato", s + " " + ar);
+                        f = new File(dir + s + "/" + ar);
+                        System.out.println(f.exists());
+                        if (f.exists()) {
+                            Log.i("Mes", "if exist");
+                            File file = new File(f.getAbsolutePath());
+                            MultipartEntity mpEntity = new MultipartEntity();
+                            ContentBody foto = new FileBody(file, "image/jpeg");
+
+                            mpEntity.addPart("fotoUp", foto);
+                            mpEntity.addPart("foto", new StringBody(s));
+
+                            JSONObject json = jsonParser.subirImage(urlP+"pruebaI.php", "POST", mpEntity);
+
+                            //JSONObject json = jsonParser.subirImage("http://192.168.0.16:8080/sitios/pruebas/pruebaI.php", "POST", mpEntity);
+
+                            int success = json.getInt("status");
+                            System.out.println(success + " success");
+
+                            ContentValues cv = new ContentValues();
+                            String sql;
+
+                            if (success == 1) {
+                                System.out.println("envio movio");
+                               // cv.put("estatus", "S");
+                                //sql = "update Fotografia set ";
+                              // db.update("Fotografia", cv, " id_fotografia = " + c.getInt(0), null);
+                            } else if (success == 0)
+                                System.out.println("envio no movio");
+                            else if (success == 3) {
+                                System.out.println("existe");
+                                cv.put("estatus", "S");
+                                db.update("Fotografia", cv, " id_fotografia = " + c.getInt(0), null);
+                            } else
+                                System.out.println("no envio f");
+
+                        }
+                        //db.delete("Fotografia", c.getColumnName(0) + " = '" + c.getString(0) + "'", null);
+                    } while (c.moveToNext());
+                    c.close();
+                    Thread.sleep(4000);
+                    if (countF > 0) {
+                        try {
+
+                            ArrayList<NameValuePair> carga = new ArrayList<NameValuePair>();
+
+                            carga.add(new BasicNameValuePair("tableta", config));
+                            carga.add(new BasicNameValuePair("registros", String.valueOf(0)));
+                            carga.add(new BasicNameValuePair("fotos", String.valueOf(countF)));
+
+                            //JSONObject json = jsonParser.realizarHttpRequest("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertCarga.php", "POST", carga);
+
+                            JSONObject json = jsonParser.realizarHttpRequest(urlP+"insertCarga.php", "POST", carga);
+
+                            int estatus = json.getInt("status");
+
+                            if (estatus == 1) {
+                                System.err.println("inserto");
+                                Log.i(TAG, "fotografias: inserto ");
+                            }else {
+                                System.err.println("no inserto");
+                                Log.i(TAG, "fotografias: no inserto ");
+                            }
+
+                        } catch (JSONException e) {
+                            System.out.println(e.getMessage() + " mm");
+                        }
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+
         }
     }
     public void guardar() {
@@ -5181,8 +5389,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             iUni = "";
                         else
                             iUni = iUnidad[i];
-                        if (conn.validarConexion(getApplicationContext()))
-                            conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, iUni,arrayhechosC.get(i),/*"http://172.16.1.21/serverSQL/insertDetalle.php"*/urlP+"insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
+
+                        conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, iUni,arrayhechosC.get(i),/*"http://172.16.1.21/serverSQL/insertDetalle.php"*/urlP+"insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
                         insertFotrografia(idLevantamientoSQL,etNumeroActa.getText().toString(),etNumeroActa.getText().toString()+".pdf","PDF","N","N");
 
                     }
@@ -5716,154 +5924,137 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(requestCode == 1){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
             System.err.println(requestCode + " " + resultCode);
-            if(resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK) {
 
                 if (foto == 1) {
                     etDFoto.setVisibility(View.VISIBLE);
                     btnver1.setVisibility(View.VISIBLE);
                     etDFoto.requestFocusFromTouch();
 
-                }
-                else if (foto == 2) {
+                } else if (foto == 2) {
                     etDFoto1.setVisibility(View.VISIBLE);
                     btnver2.setVisibility(View.VISIBLE);
                     etDFoto.requestFocusFromTouch();
-                }
-                else if (foto == 3) {
+                } else if (foto == 3) {
                     etDFoto2.setVisibility(View.VISIBLE);
                     btnver3.setVisibility(View.VISIBLE);
                     etDFoto.requestFocusFromTouch();
-                }
-                else if(foto == 4){
+                } else if (foto == 4) {
                     etDFoto3.setVisibility(View.VISIBLE);
                     btnver4.setVisibility(View.VISIBLE);
                     etDFoto.requestFocusFromTouch();
-                }
-                else if(foto == 5){
+                } else if (foto == 5) {
                     etDFoto4.setVisibility(View.VISIBLE);
                     btnver5.setVisibility(View.VISIBLE);
                     etDFoto.requestFocusFromTouch();
-                }
-                else if(foto == 6){
+                } else if (foto == 6) {
                     etDFoto5.setVisibility(View.VISIBLE);
                     btnver6.setVisibility(View.VISIBLE);
                     etDFoto.requestFocusFromTouch();
-                }
-                else if(foto == 7){
+                } else if (foto == 7) {
                     etDFoto6.setVisibility(View.VISIBLE);
                     btnver7.setVisibility(View.VISIBLE);
                     etDFoto.requestFocusFromTouch();
-                }
-                else if(foto == 8){
+                } else if (foto == 8) {
                     etDFoto7.setVisibility(View.VISIBLE);
                     btnver8.setVisibility(View.VISIBLE);
                     etDFoto.requestFocusFromTouch();
-                }
-                else if(foto == 9){
+                } else if (foto == 9) {
                     etDFoto8.setVisibility(View.VISIBLE);
                     btnver9.setVisibility(View.VISIBLE);
                     etDFoto.requestFocusFromTouch();
-                }
-                else if(foto == 10){
+                } else if (foto == 10) {
                     etDFoto9.setVisibility(View.VISIBLE);
                     btnver10.setVisibility(View.VISIBLE);
                     etDFoto.requestFocusFromTouch();
-                }
-                else if(foto == 11){
+                } else if (foto == 11) {
                     etDFoto10.setVisibility(View.VISIBLE);
                     btnver11.setVisibility(View.VISIBLE);
                     etDFoto.requestFocusFromTouch();
-                }
-                else if(foto == 12){
+                } else if (foto == 12) {
                     etDFoto11.setVisibility(View.VISIBLE);
                     btnver12.setVisibility(View.VISIBLE);
                     etDFoto.requestFocusFromTouch();
-                }
-                else if(foto == 13){
+                } else if (foto == 13) {
                     etDFoto12.setVisibility(View.VISIBLE);
                     btnver13.setVisibility(View.VISIBLE);
                     etDFoto.requestFocusFromTouch();
-                }
-                else if(foto == 14){
+                } else if (foto == 14) {
                     etDFoto13.setVisibility(View.VISIBLE);
                     btnver14.setVisibility(View.VISIBLE);
                     etDFoto.requestFocusFromTouch();
-                }
-                else if(foto == 15){
+                } else if (foto == 15) {
                     etDFoto14.setVisibility(View.VISIBLE);
                     btnver15.setVisibility(View.VISIBLE);
                     etDFoto.requestFocusFromTouch();
-                }
-
-                else {
+                } else {
                     etDFoto15.setVisibility(View.VISIBLE);
                     btnver16.setVisibility(View.VISIBLE);
                     etDFoto.requestFocusFromTouch();
                 }
 
-                if(foto == 15)
+                if (foto == 15)
                     btnTomarF.setVisibility(View.GONE);
                 else
                     btnTomarF.setVisibility(View.VISIBLE);
 
                 System.out.println(foto + " foto");
-                if(foto >= 1) {
+                if (foto >= 1) {
                     System.err.println("guarda " + guarda);
-                }else {
+                } else {
                     btnImprimir.setEnabled(false);
                 }
 
-                if(guarda) {
+                if (guarda) {
                     btnImprimir.setEnabled(true);
-                }
-                else
+                } else
                     btnImprimir.setEnabled(false);
 
-                if(resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK) {
                     //btnImprimir.setEnabled(true);
-                    String nom = etNumeroActa.getText().toString()+"-"+foto+".jpg";
+                    String nom = etNumeroActa.getText().toString() + "-" + foto + ".jpg";
                     nom = nom.replace("/", "_");
                     String desc = "";
-                    archivo+=nom;
+                    archivo += nom;
                     Log.i("Archivo", nom);
-                    Log.i("Inserto foto", insertFotrografia(idl, etNumeroActa.getText().toString(), nom, desc,"N","N")+"");
+                    Log.i("Inserto foto", insertFotrografia(idl, etNumeroActa.getText().toString(), nom, desc, "N", "N") + "");
                 }
-            }else if(resultCode == RESULT_CANCELED) {
+            } else if (resultCode == RESULT_CANCELED) {
                 System.err.println(RESULT_CANCELED);
                 foto--;
-                if(id==2 |id==5){
-    				    btncopiar.requestFocusFromTouch();
-                    }else{
+                if (id == 2 | id == 5) {
+                    btncopiar.requestFocusFromTouch();
+                } else {
 
-                        btncopiar.requestFocusFromTouch();
-                    }
-                if(foto == 15)
+                    btncopiar.requestFocusFromTouch();
+                }
+                if (foto == 15)
                     btnTomarF.setVisibility(View.GONE);
                 else
                     btnTomarF.setVisibility(View.VISIBLE);
 
-                if(foto > 1)
+                if (foto > 1)
                     btnImprimir.setEnabled(true);
                 else {
                     btnImprimir.setEnabled(false);
                 }
 
-                if(guarda)
+                if (guarda)
                     btnImprimir.setEnabled(true);
                 else
                     btnImprimir.setEnabled(false);
             }
-        }
-        else
+        } else
             foto--;
         if (requestCode == 0 & resultCode == RESULT_OK) {
-            String provider = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-            if(provider != null){
-                Log.v("yes", " Location providers: "+provider);
+            String provider = Settings.Secure.getString(getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+            if (provider != null) {
+                Log.v("yes", " Location providers: " + provider);
                 Thread thread = new Thread(InfraccionesActivityTecnica.this);
                 thread.start();
             }
@@ -6049,7 +6240,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             setMobileDataEnabledMethod = iConnectivityManagerClass.getDeclaredMethod("setMobileDataEnabled", Boolean.TYPE);
             setMobileDataEnabledMethod.setAccessible(true);
             setMobileDataEnabledMethod.invoke(iConnectivityManager, enabled);
-        } catch (@SuppressLint("NewApi") ClassNotFoundException | NoSuchFieldException | IllegalAccessException | InvocationTargetException e) {
+        } catch ( ClassNotFoundException | NoSuchFieldException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
             e.printStackTrace();

@@ -2551,7 +2551,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				toast.show();
 	 */
 
-	public class EFoto extends AsyncTask<String, String, String> {
+	public  class EFoto extends AsyncTask<String, String, String> {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
