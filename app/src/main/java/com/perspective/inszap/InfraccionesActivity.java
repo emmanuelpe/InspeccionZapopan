@@ -11747,6 +11747,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         canvas.endText();
                         canvas.restoreState();
 
+
+
+                        canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(125, 92);
+                        canvas.showText(String.valueOf(a));
+                        canvas.endText();
+                        canvas.restoreState();
+
+
                         canvas.saveState();
                         bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
@@ -11770,7 +11782,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
                         canvas.moveText(30, 75);
-                        canvas.showText("_______________________________________________________________________________________________________________");
+                        canvas.showText("______________________________________________________________________________________________________________");
                         canvas.endText();
                         canvas.restoreState();
 
@@ -11779,7 +11791,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
                         canvas.moveText(30, 60);
-                        canvas.showText("_______________________________________________________________________________________________________________");
+                        canvas.showText("______________________________________________________________________________________________________________");
                         canvas.endText();
                         canvas.restoreState();
 
@@ -11788,7 +11800,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
                         canvas.moveText(30, 45);
-                        canvas.showText("_______________________________________________________________________________________________________________");
+                        canvas.showText("______________________________________________________________________________________________________________");
                         canvas.endText();
                         canvas.restoreState();
 
@@ -16726,7 +16738,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         return medidas + " HOLA MUNDO";
     }
     public void mostrarArt(int x){
-        etArticulo.setText(" ");
+        if(id!=4) {
+            etArticulo.setText(" ");
+        }
         //String medidas="";
         medidas1="";
         for(int i=0; i< SeguimientoM1.size(); i++ ){

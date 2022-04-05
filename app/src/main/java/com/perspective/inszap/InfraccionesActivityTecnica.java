@@ -10751,6 +10751,15 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
+                canvas.moveText(125, 92);
+                canvas.showText(String.valueOf(a));
+                canvas.endText();
+                canvas.restoreState();
+
+                canvas.saveState();
+                bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                canvas.beginText();
+                canvas.setFontAndSize(bf, 9);
                 canvas.moveText(121, 90);
                 canvas.showText("_________");
                 canvas.endText();
@@ -10770,7 +10779,7 @@ String numeroS="";
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
                 canvas.moveText(30, 75);
-                canvas.showText("_______________________________________________________________________________________________________________");
+                canvas.showText("______________________________________________________________________________________________________________");
                 canvas.endText();
                 canvas.restoreState();
 
@@ -10779,7 +10788,7 @@ String numeroS="";
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
                 canvas.moveText(30, 60);
-                canvas.showText("_______________________________________________________________________________________________________________");
+                canvas.showText("______________________________________________________________________________________________________________");
                 canvas.endText();
                 canvas.restoreState();
 
@@ -10788,7 +10797,7 @@ String numeroS="";
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
                 canvas.moveText(30, 45);
-                canvas.showText("_______________________________________________________________________________________________________________");
+                canvas.showText("______________________________________________________________________________________________________________");
                 canvas.endText();
                 canvas.restoreState();
 
