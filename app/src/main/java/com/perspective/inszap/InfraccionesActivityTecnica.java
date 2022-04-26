@@ -4843,13 +4843,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             btnVista.setEnabled(false);
             //btnTomarF.setEnabled(true);
             if(guarda) {
-                if(id > 2 & id < 4) {
-                    if (foto >= 1) {
-                        btnImprimir.setEnabled(true);
-                    } else {
-                        btnImprimir.setEnabled(true);
-                    }
-                } else {
+
                     if(infrac == 1) {
                         if (foto >= 1)
                             btnImprimir.setEnabled(true);
@@ -4858,7 +4852,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     }
                     else
                         btnImprimir.setEnabled(true);
-                }
+
             }
             msj = (conn.validarConexion(getApplicationContext()) & resu) ? "Los datos se han guardado en la base de datos local y enviados al servidor" : "Los datos e imagenes se han guardado en la base de datos local";
             Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
@@ -10450,12 +10444,12 @@ String numeroS="";
                        + hechos + "Los cuales constituyen infracción a lo dispuesto por los " + etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en "+peticionb+", se procede indistintamente con las siguientes medidas: " + medidas1+" "+numeroS
                        + ". Lo anterior de conformidad a lo dispuesto por los Artículo(s): " + etArticulo.getText().toString().trim()
                        + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim()
-                       + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151)."
+                       + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa  del H. Ayuntamiento de Zapopan, Jalisco."
                        + " Se da por concluida esta diligencia, siendo las " + hr + " horas del " +dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=";
 
                 String mocha=". En uso de su derecho el visitado manifiesta: " +
                         etManifiesta.getText().toString().trim() + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
-                        "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
+                        "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa  del H. Ayuntamiento de Zapopan, Jalisco. Se da por concluida esta diligencia, siendo las " +
                         hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=";
                 if(cuerpoInfra.length()>5000) {
 
