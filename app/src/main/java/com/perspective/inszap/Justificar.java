@@ -153,7 +153,7 @@ public class Justificar {
 			   // x--;
 			}
 			}catch (StringIndexOutOfBoundsException e) {
-				Log.e("exception", e.getMessage());
+				Log.e("exception4455", e.getMessage());
 			}
 			
 		}

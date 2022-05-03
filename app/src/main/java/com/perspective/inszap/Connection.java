@@ -447,6 +447,8 @@ public class Connection {
 
 			HttpConnectionParams.setSoTimeout(clientParams, 240000);
 
+
+
 			HttpPost httpPost = new HttpPost(url);
 
 			httpPost.setEntity(new UrlEncodedFormEntity(dat));
@@ -634,7 +636,7 @@ public class Connection {
 	}
 	
 	public boolean insetarRegistros(String url, String tabla) {
-
+		System.out.println("vamos1234");
 		URL url1=null;
 
 		System.out.println(tabla);
@@ -705,7 +707,9 @@ public class Connection {
                 httpURLConnection.setConnectTimeout(240000);
 				httpURLConnection.connect();
 				int code= httpURLConnection.getResponseCode();
+				System.out.println("vamos asf");
 				if (code== HttpURLConnection.HTTP_OK){
+					System.out.println("vamos 4564");
 					InputStream in= new BufferedInputStream(httpURLConnection.getInputStream());
 					BufferedReader reader= new BufferedReader(new InputStreamReader(in));
 					String line="";

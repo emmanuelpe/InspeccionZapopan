@@ -77,6 +77,9 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		/*if(true)
+			throw new RuntimeException("error de prueba");*/
+
 		Typeface helvetica = Typeface.createFromAsset(getAssets(), "font/HelveticaNeueLTStd-Bd.otf");
 
 		title = (TextView)findViewById(R.id.title);

@@ -1430,15 +1430,20 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 	}
     String mensaje="";
 	public void insertar(String values_cr) {
+
+		Log.e("fire", "insertar: pasa1");
 		int i = 0;
 		final String url = urlP+"contarreglones.php";
 		// consultar cantidad de renglones de comercio y renglones de construccion
 		//if (c.validar3("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getrenglonvs_InspM2.php", 0) >= c.validar2(url2, "parametros", 14) && c.validar3("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getcountlicenciasr.php", 0) >= c.validar2(url2, "parametros", 15)) {
 		//GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
 		//SQLiteDatabase db = gestion.getWritableDatabase();
+		Log.e("fire", "insertar: "+urlP+"getC_Direccion.php");
 			if (!c.search(urlP+"getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+				Log.e("fire", "insertar: pasa2");
 				if (!c.search(urlP+"getC_Direccion.php").trim().equalsIgnoreCase("null")) {
 					eliminaRegistros("C_Direccion");
+					System.out.println("degueando ando");
 					c.insetarRegistros(urlP+"getC_Direccion.php", "C_Direccion");
 					x += sicrof("c_direccion", url,"0");
 					if (x>0){
@@ -2361,7 +2366,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 
 		@Override
 		protected Boolean doInBackground(String... params) {
-
+			Log.e("fire", "doInBackground: 1234");
 			insertar(params[0]);
 			return null;
 		}
