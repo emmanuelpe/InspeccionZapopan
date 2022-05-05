@@ -2,9 +2,12 @@ package com.perspective.inszap;
 
 import android.app.Service;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
@@ -26,6 +29,13 @@ public class ClearFolios extends Service {
     private Timer mTimer = null;
     private long notify_interval = 10000;
     private JSONParser parser = new JSONParser();
+    private SharedPreferences sp;
+    private int foliox = 0;
+    static int validarM;
+    static String urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/";
+
+
+
 
     public ClearFolios() {
 
@@ -71,13 +81,21 @@ public class ClearFolios extends Service {
     }
 
     public int datos() {
-        GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
-        SQLiteDatabase db = gestion.getReadableDatabase();
-        String sql = "SELECT * FROM c_inspector where next_min > 1";
+        int count=0;
+        try {
+            GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
 
-        Cursor cursor = db.rawQuery(sql, null);
-        int count = cursor.getCount();
-        cursor.close();
+            SQLiteDatabase db = gestion.getReadableDatabase();
+            String sql = "SELECT * FROM c_inspector where next_min > 1 or next_max > 1 ";
+
+            Cursor cursor = db.rawQuery(sql, null);
+            count = cursor.getCount();
+            cursor.close();
+            db.close();
+        }catch (SQLiteException e){
+            Log.e("erro", "datos: ",e );
+        }
+
         return count;
     }
 
@@ -90,11 +108,32 @@ public class ClearFolios extends Service {
 
         @Override
         protected Boolean doInBackground(String... strings) {
+            sp = getSharedPreferences("infracciones",Context.MODE_PRIVATE);
+            foliox = sp.getInt("folio",0);
+            validarM = sp.getInt("modo",0);
+
+            if(validarM==1) {
+                //modoT.setChecked(true);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putInt("modo", 1);
+                editor.apply();
+                //titlem.setText("Modo de Tester: " + getResources().getString(R.string.version));
+                urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/";
+            }else {
+                //modoT.setChecked(false);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putInt("modo", 0);
+                editor.apply();
+                //titlem.setText("");
+                urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/";
+            }
+
+
             int count = 0;
             int bandera = 0;
             GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
             SQLiteDatabase db = gestion.getReadableDatabase();
-            String sql = "SELECT * FROM c_inspector where next_min > 1";
+            String sql = "SELECT * FROM c_inspector where next_min > 1 or next_max > 1 ";
 
             Cursor cursor = db.rawQuery(sql, null);
             count=cursor.getCount();
@@ -102,7 +141,7 @@ public class ClearFolios extends Service {
                 do {
                     ArrayList<NameValuePair> id = new ArrayList<>();
                     id.add(new BasicNameValuePair("id", cursor.getString(0)));
-                    JSONObject jo = parser.realizarHttpRequest("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/setNext.php", "GET", id);
+                    JSONObject jo = parser.realizarHttpRequest(urlP+"setNext.php", "GET", id);
 
                     try {
                         int estatus = jo.getInt("estatus");
@@ -125,6 +164,7 @@ public class ClearFolios extends Service {
                 } while (cursor.moveToNext());
             }
             cursor.close();
+            db.close();
             return bandera==count;
         }
 

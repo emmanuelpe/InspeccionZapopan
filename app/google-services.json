@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "63564720684",
+    "project_id": "inspeccionzap",
+    "storage_bucket": "inspeccionzap.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63564720684:android:52bcb2623299776d47ff89",
+        "android_client_info": {
+          "package_name": "com.perspective.inszap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "63564720684-hgjb5nk0c8bacrfhcubb9acf1m39rv8u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoF-vuaMbE4JL2rXxR67zPA3AW1SIxy58"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "63564720684-hgjb5nk0c8bacrfhcubb9acf1m39rv8u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

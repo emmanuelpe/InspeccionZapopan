@@ -3,7 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/InspeccionZapopan.iml" filepath="$PROJECT_DIR$/.idea/modules/InspeccionZapopan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/InspeccionZapopan-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/InspeccionZapopan-app.iml" group="InspeccionZapopan/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/InspeccionZapopan.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/InspeccionZapopan.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/StudioProjects-InspeccionZapopan.iml" filepath="$PROJECT_DIR$/.idea/modules/StudioProjects-InspeccionZapopan.iml" group="InspeccionZapopan" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/android-InspeccionZapopan.iml" filepath="$PROJECT_DIR$/.idea/modules/android-InspeccionZapopan.iml" group="InspeccionZapopan" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="InspeccionZapopan/app" />
     </modules>
   </component>
 </project>

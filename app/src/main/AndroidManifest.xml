@@ -23,10 +23,15 @@
         android:roundIcon="@drawable/logo_pf"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ReimprimirActivity"
+            android:configChanges="orientation|screenSize|screenLayout|navigation">
+
+        </activity>
+
         <service
             android:name=".ClearFolios"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
         <service
             android:name=".UpdateFolio"
             android:enabled="true"
@@ -40,13 +45,13 @@
             android:required="false" />
 
         <activity
-            android:name=".InfraccionesActivityTecnica"
-            android:configChanges="orientation|screenSize|screenLayout|navigation" />
-        <activity
             android:name=".Licencias"
             android:configChanges="orientation|screenSize|screenLayout|navigation" />
         <activity
             android:name=".ConsultarLicenciaConstruccion"
+            android:configChanges="orientation|screenSize|screenLayout|navigation" />
+        <activity
+            android:name=".navegador"
             android:configChanges="orientation|screenSize|screenLayout|navigation" />
 
         <provider
@@ -69,6 +74,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".InfraccionesActivityTecnica"
+            android:configChanges="orientation|screenSize|screenLayout|navigation"
+            android:label="@string/title_activity_infracciones"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|navigation" />
@@ -93,13 +103,13 @@
             android:configChanges="orientation|screenSize|screenLayout|navigation"
             android:label="@string/title_activity_consultar_infracciones" />
         <activity
-            android:name=".Reimprimir"
-            android:configChanges="orientation|screenSize|screenLayout|navigation"
-            android:label="@string/title_activity_reimprimir" />
-        <activity
             android:name=".TestActivity"
             android:configChanges="orientation|screenSize|screenLayout|navigation"
             android:label="@string/title_activity_reimprimir" />
+
+        <meta-data
+            android:name="firebase_performance_logcat_enabled"
+            android:value="true" />
     </application>
 
 </manifest>

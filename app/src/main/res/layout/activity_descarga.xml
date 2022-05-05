@@ -15,6 +15,16 @@
     	android:orientation="vertical" 
     	android:layout_gravity="center">
 
+		<TextView
+			android:id="@+id/modoT"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:paddingTop="10dp"
+			android:paddingBottom="10dp"
+			android:gravity="center"
+			style="@style/titleM"/>
+
+
         <ImageView
             android:id="@+id/ivLogoD"
 			android:layout_width="1920dp"
@@ -23,6 +33,7 @@
             android:layout_centerHorizontal="true"
             android:contentDescription="@string/sistema"
             android:layout_marginTop="10dp"
+			android:layout_below="@id/modoT"
             android:visibility="visible"/> 
         
     	<TextView 
@@ -65,7 +76,15 @@
 				android:id="@+id/progresoF"
 				android:layout_width="32dp"
 				android:layout_height="wrap_content" />
-
+			<Switch
+				android:id="@+id/swModo"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/modo"
+				android:checked="true"
+				android:textOn="@android:string/yes"
+				android:textOff="@android:string/no"
+				android:visibility="gone"/>
 			<Button
             	android:id="@+id/btnInfraccion"
             	style="@style/BotonI"
@@ -117,16 +136,27 @@
 				android:layout_marginRight="10dp"
 				android:layout_marginTop="20dp"
 				android:visibility="visible"/>
-        	
-        	<Button
-            	android:id="@+id/btnDescargaApp"
-            	style="@style/Boton"
-            	android:layout_width="match_parent"
-            	android:layout_height="wrap_content"
-            	android:text="@string/d_app"
-            	android:layout_marginLeft="20dp"
-            	android:layout_marginRight="20dp"
-            	android:layout_marginTop="20dp"/>
+
+			<Button
+				android:id="@+id/btnDescargaApp"
+				style="@style/Boton"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/d_app"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
+				android:layout_marginTop="20dp"
+				android:visibility="gone"/>
+
+			<Button
+				android:id="@+id/btnActualizarApp"
+				style="@style/Boton"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/actualizar"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
+				android:layout_marginTop="20dp"/>
 
 
 			<Button
@@ -148,7 +178,7 @@
             	android:layout_marginLeft="10dp"
             	android:layout_marginRight="10dp"
             	android:layout_marginTop="20dp"
-            	android:visibility="visible"/>
+            	android:visibility="gone"/>
 
 			<Button
 				android:id="@+id/btnConsultarLicenciaC"

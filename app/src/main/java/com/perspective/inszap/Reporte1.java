@@ -61,7 +61,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
     private EditText ediF1, edif2;
     private int boton1, boton2, total, totalF = 0;
     private int re = 0, rn = 0, re2 = 0, rn2 = 0;
-    private String fecha, numeros, fotografias = "", na = "", msj, fecha1 = "", fecha2 = "", na2 = "", msj2 = "",nombre;
+    private String fecha,fechaconvert, numeros, fotografias = "", na = "", msj, fecha1 = "", fecha2 = "", na2 = "", msj2 = "",nombre;
     private ProgressBar pb;
     private JSONParser jParser = new JSONParser();
     private List<String> nal = new ArrayList<>();
@@ -70,6 +70,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
     private List<String> nal2 = new ArrayList<>();
     private List<String> numeroAc=new ArrayList<>();
     private List<String> medida=new ArrayList<>();
+    static String urlP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +89,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
         btnimprimir.setVisibility(View.GONE);
 
         nombre = getIntent().getExtras().getString("usuario");
+        urlP=getIntent().getExtras().getString("url");
 
         Log.e("user",nombre);
 
@@ -164,7 +166,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                             ByteArrayOutputStream stream = new ByteArrayOutputStream();
                             Bitmap bitmap = null;
 
-                            bitmap = BitmapFactory.decodeResource(Reporte1.this.getResources(), R.drawable.reporte_enviadas_3);
+                            bitmap = BitmapFactory.decodeResource(Reporte1.this.getResources(), R.drawable.reporte_enviadas_4);
                             //bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
                             bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream);
                             Image img;
@@ -238,7 +240,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                                 totalF = cursor1.getInt(cursor1.getColumnIndex("Total"));
                                                 fotografias = cursor1.getString(cursor1.getColumnIndex("numero_acta"));
                                                 System.out.println("variable fotografias: "+fotografias);
-                                                if(fotografias.contains("IN")){
+                                                if(!fotografias.contains("OV")){
                                                     in[mov]=fotografias;
                                                     inT[mov]=totalF;
                                                     Log.e("fotografias: ", String.valueOf(totalF));
@@ -258,7 +260,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                             Log.e("fotografias: ", fotografias);
 
                                         }else{
-                                            if(arrSplit[f].contains("IN")){
+                                            if(!arrSplit[f].contains("OV")){
                                                 in[mov]=arrSplit[f];
                                                 inT[mov]=0;
 
@@ -500,7 +502,7 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                                 doc.newPage();
 
                                 ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
-                                Bitmap bitmap2 = BitmapFactory.decodeResource(Reporte1.this.getResources(), R.drawable.reporte_enviadas_2);
+                                Bitmap bitmap2 = BitmapFactory.decodeResource(Reporte1.this.getResources(), R.drawable.reporte_enviadas_4);
                                 bitmap2.compress(Bitmap.CompressFormat.JPEG , 100, stream1);
                                 Image img2;
 
@@ -719,9 +721,22 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, monthOfYear, dayOfMonth);
+        String f="";
         String mes = "";
         //mes = monthOfYear+1 > 9 ? String.valueOf( monthOfYear+1 ) : 0 + "" + (monthOfYear+1);
-        fecha = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+        if(monthOfYear>=10){
+
+        }else{
+             f="0"+ (monthOfYear + 1);
+
+        }
+        if(f!=""){
+            fecha = dayOfMonth + "/" + f + "/" + year;
+        }else{
+            fecha = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+        }
+        fechaconvert=dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+       // fecha = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
         if (boton2 == 1 && boton1 == 0)
             updateDisplay1(edif2);
         boton2 = 0;
@@ -754,60 +769,73 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
             cancel = true;
         }
 
-        if (TextUtils.isEmpty(fecha1)) {
+       /* if (TextUtils.isEmpty(fecha1)) {
             edif2.setError("Seleccione una fecha");
             focusView = ediF1;
             cancel = true;
-        }
-
+        }*/
+        Connection c = new Connection();
         if (cancel)
             focusView.requestFocus();
         else {
             if (Connection.validarConexion(getApplicationContext())) {
-                numeros = "";
-                fotografias = "";
-                total = 0;
-                String sql = "select * from Levantamiento where fecha between '" + fecha1 + "' and '" + fecha2 + "' and id_c_inspector1="+MainActivity.id_ins_sesion;
-                Cursor cursor;
-                GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
-                SQLiteDatabase db = gestion.getReadableDatabase();
-                cursor = db.rawQuery(sql, null);
-                if (cursor.moveToFirst()) {
-                    do {
-                        total++;
-                        numeros += "'" + cursor.getString(cursor.getColumnIndex("numero_acta")) + "',";
-                        nal.add(cursor.getString(cursor.getColumnIndex("numero_acta")));
-                    } while (cursor.moveToNext());
-                }
-                if (!TextUtils.isEmpty(numeros)) {
-                    numeros = numeros.substring(0, numeros.length() - 1);
-                    Log.i("numeros", numeros);
-                    String sql2 = "select count(numero_acta) as Total,numero_acta from Fotografia where numero_acta in (" + numeros + ") group by numero_acta ";
-                    Cursor cursor1;
-                    cursor1 = db.rawQuery(sql2, null);
-                    totalF = 0;
-                    if (cursor1.moveToFirst()) {
+                    numeros = "";
+                    fotografias = "";
+                    total = 0;
+                    //select * from Levantamiento where id_c_direccion = '" + id + "' and infraccion='"+infrac+"'
+                    //String sql = "select * from levantamiento where fecha  between '" + fecha1 + "' and '" + fecha2 + "' and id_c_inspector1="+MainActivity.id_ins_sesion;
+                    String sql = "select * from levantamiento where (fecha like '" + fecha1 + "' ) or (fecha like '" + fechaconvert + "') and id_c_inspector1=" + MainActivity.id_ins_sesion;
+                    //String sql = "select * from levantamiento where  id_c_inspector1="+MainActivity.id_ins_sesion;
+
+                    System.out.println(sql);
+                    Cursor cursor;
+                    GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
+                    SQLiteDatabase db = gestion.getReadableDatabase();
+                    cursor = db.rawQuery(sql, null);
+                    if (cursor.moveToFirst()) {
                         do {
-                            totalF += cursor1.getInt(cursor1.getColumnIndex("Total"));
-                            fotografias += "'" + cursor1.getString(cursor1.getColumnIndex("numero_acta")) + "',";
+                            total++;
+                        /*System.out.println(cursor.getString(cursor.getColumnIndex("fecha")));
+                        System.out.println(cursor.getString(cursor.getColumnIndex("numero_acta")));*/
+                            Log.e("hora_inicio: ", cursor.getString(cursor.getColumnIndex("hora_inicio")));
+                            Log.e("fecha: ", cursor.getString(cursor.getColumnIndex("fecha")));
+                            Log.e("numero acta: ", cursor.getString(cursor.getColumnIndex("numero_acta")));
+                            numeros += "'" + cursor.getString(cursor.getColumnIndex("numero_acta")) + "',";
 
-                        } while (cursor1.moveToNext());
-                        Log.e("fotografias: ", fotografias);
-
+                            nal.add(cursor.getString(cursor.getColumnIndex("numero_acta")));
+                        } while (cursor.moveToNext());
                     }
+                    System.out.println(numeros);
+                    if (!TextUtils.isEmpty(numeros)) {
+                        numeros = numeros.substring(0, numeros.length() - 1);
+                        Log.i("numeros", numeros);
+                        String sql2 = "select count(numero_acta) as Total,numero_acta from Fotografia where numero_acta in (" + numeros + ") group by numero_acta ";
+                        Cursor cursor1;
+                        cursor1 = db.rawQuery(sql2, null);
+                        totalF = 0;
+                        if (cursor1.moveToFirst()) {
+                            do {
+                                totalF += cursor1.getInt(cursor1.getColumnIndex("Total"));
+                                fotografias += "'" + cursor1.getString(cursor1.getColumnIndex("numero_acta")) + "',";
 
+                            } while (cursor1.moveToNext());
+                            Log.e("fotografias: ", fotografias);
 
-                    new GetReport().execute(numeros, fotografias);
+                        }
+
+                        new GetReport().execute(numeros, fotografias);
+
+                    } else {
+                        Toast toast = Toast.makeText(getApplicationContext(), "No hay datos en ese rango de fechas", Toast.LENGTH_LONG);
+                        toast.setGravity(0, 0, 15);
+                        toast.show();
+                    }
                 } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "No hay datos en ese rango de fechas", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getApplicationContext(), "No cuenta con conexión a internet", Toast.LENGTH_LONG);
                     toast.setGravity(0, 0, 15);
                     toast.show();
                 }
-            } else {
-                Toast toast = Toast.makeText(getApplicationContext(), "No cuenta con conexión a internet", Toast.LENGTH_LONG);
-                toast.setGravity(0, 0, 15);
-                toast.show();
-            }
+
         }
     }
 
@@ -829,10 +857,11 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
             na2 = "";
 
             if (Connection.validarConexion(getApplicationContext())) {
-                JSONArray jsonArray = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getReport.php", "POST", report);
-                JSONArray jsonArray1 = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getReport1.php", "POST", report2);
+                JSONArray jsonArray = jParser.realizarHttpRequest1(urlP+"getReport.php", "POST", report);
+                JSONArray jsonArray1 = jParser.realizarHttpRequest1(urlP+"getReport1.php", "POST", report2);
                 nas.clear();
                 try {
+
                     for (int x = 0; x < jsonArray.length(); x++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(x);
                         Log.e("jsonObject", jsonObject.getString("numero_acta"));
@@ -851,6 +880,8 @@ public class Reporte1 extends AppCompatActivity implements DatePickerDialog.OnDa
                     if (!na.isEmpty())
                         na = na.substring(0, na.length() - 1);
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                }catch (Exception e){
                     e.printStackTrace();
                 }
                 String[] na1 = numeros.replace("'", "").split(",");

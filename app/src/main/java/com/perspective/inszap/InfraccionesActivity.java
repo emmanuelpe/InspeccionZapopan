@@ -7,12 +7,14 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.HashMap;
@@ -23,9 +25,17 @@ import java.util.Map;
 import java.util.Set;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.http.NameValuePair;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import com.bixolon.printer.BixolonPrinter;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.lowagie.text.BadElementException;
@@ -55,6 +65,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -66,8 +77,6 @@ import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -111,18 +120,45 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     private Connection conect;
     static int id_inspectorQ=0;
     static String valW="";
-	private Button btncopiar,btneliminarA,btnArticulos,btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
-	private TextView tvfechaClau,tvfolioclau,tvfechap,tvfolioap,tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvPropiedad,spselec1,tvDonde;
-	private String s, archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",unidades="",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",fracciones = "",articulos = "",folio = "",clave = "",fol = "",Axmedidas="",concatM="";;
+    private View linea0,linea1,linea2,linea3,linea4,linea5,linea6,linea7,linea8,linea9,linea10,linea11,linea12,linea13,linea14,linea15;
+	private Button btncopiar,btneliminarA,btneliminarA1,btneliminarA2,btneliminarA3,btneliminarA4,btnArticulos,btnFecha,btnInicio,btnaceptar,btnTomarF,btnGuardar,btnImprimir,btnConsultar,btnSi,btnNo,btnVisualizar,btnMostrar,btnSalir,tveliminar,tveliminar1,tveliminar2,tveliminar3,tveliminar4,tveliminar5,tveliminar6,tveliminar7,tveliminar8,tveliminar9,tveliminar10,tveliminar11,tveliminar12,tveliminar13,tveliminar14,tveliminar15,btnmodificar,btnFtp,btnB,btnOrden1,btnVista,btnver1,btnver2,btnver3,btnver4,btnver5,btnver6,btnver7,btnver8,btnver9,btnver10,btnver11,btnver12,btnver13,btnver14,btnver15,btnver16,btnImprimirResum,btnBCol;
+	private TextView tvBuscar,tvfudamentoEx,tvfechaClau,tvfolioclau,tvfechap,tvfolioap,tvuni,tvuni1,tvuni2,tvuni3,tvuni4,tvuni5,tvuni6,tvuni7,tvuni8,tvuni9,tvuni10,tvuni11,tvuni12,tvuni13,tvuni14,tvuni15,tvTitle,tvTipo,tvEspe,tvOV,tvC,tvEvidencia,tvReg,tvActa,tvMotivo,tvAcomp,tvCondominio,tvNombreComercial,tvALicencia,etInfraccion,etSeleccion,tvReferencia,tvgiro,tvNLicencia,tvPeticion,tvNota,tvUso,tvPropietario,tvMC,tvPropiedad,spselec1,tvDonde;
+	private String s, config = "",archivo = "",name,us,ifeI,noI,vigI,ifeA,ifeA1,ifeA2,ifeA3,ifeA4,noA,noA1,noA2,noA3,noA4,vigA,vigA1,vigA2,vigA3,vigA4,AnombreTestigo,ifeTestigo,unidad,/*codigo = "",zonificacion,reglamento,lap,ordenamientoEco,nae,leeepa,*/des,des1="",des2="",des3="",des4="",des5="",des6="",des7="",des8="",des9="",des10="",des11="",des12="",des13="",des14="",des15="",/*cod="",zon="",reg="",la="",ordeco="",na="",lee="", codi="",zoni="",regla="",l="",oe="",ne = "",leeep = "",*/text = "",regex=",",title,seleccion = "",fecha,hora,id_hechos = "",unidades="",numero = "", hr,c_fecha = "",tipoActa,result = "",dato,usoCatalogo = "S",msj = "",orde,direccion,ante = "IN",formato = "infraccion",numeroOV="",fechaOV="",competencias = "",regla= "",zon="",ident = "",firma="",idT = "",idT1 = "",medidas1 = "",mConnectedDeviceName = "",competencias1 = "",propiedad = "El Visitado",fracciones = "",articulos = "",folio = "",clave = "",fol = "",Axmedidas="",concatM="";
 	private final String DECLARA = "A su vez, el visitado en ejercicio de su derecho y en uso de la voz declara:"; 
-	private int banderagiro=0, mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0,tipoEntrega = 0;
-	private Spinner spgiro,spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spMeConstitui,spDensidad,spCreglamentos;
-	private EditText etfechaClau,etfolioclau,etfoliopeticion,etfolioap,etfechap,etNum,etFecham,etfecha,etDiaPlazo,etIfeI,etNoI,etVigI,etIfeA,etIfeA1,etIfeA2,etIfeA3,etIfeA4,etNoA,etNoA1,etNoA2,etNoA3,etNoA4,etVigA,etVigA1,etVigA2,etVigA3,etVigA4,etNombreT,etIfeT,etDesc,etDesc1,etDesc2,etDesc3,etDesc4,etdato,etdato1,etdato2,etdato3,etdato4,desf,desf1,desf2,etNombreV,etFraccionamiento,etCalle,etNumero,etPropietario,etNombreT1,etIfeT2,etManifiesta,etNuemroInterior,etApellidoP,etApellidoM,etCitatorio,etNumeroActa,etEspecificacion,etDFoto,etDFoto1,etDFoto2,etDFoto3,etVManifiesta,etVIdentifica,etLatitud,etLongitud,etAnoCitatorio,etAnoOrden,etCondominio/*etDensidad*/,etManzana,etLote,etReferencia,etBuscar,etfolio,/*etAlineamiento,*/etConstruccion, etGiro, etMotivo,etOrden1,etEntreC,etEntreC1,etResponsable,etRegistro,etMedida,etArticulo,etInspccionFue,etDFoto4,etDFoto5,etDFoto6,etDFoto7,etDFoto8,etDFoto9,etDFoto10,etDFoto11,etDFoto12,etDFoto13,etDFoto14,etDFoto15,etDFoto16,etDFoto17,etDFoto18,etDFoto19,etLGiro,etAGiro,etAlicencia,etSector,etNombreComercial,etObs,etObs1,etObs2,etObs3,etObs4,etBCol,etOtro,etDondeActua,etNumeroSellos,etDecomiso;
+	private int banderagiro=0, countF = 0,mYear,mMonth,mDay,a,m,di,diaPlazo=0,con = 0,contc = 0,contz = 0,contl = 0,conto = 0, co = 0,foto = 0,id,evento,infrac = 1,id_inspector1,id_inspector2,id_infra,nuevo = 0,pos = 0,infraccion=0,id_inspector3 = 0,id_inspector4 = 0,id_inspector5 = 0,id_inspector6 = 0,idCompetencia1 = 0,idCompetencia2 = 0,idCompetencia3 = 0,idCompetencia4 = 0,idCompetencia5 = 0,conf = 0,tipoEntrega = 0;
+	private Spinner spgiro,spnombre,spNombreA,spNombreA1,spNombreA2,spNombreA3,spNombreA4,spIdentifica,spManifiesta,spuso,spgravedad,spZona,spdesignado,spdesignado1,spInfraccion,spconsultar,spPoblacion,spFraccionamiento,spIdentificaT,spIdentificaT1,spReglamento,spMedida,spInspectorT,spInspectorT1,spPeticion,spNE,spUsoH,spuni,spuni1,spuni2,spuni3,spuni4,spuni5,spuni6,spuni7,spuni8,spuni9,spuni10,spuni11,spuni12,spuni13,spuni14,spuni15,spMeConstitui,spDensidad,spCreglamentos;
+	private EditText etfudamentoEx,etfechaClau,etfolioclau,etfoliopeticion,etfolioap,etfechap,etNum,etFecham,etfecha,etDiaPlazo,etIfeI,etNoI,etVigI,etIfeA,etIfeA1,etIfeA2,etIfeA3,etIfeA4,etNoA,etNoA1,etNoA2,etNoA3,etNoA4,etVigA,etVigA1,etVigA2,etVigA3,etVigA4,etNombreT,etIfeT,etDesc,etDesc1,etDesc2,etDesc3,etDesc4,etDesc5,etDesc6,etDesc7,etDesc8,etDesc9,etDesc10,etDesc11,etDesc12,etDesc13,etDesc14,etDesc15,etdato,etdato1,etdato2,etdato3,etdato4,etdato5,etdato6,etdato7,etdato8,etdato9,etdato10,etdato11,etdato12,etdato13,etdato14,etdato15,desf,desf1,desf2,etNombreV,etFraccionamiento,etCalle,etNumero,etPropietario,etNombreT1,etIfeT2,etManifiesta,etNuemroInterior,etApellidoP,etApellidoM,etCitatorio,etNumeroActa,etEspecificacion,etDFoto,etDFoto1,etDFoto2,etDFoto3,etVManifiesta,etVIdentifica,etLatitud,etLongitud,etAnoCitatorio,etAnoOrden,etCondominio/*etDensidad*/,etManzana,etLote,etReferencia,etBuscar,etfolio,/*etAlineamiento,*/etConstruccion, etGiro, etMotivo,etOrden1,etEntreC,etEntreC1,etResponsable,etRegistro,etMedida,etMedida1,etMedida2,etMedida3,etMedida4,etArticulo,etInspccionFue,etDFoto4,etDFoto5,etDFoto6,etDFoto7,etDFoto8,etDFoto9,etDFoto10,etDFoto11,etDFoto12,etDFoto13,etDFoto14,etDFoto15,etDFoto16,etDFoto17,etDFoto18,etDFoto19,etLGiro,etAGiro,etAlicencia,etSector,etNombreComercial,etObs,etObs1,etObs2,etObs3,etObs4,etObs5,etObs6,etObs7,etObs8,etObs9,etObs10,etObs11,etObs12,etObs13,etObs14,etObs15,etBCol,etOtro,etDondeActua,etNumeroSellos,etDecomiso;
 	private LinearLayout lldiv,cons,llNota,llplazo,llreincidencia,llcomp,llconcepto,llPla,llfundamento;
 	private RelativeLayout rlcampo,rlProp,rlTestA,rlVisita,rlLicencias,rlDonde_actua;
 	private RadioGroup /*radiogroup,*/rgReincidencia,rgPopiedad,rgTipo;
 	static final int DATE_DIALOG_ID = 0;
-	private boolean desc=false,desc1=false,desc2=false,desc3=false,desc4=false,citatorio,inicio = false, res = false,consu = false,resu = false,resov = false,guarda = false;
+    private JSONParser jsonParser = new JSONParser();
+    private ArrayList<String> foto2 = new ArrayList<String>();
+    private ArrayList<String> archivo2 = new ArrayList<String>();
+	private boolean desc=false;
+    private boolean desc1=false;
+    private boolean desc2=false;
+    private boolean desc3=false;
+    private boolean desc4=false;
+    private boolean desc5=false;
+    private boolean desc6=false;
+    private boolean desc7=false;
+    private boolean desc8=false;
+    private boolean desc9=false;
+    private boolean desc10=false;
+    private boolean desc11=false;
+    private boolean desc12=false;
+    private boolean desc13=false;
+    private boolean desc14=false;
+    private boolean desc15=false;
+    private boolean citatorio;
+    private boolean inicio = false;
+    private boolean res = false;
+    private String res2 = "";
+    private boolean consu = false;
+    private boolean resu = false;
+    private boolean resov = false;
+    private boolean guarda = false;
 	final Calendar c = Calendar.getInstance();
 	final Calendar cal = Calendar.getInstance();
     private ArrayList<String> reglaArt= new ArrayList<>();
@@ -134,6 +170,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     private int contador=0;
     final JSONParser jParser = new JSONParser();
     private ArrayList<String> arrayincaseF= new ArrayList<>();
+    private ArrayList<String> arrayhechosC= new ArrayList<>();
 	final ArrayList<String> arregloLista = new ArrayList<String>();
 	private ArrayList<String> arregloLista1 = new ArrayList<String>();
 	private ArrayList<String> arregloLista2 = new ArrayList<String>();
@@ -171,6 +208,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	private double latitud = 0, longitud = 0 ;
 	LocationManager mLocationManager;
 	Location mLocation;
+	static String urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/";
 	MyLocationListener mLocationListener;
 	private Location currentLocation = null;
 	private BluetoothAdapter mBluetoothAdapter = null;
@@ -181,9 +219,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	private ProgressDialog pd;
 	private Thread thread = null;
 	private ArrayList<String> campo = new ArrayList<String>();
-	private String campo1="",campo2="",campo3="",campo4="",campo5="",campo6="",campo7="",campo8="",campo9="",campo0="",campo11="",campo12="",campo13="",campo14 = "",campo15 = "",campo16 = "",campo17 = "",campo18 = "",campo19 = "",campo20 = "",campo21 = "",c1="",c2="",c3="",c4="",c5="",c6="",c7="",c8="",c9="",c0="",c11="",c12="",c13="",c14="",c15="",c16="",c17="",c18="",c19="",c20="",camp1="",camp2="",camp3="",camp4="",camp5="",camp6="",camp7="",camp8="",camp9="",camp0="",camp11="",camp12="",camp13="",camp14="",camp15="",camp16="",camp17="",camp18="",camp19="",camp20="",hech = "los hechos antes descritos, constituyen una infracciÔøΩn a lo dispuesto por los artÔøΩculos:",conti = "Los cuales constituyen infracciÔøΩn de conformidad con lo dispuesto por los artÔøΩculos:",na = "";
+	private String campo1="",campo2="",campo3="",campo4="",campo5="",campo6="",campo7="",campo8="",campo9="",campo0="",campo11="",campo12="",campo13="",campo14 = "",campo15 = "",campo16 = "",campo17 = "",campo18 = "",campo19 = "",campo20 = "",campo21 = "",campo22 = "",campo23 = "",campo24 = "",campo25 = "",campo26 = "",c1="",c2="",c3="",c4="",c5="",c6="",c7="",c8="",c9="",c0="",c11="",c12="",c13="",c14="",c15="",c16="",c17="",c18="",c19="",c20="",c21="",c22="",c23="",c24="",c25="",c26="",camp1="",camp2="",camp3="",camp4="",camp5="",camp6="",camp7="",camp8="",camp9="",camp0="",camp11="",camp12="",camp13="",camp14="",camp15="",camp16="",camp17="",camp18="",camp19="",camp20="",camp21="",camp22="",camp23="",camp24="",camp25="",camp26="",hech = "los hechos antes descritos, constituyen una infracciÔøΩn a lo dispuesto por los artÔøΩculos:",conti = "Los cuales constituyen infracciÔøΩn de conformidad con lo dispuesto por los artÔøΩculos:",na = "";
 	private CheckBox cbFlag,cbFirma,cbDatos,cbDatos2;
-	private Button rbaper,rborden,rbcitatorio,rbHechos,radioInfraccion;
+	private Button rbaper,rborden,rbcitatorio,rbHechos,radioInfraccion,radioEvento,radioReimprimir;
 	private List<Levantamiento> lev = new ArrayList<Levantamiento>();
 	private List<String> reglamento = new ArrayList<String>();
 	private List<String> competencia = new ArrayList<String>();
@@ -207,8 +245,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	private AlertDialog mSampleDialog;
 	private Switch swReincidencia;
 	private ArrayAdapter adapterCol,adapterMeC,adapterDensidad,adapterGiro;
-	private List<String> conceptos,articulo,fraccion,unis,unis1,unis2,unis3,unis4;
-	private ArrayAdapter adapterUni,adapterUni1,adapterUni2,adapterUni3,adapterUni4;
+	private List<String> conceptos,articulo,fraccion,unis,unis1,unis2,unis3,unis4,unis5,unis6,unis7,unis8,unis9,unis10,unis11,unis12,unis13,unis14,unis15;
+	private ArrayAdapter adapterUni,adapterUni1,adapterUni2,adapterUni3,adapterUni4,adapterUni5,adapterUni6,adapterUni7,adapterUni8,adapterUni9,adapterUni10,adapterUni11,adapterUni12,adapterUni13,adapterUni14,adapterUni15;
 	private List<String> fundam = new ArrayList<>();
 	private List<String> meConstitui = new ArrayList<>();
 	private List<String> folios = new ArrayList<>();
@@ -217,8 +255,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     private Button btnBusArt;
     private TextInputLayout tilArticulo;
     private TextInputEditText etArti;
+    private SharedPreferences sp;
+    private int foliox = 0,id_l;
+    static int validarM;
 
-	@Override
+    private Spinner reglamentoSP;
+    private JSONArray jarray;
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_infracciones);
@@ -301,11 +345,37 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             	Log.i("Levantamiento", "False");
     		}
         }
-        
+
+        this.reglamentoSP = (Spinner)findViewById(R.id.spCreglamento);
+        this.linea0=(View)findViewById(R.id.linea0);
+        this.linea1=(View)findViewById(R.id.linea1);
+        this.linea2=(View)findViewById(R.id.linea2);
+        this.linea3=(View)findViewById(R.id.linea3);
+        this.linea4=(View)findViewById(R.id.linea4);
+
+        this.linea5=(View)findViewById(R.id.linea5);
+        this.linea6=(View)findViewById(R.id.linea6);
+        this.linea7=(View)findViewById(R.id.linea7);
+        this.linea8=(View)findViewById(R.id.linea8);
+        this.linea9=(View)findViewById(R.id.linea9);
+
+        this.linea10=(View)findViewById(R.id.linea10);
+        this.linea11=(View)findViewById(R.id.linea11);
+        this.linea12=(View)findViewById(R.id.linea12);
+        this.linea13=(View)findViewById(R.id.linea13);
+        this.linea14=(View)findViewById(R.id.linea14);
+
+        this.linea15=(View)findViewById(R.id.linea15);
+
+
         this.btnFecha = (Button)findViewById(R.id.btnFecha);
         this.btncopiar=(Button)findViewById(R.id.btnCopiar);
         this.btnArticulos=(Button)findViewById(R.id.etAcepA);
         this.btneliminarA=(Button)findViewById(R.id.etdeleA);
+        this.btneliminarA1=(Button)findViewById(R.id.etdeleA1);
+        this.btneliminarA2=(Button)findViewById(R.id.etdeleA2);
+        this.btneliminarA3=(Button)findViewById(R.id.etdeleA3);
+        this.btneliminarA4=(Button)findViewById(R.id.etdeleA4);
         this.spIdentifica = (Spinner)findViewById(R.id.spIdentifica);
         this.spManifiesta = (Spinner)findViewById(R.id.spManifiesta);
         this.spuso = (Spinner)findViewById(R.id.spuso);
@@ -313,6 +383,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         this.etFecham = (EditText)findViewById(R.id.etfecham);
         this.etfechap=(EditText)findViewById(R.id.etfechap);
         this.etfolioap=(EditText)findViewById(R.id.etfolioap);
+
+
         this.etfechaClau=(EditText)findViewById(R.id.etfechaclau);
         this.etfolioclau=(EditText)findViewById(R.id.etfolioclau);
         this.etfoliopeticion=(EditText)findViewById(R.id.folioapeticion);
@@ -359,6 +431,19 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         this.etDesc2 = (EditText)findViewById(R.id.etdescripcion2);
         this.etDesc3 = (EditText)findViewById(R.id.etdescripcion3);
         this.etDesc4 = (EditText)findViewById(R.id.etdescripcion4);
+        this.etDesc5 = (EditText)findViewById(R.id.etdescripcion5);
+        this.etDesc6 = (EditText)findViewById(R.id.etdescripcion6);
+        this.etDesc7 = (EditText)findViewById(R.id.etdescripcion7);
+        this.etDesc8 = (EditText)findViewById(R.id.etdescripcion8);
+        this.etDesc9 = (EditText)findViewById(R.id.etdescripcion9);
+        this.etDesc10 = (EditText)findViewById(R.id.etdescripcion10);
+
+        this.etDesc11 = (EditText)findViewById(R.id.etdescripcion11);
+        this.etDesc12 = (EditText)findViewById(R.id.etdescripcion12);
+        this.etDesc13 = (EditText)findViewById(R.id.etdescripcion13);
+        this.etDesc14 = (EditText)findViewById(R.id.etdescripcion14);
+        this.etDesc15 = (EditText)findViewById(R.id.etdescripcion15);
+
         this.etdato = (EditText)findViewById(R.id.etdato);
         this.tvuni = (TextView)findViewById(R.id.tvuni);
         this.tveliminar = (Button)findViewById(R.id.tveliminar);
@@ -374,6 +459,48 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         this.etdato4 = (EditText)findViewById(R.id.etdato4);
         this.tvuni4 = (TextView)findViewById(R.id.tvuni4);
         this.tveliminar4 = (Button)findViewById(R.id.tveliminar4);
+        this.etdato5 = (EditText)findViewById(R.id.etdato5);
+        this.tvuni5 = (TextView)findViewById(R.id.tvuni5);
+        this.tveliminar5 = (Button)findViewById(R.id.tveliminar5);
+        this.etdato6 = (EditText)findViewById(R.id.etdato6);
+        this.tvuni6 = (TextView)findViewById(R.id.tvuni6);
+        this.tveliminar6 = (Button)findViewById(R.id.tveliminar6);
+        this.etdato7 = (EditText)findViewById(R.id.etdato7);
+        this.tvuni7 = (TextView)findViewById(R.id.tvuni7);
+        this.tveliminar7 = (Button)findViewById(R.id.tveliminar7);
+
+        this.etdato8 = (EditText)findViewById(R.id.etdato8);
+        this.tvuni8 = (TextView)findViewById(R.id.tvuni8);
+        this.tveliminar8 = (Button)findViewById(R.id.tveliminar8);
+
+        this.etdato9 = (EditText)findViewById(R.id.etdato9);
+        this.tvuni9 = (TextView)findViewById(R.id.tvuni9);
+        this.tveliminar9 = (Button)findViewById(R.id.tveliminar9);
+
+        this.etdato10 = (EditText)findViewById(R.id.etdato10);
+        this.tvuni10 = (TextView)findViewById(R.id.tvuni10);
+        this.tveliminar10 = (Button)findViewById(R.id.tveliminar10);
+
+        this.etdato11 = (EditText)findViewById(R.id.etdato11);
+        this.tvuni11 = (TextView)findViewById(R.id.tvuni11);
+        this.tveliminar11 = (Button)findViewById(R.id.tveliminar11);
+
+        this.etdato12 = (EditText)findViewById(R.id.etdato12);
+        this.tvuni12 = (TextView)findViewById(R.id.tvuni12);
+        this.tveliminar12 = (Button)findViewById(R.id.tveliminar12);
+
+        this.etdato13 = (EditText)findViewById(R.id.etdato13);
+        this.tvuni13 = (TextView)findViewById(R.id.tvuni13);
+        this.tveliminar13 = (Button)findViewById(R.id.tveliminar13);
+
+        this.etdato14 = (EditText)findViewById(R.id.etdato14);
+        this.tvuni14 = (TextView)findViewById(R.id.tvuni14);
+        this.tveliminar14 = (Button)findViewById(R.id.tveliminar14);
+
+        this.etdato15 = (EditText)findViewById(R.id.etdato15);
+        this.tvuni15 = (TextView)findViewById(R.id.tvuni15);
+        this.tveliminar15 = (Button)findViewById(R.id.tveliminar15);
+
         this.btnaceptar = (Button)findViewById(R.id.btnaceptar);
         this.lldiv = (LinearLayout)findViewById(R.id.llall);
         this.cons = (LinearLayout)findViewById(R.id.cons);
@@ -425,7 +552,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         this.etDFoto13 = (EditText)findViewById(R.id.etDesFoto13);
         this.etDFoto14 = (EditText)findViewById(R.id.etDesFoto14);
         //this.etDFoto15 = (EditText)findViewById(R.id.etDesFoto15);
-        
+        this.etfudamentoEx=(EditText)findViewById(R.id.etfudamentoEx);
+        this.tvfudamentoEx=(TextView)findViewById(R.id.tvfudamentoEx);
         this.etVManifiesta = (EditText)findViewById(R.id.etspecifique);
         this.etVIdentifica = (EditText)findViewById(R.id.etnumeroife);
         this.etLatitud = (EditText)findViewById(R.id.etLatitud);
@@ -492,10 +620,16 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         etRegistro = (EditText)findViewById(R.id.etRegistro);
         tvActa = (TextView)findViewById(R.id.tvActa);
         etMedida = (EditText)findViewById(R.id.etMedida);
+        etMedida1 = (EditText)findViewById(R.id.etMedida1);
+        etMedida2 = (EditText)findViewById(R.id.etMedida2);
+        etMedida3 = (EditText)findViewById(R.id.etMedida3);
+        etMedida4 = (EditText)findViewById(R.id.etMedida4);
         etArticulo = (EditText)findViewById(R.id.etArticulos);
         cbFirma = (CheckBox)findViewById(R.id.cbFirma);
         etInspccionFue = (EditText)findViewById(R.id.etInpeccionFue);
         radioInfraccion = (Button)findViewById(R.id.radioInfraccion);
+        radioEvento =(Button)findViewById(R.id.radioEventoEspecial);
+        radioReimprimir=(Button)findViewById(R.id.radioReimprimir);
         
         tvCondominio = (TextView)findViewById(R.id.tvCondominio);
         
@@ -552,6 +686,33 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         etObs3.setMovementMethod(new ScrollingMovementMethod());
         etObs4 = findViewById(R.id.etObs4);
         etObs4.setMovementMethod(new ScrollingMovementMethod());
+        etObs5  = findViewById(R.id.etObs5);
+        etObs5.setMovementMethod(new ScrollingMovementMethod());
+        etObs6 = findViewById(R.id.etObs6);
+        etObs6.setMovementMethod(new ScrollingMovementMethod());
+        etObs7 = findViewById(R.id.etObs7);
+        etObs7.setMovementMethod(new ScrollingMovementMethod());
+        etObs8 = findViewById(R.id.etObs8);
+        etObs8.setMovementMethod(new ScrollingMovementMethod());
+        etObs9 = findViewById(R.id.etObs9);
+        etObs9.setMovementMethod(new ScrollingMovementMethod());
+        etObs10 = findViewById(R.id.etObs10);
+        etObs10.setMovementMethod(new ScrollingMovementMethod());
+
+        etObs11 = findViewById(R.id.etObs11);
+        etObs11.setMovementMethod(new ScrollingMovementMethod());
+
+        etObs12 = findViewById(R.id.etObs12);
+        etObs12.setMovementMethod(new ScrollingMovementMethod());
+
+        etObs13 = findViewById(R.id.etObs13);
+        etObs13.setMovementMethod(new ScrollingMovementMethod());
+
+        etObs14 = findViewById(R.id.etObs14);
+        etObs14.setMovementMethod(new ScrollingMovementMethod());
+
+        etObs15 = findViewById(R.id.etObs15);
+        etObs15.setMovementMethod(new ScrollingMovementMethod());
 
         spUsoH = findViewById(R.id.spusoH);
 
@@ -560,7 +721,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         etBCol = findViewById(R.id.etBCol);
 
         tvReferencia = findViewById(R.id.etReferencia);
-        tvgiro = findViewById(R.id.tvagiro);
+        tvgiro = findViewById(R.id.tvgiro);
         tvNLicencia = findViewById(R.id.tvNLicencia);
 
         llconcepto = findViewById(R.id.llconcepto);
@@ -573,6 +734,20 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         spuni2 = findViewById(R.id.spUni2);
         spuni3 = findViewById(R.id.spUni3);
         spuni4 = findViewById(R.id.spUni4);
+        spuni5 = findViewById(R.id.spUni5);
+        spuni6 = findViewById(R.id.spUni6);
+        spuni7 = findViewById(R.id.spUni7);
+        spuni8 = findViewById(R.id.spUni8);
+        spuni9 = findViewById(R.id.spUni9);
+        spuni10 = findViewById(R.id.spUni10);
+
+        spuni11 = findViewById(R.id.spUni11);
+        spuni12 = findViewById(R.id.spUni12);
+        spuni13 = findViewById(R.id.spUni13);
+        spuni14 = findViewById(R.id.spUni14);
+        spuni15= findViewById(R.id.spUni15);
+
+
 
         tvPeticion = findViewById(R.id.tvPeticion);
         tvNota = findViewById(R.id.tvNota);
@@ -602,7 +777,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         spCreglamentos=findViewById(R.id.spCreglamento);
 
         etDecomiso=findViewById(R.id.etDecomiso);
-
+        tvBuscar=findViewById(R.id.tvBuscar);
         btnBusArt = findViewById(R.id.btnBusArt);
         tilArticulo = findViewById(R.id.tilArticulo);
         etArti = findViewById(R.id.etArticulo);
@@ -612,12 +787,38 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         unis2 = new ArrayList<>();
         unis3 = new ArrayList<>();
         unis4 = new ArrayList<>();
+        unis5 = new ArrayList<>();
+        unis6 = new ArrayList<>();
+        unis7 = new ArrayList<>();
+        unis8 = new ArrayList<>();
+        unis9 = new ArrayList<>();
+        unis10 = new ArrayList<>();
+        unis11 = new ArrayList<>();
+        unis12 = new ArrayList<>();
+        unis13 = new ArrayList<>();
+        unis14 = new ArrayList<>();
+        unis15 = new ArrayList<>();
 
          adapterUni = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis);
         adapterUni1 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis1);
         adapterUni2 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis2);
         adapterUni3 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis3);
         adapterUni4 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis4);
+
+        adapterUni5 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis5);
+        adapterUni6 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis6);
+        adapterUni7 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis7);
+        adapterUni8 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis8);
+        adapterUni9 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis9);
+        adapterUni10 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis10);
+
+        adapterUni11 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis11);
+        adapterUni12 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis12);
+        adapterUni13 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis13);
+        adapterUni14 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis14);
+        adapterUni15 = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,unis15);
+
+
         adapterMeC = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,meConstitui);
         adapterGiro=new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,giros);
         adapterDensidad = new ArrayAdapter(this,R.layout.multiline_spinner_dropdown_item,getResources().getStringArray(R.array.densidad));
@@ -630,11 +831,39 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         spuni3.setAdapter(adapterUni3);
         spuni4.setAdapter(adapterUni4);
 
+        spuni5.setAdapter(adapterUni5);
+        spuni6.setAdapter(adapterUni6);
+        spuni7.setAdapter(adapterUni7);
+        spuni8.setAdapter(adapterUni8);
+        spuni9.setAdapter(adapterUni9);
+
+        spuni10.setAdapter(adapterUni10);
+        spuni11.setAdapter(adapterUni11);
+        spuni12.setAdapter(adapterUni12);
+        spuni13.setAdapter(adapterUni13);
+        spuni14.setAdapter(adapterUni14);
+        spuni15.setAdapter(adapterUni15);
+
         tvuni.setTypeface(helvetica);
         tvuni1.setTypeface(helvetica);
         tvuni2.setTypeface(helvetica);
         tvuni3.setTypeface(helvetica);
         tvuni4.setTypeface(helvetica);
+
+        tvuni5.setTypeface(helvetica);
+        tvuni6.setTypeface(helvetica);
+        tvuni7.setTypeface(helvetica);
+        tvuni8.setTypeface(helvetica);
+        tvuni9.setTypeface(helvetica);
+
+        tvuni10.setTypeface(helvetica);
+        tvuni11.setTypeface(helvetica);
+        tvuni12.setTypeface(helvetica);
+        tvuni13.setTypeface(helvetica);
+        tvuni14.setTypeface(helvetica);
+        tvuni15.setTypeface(helvetica);
+
+
         tvTitle.setTypeface(helvetica);
         tvTipo.setTypeface(helvetica);
         tvEspe.setTypeface(helvetica);
@@ -667,6 +896,20 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         tveliminar2.setTypeface(helvetica);
         tveliminar3.setTypeface(helvetica);
         tveliminar4.setTypeface(helvetica);
+
+        tveliminar5.setTypeface(helvetica);
+        tveliminar6.setTypeface(helvetica);
+        tveliminar7.setTypeface(helvetica);
+        tveliminar8.setTypeface(helvetica);
+        tveliminar9.setTypeface(helvetica);
+        tveliminar10.setTypeface(helvetica);
+
+        tveliminar11.setTypeface(helvetica);
+        tveliminar12.setTypeface(helvetica);
+        tveliminar13.setTypeface(helvetica);
+        tveliminar14.setTypeface(helvetica);
+        tveliminar15.setTypeface(helvetica);
+
         btnmodificar.setTypeface(helvetica);
         btnFtp.setTypeface(helvetica);
         btnB.setTypeface(helvetica);
@@ -877,6 +1120,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         btnB.setOnClickListener(this);
         rborden.setOnClickListener(this);
         radioInfraccion.setOnClickListener(this);
+        radioEvento.setOnClickListener(this);
+        radioReimprimir.setOnClickListener(this);
         cbFlag.setOnCheckedChangeListener(this);
         cbDatos.setOnCheckedChangeListener(this);
         cbDatos2.setOnCheckedChangeListener(this);
@@ -1132,12 +1377,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View v,int position, long id) {
-				if (!spFraccionamiento.getItemAtPosition(position).toString().equals("")) {
+				if (!spFraccionamiento.getItemAtPosition(position).toString().equals("Seleccionar")) {
 					etFraccionamiento.setText(spFraccionamiento.getItemAtPosition(position).toString());
 					zon = zonas.get(position);
+					etFraccionamiento.setEnabled(false);
 				}
 				else {
 					etFraccionamiento.setText("");
+                    etFraccionamiento.setEnabled(true);
 				}
 				
 			}
@@ -1260,34 +1507,35 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         spnombre.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
 			@Override
-			public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-				Object sel = spnombre.getItemAtPosition(position);
-				//buscarInspector(sel.toString());
-				
-				buscarIdInspector(sel.toString());
+            public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
+                Object sel = spnombre.getItemAtPosition(position);
+                //buscarInspector(sel.toString());
 
-				etIfeI.setText(ifeI);
-				etNoI.setText(noI);
-				etVigI.setText(vigI);
-				id_inspector1 = id_i1.get(position);
-				id_inspectorQ=id_inspector1;
-				/*if(!valW.isEmpty()){
-				    etNumeroActa.setText(valW);
-				    valW="";
-                }else {
-                    int folio = 0;
-                    int max = 0;
-                    int min = 0;
-                    int next_min = 0;
-                    int next_max = 0;
-                    final Descarga d = new Descarga();
+                buscarIdInspector(sel.toString());
 
+                etIfeI.setText(folio);
+                etNoI.setText(noI);
+                etVigI.setText(vigI);
+                id_inspector1 = id_i1.get(position);
+                id_inspectorQ=id_inspector1;
+                //id_inspectorQ = id_inspector1;
+
+
+                int n=0;
+                //final Descarga d= new Descarga();
+
+                if(infrac==1 ) {
+                    int folio=0;
+                    int max=0;
+                    int min=0;
+                    int next_max=0;
+                    int next_min=0;
                     Log.i("id inspector", id_inspector1 + "");
-                    int n;
+
                     GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
                     SQLiteDatabase db = gestion.getReadableDatabase();
 
-                    Cursor c = db.rawQuery("SELECT  numero_acta FROM levantamiento where id_c_inspector1= '" + id_inspector1 + "' order by id_levantamiento desc LIMIT 1", null);
+                    Cursor c = db.rawQuery("SELECT  max(cast(numero_acta as int)) FROM levantamiento where id_c_inspector1= '" + id_inspector1 + "' and infraccion=1  ", null);
                     String column = "", dato = "";
 
                     try {
@@ -1296,7 +1544,17 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 do {
                                     for (int i = 0; i < c.getColumnCount(); i++) {
                                         System.err.println(c.getColumnName(i) + " " + c.getString(i));
-                                        folio = Integer.parseInt(c.getString(i));
+
+                                        if(c.getString(i)!=null){
+                                            if(c.getString(i).equals("") ||c.getString(i).isEmpty() || c.getString(i)=="" ){
+                                                folio=0;
+                                            }else{
+                                                folio = Integer.parseInt(c.getString(i));
+                                            }
+                                        } else {
+                                            folio=0;
+                                        }
+
                                     }
                                 } while (c.moveToNext());
                             }
@@ -1307,7 +1565,16 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 do {
                                     for (int i = 0; i < c2.getColumnCount(); i++) {
                                         System.err.println(c2.getColumnName(i) + " " + c2.getString(i));
-                                        max = Integer.parseInt(c2.getString(i));
+                                        if(c2.getString(i)!=null){
+                                            if(c2.getString(i).equals("") ||c2.getString(i).isEmpty() || c2.getString(i)=="" ) {
+
+                                                max = 0;
+                                            }else{
+                                                max = Integer.parseInt(c2.getString(i));
+                                            }
+                                        }else {
+                                            max = 0;
+                                        }
                                     }
                                 } while (c2.moveToNext());
                             }
@@ -1318,97 +1585,117 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 do {
                                     for (int i = 0; i < c3.getColumnCount(); i++) {
                                         System.err.println(c3.getColumnName(i) + " " + c3.getString(i));
-                                        min = Integer.parseInt(c3.getString(i));
+                                        if(c3.getString(i)!=null){
+                                            if(c3.getString(i).equals("") ||c3.getString(i).isEmpty() || c3.getString(i)=="" ) {
+
+                                                min=0;
+                                            }else{
+                                                min = Integer.parseInt(c3.getString(i));
+                                            }
+                                        } else {
+                                            min = 0;
+                                        }
                                     }
                                 } while (c3.moveToNext());
                             }
                         }
-                        Cursor c4 = db.rawQuery("SELECT  next_min FROM C_inspector where id_c_inspector= '" + id_inspector1 + "'  LIMIT 1", null);
+                        Cursor c4 = db.rawQuery("SELECT  next_max FROM C_inspector where id_c_inspector= '" + id_inspector1 + "'  LIMIT 1", null);
                         if (db != null) {
                             if (c4.moveToFirst()) {
                                 do {
                                     for (int i = 0; i < c4.getColumnCount(); i++) {
                                         System.err.println(c4.getColumnName(i) + " " + c4.getString(i));
-                                        next_min = Integer.parseInt(c4.getString(i));
+                                        if(c4.getString(i)!=null){
+                                            if(c4.getString(i).equals("") || c4.getCount()< 0 ){
+                                                next_max=0;
+                                            }else{
+                                                next_max = Integer.parseInt(c4.getString(i));
+                                            }
+                                        } else {
+                                            next_max =0;
+                                        }
+
                                     }
                                 } while (c4.moveToNext());
                             }
                         }
-                        Cursor c5 = db.rawQuery("SELECT  next_max FROM C_inspector where id_c_inspector= '" + id_inspector1 + "'  LIMIT 1", null);
+                        Cursor c5 = db.rawQuery("SELECT  next_min FROM C_inspector where id_c_inspector= '" + id_inspector1 + "'  LIMIT 1", null);
                         if (db != null) {
                             if (c5.moveToFirst()) {
                                 do {
                                     for (int i = 0; i < c5.getColumnCount(); i++) {
                                         System.err.println(c5.getColumnName(i) + " " + c5.getString(i));
-                                        next_max = Integer.parseInt(c5.getString(i));
+                                        if(c5.getString(i)!=null){
+                                            if(c5.getString(i).equals("")|| c5.getCount()< 0 ){
+                                                next_min=0;
+                                            }else{
+                                                next_min = Integer.parseInt(c5.getString(i));
+                                            }
+                                        } else {
+                                            next_min = 0;
+                                        }
+
                                     }
                                 } while (c5.moveToNext());
                             }
                         }
-                        System.out.println(folio);
-                        if (folio == 0) {
-                            folio = min;
-                            etNumeroActa.setText(String.valueOf(folio));
+                        sp = getSharedPreferences("infracciones", Context.MODE_PRIVATE);
+                        foliox = sp.getInt("folio",0);
+                        validarM = sp.getInt("modo",0);
 
-                        } else if (folio >= min && folio <= max) {
-                            System.out.println(folio + "-1");
-                            folio = folio + 1;
-                            etNumeroActa.setText(String.valueOf(folio));
-
-                        } else if (folio >= next_min && folio <= next_max) {
-                            System.out.println(folio + "-2");
-                            folio = folio + 1;
-                            etNumeroActa.setText(String.valueOf(folio));
-
+                        if(validarM==1) {
+                            //modoT.setChecked(true);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putInt("modo", 1);
+                            editor.apply();
+                            //titlem.setText("Modo de Tester: " + getResources().getString(R.string.version));
+                            urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/";
+                        }else {
+                            //modoT.setChecked(false);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putInt("modo", 0);
+                            editor.apply();
+                            //titlem.setText("");
+                            urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/";
                         }
-                        if (folio < min) {
-                            folio = min;
-                            etNumeroActa.setText(String.valueOf(folio));
-                        }
-                        if (folio > next_max) {
-                            System.out.println("proceso de bd");
-                            System.out.println("actualizar tabla");
-                            AlertDialog.Builder dialog = new AlertDialog.Builder(InfraccionesActivity.this);
-                            dialog.setTitle("Se actualizaran los folios!");
-                            dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
 
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
 
+                        System.out.println(foliox + "---");
+                        if(valW =="") {
+                            System.out.println(consultarActa()+"/GGGGG");
+                            if (foliox > 0 && foliox >= min && foliox < max ) {
+                                folio = foliox;
+                                etNumeroActa.setText(String.valueOf(folio));
+
+                            }else {
+                                Log.v("folios ", folio + " " + max + " max");
+                                if (folio >= min && folio < max) {
+                                    folio = folio + 1;
+                                } else if(folio==0 && next_max==0 && next_min==0) {
+                                    folio = min;
+                                }else if(folio<min  ) {
+                                     folio = min;
+                                }else if(folio==max ){
+                                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivity.this)
+                                            .setTitle("Requiere nuevo foliaje, reinicie con internet")
+                                            .setMessage(getResources().getString(R.string.continuar))
+                                            .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+
+
+                                                    finish();
+                                                }
+                                            });
+
+                                    builder.create().show();
                                 }
-                            });
-                            dialog.setMessage("¿Esta seguro?").setPositiveButton("SI", new DialogInterface.OnClickListener() {
 
-
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                                    NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-
-                                    if (networkInfo != null && networkInfo.isConnected()) {
-                                        // Si hay conexión a Internet en este momento
-                                        //JSONArray jsonArray = jParser.realizarHttpRequest1("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getfoliolast.php", "POST",null);
-
-                                        new actualizarInspector().execute();
-
-                                    } else {
-                                        // No hay conexión a Internet en este momento
-                                        AlertDialog.Builder dialog2 = new AlertDialog.Builder(InfraccionesActivity.this);
-                                        dialog2.setTitle("No hay conexion a internet!");
-                                        AlertDialog alert2 = dialog2.create();
-                                        alert2.show();
-                                        finish();
-
-                                    }
-
-
-                                }
-                            });
-                            AlertDialog alert = dialog.create();
-                            alert.show();
-
-
+                                etNumeroActa.setText(String.valueOf(folio));
+                            }
                         }
+
+
 
 
                     } catch (SQLiteException e) {
@@ -1417,79 +1704,97 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         db.close();
                         c.close();
                     }
-                    //26/03/21
-
-
-                }*/
-
-
-
-				
-				/*if(!citatorio){
-					String [] na;
-					if(consultarActa() == 0){
-						Log.i("consultar", "si");
-						numero = "01";
-						etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
-                        Log.i("acta", "entro aqui");
-						buscarNumeroActa();
-						if (!numero_acta.isEmpty()) {
-							if (na()) {
-                                Log.i("acta", "entro aqui2");
-								//aqui consultar el ultimo y asignar
-								na = ultimo().split("/");
-								n = Integer.parseInt(na[6]) + 1;
-								numero = String.valueOf(n);
-								if (numero.length() == 1)
-									numero = "0" + n;
-								etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
-							}
-						}
-					}
-					else{
-                        Log.i("acta", "entro aqui3");
-						Log.i("consultar", "no");
-						asignarActa();
-						n = Integer.valueOf(numero)+1;
-						Log.i("Numero1", numero);
-						if(n > 0 & n <= 9){
-                            Log.i("acta", "entro aqui4");
-							numero = "0"+String.valueOf(n);
-							etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/"  + numero);
-							Log.i("numeros", "n " + etNumeroActa.getText().toString().substring(0, 16) + " v " + s.substring(0, 16));
-							if(!etNumeroActa.getText().toString().substring(0, 16).equalsIgnoreCase(s.substring(0, 16))){
-								Log.i("numero acta", "si");
-								numero = "01";
-                                Log.i("acta", "entro aqui5");
-								etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
-								Log.i("nueva ", InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + infrac + "/" + numero);
-							}
-						}
-						else{
-                            Log.i("acta", "entro aqui6");
-							numero = String.valueOf(n);
-							etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/"  + numero);
-						}
-						
-						buscarNumeroActa();
-						if (!numero_acta.isEmpty()) {
-							if (na()) {
+                }else{
+                    if(!citatorio){
+                        String [] na;
+                        if(consultarActa() == 0){
+                            System.out.println(consultarActa()+"/GGGGG");
+                            if(infrac!=1) {
+                                Log.i("consultar", "si");
+                                numero = "01";
+                                etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
                                 Log.i("acta", "entro aqui");
-								//aqui consultar el ultimo y asignar
-								na = ultimo().split("/");
-								n = Integer.parseInt(na[6]) + 1;
-								numero = String.valueOf(n);
-								if (numero.length() == 1)
-									numero = "0" + n;
-								etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
-							}
-						}
-					}
-				}*/
-			}
-			
+                                buscarNumeroActa();
+                                if (!numero_acta.isEmpty()) {
+                                    if (na()) {
+                                        Log.i("acta", "entro aqui2");
+                                        //aqui consultar el ultimo y asignar
+                                        na = ultimo().split("/");
+                                        n = Integer.parseInt(na[6]) + 1;
+                                        numero = String.valueOf(n);
+                                        if (numero.length() == 1)
+                                            numero = "0" + n;
+                                        etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
+                                    }
+                                }
+                            }
+                        }
+                        else{
+                            Log.i("acta", "entro aqui3");
+                            Log.i("consultar", "no");
+                            asignarActa();
+                            if(numero.equals("")){
+                                numero="0";
+                            }
+                            n = Integer.valueOf(numero)+1;
+                            Log.i("Numero1", numero);
+                            if(n > 0 & n <= 9){
+                                Log.i("acta", "entro aqui4");
+                                numero = "0"+String.valueOf(n);
+                                etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/"  + numero);
+                              //  Log.i("numeros", "n " + etNumeroActa.getText().toString().substring(0, 16) + " v " + s.substring(0, 16));
+                                if(s!=null) {
+                                    if (s.equals("")) {
+                                        s = "";
+                                    } else {
+                                        s = s.substring(0, 16);
+                                    }
+                                }
 
-			@Override
+                                if(!etNumeroActa.getText().toString().substring(0, 16).equalsIgnoreCase(s)){
+                                    Log.i("numero acta", "si");
+                                    numero = "01";
+                                    Log.i("acta", "entro aqui5");
+                                    etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
+                                    Log.i("nueva ", InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + infrac + "/" + numero);
+                                }
+                            }
+                            else{
+                                Log.i("acta", "entro aqui6");
+                                numero = String.valueOf(n);
+                                etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/"  + numero);
+                            }
+
+                            buscarNumeroActa();
+                            if (!numero_acta.isEmpty()) {
+                                if (na()) {
+                                    Log.i("acta", "entro aqui");
+                                    //aqui consultar el ultimo y asignar
+                                    na = ultimo().split("/");
+                                    if(na.length>5)
+                                        n = Integer.parseInt(na[6]) + 1;
+                                    else
+                                        n=50;
+                                    //n = Integer.parseInt(na[6]) + 1;
+                                    numero = String.valueOf(n);
+                                    if (numero.length() == 1)
+                                        numero = "0" + n;
+                                    etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+
+                valW="";
+
+
+            }
+
+
+            @Override
 			public void onNothingSelected(AdapterView<?> arg0) {
 				
 			}
@@ -1665,7 +1970,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					lldiv.setVisibility(View.VISIBLE);
 					consultarLevantamiento(spconsultar.getItemAtPosition(position).toString());
 					System.out.println("entro else consult");
-					valW=spconsultar.getItemAtPosition(position).toString();
+					valW="y";
 					//System.err.println(spconsultar.getSelectedItem().toString().substring(0, 2));
 					//String ante = spconsultar.getSelectedItem().toString().substring(0, 2);
 					
@@ -1694,9 +1999,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				    if(position > 0) {
                         infraccion++;
                         btnaceptar.setVisibility(View.VISIBLE);
-                        if(id2==2 || id2==5){
+                        if(id2==2 || id2==5 || id2==4){
                             btnArticulos.setVisibility(View.VISIBLE);
-                            btneliminarA.setVisibility(View.VISIBLE);
+
                         }else{
                             btneliminarA.setVisibility(View.VISIBLE);
                         }
@@ -1716,10 +2021,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         }
                         Log.i("pos", pos + "");
                         String t = arregloInfraccion.get(position).substring(pos);
-                        buscarInfraccion(arregloInfraccion.get(position));
+                       buscarInfraccion(arregloInfraccion.get(position));
                         if (!desc) {
+                           linea0.setVisibility(View.VISIBLE);
                             etDesc.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("")) {
+
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
                                 Log.i("uni bd", unidad);
                                 String un[];
                                 un = unidad.split(",");
@@ -1750,8 +2057,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etObs.setVisibility(View.VISIBLE);
                             co++;
                         } else if (!desc1) {
+                            linea1.setVisibility(View.VISIBLE);
+
                             etDesc1.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("")) {
+
+                            if ( !unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
                                 String un[];
                                 un = unidad.split(",");
                                 unis1.clear();
@@ -1779,8 +2089,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etObs1.setVisibility(View.VISIBLE);
                             co++;
                         } else if (!desc2) {
+                            linea2.setVisibility(View.VISIBLE);
                             etDesc2.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("")) {
+
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
                                 String un[];
                                 un = unidad.split(",");
                                 unis2.clear();
@@ -1808,8 +2120,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etObs2.setVisibility(View.VISIBLE);
                             co++;
                         } else if (!desc3) {
+
+                            linea3.setVisibility(View.VISIBLE);
                             etDesc3.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("")) {
+
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
                                 String un[];
                                 un = unidad.split(",");
                                 unis3.clear();
@@ -1836,9 +2151,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             desc3 = true;
                             etObs3.setVisibility(View.VISIBLE);
                             co++;
-                        } else {
+                        } else if(!desc4) {
+
+                            linea4.setVisibility(View.VISIBLE);
                             etDesc4.setVisibility(View.VISIBLE);
-                            if (!unidad.trim().equalsIgnoreCase("")) {
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
                                 String un[];
                                 un = unidad.split(",");
                                 unis4.clear();
@@ -1866,11 +2183,354 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etObs4.setVisibility(View.VISIBLE);
                             co++;
                         }
+                        else if(!desc5) {
+                            linea5.setVisibility(View.VISIBLE);
+                            etDesc5.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis5.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis5.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni5.setVisibility(View.VISIBLE);
+                                adapterUni5.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivity.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato5.setVisibility(View.VISIBLE);
+                                etdato5.setEnabled(true);
+							/*tvuni4.setVisibility(View.VISIBLE);
+							tvuni4.setText(unidad);
+							tvuni4.setFocusable(true);*/
+                            }
+                            des5 = t;
+                            tveliminar5.setVisibility(View.VISIBLE);
+                            etDesc5.setText(t);
+                            desc5 = true;
+                            etObs5.setVisibility(View.VISIBLE);
+                            co++;
+                        }
+                        else if(!desc6) {
+                            linea6.setVisibility(View.VISIBLE);
+                            etDesc6.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis6.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis6.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni6.setVisibility(View.VISIBLE);
+                                adapterUni6.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivity.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato6.setVisibility(View.VISIBLE);
+                                etdato6.setEnabled(true);
+							/*tvuni4.setVisibility(View.VISIBLE);
+							tvuni4.setText(unidad);
+							tvuni4.setFocusable(true);*/
+                            }
+                            des6 = t;
+                            tveliminar6.setVisibility(View.VISIBLE);
+                            etDesc6.setText(t);
+                            desc6 = true;
+                            etObs6.setVisibility(View.VISIBLE);
+                            co++;
+                        }
+                        else if(!desc7) {
+                            linea7.setVisibility(View.VISIBLE);
+                            etDesc7.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis7.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis7.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni7.setVisibility(View.VISIBLE);
+                                adapterUni7.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivity.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato7.setVisibility(View.VISIBLE);
+                                etdato7.setEnabled(true);
+							/*tvuni4.setVisibility(View.VISIBLE);
+							tvuni4.setText(unidad);
+							tvuni4.setFocusable(true);*/
+                            }
+                            des7 = t;
+                            tveliminar7.setVisibility(View.VISIBLE);
+                            etDesc7.setText(t);
+                            desc7 = true;
+                            etObs7.setVisibility(View.VISIBLE);
+                            co++;
+                        }
+                        else if(!desc8) {
+                            linea8.setVisibility(View.VISIBLE);
+                            etDesc8.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis8.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis8.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni8.setVisibility(View.VISIBLE);
+                                adapterUni8.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivity.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato8.setVisibility(View.VISIBLE);
+                                etdato8.setEnabled(true);
+							/*tvuni4.setVisibility(View.VISIBLE);
+							tvuni4.setText(unidad);
+							tvuni4.setFocusable(true);*/
+                            }
+                            des8 = t;
+                            tveliminar8.setVisibility(View.VISIBLE);
+                            etDesc8.setText(t);
+                            desc8 = true;
+                            etObs8.setVisibility(View.VISIBLE);
+                            co++;
+                        }
+                        else if(!desc9) {
+                            linea9.setVisibility(View.VISIBLE);
+                            etDesc9.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis9.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis9.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni9.setVisibility(View.VISIBLE);
+                                adapterUni9.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivity.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato9.setVisibility(View.VISIBLE);
+                                etdato9.setEnabled(true);
+							/*tvuni4.setVisibility(View.VISIBLE);
+							tvuni4.setText(unidad);
+							tvuni4.setFocusable(true);*/
+                            }
+                            des9 = t;
+                            tveliminar9.setVisibility(View.VISIBLE);
+                            etDesc9.setText(t);
+                            desc9 = true;
+                            etObs9.setVisibility(View.VISIBLE);
+                            co++;
+                        }
+                        else if(!desc10) {
+                            linea10.setVisibility(View.VISIBLE);
+                            etDesc10.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis10.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis10.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni10.setVisibility(View.VISIBLE);
+                                adapterUni10.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivity.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato10.setVisibility(View.VISIBLE);
+                                etdato10.setEnabled(true);
+							/*tvuni4.setVisibility(View.VISIBLE);
+							tvuni4.setText(unidad);
+							tvuni4.setFocusable(true);*/
+                            }
+                            des10 = t;
+                            tveliminar10.setVisibility(View.VISIBLE);
+                            etDesc10.setText(t);
+                            desc10 = true;
+                            etObs10.setVisibility(View.VISIBLE);
+                            co++;
+                        }
+                        else if(!desc11) {
+                            linea11.setVisibility(View.VISIBLE);
+                            etDesc11.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis11.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis11.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni11.setVisibility(View.VISIBLE);
+                                adapterUni11.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivity.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato11.setVisibility(View.VISIBLE);
+                                etdato11.setEnabled(true);
+							/*tvuni4.setVisibility(View.VISIBLE);
+							tvuni4.setText(unidad);
+							tvuni4.setFocusable(true);*/
+                            }
+                            des11 = t;
+                            tveliminar11.setVisibility(View.VISIBLE);
+                            etDesc11.setText(t);
+                            desc11 = true;
+                            etObs11.setVisibility(View.VISIBLE);
+                            co++;
+                        }
+                        else if(!desc12) {
+                            linea12.setVisibility(View.VISIBLE);
+                            etDesc12.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis12.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis12.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni12.setVisibility(View.VISIBLE);
+                                adapterUni12.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivity.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato12.setVisibility(View.VISIBLE);
+                                etdato12.setEnabled(true);
+							/*tvuni4.setVisibility(View.VISIBLE);
+							tvuni4.setText(unidad);
+							tvuni4.setFocusable(true);*/
+                            }
+                            des12 = t;
+                            tveliminar12.setVisibility(View.VISIBLE);
+                            etDesc12.setText(t);
+                            desc12 = true;
+                            etObs12.setVisibility(View.VISIBLE);
+                            co++;
+                        }
+                        else if(!desc13) {
+                            linea13.setVisibility(View.VISIBLE);
+                            etDesc13.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis13.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis13.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni13.setVisibility(View.VISIBLE);
+                                adapterUni13.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivity.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato13.setVisibility(View.VISIBLE);
+                                etdato13.setEnabled(true);
+							/*tvuni4.setVisibility(View.VISIBLE);
+							tvuni4.setText(unidad);
+							tvuni4.setFocusable(true);*/
+                            }
+                            des13 = t;
+                            tveliminar13.setVisibility(View.VISIBLE);
+                            etDesc13.setText(t);
+                            desc13 = true;
+                            etObs13.setVisibility(View.VISIBLE);
+                            co++;
+                        }
+                        else if(!desc14) {
+                            linea14.setVisibility(View.VISIBLE);
+                            linea4.setVisibility(View.VISIBLE);
+                            etDesc14.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis14.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis14.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni14.setVisibility(View.VISIBLE);
+                                adapterUni14.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivity.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato14.setVisibility(View.VISIBLE);
+                                etdato14.setEnabled(true);
+							/*tvuni4.setVisibility(View.VISIBLE);
+							tvuni4.setText(unidad);
+							tvuni4.setFocusable(true);*/
+                            }
+                            des14 = t;
+                            tveliminar14.setVisibility(View.VISIBLE);
+                            etDesc14.setText(t);
+                            desc14 = true;
+                            etObs14.setVisibility(View.VISIBLE);
+                            co++;
+                        }
+
+                        else if(!desc15) {
+                            linea15.setVisibility(View.VISIBLE);
+                            etDesc15.setVisibility(View.VISIBLE);
+                            if (!unidad.trim().equalsIgnoreCase("") && !unidad.trim().equals("UNICO")) {
+                                String un[];
+                                un = unidad.split(",");
+                                unis15.clear();
+                                for (int i = 0; i < un.length; i++) {
+                                    if (!un[i].isEmpty()) {
+                                        unis15.add(un[i]);
+                                        Log.i("unidades", un[i]);
+                                    }
+                                }
+                                spuni15.setVisibility(View.VISIBLE);
+                                adapterUni15.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(InfraccionesActivity.this, "Debe Ingrese la cantidad", Toast.LENGTH_LONG);
+                                toast.setGravity(0, 0, 15);
+                                toast.show();
+                                etdato15.setVisibility(View.VISIBLE);
+                                etdato15.setEnabled(true);
+							/*tvuni4.setVisibility(View.VISIBLE);
+							tvuni4.setText(unidad);
+							tvuni4.setFocusable(true);*/
+                            }
+                            des15 = t;
+                            tveliminar15.setVisibility(View.VISIBLE);
+                            etDesc15.setText(t);
+                            desc15 = true;
+                            etObs15.setVisibility(View.VISIBLE);
+                            co++;
+                        }
                         spInfraccion.setSelection(0);
                         actualizarTV(infraccion);
                     }
 				}
-				if (infraccion == 5)
+				if (infraccion == 15)
 					spInfraccion.setEnabled(false);
 			}
 
@@ -1933,6 +2593,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     if(!etInfraccion.getText().toString().equalsIgnoreCase("") | infrac == 2 | infrac == 3 | infrac == 4) {
 
                         new Descargas().execute();
+                        new EFoto().execute();
                     }else {
                         Toast toast = Toast.makeText(getApplicationContext(), "EL CAMPO INFRACCION ESTA VACIO", Toast.LENGTH_LONG);
                         toast.setGravity(0, 0, 15);
@@ -2022,7 +2683,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					toast.setGravity(0, 0, 15);
 					toast.show();
 				}
+                etDFoto.requestFocus();
 			}
+
 		});
         
         this.btnFecha.setOnClickListener(this);
@@ -2040,7 +2703,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					m = (calendar.get(Calendar.MINUTE) < 10) ? "0" + calendar.get(Calendar.MINUTE) : String.valueOf(calendar.get(Calendar.MINUTE));
 					hora = h + ":" + m;
 					int day = calendar.get(Calendar.MONTH);
+
 					day += 1;
+					/*String mes_fecha="";
+					if(day<10) {
+                    mes_fecha="0"+day;
+                    }else{
+                        mes_fecha=String.valueOf(day);
+                    }*/
 					fecha = calendar.get(Calendar.DAY_OF_MONTH) + "/" + day + "/" + calendar.get(Calendar.YEAR);
 					Log.i("Fecha/Hora", fecha + "/" + hora);
 					lldiv.setVisibility(View.VISIBLE);
@@ -2113,8 +2783,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             @Override
             public void onClick(View v) {
                 if(contador>=1){
-                    etArticulo.setEnabled(false);
+                    //etArticulo.setEnabled(false);
+
                     mostrarArt(contador);
+                    btnArticulos.setEnabled(false);
                 }else{
 
                 }
@@ -2124,7 +2796,40 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         this.btneliminarA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reiniciarA();
+
+
+
+
+                reiniciarA(0,etMedida.getText().toString().trim());
+                btnArticulos.setEnabled(true);
+            }
+        });
+        this.btneliminarA1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reiniciarA(1,etMedida1.getText().toString().trim());
+                btnArticulos.setEnabled(true);
+            }
+        });
+        this.btneliminarA2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reiniciarA(2,etMedida2.getText().toString().trim());
+                btnArticulos.setEnabled(true);
+            }
+        });
+        this.btneliminarA3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reiniciarA(3,etMedida3.getText().toString().trim());
+                btnArticulos.setEnabled(true);
+            }
+        });
+        this.btneliminarA4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reiniciarA(4,etMedida4.getText().toString().trim());
+                btnArticulos.setEnabled(true);
             }
         });
         
@@ -2133,7 +2838,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			@Override
 			public void onClick(View v) {
 				infraccion--;
-				if (infraccion < 5) 
+				if (infraccion < 15)
 					spInfraccion.setEnabled(true);
 				co--;
 				etDesc.setText("");
@@ -2162,7 +2867,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			@Override
 			public void onClick(View v) {
 				infraccion--;
-				if (infraccion < 5) 
+				if (infraccion < 15)
 					spInfraccion.setEnabled(true);
 				co--;
 				etDesc1.setText("");
@@ -2191,7 +2896,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			@Override
 			public void onClick(View v) {
 				infraccion--;
-				if (infraccion < 5) 
+				if (infraccion < 15)
 					spInfraccion.setEnabled(true);
 				co--;
 				etDesc2.setText("");
@@ -2220,7 +2925,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			@Override
 			public void onClick(View v) {
 				infraccion--;
-				if (infraccion < 5) 
+				if (infraccion < 15)
 					spInfraccion.setEnabled(true);
 				co--;
 				etDesc3.setText("");
@@ -2249,7 +2954,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			@Override
 			public void onClick(View v) {
 				infraccion--;
-				if (infraccion < 5) 
+				if (infraccion < 15)
 					spInfraccion.setEnabled(true);
 				co--;
 				etDesc4.setText("");
@@ -2272,9 +2977,327 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 actualizarTV(infraccion);
 			}
 		});
+
+        this.tveliminar5.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                infraccion--;
+                if (infraccion < 15)
+                    spInfraccion.setEnabled(true);
+                co--;
+                etDesc5.setText("");
+                etDesc5.setVisibility(View.GONE);
+                etdato5.setText("");
+                etdato5.setVisibility(View.GONE);
+                tvuni5.setVisibility(View.GONE);
+                tvuni5.setText("");
+                etObs5.setVisibility(View.GONE);
+                tveliminar5.setVisibility(View.GONE);
+                spuni5.setVisibility(View.GONE);
+                desc5 = false;
+                des5 = "";
+                if(co==0){
+                    btnaceptar.setVisibility(View.GONE);
+                }
+                else
+                    btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
+            }
+        });
+        this.tveliminar6.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                infraccion--;
+                if (infraccion < 15)
+                    spInfraccion.setEnabled(true);
+                co--;
+                etDesc6.setText("");
+                etDesc6.setVisibility(View.GONE);
+                etdato6.setText("");
+                etdato6.setVisibility(View.GONE);
+                tvuni6.setVisibility(View.GONE);
+                tvuni6.setText("");
+                etObs6.setVisibility(View.GONE);
+                tveliminar6.setVisibility(View.GONE);
+                spuni6.setVisibility(View.GONE);
+                desc6 = false;
+                des6 = "";
+                if(co==0){
+                    btnaceptar.setVisibility(View.GONE);
+                }
+                else
+                    btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
+            }
+        });
+
+        this.tveliminar7.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                infraccion--;
+                if (infraccion < 15)
+                    spInfraccion.setEnabled(true);
+                co--;
+                etDesc7.setText("");
+                etDesc7.setVisibility(View.GONE);
+                etdato7.setText("");
+                etdato7.setVisibility(View.GONE);
+                tvuni7.setVisibility(View.GONE);
+                tvuni7.setText("");
+                etObs7.setVisibility(View.GONE);
+                tveliminar7.setVisibility(View.GONE);
+                spuni7.setVisibility(View.GONE);
+                desc7 = false;
+                des7 = "";
+                if(co==0){
+                    btnaceptar.setVisibility(View.GONE);
+                }
+                else
+                    btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
+            }
+        });
+
+        this.tveliminar8.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                infraccion--;
+                if (infraccion < 15)
+                    spInfraccion.setEnabled(true);
+                co--;
+                etDesc8.setText("");
+                etDesc8.setVisibility(View.GONE);
+                etdato8.setText("");
+                etdato8.setVisibility(View.GONE);
+                tvuni8.setVisibility(View.GONE);
+                tvuni8.setText("");
+                etObs8.setVisibility(View.GONE);
+                tveliminar8.setVisibility(View.GONE);
+                spuni8.setVisibility(View.GONE);
+                desc8 = false;
+                des8 = "";
+                if(co==0){
+                    btnaceptar.setVisibility(View.GONE);
+                }
+                else
+                    btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
+            }
+        });
+        this.tveliminar9.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                infraccion--;
+                if (infraccion < 15)
+                    spInfraccion.setEnabled(true);
+                co--;
+                etDesc9.setText("");
+                etDesc9.setVisibility(View.GONE);
+                etdato9.setText("");
+                etdato9.setVisibility(View.GONE);
+                tvuni9.setVisibility(View.GONE);
+                tvuni9.setText("");
+                etObs9.setVisibility(View.GONE);
+                tveliminar9.setVisibility(View.GONE);
+                spuni9.setVisibility(View.GONE);
+                desc9 = false;
+                des9 = "";
+                if(co==0){
+                    btnaceptar.setVisibility(View.GONE);
+                }
+                else
+                    btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
+            }
+        });
+
+        this.tveliminar10.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                infraccion--;
+                if (infraccion < 15)
+                    spInfraccion.setEnabled(true);
+                co--;
+                etDesc10.setText("");
+                etDesc10.setVisibility(View.GONE);
+                etdato10.setText("");
+                etdato10.setVisibility(View.GONE);
+                tvuni10.setVisibility(View.GONE);
+                tvuni10.setText("");
+                etObs10.setVisibility(View.GONE);
+                tveliminar10.setVisibility(View.GONE);
+                spuni10.setVisibility(View.GONE);
+                desc10 = false;
+                des10 = "";
+                if(co==0){
+                    btnaceptar.setVisibility(View.GONE);
+                }
+                else
+                    btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
+            }
+        });
+
+        this.tveliminar11.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                infraccion--;
+                if (infraccion < 15)
+                    spInfraccion.setEnabled(true);
+                co--;
+                etDesc11.setText("");
+                etDesc11.setVisibility(View.GONE);
+                etdato11.setText("");
+                etdato11.setVisibility(View.GONE);
+                tvuni11.setVisibility(View.GONE);
+                tvuni11.setText("");
+                etObs11.setVisibility(View.GONE);
+                tveliminar11.setVisibility(View.GONE);
+                spuni11.setVisibility(View.GONE);
+                desc11 = false;
+                des11 = "";
+                if(co==0){
+                    btnaceptar.setVisibility(View.GONE);
+                }
+                else
+                    btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
+            }
+        });
+
+        this.tveliminar12.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                infraccion--;
+                if (infraccion < 15)
+                    spInfraccion.setEnabled(true);
+                co--;
+                etDesc12.setText("");
+                etDesc12.setVisibility(View.GONE);
+                etdato12.setText("");
+                etdato12.setVisibility(View.GONE);
+                tvuni12.setVisibility(View.GONE);
+                tvuni12.setText("");
+                etObs12.setVisibility(View.GONE);
+                tveliminar12.setVisibility(View.GONE);
+                spuni12.setVisibility(View.GONE);
+                desc12 = false;
+                des12 = "";
+                if(co==0){
+                    btnaceptar.setVisibility(View.GONE);
+                }
+                else
+                    btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
+            }
+        });
+
+        this.tveliminar13.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                infraccion--;
+                if (infraccion < 15)
+                    spInfraccion.setEnabled(true);
+                co--;
+                etDesc13.setText("");
+                etDesc13.setVisibility(View.GONE);
+                etdato13.setText("");
+                etdato13.setVisibility(View.GONE);
+                tvuni13.setVisibility(View.GONE);
+                tvuni13.setText("");
+                etObs13.setVisibility(View.GONE);
+                tveliminar13.setVisibility(View.GONE);
+                spuni13.setVisibility(View.GONE);
+                desc13 = false;
+                des13 = "";
+                if(co==0){
+                    btnaceptar.setVisibility(View.GONE);
+                }
+                else
+                    btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
+            }
+        });
+
+        this.tveliminar14.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                infraccion--;
+                if (infraccion < 15)
+                    spInfraccion.setEnabled(true);
+                co--;
+                etDesc14.setText("");
+                etDesc14.setVisibility(View.GONE);
+                etdato14.setText("");
+                etdato14.setVisibility(View.GONE);
+                tvuni14.setVisibility(View.GONE);
+                tvuni14.setText("");
+                etObs14.setVisibility(View.GONE);
+                tveliminar14.setVisibility(View.GONE);
+                spuni14.setVisibility(View.GONE);
+                desc14 = false;
+                des14 = "";
+                if(co==0){
+                    btnaceptar.setVisibility(View.GONE);
+                }
+                else
+                    btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
+            }
+        });
+
+        this.tveliminar15.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                infraccion--;
+                if (infraccion < 15)
+                    spInfraccion.setEnabled(true);
+                co--;
+                etDesc15.setText("");
+                etDesc15.setVisibility(View.GONE);
+                etdato15.setText("");
+                etdato15.setVisibility(View.GONE);
+                tvuni15.setVisibility(View.GONE);
+                tvuni15.setText("");
+                etObs15.setVisibility(View.GONE);
+                tveliminar15.setVisibility(View.GONE);
+                spuni15.setVisibility(View.GONE);
+                desc15 = false;
+                des15 = "";
+                if(co==0){
+                    btnaceptar.setVisibility(View.GONE);
+                }
+                else
+                    btnaceptar.setVisibility(View.VISIBLE);
+
+                actualizarTV(infraccion);
+            }
+        });
+
         
         this.btnaceptar.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				if(validar()>0){
@@ -2304,14 +3327,21 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							
+							arrayhechosC.clear();
 							rlcampo.setVisibility(View.GONE);
 							dato = "";
-							if(id==5 || id==2  ){
-                                Log.e("Axmedidas", Axmedidas);
-                                medidas2(Axmedidas);
+							if(id==5|| id==2){
+
+                                    Log.e("Axmedidas", Axmedidas);
+                                    medidas2(Axmedidas);
+
+
                             }
 							String descrip = etEspecificacion.getText().toString()+".";
+
+							if(etEspecificacion.getText().toString().equals("")){
+							    descrip="";
+                            }
 							/*if (!Double.toString(latitud).equals("0.0") & !Double.toString(longitud).equals("0.0"))   
 								descrip += ". LAS COORDENADAS APROXIMADAS SON: LONGITUD: " + longitud + " LATITUD: " + latitud +".";*/
 							
@@ -2320,20 +3350,24 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							Log.i("des",des);
 							int x = 1;
 							if(!des.equals("")){
-                                buscarInfraccion(des);
+                               buscarInfraccion(des);
 								infraccion();
 								tveliminar.setEnabled(false);
 								if(spuni.getVisibility() != View.GONE) {
 								    unidades += spuni.getSelectedItem().toString().trim()+",";
                                     if (!spuni.getSelectedItem().toString().equalsIgnoreCase("")) {
                                         seleccion += x + " " + des + " (" + etdato.getText().toString().trim() + " " + spuni.getSelectedItem().toString().trim() + " " + etObs.getText().toString() + "); ";
+                                        arrayhechosC.add(x + " " + des + " (" + etdato.getText().toString().trim() + " " + spuni.getSelectedItem().toString().trim() + " " + etObs.getText().toString() + "); ");
                                     }
                                 } else {
                                     unidades += " ,";
-                                    if(etObs.getText().toString().trim().length()>1)
-                                        seleccion += x + " " + des + " ("+etObs.getText().toString()+"). ";
-                                    else
-                                        seleccion += x + " " + des +". ";
+                                    if(etObs.getText().toString().trim().length()>1) {
+                                        seleccion += x + " " + des + " (" + etObs.getText().toString() + "). ";
+                                        arrayhechosC.add( x + " " + des + " (" + etObs.getText().toString() + "). ");
+                                    }else {
+                                        seleccion += x + " " + des + ". ";
+                                        arrayhechosC.add( x + " " + des + " ");
+                                    }
                                     //seleccion += x + " " + des + "("+etObs.getText().toString()+"); ";
                                 }
 								x++;
@@ -2347,14 +3381,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     unidades += spuni1.getSelectedItem().toString().trim()+",";
                                     if (!spuni1.getSelectedItem().toString().equals("")) {
                                         seleccion += x + " " + des1 + " (" + etdato1.getText().toString().trim() + " " + spuni1.getSelectedItem().toString().trim() + " " + etObs1.getText().toString() + "); ";
+                                        arrayhechosC.add(x + " " + des1 + " (" + etdato1.getText().toString().trim() + " " + spuni1.getSelectedItem().toString().trim() + " " + etObs1.getText().toString() + "); ");
                                     }
                                 } else {
                                     unidades+=" ,";
-                                    if(etObs1.getText().toString().trim().length()>1)
-                                        seleccion += x + " " + des1 + " ("+etObs1.getText().toString()+"). ";
-                                    else
-                                        seleccion += x + " " + des1 +". ";
-                                    //seleccion += x + " " + des1 + "("+etObs1.getText().toString()+"); ";
+                                    if(etObs1.getText().toString().trim().length()>1) {
+                                        seleccion += x + " " + des1 + " (" + etObs1.getText().toString() + "). ";
+                                        arrayhechosC.add(x + " " + des1 + " (" + etObs1.getText().toString() + "). ");
+                                    }else {
+                                        seleccion += x + " " + des1 + " ";
+                                        arrayhechosC.add(x + " " + des1 + " ");
+                                        //seleccion += x + " " + des1 + "("+etObs1.getText().toString()+"); ";
+                                    }
                                 }
                                 x++;
 								dato += etdato1.getText().toString().trim()+ ",";
@@ -2367,14 +3405,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     unidades += spuni2.getSelectedItem().toString().trim()+",";
                                     if (!spuni2.getSelectedItem().toString().equals("")) {
                                         seleccion += x + " " + des2 + " (" + etdato2.getText().toString().trim() + " " + spuni2.getSelectedItem().toString() + " " + etObs2.getText().toString() +"); ";
+                                        arrayhechosC.add(x + " " + des2 + " (" + etdato2.getText().toString().trim() + " " + spuni2.getSelectedItem().toString() + " " + etObs2.getText().toString() +"); ");
                                     }
                                 } else {
                                     unidades+=" ,";
-                                    if(etObs2.getText().toString().trim().length()>1)
-                                        seleccion += x + " " + des2 + " ("+etObs2.getText().toString()+"). ";
-                                    else
-                                        seleccion += x + " " + des2 +". ";
-                                    //seleccion += x + " " + des2 + "("+etObs2.getText().toString()+"); ";
+                                    if(etObs2.getText().toString().trim().length()>1) {
+                                        seleccion += x + " " + des2 + " (" + etObs2.getText().toString() + "). ";
+                                        arrayhechosC.add(x + " " + des2 + " (" + etObs2.getText().toString() + "). ");
+                                    }else {
+                                        seleccion += x + " " + des2 + ". ";
+                                        arrayhechosC.add(x + " " + des2 + " ");
+                                        //seleccion += x + " " + des2 + "("+etObs2.getText().toString()+"); ";
+                                    }
                                 }
                                 x++;
 								dato += etdato2.getText().toString().trim()+ ",";
@@ -2386,368 +3428,420 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 if(spuni3.getVisibility() != View.GONE) {
                                     unidades += spuni3.getSelectedItem().toString().trim()+",";
                                     if (!spuni3.getSelectedItem().toString().equals("")) {
-                                        seleccion += x + " " + des3 + " (" + etdato.getText().toString().trim() + " " + spuni3.getSelectedItem().toString() + " " + etObs3.getText().toString() +"); ";
+                                        seleccion += x + " " + des3 + " (" + etdato3.getText().toString().trim() + " " + spuni3.getSelectedItem().toString() + " " + etObs3.getText().toString() +"); ";
+                                        arrayhechosC.add(x + " " + des3 + " (" + etdato3.getText().toString().trim() + " " + spuni3.getSelectedItem().toString() + " " + etObs3.getText().toString() +"); ");
                                     }
                                 } else {
                                     unidades+=" ,";
-                                    if(etObs3.getText().toString().trim().length()>1)
-                                        seleccion += x + " " + des3+ " ("+etObs3.getText().toString()+"). ";
-                                    else
-                                        seleccion += x + " " + des3 +". ";
-                                    //seleccion += x + " " + des3 + "("+etObs3.getText().toString()+"); ";
+                                    if(etObs3.getText().toString().trim().length()>1) {
+                                        seleccion += x + " " + des3 + " (" + etObs3.getText().toString() + "). ";
+                                        arrayhechosC.add(x + " " + des3 + " (" + etObs3.getText().toString() + "). ");
+                                    }else {
+                                        seleccion += x + " " + des3 + ". ";
+                                        arrayhechosC.add(x + " " + des3 + " ");
+                                        //seleccion += x + " " + des3 + "("+etObs3.getText().toString()+"); ";
+                                    }
                                 }
                                 x++;
 								dato += etdato3.getText().toString().trim()+ ",";
 							}
 							if(!des4.equals("")){
-                                buscarInfraccion(des4);
+                               buscarInfraccion(des4);
 								infraccion();
 								tveliminar4.setEnabled(false);
                                 if(spuni4.getVisibility() != View.GONE) {
                                     unidades += spuni4.getSelectedItem().toString().trim()+",";
                                     if (!spuni4.getSelectedItem().toString().equals("")) {
-                                        seleccion += x + " " + des4 + " (" + etdato.getText().toString().trim() + " " + spuni4.getSelectedItem().toString() + " " + etObs4.getText().toString() +"); ";
+                                        seleccion += x + " " + des4 + " (" + etdato4.getText().toString().trim() + " " + spuni4.getSelectedItem().toString() + " " + etObs4.getText().toString() +"); ";
+                                        arrayhechosC.add(x + " " + des4 + " (" + etdato4.getText().toString().trim() + " " + spuni4.getSelectedItem().toString() + " " + etObs4.getText().toString() +"); ");
                                     }
                                 } else {
                                     unidades+=" ,";
-                                    if(etObs4.getText().toString().trim().length()>1)
-                                        seleccion += x + " " + des4 + " ("+etObs4.getText().toString()+"). ";
-                                    else
-                                        seleccion += x + " " + des4 +". ";
+                                    if(etObs4.getText().toString().trim().length()>1) {
+                                        seleccion += x + " " + des4 + " (" + etObs4.getText().toString() + "). ";
+                                        arrayhechosC.add( x + " " + des4 + " (" + etObs4.getText().toString() + "). ");
+                                    } else {
+                                        seleccion += x + " " + des4 + ". ";
+                                        arrayhechosC.add( x + " " + des4 + " ");
+
+                                    }
                                     //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
                                 }
+                                x++;
 								dato += etdato4.getText().toString().trim()+ ",";
 							}
+                            if(!des5.equals("")){
+                                buscarInfraccion(des5);
+                                infraccion();
+                                tveliminar5.setEnabled(false);
+                                if(spuni5.getVisibility() != View.GONE) {
+                                    unidades += spuni5.getSelectedItem().toString().trim()+",";
+                                    if (!spuni5.getSelectedItem().toString().equals("")) {
+                                        seleccion += x + " " + des5 + " (" + etdato5.getText().toString().trim() + " " + spuni5.getSelectedItem().toString() + " " + etObs5.getText().toString() +"); ";
+                                        arrayhechosC.add(x + " " + des5 + " (" + etdato5.getText().toString().trim() + " " + spuni5.getSelectedItem().toString() + " " + etObs5.getText().toString() +"); ");
+                                    }
+                                } else {
+                                    unidades+=" ,";
+                                    if(etObs5.getText().toString().trim().length()>1) {
+                                        seleccion += x + " " + des5 + " (" + etObs5.getText().toString() + "). ";
+                                        arrayhechosC.add(x + " " + des5 + " (" + etObs5.getText().toString() + "). ");
+                                    }else {
+                                        seleccion += x + " " + des5 + ". ";
+                                        arrayhechosC.add(x + " " + des5 + " ");
+                                        //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                    }
+                                }
+                                x++;
+                                dato += etdato5.getText().toString().trim()+ ",";
+                            }
+                            if(!des6.equals("")){
+                                buscarInfraccion(des6);
+                                infraccion();
+                                tveliminar6.setEnabled(false);
+                                if(spuni6.getVisibility() != View.GONE) {
+                                    unidades += spuni6.getSelectedItem().toString().trim()+",";
+                                    if (!spuni6.getSelectedItem().toString().equals("")) {
+                                        seleccion += x + " " + des6 + " (" + etdato6.getText().toString().trim() + " " + spuni6.getSelectedItem().toString() + " " + etObs6.getText().toString() +"); ";
+                                        arrayhechosC.add(x + " " + des6 + " (" + etdato6.getText().toString().trim() + " " + spuni6.getSelectedItem().toString() + " " + etObs6.getText().toString() +"); ");
+                                    }
+                                } else {
+                                    unidades+=" ,";
+                                    if(etObs6.getText().toString().trim().length()>1) {
+                                        seleccion += x + " " + des6 + " (" + etObs6.getText().toString() + "). ";
+                                        arrayhechosC.add(x + " " + des6 + " (" + etObs6.getText().toString() + "). ");
+                                    }else {
+                                        seleccion += x + " " + des6 + ". ";
+                                        arrayhechosC.add(x + " " + des6 + " ");
+                                        //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                    }
+                                }
+                                x++;
+                                dato += etdato6.getText().toString().trim()+ ",";
+                            }
+                            if(!des7.equals("")){
+                                buscarInfraccion(des7);
+                                infraccion();
+                                tveliminar7.setEnabled(false);
+                                if(spuni7.getVisibility() != View.GONE) {
+                                    unidades += spuni7.getSelectedItem().toString().trim()+",";
+                                    if (!spuni7.getSelectedItem().toString().equals("")) {
+                                        seleccion += x + " " + des7 + " (" + etdato7.getText().toString().trim() + " " + spuni7.getSelectedItem().toString() + " " + etObs7.getText().toString() +"); ";
+                                        arrayhechosC.add(x + " " + des7 + " (" + etdato7.getText().toString().trim() + " " + spuni7.getSelectedItem().toString() + " " + etObs7.getText().toString() +"); ");
+                                    }
+                                } else {
+                                    unidades+=" ,";
+                                    if(etObs7.getText().toString().trim().length()>1) {
+                                        seleccion += x + " " + des7 + " (" + etObs7.getText().toString() + "). ";
+                                        arrayhechosC.add(x + " " + des7 + " (" + etObs7.getText().toString() + "). ");
+                                    }else {
+                                        seleccion += x + " " + des7 + ". ";
+                                        arrayhechosC.add(x + " " + des7 + " ");
+                                    }
+                                    //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                }
+                                x++;
+                                dato += etdato7.getText().toString().trim()+ ",";
+                            }
+                            if(!des8.equals("")){
+                                buscarInfraccion(des8);
+                                infraccion();
+                                tveliminar8.setEnabled(false);
+                                if(spuni8.getVisibility() != View.GONE) {
+                                    unidades += spuni8.getSelectedItem().toString().trim()+",";
+                                    if (!spuni8.getSelectedItem().toString().equals("")) {
+                                        seleccion += x + " " + des8 + " (" + etdato8.getText().toString().trim() + " " + spuni8.getSelectedItem().toString() + " " + etObs8.getText().toString() +"); ";
+                                        arrayhechosC.add(x + " " + des8 + " (" + etdato8.getText().toString().trim() + " " + spuni8.getSelectedItem().toString() + " " + etObs8.getText().toString() +"); ");
+                                    }
+                                } else {
+                                    unidades+=" ,";
+                                    if(etObs8.getText().toString().trim().length()>1) {
+                                        seleccion += x + " " + des8 + " (" + etObs8.getText().toString() + "). ";
+                                        arrayhechosC.add(x + " " + des8 + " (" + etObs8.getText().toString() + "). ");
+                                    } else {
+                                        seleccion += x + " " + des8 + ". ";
+                                        arrayhechosC.add(x + " " + des8 + " ");
+                                        //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                    }
+                                }
+                                x++;
+                                dato += etdato8.getText().toString().trim()+ ",";
+                            }
+                            if(!des9.equals("")){
+                                buscarInfraccion(des9);
+                                infraccion();
+                                tveliminar9.setEnabled(false);
+                                if(spuni9.getVisibility() != View.GONE) {
+                                    unidades += spuni9.getSelectedItem().toString().trim()+",";
+                                    if (!spuni9.getSelectedItem().toString().equals("")) {
+                                        seleccion += x + " " + des9 + " (" + etdato9.getText().toString().trim() + " " + spuni9.getSelectedItem().toString() + " " + etObs9.getText().toString() +"); ";
+                                        arrayhechosC.add(x + " " + des9 + " (" + etdato9.getText().toString().trim() + " " + spuni9.getSelectedItem().toString() + " " + etObs9.getText().toString() +"); ");
+                                    }
+                                } else {
+                                    unidades+=" ,";
+                                    if(etObs9.getText().toString().trim().length()>1) {
+                                        seleccion += x + " " + des9 + " (" + etObs9.getText().toString() + "). ";
+                                        arrayhechosC.add(x + " " + des9 + " (" + etObs9.getText().toString() + "). ");
+                                    }else {
+                                        seleccion += x + " " + des9 + ". ";
+                                        arrayhechosC.add(x + " " + des9 + " ");
+                                        //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                    }
+                                }
+                                x++;
+                                dato += etdato9.getText().toString().trim()+ ",";
+                            }
+                            if(!des10.equals("")){
+                                buscarInfraccion(des10);
+                                infraccion();
+                                tveliminar10.setEnabled(false);
+                                if(spuni10.getVisibility() != View.GONE) {
+                                    unidades += spuni10.getSelectedItem().toString().trim()+",";
+                                    if (!spuni10.getSelectedItem().toString().equals("")) {
+                                        seleccion += x + " " + des10 + " (" + etdato10.getText().toString().trim() + " " + spuni10.getSelectedItem().toString() + " " + etObs10.getText().toString() +"); ";
+                                        arrayhechosC.add(x + " " + des10 + " (" + etdato10.getText().toString().trim() + " " + spuni10.getSelectedItem().toString() + " " + etObs10.getText().toString() +"); ");
+                                    }
+                                } else {
+                                    unidades+=" ,";
+                                    if(etObs10.getText().toString().trim().length()>1) {
+                                        seleccion += x + " " + des10 + " (" + etObs10.getText().toString() + "). ";
+                                        arrayhechosC.add(x + " " + des10 + " (" + etObs10.getText().toString() + "). ");
+                                    }else {
+                                        seleccion += x + " " + des10 + ". ";
+                                        arrayhechosC.add(x + " " + des10 + " ");
+                                    }
+                                    //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                }
+                                x++;
+                                dato += etdato10.getText().toString().trim()+ ",";
+                            }
+                            if(!des11.equals("")){
+                                buscarInfraccion(des11);
+                                infraccion();
+                                tveliminar11.setEnabled(false);
+                                if(spuni11.getVisibility() != View.GONE) {
+                                    unidades += spuni11.getSelectedItem().toString().trim()+",";
+                                    if (!spuni11.getSelectedItem().toString().equals("")) {
+                                        seleccion += x + " " + des11 + " (" + etdato11.getText().toString().trim() + " " + spuni11.getSelectedItem().toString() + " " + etObs11.getText().toString() +"); ";
+                                        arrayhechosC.add(x + " " + des11 + " (" + etdato11.getText().toString().trim() + " " + spuni11.getSelectedItem().toString() + " " + etObs11.getText().toString() +"); ");
+                                    }
+                                } else {
+                                    unidades+=" ,";
+                                    if(etObs11.getText().toString().trim().length()>1) {
+                                        seleccion += x + " " + des11 + " (" + etObs11.getText().toString() + "). ";
+                                        arrayhechosC.add(x + " " + des11 + " (" + etObs11.getText().toString() + "). ");
+                                    }else {
+                                        seleccion += x + " " + des11 + ". ";
+                                        arrayhechosC.add(x + " " + des11 + " ");
+                                    }
+                                    //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                }
+                                x++;
+                                dato += etdato11.getText().toString().trim()+ ",";
+                            }
+                            if(!des12.equals("")){
+                                buscarInfraccion(des12);
+                                infraccion();
+                                tveliminar12.setEnabled(false);
+                                if(spuni12.getVisibility() != View.GONE) {
+                                    unidades += spuni12.getSelectedItem().toString().trim()+",";
+                                    if (!spuni12.getSelectedItem().toString().equals("")) {
+                                        seleccion += x + " " + des12 + " (" + etdato12.getText().toString().trim() + " " + spuni12.getSelectedItem().toString() + " " + etObs12.getText().toString() +"); ";
+                                        arrayhechosC.add(x + " " + des12 + " (" + etdato12.getText().toString().trim() + " " + spuni12.getSelectedItem().toString() + " " + etObs12.getText().toString() +"); ");
+                                    }
+                                } else {
+                                    unidades+=" ,";
+                                    if(etObs12.getText().toString().trim().length()>1) {
+                                        seleccion += x + " " + des12 + " (" + etObs12.getText().toString() + "). ";
+                                        arrayhechosC.add(x + " " + des12 + " (" + etObs12.getText().toString() + "). ");
+                                    }else {
+                                        seleccion += x + " " + des12 + ". ";
+                                        arrayhechosC.add(x + " " + des12 + " ");
+                                    }
+
+                                    //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                }
+                                x++;
+                                dato += etdato12.getText().toString().trim()+ ",";
+                            }
+                            if(!des13.equals("")){
+                                buscarInfraccion(des13);
+                                infraccion();
+                                tveliminar13.setEnabled(false);
+                                if(spuni13.getVisibility() != View.GONE) {
+                                    unidades += spuni13.getSelectedItem().toString().trim()+",";
+                                    if (!spuni13.getSelectedItem().toString().equals("")) {
+                                        seleccion += x + " " + des13 + " (" + etdato13.getText().toString().trim() + " " + spuni13.getSelectedItem().toString() + " " + etObs13.getText().toString() +"); ";
+                                        arrayhechosC.add(x + " " + des13 + " (" + etdato13.getText().toString().trim() + " " + spuni13.getSelectedItem().toString() + " " + etObs13.getText().toString() +"); ");
+                                    }
+                                } else {
+                                    unidades+=" ,";
+                                    if(etObs13.getText().toString().trim().length()>1) {
+                                        seleccion += x + " " + des13 + " (" + etObs13.getText().toString() + "). ";
+                                        arrayhechosC.add(x + " " + des13 + " (" + etObs13.getText().toString() + "). ");
+                                    }else {
+                                        seleccion += x + " " + des13 + ". ";
+                                        arrayhechosC.add(x + " " + des13 + " ");
+                                    }
+                                    //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                }
+                                x++;
+                                dato += etdato13.getText().toString().trim()+ ",";
+                            }
+                            if(!des14.equals("")){
+                                buscarInfraccion(des14);
+                                infraccion();
+                                tveliminar14.setEnabled(false);
+                                if(spuni14.getVisibility() != View.GONE) {
+                                    unidades += spuni14.getSelectedItem().toString().trim()+",";
+                                    if (!spuni14.getSelectedItem().toString().equals("")) {
+                                        seleccion += x + " " + des14 + " (" + etdato14.getText().toString().trim() + " " + spuni14.getSelectedItem().toString() + " " + etObs14.getText().toString() +"); ";
+                                        arrayhechosC.add(x + " " + des14 + " (" + etdato14.getText().toString().trim() + " " + spuni14.getSelectedItem().toString() + " " + etObs14.getText().toString() +"); ");
+                                    }
+                                } else {
+                                    unidades+=" ,";
+                                    if(etObs14.getText().toString().trim().length()>1) {
+                                        seleccion += x + " " + des14 + " (" + etObs14.getText().toString() + "). ";
+                                        arrayhechosC.add(x + " " + des14 + " (" + etObs14.getText().toString() + "). ");
+                                    }else {
+                                        seleccion += x + " " + des14 + ". ";
+                                        arrayhechosC.add(x + " " + des14 + " ");
+                                    }
+                                    //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                }
+                                x++;
+                                dato += etdato14.getText().toString().trim()+ ",";
+                            }
+                            if(!des15.equals("")){
+                                buscarInfraccion(des15);
+                                infraccion();
+                                tveliminar15.setEnabled(false);
+                                if(spuni15.getVisibility() != View.GONE) {
+                                    unidades += spuni15.getSelectedItem().toString().trim()+",";
+                                    if (!spuni15.getSelectedItem().toString().equals("")) {
+                                        seleccion += x + " " + des15 + " (" + etdato15.getText().toString().trim() + " " + spuni15.getSelectedItem().toString() + " " + etObs15.getText().toString() +"); ";
+                                        arrayhechosC.add( x + " " + des15 + " (" + etdato15.getText().toString().trim() + " " + spuni15.getSelectedItem().toString() + " " + etObs15.getText().toString() +"); ");
+                                    }
+                                } else {
+                                    unidades+=" ,";
+                                    if(etObs15.getText().toString().trim().length()>1) {
+                                        seleccion += x + " " + des15 + " (" + etObs15.getText().toString() + "). ";
+                                        arrayhechosC.add( x + " " + des15 + " (" + etObs15.getText().toString() + "). ");
+                                    }else {
+                                        seleccion += x + " " + des15 + ". ";
+                                        arrayhechosC.add(x + " " + des15 + " ");
+                                    }
+                                    //seleccion += x + " " + des4 + "("+etObs4.getText().toString()+"); ";
+                                }
+                                x++;
+                                dato += etdato15.getText().toString().trim()+ ",";
+                            }
+
 							x++;
 							seleccion += descrip;
 							Log.i("Dato", dato);
+                            Log.e("etEspecificacion", etEspecificacion.getText().toString()+"." );
 							Log.i("seleccion", seleccion);
 							Log.i("id", id_hechos);
 							Log.i("text", text + " 1 " + camp19);
-							
-							/*camp1 = (!camp1.equals("")) ? ordenar(camp1) : "";
-							camp2 = (!camp2.equals("")) ? ordenar(camp2) : "";
-							camp3 = (!camp3.equals("")) ? ordenar(camp3) : "";
-							camp4 = (!camp4.equals("")) ? ordenar(camp4) : "";
-							camp5 = (!camp5.equals("")) ? ordenar(camp5) : "";
-							
-							camp6 = (!camp6.equals("")) ? ordenar(camp6) : "";
-							camp7 = (!camp7.equals("")) ? ordenar(camp7) : "";
-							camp8 = (!camp8.equals("")) ? ordenar(camp8) : "";
-							camp9 = (!camp9.equals("")) ? ordenar(camp9) : "";
-							camp0 = (!camp0.equals("")) ? ordenar(camp0) : "";
-							
-							camp11 = (!camp11.equals("")) ? ordenar(camp11) : "";
-							camp12 = (!camp12.equals("")) ? ordenar(camp12) : "";
-							camp13 = (!camp13.equals("")) ? ordenar(camp13) : "";
-							camp14 = (!camp14.equals("")) ? ordenar(camp14) : "";
-							
-							
-							camp15 = (!camp15.equals("")) ? ordenar(camp15) : "";
-							camp16 = (!camp16.equals("")) ? ordenar(camp16) : "";
-							camp17 = (!camp17.equals("")) ? ordenar(camp17) : "";
-							camp18 = (!camp18.equals("")) ? ordenar(camp18) : "";
-							camp19 = (!camp19.equals("")) ? ordenar(camp19) : "";
-							camp20 = (!camp20.equals("")) ? ordenar(camp20) : "";*/
-							
-							
-							camp1 = (!camp1.equals("")) ? camp1 : "";
-							camp2 = (!camp2.equals("")) ? camp2 : "";
-							camp3 = (!camp3.equals("")) ? camp3 : "";
-							camp4 = (!camp4.equals("")) ? camp4 : "";
-							camp5 = (!camp5.equals("")) ? camp5 : "";
-							
-							camp6 = (!camp6.equals("")) ? camp6 : "";
-							camp7 = (!camp7.equals("")) ? camp7 : "";
-							camp8 = (!camp8.equals("")) ? camp8 : "";
-							camp9 = (!camp9.equals("")) ? camp9 : "";
-							camp0 = (!camp0.equals("")) ? camp0 : "";
-							
-							camp11 = (!camp11.equals("")) ? camp11 : "";
-							camp12 = (!camp12.equals("")) ? camp12 : "";
-							camp13 = (!camp13.equals("")) ? camp13 : "";
-							camp14 = (!camp14.equals("")) ? camp14 : "";
-							
-							
-							camp15 = (!camp15.equals("")) ? camp15 : "";
-							camp16 = (!camp16.equals("")) ? camp16 : "";
-							camp17 = (!camp17.equals("")) ? camp17 : "";
-							camp18 = (!camp18.equals("")) ? camp18 : "";
-							camp19 = (!camp19.equals("")) ? camp19 : "";
-							camp20 = (!camp20.equals("")) ? camp20 : "";
-							
-							/*codi = (!codi.equals("")) ? ordenar(codi) : "";
-							zoni = (!zoni.equals("")) ? ordenar(zoni) : "";
-							regla = (!regla.equals("")) ? ordenar(regla) : "";
-							l = (!l.equals("")) ? ordenar(l) : "";
-							oe = (!oe.equals("")) ? ordenar(oe) : "";
-							ne = (!ne.equals("")) ? ordenar(ne) : "";
-							leeep = (!leeep.equals("")) ? ordenar(leeep) : "";*/
-							
-							/*text += (!camp1.equals("")) ? "Articulo(s) " + camp1 + " " + campo1 + ";" : "";
-							text += (!camp2.equals("")) ? "Articulo(s) " + camp2 + " " + campo2 + ";" : "";
-							text += (!camp3.equals("")) ? "Articulo(s) " + camp3 + " " + campo3 + ";" : "";
-							text += (!camp4.equals("")) ? "Articulo(s) " + camp4 + " " + campo4 + ";" : "";
-							text += (!camp5.equals("")) ? "Articulo(s) " + camp5 + " " + campo5 + ";" : "";
-							
-							text += (!camp6.equals("")) ? "Articulo(s) " + camp6 + " " + campo6 + ";" : "";
-							text += (!camp7.equals("")) ? "Articulo(s) " + camp7 + " " + campo7 + ";" : "";
-							text += (!camp8.equals("")) ? "Articulo(s) " + camp8 + " " + campo8 + ";" : "";
-							text += (!camp9.equals("")) ? "Articulo(s) " + camp9 + " " + campo9 + ";" : "";
-							text += (!camp0.equals("")) ? "Articulo(s) " + camp0 + " " + campo0 + ";" : "";
-							
-							text += (!camp11.equals("")) ? "Articulo(s) " + camp11 + " " + campo11 + ";" : "";
-							text += (!camp12.equals("")) ? "Articulo(s) " + camp12 + " " + campo12 + ";" : "";
-							text += (!camp13.equals("")) ? "Articulo(s) " + camp13 + " " + campo13 + ";" : "";
-							text += (!camp14.equals("")) ? "Articulo(s) " + camp14 + " " + campo14 + ";" : "";
-							
-							text += (!camp15.equals("")) ? "Articulo(s) " + camp15 + " " + campo15 + ";" : "";
-							text += (!camp16.equals("")) ? "Articulo(s) " + camp16 + " " + campo16 + ";" : "";
-							text += (!camp17.equals("")) ? "Articulo(s) " + camp17 + " " + campo17 + ";" : "";
-							text += (!camp18.equals("")) ? "Articulo(s) " + camp18 + " " + campo18 + ";" : "";
-							text += (!camp19.equals("")) ? "Articulo(s) " + camp19 + " " + campo19 + ";" : "";
-							text += (!camp20.equals("")) ? "Articulo(s) " + camp20 + " " + campo20 + ";" : "";*/
-                            GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
-                            SQLiteDatabase db = gestion.getReadableDatabase();
-                            if(!camp1.equalsIgnoreCase("")){
-                                if(camp1.contains("-")|| camp1.contains("cimo") ||camp1.contains("eno") ||camp1.contains("avo") ||camp1.contains("timo") ||camp1.contains("ex") ||camp1.contains("int") ||camp1.contains("uar") ||camp1.contains("er") ||camp1.contains("eg") ||camp1.contains("rim") ||camp1.contains("Quater") ||camp1.contains("num") || camp1.contains("inc")  || camp1.contains(")") || camp1.contains("párrafo")|| camp1.contains("Bis")|| camp1.contains("Apartado")){
 
-                                }else{
-                                    algoritmo(camp1,db);
-                                    camp1=ordenar(db);
-                                    Log.i("text", camp1);
+                            String text2="";
+
+                            //AGREGAR
+                            String text3="";
+                            //FIN AGREGAR
+
+                            text2 += (!camp1.equals("")) ? campo1 + ":" + camp1 +" ": "";
+                            text2 += (!camp2.equals("")) ? campo2 + ":" + camp2 +" ": "";
+                            text2 += (!camp3.equals("")) ? campo3 + ":" + camp3 +" ": "";
+                            text2 += (!camp4.equals("")) ? campo4 + ":" + camp4 +" ": "";
+                            text2 += (!camp5.equals("")) ? campo5 + ":" + camp5 +" ": "";
+                            text2 += (!camp6.equals("")) ? campo6 + ":" + camp6 +" ": "";
+                            text2 += (!camp7.equals("")) ? campo7 + ":" + camp7 +" ": "";
+                            text2 += (!camp8.equals("")) ? campo8 + ":" + camp8 +" ": "";
+                            text2 += (!camp9.equals("")) ? campo9 + ":" + camp9 +" ": "";
+                            text2 += (!camp0.equals("")) ? campo0 + ":" + camp0 +" ": "";
+                            text2 += (!camp11.equals("")) ? campo11 + ":" + camp11 +" ": "";
+                            text2 += (!camp12.equals("")) ? campo12 + ":" + camp12 +" ": "";
+                            text2 += (!camp13.equals("")) ? campo13 + ":" + camp13 +" ": "";
+                            text2 += (!camp14.equals("")) ? campo14 + ":" + camp14 +" ": "";
+                            text2 += (!camp15.equals("")) ? campo15 + ":" + camp15 +" ": "";
+                            text2 += (!camp16.equals("")) ? campo16 + ":" + camp16 +" ": "";
+                            text2 += (!camp17.equals("")) ? campo17 + ":" + camp17 +" ": "";
+                            text2 += (!camp18.equals("")) ? campo18 + ":" + camp18 +" ": "";
+                            text2 += (!camp19.equals("")) ? campo19 + ":" + camp19 +" ": "";
+                            text2 += (!camp20.equals("")) ? campo20 + ":" + camp20 +" ": "";
+                            text2 += (!camp21.equals("")) ? campo21 + ":" + camp21 +" ": "";
+                            text2 += (!camp22.equals("")) ? campo22 + ":" + camp22 +" ": "";
+                            text2 += (!camp23.equals("")) ? campo23 + ":" + camp23 +" ": "";
+                            text2 += (!camp24.equals("")) ? campo24 + ":" + camp24 +" ": "";
+                            text2 += (!camp25.equals("")) ? campo25 + ":" + camp25 +" ": "";
+                            text2 += (!camp26.equals("")) ? campo26 + ":" + camp26 +" ": "";
+
+
+                            //AGREGAR
+                            text3 += (!camp1.equals("")) ?  camp1 + " " + campo1 + ". ": "";
+                            text3 += (!camp2.equals("")) ?  camp2 + " " + campo2 + ". ": "";
+                            text3 += (!camp3.equals("")) ?  camp3 + " " + campo3 + ". ": "";
+                            text3 += (!camp4.equals("")) ?  camp4 + " " + campo4 + ". ": "";
+                            text3 += (!camp5.equals("")) ?  camp5 + " " + campo5 + ". ": "";
+                            text3 += (!camp6.equals("")) ?  camp6 + " " + campo6 + ". ": "";
+                            text3 += (!camp7.equals("")) ?  camp7 + " " + campo7 + ". ": "";
+                            text3 += (!camp8.equals("")) ?  camp8 + " " + campo8 + ". ": "";
+                            text3 += (!camp9.equals("")) ?  camp9 + " " + campo9 + ". ": "";
+                            text3 += (!camp0.equals("")) ?  camp0 + " " + campo0 + ". ": "";
+                            text3 += (!camp11.equals("")) ?  camp1 + " " + campo11 +". ": "";
+                            text3 += (!camp12.equals("")) ?  camp1 + " " + campo12 +". ": "";
+                            text3 += (!camp13.equals("")) ?  camp1 + " " + campo13 +". ": "";
+                            text3 += (!camp14.equals("")) ?  camp1 + " " + campo14 +". ": "";
+                            text3 += (!camp15.equals("")) ?  camp1 + " " + campo15 +". ": "";
+                            text3 += (!camp16.equals("")) ?  camp1 + " " + campo16 +". ": "";
+                            text3 += (!camp17.equals("")) ?  camp1 + " " + campo17 +". ": "";
+                            text3 += (!camp18.equals("")) ?  camp1 + " " + campo18 +". ": "";
+                            text3 += (!camp19.equals("")) ?  camp1 + " " + campo19 +". ": "";
+                            text3 += (!camp20.equals("")) ?  camp2 + " " + campo20 +". ": "";
+                            text3 += (!camp21.equals("")) ? campo21 + ":" + camp21 +" ": "";
+                            text3 += (!camp22.equals("")) ? campo22 + ":" + camp22 +" ": "";
+                            text3 += (!camp23.equals("")) ? campo23 + ":" + camp23 +" ": "";
+                            text3 += (!camp24.equals("")) ? campo24 + ":" + camp24 +" ": "";
+                            text3 += (!camp25.equals("")) ? campo25 + ":" + camp25 +" ": "";
+                            text3 += (!camp26.equals("")) ? campo26 + ":" + camp26 +" ": "";
+                            //FIN AGREGAR
+
+                            String articulos = "";
+                            try{
+
+                                if(text2.isEmpty()){
+                                    articulos = "No se recibieron las infracciones, pero se subieron a la base de datos";
+                                } else {
+
+                                    articulos = algoritmoRem(text2);
                                 }
-
-
-                            }
-                            if(!camp2.equalsIgnoreCase("")){
-                                if(camp2.contains("-")||camp2.contains("cimo") ||camp2.contains("eno") ||camp2.contains("avo") ||camp2.contains("timo") ||camp2.contains("ex") ||camp2.contains("int") ||camp2.contains("uar") ||camp2.contains("er") ||camp2.contains("eg") ||camp2.contains("rim") ||camp2.contains("Quater") ||camp2.contains("numeral") || camp2.contains("inciso") || camp2.contains(")") || camp2.contains("párrafo")|| camp2.contains("Bis")|| camp2.contains("Apartado")){
-
-                                }else{
-                                    algoritmo(camp2,db);
-                                    camp2=ordenar(db);
-                                    Log.i("text", camp2);
-                                }
-
-
-                            }
-                            if(!camp3.equalsIgnoreCase("")){
-                                if(camp3.contains("-")||camp3.contains("cimo") ||camp3.contains("eno") ||camp3.contains("avo") ||camp3.contains("timo") ||camp3.contains("ex") ||camp3.contains("int") ||camp3.contains("uar") ||camp3.contains("er") ||camp3.contains("eg") ||camp3.contains("rim") ||camp3.contains("Quater") ||camp3.contains("num") || camp3.contains("inc") || camp3.contains(")") || camp3.contains("p")|| camp3.contains("Bis")|| camp3.contains("Apart")){
-
-                                }else{
-                                    algoritmo(camp3,db);
-                                    camp3=ordenar(db);
-                                    Log.i("text", camp3);
-                                }
-
-
-                            }
-                            if(!camp4.equalsIgnoreCase("")){
-                                if(camp4.contains("-")||camp4.contains("cimo") ||camp4.contains("eno") ||camp4.contains("avo") ||camp4.contains("timo") ||camp4.contains("ex") ||camp4.contains("int") ||camp4.contains("uar") ||camp4.contains("er") ||camp4.contains("eg") ||camp4.contains("rim") ||camp4.contains("Quater") ||camp4.contains("numeral") || camp4.contains("inciso") || camp4.contains(")") || camp4.contains("párrafo")|| camp4.contains("Bis")|| camp4.contains("Apartado")){
-
-                                }else{
-                                    algoritmo(camp4,db);
-                                    camp4=ordenar(db);
-                                    Log.i("text", camp4);
-                                }
-                            }
-                            if(!camp5.equalsIgnoreCase("")){
-                                if(camp5.contains("-")||camp5.contains("cimo") ||camp5.contains("eno") ||camp5.contains("avo") ||camp5.contains("timo") ||camp5.contains("ex") ||camp5.contains("int") ||camp5.contains("uar") ||camp5.contains("er") ||camp5.contains("eg") ||camp5.contains("rim") ||camp5.contains("Quater") ||camp5.contains("numeral") || camp5.contains("inciso") || camp5.contains(")") || camp5.contains("párrafo")|| camp5.contains("Bis")|| camp5.contains("Apartado")){
-
-                                }else{
-                                    algoritmo(camp5,db);
-                                    camp5=ordenar(db);
-                                    Log.i("text", camp5);
-                                }
-                            }
-                            if(!camp6.equalsIgnoreCase("")){
-                                if(camp6.contains("-")||camp6.contains("cimo") ||camp6.contains("eno") ||camp6.contains("avo") ||camp6.contains("timo") ||camp6.contains("ex") ||camp6.contains("int") ||camp6.contains("uar") ||camp6.contains("er") ||camp6.contains("eg") ||camp6.contains("rim") ||camp6.contains("Quater") ||camp6.contains("numeral") || camp6.contains("inciso") || camp6.contains(")") || camp6.contains("párrafo")|| camp6.contains("Bis")|| camp6.contains("Apartado")){
-
-                                }else{
-                                    algoritmo(camp6,db);
-                                    camp6=ordenar(db);
-                                    Log.i("text", camp6);
-                                }
-                            }
-                            if(!camp7.equalsIgnoreCase("")){
-                                if(camp7.contains("-")||camp7.contains("cimo") ||camp7.contains("eno") ||camp7.contains("avo") ||camp7.contains("timo") ||camp7.contains("ex") ||camp7.contains("int") ||camp7.contains("uar") ||camp7.contains("er") ||camp7.contains("eg") ||camp7.contains("rim") ||camp7.contains("Quater") ||camp7.contains("numeral") || camp7.contains("inciso") || camp7.contains(")") || camp7.contains("párrafo")|| camp7.contains("Bis")|| camp7.contains("Apartado")){
-
-                                }else{
-                                    algoritmo(camp7,db);
-                                    camp7=ordenar(db);
-                                    Log.i("text", camp7);
-                                }
-                            }
-                            if(!camp8.equalsIgnoreCase("")){
-                                if(camp8.contains("-")||camp8.contains("cimo") ||camp8.contains("eno") ||camp8.contains("avo") ||camp8.contains("timo") ||camp8.contains("ex") ||camp8.contains("int") ||camp8.contains("uar") ||camp8.contains("er") ||camp8.contains("eg") ||camp8.contains("rim") ||camp8.contains("Quater") ||camp8.contains("numeral") || camp8.contains("inciso") || camp8.contains(")") || camp8.contains("párrafo")|| camp8.contains("Bis")|| camp8.contains("Apartado")){
-
-                                }else{
-                                    algoritmo(camp8,db);
-                                    camp8=ordenar(db);
-                                    Log.i("text", camp8);
-                                }
-                            }
-                            if(!camp9.equalsIgnoreCase("")){
-                                if(camp9.contains("-")||camp9.contains("cimo") ||camp9.contains("eno") ||camp9.contains("avo") ||camp9.contains("timo") ||camp9.contains("ex") ||camp9.contains("int") ||camp9.contains("uar") ||camp9.contains("er") ||camp9.contains("eg") ||camp9.contains("rim") ||camp9.contains("Quater") ||camp9.contains("numeral") || camp9.contains("inciso") || camp9.contains(")") || camp9.contains("párrafo")|| camp9.contains("Bis")|| camp9.contains("Apartado")){
-
-                                }else{
-                                    algoritmo(camp9,db);
-                                    camp9=ordenar(db);
-                                    Log.i("text", camp9);
-                                }
-                            }
-                            if(!camp0.equalsIgnoreCase("")){
-                                if(camp0.contains("-")||camp0.contains("cimo") ||camp0.contains("eno") ||camp0.contains("avo") ||camp0.contains("timo") ||camp0.contains("ex") ||camp0.contains("int") ||camp0.contains("uar") ||camp0.contains("er") ||camp0.contains("eg") ||camp0.contains("rim") ||camp0.contains("Quater") ||camp0.contains("numeral") || camp0.contains("inciso") || camp0.contains(")") || camp0.contains("párrafo")|| camp0.contains("Bis")|| camp0.contains("Apartado")){
-
-                                }else{
-                                    algoritmo(camp0,db);
-                                    camp0=ordenar(db);
-                                    Log.i("text", camp0);
-                                }
-                            }
-                            if(!camp11.equalsIgnoreCase("")){
-                                if(camp11.contains("-")||camp11.contains("cimo") ||camp11.contains("eno") ||camp11.contains("avo") ||camp11.contains("timo") ||camp11.contains("ex") ||camp11.contains("int") ||camp11.contains("uar") ||camp11.contains("er") ||camp11.contains("eg") ||camp11.contains("rim") ||camp11.contains("Quater") ||camp11.contains("numeral") || camp11.contains("inciso") || camp11.contains(")") || camp11.contains("párrafo")|| camp11.contains("Bis")|| camp11.contains("Apartado")){
-
-                                }else{
-                                    algoritmo(camp11,db);
-                                    camp11=ordenar(db);
-                                    Log.i("text", camp11);
-                                }
-                            }
-                            if(!camp12.equalsIgnoreCase("")){
-                                if(camp12.contains("-")||camp12.contains("cimo") ||camp12.contains("eno") ||camp12.contains("avo") ||camp12.contains("timo") ||camp12.contains("ex") ||camp12.contains("int") ||camp12.contains("uar") ||camp12.contains("er") ||camp12.contains("eg") ||camp12.contains("rim") ||camp12.contains("Quater") ||camp12.contains("numeral") || camp12.contains("inciso") || camp12.contains(")") || camp12.contains("párrafo")|| camp12.contains("Bis")|| camp12.contains("Apartado")){
-
-                                }else{
-                                    algoritmo(camp12,db);
-                                    camp12=ordenar(db);
-                                    Log.i("text", camp12);
-                                }
-                            }
-                            if(!camp13.equalsIgnoreCase("")){
-                                if(camp13.contains("-")||camp13.contains("cimo") ||camp13.contains("eno") ||camp13.contains("avo") ||camp13.contains("timo") ||camp13.contains("ex") ||camp13.contains("int") ||camp13.contains("uar") ||camp13.contains("er") ||camp13.contains("eg") ||camp13.contains("rim") ||camp13.contains("Quater") ||camp13.contains("numeral") || camp13.contains("inciso") || camp13.contains(")") || camp13.contains("párrafo")|| camp13.contains("Bis")|| camp13.contains("Apartado")){
-
-                                }else{
-                                    algoritmo(camp13,db);
-                                    camp13=ordenar(db);
-                                    Log.i("text", camp13);
-                                }
-                            }
-                            if(!camp14.equalsIgnoreCase("")){
-                                if(camp14.contains("-")||camp14.contains("cimo") ||camp14.contains("eno") ||camp14.contains("avo") ||camp14.contains("timo") ||camp14.contains("ex") ||camp14.contains("int") ||camp14.contains("uar") ||camp14.contains("er") ||camp14.contains("eg") ||camp14.contains("rim") ||camp14.contains("Quater") ||camp14.contains("numeral") || camp14.contains("inciso") || camp14.contains(")") || camp14.contains("párrafo")|| camp14.contains("Bis")|| camp14.contains("Apartado")){
-
-                                }else{
-                                    algoritmo(camp14,db);
-                                    camp14=ordenar(db);
-                                    Log.i("text", camp14);
-                                }
-                            }
-                            if(!camp15.equalsIgnoreCase("")){
-                                if(camp15.contains("-")||camp15.contains("cimo") ||camp15.contains("eno") ||camp15.contains("avo") ||camp15.contains("timo") ||camp15.contains("ex") ||camp15.contains("int") ||camp15.contains("uar") ||camp15.contains("er") ||camp15.contains("eg") ||camp15.contains("rim") ||camp15.contains("Quater") ||camp15.contains("numeral") || camp15.contains("inciso") || camp15.contains(")") || camp15.contains("párrafo")|| camp15.contains("Bis")|| camp15.contains("Apartado")){
-
-                                }else{
-                                    algoritmo(camp15,db);
-                                    camp15=ordenar(db);
-                                    Log.i("text", camp15);
-                                }
-                            }
-                            if(!camp16.equalsIgnoreCase("")){
-                                if(camp16.contains("-")||camp16.contains("cimo") ||camp16.contains("eno") ||camp16.contains("avo") ||camp16.contains("timo") ||camp16.contains("ex") ||camp16.contains("int") ||camp16.contains("uar") ||camp16.contains("er") ||camp16.contains("eg") ||camp16.contains("rim") ||camp16.contains("Quater") ||camp16.contains("numeral") || camp16.contains("inciso") || camp16.contains(")") || camp16.contains("párrafo")|| camp16.contains("Bis")|| camp16.contains("Apartado")){
-
-                                }else{
-                                    algoritmo(camp16,db);
-                                    camp16=ordenar(db);
-                                    Log.i("text", camp16);
-                                }
-                            }
-                            if(!camp17.equalsIgnoreCase("")){
-                                if(camp17.contains("-")||camp17.contains("cimo") ||camp17.contains("eno") ||camp17.contains("avo") ||camp17.contains("timo") ||camp17.contains("ex") ||camp17.contains("int") ||camp17.contains("uar") ||camp17.contains("er") ||camp17.contains("eg") ||camp17.contains("rim") ||camp17.contains("Quater") ||camp17.contains("numeral") || camp17.contains("inciso") || camp17.contains(")") || camp17.contains("párrafo")|| camp17.contains("Bis")|| camp17.contains("Apartado")){
-
-                                }else{
-                                    algoritmo(camp17,db);
-                                    camp17=ordenar(db);
-                                    Log.i("text", camp17);
-                                }
-                            }
-                            if(!camp18.equalsIgnoreCase("")){
-                                if(camp18.contains("-")||camp18.contains("cimo") ||camp18.contains("eno") ||camp18.contains("avo") ||camp18.contains("timo") ||camp18.contains("ex") ||camp18.contains("int") ||camp18.contains("uar") ||camp18.contains("er") ||camp18.contains("eg") ||camp18.contains("rim") ||camp18.contains("Quater") ||camp18.contains("numeral") || camp18.contains("inciso") || camp18.contains(")") || camp18.contains("párrafo")|| camp18.contains("Bis")|| camp18.contains("Apartado")){
-
-                                }else{
-                                    algoritmo(camp18,db);
-                                    camp18=ordenar(db);
-                                    Log.i("text", camp18);
-                                }
-                            }
-                            if(!camp19.equalsIgnoreCase("")){
-                                if(camp19.contains("-")||camp19.contains("cimo") ||camp19.contains("eno") ||camp19.contains("avo") ||camp19.contains("timo") ||camp19.contains("ex") ||camp19.contains("int") ||camp19.contains("uar") ||camp19.contains("er") ||camp19.contains("eg") ||camp19.contains("rim") ||camp19.contains("Quater") ||camp19.contains("numeral") || camp19.contains("inciso") || camp19.contains(")") || camp19.contains("párrafo")|| camp19.contains("Bis")|| camp19.contains("Apartado")){
-
-                                }else{
-                                    algoritmo(camp19,db);
-                                    camp19=ordenar(db);
-                                    Log.i("text", camp19);
-                                }
-                            }
-                            if(!camp20.equalsIgnoreCase("")){
-                                if(camp20.contains("-")||camp20.contains("cimo") ||camp20.contains("eno") ||camp20.contains("avo") ||camp20.contains("timo") ||camp20.contains("ex") ||camp20.contains("int") ||camp20.contains("uar") ||camp20.contains("er") ||camp20.contains("eg") ||camp20.contains("rim") ||camp20.contains("Quater") ||camp20.contains("numeral") || camp20.contains("inciso") || camp20.contains(")") || camp20.contains("párrafo")|| camp20.contains("Bis")|| camp20.contains("Apartado")){
-
-                                }else{
-                                    algoritmo(camp20,db);
-                                    camp20=ordenar(db);
-                                    Log.i("text", camp20);
-                                }
+                            } catch(Exception e){
+                                articulos = text3;
                             }
 
+                            System.out.println("+++++ALGORITMO: "+text2+"++++++");
+                            System.out.println("++Algoritmo: "+articulos);
 
-
-
-
-
-                            text += (!camp1.equals("")) ? camp1 + " " + campo1 + ";" : "";
-							text += (!camp2.equals("")) ? camp2 + " " + campo2 + ";" : "";
-							text += (!camp3.equals("")) ? camp3 + " " + campo3 + ";" : "";
-							text += (!camp4.equals("")) ? camp4 + " " + campo4 + ";" : "";
-							text += (!camp5.equals("")) ? camp5 + " " + campo5 + ";" : "";
-							
-							text += (!camp6.equals("")) ? camp6 + " " + campo6 + ";" : "";
-							text += (!camp7.equals("")) ? camp7 + " " + campo7 + ";" : "";
-							text += (!camp8.equals("")) ? camp8 + " " + campo8 + ";" : "";
-							text += (!camp9.equals("")) ? camp9 + " " + campo9 + ";" : "";
-							text += (!camp0.equals("")) ? camp0 + " " + campo0 + ";" : "";
-							
-							text += (!camp11.equals("")) ? camp11 + " " + campo11 + ";" : "";
-							text += (!camp12.equals("")) ? camp12 + " " + campo12 + ";" : "";
-							text += (!camp13.equals("")) ? camp13 + " " + campo13 + ";" : "";
-							text += (!camp14.equals("")) ? camp14 + " " + campo14 + ";" : "";
-							
-							text += (!camp15.equals("")) ? camp15 + " " + campo15 + ";" : "";
-							text += (!camp16.equals("")) ? camp16 + " " + campo16 + ";" : "";
-							text += (!camp17.equals("")) ? camp17 + " " + campo17 + ";" : "";
-							text += (!camp18.equals("")) ? camp18 + " " + campo18 + ";" : "";
-							text += (!camp19.equals("")) ? camp19 + " " + campo19 + ";" : "";
-							text += (!camp20.equals("")) ? camp20 + " " + campo20 + ";" : "";
-							
-							/*text += (!codi.equals("")) ? "Articulo(s) " + codi + " " + cod + ";" : "";
-							text += (!zoni.equals("")) ? "Articulo(s) " + zoni + " "  + zon + ";" : "";
-							text += (!regla.equals("")) ? "Articulo(s) " + regla + " "  + reg +";" : "";
-							text += (!l.equals("")) ? "Articulo(s) " + l + la + ";": "";
-							text += (!oe.equals("")) ? "Articulo(s) " + oe + ordeco + ";" : "";
-							text += (!ne.equals("")) ? "Articulo(s) " + ne + na + ";" : "";
-							text += (!leeep.equals("")) ? "Articulo(s) " + leeep + lee + ";" : "";*/
-							
-							
-							System.out.println(text);
+//							System.out.println(text);
 							Log.i("text", text);
 							etEspecificacion.setEnabled(false);
-							etInfraccion.setText(text);
-							btnaceptar.setVisibility(View.GONE);
+							etInfraccion.setText("");
+							etInfraccion.setText(articulos);
+                            articulos="";
+                            btnaceptar.setVisibility(View.GONE);
 							btnmodificar.setVisibility(View.VISIBLE);
 							spInfraccion.setEnabled(false); 
 							etSeleccion.setVisibility(View.VISIBLE);
 							etSeleccion.setEnabled(false);
+							seleccion=seleccion.replace("..",".");
+                            seleccion=seleccion.replace(". (","(");
+                            seleccion=seleccion.replace(". .",".");
 							etSeleccion.setText(seleccion);
 							btnSi.setEnabled(false);
 							btnNo.setEnabled(false);
 							etManifiesta.setEnabled(true);
-							/*if(id == 2) {
+							/*if(id == 2) {algo
 								etInfraccion.setEnabled(true);
 								etSeleccion.setEnabled(true);
 							}*/
@@ -2758,7 +3852,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 							len += txt.length;
 							txt = Justificar.justifocarTexto(hech);
 							len += txt.length;
-							txt = Justificar.justifocarTexto(text);
+							txt = Justificar.justifocarTexto(articulos);
 							len += txt.length;
 							txt = Justificar.justifocarTexto(DECLARA);
 							len += txt.length;
@@ -3195,6 +4289,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 btnConsultar.setVisibility(View.VISIBLE);
                 radioInfraccion.setVisibility(View.GONE);
                 rborden.setVisibility(View.GONE);
+                radioEvento.setVisibility(View.GONE);
+                radioReimprimir.setVisibility(View.GONE);
 
                 spNombreA.setVisibility(View.GONE);
                 spNombreA1.setVisibility(View.GONE);
@@ -3261,12 +4357,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     tvNombreComercial.setText("Nombre del Propietario o Representante Legal");
                     etReferencia.setVisibility(View.GONE);
                     tvReferencia.setVisibility(View.GONE);
-                    btnTomarF.setVisibility(View.GONE);
+                   // btnTomarF.setVisibility(View.GONE);
                     etAGiro.setHint("Area");
                     etAGiro.setText(direccion);
                     tvgiro.setText("Area");
                     etMotivo.setText("Inspeccionar físicamente que los trabajos o urbanización en proceso, cuenten y presenten los permisos correspondientes como son: ");
-                    btnTomarF.setVisibility(View.GONE);
+                   // btnTomarF.setVisibility(View.GONE);
                     llPla.setVisibility(View.GONE);
 
 
@@ -3292,14 +4388,21 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 }
             }
         }
-
+        etfechap.addTextChangedListener(new DateTextWatcher());
+        etfechaClau.addTextChangedListener(new DateTextWatcher());
         spCreglamentos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println(position);
                 if(!spCreglamentos.getItemAtPosition(position).toString().equals("Buscar en Todos los reglamentos")){
-                    System.out.println(position);
-                    reglamentoC =arregloCreglamentosx.get(position-1);
-                    Axmedidas+="'"+arregloCreglamentosx.get(position-1)+"',";
+                    if(spCreglamentos.getItemAtPosition(position).toString().contains("Anuncios")){
+                        System.out.println("entro a campos ggg");
+                        tvfudamentoEx.setVisibility(View.VISIBLE);
+                        etfudamentoEx.setVisibility(View.VISIBLE);
+                    }
+                    System.out.println(arregloCreglamentosx.get(position));;
+                    reglamentoC =arregloCreglamentosx.get(position);
+                    Axmedidas+="'"+arregloCreglamentosx.get(position)+"',";
                 } else{
                     reglamentoC ="";
                 }
@@ -3343,6 +4446,206 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     public boolean iscaracter(String cadena){
         return cadena.matches("[^XIVL]");
     }
+
+    /*Codigo Esteban: Inicio*/
+
+    // Elimina las siguientes las palabras de la cadena
+    private String limpiarCadena(String cadena){
+        cadena = cadena.trim();
+        cadena = cadena.replace("\n","");
+        cadena = cadena.replace("Artículos", "");
+        cadena = cadena.replace("Articulos", "");
+        cadena = cadena.replace("Artículo", "");
+        cadena = cadena.replace("Articulo", "");
+        cadena = cadena.replace("Artícuos", "");
+        cadena = cadena.replace("Artícuo", "");
+        cadena = cadena.replace(".", "");
+        cadena = cadena.replace(" :", ":");
+        cadena = cadena.replace("fracción","fraccion");
+        return cadena;
+    }
+
+    //Limpia al final de la cadena
+    private String limpiarFinalCadena(String subcadena){
+        subcadena = subcadena.replaceAll(" y$", "");
+        subcadena = subcadena.replaceAll(",$", "");
+        subcadena = subcadena.replaceAll(", :$", "");
+        return subcadena;
+    }
+
+
+
+
+    private boolean isReglamento(String caracter){
+        switch(caracter){
+            case "R":
+            case "B":
+            case "C":
+            case "D":
+            case "L":
+                return true;
+        }
+        return false;
+    }
+
+    private boolean isReglamento2(String palabra){
+        switch(palabra){
+            case "Reglamento":
+            case "Buscar":
+            case "Código":
+            case "Disposiciones":
+            case "Ley":
+                return true;
+        }
+        return false;
+    }
+
+    private int whileIsNotNumberOrReglamento(int i, String cadena){
+        int tamanio = cadena.length();
+        String caracter = cadena.substring(i,i+1);
+        while(!isnumeric(caracter)){
+            i++;
+            if(i+1<=tamanio) //Comprueba que no haya llegado al final de la cadena
+                caracter = cadena.substring(i,i+1);
+            else
+                return -1;
+            if(this.isReglamento(cadena.substring(i,i+1))){
+                if(this.isReglamento2(cadena.substring(i,cadena.indexOf(" ",i)))){
+                    return i;
+                }
+            }
+        }
+        return i;
+    }
+
+    // Iterara la cadena hasta encontrar un carácter que no sea numero
+    private int whileIsNumberOrReglamento(int i, String cadena){
+        int tamanio = cadena.length();
+        String caracter = cadena.substring(i,i+1);
+        while(isnumeric(caracter)){
+            i++;
+            if(i+1<=tamanio) //Comprueba que no haya llegado al final de la cadena
+                caracter = cadena.substring(i,i+1);
+            else
+                return -1;
+        }
+        return i;
+    }
+
+    public int ignorar(String cadena, int pos){
+        boolean bandera=true;
+        while(bandera){
+            switch(cadena.substring(pos,pos+1)){
+                case ":":
+                case " ":
+                case ",":
+                case "y":
+                    pos++;
+                    break;
+                default:
+                    bandera=false;
+            }
+        }
+        return pos;
+    }
+
+
+    public String algoritmoRem(String cadena){
+        MapaReglamentos mapaReglamentos = new MapaReglamentos();
+        ArrayList <Articulo> listaArticulos = new ArrayList<>();
+        Articulo art;
+        int inicio;
+        int tamanio;
+        int i=0;
+        String subcadena;
+        String numero="";
+        String tipo="";
+
+        cadena = limpiarCadena(cadena);
+        tamanio = cadena.length();
+
+        if(tamanio==0) return "";
+
+        cadena = cadena+" ";
+
+
+        String auxCadena = cadena.replaceAll("numeral \\d","numeral x");
+        auxCadena = auxCadena.replaceAll("punto \\d","punto x");
+        auxCadena = auxCadena.replaceAll("apartado \\d","apartado x");
+        while(i<tamanio){
+            System.out.println("i : "+i);
+            art = new Articulo();
+
+            if(this.isReglamento(auxCadena.substring(i,i+1))){
+                if(this.isReglamento2(cadena.substring(i,auxCadena.indexOf(" ",i)))){
+                    inicio=i;
+                    i=cadena.indexOf(":",i);
+                    tipo=cadena.substring(inicio,i);
+                }
+            }
+
+            i = this.ignorar(cadena, i);
+            inicio=i;
+
+            if(isnumeric(auxCadena.substring(i, i+1))){
+                i=whileIsNumberOrReglamento(i, auxCadena);
+                if(i==-1) break;
+                numero = cadena.substring(inicio, i);
+            } else {
+                numero="0";
+            }
+
+            i=whileIsNotNumberOrReglamento(i, auxCadena);
+            if(i==-1) i=cadena.length()-1;
+
+            subcadena = cadena.substring(inicio,i).trim();
+            subcadena = limpiarFinalCadena(subcadena);
+
+            art.setDescripcion(subcadena);
+            art.setTipo((tipo.isEmpty())?"Articulo(s):":tipo);
+            art.setArticulo(Integer.parseInt(numero));
+
+            System.out.println(art);
+            if(!buscar(art, listaArticulos)){
+                listaArticulos.add(art);
+            }
+            System.out.println("todo bien1");
+
+        }
+        System.out.println("todo bien2");
+
+        ordenar(listaArticulos);
+        System.out.println("todo bien3");
+
+        mapaReglamentos.cargarLista(listaArticulos);
+
+
+        return mapaReglamentos.mostrar();
+    }
+
+    private boolean buscar(Articulo art, ArrayList<Articulo> al){
+        for(int i=0;i<al.size(); i++){
+            if(art.getDescripcion().equalsIgnoreCase(al.get(i).getDescripcion())){
+                if(art.getTipo().equalsIgnoreCase(al.get(i).getTipo()))
+                    return true;
+            }
+
+        }
+        return false;
+    }
+
+
+
+    private void ordenar(ArrayList la){
+        Collections.sort(la, new Comparator<Articulo>() {
+            @Override
+            public int compare(Articulo art1, Articulo art2) {
+                return new Integer(art1.getArticulo()).compareTo(new Integer(art2.getArticulo()));
+            }
+        });
+    }
+    /*Codigo Esteban: Final*/
+
     public void algoritmo(String camp1, SQLiteDatabase db){
         String v1 = "";
         ArrayList<String> arr_art=new ArrayList<>();
@@ -3824,9 +5127,186 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			}
 		}
     }
-    
+
+    public int buscarFoto(String numeroActa, String archivo, String descripcion) {
+        try {
+            result = conn.fotografia(numeroActa, archivo, descripcion, urlP+"getNumeroActaF.php"/*"http://pgt.no-ip.biz/serverSQL/getNumeroActaF.php"/"http://192.168.0.15/serverSQL/getNumeroActaF.php"*/);
+        }catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        //result = conn.fotografia(numeroActa, archivo, descripcion, "http://172.16.1.21/serverSQL/getNumeroActaF.php"/*"http://pgt.no-ip.biz/serverSQL/getNumeroActaF.php""http://192.168.0.11/serverSQL/getNumeroActaF.php"*/);
+
+        if (result!=null) {
+            try {
+                this.jarray = new JSONArray(result);
+                return jarray.length();
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+                return 0;
+            }
+        }
+        return 0;
+    }
+
+    public String VerificarFoto() {
+        StringBuilder sb = new StringBuilder();
+        GestionBD gestionar = new GestionBD(this, "inspeccion", null, 1);
+        SQLiteDatabase db = gestionar.getReadableDatabase();
+        Cursor F = db.rawQuery("SELECT * FROM Fotografia where estatus = 'N' and descripcion='PDF'", null);
+        if (F.getCount() == 0)
+            sb.append(" Fotografia");
+        db.close();
+        return sb.toString();
+    }
+    public int idLe(String numero_acta) {
+        try {
+            res2 = conn.idLevantamiento(urlP+"getIdLevantamiento.php"/*"http://pgt.no-ip.biz/serverSQL/getIdLevantamiento.php"/"http://192.168.0.15/serverSQL/getIdLevantamiento.php"*/, numero_acta);
+        }catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+        //res = conn.idLevantamiento("http://172.16.1.21/serverSQL/getIdLevantamiento.php"/*"http://pgt.no-ip.biz/serverSQL/getIdLevantamiento.php""http://192.168.0.11/serverSQL/getIdLevantamiento.php"*/, numero_acta);
+        int id = 0;
+        if (res2!=null) {
+
+            try {
+                this.jarray = new JSONArray(res);
+                for (int i = 0; i < jarray.length(); i++) {
+                    this.json_data = this.jarray.getJSONObject(i);
+                    id = json_data.getInt("id_levantamiento");
+                    return  id;
+                }
+            } catch (JSONException e) {
+                Log.e("idl", e.getMessage());
+            }
+        }
+        return 0;
+    }
+    public void descargarFotografia() {
+        GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
+        SQLiteDatabase db = gestion.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM Fotografia where estatus1 = 'N' and descripcion='PDF'", null);
+
+        ContentValues cv = new ContentValues();
+        cv.put("estatus1", "S");
+        //db.update("Levantamiento", cv, "id_levantamiento = " + c.getInt(0), null);
+        try {
+            if (db != null) {
+                System.out.println(c.getCount() + " F");
+                if (c.moveToFirst()) {
+                    do {
+                        System.out.println((buscarFoto(c.getString(2), c.getString(3), c.getString(4)) == 0) + " f");
+                        if (buscarFoto(c.getString(2), c.getString(3), c.getString(4)) == 0) {
+                            id_l = idLe(c.getString(2));
+                            conn.insertFoto(id_l, c.getString(2), c.getString(3), c.getString(4), /*"http://172.16.1.21/serverSQL/insertFoto.php"*/urlP+"insertFoto.php"/*"http://pgt.no-ip.biz/serverSQL/insertFoto.php"/"http://192.168.0.15/serverSQL/insertFoto.php"*/);
+                            db.update("Fotografia", cv, "id_fotografia = " + c.getInt(0), null);
+                        } else {
+                            db.update("Fotografia", cv, "id_fotografia = " + c.getInt(0), null);
+                        }
+
+                    } while (c.moveToNext());
+                }
+
+            }
+        } catch (SQLiteException e) {
+            Log.e("descargar foto", e.getMessage());
+        } finally {
+            db.close();
+            c.close();
+        }
+    }
+    public void fotografias() {
+        boolean res;
+        countF = 0;
+        GestionBD gestionarBD = new GestionBD(this, "inspeccion", null, 1);
+        SQLiteDatabase db = gestionarBD.getReadableDatabase();
+        String s, dir, ar;
+        dir = Environment.getExternalStorageDirectory() + "/Infracciones/fotografias/";
+        File f;
+        try {
+            if (db != null) {
+                Cursor c = db.rawQuery("SELECT * FROM Fotografia where estatus='N' and descripcion='PDF'", null);
+                if (c.moveToFirst()) {
+                    foto2.clear();
+                    archivo2.clear();
+                    do {
+                        foto2.add(c.getString(2));
+                        archivo2.add(c.getString(3));
+                        s = c.getString(2).replace("/", "_");
+                        ar = c.getString(3);
+                        Log.i("Dato", s + " " + ar);
+                        f = new File(dir + s + "/" + ar);
+                        System.out.println(f.exists());
+                        if (f.exists()) {
+                            Log.i("Mes", "if exist");
+                            File file = new File(f.getAbsolutePath());
+                            MultipartEntity mpEntity = new MultipartEntity();
+                            ContentBody foto = new FileBody(file, "image/jpeg");
+
+                            mpEntity.addPart("fotoUp", foto);
+                            mpEntity.addPart("foto", new StringBody(s));
+
+                            JSONObject json = jsonParser.subirImage(urlP+"pruebaI.php", "POST", mpEntity);
+
+                            //JSONObject json = jsonParser.subirImage("http://192.168.0.16:8080/sitios/pruebas/pruebaI.php", "POST", mpEntity);
+
+                            int success = json.getInt("status");
+                            System.out.println(success + " success");
+
+                            ContentValues cv = new ContentValues();
+                            String sql;
+
+                            if (success == 1) {
+                                System.out.println("envio movio");
+                                //cv.put("estatus", "S");
+                                //sql = "update Fotografia set ";
+                                //db.update("Fotografia", cv, " id_fotografia = " + c.getInt(0), null);
+                            } else if (success == 0)
+                                System.out.println("envio no movio");
+                            else if (success == 3) {
+                                System.out.println("existe");
+                                cv.put("estatus", "S");
+                                db.update("Fotografia", cv, " id_fotografia = " + c.getInt(0), null);
+                            } else
+                                System.out.println("no envio f");
+
+                        }
+                        //db.delete("Fotografia", c.getColumnName(0) + " = '" + c.getString(0) + "'", null);
+                    } while (c.moveToNext());
+                    c.close();
+                    Thread.sleep(4000);
+                    if (countF > 0) {
+                        try {
+
+                            ArrayList<NameValuePair> carga = new ArrayList<NameValuePair>();
+
+                            carga.add(new BasicNameValuePair("tableta", config));
+                            carga.add(new BasicNameValuePair("registros", String.valueOf(0)));
+                            carga.add(new BasicNameValuePair("fotos", String.valueOf(countF)));
+
+                            //JSONObject json = jsonParser.realizarHttpRequest("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertCarga.php", "POST", carga);
+
+                            JSONObject json = jsonParser.realizarHttpRequest(urlP+"insertCarga.php", "POST", carga);
+
+                            int estatus = json.getInt("status");
+
+                            if (estatus == 1)
+                                System.err.println("inserto");
+                            else
+                                System.err.println("no inserto");
+
+                        } catch (JSONException e) {
+                            System.out.println(e.getMessage() + " mm");
+                        }
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+
+        }
+    }
     public void guardar() {
-    	//try {
+    	try {
 	    		int idLevantamiento, idLevantamientoSQL = 0;
 						Calendar calendar = Calendar.getInstance();
 						String m,h;
@@ -3951,9 +5431,15 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
         String medidasEn="";
         if(etNumeroSellos.length()>2){
-            medidasEn= etMedida.getText().toString()+" (numero sello(s):"+etNumeroSellos.getText().toString()+")";
+            medidasEn= medidas1+" (numero sello(s):"+etNumeroSellos.getText().toString()+")";
         }else{
-            medidasEn=etMedida.getText().toString();
+            medidasEn=medidas1;
+        }
+         String decom="";
+        if(etDecomiso.getText().equals("")){
+           decom="";
+        }else{
+            decom=etDecomiso.getText().toString();
         }
 
 					if(id!=4 ){
@@ -3969,7 +5455,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 spuso.getSelectedItem().toString() , spDensidad.getSelectedItem().toString()/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
                                 Integer.parseInt(spgravedad.getSelectedItem().toString()), Integer.parseInt(etDiaPlazo.getText().toString()), etfecha.getText().toString(), hr, etCondominio.getText().toString(), etLote.getText().toString(), etManzana.getText().toString(), etReferencia.getText().toString(), "", "", etConstruccion.getText().toString(),idComp,etEntreC.getText().toString(),etEntreC1.getText().toString(),etResponsable.getText().toString(),etRegistro.getText().toString(),"N",identifica,
                                 spPeticion.getSelectedItem().toString(),firmas,etMotivo.getText().toString(),medidasEn,etArticulo.getText().toString(),
-                                id_inspector3,id_inspector4,id_inspector5,id_inspector6,idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5,etLGiro.getText().toString().trim(),etGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),spNE.getSelectedItem().toString(),reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etNumeroSellos.getText().toString(),etDecomiso.getText().toString(),fechaap,etfolioclau.getText().toString(),fechaclau) + "");
+                                id_inspector3,id_inspector4,id_inspector5,id_inspector6,idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5,etLGiro.getText().toString().trim(),etGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),spNE.getSelectedItem().toString(),reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etNumeroSellos.getText().toString(),decom,fechaap,etfolioclau.getText().toString(),fechaclau) + "");
                         resu=true;
 					}else if(id==4 && ante=="OV"){
                         System.out.println("entro a guardar local"+spZona.getSelectedItem().toString());
@@ -3984,7 +5470,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 spuso.getSelectedItem().toString() , spDensidad.getSelectedItem().toString()/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
                                 Integer.parseInt(spgravedad.getSelectedItem().toString()), Integer.parseInt(etDiaPlazo.getText().toString()), etfecha.getText().toString(), hr, etCondominio.getText().toString(), etLote.getText().toString(), etManzana.getText().toString(), etReferencia.getText().toString(), "", "", etConstruccion.getText().toString(),idComp,etEntreC.getText().toString(),etEntreC1.getText().toString(),etResponsable.getText().toString(),etRegistro.getText().toString(),"N",identifica,
                                 "",firmas,etMotivo.getText().toString(),medidasEn,etArticulo.getText().toString(),
-                                id_inspector3,id_inspector4,id_inspector5,id_inspector6,idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5,etLGiro.getText().toString().trim(),etGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),spNE.getSelectedItem().toString(),reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etNumeroSellos.getText().toString(),etDecomiso.getText().toString(),fechaap,etfolioclau.getText().toString(),fechaclau) + "");
+                                id_inspector3,id_inspector4,id_inspector5,id_inspector6,idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5,etLGiro.getText().toString().trim(),etGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),spNE.getSelectedItem().toString(),reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etNumeroSellos.getText().toString(),decom,fechaap,etfolioclau.getText().toString(),fechaclau) + "");
                     }else if(id==4 && ante=="IN"){
                         Log.i("levanta", ingresar(etNumeroActa.getText().toString(), tvC.getText().toString() + fmt + "-" + etAnoCitatorio.getText().toString(),infrac, tipoActa,id, fecha, hora, longitud, latitud,
                                 etOrden1.getText().toString(), etFecham.getText().toString(),spZona.getSelectedItem().toString(), id_inspector1, id_inspector2,
@@ -3997,10 +5483,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 spuso.getSelectedItem().toString() , spDensidad.getSelectedItem().toString()/*etDensidad.getText().toString()*/, etManifiesta.getText().toString(),
                                 Integer.parseInt(spgravedad.getSelectedItem().toString()), Integer.parseInt(etDiaPlazo.getText().toString()), etfecha.getText().toString(), hr, etCondominio.getText().toString(), etLote.getText().toString(), etManzana.getText().toString(), etReferencia.getText().toString(), "", "", etConstruccion.getText().toString(),idComp,etEntreC.getText().toString(),etEntreC1.getText().toString(),etResponsable.getText().toString(),etRegistro.getText().toString(),"N",identifica,
                                 spPeticion.getSelectedItem().toString(),firmas,etMotivo.getText().toString(),medidasEn,etArticulo.getText().toString(),
-                                id_inspector3,id_inspector4,id_inspector5,id_inspector6,idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5,etLGiro.getText().toString().trim(),etGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),spNE.getSelectedItem().toString(),reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etNumeroSellos.getText().toString(),etDecomiso.getText().toString(),fechaap,etfolioclau.getText().toString(),fechaclau) + "");
+                                id_inspector3,id_inspector4,id_inspector5,id_inspector6,idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5,etLGiro.getText().toString().trim(),etGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),spNE.getSelectedItem().toString(),reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etNumeroSellos.getText().toString(),decom,fechaap,etfolioclau.getText().toString(),fechaclau) + "");
                     resu=true;
 					}
-
+        if (foliox > 0) {
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putInt("folio", 0);
+            editor.apply();
+        }
 					
 						//String peticion,String v_firma,String motivo_orden,String medida_seguridad,String articulo_medida
 						String[] iHecho = null;
@@ -4047,8 +5537,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						}*/
 						
 						idLevantamiento = consultarLevantamientoID();
-						
+						/*Descarga c= new Descarga();
+						idLevantamiento=c.idLe(etNumeroActa.getText().toString());*/
 						if(formato == "infraccion") {
+						    Log.e("Cantidad de hechos", String.valueOf(iHecho.length));
 							for(int i = 0; i < iHecho.length; i++) {
 								float can = 0;
 								int iHec;
@@ -4073,8 +5565,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     iUni = "";
                                 else
                                     iUni = iUnidad[i];
-								Log.i("Detalle infacciÔøΩn", idLevantamiento + " " + etNumeroActa.getText().toString() + " " + iHec + " " + can);
-								ingresarDetalleInfraccion(idLevantamiento, etNumeroActa.getText().toString(), iHec, can,"N",iUni);
+								//Log.i("Detalle infacciÔøΩn", idLevantamiento + " " + etNumeroActa.getText().toString() + " " + iHec + " " + can);
+								ingresarDetalleInfraccion(idLevantamiento, etNumeroActa.getText().toString(), iHec, can,"N",iUni,arrayhechosC.get(i));
 							}
 						}
 						
@@ -4086,7 +5578,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						//imprimir();
 						imprimir(formato);
 						System.out.println("despues");
-						
+
+
 						//10.84.35.153
 						if (conn.validarConexion(InfraccionesActivity.this)) {
                             if (!conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
@@ -4109,7 +5602,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                            fecha + " " + hr, "POR CALIFICAR", etCondominio.getText().toString() + " ", etManzana.getText().toString(), etLote.getText().toString(), etReferencia.getText().toString(), "", /*etAlineamiento.getText().toString()*/"", etConstruccion.getText().toString(), etEntreC.getText().toString(), etEntreC1.getText().toString(), etResponsable.getText().toString(), etRegistro.getText().toString(), idComp,
                                            medidasEn, etArticulo.getText().toString().trim(), etMotivo.getText().toString().trim(), id_inspector3, id_inspector4, id_inspector5, id_inspector6,
                                            idCompetencia1, idCompetencia2, idCompetencia3, idCompetencia4, idCompetencia5
-                                           , etLGiro.getText().toString().trim(), etGiro.getText().toString(), axo, etNombreComercial.getText().toString(), etSector.getText().toString(), conf, spPeticion.getSelectedItem().toString(), spNE.getSelectedItem().toString(), reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etfechap.getText().toString(),etNumeroSellos.getText().toString(),etDecomiso.getText().toString(),etfolioclau.getText().toString(),etfechaClau.getText().toString(),/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
+                                           , etLGiro.getText().toString().trim(), etGiro.getText().toString(), axo, etNombreComercial.getText().toString(), etSector.getText().toString(), conf, spPeticion.getSelectedItem().toString(), spNE.getSelectedItem().toString(), reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etfechap.getText().toString(),etNumeroSellos.getText().toString(),decom,etfolioclau.getText().toString(),etfechaClau.getText().toString(),/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/urlP+"insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
 
                                        resu = true;
 
@@ -4117,6 +5610,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                    } else
                                        Log.i("inserto", "false");
                                }else{
+
                                    if (Connection.inserta(etNumeroActa.getText().toString(), citatorio, infrac, tipoActa, id, fecha, fecha + " " + hora,
                                            longitud, latitud, etOrden1.getText().toString(), etFecham.getText().toString(), spZona.getSelectedItem().toString(), id_inspector1, id_inspector2,
                                            etNombreV.getText().toString(), spIdentifica.getSelectedItem().toString() + ":" + etVIdentifica.getText().toString(), etVManifiesta.getText().toString(),
@@ -4130,7 +5624,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                            fecha + " " + hr, "POR CALIFICAR", etCondominio.getText().toString() + " ", etManzana.getText().toString(), etLote.getText().toString(), etReferencia.getText().toString(), "", /*etAlineamiento.getText().toString()*/"", etConstruccion.getText().toString(), etEntreC.getText().toString(), etEntreC1.getText().toString(), etResponsable.getText().toString(), etRegistro.getText().toString(), idComp,
                                            medidasEn, etArticulo.getText().toString().trim(), etMotivo.getText().toString().trim(), id_inspector3, id_inspector4, id_inspector5, id_inspector6,
                                            idCompetencia1, idCompetencia2, idCompetencia3, idCompetencia4, idCompetencia5
-                                           , etLGiro.getText().toString().trim(), etGiro.getText().toString(), axo, etNombreComercial.getText().toString(), etSector.getText().toString(), conf, "", spNE.getSelectedItem().toString(), reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etfechap.getText().toString(),etNumeroSellos.getText().toString(),etDecomiso.getText().toString(),etfolioclau.getText().toString(),etfechaClau.getText().toString(),/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
+                                           , etLGiro.getText().toString().trim(), etGiro.getText().toString(), axo, etNombreComercial.getText().toString(), etSector.getText().toString(), conf, "", spNE.getSelectedItem().toString(), reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etfechap.getText().toString(),etNumeroSellos.getText().toString(),decom,etfolioclau.getText().toString(),etfechaClau.getText().toString(),/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/urlP+"insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
 
                                        resu = true;
 
@@ -4146,7 +5640,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             Log.i("sii", "internet " + id_inspector2);
             //nv
             for(int i=0;i<SeguimientoM1.size();i++){
-                if (Connection.insertSeguimiento(etNumeroActa.getText().toString(), String.valueOf(MainActivity.id_ins_sesion),SeguimientoM1.get(i),fecha,"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertSeguimientoM.php")) {
+                if (Connection.insertSeguimiento(etNumeroActa.getText().toString(), String.valueOf(MainActivity.id_ins_sesion),SeguimientoM1.get(i),fecha,urlP+"insertSeguimientoM.php")) {
 
 
 
@@ -4157,11 +5651,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             }
 
         }
-					
+
 						
 												
-						if (conn.validarConexion((getApplicationContext())))
-							idLevantamientoSQL = getIdLevantamiento();
+						if (conn.validarConexion((getApplicationContext()))) {
+                            idLevantamientoSQL = getIdLevantamiento();
+                            //Descarga c=new Descarga();
+                          //idLevantamientoSQL= c.idLe(etNumeroActa.getText().toString());
+                        }
 					
 					if(formato.equalsIgnoreCase("infraccion")) {
 						for(int i = 0; i < iHecho.length; i++) {
@@ -4188,16 +5685,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 iUni = "";
                             else
                                 iUni = iUnidad[i];
-							if (conn.validarConexion(getApplicationContext())) {
-                                conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, iUni,/*"http://172.16.1.21/serverSQL/insertDetalle.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
-                            }
+							//if (conn.validarConexion(getApplicationContext())) {
+                            Log.i(TAG, "hechos: "+arrayhechosC.get(i));
+                                conn.insertDetalle(idLevantamientoSQL, etNumeroActa.getText().toString(), iHec, can, iUni,arrayhechosC.get(i),/*"http://172.16.1.21/serverSQL/insertDetalle.php"*/urlP+"insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.11/serverSQL/insertDetalle.php"*/);
+                            //}
+                             insertFotrografia(idLevantamientoSQL,etNumeroActa.getText().toString(),etNumeroActa.getText().toString()+".pdf","PDF","N","N");
 						}
 					}
 					//}
 
-    	/*}catch (Exception e) {
+    	}catch (Exception e) {
 			Log.e("Guardar", e.getMessage() + " l");
-			/*btnGuardar.setEnabled(false);
+			btnGuardar.setEnabled(false);
 			btnImprimir.setEnabled(true);
 			btnmodificar.setEnabled(false);
 			this.tvEvidencia.setVisibility(View.VISIBLE);
@@ -4206,10 +5705,54 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	        btnTomarF.setEnabled(true);
 			Toast toast = Toast.makeText(getApplicationContext(), "Los datos se han guardado en la base de datos local", Toast.LENGTH_LONG);
 			toast.setGravity(0, 0, 15);
-			toast.show();*
-		}*/
+			toast.show();
+		}
     }
+    public  class EFoto extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pb.setVisibility(View.VISIBLE);
+        }
 
+        @Override
+        protected String doInBackground(String... params) {
+            if(VerificarFoto().equals("")){
+                if (conn.search(urlP+"getC_Direccion.php").equals("No se pudo conectar con el servidor")) {
+                    //if (!conn.search("http://172.16.1.21/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+                    //if (!conn.search("http://192.168.0.15/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+                    msj = "No se pudo conectar con el servidor";
+
+                }else{
+
+                    if (conn.validarConexion(getApplicationContext())) {
+                        //foto();
+
+                        fotografias();
+                        descargarFotografia();
+
+                        msj = "La(s) Imagen(es) se ha(n) enviado al servidor";
+                    }
+                    else
+                        msj = "No se encontro conexion a internet";
+                }
+
+            }
+            else
+                msj = "No hay datos guardados en el dispositivo";
+            return msj;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            pb.setVisibility(View.GONE);
+            Toast toast = Toast.makeText(InfraccionesActivity.this, result, Toast.LENGTH_SHORT);
+            toast.setGravity(0, 0, 15);
+            toast.show();
+        }
+
+    }
     public class Descargas extends AsyncTask<String, Integer, String> {
         @Override
         protected void onPostExecute(String result) {
@@ -4231,14 +5774,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             btnVista.setEnabled(false);
             btnTomarF.setEnabled(true);
             if(guarda) {
-                if(id > 2 & id < 4) {
-                    if (foto >= 1) {
-                        btnImprimir.setEnabled(true);
-                    } else {
-                        btnImprimir.setEnabled(false);
-                    }
-                } else {
-                    if(infrac == 1) {
+
+                    if(!ante.equals("OV")) {
                         if (foto >= 1)
                             btnImprimir.setEnabled(true);
                         else
@@ -4246,7 +5783,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     }
                     else
                         btnImprimir.setEnabled(true);
-                }
+
             }
             msj = (conn.validarConexion(getApplicationContext()) & resu) ? "Los datos se han guardado en la base de datos local y enviados al servidor" : "Los datos e imagenes se han guardado en la base de datos local";
             Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
@@ -4269,7 +5806,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 //if (!conn.search("http://172.16.1.21/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
                 //if (!conn.search("http://192.168.0.15/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
                 //if (conn.validarConexion(getApplicationContext()))
-                    guardar();
+            
+            guardar();
             //}
             return null;
         }
@@ -4343,7 +5881,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			Log.i("Archivo", nom);
 			//conn.insertFoto(idLevantamientoSQL, etNumeroActa.getText().toString(),nom.replace("/", "-"), desc, "http://10.0.2.2:8080/serverSQL/insertFoto.php");
 			if (conn.validarConexion(getApplicationContext()) & resu)
-				conn.insertFoto(idLevantamientoSQL, etNumeroActa.getText().toString(),nom.replace("/", "-"), desc, /*"http://172.16.1.21/serverSQL/insertFoto.php"*/"http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertFoto.php"/*"http://pgt.no-ip.biz/serverSQL/insertFoto.php"/"http://192.168.0.11/serverSQL/insertFoto.php"*/);
+				conn.insertFoto(idLevantamientoSQL, etNumeroActa.getText().toString(),nom.replace("/", "-"), desc, /*"http://172.16.1.21/serverSQL/insertFoto.php"*/urlP+"insertFoto.php"/*"http://pgt.no-ip.biz/serverSQL/insertFoto.php"/"http://192.168.0.11/serverSQL/insertFoto.php"*/);
 		}
 		archivo = Environment.getExternalStorageDirectory()+"/Infracciones/fotografias/"+etNumeroActa.getText().toString().replace("/", "_")+"/";
 		System.out.println(new File(archivo + etNumeroActa.getText().toString().replace("/", "_") + ".txt").exists());
@@ -4460,6 +5998,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         tveliminar2.setEnabled(true);
         tveliminar3.setEnabled(true);
         tveliminar4.setEnabled(true);
+        tveliminar5.setEnabled(true);
+        tveliminar6.setEnabled(true);
+        tveliminar7.setEnabled(true);
+        tveliminar8.setEnabled(true);
+        tveliminar9.setEnabled(true);
+        tveliminar10.setEnabled(true);
+        tveliminar11.setEnabled(true);
+        tveliminar12.setEnabled(true);
+        tveliminar13.setEnabled(true);
+        tveliminar14.setEnabled(true);
+        tveliminar15.setEnabled(true);
+
         text = "";
         seleccion = "";
         dato = "";
@@ -4754,69 +6304,85 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     				
     				if (foto == 1) {
     					etDFoto.setVisibility(View.VISIBLE);
+    					etDFoto.requestFocusFromTouch();
     					btnver1.setVisibility(View.VISIBLE);
     					
     				}
     				else if (foto == 2) {
     					etDFoto1.setVisibility(View.VISIBLE);
+                        etDFoto.requestFocusFromTouch();
     					btnver2.setVisibility(View.VISIBLE);
     				}
     				else if (foto == 3) {
     					etDFoto2.setVisibility(View.VISIBLE);
+                        etDFoto.requestFocusFromTouch();
     					btnver3.setVisibility(View.VISIBLE);
     				}
     				else if(foto == 4){
     					etDFoto3.setVisibility(View.VISIBLE);
+                        etDFoto.requestFocusFromTouch();
     					btnver4.setVisibility(View.VISIBLE);
     				}
     				else if(foto == 5){
     					etDFoto4.setVisibility(View.VISIBLE);
+                        etDFoto.requestFocusFromTouch();
     					btnver5.setVisibility(View.VISIBLE);
     				}
     				else if(foto == 6){
     					etDFoto5.setVisibility(View.VISIBLE);
+                        etDFoto.requestFocusFromTouch();
     					btnver6.setVisibility(View.VISIBLE);
     				}
     				else if(foto == 7){
     					etDFoto6.setVisibility(View.VISIBLE);
     					btnver7.setVisibility(View.VISIBLE);
+                        etDFoto.requestFocusFromTouch();
     				}
     				else if(foto == 8){
     					etDFoto7.setVisibility(View.VISIBLE);
     					btnver8.setVisibility(View.VISIBLE);
+                        etDFoto.requestFocusFromTouch();
     				}
     				else if(foto == 9){
     					etDFoto8.setVisibility(View.VISIBLE);
     					btnver9.setVisibility(View.VISIBLE);
+                        etDFoto.requestFocusFromTouch();
     				}
     				else if(foto == 10){
     					etDFoto9.setVisibility(View.VISIBLE);
     					btnver10.setVisibility(View.VISIBLE);
+                        etDFoto.requestFocusFromTouch();
     				}
     				else if(foto == 11){
     					etDFoto10.setVisibility(View.VISIBLE);
     					btnver11.setVisibility(View.VISIBLE);
+                        etDFoto.requestFocusFromTouch();
     				}
     				else if(foto == 12){
     					etDFoto11.setVisibility(View.VISIBLE);
     					btnver12.setVisibility(View.VISIBLE);
+                        etDFoto.requestFocusFromTouch();
     				}
     				else if(foto == 13){
     					etDFoto12.setVisibility(View.VISIBLE);
     					btnver13.setVisibility(View.VISIBLE);
+                        etDFoto.requestFocusFromTouch();
     				}
     				else if(foto == 14){
     					etDFoto13.setVisibility(View.VISIBLE);
     					btnver14.setVisibility(View.VISIBLE);
+                        etDFoto.requestFocusFromTouch();
     				}
     				else if(foto == 15){
     					etDFoto14.setVisibility(View.VISIBLE);
     					btnver15.setVisibility(View.VISIBLE);
+                        etDFoto.requestFocusFromTouch();
     				}
     				
     				else {
     					etDFoto15.setVisibility(View.VISIBLE);
     					btnver16.setVisibility(View.VISIBLE);
+                        etDFoto.requestFocusFromTouch();
     				}
     				
     				if(foto == 15)
@@ -4849,6 +6415,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     			}else if(resultCode == RESULT_CANCELED) {
     				System.err.println(RESULT_CANCELED);
     				foto--;
+    				if(id==2 |id==5){
+    				    btncopiar.requestFocusFromTouch();
+
+                    }else{
+
+                        btncopiar.requestFocusFromTouch();
+                    }
     				if(foto == 15)
     					btnTomarF.setVisibility(View.GONE);
     				else
@@ -4957,7 +6530,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	int id = 0;
     	//this.result = conn.search("http://192.168.0.11/serverSQL/getIdLevantamientos.php");
     	//this.result = conn.search("http://pgt.no-ip.biz/serverSQL/getIdLevantamientos.php");
-    	this.result = conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getIdLevantamientos.php");
+    	this.result = conn.search(urlP+"getIdLevantamientos.php");
     	//this.result = conn.search("http://172.16.1.21/serverSQL/getIdLevantamientos.php");
     	
     		try {
@@ -4977,7 +6550,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     public int getIdDetalle() {
     	//this.result = conn.search("http://192.168.0.11/serverSQL/getDetalleInfaccion.php");
     	//this.result = conn.search("http://10.0.2.2/serverSQL/getDetalleInfaccion.php");
-    	this.result = conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getDetalleInfraccion.php");
+    	this.result = conn.search(urlP+"getDetalleInfraccion.php");
     	//this.result = conn.search("http://172.16.1.21/serverSQL/getDetalleInfaccion.php");
     	
     	int id = 0;
@@ -5024,7 +6597,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             zonas.clear();
     		try {
     			if (c.moveToFirst()){
-    				fraccionamiento.add("");
+    				fraccionamiento.add("Seleccionar");
     				zonas.add("");
     				do {
     					fraccionamiento.add(c.getString(1));
@@ -5100,13 +6673,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 String sqlI="";
                 for(int i=0;i<arrayincaseF.size();i++){
                     if(arrayincaseF.get(i).length()>2){
-                        sqlI="SELECT reg_trato_animales,reg_anuncion,reg_gestion,reg_cementerio,reg_proteccion_conservacion,reg_proteccion_ambiente,reg_sonido,reg_alumbrado,reg_inclusion,reg_rastro,reg_policia,ley_bebidas,reg_residuos,regtiancom,reg_com_ind,reg_movilidad FROM C_infraccion WHERE infraccion like '%"+arrayincaseF.get(i).trim()+"%'";
+                        System.out.println("holaaaaa- "+arrayincaseF.get(i).trim());
+                        sqlI="SELECT cod_urbano,dis_comple,ley_bebidas,reg_alumbrado,reg_anuncion,reg_cementerio,reg_com_ind,reg_construccion,reg_fumadores,reg_gestion," +
+                                "reg_inclusion,reg_medio_ambiente,reg_movilidad, reg_policia, reg_proteccion,  reg_proteccion_ambiente," +
+                                "reg_proteccion_conservacion,  reg_rastro,  reg_residuos,  reg_sonido,  reg_trato_animales,  reg_urbanizacion," +
+                                "reg_zonificacion,regtiancom FROM C_infraccion WHERE infraccion like '%"+arrayincaseF.get(i).trim()+"%'";
 
                     }
 
-                    Cursor cursor1 = db.rawQuery(sqlI, null);
-                    Log.e("sql:",sqlI);
+
                     try {
+                        Cursor cursor1 = db.rawQuery(sqlI, null);
+                        Log.e("sql:",sqlI);
                         if(cursor1.moveToFirst()) {
                             if(cursor1.getString(cursor1.getColumnIndex("reg_anuncion")).length()>2){
                                 condicion+="'reg_anuncion',";
@@ -5156,6 +6734,33 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             if(cursor1.getString(cursor1.getColumnIndex("reg_trato_animales")).length()>2){
                                 condicion+="'reg_trato_animales',";
                             }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_fumadores")).length()>2){
+                                condicion+="'reg_fumadores',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("cod_urbano")).length()>2){
+                                condicion+="'cod_urbano',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("dis_comple")).length()>2){
+                                condicion+="'dis_comple',";
+                            }
+
+
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_construccion")).length()>2){
+                                condicion+="'reg_construccion',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_medio_ambiente")).length()>2){
+                                condicion+="'reg_medio_ambiente',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_proteccion")).length()>2){
+                                condicion+="'reg_proteccion',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_urbanizacion")).length()>2){
+                                condicion+="'reg_urbanizacion',";
+                            }
+                            if(cursor1.getString(cursor1.getColumnIndex("reg_zonificacion")).length()>2){
+                                condicion+="'reg_zonificacion',";
+                            }
+
 
 
                             do {
@@ -5184,6 +6789,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     cmedida.clear();
                     art.clear();
                     orden.clear();
+                    cMedidaC.clear();
 
                     campos.add("");
                     cmedida.add("");
@@ -5192,6 +6798,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     cMedidaC.add("");
 
                     do {
+                        Log.i("entro1",cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim());
                         campos.add(cursor.getString(cursor.getColumnIndex("campo")));
                         cmedida.add(cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim() + " " + cursor.getString(cursor.getColumnIndex("ordenamiento")).trim());
                         cMedidaC.add(cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim());
@@ -5208,7 +6815,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cMedidaC));
                 }
                 if(id==2){
-                    spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cMedidaC));
+                    spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida));
                 }
             } catch (SQLiteException e) {
                 System.out.println(e.getMessage());
@@ -5217,13 +6824,15 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 db.close();
                 Log.v("change", "ok");
                 adapter.notifyDataSetChanged();
-                spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida));
+                if(id==5) {
+                    spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida));
+                }
                 if(id==4){
                     adapter.notifyDataSetChanged();
                     spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cMedidaC));
                 }
                 if(id==2){
-                    spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cMedidaC));
+                    spMedida.setAdapter(new ArrayAdapter<String>(this, R.layout.multiline_spinner_dropdown_item, cmedida));
                 }
             }
         }
@@ -5391,11 +7000,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	SQLiteDatabase db = gestionarDB.getReadableDatabase();
     	if(db != null) {
             Cursor cursor;
-    	    if(id==5)
-    	        cursor = db.rawQuery("select * from C_ordenamiento where id_c_direccion = " + 2, null);
-    	    else
+    	    if(id==5 ) {
+                cursor = db.rawQuery("select * from C_ordenamiento ", null);
+            }else {
                 cursor = db.rawQuery("select * from C_ordenamiento where id_c_direccion = " + id, null);
-    		try {
+            }
+
+                try {
 				if(cursor.moveToFirst()) {
 					reglamento.add("");
 					competencia.add("");
@@ -5417,6 +7028,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			}
     	}
     }
+
+
 
     public void conceptosOV() {
 	    //select*from concepto_ov
@@ -5607,7 +7220,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	return n;
     }
     
-    public long ingresarDetalleInfraccion(int idLevantamiento,String numeroActa,int idInfraccion, float cantidad,String estatus, String unidad) {
+    public long ingresarDetalleInfraccion(int idLevantamiento,String numeroActa,int idInfraccion, float cantidad,String estatus, String unidad, String especificacion) {
      
     	long n = 0;
     	GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
@@ -5621,6 +7234,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     		cv.put("cantidad",cantidad);
     		cv.put("estatus", estatus);
     		cv.put("unidad",unidad);
+    		cv.put("especificacion",especificacion);
     	
     		n = db.insert("Detalle_infraccion", null, cv);
     	}
@@ -5704,7 +7318,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	try {
 			if(db != null){
 				//Cursor c  = db.query("Levantamiento", null, "id_levantamiento", null, null, null, null);
-				Cursor c = db.rawQuery("select * from Levantamiento where id_c_direccion = '" + id + "'", null);
+				Cursor c = db.rawQuery("select * from Levantamiento where id_c_direccion = '" + id + "' and infraccion='"+infrac+"'", null);
 				if(c.moveToFirst()){
 					do {
 						r = true;
@@ -6036,6 +7650,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						etMotivo.setText(c.getString(c.getColumnIndex("motivo_orden")));
 						etMedida.setText(c.getString(c.getColumnIndex("medida_seguridad")));
 						etArticulo.setText(c.getString(c.getColumnIndex("articulo_medida")));
+                        etfolioap.setText(c.getString(c.getColumnIndex("folio_apercibimiento")));
+                        etfechap.setText(c.getString(c.getColumnIndex("fecha_apercibimiento")));
+                        etReferencia.setText(c.getString(c.getColumnIndex("referencia")));
 						
 						
 						if (c.getString(c.getColumnIndex("v_firma")) != null) {
@@ -6053,7 +7670,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						
 						
 						cbFirma.setEnabled(false);
-						
+						etfechap.setEnabled(false);
+						etfolioap.setEnabled(false);
 						spNombreA1.setEnabled(false);
 						spNombreA2.setEnabled(false);
 						spNombreA3.setEnabled(false);
@@ -6116,6 +7734,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 valid = false;
             }*/
             //if(cb.)
+            if (foto == 0) {
+                    sb.append("Falta tomar Fotografia. \n");
+                    valid = false;
+                }
             if(etMotivo.length()>1500){
                 sb.append("Limite de caracteres del motivo fue rebasado \n");
                 valid=false;
@@ -6175,10 +7797,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    		sb.append("Ingrese los dias de plazo. \n");
 	    		valid = false;
 	    	}
-	    	if(foto == 0) {
-                sb.append("Falta tomar Fotografia. \n");
-                valid = false;
-            }
+
+
+
             if(!cbDatos.isChecked()) {
                 if (validarCampos(this.etNombreV)) {
                     sb.append("Ingrese en nombre del visitado. \n");
@@ -6203,10 +7824,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     }
                 }
             }
-            if(validarSpinner(this.spMedida)) {
+            /*if(validarSpinner(this.spMedida)) {
                 sb.append("Ingrese las medidas precautorias. \n");
                 valid = false;
-            }
+            }*/
+
             if(id==5){
                 if (validarCampos(this.etGiro)) {
                     sb.append("Ingrese el giro de donde se actua \n");
@@ -6214,7 +7836,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 }
             }
             if(id == 2 | id == 4) {
-                if (etMedida.getText().toString().trim().contains("Clausura") | etMedida.getText().toString().trim().contains("clausura")) {
+                if (medidas1.trim().contains("Clausura") | medidas1.trim().contains("clausura")) {
                     if (etNumeroSellos.getText().toString().trim().equalsIgnoreCase("")) {
                         sb.append("Ingrese los numeros de sellos. \n");
                         valid = false;
@@ -6225,7 +7847,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     valid=false;
                 }
                 if(validarCampos(this.etArticulo)){
-                    sb.append("Ingrese las medidas precautorias. \n");
+                    sb.append("Ingrese los articulos de las medidas. \n");
                     valid=false;
                 }
                 if(etMotivo.length()>1500){
@@ -6593,7 +8215,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		if(!c2.trim().equalsIgnoreCase(""))
 			camp2 += c2+",";
 		if(!c3.trim().equalsIgnoreCase(""))
-			camp3 += c3+","; 
+			camp3 += c3+",";
 		if(!c4.trim().equalsIgnoreCase(""))
 			camp4 += c4+",";
 		if(!c5.trim().equalsIgnoreCase(""))
@@ -6604,7 +8226,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		if(!c7.trim().equalsIgnoreCase(""))
 			camp7 += c7+",";
 		if(!c8.trim().equalsIgnoreCase(""))
-			camp8 += c8+","; 
+			camp8 += c8+",";
 		if(!c9.trim().equalsIgnoreCase(""))
 			camp9 += c9+",";
 		if(!c0.trim().equalsIgnoreCase(""))
@@ -6613,7 +8235,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		if(!c11.trim().equalsIgnoreCase(""))
 			camp11 += c11+",";
 		if(!c12.trim().equalsIgnoreCase(""))
-			camp12 += c12+","; 
+			camp12 += c12+",";
 		if(!c13.trim().equalsIgnoreCase(""))
 			camp13 += c13+",";
 		if(!c14.trim().equalsIgnoreCase(""))
@@ -6622,7 +8244,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		if(!c15.trim().equalsIgnoreCase(""))
 			camp15 += c15+",";
 		if(!c16.trim().equalsIgnoreCase(""))
-			camp16 += c16+","; 
+			camp16 += c16+",";
 		if(!c17.trim().equalsIgnoreCase(""))
 			camp17 += c17+",";
 		if(!c18.trim().equalsIgnoreCase(""))
@@ -6631,7 +8253,19 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			camp19 += c19+",";
 		if(!c20.trim().equalsIgnoreCase(""))
 			camp20 += c20+",";
-		
+        if(!c21.trim().equalsIgnoreCase(""))
+            camp21 += c21+",";
+        if(!c22.trim().equalsIgnoreCase(""))
+            camp22 += c22+",";
+        if(!c23.trim().equalsIgnoreCase(""))
+            camp23 += c23+",";
+        if(!c24.trim().equalsIgnoreCase(""))
+            camp24 += c24+",";
+        if(!c25.trim().equalsIgnoreCase(""))
+            camp25 += c25+",";
+        if(!c26.trim().equalsIgnoreCase(""))
+            camp26 += c26+",";
+
 		System.out.println("CAMPOS " + c1 + " " + c2 + " " + c3 + " " + c4 + " "  + c5 + c6 + " " + c7 + " " + c8 + " " + c9 + " "  + c0 + " " + c11 + " " + c12 + " " + c13 + " "  + c14);
 		Log.e("valores",camp1);
 
@@ -6644,9 +8278,16 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	
     	GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
     	SQLiteDatabase db = gestionarBD.getReadableDatabase();
+        Cursor  c=null;
     	try{
-	    	Cursor  c = db.rawQuery("SELECT * FROM C_inspector WHERE id_c_direccion = '" + id + "' AND nombre <> '" + us + "' AND nombre <> 'administrador' and trim(vigente) = 'S' order by nombre", null);
-	    	//Cursor c = db.query("Inspectores", null, "id_inspector", null, null, null, null);
+    	    if(id==5) {
+                c = db.rawQuery("SELECT * FROM C_inspector WHERE  nombre <> '" + us + "' AND nombre <> 'ADMINISTRADOR' and trim(vigente) = 'S' and clave!='' and folio!='' order by nombre", null);
+                Log.e(TAG, "SELECT * FROM C_inspector WHERE  nombre <> '" + us + "' AND nombre <> 'Administrador' and trim(vigente) = 'S' order by nombre" );
+
+            }else {
+                c = db.rawQuery("SELECT * FROM C_inspector WHERE id_c_direccion = '" + id + "' AND nombre <> '" + us + "' AND nombre <> 'ADMINISTRADOR' and trim(vigente) = 'S' and clave!='' and folio!='' order by nombre", null);
+            }
+            //Cursor c = db.query("Inspectores", null, "id_inspector", null, null, null, null);
 	    	id_i2.clear();
 			id_i3.clear();
 			id_i4.clear();
@@ -6684,15 +8325,15 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	try{
     		if(id == 1| id== 3) {
     			Log.i("consulta", "select * from C_infraccion where id_c_direccion = '" + id + "' and trim(vigente) = 'S'  order by infraccion");
-    			c = db.rawQuery("select * from C_infraccion where id_c_direccion = '" + id + "' and trim(vigente) = 'S'  order by infraccion", null);
+    			c = db.rawQuery("select * from C_infraccion where id_c_direccion = '" + id + "' and vigente = 'S'  order by infraccion", null);
     			//c = db.rawQuery("select * from C_infraccion where id_c_direccion = '" + id + "' order by infraccion", null);
     		} else if(id == 5) {
                 Log.i("consulta", "select * from C_infraccion where id_c_direccion = '" + 2+ "' and trim(vigente) = 'S' order by id_c_infraccion");
-                c = db.rawQuery("select * from C_infraccion where id_c_direccion = '" + 2 + "' and trim(vigente) = 'S' order by infraccion", null);
+                c = db.rawQuery("select * from C_infraccion where id_c_direccion = '" + 2 + "' and vigente = 'S' order by infraccion", null);
             }
     		else {
     			Log.i("consulta", "select * from C_infraccion where id_c_direccion = '" + id + "' and trim(vigente) = 'S' order by id_c_infraccion");
-    			c = db.rawQuery("select * from C_infraccion where id_c_direccion = '" + id + "' and trim(vigente) = 'S' order by infraccion", null);
+    			c = db.rawQuery("select * from C_infraccion where id_c_direccion = '" + id + "' and vigente = 'S' order by infraccion", null);
     			//c = db.rawQuery("select * from C_infraccion where id_c_direccion = '" + id + "' order by infraccion", null);
     		}
     		System.out.println("select * from C_infraccion where id_c_direccion = '" + id + "'" + /* and vigente = 'S'*/ " order by id_c_infraccion");
@@ -6707,8 +8348,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    			//System.out.println(c.getString(2) + " " + c.getString(c.getColumnIndex("id_c_direccion")));
 	    			//if(c.getString(c.getColumnIndex("vigente")).trim().equalsIgnoreCase("S")) {
 		    			id_hecho.add(c.getInt(0));
-		    			arregloInfraccion.add(c.getString(2));
-                        arregloInfraccion1.add(c.getString(2));
+		    			if(id!=4) {
+		    			    String recorte=c.getString(2);
+                            arregloInfraccion.add(c.getString(2).substring(4,recorte.length()));
+                            arregloInfraccion1.add(c.getString(2).substring(4,recorte.length()));
+                        }else{
+                            arregloInfraccion.add(c.getString(2));
+                            arregloInfraccion1.add(c.getString(2));
+                        }
 		    			//System.out.println(c.getString(2) + " do " + c.getString(c.getColumnIndex("id_c_direccion")));
 		    			//Log.i("listado", "Infraccion: " + c.getString(2));
 	    			//}
@@ -7023,31 +8670,32 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     
     
     public void buscarInfraccion(String nom){
-    	
+        System.out.println(this.reglamentoSP);
     	GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
     	SQLiteDatabase db = gestionarBD.getReadableDatabase();
     	String cam = "";
+    	int contadorgg=0;
     	
     	try{
-    	Cursor c = db.rawQuery("SELECT * FROM C_infraccion WHERE infraccion like '%" + nom + "%'", null);
+    	Cursor c = db.rawQuery("SELECT * FROM C_infraccion WHERE vigente='S' and infraccion like '%" + nom + "%'", null);
     	Log.v("sql","SELECT * FROM C_infraccion WHERE infraccion like '" + nom + "%'");
     	if(c.moveToFirst()) {
             do {
+                contadorgg++;
                 id_infra = c.getInt(0);
                 unidad = c.getString(3);
 
 
-
-
                 for (int i = 0; i < campo.size(); i++) {
                     if (!campo.get(i).equalsIgnoreCase("")) {
-                        System.out.println("-entro"+c.getColumnIndex(campo.get(i)));
+                        System.out.println("-entro" + c.getColumnIndex(campo.get(i)));
                         if (c.getColumnIndex(campo.get(i)) >= 0) {
-                            System.err.println("-entro"+c.getString(c.getColumnIndex(campo.get(i))));
+                            System.err.println("-entro" + c.getString(c.getColumnIndex(campo.get(i))));
                             if (i == 0) {
                                 c1 = c.getString(c.getColumnIndex(campo.get(i)));
                                 if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
                                     cam = campo.get(i);
+
                             } else if (i == 1) {
                                 c2 = c.getString(c.getColumnIndex(campo.get(i)));
                                 if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
@@ -7118,42 +8766,95 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 c19 = c.getString(c.getColumnIndex(campo.get(i)));
                                 if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
                                     cam = campo.get(i);
-                            } else {
+                            } else if (i == 19) {
                                 c20 = c.getString(c.getColumnIndex(campo.get(i)));
-                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals(""))
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals("")){
                                     cam = campo.get(i);
+
+
+                                }
+
+                            }
+                            else if (i == 20) {
+                                c21 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals("")){
+                                    cam = campo.get(i);
+
+
+                                }
+
+                            }
+                            else if (i == 21) {
+                                c22 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals("")){
+                                    cam = campo.get(i);
+                                }
+
+                            }
+                            else if (i == 22) {
+                                c23 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals("")){
+                                    cam = campo.get(i);
+                                }
+
+                            }
+                            else if (i == 23) {
+                                c24 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals("")){
+                                    cam = campo.get(i);
+                                }
+
+                            }
+                            else if (i == 24) {
+                                c25 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals("")){
+                                    cam = campo.get(i);
+                                }
+
+                            }
+                            else if (i == 25) {
+                                c25 = c.getString(c.getColumnIndex(campo.get(i)));
+                                if (!c.getString(c.getColumnIndex(campo.get(i))).trim().equals("")){
+                                    cam = campo.get(i);
+                                }
+
                             }
                         }
+
 
                     }
                 }
                 Log.i("codigo", "c1 " + c1 + " c2 " + c2 + " c3 " + c3 + " c4 " + c4 + " c5 " + c5 + "c6 " + c6 + " c7 " + c7 + " c8 " + c8 + " c9 " + c9 + " c0 " + c0 + " c11 " + c11 + " c12 " + c12 + " c13 " + c13 + " c14 " + c14 + " c15 " + c15 + " c16 " + c16 + " c17 " + c17 + " c18 " + c18 + " c19 " + c19 + " c20 " + c20);
                 Log.i("Info", "cod: " + c.getString(4) + " ord: " + c.getString(6) + " lap: " + c.getString(7) + " ordenamiento_ " + c.getString(8) + " n " + c.getString(9) + " l " + c.getString(10));
             } while (c.moveToNext());
+            System.err.println(contadorgg);
             c.close();
-            if (id == 12) {
+            /*if (id == 5) {
                 medidas(cam);
                 adapter.notifyDataSetChanged();
-            }
-            if (id == 2) {
+            }*/
+            /*if (id == 2) {
                 medidas(cam);
                 adapter.notifyDataSetChanged();
-            }
-            if (id != 5 || id!=2) {
+            }*/
+
+
+            if (id != 5 || id != 2) {
 
 
                 String sql = "";
-                if ( id == 4 )
+                if (id == 4) {
                     sql = "select competencia,ordenamiento from c_ordenamiento where campo = '" + cam + "' and id_c_direccion = " + id;
 
 
-                System.err.println(sql);
-                c = db.rawQuery(sql, null);
-                if (c.moveToFirst()) {
-                    do {
-                        System.err.println(c.getString(0) + " " + c.getString(1));
-                        competencias = c.getString(0) + " " + c.getString(1);
-                    } while (c.moveToNext());
+                    System.err.println(sql);
+                    c = db.rawQuery(sql, null);
+                    if (c.moveToFirst()) {
+                        do {
+                            System.err.println(c.getString(0) + " " + c.getString(1));
+                            competencias = c.getString(0) + " " + c.getString(1);
+                        } while (c.moveToNext());
+                    }
                 }
             }
         }
@@ -7175,7 +8876,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	try{
             Cursor c;
             if(id == 5)
-                c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE id_c_direccion = " + 2, null);
+                c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE id_c_direccion = " + id, null);
             else
                 c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE id_c_direccion = " + id, null);
 
@@ -7205,8 +8906,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				
 	    		try{
                     Cursor c;
-	    		    if(id == 5) {
-	    		        c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) + "' and id_c_direccion = '" + 2 + "'", null);
+	    		    if(id == 5) { //TODO:
+	    		        //c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) , null);
+                        c = db.rawQuery("SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) + "' and id_c_direccion = '" + id + "'", null);
                         Log.i("quer", "SELECT * FROM C_Ordenamiento WHERE campo = '" + campo.get(i) + "' and id_c_direccion = '" + 2 + "'");
                         Log.i("i", i + "");
                     } else {
@@ -7255,8 +8957,22 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			    				campo18 = c.getString(1);
 			    			else if(i == 18)
 			    				campo19 = c.getString(1);
-			    			else if(i == 19)
+			    			else if(i==19)
 			    				campo20 = c.getString(1);
+                            else if(i==20)
+                                campo21 = c.getString(1);
+                            else if(i==21)
+                                campo22 = c.getString(1);
+                            else if(i==22)
+                                campo23 = c.getString(1);
+                            else if(i==23)
+                                campo24 = c.getString(1);
+                            else if(i==24)
+                                campo25 = c.getString(1);
+                            else if(i==25)
+                                campo26 = c.getString(1);
+
+
 			    			
 			    			System.out.println(campo5);
 			    		}while(c.moveToNext());
@@ -7355,12 +9071,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				//Cursor c = db.query("C_zonas", null, "id_c_zonas", null, null, null, null);
                 Cursor c;
                 if(id == 5)
-                    c = db.rawQuery("SELECT * FROM C_zonas WHERE id_c_direccion = '" + 2 + "'", null);
+                    c = db.rawQuery("SELECT * FROM C_zonas WHERE id_c_direccion = '" + 5 + "'", null);
                 else
-                    c = db.rawQuery("SELECT * FROM C_zonas WHERE id_c_direccion = '" + id_c + "'", null);
+                    c = db.rawQuery("SELECT * FROM C_zonas WHERE id_c_direccion = '" + 5 + "'", null);
 				if(c.moveToFirst()){
 					do{
-						zona.add(c.getString(2) + "     " + c.getString(3));
+						//zona.add(c.getString(2) + "     " + c.getString(3));
+                        zona.add(c.getString(2));
 					}while(c.moveToNext());
 				}
 				c.close();
@@ -7454,10 +9171,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		case R.id.radioOrdenV:
 			inicio();
 			infrac = 2;
-			if(id == 2 || id == 3  || id == 5)
-				rlProp.setVisibility(View.VISIBLE);
-
-			else
+			if(id == 2 || id == 3  || id == 5) {
+                rlProp.setVisibility(View.VISIBLE);
+                tvfechap.setVisibility(View.GONE);
+                etfechap.setVisibility(View.GONE);
+                radioReimprimir.setVisibility(View.GONE);
+            }else
 				rlProp.setVisibility(View.GONE);
 			rlTestA.setVisibility(View.GONE);
 			rlVisita.setVisibility(View.GONE);
@@ -7479,6 +9198,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			btnConsultar.setVisibility(View.VISIBLE);
 			radioInfraccion.setVisibility(View.GONE);
 			rborden.setVisibility(View.GONE);
+			radioEvento.setVisibility(View.GONE);
 
             spgravedad.setSelection(1);
             tvMC.setVisibility(View.GONE);
@@ -7487,6 +9207,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             rgPopiedad.setVisibility(View.GONE);
 
             cbFirma.setVisibility(View.VISIBLE);
+            tvfechap.setVisibility(View.GONE);
+            etfechap.setVisibility(View.GONE);
 
 
 			if(id == 4) {
@@ -7494,13 +9216,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 tvNombreComercial.setText("Nombre del Propietario o Representante Legal");
 			    etReferencia.setVisibility(View.GONE);
 			    tvReferencia.setVisibility(View.GONE);
-                btnTomarF.setVisibility(View.GONE);
+               // btnTomarF.setVisibility(View.GONE);
                 etAGiro.setHint("Area");
                 etAGiro.setText(direccion);
                 tvgiro.setText("Area");
                 etMotivo.setText("Inspeccionar físicamente que los trabajos o urbanización en proceso, cuenten y presenten los permisos correspondientes como son: ");
-                btnTomarF.setVisibility(View.GONE);
+                //btnTomarF.setVisibility(View.GONE);
                 llPla.setVisibility(View.GONE);
+                radioReimprimir.setVisibility(View.GONE);
 
                 etVManifiesta.setVisibility(View.VISIBLE);
                 rgPopiedad.setVisibility(View.GONE);
@@ -7522,6 +9245,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 tvReg.setVisibility(View.GONE);
                 llfundamento.setVisibility(View.GONE);
                 etDondeActua.setVisibility(View.GONE);
+                tvfechap.setVisibility(View.GONE);
+                etfechap.setVisibility(View.GONE);
+                radioReimprimir.setVisibility(View.GONE);
             }
 			if(id == 2 | id == 5) {
                 System.out.println("entro a quitar componentes");
@@ -7529,20 +9255,21 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 llfundamento.setVisibility(View.GONE);
                 //etCondominio.setVisibility(View.GONE);
                 //tvCondominio.setVisibility(View.GONE);
-
+                tvfechap.setVisibility(View.GONE);
+                etfechap.setVisibility(View.GONE);
                 tvPropietario.setText("NOMBRE Y/O RAZON SOCIAL");
                 etDondeActua.setVisibility(View.GONE);
                 rlLicencias.setVisibility(View.GONE);
+                radioReimprimir.setVisibility(View.GONE);
             }
 			if(id == 5) {
                 rlDonde_actua.setVisibility(View.GONE);
                // rlProp.setVisibility(View.GONE);
                 tvMC.setVisibility(View.GONE);
                 spMeConstitui.setVisibility(View.GONE);
-                tvfechap.setVisibility(View.VISIBLE);
-                tvfolioap.setVisibility(View.VISIBLE);
-                etfechap.setVisibility(View.VISIBLE);
-                etfolioap.setVisibility(View.VISIBLE);
+
+                tvfechap.setVisibility(View.GONE);
+                etfechap.setVisibility(View.GONE);
 
 
             }
@@ -7557,7 +9284,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             }
 
 			if(id == 2 | id == 5)
-			    btnImprimirResum.setVisibility(View.VISIBLE);
+			    btnImprimirResum.setVisibility(View.GONE);
 			
 			break;
 			
@@ -7595,6 +9322,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			btnConsultar.setVisibility(View.VISIBLE);
 			radioInfraccion.setVisibility(View.GONE);
 			rborden.setVisibility(View.GONE);
+			radioEvento.setVisibility(View.GONE);
 			
 			spNombreA.setVisibility(View.GONE);
 			spNombreA1.setVisibility(View.GONE);
@@ -7606,12 +9334,17 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			llconcepto.setVisibility(View.GONE);
 
             if(id == 4) {
+                tvBuscar.setVisibility((View.GONE));
+                tilArticulo.setVisibility(View.GONE);
+                btnBusArt.setVisibility(View.GONE);
+                radioReimprimir.setVisibility(View.GONE);
                 etNombreComercial.setHint("Nombre del Propietario o Representante Legal");
                 tvNombreComercial.setText("Nombre del Propietario o Representante Legal");
                 etReferencia.setVisibility(View.GONE);
                 tvReferencia.setVisibility(View.GONE);
                 etAGiro.setHint("Area");
                 etAGiro.setText(direccion);
+                spgiro.setVisibility(View.GONE);
                 tvgiro.setText("Area");
                 etMotivo.setText("Inspeccionar físicamente que los trabajos o urbanización en proceso, cuenten y presenten los permisos correspondientes como son: ");
                 llplazo.setVisibility(View.VISIBLE);
@@ -7637,6 +9370,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 //tvCondominio.setVisibility(View.GONE);
                 //etCondominio.setVisibility(View.GONE);
                 tvReg.setVisibility(View.GONE);
+                radioReimprimir.setVisibility(View.GONE);
                 etManifiesta.setText("Se reserva el derecho");
                 etPropietario.setVisibility(View.GONE);
                 tvPropietario.setVisibility(View.GONE);
@@ -7644,6 +9378,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 rlDonde_actua.setVisibility(View.VISIBLE);
                 tvgiro.setVisibility(View.VISIBLE);
                 etGiro.setVisibility(View.VISIBLE);
+                //tvgiro.setVisibility(View.VISIBLE);
                 llfundamento.setVisibility(View.GONE);
                 //etCondominio.setVisibility(View.GONE);
                 //tvCondominio.setVisibility(View.GONE);
@@ -7662,6 +9397,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                 tvReg.setVisibility(View.GONE);
                 llfundamento.setVisibility(View.GONE);
+                radioReimprimir.setVisibility(View.GONE);
                 etDondeActua.setVisibility(View.GONE);
                 rlDonde_actua.setVisibility(View.GONE);
 
@@ -7678,8 +9414,16 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		case R.id.btnVista:
 
 		    if(validarI()) {
+              //try {
+                  imprimirPrevia(formato);
+              /*}catch (Exception e){
 
-                imprimirPrevia(formato);
+                  Log.e(TAG, "onClick: ",e );
+                  Toast toast = Toast.makeText(getApplicationContext(), "Verificar sus datos!! No se puede generar Vista Previa!!", (Toast.LENGTH_LONG));
+                  toast.setGravity(0, 0, 15);
+                  toast.show();
+              }*/
+
 
                 File file = new File(Environment.getExternalStorageDirectory() + "/Infracciones/fotografias/" + etNumeroActa.getText().toString().replace("/", "_") + "/" + etNumeroActa.getText().toString().replace("/", "_") + ".pdf");
 
@@ -7803,14 +9547,180 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 } else {
                     Log.v("reglamento",arregloCreglamentosx.get(spCreglamentos.getSelectedItemPosition()));
                     buscarInfraccionA(arregloCreglamentosx.get(spCreglamentos.getSelectedItemPosition()),etArti.getText().toString());
-                    if(!arregloInfraccion.isEmpty())
-                        spInfraccion.setAdapter(new ArrayAdapter<>(this, R.layout.multiline_spinner_dropdown_item, arregloInfraccion));
+                    if(!arregloInfraccion.isEmpty() && !arregloInfraccion1.isEmpty())
+                        spInfraccion.setAdapter(new ArrayAdapter<>(this, R.layout.multiline_spinner_dropdown_item, arregloInfraccion1));
                     else
-                        spInfraccion.setAdapter(new ArrayAdapter<>(this, R.layout.multiline_spinner_dropdown_item));
+                        spInfraccion.setAdapter(new ArrayAdapter<>(this, R.layout.multiline_spinner_dropdown_item,arregloInfraccion));
                 }
                 break;
+            case R.id.radioEventoEspecial:
+                id=5;
+                //evento=5;
+                //competencia2();
+                campo.clear();
+                buscarNombreCampo();
+                buscarOrdenamientos();
 
-		default:
+
+
+                arregloCreglamentosx.clear();
+                arregloCreglamentos.clear();
+                mostrarReglamentos();
+
+                listar();
+                direccion="Horarios Especiales";
+                if(!arregloLista1.isEmpty()){
+                    spInspectorT.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,arregloLista1));
+                }
+
+                if(!arregloLista2.isEmpty()){
+                    spInspectorT1.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,arregloLista2));
+                }
+
+                inicio();
+                infrac = 1;
+                rlDonde_actua.setVisibility(View.GONE);
+                etDiaPlazo.setText("20");
+                etDiaPlazo.setEnabled(false);
+                if(id == 4)
+                    rlProp.setVisibility(View.GONE);
+                else
+                    rlProp.setVisibility(View.VISIBLE);
+                rlTestA.setVisibility(View.VISIBLE);
+                rlVisita.setVisibility(View.VISIBLE);
+                llNota.setVisibility(View.VISIBLE);
+                llplazo.setVisibility(View.VISIBLE);
+                llreincidencia.setVisibility(View.GONE);
+                ante = "IN";
+                formato = "infraccion";
+                InfraccionesActivity.this.btnOrden1.setVisibility(View.VISIBLE);
+                etOrden1.setVisibility(View.VISIBLE);
+                etGiro.setVisibility(View.GONE);
+                etMotivo.setVisibility(View.GONE);
+                tvMotivo.setVisibility(View.GONE);
+                //spReglamento.setVisibility(View.VISIBLE);
+                //spReglamento.setVisibility(View.GONE);
+                //tvReg.setVisibility(View.GONE);
+                competencias = "";
+                regla = "";
+                idComp = 0;
+                etOrden1.setText("");
+                tvActa.setText("Número Acta");
+
+                btnConsultar.setVisibility(View.VISIBLE);
+                radioInfraccion.setVisibility(View.GONE);
+                rborden.setVisibility(View.GONE);
+                radioEvento.setVisibility(View.GONE);
+                radioReimprimir.setVisibility(View.GONE);
+                spNombreA.setVisibility(View.GONE);
+                spNombreA1.setVisibility(View.GONE);
+                spNombreA2.setVisibility(View.GONE);
+                spNombreA3.setVisibility(View.GONE);
+                spNombreA4.setVisibility(View.GONE);
+
+                tvAcomp.setVisibility(View.GONE);
+                llconcepto.setVisibility(View.GONE);
+
+                if(id == 4) {
+                    Log.e(TAG, "onClick: entro aqui" );
+                    tvBuscar.setVisibility((View.GONE));
+                    tilArticulo.setVisibility(View.GONE);
+                    btnBusArt.setVisibility(View.GONE);
+
+                    etNombreComercial.setHint("Nombre del Propietario o Representante Legal");
+                    tvNombreComercial.setText("Nombre del Propietario o Representante Legal");
+                    etReferencia.setVisibility(View.GONE);
+                    tvReferencia.setVisibility(View.GONE);
+                    etAGiro.setHint("Area");
+                    etAGiro.setText(direccion);
+                    tvgiro.setText("Area");
+                    etMotivo.setText("Inspeccionar físicamente que los trabajos o urbanización en proceso, cuenten y presenten los permisos correspondientes como son: ");
+                    llplazo.setVisibility(View.VISIBLE);
+                    tvPropietario.setVisibility(View.GONE);
+                    rlDonde_actua.setVisibility(View.GONE);
+                    llfundamento.setVisibility(View.VISIBLE);
+                    etMedida.setVisibility(View.GONE);
+                    llcomp.setVisibility(View.GONE);
+                    tvReg.setVisibility(View.GONE);
+                    tvMC.setVisibility(View.GONE);
+                    spMeConstitui.setVisibility(View.GONE);
+                    btnImprimirResum.setVisibility(View.GONE);
+                    tvUso.setVisibility(View.GONE);
+                    tvNota.setText("Uso de Suelo");
+                    tvfolioap.setVisibility(View.VISIBLE);
+                    etfolioap.setVisibility(View.VISIBLE);
+                    tvfechap.setVisibility(View.VISIBLE);
+                    etfechap.setVisibility(View.VISIBLE);
+                }
+                if(id == 2 | id == 5 ) {
+                    Log.e(TAG, "onClick: entro aqui" );
+                    etDecomiso.setVisibility(View.VISIBLE);
+                    llNota.setVisibility(View.GONE);
+                    //tvCondominio.setVisibility(View.GONE);
+                    //etCondominio.setVisibility(View.GONE);
+                    tvReg.setVisibility(View.GONE);
+                    etManifiesta.setText("Se reserva el derecho");
+                    etPropietario.setVisibility(View.GONE);
+                    tvPropietario.setVisibility(View.GONE);
+                    rlProp.setVisibility(View.GONE);
+                    rlDonde_actua.setVisibility(View.VISIBLE);
+                    tvgiro.setVisibility(View.VISIBLE);
+                    etGiro.setVisibility(View.VISIBLE);
+                    llfundamento.setVisibility(View.GONE);
+                    btnArticulos.setVisibility(View.VISIBLE);
+                    llcomp.setVisibility(View.GONE);
+                    //llconcepto.setVisibility(View.GONE);
+                    //etCondominio.setVisibility(View.GONE);
+                    //tvCondominio.setVisibility(View.GONE);
+                    tvPropietario.setText("NOMBRE Y/O RAZON SOCIAL");
+                    llPla.setVisibility(View.GONE);
+                    tvfolioap.setVisibility(View.VISIBLE);
+                    tvfechap.setVisibility(View.VISIBLE);
+                    etfolioap.setVisibility(View.VISIBLE);
+                    etfechap.setVisibility(View.VISIBLE);
+                    etArticulo.setVisibility(View.VISIBLE);
+                }
+                if(id == 2) {
+                    tvMC.setVisibility(View.GONE);
+                    spMeConstitui.setVisibility(View.GONE);
+                }
+                if(id == 3) {
+
+                    tvReg.setVisibility(View.GONE);
+                    llfundamento.setVisibility(View.GONE);
+                    etDondeActua.setVisibility(View.GONE);
+                    rlDonde_actua.setVisibility(View.GONE);
+
+
+                }
+                if(id == 5) {
+                    Log.e(TAG, "onClick: entro aqui" );
+                    rlDonde_actua.setVisibility(View.GONE);
+                }
+                if(id == 2 | id == 5) {
+                    Log.e(TAG, "onClick: entro aqui" );
+                    btnImprimirResum.setVisibility(View.VISIBLE);
+                }
+
+                break;
+            case R.id.radioReimprimir:
+                Intent intent;
+
+                intent = new Intent(InfraccionesActivity.this, ReimprimirActivity.class);
+
+
+
+                Bundle bundle = new Bundle();
+                bundle.putString("usuario", us.trim());
+                bundle.putInt("id", id);
+                bundle.putString("direccion", direccion);
+                bundle.putInt("con", con);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                break;
+
+
+            default:
 			break;
 		}
 	}
@@ -7818,16 +9728,52 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     private void buscarInfraccionA(String articulo, String search) {
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarBD.getReadableDatabase();
-        String sql = "SELECT distinct infraccion FROM c_infraccion WHERE " + articulo + " LIKE '%" + search + "%' and id_c_direccion = '" + id + "' and trim(vigente) = 'S' order by id_c_infraccion";
+        if(search.contains("art.")||search.contains("art")||search.contains("Articulo") || search.contains("Art") || search.contains("Artículo") || search.contains("Articulos") || search.contains("Artículos") || search.contains("ARTICULOS") || search.contains("ARTÍCULOS") || search.contains("ARTICULO") || search.contains("ARTÍCULO") ){
+           String cadena="";
+           int position=0;
+            for(int i=0; i<=search.length();i++){
+
+               cadena+=search.substring(i,i+1);
+                System.out.println(cadena);
+                if(cadena.equals("art.")||cadena.equals("art")||cadena.equals("Articulos") || cadena.equals("Artículos") || cadena.equals("Artículo") || cadena.equals("Articulo") || cadena.equals("ARTICULOS") || cadena.equals("ARTÍCULOS") || cadena.equals("ARTICULO") || cadena.equals("ARTÍCULO")){
+                    System.out.println("entro");
+                    position=i+1;
+                    break;
+                }
+           }
+            int tamas=search.length();
+         search=search.substring(position+1,tamas);
+
+
+        }
+        String sql="";
+        if(id==5){
+            sql = "SELECT distinct infraccion," + articulo + " FROM c_infraccion WHERE " + articulo + " LIKE '%" + search + "%' and trim(vigente) = 'S' order by id_c_infraccion";
+        }else {
+            sql = "SELECT distinct infraccion," + articulo + " FROM c_infraccion WHERE " + articulo + " LIKE '%" + search + "%'  and trim(vigente) = 'S' order by id_c_infraccion";
+        }
         Cursor cursor = db.rawQuery(sql, null);
         Log.v("sql",sql);
         arregloInfraccion.clear();
+        arregloInfraccion1.clear();
         if(cursor.moveToFirst()){
             arregloInfraccion.add("");
+            arregloInfraccion1.add("");
             do{
                 //if(cursor.getString(cursor.getColumnIndex("vigente")).trim().equalsIgnoreCase("S")) {
                 //id_hecho.add(cursor.getInt(1));
-                arregloInfraccion.add(cursor.getString(0));
+                //Recorte indentificadores
+                if(id!=4) {
+
+                    /*String hechorecorte=cursor.getString(0);
+                    arregloInfraccion.add(cursor.getString(0).substring(4,hechorecorte.length()));
+                    arregloInfraccion1.add(cursor.getString(0).substring(4,hechorecorte.length()) + ".- " + cursor.getString(1));*/
+                    arregloInfraccion.add(cursor.getString(0));
+                    arregloInfraccion1.add(cursor.getString(0) + ".- " + cursor.getString(1));
+                }else{
+                    arregloInfraccion.add(cursor.getString(0));
+                    arregloInfraccion1.add(cursor.getString(0) + ".- " + cursor.getString(1));
+                }
                 Log.i("listado", "Infraccion: " + cursor.getString(0));
                 //}
             }while(cursor.moveToNext());
@@ -7901,7 +9847,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			etApellidoM.setText(lev.get(0).getApellidom_prop());
 			etApellidoP.setText(lev.get(0).getApellidop_prop());
 			etFraccionamiento.setText(lev.get(0).getFraccionamiento());
-
+            etfolioap.setText(lev.get(0).getFolio_apercibimiento());
+            etfechap.setText(lev.get(0).getFecha_apercibimiento());
 			numeroOV = lev.get(0).getNumeroActa();
 			fechaOV = lev.get(0).getFecha();
 			idComp = lev.get(0).getIdComp();
@@ -8187,12 +10134,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	public MedidaSeguridad cursorToMedida(Cursor cursor) {
 		return new MedidaSeguridad(cursor.getString(cursor.getColumnIndex("medida_seguridad")), cursor.getString(cursor.getColumnIndex("articulos")));
 	}
-	
+
 	public Levantamiento cursorToLevantamiento(Cursor cursor) {
 		//numero_citatorio TEXT,infraccion int,tipo_acta text,fecha numeric,hora_inicio time,longitud float,latitud float,orden_vista int,fecha_orden_v numeric,Zona text,nombre_visitado text,se_identifica text,manifiesta_ser text,fraccionamiento text,calle text,numero_ext text,numero_int text,apellidop_prop text,apellidom_prop text,nombre_razon text,nombre_testigo1 text,ife_testigo1 text,designado_por1 text,nombre_testigo2 text,ife_testigo2 text,designado_por2 text,uso_catalogo text,hechos text,infracciones text,id_c_infraccion text,uso_suelo text,densidad text,manifiesta text,gravedad int,dias_plazo int,fecha_plazo numeric,hora_termino time,tipo_visita TEXT,id_pago int,pago numeric, fecha_pago numeric, estatus text,condominio TEXT,manzana TEXT,lote TEXT,capturo text,fecha_atiende_juez numeric, fecha_cancelacion numeric,fecha_efectua_multa numeric, vigencia_multa int, fecha_vigencia numeric,multa text,observaciones text, referencia TEXT
 		System.out.println(cursor.getString(cursor.getColumnIndex("licencia_giro")));
 		System.out.println(cursor.getString(cursor.getColumnIndex("actividad_giro")));
-		return new Levantamiento(cursor.getInt(cursor.getColumnIndex("id_c_direccion")), cursor.getInt(cursor.getColumnIndex("id_c_inspector1")), cursor.getInt(cursor.getColumnIndex("id_c_inspector2")), cursor.getString(cursor.getColumnIndex("numero_acta")), cursor.getString(cursor.getColumnIndex("nombre_visitado")), cursor.getString(cursor.getColumnIndex("se_identifica")), cursor.getString(cursor.getColumnIndex("manifiesta_ser")), cursor.getString(cursor.getColumnIndex("fraccionamiento")), cursor.getString(cursor.getColumnIndex("calle")), cursor.getString(cursor.getColumnIndex("numero_ext")), cursor.getString(cursor.getColumnIndex("numero_int")), cursor.getString(cursor.getColumnIndex("nombre_razon")), cursor.getString(cursor.getColumnIndex("apellidop_prop")), cursor.getString(cursor.getColumnIndex("apellidom_prop")), cursor.getInt(cursor.getColumnIndex("id_c_competencia")),cursor.getString(cursor.getColumnIndex("fecha")),cursor.getString(cursor.getColumnIndex("entre_calle1")),cursor.getString(cursor.getColumnIndex("entre_calle2")),cursor.getString(cursor.getColumnIndex("responsable_obra")),cursor.getString(cursor.getColumnIndex("registro_responsable")),cursor.getString(cursor.getColumnIndex("identifica")),cursor.getString(cursor.getColumnIndex("peticion")),cursor.getString(cursor.getColumnIndex("v_firma")),cursor.getString(cursor.getColumnIndex("motivo_orden")),cursor.getString(cursor.getColumnIndex("medida_seguridad")),cursor.getString(cursor.getColumnIndex("articulo_medida")),cursor.getInt(cursor.getColumnIndex("id_c_inspector3")),cursor.getInt(cursor.getColumnIndex("id_c_inspector4")),cursor.getInt(cursor.getColumnIndex("id_c_inspector5")),cursor.getInt(cursor.getColumnIndex("id_c_inspector6")),cursor.getString(cursor.getColumnIndex("Zona")),cursor.getString(cursor.getColumnIndex("referencia")),cursor.getString(cursor.getColumnIndex("l_construccion")),cursor.getString(cursor.getColumnIndex("condominio")),cursor.getString(cursor.getColumnIndex("numero_citatorio")),cursor.getString(cursor.getColumnIndex("licencia_giro")),cursor.getString(cursor.getColumnIndex("actividad_giro")),cursor.getInt(cursor.getColumnIndex("axo_licencia")),cursor.getString(cursor.getColumnIndex("nombre_comercial")),cursor.getString(cursor.getColumnIndex("sector")));
+		return new Levantamiento(cursor.getInt(cursor.getColumnIndex("id_c_direccion")), cursor.getInt(cursor.getColumnIndex("id_c_inspector1")), cursor.getInt(cursor.getColumnIndex("id_c_inspector2")), cursor.getString(cursor.getColumnIndex("numero_acta")), cursor.getString(cursor.getColumnIndex("nombre_visitado")), cursor.getString(cursor.getColumnIndex("se_identifica")), cursor.getString(cursor.getColumnIndex("manifiesta_ser")), cursor.getString(cursor.getColumnIndex("fraccionamiento")), cursor.getString(cursor.getColumnIndex("calle")), cursor.getString(cursor.getColumnIndex("numero_ext")), cursor.getString(cursor.getColumnIndex("numero_int")), cursor.getString(cursor.getColumnIndex("nombre_razon")), cursor.getString(cursor.getColumnIndex("apellidop_prop")), cursor.getString(cursor.getColumnIndex("apellidom_prop")), cursor.getInt(cursor.getColumnIndex("id_c_competencia")),cursor.getString(cursor.getColumnIndex("fecha")),cursor.getString(cursor.getColumnIndex("entre_calle1")),cursor.getString(cursor.getColumnIndex("entre_calle2")),cursor.getString(cursor.getColumnIndex("responsable_obra")),cursor.getString(cursor.getColumnIndex("registro_responsable")),cursor.getString(cursor.getColumnIndex("identifica")),cursor.getString(cursor.getColumnIndex("peticion")),cursor.getString(cursor.getColumnIndex("v_firma")),cursor.getString(cursor.getColumnIndex("motivo_orden")),cursor.getString(cursor.getColumnIndex("medida_seguridad")),cursor.getString(cursor.getColumnIndex("articulo_medida")),cursor.getInt(cursor.getColumnIndex("id_c_inspector3")),cursor.getInt(cursor.getColumnIndex("id_c_inspector4")),cursor.getInt(cursor.getColumnIndex("id_c_inspector5")),cursor.getInt(cursor.getColumnIndex("id_c_inspector6")),cursor.getString(cursor.getColumnIndex("Zona")),cursor.getString(cursor.getColumnIndex("referencia")),cursor.getString(cursor.getColumnIndex("l_construccion")),cursor.getString(cursor.getColumnIndex("condominio")),cursor.getString(cursor.getColumnIndex("numero_citatorio")),cursor.getString(cursor.getColumnIndex("licencia_giro")),cursor.getString(cursor.getColumnIndex("actividad_giro")),cursor.getInt(cursor.getColumnIndex("axo_licencia")),cursor.getString(cursor.getColumnIndex("nombre_comercial")),cursor.getString(cursor.getColumnIndex("sector")),cursor.getString(cursor.getColumnIndex("folio_apercibimiento")),cursor.getString(cursor.getColumnIndex("fecha_apercibimiento")));
 	}
 	
 	public void validarFec(){
@@ -8989,7 +10936,60 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
         return vigencia_inicial;
     }
-	
+    public String mes(String texto){
+        String retorno="";
+        if(texto.equals("01") || texto.equals("1") ){
+            retorno="Enero";
+
+        }
+        if(texto.equals("02") || texto.equals("2") ){
+            retorno= "Febrero";
+
+        }
+        if(texto.equals("03") || texto.equals("3") ){
+            retorno="Marzo";
+
+        }
+        if(texto.equals("04") || texto.equals("4") ){
+            retorno= "Abril";
+
+        }
+        if(texto.equals("05") || texto.equals("5") ){
+            retorno= "Mayo";
+
+        }
+        if(texto.equals("06") || texto.equals("6") ){
+            retorno= "Junio";
+
+        }
+        if(texto.equals("07") || texto.equals("7") ){
+            retorno="Julio";
+
+        }
+        if(texto.equals("08") || texto.equals("8") ){
+            retorno="Agosto";
+
+        }
+        if(texto.equals("09") || texto.equals("9") ){
+            retorno="Septiembre";
+
+        }
+        if(texto.equals("10") ){
+            retorno="Octubre";
+
+        }
+        if(texto.equals("11")){
+            retorno= "Noviembre";
+
+        }
+        if(texto.equals("12")){
+            retorno="Diciembre";
+
+        }
+
+
+        return retorno;
+    }
 	public void imprimir(String formato) {
 		
 		int len =0;
@@ -9011,8 +11011,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		    marginleft=25;
 		    margingright=35;
         }else{
-		    marginleft=22;
-		    margingright=26;
+		    marginleft=26;
+		    margingright=29;
 
         }
 		try {
@@ -9054,7 +11054,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		Font font1 = new Font(Font.HELVETICA,9.5f,Color.BLACK);
 	    
 			if (formato.equalsIgnoreCase("infraccion")) {
-					
+                String cuerpoInfra="";
+                String cuerpoInfra21="";
+
+                int banderacorte=0;
 					//ACTA DE INFRACCION
 					try {
 
@@ -9088,7 +11091,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					    
 					    try {
 					    	
-					    	img = Image.getInstance(stream.toByteArray());
+					    	img = Jpeg.getInstance(stream.toByteArray());
 					        img.setAbsolutePosition(0, 0);
 					        
 					        float width = doc.getPageSize().getWidth();
@@ -9163,13 +11166,16 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         String prop = "",numero = "";
 
                         Log.e("PROPIEDAD",propiedad.equalsIgnoreCase("El Visitado") + "");
-                        if(propiedad.isEmpty())
+                        if(propiedad.isEmpty()) {
                             prop = etOtro.getText().toString().trim();
-                        else {
+                        }else {
                             if (propiedad.equalsIgnoreCase("El Visitado"))
                                 prop = etNombreV.getText().toString();
                             else
                                 prop = propiedad;
+                        }
+                        if(prop.equals("")){
+                            prop="Se desconoce";
                         }
                         if(etNuemroInterior.getText().toString().trim().equalsIgnoreCase(""))
                             numero = etNumero.getText().toString() + " " + etNuemroInterior.getText().toString();
@@ -9178,8 +11184,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                         String datos = "";
                         if(!numeroOV.equalsIgnoreCase("")) {
+                            String [] fecha_ov=fechaOV.split("/");
+
                             datos = "mediante y en cumplimiento de la Orden de Visita folio número "
-                                    + numeroOV +"  dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fechaOV + " misma que en original exhibo y en original legible entrego " +
+                                    + numeroOV +"  dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fecha_ov[0] +" de "+mes(fecha_ov[1]) +" del año "+fecha_ov[2]+ " misma que en original exhibo y en original legible entrego " +
                                     "al visitado, " + etNombreV.getText().toString() + ",";
                         } else {
                             datos = "en términos de lo dispuesto por el artículo 73, segundo párrafo, de la Ley del Procedimiento Administrativo del Estado de Jalisco,";
@@ -9253,21 +11261,22 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                         String decomiso = "";
                         if(!TextUtils.isEmpty(etDecomiso.getText().toString().trim()))
-                            decomiso += "decomiso: " + etDecomiso.getText().toString().trim() + " ";
+                            decomiso += ", decomiso: " + etDecomiso.getText().toString().trim() + " ";
 
 				        if(id == 4) {
                             String apercibimiento="";
 				            if(etCondominio.getText().toString().trim().length()>1 && etfolioap.getText().toString().length()>1 && etfechap.getText().toString().length()>1){
 				                String folioa=etfolioap.getText().toString();
 				                String fechap=etfechap.getText().toString();
-				                apercibimiento="Dar seguimiento a lo señalado en el previo apercibimiento folio "+folioa+ " de fecha "+fechap+"";
+				                apercibimiento="Dar seguimiento a lo señalado en el previo apercibimiento folio "+folioa+ " de fecha "+fechap+", ";
 
                             }
 
 
 
 
-                            String medidasP=etMedida.getText().toString();
+                            //String medidasP=etMedida.getText().toString();
+                            String medidasP=medidas1;
 				            /*if(etMedida.getText().toString().trim().contains("Reglamento de Construcción para el Municipio de Zapopan")){
                                 String [] cortes = etMedida.getText().toString().trim().split("Reglamento de Construcción para el Municipio de Zapopan Jalisco", 0);
 
@@ -9282,24 +11291,70 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				            if(etNumeroSellos.getText().toString().trim().length()>0){
 				                numeroS="con numero de sello(s) "+etNumeroSellos.getText().toString().trim();
                             }
-                            String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
+                            String hechos=etSeleccion.getText().toString().trim();
+				            Log.e(String.valueOf(hechos.length()),"Cantidad de texto");
                             if(!spuso.getSelectedItem().toString().contains("pública") | !spuso.getSelectedItem().toString().contains("público"))
                                 uso = "el uso " + spuso.getSelectedItem().toString() + " ";
                             else
                                 uso = spuso.getSelectedItem().toString();
-                            p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
+
+                            cuerpoInfra="En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
                                     " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en " + uso +" marcada con el número " +
                                     numero + " de la calle " + etCalle.getText().toString() + " entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " + etFraccionamiento.getText().toString().trim() + " "+textC+ ",  cerciorándome de ser este el domicilio por coincidir con la nomenclatura oficial y/o georreferencia, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número" +
                                     " "+folio + ", vigente del " +diaIni+" de " +vigencia_inicial+ " del "+recorte2[0]+ " a "+diavigen+ " de "+ vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString().trim() +
                                     " manifiesta ser " + etVManifiesta.getText().toString() + " del lugar en que se actúa, propiedad de " + prop + ", le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía por lo que fueron designados los C.C. " + nombresT + " por el " + spdesignado.getSelectedItem().toString().trim() +
                                     ", "+ testigos + "así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " +
-                                    apercibimiento +", "+ hechos + "Los cuales constituyen infracción a lo dispuesto por los artículo(s): 2, 3, 5, 7  FRACCIONES I  a la VI, 34,  167, 168, 169, 171 ," + etInfraccion.getText().toString().trim() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados , se procede indistintamente con las siguientes medidas: " + medidasP + " "+ numeroS+".Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
+                                    apercibimiento + hechos + ".Los cuales constituyen infracción a lo dispuesto por los artículo(s): 2, 3, 5, 7  FRACCIONES I  a la VI, 34,  167, 168, 169, 171 ," + etInfraccion.getText().toString().trim() + "  Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + medidasP.trim() + " "+ numeroS+".Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
+                                    ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa del H. Ayuntamiento de Zapopan, Jalisco. Se da por concluida esta diligencia, siendo las " +
+                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=";
+
+                            String mocha=". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
+                            ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa del H. Ayuntamiento de Zapopan, Jalisco. Se da por concluida esta diligencia, siendo las " +
+                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=";
+
+
+                            if(cuerpoInfra.length()>5000) {
+
+                                String recrte = cuerpoInfra;
+                                String texto ="";
+                                int x=0;
+                                if(cuerpoInfra.length()>=5000 && cuerpoInfra.length()<=5300){
+                                    cuerpoInfra21 = recrte.substring(0,cuerpoInfra.length()-mocha.length()+1 ) + " (CONTINUA EN EL REVERSO)";
+                                    banderacorte = cuerpoInfra.length()-mocha.length()+1;
+                                }else {
+                                    for (int i = 5000; i < recrte.length(); i++) {
+                                        String substring = cuerpoInfra.substring(i, i + 1);
+                                        //Log.i(TAG, " caracteresgg1:"+ substring);. En uso
+
+
+                                        if (substring.equals(" ")) {
+                                            //Log.i(TAG, " caracteresgg:"+ substring);
+                                            cuerpoInfra21 = recrte.substring(0, i) + " (CONTINUA EN EL REVERSO)";
+                                            banderacorte = i;
+                                            break;
+                                        }
+
+
+                                        Log.i(TAG, "imprimir: entro al maximo caracteres");
+                                    }
+                                }
+                            }else{
+                                cuerpoInfra21=cuerpoInfra;
+                            }
+
+                            p2= new Paragraph(cuerpoInfra21,font1);
+                            /*p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
+                                    " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en " + uso +" marcada con el número " +
+                                    numero + " de la calle " + etCalle.getText().toString() + " entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " + etFraccionamiento.getText().toString().trim() + " "+textC+ ",  cerciorándome de ser este el domicilio por coincidir con la nomenclatura oficial y/o georreferencia, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número" +
+                                    " "+folio + ", vigente del " +diaIni+" de " +vigencia_inicial+ " del "+recorte2[0]+ " a "+diavigen+ " de "+ vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString().trim() +
+                                    " manifiesta ser " + etVManifiesta.getText().toString() + " del lugar en que se actúa, propiedad de " + prop + ", le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía por lo que fueron designados los C.C. " + nombresT + " por el " + spdesignado.getSelectedItem().toString().trim() +
+                                    ", "+ testigos + "así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " +
+                                    apercibimiento +", "+ hechos + ".Los cuales constituyen infracción a lo dispuesto por los artículo(s): 2, 3, 5, 7  FRACCIONES I  a la VI, 34,  167, 168, 169, 171 ," + etInfraccion.getText().toString().trim() + "  Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados , se procede indistintamente con las siguientes medidas: " + medidasP.trim() + " "+ numeroS+".Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
                                     ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
-                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=",font1);
+                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=",font1);*/
+
+
                         } else if(id == 2) {
-
-
-
 
                             String apercibimiento="";
                             if(etCondominio.getText().toString().trim().length()>1 && etfolioap.getText().toString().length()>1 && etfechap.getText().toString().length()>1 ){
@@ -9312,8 +11367,71 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             if(etNumeroSellos.getText().toString().trim().length()>3){
                                 numeroS="con numero de sello(s) "+etNumeroSellos.getText().toString().trim();
                             }
-                            String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
-                            p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del  año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
+                            String hechos=etSeleccion.getText().toString().trim();
+
+
+
+
+
+                            cuerpoInfra="En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del  año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
+                                    " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en  " +
+                                    etDondeActua.getText().toString().trim() + " marcada (o)  con el número  " + numero + " de  la  calle " + etCalle.getText().toString().trim() + " entre las calles " + etEntreC.getText().toString().trim() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " +
+                                    etFraccionamiento.getText().toString().trim() + textC + ", "+apercibimiento+" cerciorándome de ser este el domicilio donde se realiza la visita de inspección y la actividad comercial, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado " +
+                                    "por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número " +" "+ folio + ", vigente del "+diaIni+" de " +vigencia_inicial+ " del "+recorte2[0]+ " a "+diavigen+" de " +  vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del " +
+                                    "Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString().trim() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString() + " manifiesta ser " + etVManifiesta.getText().toString().trim() + " del giro " +
+                                    etGiro.getText().toString().trim() + ", propiedad de " + prop + ", le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. " +
+                                    nombresT + " por el " + spdesignado.getSelectedItem().toString().trim() + ", " + testigos
+                                    + "  así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  " +
+                                    "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + hechos + " Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + " Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
+                                    "indicados y al haber sido detectados en "+peticionb+", se procede indistintamente con las siguientes medidas: " + medidas1 + " "+numeroS + decomiso + ". Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " +
+                                    etManifiesta.getText().toString().trim() + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
+                                    "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa del H. Ayuntamiento de Zapopan, Jalisco. Se da por concluida esta diligencia, siendo las " +
+                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=";
+                            //Log.i(TAG, "imprimir: entro al maximo caracteres: "+cuerpoInfra.length());
+
+                            String mocha=". En uso de su derecho el visitado manifiesta: " +
+                            etManifiesta.getText().toString().trim() + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
+                                    "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa del H. Ayuntamiento de Zapopan, Jalisco. Se da por concluida esta diligencia, siendo las " +
+                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=";
+
+                            Log.e(String.valueOf(cuerpoInfra.length()),"Cantidad de texto");
+
+                            if(cuerpoInfra.length()>5000 ) {
+
+                                String recrte = cuerpoInfra;
+                                String texto ="";
+                                int x=0;
+                                if(cuerpoInfra.length()>=5000 && cuerpoInfra.length()<=5300){
+                                    cuerpoInfra21 = recrte.substring(0,cuerpoInfra.length()-mocha.length()+1 ) + " (CONTINUA EN EL REVERSO)";
+                                    banderacorte = cuerpoInfra.length()-mocha.length()+1;
+                                }else {
+
+
+                                    for (int i = 5000; i < recrte.length(); i++) {
+                                        String substring = cuerpoInfra.substring(i, i + 1);
+                                        //Log.i(TAG, " caracteresgg1:"+ substring);. En uso
+
+
+                                        if (substring.equals(" ")) {
+                                            //Log.i(TAG, " caracteresgg:"+ substring);
+                                            cuerpoInfra21 = recrte.substring(0, i) + " (CONTINUA EN EL REVERSO)";
+                                            banderacorte = i;
+                                            break;
+                                        }
+
+
+                                        Log.i(TAG, "imprimir: entro al maximo caracteres");
+                                        Log.e("pdf:", "cortes:" + texto);
+                                    }
+                                }
+
+                            }else{
+                                cuerpoInfra21=cuerpoInfra;
+                            }
+
+
+                            p2= new Paragraph(cuerpoInfra21,font1);
+                           /* p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del  año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
                                     " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en  " +
                                     etDondeActua.getText().toString().trim() + " marcada (o)  con el número  " + numero + " de  la  calle " + etCalle.getText().toString().trim() + " entre las calles " + etEntreC.getText().toString().trim() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " +
                                     etFraccionamiento.getText().toString().trim() + textC + ", "+apercibimiento+" cerciorándome de ser este el domicilio donde se realiza la visita de inspección y la actividad comercial, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado " +
@@ -9322,18 +11440,19 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     etGiro.getText().toString().trim() + ", propiedad de " + prop + ", le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. " +
                                     nombresT + " por el " + spdesignado.getSelectedItem().toString().trim() + ", " + testigos
                                      + "  así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  " +
-                                    "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + hechos + " Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
-                                    "indicados y al haber sido detectados en "+peticionb+", se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + " "+numeroS+  " ," + decomiso + ". Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " +
+                                    "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + hechos + " Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + " Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
+                                    "indicados y al haber sido detectados en "+peticionb+", se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + " "+numeroS + decomiso + ". Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " +
                                     etManifiesta.getText().toString().trim() + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
                                     "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
-                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=",font1);
+                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=",font1);*/
                         }else if(id==5){
                             String numeroS="";
                             if(etNumeroSellos.getText().toString().trim().length()>3){
                                 numeroS="con numero de sello(s) "+etNumeroSellos.getText().toString().trim();
                             }
-                            String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
-                            p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del  año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
+                            String hechos=etSeleccion.getText().toString().trim();
+
+                            cuerpoInfra="En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del  año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
                                     " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en  " +
                                     spMeConstitui.getSelectedItem().toString()+ " marcada (o)  con el número  " + numero + " de  la  calle " + etCalle.getText().toString().trim() + " entre las calles " + etEntreC.getText().toString().trim() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " +
                                     etFraccionamiento.getText().toString().trim() + textC+ ", cerciorándome de ser este el domicilio donde se realiza la visita de inspección y la actividad comercial, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado " +
@@ -9342,852 +11461,75 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     etGiro.getText().toString().trim() + ", propiedad de " + prop + ", le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. " +
                                     nombresT + " por el " + spdesignado.getSelectedItem().toString().trim() + ", " + testigos
                                     + " así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  " +
-                                    "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + hechos + " Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
+                                    "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + hechos + " .Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + " Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
+                                    "indicados y al haber sido detectados en "+peticionb+", se procede indistintamente con las siguientes medidas: " + medidas1 + " "+numeroS+  " " + decomiso + ".Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " +
+                                    etManifiesta.getText().toString().trim() + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
+                                    "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa  del H. Ayuntamiento de Zapopan, Jalisco. Se da por concluida esta diligencia, siendo las " +
+                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=";
+
+                           /* p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del  año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
+                                    " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en  " +
+                                    spMeConstitui.getSelectedItem().toString()+ " marcada (o)  con el número  " + numero + " de  la  calle " + etCalle.getText().toString().trim() + " entre las calles " + etEntreC.getText().toString().trim() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " +
+                                    etFraccionamiento.getText().toString().trim() + textC+ ", cerciorándome de ser este el domicilio donde se realiza la visita de inspección y la actividad comercial, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado " +
+                                    "por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número " +" "+ folio + ", vigente del "+diaIni+" de " +vigencia_inicial+ " del "+recorte2[0]+ " a "+diavigen+" de " +  vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del " +
+                                    "Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString().trim() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString() + " manifiesta ser " + etVManifiesta.getText().toString().trim() + " del giro " +
+                                    etGiro.getText().toString().trim() + ", propiedad de " + prop + ", le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. " +
+                                    nombresT + " por el " + spdesignado.getSelectedItem().toString().trim() + ", " + testigos
+                                    + " así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  " +
+                                    "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + hechos + " .Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + " Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
                                     "indicados y al haber sido detectados en "+peticionb+", se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + " "+numeroS+  " " + decomiso + ".Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " +
                                     etManifiesta.getText().toString().trim() + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
                                     "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
                                     hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=",font1);
+*/
+                            String mocha=". En uso de su derecho el visitado manifiesta: " +
+                            etManifiesta.getText().toString().trim() + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
+                                    "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa  del H. Ayuntamiento de Zapopan, Jalisco. Se da por concluida esta diligencia, siendo las " +
+                                    hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=";
+                            if(cuerpoInfra.length()>5000) {
+
+                                String recrte = cuerpoInfra;
+                                String texto ="";
+                                int x=0;
+                                if(cuerpoInfra.length()>=5000 && cuerpoInfra.length()<=5300){
+                                    cuerpoInfra21 = recrte.substring(0,cuerpoInfra.length()-mocha.length()+1 ) + " (CONTINUA EN EL REVERSO)";
+                                    banderacorte = cuerpoInfra.length()-mocha.length()+1;
+                                }else {
+                                    for (int i = 5000; i < recrte.length(); i++) {
+                                        String substring = cuerpoInfra.substring(i, i + 1);
+                                        //Log.i(TAG, " caracteresgg1:"+ substring);. En uso
+
+                                        if (substring.equals(" ")) {
+                                            //Log.i(TAG, " caracteresgg:"+ substring);
+                                            cuerpoInfra21 = recrte.substring(0, i) + " (CONTINUA EN EL REVERSO)";
+                                            banderacorte = i;
+                                            break;
+                                        }
 
 
+                                        Log.i(TAG, "imprimir: entro al maximo caracteres");
+                                    }
+                                }
+                            }else{
+                                cuerpoInfra21=cuerpoInfra;
+                            }
+                            p2= new Paragraph(cuerpoInfra21,font1);
 
                         }
+
                         p2.setAlignment(Element.ALIGN_JUSTIFIED);
                         p2.add(chunk);
                         doc.add(p2);
 
 
 
-				        //HORA DE INSPECCION
-				        /*canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        //canvas.moveText(235, 835);
-                        canvas.moveText(235, 838);
-				        canvas.showText(hora);
-				        canvas.endText();
-				        canvas.restoreState();
 
-				        //DIA
-				        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-                        //canvas.moveText(390, 835);
-                        canvas.moveText(322, 838);
-				        canvas.showText(dia + "");
-				        canvas.endText();
-				        canvas.restoreState();
-
-				        //MES
-				        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        //canvas.moveText(430, 835);
-                        canvas.moveText(352, 838);
-				        canvas.showText(me);
-				        canvas.endText();
-				        canvas.restoreState();
-
-				        //AÑO
-				        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        //canvas.moveText(500, 835);
-                        canvas.moveText(460, 838);
-				        canvas.showText(a + "");
-				        canvas.endText();
-				        canvas.restoreState();
-
-				        //INSPECTOR LOGEADO
-				        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-                        //canvas.moveText(30, 825);
-                        canvas.moveText(30, 828);
-                        canvas.showText(spnombre.getSelectedItem().toString());
-				        canvas.endText();
-				        canvas.restoreState();
-
-				        //CLAVE DEL INSPECCTOR
-				        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				       // canvas.moveText(360, 825);
-                        canvas.moveText(360, 828);
-				        canvas.showText(clave);
-				        canvas.endText();
-				        canvas.restoreState();
-                        String test = "";
-				        if(id == 5) {
-				            if(TextUtils.isEmpty(numeroOV))
-				                test = "- - - - - - - - - - - - - - - - - - -";
-				            else
-				                test = numeroOV;
-
-                            //NUMERO DE INFRACCION
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            //canvas.moveText(215, 805);
-                            canvas.moveText(215, 808);
-                            canvas.showText(test);
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else {
-                            //NUMERO DE INFRACCION
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            //canvas.moveText(215, 805);
-                            canvas.moveText(215, 808);
-                            canvas.showText(numeroOV);
-                            canvas.endText();
-                            canvas.restoreState();
-                        }
-
-				        if(id == 5) {
-                            if(TextUtils.isEmpty(fechaOV))
-                                test = "- - - - - - - - - - -";
-                            else
-                                test = fechaOV;
-
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            //canvas.moveText(60, 795);
-                            canvas.moveText(60, 799);
-                            canvas.showText(test);
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else {
-                            //FECHA
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            //canvas.moveText(60, 795);
-                            canvas.moveText(60, 799);
-                            canvas.showText(fechaOV);
-                            canvas.endText();
-                            canvas.restoreState();
-                        }
-
-				        //NOMBRE DEL VISITADO
-				        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        //canvas.moveText(30, 785);
-                        canvas.moveText(383, 799);
-				        canvas.showText(etNombreV.getText().toString());
-				        canvas.endText();
-				        canvas.restoreState();
-
-				        //LUGAR DONDE SE ACTUA (COMERCIO)
-				        if(this.id == 2) {
-
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(165, 789);
-                            canvas.showText(etDondeActua.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        }
-
-                        //EL USO...  (CONSTRUCCION)
-                        if(this.id == 4) {
-
-
-
-
-                            /*if(spuso.getSelectedItem().toString().contains("H1") | spuso.getSelectedItem().toString().contains("H2") | spuso.getSelectedItem().toString().contains("H3") | spuso.getSelectedItem().toString().contains("H4"))
-                                uso = "HABITACIONAL " + spuso.getSelectedItem().toString();
-                            else if (spuso.getSelectedItem().toString().contains("MB") | spuso.getSelectedItem().toString().contains("MD") | spuso.getSelectedItem().toString().contains("MC"))
-                                uso = "MIXTAS " + spuso.getSelectedItem().toString();
-                            else if(spuso.getSelectedItem().toString().contains("CSV") | spuso.getSelectedItem().toString().contains("CSB") | spuso.getSelectedItem().toString().contains("CSD") | spuso.getSelectedItem().toString().contains("CSC") | spuso.getSelectedItem().toString().contains("CSR") | spuso.getSelectedItem().toString().contains("SI"))
-                                uso = "COMERCIAL Y SERVICIOS " + spuso.getSelectedItem().toString();
-                            else
-                                uso = "INDUSTRIAL " + spuso.getSelectedItem().toString();*
-
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(165, 789);
-                            canvas.showText(uso);
-                            canvas.endText();
-                            canvas.restoreState();
-
-                        }
-
-                        //NUMERO INTERIOR Y EXTERIOR
-                        if(etNuemroInterior.getText().toString().trim().equalsIgnoreCase("")) {
-                            if(id == 4) {
-                                canvas.saveState();
-                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                                canvas.beginText();
-                                canvas.setFontAndSize(bf, 8);
-                                canvas.moveText(420, 789);
-                                canvas.showText(etNumero.getText().toString() + " " + etNuemroInterior.getText().toString());
-                                canvas.endText();
-                                canvas.restoreState();
-                            } else {
-                                canvas.saveState();
-                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                                canvas.beginText();
-                                canvas.setFontAndSize(bf, 8);
-                                canvas.moveText(382, 789);
-                                canvas.showText(etNumero.getText().toString() + " " + etNuemroInterior.getText().toString());
-                                canvas.endText();
-                                canvas.restoreState();
-                            }
-                        } else {
-                            if(id == 4) {
-                                canvas.saveState();
-                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                                canvas.beginText();
-                                canvas.setFontAndSize(bf, 8);
-                                canvas.moveText(420, 789);
-                                canvas.showText(etNumero.getText().toString() + " Int.  " + etNuemroInterior.getText().toString());
-                                canvas.endText();
-                                canvas.restoreState();
-                            } else {
-                                canvas.saveState();
-                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                                canvas.beginText();
-                                canvas.setFontAndSize(bf, 8);
-                                canvas.moveText(382, 789);
-                                canvas.showText(etNumero.getText().toString() + " Int.  " + etNuemroInterior.getText().toString());
-                                canvas.endText();
-                                canvas.restoreState();
-                            }
-                        }
-
-				        //NOMBRE DE LA CALLE
-                        if(id == 4) {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 8);
-                            canvas.moveText(70, 779);
-                            canvas.showText(etCalle.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 8);
-                            canvas.moveText(480, 789);
-                            canvas.showText(etCalle.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        }
-
-                        //ENTRE CALLE
-                        if(id == 4) {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(240, 779);
-                            canvas.showText(etEntreC.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(85, 779);
-                            canvas.showText(etEntreC.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        }
-
-				        //Y LA CALLE
-                        if(id == 4) {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(340, 779);
-                            canvas.showText(etEntreC1.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(270, 779);
-                            canvas.showText(etEntreC1.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        }
-
-				        //FRACCIONAMIENTO Y CONDOMINIO
-				        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(30, 769);
-				        canvas.showText(etFraccionamiento.getText().toString() + " " + etCondominio.getText().toString());
-				        canvas.endText();
-				        canvas.restoreState();
-
-
-					    //NUMERO DEL INSPECTOR
-                        if(id == 4) {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(295, 751);
-                            canvas.showText(folio);
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(295, 751);
-                            canvas.showText(folio);
-                            canvas.endText();
-                            canvas.restoreState();
-                        }
-
-                        if(id == 4) {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(422, 751);
-                            canvas.showText("01 de enero");
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(65, 741);
-                            canvas.showText("01 de Enero");
-                            canvas.endText();
-                            canvas.restoreState();
-                        }
-
-                        if(id == 4) {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(527, 751);
-                            canvas.showText("20");
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(165, 741);
-                            canvas.showText("20");
-                            canvas.endText();
-                            canvas.restoreState();
-
-                        }
-
-                        //MES
-                        if(id == 4) {
-                            //CONSTRUCCION
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(35, 741);
-                            canvas.showText(d + " de "  + getMes(m).toLowerCase());
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else {
-                            //COMERCIO
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(235, 741);
-                            canvas.showText(d + " de " + getMes(m));
-                            canvas.endText();
-                            canvas.restoreState();
-                        }
-
-				        //AÑO FIN VIGENCIA
-                        if(id == 4 ) {
-                            //CONSTRUCCION
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(115, 741);
-                            canvas.showText(String.valueOf(ax).substring(2, 4));
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else {
-                            //COMERCIO
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(325, 741);
-                            canvas.showText(String.valueOf(ax).substring(2, 4));
-                            canvas.endText();
-                            canvas.restoreState();
-                        }
-
-				        //NOMBRE VISITADO (ANTE...)
-                        if(id == 4) {
-                            //CONSTRUCCION
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(30, 732);
-                            canvas.showText(etNombreV.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else {
-                            //COMERCIO
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 8);
-                            canvas.moveText(195, 732);
-                            canvas.showText(etNombreV.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        }
-
-                        //IDENTIFICACION Y NUMERO IDENTIFICACION DEL VISITADO
-                        if(id == 4) {
-                            //CONSTRUCCION
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(300, 732);
-                            canvas.showText(spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else {
-                            //COMERCIO
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(430, 732);
-                            canvas.showText(spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        }
-
-				        //MANIFIESTA SER
-                        canvas.saveState();
-                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                        canvas.beginText();
-                        canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(80, 721);
-                        canvas.showText(etVManifiesta.getText().toString());
-                        canvas.endText();
-                        canvas.restoreState();
-
-
-				        //DE "EL GIRO"... (COMERCIO)
-                        canvas.saveState();
-                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                        canvas.beginText();
-                        canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(240, 721);
-                        canvas.showText(etGiro.getText().toString());
-                        canvas.endText();
-                        canvas.restoreState();
-
-                        //PROPIEDAD DE...
-				        if(propiedad.isEmpty()) {
-
-				            if(id == 4) {
-                                //CONSTRUCCION
-                                canvas.saveState();
-                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                                canvas.beginText();
-                                canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(402, 721);
-                                canvas.showText(etOtro.getText().toString());
-                                canvas.endText();
-                                canvas.restoreState();
-                            } else {
-				                //COMERCIO
-                                canvas.saveState();
-                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                                canvas.beginText();
-                                canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(432, 721);
-                                canvas.showText(etOtro.getText().toString());
-                                canvas.endText();
-                                canvas.restoreState();
-                            }
-
-                        } else {
-				            Log.e("PROPIEDAD",propiedad.equalsIgnoreCase("El Visitado") + "");
-				            if(id == 4) {
-				                //CONTRUCCION
-                                if (propiedad.equalsIgnoreCase("El Visitado")) {
-                                    canvas.saveState();
-                                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                                    canvas.beginText();
-                                    canvas.setFontAndSize(bf, 9);
-                                    canvas.moveText(422, 721);
-                                    canvas.showText(etNombreV.getText().toString());
-                                    canvas.endText();
-                                    canvas.restoreState();
-                                } else {
-                                    canvas.saveState();
-                                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                                    canvas.beginText();
-                                    canvas.setFontAndSize(bf, 9);
-                                    canvas.moveText(422, 721);
-                                    canvas.showText(propiedad);
-                                    canvas.endText();
-                                    canvas.restoreState();
-                                }
-                            } else {
-				                //COMERCIO
-                                if (propiedad.equalsIgnoreCase("El Visitado")) {
-                                    canvas.saveState();
-                                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                                    canvas.beginText();
-                                    canvas.setFontAndSize(bf, 9);
-                                    canvas.moveText(432, 721);
-                                    canvas.showText(etNombreV.getText().toString());
-                                    canvas.endText();
-                                    canvas.restoreState();
-                                } else {
-                                    canvas.saveState();
-                                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                                    canvas.beginText();
-                                    canvas.setFontAndSize(bf, 9);
-                                    canvas.moveText(432, 721);
-                                    canvas.showText(propiedad);
-                                    canvas.endText();
-                                    canvas.restoreState();
-                                }
-                            }
-                        }
-
-
-				        //NOMBRE DEL TESTIGO 1
-                        canvas.saveState();
-				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-				        canvas.beginText();
-				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(320, 702);
-				        canvas.showText(etNombreT.getText().toString());
-				        canvas.endText();
-				        canvas.restoreState();
-
-
-                        //NOMBRE DEL TESTIGO 2
-                        canvas.saveState();
-                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                        canvas.beginText();
-                        canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(21, 692);
-                        canvas.showText(etNombreT1.getText().toString());
-                        canvas.endText();
-                        canvas.restoreState();
-
-
-				        //QUIEN DESIGNO LOS TESIGOS
-                        if(id == 4) {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(277, 692);
-                            canvas.showText(spdesignado.getSelectedItem().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(240, 692);
-                            canvas.showText(spdesignado.getSelectedItem().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        }
-
-
-				        //IDENTIFICACION TESTIGO 1
-                        if(id == 4) {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(480, 692);
-                            canvas.showText(spIdentificaT.getSelectedItem().toString() + " " + etIfeT.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(417, 692);
-                            canvas.showText(spIdentificaT.getSelectedItem().toString() + " " + etIfeT.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        }
-
-
-				        //IDENTIFICACION TESTIGO 2
-                        canvas.saveState();
-                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                        canvas.beginText();
-                        canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(30, 682);
-                        canvas.showText(spIdentificaT1.getSelectedItem().toString() + " " + etIfeT2.getText().toString());
-                        canvas.endText();
-                        canvas.restoreState();
-
-
-                        //HECHOS DEL CATALOGO
-                        String coord = "";
-                        if(!etLatitud.getText().toString().trim().equalsIgnoreCase(""))
-                            coord = " Coordenadas: " + etLatitud.getText().toString().trim() + " " + etLongitud.getText().toString().trim();
-                        if(id == 4)
-					        txt = Justificar.justifocarTexto1("                                                              " + etSeleccion.getText().toString() + " " + competencias1 + "En atención a " + spPeticion.getSelectedItem().toString().trim() + coord, 135);
-                        else
-                            txt = Justificar.justifocarTexto1("                                                                    Al momento de la inspeccion " + etSeleccion.getText().toString() + " lo anterior en atención a " + spPeticion.getSelectedItem().toString().trim() + " " + competencias1, 135);
-                        int li = 0;
-
-                        li = 663;
-
-                        int x = 0;
-
-					    for (int i = 0; i < txt.length-1; i++) {
-					    	canvas.saveState();
-					        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-					        canvas.beginText();
-					        canvas.setFontAndSize(bf, 9);
-					        canvas.moveText(20, li);
-					        canvas.showText(txt[i]);
-					        canvas.endText();
-					        canvas.restoreState();
-					        
-					        li-=10;
-					        x+=1;
-						}
-					    Log.e("tam" , x + " " + txt.length);
-                        String[] txt1;
-                        int leng;
-                        leng = 170-txt[x].length();
-                        Log.e("longitud",leng + "");
-                        txt1 = Justificar.justifocarTextol(txt[x], 170);
-
-                        canvas.saveState();
-                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                        canvas.beginText();
-                        canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(20, li);
-                        canvas.showText(txt1[0]);
-                        canvas.endText();
-                        canvas.restoreState();
-
-
-					    //ARTICULOS FACULTATIVOS HECHOS
-					    txt = Justificar.justifocarTexto1(etInfraccion.getText().toString(), 85);
-
-                        canvas.saveState();
-                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                        canvas.beginText();
-                        canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(270, 505);
-                        canvas.showText(txt[0]);
-                        canvas.endText();
-                        canvas.restoreState();
-
-					    li = 495;
-					    String str = "";
-					    
-					    for (int i = 0; i < txt.length; i++) {
-					        if(i > 0)
-					            str += txt[i];
-						}
-
-					    txt = Justificar.justifocarTexto1(str,145);
-
-                        for (int i = 0; i < txt.length; i++) {
-					    	canvas.saveState();
-					        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-					        canvas.beginText();
-					        canvas.setFontAndSize(bf, 9);
-					        canvas.moveText(20, li);
-					        canvas.showText(txt[i]);
-					        canvas.endText();
-					        canvas.restoreState();
-
-					        li-=10;
-                        }
-
-
-					    //MEDIDAS PRECAUTORIAS
-					    txt = Justificar.justifocarTexto1(etMedida.getText().toString().trim() + " " + etNumeroSellos.getText().toString().trim(), 75);
-
-                        canvas.saveState();
-                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                        canvas.beginText();
-                        canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(190, 455);
-                        canvas.showText(txt[0]);
-                        canvas.endText();
-                        canvas.restoreState();
-
-                        str = "";
-
-                        for (int i = 0; i < txt.length; i++) {
-                            if(i > 0)
-                                str += txt[i];
-                        }
-
-                        txt = Justificar.justifocarTexto1(str,145);
-
-					    li = 445;
-					    
-					    for (int i = 0; i < txt.length; i++) {
-					    	canvas.saveState();
-					        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-					        canvas.beginText();
-					        canvas.setFontAndSize(bf, 9);
-					        canvas.moveText(20, li);
-					        canvas.showText(txt[i]);
-					        canvas.endText();
-					        canvas.restoreState();
-					        
-					        li-=10;
-						}
-
-
-                        //ARTICULOS FACULTATIVOS MEDIDAS PRECAUTORIAS
-					    txt = Justificar.justifocarTexto1( etArticulo.getText().toString(), 80);
-					    if(id==4)
-                            li = 420;
-					    else
-                            li = 410;
-					    txt = Justificar.justifocarTexto1(etArticulo.getText().toString(), 80);
-
-					    canvas.saveState();
-                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                        canvas.beginText();
-                        canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(250, 420);
-                        canvas.showText(txt[0]);
-                        canvas.endText();
-                        canvas.restoreState();
-
-                        str = "";
-
-                        for (int i = 0; i < txt.length; i++) {
-                            if(i > 0)
-                                str += txt[i];
-                        }
-
-                        txt = Justificar.justifocarTexto1(str,145);
-
-					    li = 410;
-
-					    
-					    for (int i = 0; i < txt.length; i++) {
-					    	canvas.saveState();
-					        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-					        canvas.beginText();
-					        canvas.setFontAndSize(bf, 9);
-					        canvas.moveText(20, li);
-					        canvas.showText(txt[i]);
-					        canvas.endText();
-					        canvas.restoreState();
-					        
-					        li-=10;
-						}
-
-
-					    if(id==4) {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(20, 370);
-                            canvas.showText("Manifiesta " + etManifiesta.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        } else {
-                            canvas.saveState();
-                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            canvas.beginText();
-                            canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(20, 370);
-                            canvas.showText("Manifiesta " + etManifiesta.getText().toString());
-                            canvas.endText();
-                            canvas.restoreState();
-                        }
-					    //EL VISITADO MANIFIESTA
-					    /*canvas.saveState();
-					    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-					    canvas.beginText();
-					    canvas.setFontAndSize(bf, 9);
-					    canvas.moveText(30, 370);
-					    canvas.showText("Manifiesta: " + etManifiesta.getText().toString());
-					    canvas.endText();
-					    canvas.restoreState();*
-
-
-                        //HORA
-                        canvas.saveState();
-                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                        canvas.beginText();
-                        canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(210, 311);
-                        canvas.showText(hr + " ");
-                        canvas.endText();
-                        canvas.restoreState();
-
-
-
-                        canvas.saveState();
-                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                        canvas.beginText();
-                        canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(320, 311);
-                        canvas.showText(dia + " de " + me + " del " + a);
-                        canvas.endText();
-                        canvas.restoreState();*/
 
 
 				        //GRAVEDAD
-                        if(id==4){
+                        if(id!=0){
                             if(cbDatos.isChecked() && !cbDatos2.isChecked()){
-                                tipoentrega="El visitado no proporciono dato alguno de su identidad, por lo que se lleva a cabo la presente diligencia con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus artículos 86 y 87, con descripcion de media filiacion.";
+                                tipoentrega="El visitado no proporcionó dato alguno de su identidad, por lo que se lleva a cabo la presente diligencia con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus artículos 86 y 87, con descripción de media filiación.";
                                 String []imprimir = Justificar.justifocarTexto1(tipoentrega, 35);
                                 float salto=320;
                                 for(int i=0;i<imprimir.length;i++){
@@ -10344,6 +11686,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             canvas.restoreState();
                         }
 
+
+
+
+
+
+
                         //NUMERO DE INFRACCION
 				        canvas.saveState();
 				        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -10353,6 +11701,35 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        canvas.showText(etNumeroActa.getText().toString());
 				        canvas.endText();
 				        canvas.restoreState();
+
+                        //linea escritura
+
+                        canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(117, 134);
+                        canvas.showText("__________");
+                        canvas.endText();
+                        canvas.restoreState();
+
+                        canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(180, 134);
+                        canvas.showText("___________________________");
+                        canvas.endText();
+                        canvas.restoreState();
+
+                        canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(351, 134);
+                        canvas.showText("_______________________________________________");
+                        canvas.endText();
+                        canvas.restoreState();
 
 				        canvas.saveState();
 				        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -10367,10 +11744,145 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(60, 60);
+                        canvas.moveText(148, 122);
+                        canvas.showText("______________________");
+                        canvas.endText();
+                        canvas.restoreState();
+
+
+
+                        canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(125, 92);
+                        canvas.showText(String.valueOf(a));
+                        canvas.endText();
+                        canvas.restoreState();
+
+
+                        canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(121, 90);
+                        canvas.showText("_________");
+                        canvas.endText();
+                        canvas.restoreState();
+
+                        canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(420, 90);
+                        canvas.showText("_________________________________");
+                        canvas.endText();
+                        canvas.restoreState();
+
+                        canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(30, 75);
+                        canvas.showText("______________________________________________________________________________________________________________");
+                        canvas.endText();
+                        canvas.restoreState();
+
+                        canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(30, 60);
+                        canvas.showText("______________________________________________________________________________________________________________");
+                        canvas.endText();
+                        canvas.restoreState();
+
+                        canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(30, 45);
+                        canvas.showText("______________________________________________________________________________________________________________");
+                        canvas.endText();
+                        canvas.restoreState();
+
+                        canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9);
+                        canvas.moveText(60, 19);
                         canvas.showText("NOTA: En atencion a :"+ peticionb);
                         canvas.endText();
                         canvas.restoreState();
+
+
+                        if(cuerpoInfra.length()>5000){
+                            doc.newPage();
+                            int tamano=cuerpoInfra.length();
+                            String cuerpo2=cuerpoInfra.substring(banderacorte,tamano);
+                            //Log.i(TAG, "imprimir: entro al maximo caracteres2");
+
+                            ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
+                        Bitmap bitmap2 = null;
+
+
+                        bitmap2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.hoja_blanca);
+					    bitmap2.compress(Bitmap.CompressFormat.JPEG , 100, stream2);
+					    Image img2;
+
+					    try {
+
+					    	img2 = Jpeg.getInstance(stream2.toByteArray());
+					        img2.setAbsolutePosition(0, 0);
+
+					        float width = doc.getPageSize().getWidth();
+					        float height = doc.getPageSize().getHeight();
+
+					        img2.scaleToFit(width, height);
+					        doc.add(img2);
+
+						} catch (BadElementException e) {
+							System.err.println(e.getMessage() + " BadElementException");
+						} catch (MalformedURLException e) {
+							System.err.println(e.getMessage() + " MalformedURLException");
+						} catch (IOException e) {
+							System.err.println(e.getMessage() + " IOException");
+						} catch (DocumentException e) {
+							System.err.println(e.getMessage() + " DocumentException");
+						}
+
+					    doc.add(new Paragraph(" "));
+					    doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+                        doc.add(new Paragraph(" ",font1));
+					    doc.add(new Paragraph(" ",new Font(Font.BOLD,21,Color.BLACK)));
+
+					    Font font2 = new Font(Font.BOLD,10,Color.BLACK);
+
+
+
+
+
+					    //DIRECCION
+					    canvas.saveState();
+				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+				        canvas.beginText();
+				        canvas.setFontAndSize(bf, 9);
+				        canvas.moveText(30, 910);
+				        canvas.showText("(CONTINUA DEL ANVERSO)");
+				        canvas.endText();
+				        canvas.restoreState();
+
+
+
+                            p2= new Paragraph(cuerpo2.trim(),font2);
+                            p2.setAlignment(Element.ALIGN_JUSTIFIED);
+                            p2.add(chunk);
+                            doc.add(p2);
+                        }
+
+
+
 
 
 
@@ -10420,7 +11932,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				    
 				    try {
 				    	
-				    	img = Image.getInstance(stream.toByteArray());
+				    	img = Jpeg.getInstance(stream.toByteArray());
 				        img.setAbsolutePosition(0, 0);
 				        
 				        float width = doc.getPageSize().getWidth();
@@ -10445,7 +11957,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9);
-			        canvas.moveText(32, 896+c);
+			        canvas.moveText(32, 893+c);
 			        canvas.showText(this.direccion + "   " + spZona.getSelectedItem().toString());
 			        canvas.endText();
 			        canvas.restoreState();
@@ -10454,7 +11966,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 12);
-			        canvas.moveText(420, 896+c);
+			        canvas.moveText(420, 893+c);
 			        canvas.showText(etNumeroActa.getText().toString());
 			        canvas.endText();
 			        canvas.restoreState();
@@ -10507,7 +12019,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(80, 858f + c);
+                            canvas.moveText(80, 857.8f  + c);
                             canvas.showText(etNombreComercial.getText().toString());
                             canvas.endText();
                             canvas.restoreState();
@@ -10694,8 +12206,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					doc.add(new Paragraph(" ",new Font(Font.HELVETICA,8.25f,Color.BLACK)));
 					
 					//p = new Paragraph("  " + spnombre.getSelectedItem().toString() + ", " + spNombreA.getSelectedItem().toString() + "," + spNombreA1.getSelectedItem().toString() + "," + spNombreA2.getSelectedItem().toString()+ "," + spNombreA3.getSelectedItem().toString()+ "," + spNombreA4.getSelectedItem().toString(),font1);
-                   String []txt3 = Justificar.justifocarTexto1(insp, 123);
-                    float li2 = 530+c;
+                   String []txt3 = Justificar.justifocarTexto1(insp, 100);
+                    float li2 = 532+c;
 
                     for (int i = 0; i < txt3.length; i++) {
 
@@ -10703,12 +12215,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9.35f);
-                        canvas.moveText(24f, li2);
+                        canvas.moveText(28f, li2);
                         canvas.showText(txt3[i]);
                         canvas.endText();
                         canvas.restoreState();
 
-                        li2-=11;
+                        li2-=9.5;
                     }
 
                     //p = new Paragraph("" + insp,new Font(Font.HELVETICA,9.35f,Color.BLACK));
@@ -10752,7 +12264,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9.35f);
-                    canvas.moveText(150, 496f+c);
+                    canvas.moveText(150, 502f+c);
                     //canvas.showText("01 de Abril");
                     canvas.showText(recorte2[2]+" de "+ vigencia_inicial);
                     canvas.endText();
@@ -10762,7 +12274,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9.35f);
-                    canvas.moveText(289.5f, 496f+c);
+                    canvas.moveText(289.5f, 501.5f+c);
                     canvas.showText(recorte2[0].substring(2, 4));
                     canvas.endText();
                     canvas.restoreState();
@@ -10771,7 +12283,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9.35f);
-                    canvas.moveText(350, 496f+c);
+                    canvas.moveText(350, 501.5f+c);
                     canvas.showText(recorte1[2] + " de " + vigencia);
                     canvas.endText();
                     canvas.restoreState();
@@ -10780,7 +12292,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.35f);
-			        canvas.moveText(521, 496f+c);
+			        canvas.moveText(521, 502f+c);
 			        canvas.showText(String.valueOf(ax).substring(2, 4));
 			        canvas.endText();
 			        canvas.restoreState();
@@ -10789,7 +12301,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9.35f);
-                    canvas.moveText(210, 484f+c);
+                    canvas.moveText(210, 490f+c);
                     canvas.showText(fol + "," + f1);
                     canvas.endText();
                     canvas.restoreState();
@@ -10840,7 +12352,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                     doc.add(new Paragraph(" ",font1));
                     doc.add(new Paragraph(" ",new Font(Font.HELVETICA,7f,Color.BLACK)));
-                    doc.add(new Paragraph(" ",new Font(Font.HELVETICA,9f,Color.BLACK)));
+                    doc.add(new Paragraph(" ",new Font(Font.HELVETICA,7f,Color.BLACK)));
                     //doc.add(new Paragraph(" ",font1));
                     //doc.setMargins(35,35,20,20);
                     if(motivo.length()>1500){
@@ -10882,7 +12394,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.35f);
-			        canvas.moveText(265, 170.5f);
+			        canvas.moveText(265, 186.5f);
 			        canvas.showText(dia + "");
 			        canvas.endText();
 			        canvas.restoreState();
@@ -10891,7 +12403,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.35f);
-			        canvas.moveText(315, 170.5f);
+			        canvas.moveText(315, 186.5f);
 			        canvas.showText(me.toUpperCase());
 			        canvas.endText();
 			        canvas.restoreState();
@@ -10900,7 +12412,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.35f);
-			        canvas.moveText(455f, 170.8f);
+			        canvas.moveText(455f, 186.5f);
 			        canvas.showText(String.valueOf(a).substring(2,4) + "");
 			        canvas.endText();
 			        canvas.restoreState();
@@ -10914,7 +12426,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9.35f);
-                            canvas.moveText(86, 154f);
+                            canvas.moveText(86, 169f);
                             canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
                             canvas.endText();
                             canvas.restoreState();
@@ -10952,7 +12464,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9.35f);
-                                canvas.moveText(86, 154f);
+                                canvas.moveText(86, 169f);
                                 canvas.showText(etVIdentifica.getText().toString() );
                                 canvas.endText();
                                 canvas.restoreState();
@@ -10964,7 +12476,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9.35f);
-                                canvas.moveText(86, 154f);
+                                canvas.moveText(86, 169f);
                                 canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
                                 canvas.endText();
                                 canvas.restoreState();
@@ -10992,7 +12504,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9.35f);
-                                canvas.moveText(87, 154f);
+                                canvas.moveText(87, 168f);
                                 canvas.showText("------------------------------------------------------------------------------------------------------------" );
                                 canvas.endText();
                                 canvas.restoreState();
@@ -11007,7 +12519,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9.35f);
-                                canvas.moveText(86, 154f);
+                                canvas.moveText(86, 169f);
                                 canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
                                 canvas.endText();
                                 canvas.restoreState();
@@ -11037,7 +12549,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9.35f);
-                            canvas.moveText(86, 154f);
+                            canvas.moveText(86, 169f);
                             canvas.showText(etVIdentifica.getText().toString() );
                             canvas.endText();
                             canvas.restoreState();
@@ -11070,7 +12582,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9.35f);
-                            canvas.moveText(86, 154f);
+                            canvas.moveText(86, 168f);
                             canvas.showText("-------------------------------------------------------------------------------------------------------" );
                             canvas.endText();
                             canvas.restoreState();
@@ -11083,7 +12595,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.25f);
-			        canvas.moveText(518, 154f);
+			        canvas.moveText(518, 171f);
 			        canvas.showText(hr);
 			        canvas.endText();
 			        canvas.restoreState();
@@ -11092,7 +12604,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.25f);
-			        canvas.moveText(65, 139f);
+			        canvas.moveText(65, 155.5f);
 			        canvas.showText(dia + "");
 			        canvas.endText();
 			        canvas.restoreState();
@@ -11101,7 +12613,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.25f);
-			        canvas.moveText(156, 139f);
+			        canvas.moveText(156, 155.5f);
 			        canvas.showText(me.toUpperCase(Locale.getDefault()));
 			        canvas.endText();
 			        canvas.restoreState();
@@ -11110,7 +12622,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.25f);
-			        canvas.moveText(263.3f, 139f);
+			        canvas.moveText(263.6f, 155.5f);
 			        canvas.showText(a + "");
 			        canvas.endText();
 			        canvas.restoreState();
@@ -11120,7 +12632,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9.25f);
-				        canvas.moveText(155, 128f);
+				        canvas.moveText(155, 142f);
 				        canvas.showText("Si");
 				        canvas.endText();
 				        canvas.restoreState();
@@ -11129,7 +12641,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9.25f);
-				        canvas.moveText(155, 128f);
+				        canvas.moveText(155, 142f);
 				        canvas.showText("No");
 				        canvas.endText();
 				        canvas.restoreState();
@@ -11809,7 +13321,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		
 	}
 
-	public void imprimirPrevia(String formato) {
+	public void
+    imprimirPrevia(String formato) {
         int len =0;
         final int MITAD = 135;
         String src;
@@ -11890,13 +13403,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						else
 						    bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_c);*/
 
-                bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_vacia);
+                bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_inspeccion_vista_previa);
                 bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
                 Image img;
 
                 try {
 
-                    img = Image.getInstance(stream.toByteArray());
+                    img = Jpeg.getInstance(stream.toByteArray());
                     img.setAbsolutePosition(0, 0);
 
                     float width = doc.getPageSize().getWidth();
@@ -11953,7 +13466,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 11);
                 canvas.moveText(450, 910);
-                canvas.showText(etNumeroActa.getText().toString());
+                canvas.showText("");
                 canvas.endText();
                 canvas.restoreState();
 
@@ -12075,7 +13588,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
 
-                    String medidasP=etMedida.getText().toString();
+                    //String medidasP=etMedida.getText().toString();
+                    String medidasP=medidas1;
 				            /*if(etMedida.getText().toString().trim().contains("Reglamento de Construcción para el Municipio de Zapopan")){
                                 String [] cortes = etMedida.getText().toString().trim().split("Reglamento de Construcción para el Municipio de Zapopan Jalisco", 0);
 
@@ -12090,7 +13604,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     if(etNumeroSellos.getText().toString().trim().length()>0){
                         numeroS="con numero de sello(s) "+etNumeroSellos.getText().toString().trim();
                     }
-                    String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
+                    String hechos=etSeleccion.getText().toString().trim();
                     if(!spuso.getSelectedItem().toString().contains("pública") | !spuso.getSelectedItem().toString().contains("público"))
                         uso = "el uso " + spuso.getSelectedItem().toString() + " ";
                     else
@@ -12101,7 +13615,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             " "+folio + ", vigente del " +diaIni+" de " +vigencia_inicial+ " del "+recorte2[0]+ " a "+diavigen+ " de "+ vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString().trim() +
                             " manifiesta ser " + etVManifiesta.getText().toString() + " del lugar en que se actúa, propiedad de " + prop + ", le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía por lo que fueron designados los C.C. " + nombresT + " por el " + spdesignado.getSelectedItem().toString().trim() +
                             ", "+ testigos + "así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " +
-                            apercibimiento +", "+ hechos + "Los cuales constituyen infracción a lo dispuesto por los artículo(s): 2, 3, 5, 7  FRACCIONES I  a la VI, 34,  167, 168, 169, 171 ," + etInfraccion.getText().toString().trim() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados , se procede indistintamente con las siguientes medidas: " + medidasP + " "+ numeroS+".Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
+                            apercibimiento +", "+ hechos + ".Los cuales constituyen infracción a lo dispuesto por los artículo(s): 2, 3, 5, 7  FRACCIONES I  a la VI, 34,  167, 168, 169, 171 ," + etInfraccion.getText().toString().trim() + " Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados , se procede indistintamente con las siguientes medidas: " + medidasP + " "+ numeroS+".Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
                             ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
                             hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=",font1);
                 } else if(id == 2) {
@@ -12120,7 +13634,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     if(etNumeroSellos.getText().toString().trim().length()>3){
                         numeroS="con numero de sello(s) "+etNumeroSellos.getText().toString().trim();
                     }
-                    String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
+                    String hechos=etSeleccion.getText().toString().trim();
                     p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del  año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
                             " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en  " +
                             etDondeActua.getText().toString().trim() + " marcada (o)  con el número  " + numero + " de  la  calle " + etCalle.getText().toString().trim() + " entre las calles " + etEntreC.getText().toString().trim() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " +
@@ -12130,8 +13644,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etGiro.getText().toString().trim() + ", propiedad de " + prop + ", le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. " +
                             nombresT + " por el " + spdesignado.getSelectedItem().toString().trim() + ", " + testigos
                             + "  así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  " +
-                            "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + hechos + " Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
-                            "indicados y al haber sido detectados en "+peticionb+", se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + " "+numeroS+  " ," + decomiso + ". Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " +
+                            "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + hechos + " .Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + "  Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
+                            "indicados y al haber sido detectados en "+peticionb+", se procede indistintamente con las siguientes medidas: " + medidas1 + " "+numeroS+  " ," + decomiso + ". Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " +
                             etManifiesta.getText().toString().trim() + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
                             "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
                             hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=",font1);
@@ -12140,18 +13654,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     if(etNumeroSellos.getText().toString().trim().length()>3){
                         numeroS="con numero de sello(s) "+etNumeroSellos.getText().toString().trim();
                     }
-                    String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
+                    String hechos=etSeleccion.getText().toString().trim();
                     p2= new Paragraph("En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día de " + dia + " de " + me + " del  año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
                             " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en  " +
                             spMeConstitui.getSelectedItem().toString()+ " marcada (o)  con el número  " + numero + " de  la  calle " + etCalle.getText().toString().trim() + " entre las calles " + etEntreC.getText().toString().trim() + " y " + etEntreC1.getText().toString() + " en la colonia y/o fraccionamiento " +
                             etFraccionamiento.getText().toString().trim() + textC+ ", cerciorándome de ser este el domicilio donde se realiza la visita de inspección y la actividad comercial, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado " +
-                            "por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número " +" "+ folio + ", vigente del "+diaIni+" de " +vigencia_inicial+ " del "+recorte2[0]+ " a "+diavigen+" de " +  vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del " +
+                            "por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número " +" "+ etIfeA.getText().toString().trim() + ", vigente del "+diaIni+" de " +vigencia_inicial+ " del "+recorte2[0]+ " a "+diavigen+" de " +  vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del " +
                             "Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString().trim() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString() + " manifiesta ser " + etVManifiesta.getText().toString().trim() + " del giro " +
                             etGiro.getText().toString().trim() + ", propiedad de " + prop + ", le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía acto seguido fueron designados los C.C. " +
                             nombresT + " por el " + spdesignado.getSelectedItem().toString().trim() + ", " + testigos
                             + " así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  " +
-                            "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + hechos + " Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
-                            "indicados y al haber sido detectados en "+peticionb+", se procede indistintamente con las siguientes medidas: " + etMedida.getText().toString().trim() + " "+numeroS+  " " + decomiso + ".Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " +
+                            "una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " + hechos + " .Los cuales constituyen infracción a lo dispuesto por los artículo(s): " + etInfraccion.getText().toString().trim() + " Por encuadrar dichas acciones y/u omisiones en los preceptos legales " +
+                            "indicados y al haber sido detectados en "+peticionb+", se procede indistintamente con las siguientes medidas: " + medidas1 + " "+numeroS+  " " + decomiso + ".Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " +
                             etManifiesta.getText().toString().trim() + ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, " +
                             "Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa en el edificio que ocupa la Presidencia Municipal (Av. Hidalgo No.151). Se da por concluida esta diligencia, siendo las " +
                             hr + " horas del " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, "+tipoentrega+" =Fin del texto=",font1);
@@ -13250,7 +14764,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 MimeTypeMap mime = MimeTypeMap.getSingleton();
                 String  ext = file.getName().substring(file.getName().indexOf(".")+1);
                 String tipo = mime.getMimeTypeFromExtension(ext);
-                System.err.println(tipo);
+                //System.err.println(tipo);
 
 
                 Paragraph p;
@@ -13258,13 +14772,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 doc.open();
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.orden_previa);
+                //Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.orden_previa);
+                Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.ov_2022);
                 bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
                 Image img;
 
                 try {
 
-                    img = Image.getInstance(stream.toByteArray());
+                    img = Jpeg.getInstance(stream.toByteArray());
                     img.setAbsolutePosition(0, 0);
 
                     float width = doc.getPageSize().getWidth();
@@ -13289,19 +14804,19 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(34, 827+c);
+                canvas.moveText(34, 834+c);
                 canvas.showText(this.direccion + "   " + spZona.getSelectedItem().toString());
                 canvas.endText();
                 canvas.restoreState();
 
-                canvas.saveState();
+                /*canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 12);
                 canvas.moveText(240, 827+c);
                 canvas.showText(etNumeroActa.getText().toString());
                 canvas.endText();
-                canvas.restoreState();
+                canvas.restoreState();*/
 
                 doc.add(new Paragraph(" "));
                 doc.add(new Paragraph(" ",font1));
@@ -13323,7 +14838,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(80, 787 + c);
+                        canvas.moveText(80, 796 + c);
                         canvas.showText("Propietario o Representante Legal");
                         canvas.endText();
                         canvas.restoreState();
@@ -13332,7 +14847,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(80, 787 + c);
+                        canvas.moveText(80, 796 + c);
                         canvas.showText(etNombreComercial.getText().toString());
                         canvas.endText();
                         canvas.restoreState();
@@ -13343,7 +14858,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(80, 787f + c);
+                        canvas.moveText(80, 796f + c);
                         canvas.showText(etNombreV.getText().toString());
                         canvas.endText();
                         canvas.restoreState();
@@ -13352,7 +14867,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(80, 787f + c);
+                        canvas.moveText(80, 796f + c);
                         canvas.showText(etPropietario.getText().toString() + " " + etApellidoP.getText().toString() + " " + etApellidoM.getText().toString());
                         canvas.endText();
                         canvas.restoreState();
@@ -13387,7 +14902,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     txt = Justificar.justifocarTexto(Justificar.Conversion(Justificar.Conversion(dato)),24);
 
                 txt = Justificar.justifocarTexto1(dato.trim(),125);
-                int x1 = 777+c;
+                int x1 = 775+c;
 
                 for(int y = 0;y < txt.length; y++) {
                     canvas.saveState();
@@ -13432,7 +14947,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                 //System.err.println(porc);
                 count += Math.ceil(lin/180);
-                System.out.println(count);
+                System.out.println(count+"holaaaaaa");
+
+                Log.i(TAG, "imprimirPrevia 1: " );
 			    	/*String c = "";
 			    	for (int i = 0; i < comp.length; i++) {
 			    		if(!TextUtils.isEmpty(comp[i].trim())) {
@@ -13514,12 +15031,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 doc.add(new Paragraph(" ",font1));
                 doc.add(new Paragraph(" ",font1));
                 doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
+                //doc.add(new Paragraph(" ",font1));
 
           // doc.add(new Paragraph(" ",font1));
+                Log.i(TAG, "imprimirPrevia 2: " );
 
-
-                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,14f,Color.BLACK)));
+                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,4f,Color.BLACK)));
 
                 //p = new Paragraph("  " + spnombre.getSelectedItem().toString() + ", " + spNombreA.getSelectedItem().toString() + "," + spNombreA1.getSelectedItem().toString() + "," + spNombreA2.getSelectedItem().toString()+ "," + spNombreA3.getSelectedItem().toString()+ "," + spNombreA4.getSelectedItem().toString(),font1);
                 p = new Paragraph("" + insp,new Font(Font.HELVETICA,8.8f,Color.BLACK));
@@ -13536,8 +15053,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     if(!folios.get(x).trim().equalsIgnoreCase(""))
                         f1+=folios.get(x) + ",";
                 }
+                try {
+                    f1=f1.substring(0,f1.length()-1);
+                }catch (Exception e){
 
-                f1=f1.substring(0,f1.length()-1);
+                    Log.e(TAG, "imprimirPrevia3: ", e);
+                }
+
                 p = new Paragraph("                                                          " ,font1);
                 p.setAlignment(Paragraph.ALIGN_LEFT);
                 doc.add(p);
@@ -13563,7 +15085,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(150, 415+c);
+                canvas.moveText(150, 443+c);
                 //canvas.showText("01 de Abril");
                 canvas.showText(recorte2[2]+" de "+ vigencia_inicial);
                 canvas.endText();
@@ -13573,25 +15095,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(278, 415f+c);
-                canvas.showText("20");
-                canvas.endText();
-                canvas.restoreState();
-
-                canvas.saveState();
-                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                canvas.beginText();
-                canvas.setFontAndSize(bf, 9);
-                canvas.moveText(350, 415+c);
-                canvas.showText(recorte1[2] + " de " + vigencia);
-                canvas.endText();
-                canvas.restoreState();
-
-                canvas.saveState();
-                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                canvas.beginText();
-                canvas.setFontAndSize(bf, 9);
-                canvas.moveText(515, 415.5f+c);
+                canvas.moveText(284, 443f+c);
                 canvas.showText(String.valueOf(ax).substring(2, 4));
                 canvas.endText();
                 canvas.restoreState();
@@ -13600,7 +15104,25 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(208, 405.2f+c);
+                canvas.moveText(350, 443+c);
+                canvas.showText(recorte1[2] + " de " + vigencia);
+                canvas.endText();
+                canvas.restoreState();
+
+                canvas.saveState();
+                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                canvas.beginText();
+                canvas.setFontAndSize(bf, 9);
+                canvas.moveText(515, 443f+c);
+                canvas.showText(String.valueOf(ax).substring(2, 4));
+                canvas.endText();
+                canvas.restoreState();
+
+                canvas.saveState();
+                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                canvas.beginText();
+                canvas.setFontAndSize(bf, 9);
+                canvas.moveText(208, 432.2f+c);
                 canvas.showText(fol + "," + f1);
                 canvas.endText();
                 canvas.restoreState();
@@ -13613,7 +15135,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        canvas.showText(noInsp);
 			        canvas.endText();
 			        canvas.restoreState();*/
-
+                Log.i(TAG, "imprimirPrevia 4: " );
                 String motivo = etMotivo.getText().toString().trim() + " ";
                 if(id == 2) {
                     motivo = "Verificar y constatar que cuenta con " + etMotivo.getText().toString().trim();
@@ -13636,49 +15158,31 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 }
 
                 doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
-                doc.add(new Paragraph(" ",font1));
+                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,5f,Color.BLACK)));
+                //doc.add(new Paragraph(" ",font1));
+                //doc.add(new Paragraph(" ",font1));
 
-                    /*p = new Paragraph("                                                                       " + motivo.toLowerCase());
-                    p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
-                    p.setFont(new Font(Font.HELVETICA,3));
-                    doc.add(p);*/
+                /*doc.add(new Paragraph(" ",font1));
+                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,7f,Color.BLACK)));
+                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,9f,Color.BLACK)));*/
+
                 if(motivo.length()>1500){
-                    txt = Justificar.justifocarTexto1(motivo, 210);
-                    float li = 382 + c;
-
-                    for (int i = 0; i < txt.length; i++) {
-
-                        canvas.saveState();
-                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                        canvas.beginText();
-                        canvas.setFontAndSize(bf, 6);
-                        canvas.moveText(25, li);
-                        canvas.showText(txt[i]);
-                        canvas.endText();
-                        canvas.restoreState();
-
-                        li -= 8.5;
-                    }
-                }else {
-                    txt = Justificar.justifocarTexto1(motivo, 134);
-                    float li = 382 + c;
-
-                    for (int i = 0; i < txt.length; i++) {
-
-                        canvas.saveState();
-                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                        canvas.beginText();
-                        canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(25, li);
-                        canvas.showText(txt[i]);
-                        canvas.endText();
-                        canvas.restoreState();
-
-                        li -= 10.2;
-                    }
+                    p = new Paragraph(motivo,new Font(Font.HELVETICA,6.2f,Color.BLACK));
+                    p.setLeading(10);
+                    p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+                    //p.setFont(new Font(Font.HELVETICA,3));
+                    doc.add(p);
+                }else{
+                    p = new Paragraph(motivo,new Font(Font.HELVETICA,9.35f,Color.BLACK));
+                    p.setLeading(10);
+                    p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+                    //p.setFont(new Font(Font.HELVETICA,3));
+                    doc.add(p);
                 }
+
+
+
+
 
                 int d = 5;
 
@@ -13686,7 +15190,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(270, 122f);
+                canvas.moveText(270, 109f);
                 canvas.showText(dia + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -13695,7 +15199,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(315, 122f);
+                canvas.moveText(315, 109f);
                 canvas.showText(me.toUpperCase());
                 canvas.endText();
                 canvas.restoreState();
@@ -13704,42 +15208,20 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(439.7f, 122f);
+                canvas.moveText(448f, 109f);
                 canvas.showText(String.valueOf(a).substring(2,4) + "");
                 canvas.endText();
                 canvas.restoreState();
 
-                /*if(id == 2) {
-                    if(!cbDatos.isChecked()) {
-                        canvas.saveState();
-                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                        canvas.beginText();
-                        canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(86, 100.2f);
-                        canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
-                        canvas.endText();
-                        canvas.restoreState();
-                    }
-                } else {
-                    if(!cbDatos.isChecked()) {
-                        canvas.saveState();
-                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                        canvas.beginText();
-                        canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(86, 100.2f);
-                        canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
-                        canvas.endText();
-                        canvas.restoreState();
-                    }
-                }*/
 
+                Log.i(TAG, "imprimirPrevia 5: " );
                 if(id == 2) {
                     if(!cbDatos.isChecked()) {
                         canvas.saveState();
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(86, 104f);
+                        canvas.moveText(86, 91f);
                         canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
                         canvas.endText();
                         canvas.restoreState();
@@ -13748,7 +15230,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(86, 104f);
+                        canvas.moveText(86, 91f);
                         canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
                         canvas.endText();
                         canvas.restoreState();
@@ -13759,7 +15241,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(86, 104f);
+                        canvas.moveText(86, 91f);
                         canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
                         canvas.endText();
                         canvas.restoreState();
@@ -13768,7 +15250,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(86, 104f);
+                        canvas.moveText(86, 91f);
                         canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
                         canvas.endText();
                         canvas.restoreState();
@@ -13779,7 +15261,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(515, 100.5f);
+                canvas.moveText(515, 89.5f);
                 canvas.showText(hr);
                 canvas.endText();
                 canvas.restoreState();
@@ -13788,7 +15270,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(65, 92f);
+                canvas.moveText(65, 79f);
                 canvas.showText(dia + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -13797,7 +15279,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(155, 92f);
+                canvas.moveText(155, 79f);
                 canvas.showText(me.toUpperCase(Locale.getDefault()));
                 canvas.endText();
                 canvas.restoreState();
@@ -13806,7 +15288,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(263.2f, 92f);
+                canvas.moveText(265.2f, 79f);
                 canvas.showText(a + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -13816,7 +15298,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(155, 79f);
+                    canvas.moveText(155, 65f);
                     canvas.showText("Si");
                     canvas.endText();
                     canvas.restoreState();
@@ -13825,7 +15307,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(155, 79f);
+                    canvas.moveText(155, 65f);
                     canvas.showText("No");
                     canvas.endText();
                     canvas.restoreState();
@@ -13833,10 +15315,16 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 doc.close();
             } catch (DocumentException e) {
                 System.err.println(e.getMessage() + " doc ");
+                Toast toast  = Toast.makeText(getApplicationContext(), "Verificar los datos que esten completos1", Toast.LENGTH_LONG);
+                toast.setGravity(0, 0, 15);
+                toast.show();
             } catch (IOException e) {
                 System.err.println(e.getMessage() + " IOE ");
+                Toast toast  = Toast.makeText(getApplicationContext(), "Verificar los datos que esten completos2", Toast.LENGTH_LONG);
+                toast.setGravity(0, 0, 15);
+                toast.show();
             } catch (Exception e) {
-                Toast toast  = Toast.makeText(getApplicationContext(), "Verificar los datos que esten completos", Toast.LENGTH_LONG);
+                Toast toast  = Toast.makeText(getApplicationContext(), "Verificar los datos que esten completos3", Toast.LENGTH_LONG);
                 toast.setGravity(0, 0, 15);
                 toast.show();
                 Log.e("Error al abrir", e.getMessage() + " c ");
@@ -14525,20 +16013,29 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	public void buscarInfraccionL(String search) {
 		GestionBD gestionar = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
 		SQLiteDatabase db = gestionar.getReadableDatabase();
-		Cursor cursor;
+		Cursor cursor = null;
         String textofiltro="";
+        String Vyu="";
         Log.e("campo",reglamentoC);
        if(reglamentoC.length()>3) {
            if (reglamentoC == "Buscar en Todos los reglamentos" || reglamentoC.equals("Buscar en Todos los reglamentos") || reglamentoC.contains("Buscar en Todos los reglamentos")) {
                textofiltro = " ";
            }else{
-             textofiltro="length(rtrim("+reglamentoC.trim()+")) >2 and";
+             textofiltro="length(rtrim("+reglamentoC.trim()+")) >0 and";
+             Vyu=reglamentoC.trim();
            }
        }else{
             textofiltro=" ";
         }
-
-
+        String[] recorte=null;
+       String armado="";
+        if(search.trim().contains(" ")){
+            String replaceString=search.trim().replace(' ','/');
+            System.out.println("asignar/ "+replaceString);
+            recorte=replaceString.split("/");
+            Vyu="length(rtrim("+reglamentoC.trim()+")) >0";
+            
+        }
 
 
 
@@ -14546,67 +16043,76 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         Log.e("id", String.valueOf(id));
 
 
-		/*if(TextUtils.isEmpty(search)) {
-		    if(id == 5) {
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+" and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ", null);
-                Log.e("sql", "SELECT * FROM c_infraccion WHERE "+textofiltro+"  and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ");
-            } else {
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+" and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
-                Log.e("sql", "SELECT * FROM c_infraccion WHERE "+textofiltro+" and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ");
-            }
-		}
-		else {
-		    if(isNumeric(search.trim()))
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE (id_c_infraccion = " + search + ") and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
-		    else
-                //cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE (infraccion  LIKE '%" + search + "%') and id_c_direccion = '" + id + "' AND vigente = 'S' COLLATE NOACCENTS order by infraccion; ", null);
-            if(id == 5) {
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+" REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " +
-                        "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ", null);
-                Log.e("sql", "SELECT * FROM c_infraccion WHERE "+textofiltro+"  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') = " +
-                        "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('" + search + "'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + 2 + "' AND vigente = 'S' order by infraccion; ");
-            } else {
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+" REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " +
-                        "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
-                Log.e("sql", "SELECT * FROM c_infraccion WHERE "+textofiltro+"  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') = " +
-                        "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('" + search + "'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ");
-            }
-        }*/
+
         if(reglamentoC=="Buscar en Todos los reglamentos" && search.equals("") ||reglamentoC==" " && search.equals("") ){
             if(id==5){
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
+                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE  vigente = 'S' order by infraccion; ", null);
                 Log.i("entro 1 if:","entro");
             }else{
 
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
+                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE id_c_direccion in ( '" + id + "',3) AND vigente = 'S' order by infraccion; ", null);
                 Log.i("entro 1 if:","entro");
             }
 
         }else if(reglamentoC=="Buscar en Todos los reglamentos" && !search.equals("") || reglamentoC==" " && !search.equals("") ){
 
             if(id==5){
-                cursor = db.rawQuery("SELECT * FROM c_infraccion where REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n')  like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
+                cursor = db.rawQuery("SELECT * FROM c_infraccion where REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n')  like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and  vigente = 'S' order by infraccion; ", null);
                 Log.i("entro 2 if:","entro");
             }else{
-                cursor = db.rawQuery("SELECT * FROM c_infraccion where REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n')  like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "' AND vigente = 'S' order by infraccion; ", null);
+                cursor = db.rawQuery("SELECT * FROM c_infraccion where REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n')  like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion in ( '" + id + "',3) AND vigente = 'S' order by infraccion; ", null);
                 Log.i("entro 2 if:","entro");
             }
 
         }
         else{
-            if(id==5){
-                cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+"  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n')   AND vigente = 'S' order by infraccion; ", null);
-                Log.i("entro else:","entro");
-                //Log.i("query:",);
-            }else{
-                if(textofiltro.equals("length(rtrim(reg_policia)) >2 and")){
-                    cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+"  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion in( '" + id + "','" + 3 + "') AND vigente = 'S' order by infraccion; ", null);
-                    Log.i("entro else:","entro");
-                }else{
-                    cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE "+textofiltro+"  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion = '" + id + "'  AND vigente = 'S' order by infraccion; ", null);
-                    Log.i("entro else:","entro");
-                }
+            if(recorte!=null) {
+                if (recorte.length > 1) {
+                    for (int i = 0; i < recorte.length; i++) {
+                        if (recorte.length - i == 1) {
+                            armado +=   "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like"  + "  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + recorte[i] + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n')  ";
+                        } else {
+                            armado += " REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + recorte[i] + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') or ";
+                        }
+                    }
 
+
+                    if (id == 5) {
+                        cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE " + textofiltro + "  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + armado + " AND vigente = 'S' order by infraccion ; ", null);
+                        Log.i("entro else:", "entro");
+                        Log.i("query:", armado);
+                    } else {
+                        if (textofiltro.equals("length(rtrim(reg_policia)) >2 and")) {
+                            cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE " + textofiltro + "  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + armado + " and id_c_direccion in( '" + id + "','" + 3 + "') AND vigente = 'S' order by infraccion ; ", null);
+                            Log.i("entro else:", "entro");
+                            Log.i("query:", armado);
+                        } else {
+                            cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE " + textofiltro + "  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + armado + " and id_c_direccion = '" + id + "'  AND vigente = 'S' order by infraccion; ", null);
+                            Log.i("entro else:", "entro");
+                            Log.i("query:", armado);
+                        }
+
+                    }
+
+
+                }
+            }else {
+
+
+                if (id == 5) {
+                    cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE " + textofiltro + "  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like  " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n')   AND vigente = 'S' order by infraccion; ", null);
+                    Log.i("entro else:", "entro1");
+                    //Log.i("query:",);
+                } else {
+                    if (textofiltro.equals("length(rtrim(reg_policia)) >2 and")) {
+                        cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE " + textofiltro + "  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion in( '" + id + "','" + 3 + "') AND vigente = 'S' order by infraccion; ", null);
+                        Log.i("entro else:", "entro2");
+                    } else {
+                        cursor = db.rawQuery("SELECT * FROM c_infraccion WHERE " + textofiltro + "  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(infraccion),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like " + "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%" + search + "%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') and id_c_direccion in( '" + id + "',3)  AND vigente = 'S' order by infraccion; ", null);
+                        Log.i("entro else:", "entro3");
+                    }
+
+                }
             }
 
 
@@ -14616,20 +16122,39 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                 arregloInfraccion.add(" ");
                 arregloInfraccion1.add(" ");
-
+//Recorte indentificadores
     		do{
     			if(cursor.getString(cursor.getColumnIndex("vigente")).trim().equalsIgnoreCase("S")) {
                     id_hecho.add(cursor.getInt(0));
-                    if(reglamentoC.length()<1){
-                        arregloInfraccion.add(cursor.getString(2));
-                        arregloInfraccion1.add(cursor.getString(2) );
-                        Log.i("listado", "Infraccion: " + cursor.getString(2));
+                    Log.i("listado", "reglamento: " + reglamentoC);
+                    if(textofiltro.length()<1 || textofiltro.isEmpty() || textofiltro==""|| reglamentoC.isEmpty() || reglamentoC=="" || reglamentoC==null ){
+                        if(id!=4) {
+                            /*String recorteHecho=cursor.getString(2);
+                            arregloInfraccion.add(cursor.getString(2).substring(4,recorteHecho.length()));
+                            arregloInfraccion1.add(cursor.getString(2).substring(4,recorteHecho.length()));*/
+                            arregloInfraccion.add(cursor.getString(2));
+                            arregloInfraccion1.add(cursor.getString(2));
+                        }else{
+                            arregloInfraccion.add(cursor.getString(2));
+                            arregloInfraccion1.add(cursor.getString(2));
+                        }
+                        //Log.i("listado", "Infraccion: " + cursor.getString(2));
                     } else{
+                        Log.i("listado", "Infraccion: " + textofiltro);
+                        if(id!=4) {
+                            /*String recorteHecho2=cursor.getString(2);
+                            arregloInfraccion.add(cursor.getString(2).substring(4,recorteHecho2.length()));
+                            arregloInfraccion1.add(cursor.getString(2).substring(4,recorteHecho2.length()) + " " + cursor.getString(cursor.getColumnIndex(reglamentoC.trim())));
+*/                          arregloInfraccion.add(cursor.getString(2));
+                            arregloInfraccion1.add(cursor.getString(2) + " " + cursor.getString(cursor.getColumnIndex(reglamentoC.trim())));
 
-                        arregloInfraccion.add(cursor.getString(2));
-                        arregloInfraccion1.add(cursor.getString(2) + " " + cursor.getString(cursor.getColumnIndex(reglamentoC.trim())));
-                        Log.i("listado", "Infraccion: " + cursor.getString(2) + " " + cursor.getString(cursor.getColumnIndex(reglamentoC.trim())));
-                        Log.i("listado", "Infraccion: " + cursor.getString(2));
+                        }else{
+                            arregloInfraccion.add(cursor.getString(2));
+                            arregloInfraccion1.add(cursor.getString(2) + " " + cursor.getString(cursor.getColumnIndex(reglamentoC.trim())));
+
+                        }
+                       // Log.i("listado", "Infraccion: " + cursor.getString(2) + " " + cursor.getString(cursor.getColumnIndex(reglamentoC.trim())));
+                       // Log.i("listado", "Infraccion: " + cursor.getString(2));
 
                     }
     			}
@@ -14667,26 +16192,38 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                     etVManifiesta.setEnabled(true);
                     etVManifiesta.setText("No manifiesta");
-                    if(id==2)
+                    /*if(id==2)
                         spManifiesta.setSelection(3);
 
                     if(id==4)
                         spManifiesta.setSelection(2);
                     if(id==5)
-                        spManifiesta.setSelection(3);
+                        spManifiesta.setSelection(3);*/
+                    for(int i=0;i<spManifiesta.getCount();i++){
+                        if(spManifiesta.getItemAtPosition(i).toString().equals("Otro")){
+                            spManifiesta.setSelection(i);
+                        }
+                    }
 
                     spManifiesta.setEnabled(false);
 
                     //etVIdentifica.setEnabled(false);
                     etVIdentifica.setEnabled(true);
                     //etVIdentifica.setHint("Indique descripcion del visitado");
-                   if(id==2)
-                       spIdentifica.setSelection(4);
+                   /*if(id==2)
+                       spIdentifica.setSelection(5);
 
                     if(id==4)
-                    spIdentifica.setSelection(4);
+                    spIdentifica.setSelection(5);
                     if(id==5)
-                        spIdentifica.setSelection(4);
+                        spIdentifica.setSelection(5);*/
+                    for(int i=0;i<spIdentifica.getCount();i++){
+                        if(spIdentifica.getItemAtPosition(i).toString().equals("Media filiacion")){
+                            spIdentifica.setSelection(i);
+                        }
+                    }
+
+
 
                     spIdentifica.setEnabled(false);
                     etPropietario.setText("Se desconoce");
@@ -14707,28 +16244,39 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                     etVManifiesta.setEnabled(true);
                     etVManifiesta.setText("No manifiesta");
-                    if(id==2)
-                        spManifiesta.setSelection(3);
+                    /*if(id==2)
+                        spManifiesta.setSelection();
 
                     if(id==4)
                         spManifiesta.setSelection(2);
                     if(id==5)
-                        spManifiesta.setSelection(3);
+                        spManifiesta.setSelection(3);*/
+                    for(int i=0;i<spManifiesta.getCount();i++){
+                        if(spManifiesta.getItemAtPosition(i).toString().equals("Otro")){
+                            spManifiesta.setSelection(i);
+                        }
+                    }
 
                     spManifiesta.setEnabled(false);
 
                     //etVIdentifica.setEnabled(false);
                     etVIdentifica.setEnabled(true);
                     //etVIdentifica.setHint("Indique descripcion del visitado");
-                    if(id==2)
-                        spIdentifica.setSelection(5);
+                   /* if(id==2)
+                        spIdentifica.setSelection(6);
 
                     if(id==4)
-                        spIdentifica.setSelection(5);
+                        spIdentifica.setSelection(6);
                     etVIdentifica.setText("persona alguna");
                     if(id==5)
-                        spIdentifica.setSelection(5);
+                        spIdentifica.setSelection(6);*/
 
+                    for(int i=0;i<spIdentifica.getCount();i++){
+                        if(spIdentifica.getItemAtPosition(i).toString().equals("No se identifica")){
+                            spIdentifica.setSelection(i);
+                        }
+                    }
+                    etVIdentifica.setText("persona alguna");
                     spIdentifica.setEnabled(false);
                     etPropietario.setText("Se desconoce");
                     //etPropietario.setEnabled(false);
@@ -14745,7 +16293,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		default:
 			break;
 		}
-		etMotivo.setText(m1);
+		//etMotivo.setText(m1);
 		System.out.println(hech);
 	}
 
@@ -14955,10 +16503,51 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		case R.id.spMedida:
             Log.e("medida","aqio con " + id);
 			if(!spMedida.getSelectedItem().toString().trim().equalsIgnoreCase("")) {
-				medidas1 = spMedida.getSelectedItem().toString();;
+				//medidas1 = spMedida.getSelectedItem().toString();
+                if(id!=4) {
+                    etArticulo.setText("");
+                }
 
-				if(id == 2 | id == 5) {
-                        if(spMedida.getSelectedItem().toString().trim().contains("Clausura") || spMedida.getSelectedItem().toString().contains("CLAUSURA")) {
+                concatA="";
+                concatB="";
+                concatM="";
+                //fa="";
+                norepeat.clear();
+				if(contador==0) {
+				    etMedida.setVisibility(View.VISIBLE);
+				    etMedida.setEnabled(false);
+				    btneliminarA.setVisibility(View.VISIBLE);
+                    etMedida.append(spMedida.getSelectedItem().toString());
+
+                }
+				if(contador==1) {
+                    etMedida1.setVisibility(View.VISIBLE);
+                    etMedida1.setEnabled(false);
+                    btneliminarA1.setVisibility(View.VISIBLE);
+                    etMedida1.append(spMedida.getSelectedItem().toString());
+                }
+                if(contador==2) {
+                    etMedida2.setVisibility(View.VISIBLE);
+                    etMedida2.setEnabled(false);
+                    btneliminarA2.setVisibility(View.VISIBLE);
+                    etMedida2.append(spMedida.getSelectedItem().toString());
+                }
+
+                if(contador==3) {
+                    etMedida3.setVisibility(View.VISIBLE);
+                    etMedida3.setEnabled(false);
+                    btneliminarA3.setVisibility(View.VISIBLE);
+                    etMedida3.append(spMedida.getSelectedItem().toString());
+                }
+                if(contador==4) {
+                    etMedida4.setVisibility(View.VISIBLE);
+                    etMedida4.setEnabled(false);
+                    btneliminarA4.setVisibility(View.VISIBLE);
+                    etMedida4.append(spMedida.getSelectedItem().toString());
+                }
+
+                if(id == 2 | id == 5) {
+                        /*if(spMedida.getSelectedItem().toString().trim().contains("Clausura") || spMedida.getSelectedItem().toString().contains("CLAUSURA")) {
                             Toast toast = Toast.makeText(getApplicationContext(),"Agregar sellos de clausura",Toast.LENGTH_LONG);
                             toast.setGravity(0,0,15);
                             toast.show();
@@ -14968,7 +16557,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         if(res)
                             etNumeroSellos.setVisibility(View.VISIBLE);
                         else
-                            etNumeroSellos.setVisibility(View.GONE);
+                            etNumeroSellos.setVisibility(View.GONE);*/
 
 
                         Log.e("agrego medida",orden.get(spMedida.getSelectedItemPosition()).trim());
@@ -14981,10 +16570,19 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             concatM = spMedida.getSelectedItem().toString();
                         else
                             concatM = ", "+spMedida.getSelectedItem().toString();
+
                         contador++;
                         // }
+                    for(int i=0;i<SeguimientoM1.size();i++){
+                        if(SeguimientoM1.get(i).contains("Clausura") ||  SeguimientoM1.get(i).contains("CLAUSURA")){
+                            etNumeroSellos.setVisibility(View.VISIBLE);
+                            break;
+                        }else{
+                            etNumeroSellos.setVisibility(View.GONE);
 
-                        etMedida.append(concatM);
+                        }
+                    }
+
 				    /*if(id==4){
                         Log.e("medida","aqio con 5");
                         etMedida.setText(spMedida.getSelectedItem().toString().trim());
@@ -14993,6 +16591,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 				}
 				if(id == 4) {
+                    btnArticulos.setEnabled(true);
                     medidax.add(spMedida.getSelectedItem().toString().trim());
                     Log.e("princioidenrsdfcejrwn",medidas1 + ", hola");
 				    //Log.i("i",spMedida.getSelectedItem().toString() + " " + spMedida.getSelectedItem().toString().contains("CLAU"));
@@ -15014,14 +16613,28 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                     contador++;
 
-                    etMedida.append(concatM);
+                    //etMedida.append(concatM);
                     SeguimientoM1.add(spMedida.getSelectedItem().toString());
-				    if(res)
+                    for(int i=0;i<SeguimientoM1.size();i++){
+                        if(SeguimientoM1.get(i).contains("Clausura") ||  SeguimientoM1.get(i).contains("CLAUSURA")){
+                            etNumeroSellos.setVisibility(View.VISIBLE);
+                            break;
+                        }else{
+                            etNumeroSellos.setVisibility(View.GONE);
+
+                        }
+                    }
+				    /*if(res)
                         etNumeroSellos.setVisibility(View.VISIBLE);
 				    else
                         etNumeroSellos.setVisibility(View.GONE);
+                        */
+
 				    Log.e("medidas1",medidas1.trim());
 				}
+                Toast toast2 = Toast.makeText(InfraccionesActivity.this, "Medidas Precautorias seleccionadas"+contador, Toast.LENGTH_LONG);
+                toast2.setGravity(0, 0, 15);
+                toast2.show();
 			}
 			break;
 			
@@ -15084,12 +16697,35 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         return medidas + " HOLA MUNDO";
     }
     public void mostrarArt(int x){
-        int tamano=etMedida.getText().toString().length();
-        String coma = etMedida.getText().toString().substring(tamano-1,tamano);
-        if(coma.contains(",")){
-            String medida=etMedida.getText().toString().trim().substring(0,etMedida.getText().toString().length()-1);
-            etMedida.setText(medida);
+        if(id!=4) {
+            etArticulo.setText(" ");
         }
+        //String medidas="";
+        medidas1="";
+        for(int i=0; i< SeguimientoM1.size(); i++ ){
+            if(!SeguimientoM1.get(i).equals(" ")) {
+                medidas1 += SeguimientoM1.get(i) + ",";
+            }
+            Log.i("nice:", "medidas: "+SeguimientoM1.get(i));
+        }
+        Log.i("completo:", "medidas completa: "+medidas1);
+        int tamano=medidas1.length();
+        Log.i("tamaño:", String.valueOf(SeguimientoM1.size()));
+
+        String coma = medidas1.substring(tamano-1,tamano);
+        if(coma.contains(",")){
+           medidas1=medidas1.trim().substring(0,medidas1.length()-1);
+
+            //etMedida.setText(medidas1);
+        }
+
+        /*for(int i=0;i<reglaArt.size();i++){
+            Log.i(TAG, "reglaArt: "+reglaArt.get(i));
+        }
+
+        for(int i=0;i<reglaArt2.size();i++){
+            Log.i(TAG, "reglaArt2: "+reglaArt2.get(i));
+        }*/
 
         if(x>0) {
             if (reglaArt.size() > 0) {
@@ -15230,20 +16866,110 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
     }
 
-    public void reiniciarA(){
-        reglaArt.clear();
-        reglaArt2.clear();
-        etArticulo.setText("");
-        etMedida.setText("");
+    public void reiniciarA(int ids,String buscar){
+        /*reglaArt.clear();
+        reglaArt2.clear();*/
 
-        contador=0;
+     for(int i=0;i<SeguimientoM1.size();i++) {
+         if (SeguimientoM1.get(i).equals(buscar.trim())) {
+             SeguimientoM1.remove(i);
+             break;
+         }
+     }
+
+     int poscionSp=0;
+        for (int i = 0; i < spMedida.getCount(); i++) {
+            //Almacena la posición del ítem que coincida con la búsqueda
+            if (spMedida.getItemAtPosition(i).toString().equalsIgnoreCase(buscar.trim())) {
+                poscionSp=i;
+                break;
+            }
+        }
+
+
+     for(int i=0;i<reglaArt.size();i++){
+         Log.e("reglaArt1",reglaArt.get(i)+"=="+orden.get(poscionSp));
+         if(reglaArt.get(i).equals(orden.get(poscionSp).trim())){
+             Log.e("entro eliminar1:","si");
+             reglaArt.remove(i);
+             break;
+         }
+     }
+
+     for(int i=0;i<reglaArt2.size();i++){
+         Log.e("reglaArt2",reglaArt2.get(i)+"=="+art.get(poscionSp));
+         if(reglaArt2.get(i).equals(art.get(poscionSp).trim())){
+             Log.e("entro eliminar2:","si");
+             reglaArt2.remove(i);
+             break;
+         }
+     }
+
+
+
+
+
+
+        contador=contador-1;
         concatA="";
         concatB="";
         concatM="";
         //fa="";
         norepeat.clear();
         spMedida.setSelection(0);
-        SeguimientoM1.clear();
+
+        if(ids==0) {
+            if(id!=4) {
+                etArticulo.setText("");
+            }
+            etMedida.setText("");
+            etMedida.setVisibility(View.GONE);
+            btneliminarA.setVisibility(View.GONE);
+        }
+        if(ids==1) {
+            if(id!=4) {
+                etArticulo.setText("");
+            }
+            etMedida1.setText("");
+            etMedida1.setVisibility(View.GONE);
+            btneliminarA1.setVisibility(View.GONE);
+        }
+         if(ids==2) {
+            if(id!=4) {
+                etArticulo.setText("");
+            }
+            etMedida2.setText("");
+            etMedida2.setVisibility(View.GONE);
+            btneliminarA2.setVisibility(View.GONE);
+        }
+          if(ids==3) {
+            if(id!=4) {
+                etArticulo.setText("");
+            }
+            etMedida3.setText("");
+            etMedida3.setVisibility(View.GONE);
+            btneliminarA3.setVisibility(View.GONE);
+        }
+           if(ids==4) {
+            if(id!=4) {
+                etArticulo.setText("");
+            }
+            etMedida4.setText("");
+            etMedida4.setVisibility(View.GONE);
+            btneliminarA4.setVisibility(View.GONE);
+        }
+        if(id==4 || id==5 || id==2) {
+            for (int i = 0; i < SeguimientoM1.size(); i++) {
+                if (SeguimientoM1.get(i).contains("Clausura") || SeguimientoM1.get(i).contains("CLAUSURA")) {
+                    etNumeroSellos.setVisibility(View.VISIBLE);
+                    break;
+                } else {
+                    etNumeroSellos.setVisibility(View.GONE);
+
+                }
+            }
+        }
+
     }
     public void buscarTestigo(Spinner sp){
     	
@@ -15316,7 +17042,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					if (msg.obj == null) {
 						Toast.makeText(getApplicationContext(), "No paired device", Toast.LENGTH_SHORT).show();
 					} else {
-						DialogManager.showBluetoothDialog(InfraccionesActivity.this, (Set<BluetoothDevice>) msg.obj);
+						DialogManager.showBluetoothDialog(InfraccionesActivity.this, (Set<BluetoothDevice>) msg.obj,"comercio");
 					}
 					return true;
 				
@@ -15561,9 +17287,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 			final View view = inflater.inflate(R.layout.order, null);
 
-            String [] na = etNumeroActa.getText().toString().split("/");
-            Log.i("fecha", na[3] + "/" + na[4] + "/" + na[5]);
-            fecha = na[3] + "/" + na[4] + "/" + na[5];
+            SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
+            Date todayDate = new Date();
+            String thisDate = currentDate.format(todayDate);
+            String [] na = thisDate.split("/");
+            Log.i("fecha", na[0] + "/" + na[1] + "/" + na[2]);
+            fecha = na[0] + "/" + na[1] + "/" + na[2];
             String [] fechas = fecha.split("/");
             int dia, mes,a;
             String me;
@@ -15573,6 +17302,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
             dia = Integer.parseInt(fechas[0]);
             mes = Integer.parseInt(fechas[1]);
+            String an = fechas[2];
+            //a = Integer.parseInt(fechas[2].substring(2, 4));
+            a = Integer.parseInt(fechas[2]);
+            System.out.println("entro");
 			
 			TextView tvMulta = (TextView)view.findViewById(R.id.tvText);
 			tvMulta.setMovementMethod(new ScrollingMovementMethod());
@@ -15582,7 +17315,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             String []recorte2=vigencia_inicial.split("-");
             vigencia_inicial=vigencia_inicial(recorte2[1]);
             vigencia=vigencia_final(recorte1[1]);
-            String hechos=etSeleccion.getText().toString().trim().substring(0,etSeleccion.getText().toString().trim().length()-1);
+            String hechos=etSeleccion.getText().toString().trim();
             String exterior="";
             String interior=" ";
             if(etNumero.getText().toString().length()>0){
@@ -15592,21 +17325,45 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 interior="número interior:"+ etNuemroInterior.getText().toString();
             }
 
+            String decomiso = "";
+            if(!TextUtils.isEmpty(etDecomiso.getText().toString().trim()))
+                decomiso += ", decomiso: " + etDecomiso.getText().toString().trim() + " ";
 
+            String numeroS="";
+            if(etNumeroSellos.getText().toString().trim().length()>0){
+                numeroS="con numero de sello(s) "+etNumeroSellos.getText().toString().trim();
+            }
+
+            String peticionb="";
+            if(spPeticion.getSelectedItem().toString().equals("Flagrancia")){
+                peticionb=spPeticion.getSelectedItem().toString();
+            }else{
+                if(etfoliopeticion.getText().length()>2){
+                    peticionb=spPeticion.getSelectedItem().toString()+" con folio "+etfoliopeticion.getText().toString();
+
+                }else{
+                    peticionb=spPeticion.getSelectedItem().toString();
+
+                }
+
+            }
+
+//03/05
 			final String cuerpo = "Zapopan, Jalisco, a las "+hora +" "+horaTOletra(hora)+" del día "+dia+" de "+ vigencia_inicial("0"+String.valueOf(mes))+"  del año "+recorte2[0]+"." +
                     "El suscrito, "+spnombre.getSelectedItem().toString()+", Inspector Multimodal con clave operativa  "+ clave +", en términos de lo dispuesto por los artículos 70 y 73, " +
                     "segundo párrafo, de la Ley del Procedimiento Administrativo del Estado de Jalisco, me constituyo física y legalmente en la "+ etCalle.getText().toString() +
                     "  marcada(o) con el  "+ exterior+", "+interior+", entre las calles " + etEntreC.getText().toString() + " y " + etEntreC1.getText().toString() + ", Fraccionamiento: " + etFraccionamiento.getText().toString()+", cerciorado de lo anterior por haber tenido " +
                     "a la vista la placa de nomenclatura de la calle más próxima, y porque así lo corrobora quien manifiesta llamarse " + etNombreV.getText().toString() + ", " +
-                    "visitado, ante quien me identifico con credencial oficial con fotografía folio número "+ folio + " , vigente del "+vigencia_inicial+" 2020 a "+vigencia+" 2020" +
+                    "ante quien me identifico con credencial oficial con fotografía folio número "+ folio + " , vigente del "+vigencia_inicial+" "+recorte2[0] +" a "+vigencia+ " "+recorte1[0]+" " +
                     " , expedida por el Director de Inspección y Vigilancia del Ayuntamiento de Zapopan, Jalisco; haciéndole " +
-                    "saber que el motivo de mi presencia es por"+spPeticion.getSelectedItem().toString()+", y enterado de los alcances de la diligencia que por este acto se practica" +
-                    " le requiero por una identificación, presentando " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString()+", igualmente le hago saber el derecho que tiene de nombrar a dos personas que " +
+                    "saber que el motivo de mi presencia es por "+spPeticion.getSelectedItem().toString()+", y enterado de los alcances de la diligencia que por este acto se practica" +
+                    " le requiero por una identificación, presentando " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString()+ " manifiesta ser " + etVManifiesta.getText().toString().trim() + " del giro " +
+                    etGiro.getText().toString().trim() +", igualmente le hago saber el derecho que tiene de nombrar a dos personas que " +
                     "fungirán como testigos y estén presentes durante el desahogo de la visita y que de no designar a persona alguna para ello, el suscrito lo haré en" +
                     " rebeldía; en consecuencia, fueron designados por el suscrito los C.C. "+etNombreT.getText().toString()+" y " + etNombreT1.getText().toString() + ", quien se identifica con " + spIdentificaT.getSelectedItem().toString() + " " + etIfeT.getText().toString() + " , " + spIdentificaT1.getSelectedItem().toString() + " " + etIfeT2.getText().toString() + " " +
                     ", respectivamente. Acto seguido, una vez practicada la inspección, resultaron los siguientes hechos: " +hechos+
-                    " Hechos que constituyen infracción a lo dispuesto por los articulo(s): "+  etInfraccion.getText().toString() + ". Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, " +
-                    "se procede indistintamente con las siguientes medidas: "+ etMedida.getText().toString().trim().trim()+". Lo anterior de conformidad a lo dispuesto por los " +
+                    " Hechos que constituyen infracción a lo dispuesto por los articulo(s): "+  etInfraccion.getText().toString() + " Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, " +
+                    "se procede indistintamente con las siguientes medidas: "+ medidas1+ " "+numeroS + decomiso + ". Lo anterior de conformidad a lo dispuesto por los " +
                     "artículo(s): "+ etArticulo.getText().toString().trim()+". Se concede el uso de la voz al visitado para que a los hechos señalados manifieste" +
                     " lo que a su derecho convenga y aporte pruebas, enterado señala:"+  etManifiesta.getText().toString().trim()+". Finalmente, se le informa que el acta resultado de esta " +
                     "diligencia podrá ser impugnada a través del RECURSO DE REVISIÓN, previsto por el artículo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, para lo cual tendrá un plazo de 20 veinte días hábiles, contados a partir del día siguiente de la fecha en que se levante el acta correspondiente; debiendo interponer dicho recurso por escrito que presente en la oficia de la Dirección Jurídica Contenciosa dependiente de Sindicatura, en avenida Hidalgo número 151, colonia Centro de esta Ciudad. Se da por concluida esta diligencia a las "+hr+"  del " +dia +" de "+ vigencia_final("0"+ String.valueOf(mes)) +" del presente año, levantándose acta en presencia del visitado y testigos que intervinieron, firmando para constancia los que quisieron y supieron hacerlo, quedando copia legible en poder del interesado para los efectos conducentes. Lo anterior, en términos de lo dispuesto por el artículo 74 de la Ley invocada.";
@@ -15821,6 +17578,8 @@ Por recibida el Acta número ____________________________________ por la cual s
         cursor.close();
 
     }
+
+
 	
 	public void buscarPeticion() {
     	GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
@@ -15884,7 +17643,7 @@ Por recibida el Acta número ____________________________________ por la cual s
              */
             c = db.rawQuery("SELECT * FROM c_fraccionamiento where REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(fraccionamiento),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%"+condicion+"%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') order by fraccionamiento", null);
             Log.i("que", "SELECT * FROM c_fraccionamiento where REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(fraccionamiento),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') like REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER('%"+condicion+"%'),'á','a'), 'é','e'),'í','i'),'ó','o'),'ú','u'),'ñ','n') order by fraccionamiento");
-            fraccionamiento.add("");
+            fraccionamiento.add("Seleccionar");
             zonas.add("");
             if(c.moveToFirst()){
                 Log.i("no", "no");

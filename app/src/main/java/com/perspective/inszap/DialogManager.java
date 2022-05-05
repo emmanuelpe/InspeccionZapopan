@@ -88,7 +88,7 @@ public class DialogManager {
 		"Red"
 	};
 	
-	static void showBluetoothDialog(Context context, final Set<BluetoothDevice> pairedDevices) {
+	static void showBluetoothDialog(final Context context, final Set<BluetoothDevice> pairedDevices, final String actividad) {
 		final String[] items = new String[pairedDevices.size()];
 		int index = 0;
 		for (BluetoothDevice device : pairedDevices) {
@@ -98,7 +98,11 @@ public class DialogManager {
 		new AlertDialog.Builder(context).setTitle("Paired Bluetooth printers").setItems(items, new DialogInterface.OnClickListener() {
 					
 					public void onClick(DialogInterface dialog, int which) {
-						InfraccionesActivity.mBixolonPrinter.connect(items[which]);
+						if(actividad.equals("Tecnica")) {
+						InfraccionesActivityTecnica.mBixolonPrinter.connect(items[which]);
+						}else{
+							InfraccionesActivity.mBixolonPrinter.connect(items[which]);
+						}
 						
 					}
 				}).show();

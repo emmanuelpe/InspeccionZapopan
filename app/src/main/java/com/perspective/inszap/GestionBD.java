@@ -40,7 +40,7 @@ public class GestionBD extends SQLiteOpenHelper{
 	String sqlCrearTablaDiasFestivos = "create table C_dia_no_habil(id_c_dia_no_habil INTEGER PRIMARY KEY AUTOINCREMENT,Dia_no_habil text,capturo TEXT,fecha numeric)";
 	String sqlCrearTablaLey = "create table C_ley_ingresos(id_c_ley_ingresos INTEGER PRIMARY KEY AUTOINCREMENT,id_c_direccion int,nombre_completo text,articulo text,fraccion text,ano numeric,capturo text, fecha numeric)";
 	String sqlCrearTablaZonas = "create table C_zonas(id_c_zonas INTEGER PRIMARY KEY AUTOINCREMENT,id_c_direccion int, zona text,descripcion text,capturo text, fecha numeric)";
-	String sqlCrearTablsDetalleINFRACCION = "create table Detalle_infraccion(id_detalle_infraccion INTEGER PRIMARY KEY AUTOINCREMENT,id_levantamiento int, numero_acta text, id_c_infraccion int, cantidad numeric,tipo_sancion TEXT,sancion numeric,observaciones Text,estatus TEXT)";
+	String sqlCrearTablsDetalleINFRACCION = "create table Detalle_infraccion(id_detalle_infraccion INTEGER PRIMARY KEY AUTOINCREMENT,id_levantamiento int, numero_acta text, id_c_infraccion int, cantidad numeric,tipo_sancion TEXT,sancion numeric,observaciones Text,estatus TEXT,especificacion TEXT)";
 	String sqlCrearTablaVisitadoM = "create table C_visitado_manifiesta(id_c_visitado_manifiesta INTEGER PRIMARY KEY AUTOINCREMENT,id_c_direccion INTEGER,manifiesta TEXT,capturo TEXT,fecha NUMERIC)";
 	String sqlCrearTablaVisitadoI = "create table C_visitado_identifica(id_c_visitado_identifica INTEGER PRIMARY KEY AUTOINCREMENT,id_c_direccion INTEGER,identificacion TEXT,capturo TEXT,fecha NUMERIC)";
 	String sqlCrearTablaUso = "create table C_uso_suelo(id_c_uso_suelo INTEGER PRIMARY KEY AUTOINCREMENT,id_c_direccion INTEGER,uso_suelo TEXT,capturo TEXT,fecha NUMERIC)";

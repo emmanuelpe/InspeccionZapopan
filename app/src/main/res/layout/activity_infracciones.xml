@@ -102,8 +102,30 @@
 	                		android:layout_marginTop="5dp"
 	                		android:layout_marginRight="10dp"
 	                		android:layout_marginLeft="10dp"/>
-	            		
-	            		<Button android:id="@+id/radioCitatorio"
+
+					<Button android:id="@+id/radioEventoEspecial"
+						android:text="@string/evento"
+						android:checked="true"
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"
+						style="@style/title"
+						android:layout_marginTop="5dp"
+						android:layout_marginRight="10dp"
+						android:layout_marginLeft="10dp"/>
+
+					<Button android:id="@+id/radioReimprimir"
+						android:text="@string/Reimprimir"
+						android:checked="true"
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"
+						style="@style/title"
+						android:layout_marginTop="5dp"
+						android:layout_marginRight="10dp"
+						android:layout_marginLeft="10dp"
+						android:visibility="gone"/>
+
+
+					<Button android:id="@+id/radioCitatorio"
 	                		android:text="@string/citatorio"
 	                		android:layout_width="fill_parent"
 	                		android:layout_height="wrap_content"
@@ -558,11 +580,11 @@
 									android:id="@+id/etNombreComercia"
 									android:layout_width="fill_parent"
 									android:layout_height="70dp"
-									android:inputType="textCapWords"
+									android:inputType="textCapWords|textMultiLine"
 									android:hint="@string/nombre_comercial"
 									android:imeOptions="actionNext"
 									android:visibility="visible"
-									android:maxLength="50"/>
+									android:maxLength="1500"/>
 							    
 					    	</LinearLayout>
 					    
@@ -647,7 +669,7 @@
 						android:id="@+id/etIfe"
 						android:layout_width="fill_parent"
 						android:layout_height="70dp"
-						android:hint="@string/ife"
+						android:hint="@string/folio"
 						android:inputType="textCapSentences"
 						android:enabled="false"
 						android:imeOptions="actionNext">
@@ -853,6 +875,8 @@
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:text="No proporciono datos"/>
+
+
 
 						<CheckBox
 							android:id="@+id/cbDatos2"
@@ -1420,8 +1444,7 @@
 							android:layout_height="70dp"
 							android:hint="Folio apercibimiento"
 							android:layout_toRightOf="@id/tvfolioap"
-							android:inputType="textCapSentences"
-
+							android:inputType="number"
 							android:imeOptions="actionNext"
 							android:visibility="gone"/>
 
@@ -1442,8 +1465,10 @@
 							android:layout_height="70dp"
 							android:hint="dd-mm-aaaa"
 							android:layout_toRightOf="@id/tvfechaap"
-							android:inputType="textCapSentences"
+							android:maxLength="10"
+							android:inputType="date"
 							android:layout_below="@id/etfolioap"
+
 							android:imeOptions="actionNext"
 							android:visibility="gone"/>
 
@@ -1486,7 +1511,8 @@
 							android:layout_height="70dp"
 							android:hint="dd-mm-aaaa"
 							android:layout_toRightOf="@id/tvfechaClau"
-							android:inputType="textCapSentences"
+							android:maxLength="10"
+							android:inputType="date"
 							android:layout_below="@id/etfolioclau"
 							android:imeOptions="actionNext"
 							android:visibility="gone"/>
@@ -1956,7 +1982,7 @@
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:layout_below="@+id/tilArticulo"
-							android:text="@string/buscar"
+							android:text= "@string/buscar1"
 							android:drawableLeft="@drawable/ic_search"/>
 							<TextView
 								android:id="@+id/spselec"
@@ -1991,8 +2017,14 @@
 								android:gravity="center"
 								android:layout_gravity="center"
 								android:layout_below="@id/spselec1">
-								
-			    		
+
+								<View
+									android:id="@+id/linea0"
+									android:layout_width="match_parent"
+									android:layout_height="8dp"
+									android:background="@android:color/holo_orange_light"
+									android:visibility="gone"/>
+
 								<EditText 
 									android:id="@+id/etdescripcion"
 									android:layout_width="wrap_content"
@@ -2000,6 +2032,7 @@
 									android:hint="@string/descripcion"
 									android:inputType="textMultiLine|textCapSentences"
 									android:enabled="false"
+									android:layout_below="@+id/linea0"
 									android:visibility="gone"/>
 
 								<Spinner
@@ -2051,7 +2084,15 @@
 									android:scrollbars="vertical"
 									android:layout_below="@+id/tveliminar"
 									android:visibility="gone"/>
-			    		
+
+								<View
+									android:id="@+id/linea1"
+									android:layout_width="match_parent"
+									android:layout_height="8dp"
+									android:background="@android:color/holo_orange_light"
+									android:layout_below="@+id/etObs"
+									android:visibility="gone"/>
+
 								<EditText 
 									android:id="@+id/etdescripcion1"
 									android:layout_width="wrap_content"
@@ -2059,7 +2100,7 @@
 									android:hint="@string/descripcion"
 									android:inputType="textMultiLine|textCapSentences"
 									android:enabled="false"
-									android:layout_below="@+id/etObs"
+									android:layout_below="@+id/linea1"
 									android:visibility="gone"/>
 
 
@@ -2113,6 +2154,14 @@
 									android:scrollbars="vertical"
 									android:layout_below="@+id/tveliminar1"
 									android:visibility="gone"/>
+
+								<View
+									android:id="@+id/linea2"
+									android:layout_width="match_parent"
+									android:layout_height="8dp"
+									android:background="@android:color/holo_orange_light"
+									android:layout_below="@+id/etObs1"
+									android:visibility="gone"/>
 			    		
 								<EditText 
 									android:id="@+id/etdescripcion2"
@@ -2121,7 +2170,7 @@
 									android:hint="@string/descripcion"
 									android:inputType="textMultiLine|textCapSentences"
 									android:enabled="false"
-									android:layout_below="@+id/etObs1"
+									android:layout_below="@+id/linea2"
 									android:visibility="gone"/>
 
 								<Spinner
@@ -2172,7 +2221,15 @@
 									android:scrollbars="vertical"
 									android:layout_below="@+id/tveliminar2"
 									android:visibility="gone"/>
-			    		
+
+								<View
+									android:id="@+id/linea3"
+									android:layout_width="match_parent"
+									android:layout_height="8dp"
+									android:background="@android:color/holo_orange_light"
+									android:layout_below="@+id/etObs2"
+									android:visibility="gone"/>
+
 								<EditText 
 									android:id="@+id/etdescripcion3"
 									android:layout_width="wrap_content"
@@ -2180,7 +2237,7 @@
 									android:hint="@string/descripcion"
 									android:inputType="textMultiLine|textCapSentences"
 									android:enabled="false"
-									android:layout_below="@+id/etObs2"
+									android:layout_below="@+id/linea3"
 									android:visibility="gone"/>
 
 								<Spinner
@@ -2213,7 +2270,7 @@
 			    			
 								<Button
 									android:id="@+id/tveliminar3"
-									android:layout_width="wrap_content"
+									android:layout_width="match_parent"
 									android:layout_height="wrap_content"
 									android:visibility="gone"
 									android:text="@string/eliminar"
@@ -2231,7 +2288,15 @@
 									android:scrollbars="vertical"
 									android:layout_below="@+id/tveliminar3"
 									android:visibility="gone"/>
-			    		
+
+								<View
+									android:id="@+id/linea4"
+									android:layout_width="match_parent"
+									android:layout_height="8dp"
+									android:background="@android:color/holo_orange_light"
+									android:layout_below="@+id/etObs3"
+									android:visibility="gone"/>
+
 								<EditText 
 									android:id="@+id/etdescripcion4"
 									android:layout_width="wrap_content"
@@ -2239,18 +2304,27 @@
 									android:hint="@string/descripcion"
 									android:inputType="textMultiLine|textCapSentences"
 									android:enabled="false"
-									android:layout_below="@+id/etObs3"
+									android:layout_below="@+id/linea4"
 									android:visibility="gone"/>
-			    			
+
+								<Spinner
+									android:id="@+id/spUni4"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/etdescripcion4"
+									android:visibility="gone"/>
+
+
 								<EditText 
 									android:id="@+id/etdato4"
 									android:layout_width="wrap_content"
 									android:layout_height="70dp"
-									android:layout_below="@+id/etdescripcion4"
+									android:layout_below="@+id/spUni4"
 									android:inputType="numberDecimal"
 									android:maxLength="8"
 									android:hint="@string/unidad"
-									android:visibility="gone"/>
+									android:visibility="gone"
+									style="@style/Subtitle"/>
 			    			
 								<TextView 
 									android:id="@+id/tvuni4"
@@ -2259,16 +2333,10 @@
 									android:visibility="gone"
 									android:paddingTop="43dp"
 									android:layout_toRightOf="@+id/etdato4"
-									android:layout_below="@+id/etdescripcion4"
+									android:layout_below="@+id/spUni4"
 									style="@style/Subtitle"/>
 
-								<Spinner
-									android:id="@+id/spUni4"
-									android:layout_width="match_parent"
-									android:layout_height="wrap_content"
-									android:layout_below="@+id/tvuni4"
-                                    android:visibility="gone"/>
-			    			
+
 								<Button
 									android:id="@+id/tveliminar4"
 									android:layout_width="match_parent"
@@ -2276,8 +2344,7 @@
 									android:visibility="gone"
 									android:text="@string/eliminar"
 									android:paddingLeft="10dp"
-									android:paddingTop="43dp"
-									android:layout_below="@+id/spUni4"
+									android:layout_below="@+id/etdato4"
 									style="@style/Subtitle"/>
 
 								<EditText
@@ -2289,6 +2356,766 @@
 									android:inputType="textMultiLine|textCapSentences"
 									android:enabled="true"
 									android:layout_below="@+id/tveliminar4"
+									android:visibility="gone"/>
+
+								<View
+									android:id="@+id/linea5"
+									android:layout_width="match_parent"
+									android:layout_height="8dp"
+									android:background="@android:color/holo_orange_light"
+									android:layout_below="@+id/etObs4"
+									android:visibility="gone"/>
+
+								<EditText
+									android:id="@+id/etdescripcion5"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:hint="@string/descripcion"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="false"
+									android:layout_below="@+id/linea5"
+									android:visibility="gone"/>
+
+								<Spinner
+									android:id="@+id/spUni5"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/etdescripcion5"
+									android:visibility="gone"/>
+
+
+								<EditText
+									android:id="@+id/etdato5"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:layout_below="@+id/spUni5"
+									android:inputType="numberDecimal"
+									android:maxLength="8"
+									android:hint="@string/unidad"
+									android:visibility="gone"
+									style="@style/Subtitle"/>
+
+								<TextView
+									android:id="@+id/tvuni5"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:paddingTop="43dp"
+									android:layout_toRightOf="@+id/etdato5"
+									android:layout_below="@+id/spUni5"
+									style="@style/Subtitle"/>
+
+
+								<Button
+									android:id="@+id/tveliminar5"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:text="@string/eliminar"
+									android:paddingLeft="10dp"
+									android:layout_below="@+id/etdato5"
+									style="@style/Subtitle"/>
+
+								<EditText
+									android:id="@+id/etObs5"
+									android:layout_width="match_parent"
+									android:layout_height="90dp"
+									android:hint="Motivacion"
+									android:scrollbars="vertical"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="true"
+									android:layout_below="@+id/tveliminar5"
+									android:visibility="gone"/>
+
+								<View
+									android:id="@+id/linea6"
+									android:layout_width="match_parent"
+									android:layout_height="8dp"
+									android:background="@android:color/holo_orange_light"
+									android:layout_below="@+id/etObs5"
+									android:visibility="gone"/>
+
+								<EditText
+									android:id="@+id/etdescripcion6"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:hint="@string/descripcion"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="false"
+									android:layout_below="@+id/linea6"
+									android:visibility="gone"/>
+
+								<Spinner
+									android:id="@+id/spUni6"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/etdescripcion6"
+									android:visibility="gone"/>
+
+
+								<EditText
+									android:id="@+id/etdato6"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:layout_below="@+id/spUni6"
+									android:inputType="numberDecimal"
+									android:maxLength="8"
+									android:hint="@string/unidad"
+									android:visibility="gone"
+									style="@style/Subtitle"/>
+
+								<TextView
+									android:id="@+id/tvuni6"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:paddingTop="43dp"
+									android:layout_toRightOf="@+id/etdato6"
+									android:layout_below="@+id/spUni6"
+									style="@style/Subtitle"/>
+
+
+								<Button
+									android:id="@+id/tveliminar6"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:text="@string/eliminar"
+									android:paddingLeft="10dp"
+									android:layout_below="@+id/etdato6"
+									style="@style/Subtitle"/>
+
+								<EditText
+									android:id="@+id/etObs6"
+									android:layout_width="match_parent"
+									android:layout_height="90dp"
+									android:hint="Motivacion"
+									android:scrollbars="vertical"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="true"
+									android:layout_below="@+id/tveliminar6"
+									android:visibility="gone"/>
+
+								<View
+									android:id="@+id/linea7"
+									android:layout_width="match_parent"
+									android:layout_height="8dp"
+									android:background="@android:color/holo_orange_light"
+									android:layout_below="@+id/etObs6"
+									android:visibility="gone"/>
+
+
+								<EditText
+									android:id="@+id/etdescripcion7"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:hint="@string/descripcion"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="false"
+									android:layout_below="@+id/linea7"
+									android:visibility="gone"/>
+
+								<Spinner
+									android:id="@+id/spUni7"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/etdescripcion7"
+									android:visibility="gone"/>
+
+
+								<EditText
+									android:id="@+id/etdato7"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:layout_below="@+id/spUni7"
+									android:inputType="numberDecimal"
+									android:maxLength="8"
+									android:hint="@string/unidad"
+									android:visibility="gone"
+									style="@style/Subtitle"/>
+
+								<TextView
+									android:id="@+id/tvuni7"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:paddingTop="43dp"
+									android:layout_toRightOf="@+id/etdato7"
+									android:layout_below="@+id/spUni7"
+									style="@style/Subtitle"/>
+
+
+								<Button
+									android:id="@+id/tveliminar7"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:text="@string/eliminar"
+									android:paddingLeft="10dp"
+									android:layout_below="@+id/etdato7"
+									style="@style/Subtitle"/>
+
+								<EditText
+									android:id="@+id/etObs7"
+									android:layout_width="match_parent"
+									android:layout_height="90dp"
+									android:hint="Motivacion"
+									android:scrollbars="vertical"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="true"
+									android:layout_below="@+id/tveliminar7"
+									android:visibility="gone"/>
+
+								<View
+									android:id="@+id/linea8"
+									android:layout_width="match_parent"
+									android:layout_height="8dp"
+									android:background="@android:color/holo_orange_light"
+									android:layout_below="@+id/etObs7"
+									android:visibility="gone"/>
+
+								<EditText
+									android:id="@+id/etdescripcion8"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:hint="@string/descripcion"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="false"
+									android:layout_below="@+id/linea8"
+									android:visibility="gone"/>
+
+								<Spinner
+									android:id="@+id/spUni8"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/etdescripcion8"
+									android:visibility="gone"/>
+
+
+								<EditText
+									android:id="@+id/etdato8"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:layout_below="@+id/spUni8"
+									android:inputType="numberDecimal"
+									android:maxLength="8"
+									android:hint="@string/unidad"
+									android:visibility="gone"
+									style="@style/Subtitle"/>
+
+								<TextView
+									android:id="@+id/tvuni8"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:paddingTop="43dp"
+									android:layout_toRightOf="@+id/etdato8"
+									android:layout_below="@+id/spUni8"
+									style="@style/Subtitle"/>
+
+
+								<Button
+									android:id="@+id/tveliminar8"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:text="@string/eliminar"
+									android:paddingLeft="10dp"
+									android:layout_below="@+id/etdato8"
+									style="@style/Subtitle"/>
+
+								<EditText
+									android:id="@+id/etObs8"
+									android:layout_width="match_parent"
+									android:layout_height="90dp"
+									android:hint="Motivacion"
+									android:scrollbars="vertical"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="true"
+									android:layout_below="@+id/tveliminar8"
+									android:visibility="gone"/>
+
+								<View
+									android:id="@+id/linea9"
+									android:layout_width="match_parent"
+									android:layout_height="8dp"
+									android:background="@android:color/holo_orange_light"
+									android:layout_below="@+id/etObs8"
+									android:visibility="gone"/>
+
+								<EditText
+									android:id="@+id/etdescripcion9"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:hint="@string/descripcion"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="false"
+									android:layout_below="@+id/linea9"
+									android:visibility="gone"/>
+
+								<Spinner
+									android:id="@+id/spUni9"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/etdescripcion9"
+									android:visibility="gone"/>
+
+
+								<EditText
+									android:id="@+id/etdato9"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:layout_below="@+id/spUni9"
+									android:inputType="numberDecimal"
+									android:maxLength="8"
+									android:hint="@string/unidad"
+									android:visibility="gone"
+									style="@style/Subtitle"/>
+
+								<TextView
+									android:id="@+id/tvuni9"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:paddingTop="43dp"
+									android:layout_toRightOf="@+id/etdato9"
+									android:layout_below="@+id/spUni9"
+									style="@style/Subtitle"/>
+
+
+								<Button
+									android:id="@+id/tveliminar9"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:text="@string/eliminar"
+									android:paddingLeft="10dp"
+									android:layout_below="@+id/etdato9"
+									style="@style/Subtitle"/>
+
+								<EditText
+									android:id="@+id/etObs9"
+									android:layout_width="match_parent"
+									android:layout_height="90dp"
+									android:hint="Motivacion"
+									android:scrollbars="vertical"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="true"
+									android:layout_below="@+id/tveliminar9"
+									android:visibility="gone"/>
+
+								<View
+									android:id="@+id/linea10"
+									android:layout_width="match_parent"
+									android:layout_height="8dp"
+									android:background="@android:color/holo_orange_light"
+									android:layout_below="@+id/etObs9"
+									android:visibility="gone"/>
+
+								<EditText
+									android:id="@+id/etdescripcion10"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:hint="@string/descripcion"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="false"
+									android:layout_below="@+id/linea10"
+									android:visibility="gone"/>
+
+								<Spinner
+									android:id="@+id/spUni10"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/etdescripcion10"
+									android:visibility="gone"/>
+
+
+								<EditText
+									android:id="@+id/etdato10"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:layout_below="@+id/spUni10"
+									android:inputType="numberDecimal"
+									android:maxLength="8"
+									android:hint="@string/unidad"
+									android:visibility="gone"
+									style="@style/Subtitle"/>
+
+								<TextView
+									android:id="@+id/tvuni10"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:paddingTop="43dp"
+									android:layout_toRightOf="@+id/etdato10"
+									android:layout_below="@+id/spUni10"
+									style="@style/Subtitle"/>
+
+
+								<Button
+									android:id="@+id/tveliminar10"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:text="@string/eliminar"
+									android:paddingLeft="10dp"
+									android:layout_below="@+id/etdato10"
+									style="@style/Subtitle"/>
+
+								<EditText
+									android:id="@+id/etObs10"
+									android:layout_width="match_parent"
+									android:layout_height="90dp"
+									android:hint="Motivacion"
+									android:scrollbars="vertical"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="true"
+									android:layout_below="@+id/tveliminar10"
+									android:visibility="gone"/>
+
+								<View
+									android:id="@+id/linea11"
+									android:layout_width="match_parent"
+									android:layout_height="8dp"
+									android:background="@android:color/holo_orange_light"
+									android:layout_below="@+id/etObs10"
+									android:visibility="gone"/>
+
+								<EditText
+									android:id="@+id/etdescripcion11"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:hint="@string/descripcion"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="false"
+									android:layout_below="@+id/linea11"
+									android:visibility="gone"/>
+
+								<Spinner
+									android:id="@+id/spUni11"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/etdescripcion11"
+									android:visibility="gone"/>
+
+
+								<EditText
+									android:id="@+id/etdato11"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:layout_below="@+id/spUni11"
+									android:inputType="numberDecimal"
+									android:maxLength="8"
+									android:hint="@string/unidad"
+									android:visibility="gone"
+									style="@style/Subtitle"/>
+
+								<TextView
+									android:id="@+id/tvuni11"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:paddingTop="43dp"
+									android:layout_toRightOf="@+id/etdato11"
+									android:layout_below="@+id/spUni11"
+									style="@style/Subtitle"/>
+
+
+								<Button
+									android:id="@+id/tveliminar11"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:text="@string/eliminar"
+									android:paddingLeft="10dp"
+									android:layout_below="@+id/etdato11"
+									style="@style/Subtitle"/>
+
+								<EditText
+									android:id="@+id/etObs11"
+									android:layout_width="match_parent"
+									android:layout_height="90dp"
+									android:hint="Motivacion"
+									android:scrollbars="vertical"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="true"
+									android:layout_below="@+id/tveliminar11"
+									android:visibility="gone"/>
+
+								<View
+									android:id="@+id/linea12"
+									android:layout_width="match_parent"
+									android:layout_height="8dp"
+									android:background="@android:color/holo_orange_light"
+									android:layout_below="@+id/etObs11"
+									android:visibility="gone"/>
+
+								<EditText
+									android:id="@+id/etdescripcion12"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:hint="@string/descripcion"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="false"
+									android:layout_below="@+id/etObs11"
+									android:visibility="gone"/>
+
+								<Spinner
+									android:id="@+id/spUni12"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/etdescripcion12"
+									android:visibility="gone"/>
+
+
+								<EditText
+									android:id="@+id/etdato12"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:layout_below="@+id/spUni12"
+									android:inputType="numberDecimal"
+									android:maxLength="8"
+									android:hint="@string/unidad"
+									android:visibility="gone"
+									style="@style/Subtitle"/>
+
+								<TextView
+									android:id="@+id/tvuni12"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:paddingTop="43dp"
+									android:layout_toRightOf="@+id/etdato12"
+									android:layout_below="@+id/spUni12"
+									style="@style/Subtitle"/>
+
+
+								<Button
+									android:id="@+id/tveliminar12"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:text="@string/eliminar"
+									android:paddingLeft="10dp"
+									android:layout_below="@+id/etdato12"
+									style="@style/Subtitle"/>
+
+								<EditText
+									android:id="@+id/etObs12"
+									android:layout_width="match_parent"
+									android:layout_height="90dp"
+									android:hint="Motivacion"
+									android:scrollbars="vertical"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="true"
+									android:layout_below="@+id/tveliminar12"
+									android:visibility="gone"/>
+
+								<View
+									android:id="@+id/linea13"
+									android:layout_width="match_parent"
+									android:layout_height="8dp"
+									android:background="@android:color/holo_orange_light"
+									android:layout_below="@+id/etObs12"
+									android:visibility="gone"/>
+
+								<EditText
+									android:id="@+id/etdescripcion13"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:hint="@string/descripcion"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="false"
+									android:layout_below="@+id/linea13"
+									android:visibility="gone"/>
+
+								<Spinner
+									android:id="@+id/spUni13"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/etdescripcion13"
+									android:visibility="gone"/>
+
+
+								<EditText
+									android:id="@+id/etdato13"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:layout_below="@+id/spUni13"
+									android:inputType="numberDecimal"
+									android:maxLength="8"
+									android:hint="@string/unidad"
+									android:visibility="gone"
+									style="@style/Subtitle"/>
+
+								<TextView
+									android:id="@+id/tvuni13"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:paddingTop="43dp"
+									android:layout_toRightOf="@+id/etdato13"
+									android:layout_below="@+id/spUni13"
+									style="@style/Subtitle"/>
+
+
+								<Button
+									android:id="@+id/tveliminar13"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:text="@string/eliminar"
+									android:paddingLeft="10dp"
+									android:layout_below="@+id/etdato13"
+									style="@style/Subtitle"/>
+
+								<EditText
+									android:id="@+id/etObs13"
+									android:layout_width="match_parent"
+									android:layout_height="90dp"
+									android:hint="Motivacion"
+									android:scrollbars="vertical"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="true"
+									android:layout_below="@+id/tveliminar13"
+									android:visibility="gone"/>
+
+								<View
+									android:id="@+id/linea14"
+									android:layout_width="match_parent"
+									android:layout_height="8dp"
+									android:background="@android:color/holo_orange_light"
+									android:layout_below="@+id/etObs13"
+									android:visibility="gone"/>
+
+								<EditText
+									android:id="@+id/etdescripcion14"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:hint="@string/descripcion"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="false"
+									android:layout_below="@+id/linea14"
+									android:visibility="gone"/>
+
+								<Spinner
+									android:id="@+id/spUni14"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/etdescripcion14"
+									android:visibility="gone"/>
+
+
+								<EditText
+									android:id="@+id/etdato14"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:layout_below="@+id/spUni14"
+									android:inputType="numberDecimal"
+									android:maxLength="8"
+									android:hint="@string/unidad"
+									android:visibility="gone"
+									style="@style/Subtitle"/>
+
+								<TextView
+									android:id="@+id/tvuni14"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:paddingTop="43dp"
+									android:layout_toRightOf="@+id/etdato14"
+									android:layout_below="@+id/spUni14"
+									style="@style/Subtitle"/>
+
+
+								<Button
+									android:id="@+id/tveliminar14"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:text="@string/eliminar"
+									android:paddingLeft="10dp"
+									android:layout_below="@+id/etdato14"
+									style="@style/Subtitle"/>
+
+								<EditText
+									android:id="@+id/etObs14"
+									android:layout_width="match_parent"
+									android:layout_height="90dp"
+									android:hint="Motivacion"
+									android:scrollbars="vertical"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="true"
+									android:layout_below="@+id/tveliminar14"
+									android:visibility="gone"/>
+
+								<View
+									android:id="@+id/linea15"
+									android:layout_width="match_parent"
+									android:layout_height="8dp"
+									android:background="@android:color/holo_orange_light"
+									android:layout_below="@+id/etObs14"
+									android:visibility="gone"/>
+
+								<EditText
+									android:id="@+id/etdescripcion15"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:hint="@string/descripcion"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="false"
+									android:layout_below="@+id/linea15"
+									android:visibility="gone"/>
+
+								<Spinner
+									android:id="@+id/spUni15"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@+id/etdescripcion15"
+									android:visibility="gone"/>
+
+
+								<EditText
+									android:id="@+id/etdato15"
+									android:layout_width="wrap_content"
+									android:layout_height="70dp"
+									android:layout_below="@+id/spUni15"
+									android:inputType="numberDecimal"
+									android:maxLength="8"
+									android:hint="@string/unidad"
+									android:visibility="gone"
+									style="@style/Subtitle"/>
+
+								<TextView
+									android:id="@+id/tvuni15"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:paddingTop="43dp"
+									android:layout_toRightOf="@+id/etdato15"
+									android:layout_below="@+id/spUni15"
+									style="@style/Subtitle"/>
+
+
+								<Button
+									android:id="@+id/tveliminar15"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:visibility="gone"
+									android:text="@string/eliminar"
+									android:paddingLeft="10dp"
+									android:layout_below="@+id/etdato15"
+									style="@style/Subtitle"/>
+
+								<EditText
+									android:id="@+id/etObs15"
+									android:layout_width="match_parent"
+									android:layout_height="90dp"
+									android:hint="Motivacion"
+									android:scrollbars="vertical"
+									android:inputType="textMultiLine|textCapSentences"
+									android:enabled="true"
+									android:layout_below="@+id/tveliminar15"
 									android:visibility="gone"/>
 			    		
 							</RelativeLayout>
@@ -2418,6 +3245,29 @@
 									android:text="@string/medida"
 									android:layout_gravity="center" 
 									style="@style/Subtitle"/>
+								<TextView
+									android:id="@+id/tvfudamentoEx"
+									style="@style/Subtitle"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_below="@id/etinfraccion"
+									android:layout_gravity="center"
+									android:text="@string/fundamentoEx"
+									android:visibility="gone"/>
+								<EditText
+									android:id="@+id/etfudamentoEx"
+									android:layout_width="fill_parent"
+									android:layout_height="wrap_content"
+									android:layout_below="@id/etinfraccion"
+									android:layout_toRightOf="@id/tvfudamentoEx"
+									android:background="@color/white"
+									android:enabled="true"
+									android:gravity="fill"
+									android:hint="@string/fundamentoEx"
+									android:inputType="textMultiLine|textCapSentences"
+									android:textSize="16sp"
+									android:textStyle="bold"
+									android:visibility="gone"/>
 
 								<Spinner android:id="@+id/spMedida"
 									android:layout_width="fill_parent"
@@ -2428,23 +3278,154 @@
 
 								<EditText
 									android:id="@+id/etMedida"
-									android:layout_width="fill_parent"
-									android:layout_height="140dp"
+									android:layout_width="220dp"
+									android:layout_height="150dp"
+									android:layout_weight="1"
+									android:textSize="12sp"
 									android:hint="@string/medida"
 									android:layout_below="@id/spMedida"
 									android:inputType="textMultiLine|textCapSentences"
-									android:enabled="true"/>
+									android:visibility="gone"
+									android:enabled="true"
+
+									/>
+
+								<Button
+									android:id="@+id/etdeleA"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:text="Eliminar "
+									android:textSize="12sp"
+									android:paddingLeft="20dp"
+									android:gravity="center_horizontal"
+									android:layout_below="@id/spMedida"
+									android:layout_toRightOf="@id/etMedida"
+									android:visibility="gone"
+
+									></Button>
+
+
+
+								<EditText
+									android:id="@+id/etMedida1"
+									android:layout_width="220dp"
+									android:layout_height="150dp"
+									android:layout_weight="1"
+									android:textSize="12sp"
+									android:hint="@string/medida"
+									android:layout_below="@id/etMedida"
+									android:inputType="textMultiLine|textCapSentences"
+									android:visibility="gone"
+									android:enabled="true"
+
+									/>
+								<Button
+									android:id="@+id/etdeleA1"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:text="Eliminar "
+									android:paddingLeft="20dp"
+									android:gravity="center_horizontal"
+									android:textSize="12sp"
+									android:layout_below="@id/etMedida"
+									android:layout_toRightOf="@id/etMedida1"
+									android:visibility="gone"
+
+									></Button>
+
+								<EditText
+									android:id="@+id/etMedida2"
+									android:layout_width="220dp"
+									android:layout_height="150dp"
+									android:textSize="12sp"
+									android:hint="@string/medida"
+									android:layout_weight="1"
+									android:layout_below="@id/etMedida1"
+									android:inputType="textMultiLine|textCapSentences"
+									android:visibility="gone"
+									android:enabled="true"
+
+									/>
+								<Button
+									android:id="@+id/etdeleA2"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:text="Eliminar "
+									android:paddingLeft="20dp"
+									android:gravity="center_horizontal"
+									android:textSize="12sp"
+									android:layout_below="@id/etMedida1"
+									android:layout_toRightOf="@id/etMedida2"
+									android:visibility="gone"
+
+									></Button>
+
+								<EditText
+									android:id="@+id/etMedida3"
+									android:layout_width="220dp"
+									android:layout_height="150dp"
+									android:textSize="12sp"
+									android:hint="@string/medida"
+									android:layout_weight="1"
+									android:layout_below="@id/etMedida2"
+									android:inputType="textMultiLine|textCapSentences"
+									android:visibility="gone"
+									android:enabled="true"
+
+									/>
+								<Button
+									android:id="@+id/etdeleA3"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:text="Eliminar "
+									android:paddingLeft="20dp"
+									android:gravity="center_horizontal"
+									android:textSize="12sp"
+									android:layout_below="@id/etMedida2"
+									android:layout_toRightOf="@id/etMedida3"
+									android:visibility="gone"
+
+									></Button>
+
+
+								<EditText
+									android:id="@+id/etMedida4"
+									android:layout_width="220dp"
+									android:layout_height="150dp"
+									android:textSize="12sp"
+									android:hint="@string/medida"
+									android:layout_weight="1"
+									android:layout_below="@id/etMedida3"
+									android:inputType="textMultiLine|textCapSentences"
+									android:visibility="gone"
+									android:enabled="true"
+
+									/>
+
+								<Button
+									android:id="@+id/etdeleA4"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"
+									android:text="Eliminar "
+									android:paddingLeft="20dp"
+									android:gravity="center_horizontal"
+									android:textSize="12sp"
+									android:layout_below="@id/etMedida3"
+									android:layout_toRightOf="@id/etMedida4"
+									android:visibility="gone"
+
+									></Button>
 
 								<EditText
 									android:id="@+id/etNumeroSellos"
 									android:layout_width="fill_parent"
 									android:layout_height="140dp"
 									android:hint="@string/numero_de_sellos"
-									android:layout_below="@id/etMedida"
+									android:layout_below="@id/etMedida4"
 									android:inputType="textMultiLine|textCapSentences"
 									android:enabled="true"
 									android:visibility="gone"
-									android:maxLength="49"/>
+									android:maxLength="1500"/>
 
 								<EditText
 									android:id="@+id/etDecomiso"
@@ -2455,7 +3436,7 @@
 									android:inputType="textMultiLine|textCapSentences"
 									android:enabled="true"
 									android:visibility="gone"
-									android:maxLength="499"/>
+									android:maxLength="600"/>
 
 								<LinearLayout
 									android:id="@+id/llfundamento"
@@ -2487,22 +3468,16 @@
 									android:visibility="gone"
 
 									></Button>
-								<Button
-									android:id="@+id/etdeleA"
-									android:layout_width="wrap_content"
-									android:layout_height="wrap_content"
-									android:text="Eliminar "
-									android:textSize="12sp"
-									android:layout_below="@id/llfundamento"
-									android:layout_toRightOf="@id/etAcepA"
-									android:visibility="gone"
 
-									></Button>
 								<EditText 
 									android:id="@+id/etArticulos"
 									android:layout_width="fill_parent"
 									android:layout_height="100dp"
 									android:hint="@string/art"
+									android:textSize="12sp"
+									android:paddingLeft="5dp"
+									android:maxHeight="35dp"
+									android:scrollbars="vertical"
 									android:layout_below="@id/etAcepA"
 									android:inputType="textMultiLine|textCapSentences"
 									android:enabled="true"/>
@@ -2531,10 +3506,10 @@
 								<EditText 
 									android:id="@+id/etGiro"
 									android:layout_width="fill_parent"
-									android:layout_height="100dp"
-									android:hint="@string/giro"
+									android:layout_height="wrap_content"
+									android:hint="GIRO"
 									android:layout_below="@id/spGiro"
-									android:layout_toRightOf="@id/tvgiro"
+
 									android:inputType="textCapSentences"
 									android:visibility="gone"/>
 								
@@ -2734,6 +3709,7 @@
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:prompt="@string/iden"
+							android:textSize="24dp"
 							android:layout_gravity="center_horizontal"/>
 
 						<TextView
@@ -2768,6 +3744,7 @@
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:prompt="@string/iden"
+							android:textSize="24dp"
 							android:layout_gravity="center_horizontal"/>
 
 						<TextView
@@ -2861,6 +3838,7 @@
 						android:layout_height="wrap_content"
 						android:text="@string/tomarFoto"
 						android:drawableRight="@android:drawable/ic_menu_camera"
+						android:focusable="true"
 						style="@style/Boton"/>
 	    		
 					<ImageView 
