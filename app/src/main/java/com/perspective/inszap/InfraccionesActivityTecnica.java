@@ -15237,7 +15237,7 @@ String numeroS="";
                              concatM+=spMedida.getSelectedItem().toString()+",  ";
                              contador++;
                          }else{*/
-
+                        btnArticulos.setEnabled(true);
                         Log.e("agrego medida",orden.get(spMedida.getSelectedItemPosition()).trim());
                         Log.e("agrego articulo",art.get(spMedida.getSelectedItemPosition()).trim());
                         reglaArt.add(orden.get(spMedida.getSelectedItemPosition()).trim());

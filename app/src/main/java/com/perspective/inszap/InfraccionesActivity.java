@@ -2055,6 +2055,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etDesc.setText(t);
                             desc = true;
                             etObs.setVisibility(View.VISIBLE);
+                            //Log.v("juanca estuvo aqui", "desc1 sp infraccion: "+spInfraccion.getItemAtPosition(position).toString().substring(0,4) );
+                            if(id2==4) {
+                                String numeroI=spInfraccion.getItemAtPosition(position).toString().substring(0, 4);
+                                if (numeroI.equals("151 ")) {
+                                    etObs.setText("Folio: " + etfolioap.getText().toString() + " y Fecha:" + etfechap.getText().toString());
+
+                                }
+                            }
                             co++;
                         } else if (!desc1) {
                             linea1.setVisibility(View.VISIBLE);
@@ -2087,6 +2095,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etDesc1.setText(t);
                             desc1 = true;
                             etObs1.setVisibility(View.VISIBLE);
+                            if(id2==4) {
+                                String numeroI=spInfraccion.getItemAtPosition(position).toString().substring(0, 4);
+                                if (numeroI.equals("151 ")) {
+                                    etObs1.setText("Folio: " + etfolioap.getText().toString() + " y Fecha:" + etfechap.getText().toString());
+
+                                }
+                            }
                             co++;
                         } else if (!desc2) {
                             linea2.setVisibility(View.VISIBLE);
@@ -2118,6 +2133,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etDesc2.setText(t);
                             desc2 = true;
                             etObs2.setVisibility(View.VISIBLE);
+                            if(id2==4) {
+                                String numeroI=spInfraccion.getItemAtPosition(position).toString().substring(0, 4);
+                                if (numeroI.equals("151 ")) {
+                                    etObs2.setText("Folio: " + etfolioap.getText().toString() + " y Fecha:" + etfechap.getText().toString());
+
+                                }
+                            }
                             co++;
                         } else if (!desc3) {
 
@@ -2150,6 +2172,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etDesc3.setText(des3);
                             desc3 = true;
                             etObs3.setVisibility(View.VISIBLE);
+                            if(id2==4) {
+                                String numeroI=spInfraccion.getItemAtPosition(position).toString().substring(0, 4);
+                                if (numeroI.equals("151 ")) {
+                                    etObs3.setText("Folio: " + etfolioap.getText().toString() + " y Fecha:" + etfechap.getText().toString());
+
+                                }
+                            }
                             co++;
                         } else if(!desc4) {
 
@@ -2181,6 +2210,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etDesc4.setText(t);
                             desc4 = true;
                             etObs4.setVisibility(View.VISIBLE);
+                            if(id2==4) {
+                                String numeroI=spInfraccion.getItemAtPosition(position).toString().substring(0, 4);
+                                if (numeroI.equals("151 ")) {
+                                    etObs4.setText("Folio: " + etfolioap.getText().toString() + " y Fecha:" + etfechap.getText().toString());
+
+                                }
+                            }
                             co++;
                         }
                         else if(!desc5) {
@@ -2212,6 +2248,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etDesc5.setText(t);
                             desc5 = true;
                             etObs5.setVisibility(View.VISIBLE);
+                            if(id2==4) {
+                                String numeroI=spInfraccion.getItemAtPosition(position).toString().substring(0, 4);
+                                if (numeroI.equals("151 ")) {
+                                    etObs5.setText("Folio: " + etfolioap.getText().toString() + " y Fecha:" + etfechap.getText().toString());
+
+                                }
+                            }
                             co++;
                         }
                         else if(!desc6) {
@@ -2243,6 +2286,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etDesc6.setText(t);
                             desc6 = true;
                             etObs6.setVisibility(View.VISIBLE);
+                            if(id2==4) {
+                                String numeroI=spInfraccion.getItemAtPosition(position).toString().substring(0, 4);
+                                if (numeroI.equals("151 ")) {
+                                    etObs6.setText("Folio: " + etfolioap.getText().toString() + " y Fecha:" + etfechap.getText().toString());
+
+                                }
+                            }
                             co++;
                         }
                         else if(!desc7) {
@@ -2274,6 +2324,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etDesc7.setText(t);
                             desc7 = true;
                             etObs7.setVisibility(View.VISIBLE);
+                            if(id2==4) {
+                                String numeroI=spInfraccion.getItemAtPosition(position).toString().substring(0, 4);
+                                if (numeroI.equals("151 ")) {
+                                    etObs7.setText("Folio: " + etfolioap.getText().toString() + " y Fecha:" + etfechap.getText().toString());
+
+                                }
+                            }
                             co++;
                         }
                         else if(!desc8) {
@@ -2305,6 +2362,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etDesc8.setText(t);
                             desc8 = true;
                             etObs8.setVisibility(View.VISIBLE);
+                            if(id2==4) {
+                                String numeroI=spInfraccion.getItemAtPosition(position).toString().substring(0, 4);
+                                if (numeroI.equals("151 ")) {
+                                    etObs8.setText("Folio: " + etfolioap.getText().toString() + " y Fecha:" + etfechap.getText().toString());
+
+                                }
+                            }
                             co++;
                         }
                         else if(!desc9) {
@@ -2336,6 +2400,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etDesc9.setText(t);
                             desc9 = true;
                             etObs9.setVisibility(View.VISIBLE);
+                            if(id2==4) {
+                                String numeroI=spInfraccion.getItemAtPosition(position).toString().substring(0, 4);
+                                if (numeroI.equals("151 ")) {
+                                    etObs9.setText("Folio: " + etfolioap.getText().toString() + " y Fecha:" + etfechap.getText().toString());
+
+                                }
+                            }
                             co++;
                         }
                         else if(!desc10) {
@@ -2367,6 +2438,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etDesc10.setText(t);
                             desc10 = true;
                             etObs10.setVisibility(View.VISIBLE);
+                            if(id2==4) {
+                                String numeroI=spInfraccion.getItemAtPosition(position).toString().substring(0, 4);
+                                if (numeroI.equals("151 ")) {
+                                    etObs10.setText("Folio: " + etfolioap.getText().toString() + " y Fecha:" + etfechap.getText().toString());
+
+                                }
+                            }
                             co++;
                         }
                         else if(!desc11) {
@@ -2398,6 +2476,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etDesc11.setText(t);
                             desc11 = true;
                             etObs11.setVisibility(View.VISIBLE);
+                            if(id2==4) {
+                                String numeroI=spInfraccion.getItemAtPosition(position).toString().substring(0, 4);
+                                if (numeroI.equals("151 ")) {
+                                    etObs11.setText("Folio: " + etfolioap.getText().toString() + " y Fecha:" + etfechap.getText().toString());
+
+                                }
+                            }
                             co++;
                         }
                         else if(!desc12) {
@@ -2429,6 +2514,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etDesc12.setText(t);
                             desc12 = true;
                             etObs12.setVisibility(View.VISIBLE);
+                            if(id2==4) {
+                                String numeroI=spInfraccion.getItemAtPosition(position).toString().substring(0, 4);
+                                if (numeroI.equals("151 ")) {
+                                    etObs12.setText("Folio: " + etfolioap.getText().toString() + " y Fecha:" + etfechap.getText().toString());
+
+                                }
+                            }
                             co++;
                         }
                         else if(!desc13) {
@@ -2460,6 +2552,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etDesc13.setText(t);
                             desc13 = true;
                             etObs13.setVisibility(View.VISIBLE);
+                            if(id2==4) {
+                                String numeroI=spInfraccion.getItemAtPosition(position).toString().substring(0, 4);
+                                if (numeroI.equals("151 ")) {
+                                    etObs13.setText("Folio: " + etfolioap.getText().toString() + " y Fecha:" + etfechap.getText().toString());
+
+                                }
+                            }
                             co++;
                         }
                         else if(!desc14) {
@@ -2492,6 +2591,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etDesc14.setText(t);
                             desc14 = true;
                             etObs14.setVisibility(View.VISIBLE);
+                            if(id2==4) {
+                                String numeroI=spInfraccion.getItemAtPosition(position).toString().substring(0, 4);
+                                if (numeroI.equals("151 ")) {
+                                    etObs14.setText("Folio: " + etfolioap.getText().toString() + " y Fecha:" + etfechap.getText().toString());
+
+                                }
+                            }
                             co++;
                         }
 
@@ -2524,6 +2630,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             etDesc15.setText(t);
                             desc15 = true;
                             etObs15.setVisibility(View.VISIBLE);
+                            if(id2==4) {
+                                String numeroI=spInfraccion.getItemAtPosition(position).toString().substring(0, 4);
+                                if (numeroI.equals("151 ")) {
+                                    etObs15.setText("Folio: " + etfolioap.getText().toString() + " y Fecha:" + etfechap.getText().toString());
+
+                                }
+                            }
                             co++;
                         }
                         spInfraccion.setSelection(0);
@@ -4357,7 +4470,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     tvNombreComercial.setText("Nombre del Propietario o Representante Legal");
                     etReferencia.setVisibility(View.GONE);
                     tvReferencia.setVisibility(View.GONE);
-                   // btnTomarF.setVisibility(View.GONE);
+
                     etAGiro.setHint("Area");
                     etAGiro.setText(direccion);
                     tvgiro.setText("Area");
@@ -9216,7 +9329,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 tvNombreComercial.setText("Nombre del Propietario o Representante Legal");
 			    etReferencia.setVisibility(View.GONE);
 			    tvReferencia.setVisibility(View.GONE);
-               // btnTomarF.setVisibility(View.GONE);
+                btnTomarF.setVisibility(View.GONE);
                 etAGiro.setHint("Area");
                 etAGiro.setText(direccion);
                 tvgiro.setText("Area");
@@ -9908,6 +10021,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			etMedida.setText(lev.get(0).getMedida_seguridad());
 			etArticulo.setText(lev.get(0).getArticulo_medida());
 			etVManifiesta.setText(lev.get(0).getManifiesta_ser());
+			etfolioap.setText(lev.get(0).getFolio_apercibimiento());
+			if(lev.get(0).getFecha_apercibimiento()!=null) {
+                String[] fechaap2 = lev.get(0).getFecha_apercibimiento().split("-");
+
+
+                etfechap.setText(fechaap2[2] + "-" + fechaap2[1] + "-" + fechaap2[0]);
+            }else{
+
+                etfechap.setText("");
+            }
+
+
 			
 			//id_inspector1 = lev.get(0).getId_c_inspector1();
 			id_inspector2 = lev.get(0).getId_c_inspector2();
@@ -10085,6 +10210,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		}
 		List<Levantamiento> levantamiento = new ArrayList<Levantamiento>();
 		String sql = "select * from Levantamiento where " + condicion;
+
+		//sql ="SELECT sql FROM sqlite_schema  WHERE name = 'Levantamiento'";
 		System.out.println(sql + " 1");
 		
 		Cursor cursor = db.rawQuery(sql, null);
@@ -10094,8 +10221,15 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			if(cursor.moveToFirst()) {
 				System.out.println(sql + " 3");
 				do {
-					System.out.println(sql + " 4");
-					Levantamiento levantamientos = cursorToLevantamiento(cursor);
+
+                    /*for (String  campo:cursor.getColumnNames()
+                         ) {
+                        System.out.println("campo: "+ campo);
+                        System.out.println("valor: "+ cursor.getString(cursor.getColumnIndex(campo)));
+
+                    }*/
+
+                    Levantamiento levantamientos = cursorToLevantamiento(cursor);
 					levantamiento.add(levantamientos);
 				} while (cursor.moveToNext());
 			}
@@ -10139,6 +10273,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		//numero_citatorio TEXT,infraccion int,tipo_acta text,fecha numeric,hora_inicio time,longitud float,latitud float,orden_vista int,fecha_orden_v numeric,Zona text,nombre_visitado text,se_identifica text,manifiesta_ser text,fraccionamiento text,calle text,numero_ext text,numero_int text,apellidop_prop text,apellidom_prop text,nombre_razon text,nombre_testigo1 text,ife_testigo1 text,designado_por1 text,nombre_testigo2 text,ife_testigo2 text,designado_por2 text,uso_catalogo text,hechos text,infracciones text,id_c_infraccion text,uso_suelo text,densidad text,manifiesta text,gravedad int,dias_plazo int,fecha_plazo numeric,hora_termino time,tipo_visita TEXT,id_pago int,pago numeric, fecha_pago numeric, estatus text,condominio TEXT,manzana TEXT,lote TEXT,capturo text,fecha_atiende_juez numeric, fecha_cancelacion numeric,fecha_efectua_multa numeric, vigencia_multa int, fecha_vigencia numeric,multa text,observaciones text, referencia TEXT
 		System.out.println(cursor.getString(cursor.getColumnIndex("licencia_giro")));
 		System.out.println(cursor.getString(cursor.getColumnIndex("actividad_giro")));
+        //System.out.println("pruebaaaa: "+ cursor.getString(cursor.getColumnIndex("fecha_apercibimiento")));
+
 		return new Levantamiento(cursor.getInt(cursor.getColumnIndex("id_c_direccion")), cursor.getInt(cursor.getColumnIndex("id_c_inspector1")), cursor.getInt(cursor.getColumnIndex("id_c_inspector2")), cursor.getString(cursor.getColumnIndex("numero_acta")), cursor.getString(cursor.getColumnIndex("nombre_visitado")), cursor.getString(cursor.getColumnIndex("se_identifica")), cursor.getString(cursor.getColumnIndex("manifiesta_ser")), cursor.getString(cursor.getColumnIndex("fraccionamiento")), cursor.getString(cursor.getColumnIndex("calle")), cursor.getString(cursor.getColumnIndex("numero_ext")), cursor.getString(cursor.getColumnIndex("numero_int")), cursor.getString(cursor.getColumnIndex("nombre_razon")), cursor.getString(cursor.getColumnIndex("apellidop_prop")), cursor.getString(cursor.getColumnIndex("apellidom_prop")), cursor.getInt(cursor.getColumnIndex("id_c_competencia")),cursor.getString(cursor.getColumnIndex("fecha")),cursor.getString(cursor.getColumnIndex("entre_calle1")),cursor.getString(cursor.getColumnIndex("entre_calle2")),cursor.getString(cursor.getColumnIndex("responsable_obra")),cursor.getString(cursor.getColumnIndex("registro_responsable")),cursor.getString(cursor.getColumnIndex("identifica")),cursor.getString(cursor.getColumnIndex("peticion")),cursor.getString(cursor.getColumnIndex("v_firma")),cursor.getString(cursor.getColumnIndex("motivo_orden")),cursor.getString(cursor.getColumnIndex("medida_seguridad")),cursor.getString(cursor.getColumnIndex("articulo_medida")),cursor.getInt(cursor.getColumnIndex("id_c_inspector3")),cursor.getInt(cursor.getColumnIndex("id_c_inspector4")),cursor.getInt(cursor.getColumnIndex("id_c_inspector5")),cursor.getInt(cursor.getColumnIndex("id_c_inspector6")),cursor.getString(cursor.getColumnIndex("Zona")),cursor.getString(cursor.getColumnIndex("referencia")),cursor.getString(cursor.getColumnIndex("l_construccion")),cursor.getString(cursor.getColumnIndex("condominio")),cursor.getString(cursor.getColumnIndex("numero_citatorio")),cursor.getString(cursor.getColumnIndex("licencia_giro")),cursor.getString(cursor.getColumnIndex("actividad_giro")),cursor.getInt(cursor.getColumnIndex("axo_licencia")),cursor.getString(cursor.getColumnIndex("nombre_comercial")),cursor.getString(cursor.getColumnIndex("sector")),cursor.getString(cursor.getColumnIndex("folio_apercibimiento")),cursor.getString(cursor.getColumnIndex("fecha_apercibimiento")));
 	}
 	
@@ -10298,13 +10434,15 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                 cv.put("tipo_cedula",tipo_cedula);
                 cv.put("folio_peticion",etfoliopeticion);
-                cv.put("folio_apercibimiento",etfolioap);
-                cv.put("fecha_apercibimiento",etfechap);
+                cv.put("folio_apercibimiento",etfolioclau);
+                cv.put("fecha_apercibimiento",etfechaclau);
 
                 cv.put("numero_sellos",numero_sellos);
                 cv.put("decomiso",decomiso);
-                cv.put("folio_clausura",etfolioclau);
-                cv.put("fecha_clausura",etfechaclau);
+                cv.put("folio_clausura",etfolioap);
+                cv.put("fecha_clausura",etfechap);
+
+
 
 		
 				n = db.insert("Levantamiento", null, cv);				
@@ -12005,6 +12143,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				    doc.add(new Paragraph(" ",new Font(Font.HELVETICA,3,Color.BLACK)));
 
 				    if(id == 4) {
+
 				        if(etNombreComercial.getText().toString().equalsIgnoreCase("")) {
                             canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -16547,6 +16686,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 }
 
                 if(id == 2 | id == 5) {
+                    btnArticulos.setEnabled(true);
                         /*if(spMedida.getSelectedItem().toString().trim().contains("Clausura") || spMedida.getSelectedItem().toString().contains("CLAUSURA")) {
                             Toast toast = Toast.makeText(getApplicationContext(),"Agregar sellos de clausura",Toast.LENGTH_LONG);
                             toast.setGravity(0,0,15);

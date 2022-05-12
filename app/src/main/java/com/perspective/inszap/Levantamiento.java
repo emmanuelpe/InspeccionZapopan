@@ -3,6 +3,8 @@ package com.perspective.inszap;
 
 //,manifiesta_ser text,fraccionamiento text,calle text,numero_ext text,numero_int text,apellidop_prop text,apellidom_prop text,nombre_razon text,nombre_testigo1 text,ife_testigo1 text,designado_por1 text,nombre_testigo2 text,ife_testigo2 text,designado_por2 text,uso_catalogo text,hechos text,infracciones text,id_c_infraccion text,uso_suelo text,densidad text,manifiesta text,gravedad int,dias_plazo int,fecha_plazo numeric,hora_termino time,tipo_visita TEXT,id_pago int,pago numeric, fecha_pago numeric, estatus text,condominio TEXT,manzana TEXT,lote TEXT,capturo text,fecha_atiende_juez numeric, fecha_cancelacion numeric,fecha_efectua_multa numeric, vigencia_multa int, fecha_vigencia numeric,multa text,observaciones text, referencia TEXT
 
+import android.util.Log;
+
 public class Levantamiento {
 	
 	private int idLevantamiento,infraccion,tipoActa,idCDireccion,ordenVista,id_c_inspector1,id_c_inspector2,id_c_inspector3,id_c_inspector4,id_c_inspector5,id_c_inspector6,gravedad,dias_plazo,id_pago,idComp,axo_licencia;
@@ -56,6 +58,7 @@ public class Levantamiento {
 		this.axo_licencia = axo_licencia;
 		this.folio_apercibimiento=folio_apercibimiento;
 		this.fecha_apercibimiento=fecha_apercibimiento;
+		Log.i("ligar:", "fecha_apercebimiento: "+fecha_apercibimiento);
 	}
 	
 	public Levantamiento(int idCDireccion,int id_c_inspector1,int id_c_inspector2,String numeroActa,String nombre_visitado,String se_identifica,
@@ -108,6 +111,7 @@ public class Levantamiento {
 		this.sector = sector;
 		this.folio_apercibimiento=folio_apercibimiento;
 		this.fecha_apercibimiento=fecha_apercibimiento;
+		//Log.i("ligar:", "fecha_apercebimiento: "+fecha_apercibimiento);
 	}
 	public String getIdentifica() {
 		return identifica;

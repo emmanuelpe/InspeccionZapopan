@@ -336,13 +336,13 @@ public class Connection {
 
 			levanta.add(new BasicNameValuePair("tipo_cedula", tipo_cedula + ""));
 			levanta.add(new BasicNameValuePair("folio_peticion", etfoliopeticion));
-			levanta.add(new BasicNameValuePair("folio_apercibimiento", etfolioap));
-			levanta.add(new BasicNameValuePair("fecha_apercibimiento", etfechap));
+			levanta.add(new BasicNameValuePair("folio_apercibimiento", folio_clausura));
+			levanta.add(new BasicNameValuePair("fecha_apercibimiento", fechaclau));
 
 			levanta.add(new BasicNameValuePair("numero_sellos", numero_sellos));
 			levanta.add(new BasicNameValuePair("decomiso", decomiso));
-			levanta.add(new BasicNameValuePair("folio_clausura",folio_clausura));
-			levanta.add(new BasicNameValuePair("fecha_clausura",fechaclau));
+			levanta.add(new BasicNameValuePair("folio_clausura",etfolioap));
+			levanta.add(new BasicNameValuePair("fecha_clausura",etfechap));
 
 			JSONObject json = jsonParser.realizarHttpRequest(url, "POST", levanta);
 			
