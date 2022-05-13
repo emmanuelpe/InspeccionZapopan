@@ -11390,14 +11390,14 @@ String numeroS="";
                         if(!cbDatos2.isChecked()){
 
 
-                            canvas.saveState();
+                            /*canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9.35f);
                             canvas.moveText(86, 169f);
                             canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
                             canvas.endText();
-                            canvas.restoreState();
+                            canvas.restoreState();*/
                         }
                     }else{
                             /*canvas.saveState();
@@ -11428,26 +11428,26 @@ String numeroS="";
                                 brinco-=9;
 
                             }
-                            canvas.saveState();
+                            /*canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9.35f);
                             canvas.moveText(86, 169f);
                             canvas.showText(etVIdentifica.getText().toString() );
                             canvas.endText();
-                            canvas.restoreState();
+                            canvas.restoreState();*/
                         }
                     }
                     if(!cbDatos2.isChecked()) {
                         if(!cbDatos.isChecked()) {
-                            canvas.saveState();
+                            /*canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9.35f);
                             canvas.moveText(86, 169f);
                             canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
                             canvas.endText();
-                            canvas.restoreState();
+                            canvas.restoreState();*/
                         }
                     }else{
                         String leyenda2="En ausencia de persona alguna, se llevó a cabo la presente diligencia por cedula; con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus articulos 86 y 87";
@@ -11468,14 +11468,14 @@ String numeroS="";
                                 brinco-=9;
 
                             }
-                            canvas.saveState();
+                           /* canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9.35f);
                             canvas.moveText(86, 169f);
                             canvas.showText("Ausencia de persona alguna, se llevó a cabo la presente diligencia por cedula" );
                             canvas.endText();
-                            canvas.restoreState();
+                            canvas.restoreState();*/
                         }
 
 
@@ -11483,14 +11483,14 @@ String numeroS="";
                 } else {
                     if (!cbDatos.isChecked()) {
                         if (!cbDatos2.isChecked()) {
-                            canvas.saveState();
+                            /*canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9.35f);
                             canvas.moveText(86, 169f);
                             canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString() + " " + etVManifiesta.getText().toString());
                             canvas.endText();
-                            canvas.restoreState();
+                            canvas.restoreState();*/
                         }
                     } else {
                         String leyenda = "El visitado no proporciono dato alguno de su identidad, por lo que se lleva a cabo la presente diligencia con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus articulos 86 y 87, con descripcion de su media afiliacion";
@@ -11513,14 +11513,14 @@ String numeroS="";
                                 brinco -= 9;
 
                             }
-                            canvas.saveState();
+                            /*canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9.35f);
                             canvas.moveText(86, 169f);
                             canvas.showText(etVIdentifica.getText().toString());
                             canvas.endText();
-                            canvas.restoreState();
+                            canvas.restoreState();*/
                         }
                     }
                     if (!cbDatos2.isChecked()) {
@@ -11546,20 +11546,20 @@ String numeroS="";
                                 brinco -= 9;
 
                             }
-                            canvas.saveState();
+                            /*canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9.35f);
                             canvas.moveText(86, 169f);
                             canvas.showText("Ausencia de persona alguna, se llevó a cabo la presente diligencia por cedula");
                             canvas.endText();
-                            canvas.restoreState();
+                            canvas.restoreState();*/
                         }
 
                     }
                 }
 
-                canvas.saveState();
+                /*canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9.25f);
@@ -11613,7 +11613,8 @@ String numeroS="";
                     canvas.showText("No");
                     canvas.endText();
                     canvas.restoreState();
-                }
+                }*/
+
                 doc.close();
             } catch (DocumentException e) {
                 System.err.println(e.getMessage() + " doc ");
