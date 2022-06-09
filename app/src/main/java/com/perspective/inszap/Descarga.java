@@ -179,7 +179,12 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		btnLicencias.setOnClickListener(this);
 		modoT.setChecked(false);
 		mProgressBar.setVisibility(View.GONE);
-		btnReimprimir1.setVisibility(View.GONE);
+		//desbloquear reimpresion
+		if (!direccion.trim().contains("Construcc")) {
+			btnReimprimir1.setVisibility(View.GONE);
+		}else{
+
+		}
 
 
 		c = new Connection(getApplicationContext());
@@ -2016,9 +2021,9 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				startActivity(new Intent(getApplicationContext(), ConsultarInfracciones.class).putExtras(bundle));
 				break;
 
-			/*case R.id.btnReimprimir1:
-				startActivity(new Intent(getApplicationContext(), Reimprimir.class).putExtras(bundle));
-				break;*/
+			case R.id.btnReimprimir1:
+				startActivity(new Intent(getApplicationContext(), ReimprimirActivity.class).putExtras(bundle));
+				break;
 			case R.id.btnConsultarLicenciaC:
 				startActivity(new Intent(getApplicationContext(),ConsultarLicenciaConstruccion.class));
 				break;
@@ -2584,7 +2589,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 
 			}
 			else
-				msj = "No hay datos guardados en el dispositivo";
+				msj = "No hay fotografias por enviar";
 			return msj;
 		}
 

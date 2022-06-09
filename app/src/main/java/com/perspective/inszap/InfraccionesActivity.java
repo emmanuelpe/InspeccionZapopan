@@ -10022,7 +10022,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			etArticulo.setText(lev.get(0).getArticulo_medida());
 			etVManifiesta.setText(lev.get(0).getManifiesta_ser());
 			etfolioap.setText(lev.get(0).getFolio_apercibimiento());
-			if(lev.get(0).getFecha_apercibimiento()!=null) {
+			if(lev.get(0).getFecha_apercibimiento().length() > 1   ) {
                 String[] fechaap2 = lev.get(0).getFecha_apercibimiento().split("-");
 
 
@@ -10211,23 +10211,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		List<Levantamiento> levantamiento = new ArrayList<Levantamiento>();
 		String sql = "select * from Levantamiento where " + condicion;
 
-		//sql ="SELECT sql FROM sqlite_schema  WHERE name = 'Levantamiento'";
-		System.out.println(sql + " 1");
+
+
 		
 		Cursor cursor = db.rawQuery(sql, null);
 		
 		if(db != null) {
-			System.out.println(sql + " 2");
+
 			if(cursor.moveToFirst()) {
-				System.out.println(sql + " 3");
+
 				do {
 
-                    /*for (String  campo:cursor.getColumnNames()
-                         ) {
-                        System.out.println("campo: "+ campo);
-                        System.out.println("valor: "+ cursor.getString(cursor.getColumnIndex(campo)));
 
-                    }*/
 
                     Levantamiento levantamientos = cursorToLevantamiento(cursor);
 					levantamiento.add(levantamientos);
