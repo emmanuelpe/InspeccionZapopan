@@ -11478,12 +11478,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         if(!numeroOV.equalsIgnoreCase("")) {
                             String[] fecha_ov=null;
                             if(fechaOV.length()>1) {
-                                fecha_ov = fechaOV.split("/");
-
+                                fecha_ov = numeroOV.split("/");
 
                                 datos = "mediante y en cumplimiento de la Orden de Visita folio número "
-                                        + numeroOV +"  dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fecha_ov[0] +" de "+mes(fecha_ov[1]) +" del año "+fecha_ov[2]+ " misma que en original exhibo y en original legible entrego " +
+                                        + numeroOV +"  dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fecha_ov[3] +" de "+mes(fecha_ov[4]) +" del año "+fecha_ov[5]+ " misma que en original exhibo y en original legible entrego " +
                                         "al visitado, " + etNombreV.getText().toString() + ",";
+
+
                             }else{
                                 fecha_ov = numeroOV.split("/");
 
