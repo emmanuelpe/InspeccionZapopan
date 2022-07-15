@@ -175,8 +175,10 @@ public class ReimprimirActivity extends AppCompatActivity implements View.OnClic
                 //checkPermisionToApp(Manifest.permission.WRITE_EXTERNAL_STORAGE,RP_STORAGE);
                 //
                 imprimirR("infraccion");
-                if(consultaActa(etNumero.getText().toString())==0)
-                descargarFotografia(etNumero.getText().toString());
+                if(consultaActa(etNumero.getText().toString())==0) {
+                    if(!etNumero.getText().toString().contains("OV"))
+                    descargarFotografia(etNumero.getText().toString());
+                }
                 try {
 
                     try{

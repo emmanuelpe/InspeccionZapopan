@@ -9185,7 +9185,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             etPropietario.setText("");
             etApellidoM.setText("");
             etApellidoP.setText("");
-            numeroOV = "";
+            numeroOV = etOrden1.getText().toString();
             fechaOV = "";
             idComp = 0;
             etEntreC.setText("");
@@ -9237,9 +9237,18 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             spNombreA4.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, arregloLista));
 
 
-            Toast toast = Toast.makeText(getApplicationContext(), "No se encontro orden de visita", Toast.LENGTH_LONG);
-            toast.setGravity(0, 0, 15);
-            toast.show();
+            String [] verificar=numeroOV.split("/");
+            Log.i("tamaño array oV:",numeroOV+" :"+ String.valueOf(verificar.length));
+            if(verificar.length==7) {
+
+                Toast toast = Toast.makeText(getApplicationContext(), "Orden de visita se encuentra en otra tableta se activa modo manual se respeta el folio ingresado.", Toast.LENGTH_LONG);
+                toast.setGravity(0, 0, 15);
+                toast.show();
+            }else{
+                Toast toast = Toast.makeText(getApplicationContext(), "Numero de Orden de Visita Invalido ¡¡Verificar!!", Toast.LENGTH_LONG);
+                toast.setGravity(0, 0, 15);
+                toast.show();
+            }
         }
     }
 
@@ -10188,7 +10197,7 @@ public String vigencia_inicial(String v){
         int margingright=0;
         if(formato.equalsIgnoreCase("infraccion")){
             marginleft=25;
-            margingright=35;
+            margingright=31;
         }else{
             marginleft=26;
             margingright=29;
@@ -10233,7 +10242,7 @@ public String vigencia_inicial(String v){
 
         System.err.println(medida);
 
-        Font font1 = new Font(Font.HELVETICA,9.5f,Color.BLACK);
+        Font font1 = new Font(Font.HELVETICA,9.8f,Color.BLACK);
 
         DottedLineSeparator dottedLineSeparator = new DottedLineSeparator();
         dottedLineSeparator.setGap(7);
@@ -10269,7 +10278,7 @@ public String vigencia_inicial(String v){
                 try {
 
                     img = Jpeg.getInstance(stream.toByteArray());
-                    img.setAbsolutePosition(0, 0);
+                    img.setAbsolutePosition(0, 21);
 
                     float width = doc.getPageSize().getWidth();
                     float height = doc.getPageSize().getHeight();
@@ -10292,7 +10301,7 @@ public String vigencia_inicial(String v){
                 doc.add(new Paragraph(" ",font1));
                 doc.add(new Paragraph(" ",font1));
 
-                doc.add(new Paragraph(" ",new Font(Font.BOLD,21,Color.BLACK)));
+                doc.add(new Paragraph(" ",new Font(Font.BOLD,5,Color.BLACK)));
 
                 Font font = new Font(Font.BOLD,10,Color.BLACK);
 
@@ -10305,7 +10314,7 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(30, 910);
+                canvas.moveText(30, 930);
                 canvas.showText(direccion);
                 canvas.endText();
                 canvas.restoreState();
@@ -10315,7 +10324,7 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(200, 910);
+                canvas.moveText(200, 930);
                 canvas.showText(spZona.getSelectedItem().toString());
                 canvas.endText();
                 canvas.restoreState();
@@ -10325,7 +10334,7 @@ public String vigencia_inicial(String v){
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 11);
-                canvas.moveText(450, 910);
+                canvas.moveText(450, 930);
                 canvas.showText(etNumeroActa.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
@@ -10351,11 +10360,22 @@ public String vigencia_inicial(String v){
                 }
                 String datos = "";
                 if(!numeroOV.equalsIgnoreCase("")) {
-                    String [] fecha_ov=fechaOV.split("/");
+                    String[] fecha_ov=null;
+                    if(fechaOV.length()>1) {
+                        fecha_ov = fechaOV.split("/");
 
-                    datos = "mediante y en cumplimiento de la Orden de Visita folio número "
-                            + numeroOV +"  dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fecha_ov[0] +" de "+mes(fecha_ov[1]) +" del año "+fecha_ov[2]+ " misma que en original exhibo y en original legible entrego " +
-                            "al visitado, " + etNombreV.getText().toString() + ",";
+
+                        datos = "mediante y en cumplimiento de la Orden de Visita folio número "
+                                + numeroOV +"  dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fecha_ov[0] +" de "+mes(fecha_ov[1]) +" del año "+fecha_ov[2]+ " misma que en original exhibo y en original legible entrego " +
+                                "al visitado, " + etNombreV.getText().toString() + ",";
+                    }else{
+                        fecha_ov = numeroOV.split("/");
+
+                        datos = "mediante y en cumplimiento de la Orden de Visita folio número "
+                                + numeroOV +"  dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fecha_ov[3] +" de "+mes(fecha_ov[4]) +" del año "+fecha_ov[5]+ " misma que en original exhibo y en original legible entrego " +
+                                "al visitado, " + etNombreV.getText().toString() + ",";
+
+                    }
                 } else {
                     datos = "en términos de lo dispuesto por el artículo 73, segundo párrafo, de la Ley del Procedimiento Administrativo del Estado de Jalisco,";
                 }
@@ -10456,7 +10476,7 @@ String numeroS="";
                     String recrte = cuerpoInfra;
                     String texto ="";
                     int x=0;
-                    if(cuerpoInfra.length()>=5000 && cuerpoInfra.length()<=5300){
+                    if(cuerpoInfra.length()>=5000 && cuerpoInfra.length()<=5150){
                         cuerpoInfra21 = recrte.substring(0,cuerpoInfra.length()-mocha.length()+1 ) + " (CONTINUA EN EL REVERSO)";
                         banderacorte = cuerpoInfra.length()-mocha.length()+1;
                     }else {
@@ -10502,8 +10522,220 @@ String numeroS="";
                 Log.e("after 2","" + write.getVerticalPosition(false));
 
 
-
                 if(id!=0){
+
+                    if(!cbDatos.isChecked() && !cbDatos2.isChecked()){
+
+                        String []imprimir = Justificar.justifocarTexto1(spnombre.getSelectedItem().toString().trim().toUpperCase(), 26);
+                        float salto=255;
+                        for(int i=0;i<imprimir.length;i++){
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 8);
+                            canvas.moveText(33, salto);
+                            canvas.showText(imprimir[i]);
+                            canvas.endText();
+                            canvas.restoreState();
+
+                            salto-=9;
+                        }
+
+                        String []imprimir2 = Justificar.justifocarTexto1(etNombreV.getText().toString().trim().toUpperCase(), 26);
+                        float salto2=255;
+                        for(int i=0;i<imprimir2.length;i++){
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 8);
+                            canvas.moveText(185, salto2);
+                            canvas.showText(imprimir2[i]);
+                            canvas.endText();
+                            canvas.restoreState();
+
+                            salto2-=9;
+
+
+                        }
+
+                        if(!etNombreT.getText().toString().trim().isEmpty()) {
+                            String[] imprimir3 = Justificar.justifocarTexto1(etNombreT.getText().toString().trim().toUpperCase(), 26);
+                            float salto3 = 255;
+                            for (int i = 0; i < imprimir3.length; i++) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 8);
+                                canvas.moveText(320, salto3);
+                                canvas.showText(imprimir3[i]);
+                                canvas.endText();
+                                canvas.restoreState();
+
+                                salto3 -= 9;
+                            }
+                        }
+                        if(!etNombreT1.getText().toString().trim().isEmpty()){
+                            String[] imprimir4 = Justificar.justifocarTexto1(etNombreT1.getText().toString().trim().toUpperCase(), 26);
+                            float salto4 = 255;
+                            for (int i = 0; i < imprimir4.length; i++) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 8);
+                                canvas.moveText(455, salto4);
+                                canvas.showText(imprimir4[i]);
+                                canvas.endText();
+                                canvas.restoreState();
+
+                                salto4 -= 9;
+                            }
+                        }
+
+
+
+
+                    }
+
+                    if(cbDatos.isChecked() && !cbDatos2.isChecked()){
+
+                        String []imprimir2 = Justificar.justifocarTexto1(spnombre.getSelectedItem().toString().trim().toUpperCase(), 26);
+                        float salto2=255;
+                        for(int i=0;i<imprimir2.length;i++){
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 8);
+                            canvas.moveText(33, salto2);
+                            canvas.showText(imprimir2[i]);
+                            canvas.endText();
+                            canvas.restoreState();
+
+                            salto2-=9;
+                        }
+
+
+
+                        tipoentrega="El visitado no proporcionó dato alguno de su identidad, por lo que se lleva a cabo la presente diligencia con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus artículos 86 y 87, con descripción de media filiación.";
+                        String []imprimir = Justificar.justifocarTexto1(tipoentrega, 35);
+                        float salto=320;
+                        for(int i=0;i<imprimir.length;i++){
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 8);
+                            canvas.moveText(175, salto);
+                            canvas.showText(imprimir[i]);
+                            canvas.endText();
+                            canvas.restoreState();
+
+                            salto-=10;
+                        }
+
+                        if(!etNombreT.getText().toString().trim().isEmpty()) {
+                            String[] imprimir3 = Justificar.justifocarTexto1(etNombreT.getText().toString().trim().toUpperCase(), 26);
+                            float salto3 = 255;
+                            for (int i = 0; i < imprimir3.length; i++) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 8);
+                                canvas.moveText(320, salto3);
+                                canvas.showText(imprimir3[i]);
+                                canvas.endText();
+                                canvas.restoreState();
+
+                                salto3 -= 9;
+                            }
+                        }
+                        if(!etNombreT1.getText().toString().trim().isEmpty()){
+                            String[] imprimir4 = Justificar.justifocarTexto1(etNombreT1.getText().toString().trim().toUpperCase(), 26);
+                            float salto4 = 255;
+                            for (int i = 0; i < imprimir4.length; i++) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 8);
+                                canvas.moveText(455, salto4);
+                                canvas.showText(imprimir4[i]);
+                                canvas.endText();
+                                canvas.restoreState();
+
+                                salto4 -= 9;
+                            }
+                        }
+
+
+                        //tipoEntrega=0;
+                    }
+                    if(cbDatos2.isChecked() && !cbDatos.isChecked()){
+
+                        String []imprimir2 = Justificar.justifocarTexto1(spnombre.getSelectedItem().toString().trim().toUpperCase(), 26);
+                        float salto2=255;
+                        for(int i=0;i<imprimir2.length;i++){
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 8);
+                            canvas.moveText(33, salto2);
+                            canvas.showText(imprimir2[i]);
+                            canvas.endText();
+                            canvas.restoreState();
+
+                            salto2-=9;
+                        }
+
+                        tipoentrega="En ausencia de persona alguna, se llevó a cabo la presente diligencia por cédula; con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus articulos 86 y 87.";
+                        //tipoEntrega=2;
+                        String []imprimir = Justificar.justifocarTexto1(tipoentrega, 35);
+                        float salto=315;
+                        for(int i=0;i<imprimir.length;i++){
+                            canvas.saveState();
+                            bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            canvas.beginText();
+                            canvas.setFontAndSize(bf, 8);
+                            canvas.moveText(175, salto);
+                            canvas.showText(imprimir[i]);
+                            canvas.endText();
+                            canvas.restoreState();
+
+                            salto-=9;
+                        }
+
+                        if(!etNombreT.getText().toString().trim().isEmpty()) {
+                            String[] imprimir3 = Justificar.justifocarTexto1(etNombreT.getText().toString().trim().toUpperCase(), 26);
+                            float salto3 = 255;
+                            for (int i = 0; i < imprimir3.length; i++) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 8);
+                                canvas.moveText(320, salto3);
+                                canvas.showText(imprimir3[i]);
+                                canvas.endText();
+                                canvas.restoreState();
+
+                                salto3 -= 9;
+                            }
+                        }
+                        if(!etNombreT1.getText().toString().trim().isEmpty()){
+                            String[] imprimir4 = Justificar.justifocarTexto1(etNombreT1.getText().toString().trim().toUpperCase(), 26);
+                            float salto4 = 255;
+                            for (int i = 0; i < imprimir4.length; i++) {
+                                canvas.saveState();
+                                bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                canvas.beginText();
+                                canvas.setFontAndSize(bf, 8);
+                                canvas.moveText(455, salto4);
+                                canvas.showText(imprimir4[i]);
+                                canvas.endText();
+                                canvas.restoreState();
+
+                                salto4 -= 9;
+                            }
+                        }
+                    }
+                }
+               /* if(id!=0){
                     if(cbDatos.isChecked() && !cbDatos2.isChecked()){
                         tipoentrega="El visitado no proporcionó dato alguno de su identidad, por lo que se lleva a cabo la presente diligencia con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus artículos 86 y 87, con descripción de media filiación.";
                         String []imprimir = Justificar.justifocarTexto1(tipoentrega, 35);
@@ -10540,7 +10772,7 @@ String numeroS="";
                             salto-=10;
                         }
                     }
-                }
+                }*/
 
 
 
@@ -10553,7 +10785,7 @@ String numeroS="";
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(83, 200);
+                    canvas.moveText(83, 219);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -10562,7 +10794,7 @@ String numeroS="";
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(91, 200);
+                    canvas.moveText(91, 219);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -10571,7 +10803,7 @@ String numeroS="";
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(99, 200);
+                    canvas.moveText(99, 219);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -10580,7 +10812,7 @@ String numeroS="";
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(107, 200);
+                    canvas.moveText(107, 219);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -10589,7 +10821,7 @@ String numeroS="";
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(115, 200);
+                    canvas.moveText(115, 219);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -10601,7 +10833,7 @@ String numeroS="";
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(228, 197);
+                    canvas.moveText(228, 217);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -10609,7 +10841,7 @@ String numeroS="";
                     canvas.saveState();
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(236, 197);
+                    canvas.moveText(236, 217);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -10618,7 +10850,7 @@ String numeroS="";
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(243, 197);
+                    canvas.moveText(243, 217);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -10627,7 +10859,7 @@ String numeroS="";
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(251, 197);
+                    canvas.moveText(251, 217);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -10636,7 +10868,7 @@ String numeroS="";
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(259, 197);
+                    canvas.moveText(259, 217);
                     canvas.showText("X");
                     canvas.endText();
                     canvas.restoreState();
@@ -10649,7 +10881,7 @@ String numeroS="";
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(370, 195);
+                    canvas.moveText(370, 211);
                     canvas.showText("SI");
                     canvas.endText();
                     canvas.restoreState();
@@ -10658,7 +10890,7 @@ String numeroS="";
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(385, 195);
+                    canvas.moveText(385, 211);
                     canvas.showText("NO");
                     canvas.endText();
                     canvas.restoreState();
@@ -10669,7 +10901,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(460, 190);
+                canvas.moveText(460, 209);
                 canvas.showText(etNumeroActa.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
@@ -10700,7 +10932,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(117, 134);
+                canvas.moveText(117, 155);
                 canvas.showText("__________");
                 canvas.endText();
                 canvas.restoreState();
@@ -10709,7 +10941,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(180, 134);
+                canvas.moveText(180, 155);
                 canvas.showText("___________________________");
                 canvas.endText();
                 canvas.restoreState();
@@ -10718,7 +10950,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(351, 134);
+                canvas.moveText(351, 155);
                 canvas.showText("_______________________________________________");
                 canvas.endText();
                 canvas.restoreState();
@@ -10727,7 +10959,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(150, 123);
+                canvas.moveText(150, 143);
                 canvas.showText(etNumeroActa.getText().toString());
                 canvas.endText();
                 canvas.restoreState();
@@ -10736,7 +10968,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(148, 122);
+                canvas.moveText(148, 142);
                 canvas.showText("______________________");
                 canvas.endText();
                 canvas.restoreState();
@@ -10745,7 +10977,16 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(125, 92);
+                canvas.moveText(30, 122);
+                canvas.showText("______________________________________________________________________________________________________________");
+                canvas.endText();
+                canvas.restoreState();
+
+                canvas.saveState();
+                bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                canvas.beginText();
+                canvas.setFontAndSize(bf, 9);
+                canvas.moveText(125, 110);
                 canvas.showText(String.valueOf(a));
                 canvas.endText();
                 canvas.restoreState();
@@ -10754,7 +10995,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(121, 90);
+                canvas.moveText(121, 109);
                 canvas.showText("_________");
                 canvas.endText();
                 canvas.restoreState();
@@ -10763,7 +11004,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(420, 90);
+                canvas.moveText(420, 107);
                 canvas.showText("_________________________________");
                 canvas.endText();
                 canvas.restoreState();
@@ -10772,7 +11013,7 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(30, 75);
+                canvas.moveText(30, 88);
                 canvas.showText("______________________________________________________________________________________________________________");
                 canvas.endText();
                 canvas.restoreState();
@@ -10781,25 +11022,25 @@ String numeroS="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(30, 60);
+                canvas.moveText(30, 70);
                 canvas.showText("______________________________________________________________________________________________________________");
                 canvas.endText();
                 canvas.restoreState();
 
-                canvas.saveState();
+               /* canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
                 canvas.moveText(30, 45);
                 canvas.showText("______________________________________________________________________________________________________________");
                 canvas.endText();
-                canvas.restoreState();
+                canvas.restoreState();*/
 
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(60, 19);
+                canvas.moveText(60, 38);
                 canvas.showText("NOTA: En atencion a :"+ peticionb);
                 canvas.endText();
                 canvas.restoreState();
@@ -10822,7 +11063,7 @@ String numeroS="";
                     try {
 
                         img2 = Jpeg.getInstance(stream2.toByteArray());
-                        img2.setAbsolutePosition(0, 0);
+                        img2.setAbsolutePosition(0, 10);
 
                         float width = doc.getPageSize().getWidth();
                         float height = doc.getPageSize().getHeight();
