@@ -216,6 +216,28 @@
 							android:hint="@string/ordenvisita"
 							android:layout_below="@+id/etnActa"
 							android:imeOptions="actionNext"/>
+
+						<TextView
+							android:id="@+id/tvfechaOV"
+							android:layout_width="200dp"
+							android:layout_height="wrap_content"
+							android:text="Fecha Orden de Visita:"
+							android:layout_below="@+id/etOrden1"
+							style="@style/Subtitle"
+							android:visibility="gone"/>
+
+						<EditText
+							android:id="@+id/etfechaOV"
+							android:layout_width="280dp"
+							android:layout_height="70dp"
+							android:layout_below="@+id/etOrden1"
+							android:layout_toRightOf="@+id/tvfechaOV"
+							android:imeOptions="actionNext"
+							android:layout_alignParentRight="true"
+							android:hint="dd-mm-aaaa"
+							android:maxLength="10"
+							android:inputType="date"
+							android:visibility="gone"/>
 					    
 					    <Button
 					        android:id="@+id/btnBorden"
@@ -227,6 +249,9 @@
 					        android:text="@string/buscar"
 					        android:visibility="visible"
 					        style="@style/Boton"/>
+
+
+
 	        		
 					</RelativeLayout>
 	    	

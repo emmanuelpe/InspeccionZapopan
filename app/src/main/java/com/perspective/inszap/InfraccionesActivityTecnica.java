@@ -66,6 +66,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import com.bixolon.printer.BixolonPrinter;
+import com.google.android.datatransport.backend.cct.BuildConfig;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -2583,7 +2584,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         if (Build.VERSION.SDK_INT < 24)
                             out = Uri.fromFile(new File(name));
                         else
-                            out = FileProvider.getUriForFile(InfraccionesActivityTecnica.this,BuildConfig.APPLICATION_ID + ".provider",new File(name));
+                            out = FileProvider.getUriForFile(InfraccionesActivityTecnica.this, BuildConfig.APPLICATION_ID + ".provider",new File(name));
                         intent.putExtra(MediaStore.EXTRA_OUTPUT,out);
                         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         startActivityForResult(intent, 1);
@@ -7242,10 +7243,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 sb.append("Falta tomar Fotografia. \n");
                 valid = false;
             }
-            if(etMotivo.length()>1500){
+            /*if(etMotivo.length()>1500){
                 sb.append("Limite de caracteres del motivo fue rebasado \n");
                 valid=false;
-            }
+            }*/
             if(!cbDatos.isChecked()) {
                 if (validarCampos(this.etNombreV)) {
                     sb.append("Ingrese el nombre del visitado. \n");
@@ -7279,10 +7280,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     sb.append("Ingrese el propietario o razón social.\n");
                     valid = false;
                 }*/
-                if(etMotivo.length()>1500){
+               /* if(etMotivo.length()>1500){
                     sb.append("Limite de caracteres del motivo fue rebasado \n");
                     valid=false;
-                }
+                }*/
 
             }
             if (validarCampos(this.etGiro)) {
@@ -7341,10 +7342,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 valid = false;
             }
         } else if(infrac == 3) {
-            if(etMotivo.length()>1500){
+          /*  if(etMotivo.length()>1500){
                 sb.append("Limite de caracteres del motivo fue rebasado \n");
                 valid=false;
-            }
+            }*/
             if(validarCampos(this.etfecha)){
                 sb.append("Ingrese la fecha. \n");
                 valid = false;
@@ -7411,10 +7412,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             }
 
         }else if(infrac == 4) {
-            if(etMotivo.length()>1500){
+            /*if(etMotivo.length()>1500){
                 sb.append("Limite de caracteres del motivo fue rebasado \n");
                 valid=false;
-            }
+            }*/
             if(validarCampos(this.etfecha)){
                 sb.append("Ingrese la fecha. \n");
                 valid = false;
@@ -7480,10 +7481,10 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 	    	}*/
         }
         else {
-            if(etMotivo.length()>1500){
+           /* if(etMotivo.length()>1500){
                 sb.append("Limite de caracteres del motivo fue rebasado \n");
                 valid=false;
-            }
+            }*/
             if(!cbDatos.isChecked()) {
                 if (validarCampos(this.etNombreV)) {
                     sb.append("Ingrese el nombre del visitado. \n");
