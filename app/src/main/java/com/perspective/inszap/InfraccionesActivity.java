@@ -2710,6 +2710,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     if(!etInfraccion.getText().toString().equalsIgnoreCase("") | infrac == 2 | infrac == 3 | infrac == 4) {
 
                         new Descargas().execute();
+                        if(!ante.contains("OV"))
                         new EFoto().execute();
                     }else {
                         Toast toast = Toast.makeText(getApplicationContext(), "EL CAMPO INFRACCION ESTA VACIO", Toast.LENGTH_LONG);
@@ -5744,7 +5745,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 						//10.84.35.153
 						if (conn.validarConexion(InfraccionesActivity.this)) {
-                            if (!conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
+                           // if (!conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
                                 Log.i("sii", "internet " + id_inspector2);
                                 //nv
 
@@ -5854,7 +5855,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                    }
                                }
 
-                            }
+                           // }
 						}
 
         if (conn.validarConexion(InfraccionesActivity.this)) {
@@ -6007,9 +6008,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
             }
             msj = (conn.validarConexion(getApplicationContext()) & resu) ? "Los datos se han guardado en la base de datos local y enviados al servidor" : "Los datos e imagenes se han guardado en la base de datos local";
-            Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
+            /*Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
             toast.setGravity(0, 0, 15);
-            toast.show();
+            toast.show();*/
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(InfraccionesActivity.this);
+            builder.setTitle("Información");
+            builder.setIcon(R.drawable.ic_baseline_check_circle_24);
+            builder.setMessage(msj);
+            builder.setPositiveButton("Aceptar", null);
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
 
 						/*if(foto == 0) {
                             toast = Toast.makeText(getApplicationContext(), "No ah tomado evidencia fotografica", Toast.LENGTH_LONG);
@@ -13016,14 +13026,16 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     brinco-=9;
 
                                 }
-                               /* canvas.saveState();
+                                canvas.saveState();
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9.35f);
-                                canvas.moveText(87, 168f);
-                                canvas.showText("------------------------------------------------------------------------------------------------------------" );
+                                canvas.moveText(93, 168f);
+                                canvas.showText("------------------------------------------------------------------------------------------" );
                                 canvas.endText();
-                                canvas.restoreState();*/
+                                canvas.restoreState();
+
+
                             }
 
 
@@ -13061,14 +13073,16 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 brinco-=9;
 
                             }
-                            /*canvas.saveState();
+                            canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9.35f);
-                            canvas.moveText(86, 169f);
-                            canvas.showText(etVIdentifica.getText().toString() );
+                            canvas.moveText(93, 168f);
+                            canvas.showText("------------------------------------------------------------------------------------------" );
                             canvas.endText();
-                            canvas.restoreState();*/
+                            canvas.restoreState();
+
+
                         }
                     }
                     if(!cbDatos2.isChecked()) {
@@ -13094,14 +13108,16 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 brinco-=9;
 
                             }
-                            /*canvas.saveState();
+                            canvas.saveState();
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9.35f);
-                            canvas.moveText(86, 168f);
-                            canvas.showText("-------------------------------------------------------------------------------------------------------" );
+                            canvas.moveText(93, 168f);
+                            canvas.showText("------------------------------------------------------------------------------------------" );
                             canvas.endText();
-                            canvas.restoreState();*/
+                            canvas.restoreState();
+
+
                         }
 
                     }
@@ -13173,9 +13189,18 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9.25f);
 				        canvas.moveText(155, 142f);
-				        canvas.showText("No");
+				        canvas.showText("No  -------------------------------");
 				        canvas.endText();
 				        canvas.restoreState();
+
+                        canvas.saveState();
+                        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        canvas.beginText();
+                        canvas.setFontAndSize(bf, 9.25f);
+                        canvas.moveText(440, 142f);
+                        canvas.showText("-------------------------------");
+                        canvas.endText();
+                        canvas.restoreState();
 			        }
 
 

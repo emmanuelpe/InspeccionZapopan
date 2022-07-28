@@ -459,6 +459,8 @@ public class Connection {
 			Log.i("is", is.toString());
 		} catch (Exception e) {
 			Log.e("ERROR", e.getMessage() + " null");
+			Log.e("ERROR", "No se pudo conectar con el servidor" + " null");
+
 			return "No se pudo conectar con el servidor";
 		}
 		
@@ -476,14 +478,17 @@ public class Connection {
 			System.out.println(result + " result");
 		} catch (ClientProtocolException e) {
         	Log.e("ClientProtocolException", e.getMessage());
+			Log.e("ERROR", "No se pudo conectar con el servidor" + " null");
         	return "No se pudo conectar con el servidor";
         }
 		catch (IOException e) {
 			Log.e("IOException", e.getMessage());
+			Log.e("ERROR", "No se pudo conectar con el servidor" + " null");
 			return "No se pudo conectar con el servidor";
 		}
 		catch (Exception e) {
 			Log.e("Exception", e.getMessage());
+			Log.e("ERROR", "No se pudo conectar con el servidor" + " null");
 			return "No se pudo conectar con el servidor";
 		}
 		return result;

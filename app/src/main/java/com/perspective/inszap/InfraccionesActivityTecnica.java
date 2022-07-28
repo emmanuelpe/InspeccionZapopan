@@ -4856,15 +4856,23 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
             }
             msj = (conn.validarConexion(getApplicationContext()) & resu) ? "Los datos se han guardado en la base de datos local y enviados al servidor" : "Los datos e imagenes se han guardado en la base de datos local";
-            Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
+            /*Toast toast = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
             toast.setGravity(0, 0, 15);
-            toast.show();
+            toast.show();*/
 
 						/*if(foto == 0) {
                             toast = Toast.makeText(getApplicationContext(), "No ah tomado evidencia fotografica", Toast.LENGTH_LONG);
                             toast.setGravity(0, 0, 15);
                             toast.show();
                         }*/
+            AlertDialog.Builder builder = new AlertDialog.Builder(InfraccionesActivityTecnica.this);
+            builder.setTitle("Información");
+            builder.setIcon(R.drawable.ic_baseline_check_circle_24);
+            builder.setMessage(msj);
+            builder.setPositiveButton("Aceptar", null);
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
             deshabilitar();
             /*Toast toast = Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG);
             toast.setGravity(0, 0, 15);

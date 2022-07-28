@@ -57,13 +57,13 @@ public class JSONParser {
 		try{
 			System.out.println(url + " url " + metodo);
 			if(metodo == "POST"){
-				int timeout = 5;
+				//int timeout = 5;
 				DefaultHttpClient httpClient = new DefaultHttpClient();
 				//HttpParams httpParams = httpClient.getParams();
 
 				HttpParams clientParams = httpClient.getParams();
 
-				HttpConnectionParams.setSoTimeout(clientParams, 50000);
+				HttpConnectionParams.setSoTimeout(clientParams, 100000);
 
 				HttpPost httpPost = new HttpPost(url);
 				httpPost.setEntity(new UrlEncodedFormEntity(parametro));
@@ -80,7 +80,7 @@ public class JSONParser {
 				DefaultHttpClient httpClient = new DefaultHttpClient();
 				HttpParams clientParams = httpClient.getParams();
 
-				HttpConnectionParams.setSoTimeout(clientParams, 50000);
+				HttpConnectionParams.setSoTimeout(clientParams, 100000);
 				String parametros = URLEncodedUtils.format(parametro, "utf-8");
 				url += "?" + parametros;
 
