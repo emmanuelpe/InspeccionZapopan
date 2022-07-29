@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -42,6 +43,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 @SuppressLint("SimpleDateFormat")
 public class MainActivity extends Activity {
@@ -276,6 +279,12 @@ public class MainActivity extends Activity {
 							Bundle bundle = new Bundle();
 							bundle.putString("direccion", direccion);
 							bundle.putString("usuario", usuario.trim());
+							//FirebaseCrashlytics.getInstance().setUserId(usuario.trim());
+							//FirebaseCrashlytics.getInstance().setUserId(usuario);
+
+							//FirebaseCrashlytics.getInstance().log("prueba");
+							//throw new RuntimeException("f");
+
 							bundle.putInt("id", id_);
 							bundle.putInt("idInps", idI);
 
@@ -291,7 +300,9 @@ public class MainActivity extends Activity {
 							editor.commit();
 							startActivity(intent);
 							MainActivity.this.finish();
+
 							mensaje = null;
+
 						}else{
 
 							Toast toast = Toast.makeText(MainActivity.this, "¡¡No se encuentra instalado PRINTER SHARE!! ", Toast.LENGTH_SHORT);
