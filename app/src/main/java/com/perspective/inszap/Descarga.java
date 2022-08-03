@@ -348,29 +348,39 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 					editor.putInt("idIns",idIns);
 					editor.apply();
 				} else {
-					Log.v("si","sincronizar");
-					btnInfraccion.setEnabled(false);
-					MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Descarga.this)
-							.setTitle(getResources().getString(R.string.msj))
-							.setMessage(getResources().getString(R.string.debe_sinconizar))
-							.setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									if(Connection.validarConexion(Descarga.this)) {
-										new Sincronizar().execute(String.valueOf(idIns));
-									}else{
-										String mensjae="No hay conexion a internet!!";
-										Toast toast = Toast.makeText(Descarga.this, mensjae, Toast.LENGTH_SHORT);
-										toast.setGravity(0, 0, 15);
-										toast.show();
+
+					//validacion de actas pendientes por subir
+					//System.out.println(verificarActas()+" :verifico");
+
+						Log.v("si", "sincronizar");
+						btnInfraccion.setEnabled(false);
+						MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Descarga.this)
+								.setTitle(getResources().getString(R.string.msj))
+								.setMessage(getResources().getString(R.string.debe_sinconizar))
+								.setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										if (Connection.validarConexion(Descarga.this)) {
+											new Sincronizar().execute(String.valueOf(idIns));
+										} else {
+											String mensjae = "No hay conexion a internet!!";
+											Toast toast = Toast.makeText(Descarga.this, mensjae, Toast.LENGTH_SHORT);
+											toast.setGravity(0, 0, 15);
+											toast.show();
+										}
 									}
-								}
-							});
-					builder.create().show();
+								}).setNegativeButton("No", new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+
+									}
+								});
+						builder.create().show();
 
 				}
 				auxId = sp.getInt("idIns",0);
 				Log.v("ids",idIns + " " + auxId);
+
 			}
 
 		}
@@ -789,6 +799,15 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 		dialogo.create().show();
 	}
 
+	public int verificarActas() {
+		GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
+		SQLiteDatabase db = gestion.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT distinct(numero_acta)  FROM Levantamiento WHERE status = 'N'", null);
+		//int	count = 0;
+
+		return c.getCount();
+	}
+
 	public void descargarLevantamiento() {
 		GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
 		SQLiteDatabase db = gestion.getReadableDatabase();
@@ -822,8 +841,10 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 								cv.put("status", "S");
 								db.update("Levantamiento", cv, "id_levantamiento = " + c.getInt(0), null);
 								count += 1;
+								System.out.println("entro aqui levantamiento 1");
 								//db.delete("Levantamiento", "numero_acta = '" + c.getString(1) +  "'", null);
 							} else {
+								System.out.println("entro aqui levantamiento 2");
 								System.out.println("no");
 								System.err.println(c.getColumnName(1) + " " + c.getString(1) + ",    " + c.getColumnName(2) + " " + c.getString(2) + ",    " + c.getColumnName(3) + " " + c.getInt(3) + ",    " + c.getColumnName(4) + " " + c.getString(4) + ",    " + c.getColumnName(5) + " " + c.getInt(5) + ",    " + c.getColumnName(6) + " " + c.getString(6) + ",    " + c.getColumnName(7) + " " + c.getString(7) + ",    " + c.getColumnName(8) + " " + c.getDouble(8) + ",    " + c.getColumnName(9) + " " + c.getDouble(9) + ",    " +
 										c.getColumnName(10) + " " + c.getString(10) + ",    " + c.getColumnName(11) + " " + c.getString(11) + ",    " + c.getColumnName(12) + " " + c.getString(12) + ",    " + c.getColumnName(13) + " " + c.getInt(13) + ",    " + c.getColumnName(14) + " " + c.getInt(14) + ",    " + c.getColumnName(15) + " " + c.getString(15) + ",    " + c.getColumnName(16) + " " + c.getString(16) + ",    " + c.getColumnName(17) + " " + c.getString(17) + ",    " + c.getColumnName(18) + " " + c.getString(18) + ",    " +
@@ -841,31 +862,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 						//db.delete("Levantamiento", "numero_acta = '" + c.getString(1) +  "'", null);
 					} while (c.moveToNext());
 				}
-				/*if (count > 0) {
-					try {
 
-
-						ArrayList<NameValuePair> carga = new ArrayList<NameValuePair>();
-
-						carga.add(new BasicNameValuePair("tableta", config));
-						carga.add(new BasicNameValuePair("registros", String.valueOf(count)));
-						carga.add(new BasicNameValuePair("fotos", String.valueOf(0)));
-
-						//JSONObject json = jsonParser.realizarHttpRequest("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertCarga.php", "POST", carga);
-
-						JSONObject json = jsonParser.realizarHttpRequest(urlP+"insertCarga.php", "POST", carga);
-
-						int estatus = json.getInt("status");
-
-						if (estatus == 1)
-							System.err.println("inserto");
-						else
-							System.err.println("no inserto");
-
-					} catch (JSONException e) {
-						System.out.println(e.getMessage() + " mm");
-					}
-				}*/
 
 			}
 		} catch (SQLiteException e) {
@@ -891,10 +888,12 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 						System.out.println((buscarDetalle(c.getString(2), c.getString(3), c.getString(4)) == 0) + " d");
 						System.out.println(c.getString(2) + " " + c.getString(3) + " " + c.getString(4) + " d");
 						if (buscarDetalle(c.getString(2), c.getString(3), c.getString(4)) == 0) {
+							System.out.println("entro aqui detalle 1");
 							id_l = idLe(c.getString(2));
 							conn.insertDetalle(id_l, c.getString(2), Integer.parseInt(c.getString(3)), Float.parseFloat(c.getString(4)),c.getString(c.getColumnIndex("unidad")),c.getString(c.getColumnIndex("especificacion")),/*"http://172.16.1.21/serverSQL/insertDetalle.php"*/urlP+"insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.15/serverSQL/insertDetalle.php"*/);
 							db.update("Detalle_infraccion", cv, "id_detalle_infraccion = " + c.getInt(0), null);
 						} else {
+							System.out.println("entro aqui detalle 2");
 							db.update("Detalle_infraccion", cv, "id_detalle_infraccion = " + c.getInt(0), null);
 						}
 						//db.delete("Detalle_infraccion", "id_detalle_infraccion = '" + c.getInt(0) + "'", null);
@@ -923,12 +922,15 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				System.out.println(c.getCount() + " F");
 				if (c.moveToFirst()) {
 					do {
+						System.out.println(c.getString(2)+"-"+ c.getString(3)+"-"+ c.getString(4) + " f");
+
 						System.out.println((buscarFoto(c.getString(2), c.getString(3), c.getString(4)) == 0) + " f");
 						if (buscarFoto(c.getString(2), c.getString(3), c.getString(4)) == 0) {
-							id_l = idLe(c.getString(2));
+							System.out.println("entro aqui 1");							id_l = idLe(c.getString(2));
 							conn.insertFoto(id_l, c.getString(2), c.getString(3), c.getString(4), /*"http://172.16.1.21/serverSQL/insertFoto.php"*/urlP+"insertFoto.php"/*"http://pgt.no-ip.biz/serverSQL/insertFoto.php"/"http://192.168.0.15/serverSQL/insertFoto.php"*/);
 							db.update("Fotografia", cv, "id_fotografia = " + c.getInt(0), null);
 						} else {
+							System.out.println("entro aqui 2");
 							db.update("Fotografia", cv, "id_fotografia = " + c.getInt(0), null);
 						}
 
@@ -2510,7 +2512,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 		protected String doInBackground(String... params) {
 			//No se pudo conectar con el servidor
 			Log.i("imprime:", String.valueOf(conn.search(urlP+"getC_visitado_manifiesta.php").equals("No se pudo conectar con el servidor")));
-			if (conn.search(urlP+"getC_visitado_manifiesta.php").equals("No se pudo conectar con el servidor") || conn.search(urlP+"getC_visitado_manifiesta.php").trim().equals(null)) {
+			if (conn.search(urlP+"getC_Direccion.php").equals("No se pudo conectar con el servidor") || conn.search(urlP+"getC_Direccion.php").trim().equals(null)) {
 				//if (!conn.search("http://172.16.1.21/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
 				//if (!conn.search("http://192.168.0.15/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
 
@@ -2518,9 +2520,11 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			}
 			else {
 				if (conn.validarConexion(getApplicationContext())) {
-
+					Log.i("entro descarga levantam", "1 ");
 					descargarLevantamiento();
+					Log.i("entro descarga detalle", "1 ");
 					descargarDetalle();
+					Log.i("entro descarga foto", "1 ");
 					descargarFotografia();
 					msj = "Datos enviados al servidor";
 				} else {
