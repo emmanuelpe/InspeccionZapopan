@@ -2542,7 +2542,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             if (Build.VERSION.SDK_INT < 24)
                                 i.setDataAndType(Uri.fromFile(file), "application/pdf");
                             else
-                                i.setDataAndType(FileProvider.getUriForFile(getApplicationContext(),BuildConfig.APPLICATION_ID + ".provider",file), "application/pdf");
+                                i.setDataAndType(FileProvider.getUriForFile(getApplicationContext(), com.perspective.inszap.BuildConfig.APPLICATION_ID + ".provider",file), "application/pdf");
                             i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                             startActivity(i);
                         }
@@ -2581,19 +2581,24 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                     try{
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         Uri out;
+                        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP) {
+                            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        }
                         if (Build.VERSION.SDK_INT < 24)
                             out = Uri.fromFile(new File(name));
                         else
-                            out = FileProvider.getUriForFile(InfraccionesActivityTecnica.this, BuildConfig.APPLICATION_ID + ".provider",new File(name));
+                            out = FileProvider.getUriForFile(InfraccionesActivityTecnica.this, com.perspective.inszap.BuildConfig.APPLICATION_ID + ".provider",new File(name));
                         intent.putExtra(MediaStore.EXTRA_OUTPUT,out);
                         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         startActivityForResult(intent, 1);
-                    }catch (Exception e) {
+                    }catch (Throwable e) {
+                        e.printStackTrace();
                         Toast toast = Toast.makeText(InfraccionesActivityTecnica.this, "Hubo un error con la camara", Toast.LENGTH_SHORT);
                         toast.setGravity(0, 0, 15);
                         toast.show();
                     }
-                }catch(Exception e) {
+                }catch(Throwable e) {
+                    e.printStackTrace();
                     Toast toast = Toast.makeText(InfraccionesActivityTecnica.this, "Hubo un error con la camara", Toast.LENGTH_SHORT);
                     toast.setGravity(0, 0, 15);
                     toast.show();
