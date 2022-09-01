@@ -205,7 +205,8 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		}else {
 			//modoT.setVisibility(View.VISIBLE);
 			urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/";
-			titlem.setText("");
+			titlem.setText("Modo de Produccion "+ getResources().getString(R.string.version) );
+
 		}
 		if (direccion.equalsIgnoreCase("Administracion") | direccion.equalsIgnoreCase("Administración")) {
 			btnInfraccion.setEnabled(false);
@@ -225,8 +226,24 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 			//btnConsultarL.setVisibility(View.GONE);
 			btnReporte.setVisibility(View.GONE);
 			btnConsultarLicenciaC.setVisibility(View.GONE);
+			if(actasPendientes()==0 && conn.validarConexion(getApplicationContext()) ) {
+				modoT.setVisibility(View.VISIBLE);
+			}else{
+				MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Descarga.this)
+						.setTitle("Para activar el cambio de modo entre tester y producción o conectar a la red")
+						.setMessage( "Favor de descargar  documentos pendientes: "+ actasPendientes())
+						.setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
 
-			modoT.setVisibility(View.VISIBLE);
+
+
+
+							}
+						});
+
+				builder.create().show();
+			}
 			//titlem.setVisibility(View.VISIBLE);
 			if(validarM==1) {
 				modoT.setChecked(true);
@@ -240,7 +257,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 				SharedPreferences.Editor editor = sp.edit();
 				editor.putInt("modo", 0);
 				editor.apply();
-				titlem.setText("");
+				titlem.setText("Modo de Produccion "+ getResources().getString(R.string.version) );
 				urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/";
 			}
 
@@ -453,23 +470,104 @@ public class Descarga extends Activity implements android.content.DialogInterfac
       }
     });*/
        if(id==1) {
+
 		   modoT.setOnClickListener(new OnClickListener() {
 			   @Override
 			   public void onClick(View view) {
+
 				   if (modoT.isChecked()) {
 
-					   titlem.setText("Modo de Tester: " + getResources().getString(R.string.version));
-					   SharedPreferences.Editor editor = sp.edit();
-					   editor.putInt("modo", 1);
-					   editor.apply();
+					   MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Descarga.this)
+							   .setTitle("Seguro de activar el modo tester?")
+							   .setMessage(getResources().getString(R.string.continuar))
+							   .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+								   @Override
+								   public void onClick(DialogInterface dialog, int which) {
 
-					   urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/";
+
+
+									   titlem.setText("Modo de Tester: " + getResources().getString(R.string.version));
+									   SharedPreferences.Editor editor = sp.edit();
+									   editor.putInt("modo", 1);
+									   editor.apply();
+
+
+									   urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/";
+
+									   new Ingresar().execute(String.valueOf(values_cr));
+
+								   }
+							   }).setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+								   @Override
+								   public void onClick(DialogInterface dialog, int which) {
+									   modoT.setChecked(false);
+
+									   SharedPreferences.Editor editor = sp.edit();
+									   editor.putInt("modo", 0);
+									   editor.apply();
+									   titlem.setText("Modo de Produccion "+ getResources().getString(R.string.version) );
+
+									   urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/";
+
+									   new Ingresar().execute(String.valueOf(values_cr));
+
+
+
+								   }
+							   });
+
+					   builder.create().show();
+
+
+
+
 				   } else {
-					   SharedPreferences.Editor editor = sp.edit();
-					   editor.putInt("modo", 0);
-					   editor.apply();
-					   titlem.setText("");
-					   urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/";
+
+					   MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Descarga.this)
+							   .setTitle("Seguro de activar el modo Produccion?")
+							   .setMessage(getResources().getString(R.string.continuar))
+							   .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+								   @Override
+								   public void onClick(DialogInterface dialog, int which) {
+
+									   modoT.setChecked(false);
+
+									   SharedPreferences.Editor editor = sp.edit();
+									   editor.putInt("modo", 0);
+									   editor.apply();
+									   titlem.setText("Modo de Produccion "+ getResources().getString(R.string.version) );
+
+									   urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/";
+
+									   new Ingresar().execute(String.valueOf(values_cr));
+								   }
+							   }).setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+								   @Override
+								   public void onClick(DialogInterface dialog, int which) {
+                                     modoT.setChecked(true);
+									   titlem.setText("Modo de Tester: " + getResources().getString(R.string.version));
+									   SharedPreferences.Editor editor = sp.edit();
+									   editor.putInt("modo", 1);
+									   editor.apply();
+
+
+									   urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/";
+
+
+									   new Ingresar().execute(String.valueOf(values_cr));
+
+
+
+
+								   }
+							   });
+
+					   builder.create().show();
+
+
+
+
+
 				   }
 			   }
 		   });
@@ -807,7 +905,26 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 
 		return c.getCount();
 	}
+   public int actasPendientes(){
+		int cantidad=0;
 
+	   GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
+	   SQLiteDatabase db = gestion.getReadableDatabase();
+	   Cursor c = db.rawQuery("SELECT * FROM Levantamiento WHERE status = 'N'", null);
+
+	   cantidad=c.getCount();
+
+
+
+	   db.close();
+	   c.close();
+
+
+
+
+
+		return cantidad;
+   }
 	public void descargarLevantamiento() {
 		GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
 		SQLiteDatabase db = gestion.getReadableDatabase();

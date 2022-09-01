@@ -600,6 +600,24 @@ public class MainActivity extends Activity {
 			db1.execSQL(sql);
 		}
 
+		/*if(validarCampo("Detalle_infraccion", "modo_tablet") == 0) {
+
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Detalle_infraccion add modo_tablet text";
+			db1.execSQL(sql);
+		}
+
+		if(validarCampo("Levantamiento", "modo_tablet") == 0) {
+
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Levantamiento add modo_tablet text";
+			db1.execSQL(sql);
+		}*/
+
 
 
 		if(validarCampo("Levantamiento", "id_c_competencia1") == 0) {

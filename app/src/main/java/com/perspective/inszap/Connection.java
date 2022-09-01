@@ -345,8 +345,10 @@ public class Connection {
 			levanta.add(new BasicNameValuePair("fecha_clausura",etfechap));
 
 			JSONObject json = jsonParser.realizarHttpRequest(url, "POST", levanta);
-			
-			
+
+
+
+
 			int status = json.getInt("status");
 			msj = (status == 1) ? "S" : "N";
 			

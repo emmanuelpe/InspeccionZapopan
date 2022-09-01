@@ -656,14 +656,15 @@ public class ReimprimirActivity extends AppCompatActivity implements View.OnClic
 
                 String uso = "";
                 String vig = vigencia_inicial;
+                if(vigencia_inicial.length()>1) {
+                    String[] vig1 = vig.split("-");
 
-                String [] vig1 = vig.split("-");
+                    int d, m, ax;
 
-                int d,m,ax;
-
-                d=Integer.parseInt(vig1[2]);
-                m=Integer.parseInt(vig1[1]);
-                ax=Integer.parseInt(vig1[0]);
+                    d = Integer.parseInt(vig1[2]);
+                    m = Integer.parseInt(vig1[1]);
+                    ax = Integer.parseInt(vig1[0]);
+                }
 
                 String prop = "",numero = "";
                 prop=nombreRazon;
@@ -682,7 +683,7 @@ public class ReimprimirActivity extends AppCompatActivity implements View.OnClic
                 if(!OV.equalsIgnoreCase("")) {
 
 
-                    if(consultaActa(numeroActa)==1) {
+                   /* if(consultaActa(numeroActa)==1) {
                         String[] fecha_ov = fechaOV.split("-");
                         datos = "mediante y en cumplimiento de la Orden de Visita folio número "
                                 + OV + "  dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " +  fecha_ov[2].substring(0, 3) + " de " + mes(fecha_ov[1]) + " del año " + fecha_ov[0] + " misma que en original exhibo y en original legible entrego " +
@@ -693,7 +694,16 @@ public class ReimprimirActivity extends AppCompatActivity implements View.OnClic
                                 + OV + "  dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fecha_ov[0] + " de " + mes(fecha_ov[1]) + " del año " + fecha_ov[2].substring(0, 4) + " misma que en original exhibo y en original legible entrego " +
                                 "al visitado, " + nombreV + ",";
 
-                    }
+                    }*/
+
+                        String[] fecha_ov = OV.split("/");
+
+                        datos = "mediante y en cumplimiento de la Orden de Visita folio número "
+                                + OV +"  dictada por el Director de Inspección y Vigilancia de Zapopan, Jalisco, el día " + fecha_ov[3] +" de "+mes(fecha_ov[4]) +" del año "+fecha_ov[5]+ " misma que en original exhibo y en original legible entrego " +
+                                "al visitado, " + nombreV + ",";
+
+
+
                 } else {
                     datos = "en términos de lo dispuesto por el artículo 73, segundo párrafo, de la Ley del Procedimiento Administrativo del Estado de Jalisco,";
                 }
@@ -730,14 +740,20 @@ public class ReimprimirActivity extends AppCompatActivity implements View.OnClic
 
 
                 String vigencia=vigencia_final;
+                String diaIni = "";
+                String diavigen = "";
+                String ano="";
                 //String vigencia_inicial=vigencia;
-                String []recorte1=vigencia_inicial.split("-");
-                String []recorte2=vigencia.split("-");
+                if(vigencia_inicial.length()>1 && vigencia.length()>1) {
+                    String[] recorte1 = vigencia_inicial.split("-");
+                    String[] recorte2 = vigencia.split("-");
 
-                String diaIni=recorte2[2];
-                String diavigen=recorte1[2];
-                vigencia_inicial=mes(recorte2[1]);
-                vigencia=mes(recorte1[1]);
+                    diaIni = recorte2[2];
+                    diavigen = recorte1[2];
+                    vigencia_inicial = mes(recorte2[1]);
+                    vigencia = mes(recorte1[1]);
+                    ano=recorte1[0];
+                }
 
                 Paragraph p2 = null;
                 String testigos="";
@@ -798,34 +814,36 @@ public class ReimprimirActivity extends AppCompatActivity implements View.OnClic
                             horaTermino.substring(10,16)+ " horas del " +horaTermino.substring(8,10)  + " de " + mes(horaTermino.substring(5,7)) + " del " + horaTermino.substring(0,4)  + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=",font1);
 */
                     if(consultaActa(numeroActa)==1) {
-                        cuerpoInfra = "En la ciudad de Zapopan, Jalisco, siendo las " + horaTermino.substring(10, 16) + " horas del día de " + fecha.substring(9, 10) + " de " + mes(fecha.substring(6, 8)) + " del año " + fecha.substring(0, 4) + ", el suscrito " + nombre +
-                                " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, " + datos + " me constituí física y legalmente en " + uso + " marcada con el número " +
-                                numero + " de la calle " + calle + " entre las calles " + entreC + " y " + entreC1 + " en la colonia y/o fraccionamiento " + fraccionamiento + " " + textC + ",  cerciorándome de ser este el domicilio por coincidir con la nomenclatura oficial y/o georreferencia, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número" +
-                                " " + folio + ", vigente del " + diaIni + " de " + vigencia_inicial + " del " + recorte2[0] + " a " + diavigen + " de " + vigencia + " del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + nombreV + " quien se identifica con, " + seIdentifica +
-                                " manifiesta ser " + manifiestaSer + " del lugar en que se actúa, propiedad de " + prop + ", le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía por lo que fueron designados los C.C. " + nombresT + " por el " + designado1 +
-                                ", " + testigos + "así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " +
-                                apercibimiento + hechos + ".Los cuales constituyen infracción a lo dispuesto por los artículo(s): 2, 3, 5, 7  FRACCIONES I  a la VI, 34,  167, 168, 169, 171 ," + infracciones + "  Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + medidasP.trim() + " " + numeroS + ".Lo anterior de conformidad a lo dispuesto por los artículo(s): " + articulo_medida + ". En uso de su derecho el visitado manifiesta: " + manifiesta +
-                                ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa del H. Ayuntamiento de Zapopan, Jalisco. Se da por concluida esta diligencia, siendo las " +
-                                horaTermino.substring(10, 16) + " horas del " + fecha.substring(8, 10) + " de " + mes(fecha.substring(5, 7)) + " del " + fecha.substring(0, 4) + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=";
 
-                        mocha = ". En uso de su derecho el visitado manifiesta: " + manifiesta +
-                                ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa del H. Ayuntamiento de Zapopan, Jalisco. Se da por concluida esta diligencia, siendo las " +
-                                horaTermino.substring(10, 16) + " horas del " + fecha.substring(8, 10) + " de " + mes(fecha.substring(5, 7)) + " del " + fecha.substring(0, 4) + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=";
-                    }else {
                         Log.e("fecha", fecha,null );
-                        cuerpoInfra = "En la ciudad de Zapopan, Jalisco, siendo las " + horaTermino + " horas del día de " + fecha.substring(0, 2) + " de " + mes(fecha.substring(3, 5)) + " del año " + fecha.substring(6, 10) + ", el suscrito " + nombre +
+                        cuerpoInfra = "En la ciudad de Zapopan, Jalisco, siendo las " + horaTermino.substring(10, 16) + " horas del día de " + fecha.substring(0, 2) + " de " + mes(fecha.substring(3, 5)) + " del año " + fecha.substring(6, 10) + ", el suscrito " + nombre +
                                 " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, " + datos + " me constituí física y legalmente en " + uso + " marcada con el número " +
                                 numero + " de la calle " + calle + " entre las calles " + entreC + " y " + entreC1 + " en la colonia y/o fraccionamiento " + fraccionamiento + " " + textC + ",  cerciorándome de ser este el domicilio por coincidir con la nomenclatura oficial y/o georreferencia, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número" +
-                                " " + folio + ", vigente del " + diaIni + " de " + vigencia_inicial + " del " + recorte2[0] + " a " + diavigen + " de " + vigencia + " del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + nombreV + " quien se identifica con, " + seIdentifica +
+                                " " + folio + ", vigente del " + diaIni + " de " + vigencia_inicial + " del " + ano + " a " + diavigen + " de " + vigencia + " del " + ano + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + nombreV + " quien se identifica con, " + seIdentifica +
                                 " manifiesta ser " + manifiestaSer + " del lugar en que se actúa, propiedad de " + prop + ", le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía por lo que fueron designados los C.C. " + nombresT + " por el " + designado1 +
                                 ", " + testigos + "así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " +
                                 apercibimiento + hechos + ".Los cuales constituyen infracción a lo dispuesto por los artículo(s): 2, 3, 5, 7  FRACCIONES I  a la VI, 34,  167, 168, 169, 171 ," + infracciones + "  Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + medidasP.trim() + " " + numeroS + ".Lo anterior de conformidad a lo dispuesto por los artículo(s): " + articulo_medida + ". En uso de su derecho el visitado manifiesta: " + manifiesta +
                                 ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa del H. Ayuntamiento de Zapopan, Jalisco. Se da por concluida esta diligencia, siendo las " +
-                                horaTermino + " horas del " + fecha.substring(0, 2) + " de " + mes(fecha.substring(3, 5)) + " del " + fecha.substring(6, 10) + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=";
+                                horaTermino.substring(10, 16) + " horas del " + fecha.substring(0, 2) + " de " + mes(fecha.substring(3, 5)) + " del " + fecha.substring(6, 10) + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=";
 
                         mocha = ". En uso de su derecho el visitado manifiesta: " + manifiesta +
                                 ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa del H. Ayuntamiento de Zapopan, Jalisco. Se da por concluida esta diligencia, siendo las " +
-                                horaTermino + " horas del " + fecha.substring(0, 2) + " de " + mes(fecha.substring(3, 5)) + " del " + fecha.substring(6, 10) + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=";
+                                horaTermino.substring(10, 16) + " horas del " + fecha.substring(0, 2) + " de " + mes(fecha.substring(3, 5)) + " del " + fecha.substring(6, 10) + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=";
+
+                      }else {
+                        cuerpoInfra = "En la ciudad de Zapopan, Jalisco, siendo las " + horaTermino + " horas del día de " + fecha.substring(0, 10) + " de " + mes(fecha.substring(6, 8)) + " del año " + fecha.substring(0, 4) + ", el suscrito " + nombre +
+                                " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, " + datos + " me constituí física y legalmente en " + uso + " marcada con el número " +
+                                numero + " de la calle " + calle + " entre las calles " + entreC + " y " + entreC1 + " en la colonia y/o fraccionamiento " + fraccionamiento + " " + textC + ",  cerciorándome de ser este el domicilio por coincidir con la nomenclatura oficial y/o georreferencia, e identificándome y acreditando mi personalidad en debido cumplimiento de lo señalado por el artículo 71 de la Ley del Procedimiento Administrativo del Estado de Jalisco con credencial oficial con fotografía folio número" +
+                                " " + folio + ", vigente del " + diaIni + " de " + vigencia_inicial + " del " + ano + " a " + diavigen + " de " + vigencia + " del " + ano + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + nombreV + " quien se identifica con, " + seIdentifica +
+                                " manifiesta ser " + manifiestaSer + " del lugar en que se actúa, propiedad de " + prop + ", le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía por lo que fueron designados los C.C. " + nombresT + " por el " + designado1 +
+                                ", " + testigos + "así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " +
+                                apercibimiento + hechos + ".Los cuales constituyen infracción a lo dispuesto por los artículo(s): 2, 3, 5, 7  FRACCIONES I  a la VI, 34,  167, 168, 169, 171 ," + infracciones + "  Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + medidasP.trim() + " " + numeroS + ".Lo anterior de conformidad a lo dispuesto por los artículo(s): " + articulo_medida + ". En uso de su derecho el visitado manifiesta: " + manifiesta +
+                                ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa del H. Ayuntamiento de Zapopan, Jalisco. Se da por concluida esta diligencia, siendo las " +
+                                horaTermino + " horas del " + fecha.substring(8, 10) + " de " + mes(fecha.substring(5, 7)) + " del " + fecha.substring(0, 4) + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=";
+
+                        mocha = ". En uso de su derecho el visitado manifiesta: " + manifiesta +
+                                ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en el articulo 134 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se hace del conocimiento del o los interesados, entregándolo en la Dirección Jurídica Contenciosa del H. Ayuntamiento de Zapopan, Jalisco. Se da por concluida esta diligencia, siendo las " +
+                                horaTermino + " horas del " + fecha.substring(8, 10) + " de " + mes(fecha.substring(5, 7)) + " del " + fecha.substring(0, 4) + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=";
 
                     }
 
