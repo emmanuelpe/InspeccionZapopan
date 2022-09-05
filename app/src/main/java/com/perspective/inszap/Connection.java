@@ -566,11 +566,12 @@ public class Connection {
 		return result;
 	}
 	
-	public String detalleInfraccion(String numeroActa, String id_c_infraccion,String cantidad,String url) {
+	public String detalleInfraccion(String numeroActa, String id_c_infraccion,String cantidad,String especificacion,String url) {
 		ArrayList<NameValuePair> dat = new ArrayList<NameValuePair>();
 		dat.add(new BasicNameValuePair("numero_acta", numeroActa));
 		dat.add(new BasicNameValuePair("id_c_infraccion", id_c_infraccion));
 		dat.add(new BasicNameValuePair("cantidad", cantidad));
+		dat.add(new BasicNameValuePair("especificacion",especificacion));
 		//dat.add(new BasicNameValuePair("especificacion",especificacion));
 		
 		try {

@@ -936,12 +936,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 					do {
 						//System.out.println((buscarLevantamiento(c.getString(1)) == 0) + " l");
 						//System.out.println(buscarLevantamiento(c.getString(1))  + " l");
-						if (buscarLevantamiento(c.getString(1)) < 1) {
-							/*System.err.println(c.getString(1) + "    " + c.getString(2)  + "    " +  c.getInt(3) + "    " +  c.getString(4) + "    " +  c.getInt(5) + "    " +  c.getString(6) + "    " +  c.getString(7) + "    " +  c.getDouble(8) + "    " +  c.getDouble(9) + "    " +
-								c.getString(10) + "    " +  c.getString(11) + "    " +  c.getString(12) + "    " +  c.getInt(13) + "    " +  c.getInt(14) + "    " +  c.getString(15) + "    " +  c.getString(16) + "    " +  c.getString(17) + "    " +  c.getString(18) + "    " +
-								c.getString(19) + "    " +  c.getString(20) + "    " +  c.getString(21) + "    " +  c.getString(22) + "    " +  c.getString(23) + "    " +  c.getString(24)  + "    " + c.getString(25) + "    " +  c.getString(26) + "    " +  c.getString(27) + "    " +
-								c.getString(28) + "    " +  c.getString(29) + "    " +  c.getString(30) + "    " +  c.getString(31) + "    " +  c.getString(32) + "    " +  c.getString(33) + "    " +  c.getString(34) + "    " +  c.getString(35) + "    " +  c.getString(36) + "    " +
-								c.getString(37) + "    " +  c.getInt(38) + "    " +  c.getInt(39) + "    " + c.getString(40) + "    " +  c.getString(41) + "    " +  c.getString(46) + "    " +  c.getString(47) + "    " + c.getString(48) + "    " + c.getString(49) + "    " + c.getString(58) + " " + c.getString(c.getColumnIndex("correo")) + " " + c.getString(c.getColumnIndex("l_alineamiento")) + " " +  c.getString(c.getColumnIndex("l_construccion")));*/
+						//if (buscarLevantamiento(c.getString(1)) < 1) {
 							if (Connection.inserta(c.getString(1), c.getString(2), c.getInt(3), c.getString(4), c.getInt(5), c.getString(6), c.getString(7), c.getDouble(8), c.getDouble(9),
 									c.getString(10), c.getString(11), c.getString(12), c.getInt(13), c.getInt(14), c.getString(15), c.getString(16), c.getString(17), c.getString(18),
 									c.getString(19), c.getString(20), c.getString(21), c.getString(22), c.getString(23), c.getString(24), c.getString(25), c.getString(26), c.getString(27),
@@ -970,12 +965,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 										c.getColumnName(37) + " " + c.getString(37) + ",    " + c.getColumnName(38) + " " + c.getInt(38) + ",    " + c.getColumnName(39) + " " + c.getInt(39) + ",    " + c.getColumnName(40) + " " + c.getString(40) + ",    " + c.getColumnName(41) + " " + c.getString(41) + ",    " + c.getColumnName(46) + " " + c.getString(46) + ",    " + c.getColumnName(47) + " " + c.getString(47) + ",    " + c.getColumnName(48) + " " + c.getString(48) + ",    " + c.getColumnName(49) + " " + c.getString(49) + ",    " + c.getColumnName(58) + " " + c.getString(58) + ", " + c.getColumnName(c.getColumnIndex("correo")) + " " + c.getString(c.getColumnIndex("correo")) + ",  " + c.getColumnName(c.getColumnIndex("l_alineamiento")) + " " + c.getString(c.getColumnIndex("l_alineamiento")) + ",  " + c.getColumnName(c.getColumnIndex("l_construccion")) + " " + c.getString(c.getColumnIndex("l_construccion")) +
 										c.getColumnName(c.getColumnIndex("entre_calle1")) + " " + c.getString(c.getColumnIndex("entre_calle1")) + " " + c.getColumnName(c.getColumnIndex("entre_calle2")) + " " + c.getString(c.getColumnIndex("entre_calle2")) + " " + c.getColumnName(c.getColumnIndex("entre_calle2")) + " " + c.getString(c.getColumnIndex("responsable_obra")) + " " + c.getColumnName(c.getColumnIndex("registro_responsable")) + " " + c.getString(c.getColumnIndex("registro_responsable")) + " " + c.getColumnName(c.getColumnIndex("id_c_competencia")) + " " + c.getInt(c.getColumnIndex("id_c_competencia")));
 							}
-							/*Connection.inserta(c.getString(1), c.getString(2), c.getInt(3), c.getString(4), c.getInt(5), c.getString(6), c.getString(7), c.getDouble(8), c.getDouble(9),
-									c.getString(10), c.getString(11), c.getString(12), c.getInt(13), c.getInt(14), c.getString(15), c.getString(16), c.getString(17), c.getString(18),
-									c.getString(19), c.getString(20), c.getString(21), c.getString(22), c.getString(23), c.getString(24),c.getString(25), c.getString(26), c.getString(27),
-									c.getString(28), c.getString(29), c.getString(30), c.getString(31), c.getString(32), c.getString(33), c.getString(34), c.getString(35), c.getString(36),
-									c.getString(37), c.getInt(38), c.getInt(39),c.getString(40), c.getString(41), c.getString(46), c.getString(47),c.getString(48),c.getString(49),c.getString(58)," " + c.getString(c.getColumnIndex("correo")),/"http://172.16.1.21/serverSQL/insertLevantamiento.php""http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamiento.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php""http://192.168.0.11/serverSQL/insertLevantamiento.php");*/
-						}
+						//}
 						//db.delete("Levantamiento", "numero_acta = '" + c.getString(1) +  "'", null);
 					} while (c.moveToNext());
 				}
@@ -1002,16 +992,16 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			if (db != null) {
 				if (c.moveToFirst()) {
 					do {
-						System.out.println((buscarDetalle(c.getString(2), c.getString(3), c.getString(4)) == 0) + " d");
+						System.out.println((buscarDetalle(c.getString(2), c.getString(3), c.getString(4),c.getString(c.getColumnIndex("especificacion"))) == 0) + " d");
 						System.out.println(c.getString(2) + " " + c.getString(3) + " " + c.getString(4) + " d");
-						if (buscarDetalle(c.getString(2), c.getString(3), c.getString(4)) == 0) {
+						if (buscarDetalle(c.getString(2), c.getString(3), c.getString(4),c.getString(c.getColumnIndex("especificacion"))) == 0) {
 							System.out.println("entro aqui detalle 1");
 							id_l = idLe(c.getString(2));
 							conn.insertDetalle(id_l, c.getString(2), Integer.parseInt(c.getString(3)), Float.parseFloat(c.getString(4)),c.getString(c.getColumnIndex("unidad")),c.getString(c.getColumnIndex("especificacion")),/*"http://172.16.1.21/serverSQL/insertDetalle.php"*/urlP+"insertDetalle.php"/*"http://pgt.no-ip.biz/serverSQL/insertDetalle.php"/"http://192.168.0.15/serverSQL/insertDetalle.php"*/);
 							db.update("Detalle_infraccion", cv, "id_detalle_infraccion = " + c.getInt(0), null);
 						} else {
 							System.out.println("entro aqui detalle 2");
-							db.update("Detalle_infraccion", cv, "id_detalle_infraccion = " + c.getInt(0), null);
+							//db.update("Detalle_infraccion", cv, "id_detalle_infraccion = " + c.getInt(0), null);
 						}
 						//db.delete("Detalle_infraccion", "id_detalle_infraccion = '" + c.getInt(0) + "'", null);
 					} while (c.moveToNext());
@@ -1081,10 +1071,10 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 		return 0;
 	}
 
-	public int buscarDetalle(String numeroActa, String id_c_infraccion, String cantidad) {
+	public int buscarDetalle(String numeroActa, String id_c_infraccion, String cantidad,String especificacion) {
 		try {
 			System.out.println(urlP+"getNumeroActaD.php");
-			result = conn.detalleInfraccion(numeroActa, id_c_infraccion, cantidad, urlP+"getNumeroActaD.php"/*"http://pgt.no-ip.biz/serverSQL/getNumeroActaD.php"/"http://192.168.0.15/serverSQL/getNumeroActaD.php"*/);
+			result = conn.detalleInfraccion(numeroActa, id_c_infraccion, cantidad,especificacion, urlP+"getNumeroActaD.php"/*"http://pgt.no-ip.biz/serverSQL/getNumeroActaD.php"/"http://192.168.0.15/serverSQL/getNumeroActaD.php"*/);
 		}catch (Exception e){
 				System.err.println(e.getMessage());
 			}

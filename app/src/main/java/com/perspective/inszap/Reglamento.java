@@ -26,7 +26,7 @@ public class Reglamento {
     final static String TIPO16 = "Reglamento de Protección al Medio Ambiente y Equilibrio Ecológico para el Municipio de Zapopan, Jalisco";
     final static String TIPO17 = "Reglamento para la Protección y Conservación del Arbolado Urbano y Áreas Verdes del Municipio de Zapopan, Jalisco";
     final static String TIPO18 = "Reglamento de Rastro Municipal de Zapopan, Jalisco";
-    final static String TIPO19 = "Reglamento para el Manejo de Residuos Sólidos del Municipio de Zapopan, Jalisco";
+    final static String TIPO19 = "Reglamento para la Prevención y Gestión Integral de los Residuos del Municipio de Zapopan, Jalisco";
     final static String TIPO20 = "Reglamento que Norma el Funcionamiento de Aparatos de Sonido";
     final static String TIPO21 = "Reglamento de Urbanización del Municipio de Zapopan, Jalisco";
     final static String TIPO22 = "Reglamento Estatal de Zonificación";

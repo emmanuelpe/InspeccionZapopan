@@ -11560,11 +11560,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 String recrte = cuerpoInfra;
                                 String texto ="";
                                 int x=0;
-                                if(cuerpoInfra.length()>=5000 && cuerpoInfra.length()<=5150){
+                                if(cuerpoInfra.length()>=4900 && cuerpoInfra.length()<=5050){
                                     cuerpoInfra21 = recrte.substring(0,cuerpoInfra.length()-mocha.length()+1 ) + " (CONTINUA EN EL REVERSO)";
                                     banderacorte = cuerpoInfra.length()-mocha.length()+1;
                                 }else {
-                                    for (int i = 5000; i < recrte.length(); i++) {
+                                    for (int i = 4900; i < recrte.length(); i++) {
                                         String substring = cuerpoInfra.substring(i, i + 1);
                                         //Log.i(TAG, " caracteresgg1:"+ substring);. En uso
 
@@ -11644,13 +11644,13 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 String recrte = cuerpoInfra;
                                 String texto ="";
                                 int x=0;
-                                if(cuerpoInfra.length()>=5000 && cuerpoInfra.length()<=5150){
+                                if(cuerpoInfra.length()>=4900 && cuerpoInfra.length()<=5050){
                                     cuerpoInfra21 = recrte.substring(0,cuerpoInfra.length()-mocha.length()+1 ) + " (CONTINUA EN EL REVERSO)";
                                     banderacorte = cuerpoInfra.length()-mocha.length()+1;
                                 }else {
 
 
-                                    for (int i = 5000; i < recrte.length(); i++) {
+                                    for (int i = 4900; i < recrte.length(); i++) {
                                         String substring = cuerpoInfra.substring(i, i + 1);
                                         //Log.i(TAG, " caracteresgg1:"+ substring);. En uso
 
@@ -11734,11 +11734,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 String recrte = cuerpoInfra;
                                 String texto ="";
                                 int x=0;
-                                if(cuerpoInfra.length()>=5000 && cuerpoInfra.length()<=5150){
+                                if(cuerpoInfra.length()>=4900 && cuerpoInfra.length()<=5050){
                                     cuerpoInfra21 = recrte.substring(0,cuerpoInfra.length()-mocha.length()+1 ) + " (CONTINUA EN EL REVERSO)";
                                     banderacorte = cuerpoInfra.length()-mocha.length()+1;
                                 }else {
-                                    for (int i = 5000; i < recrte.length(); i++) {
+                                    for (int i = 4900; i < recrte.length(); i++) {
                                         String substring = cuerpoInfra.substring(i, i + 1);
                                         //Log.i(TAG, " caracteresgg1:"+ substring);. En uso
 
