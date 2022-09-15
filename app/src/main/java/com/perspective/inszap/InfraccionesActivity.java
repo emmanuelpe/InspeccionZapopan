@@ -12670,9 +12670,11 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				    	doc.add(new Paragraph(" ",new Font(Font.HELVETICA,6,Color.BLACK)));
 				    
 				    doc.add(new Paragraph(" ",new Font(Font.HELVETICA,7,Color.BLACK)));
-				    String f1 = "";
+				    //String f1 = "";
+                    String f1 = etIfeI.getText().toString()+", ";
 
-				    for(int x=0;x < folios.size();x++) {
+
+                    for(int x=0;x < folios.size();x++) {
 				        if(!folios.get(x).trim().equalsIgnoreCase(""))
 				            f1+=folios.get(x) + ",";
                     }

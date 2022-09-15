@@ -7910,7 +7910,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarBD.getReadableDatabase();
         try{
-            Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre = '" + nom + "' and trim(vigente) = 'S'", null);
+            Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre like '%" + nom + "%' and trim(vigente) = 'S'", null);
             if(c.moveToFirst()){
                 do{
                     ifeA = c.getString(2);
@@ -7938,7 +7938,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarBD.getReadableDatabase();
         try{
-            Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre = '" + nom + "' and trim(vigente) = 'S'", null);
+            Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre like '%" + nom + "%' and trim(vigente) = 'S'", null);
             if(c.moveToFirst()){
                 do{
                     ifeA1 = c.getString(2);
@@ -7966,7 +7966,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarBD.getReadableDatabase();
         try{
-            Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre = '" + nom + "' and trim(vigente) = 'S'", null);
+            Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre like '%" + nom + "%' and trim(vigente) = 'S'", null);
             if(c.moveToFirst()){
                 do{
                     ifeA2 = c.getString(2);
@@ -7994,7 +7994,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarBD.getReadableDatabase();
         try{
-            Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre = '" + nom + "' and trim(vigente) = 'S'", null);
+            Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre like '%" + nom + "%' and trim(vigente) = 'S'", null);
             if(c.moveToFirst()){
                 do{
                     ifeA3 = c.getString(2);
@@ -8022,7 +8022,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarBD.getReadableDatabase();
         try{
-            Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre = '" + nom + "' and trim(vigente) = 'S'", null);
+            Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre like '%" + nom + "%' and trim(vigente) = 'S'", null);
             if(c.moveToFirst()){
                 do{
                     ifeA4 = c.getString(2);
@@ -11478,7 +11478,10 @@ String uso="";
                     doc.add(new Paragraph(" ",new Font(Font.HELVETICA,6,Color.BLACK)));
 
                 doc.add(new Paragraph(" ",new Font(Font.HELVETICA,7,Color.BLACK)));
-                String f1 = "";
+                String f1 = etIfeI.getText().toString()+", ";
+
+
+
 
                 for(int x=0;x < folios.size();x++) {
                     if(!folios.get(x).trim().equalsIgnoreCase(""))
