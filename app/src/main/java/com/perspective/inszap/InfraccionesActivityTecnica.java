@@ -1666,6 +1666,24 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                 }
 
                                 etNumeroActa.setText(String.valueOf(folio));
+                                //etNumeroActa.setText("465");
+                                if(validarFoto(Integer.valueOf(etNumeroActa.getText().toString()))>0){
+                                    btnImprimir.setEnabled(false);
+                                    btnGuardar.setEnabled(false);
+                                    btnVista.setEnabled(false);
+
+                                    /*Toast toast = Toast.makeText(InfraccionesActivity.this, "EL NUMERO DE ACTA ASIGNADO YA SE ENCUENTRA EN EL DISPOSITIVO PORFAVOR DE SICRONIZAR DE NUEVO O DESCARGAR SUS DATOS RESPECTIVOS: "+etNumeroActa.getText().toString(), Toast.LENGTH_SHORT);
+                                    toast.setGravity(0, 0, 15);
+                                    toast.show();*/
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(InfraccionesActivityTecnica.this);
+                                    builder.setTitle("Información");
+                                    builder.setIcon(R.drawable.ic_baseline_check_circle_24);
+                                    builder.setMessage("EL NUMERO DE ACTA  YA SE ENCUENTRA EN EL DISPOSITIVO PORFAVOR DE SICRONIZAR DE NUEVO O DESCARGAR SUS DATOS RESPECTIVOS: "+etNumeroActa.getText().toString());
+                                    builder.setPositiveButton("Aceptar", null);
+
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                }
                             }
                         }
 
@@ -4952,6 +4970,29 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
             }
         }
         return 0;
+    }
+    public int validarFoto(int numero_acta) {
+        GestionBD gestionarBD = new GestionBD(this, "inspeccion", null, 1);
+        SQLiteDatabase db = gestionarBD.getWritableDatabase();
+        int bandera = 0;
+        if (db != null) {
+            try {
+                //validar no se guarde doble el pdf
+                Cursor c = db.rawQuery("SELECT * FROM Fotografia where numero_acta='" + numero_acta+"' and descripcion='PDF'", null);
+                if (c.moveToFirst()) {
+                    do {
+                        bandera = c.getInt(1);
+                        ///Log.i("FOTOGRAFIA", c.getInt(0) + " " + c.getInt(1) + " " + c.getString(2) + " " + c.getString(3) + " " + c.getString(4));
+                    } while (c.moveToNext());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally {
+                db.close();
+            }
+            Log.i("banderafoto: ", String.valueOf(bandera));
+        }
+        return bandera;
     }
     public void descargarFotografia() {
         GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);

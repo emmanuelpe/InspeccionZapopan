@@ -1708,8 +1708,27 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                                     builder.create().show();
                                 }
-
                                 etNumeroActa.setText(String.valueOf(folio));
+                                //etNumeroActa.setText("453");
+                                if(validarFoto(Integer.valueOf(etNumeroActa.getText().toString()))>0){
+                                    btnImprimir.setEnabled(false);
+                                    btnGuardar.setEnabled(false);
+                                    btnVista.setEnabled(false);
+
+                                    /*Toast toast = Toast.makeText(InfraccionesActivity.this, "EL NUMERO DE ACTA ASIGNADO YA SE ENCUENTRA EN EL DISPOSITIVO PORFAVOR DE SICRONIZAR DE NUEVO O DESCARGAR SUS DATOS RESPECTIVOS: "+etNumeroActa.getText().toString(), Toast.LENGTH_SHORT);
+                                    toast.setGravity(0, 0, 15);
+                                    toast.show();*/
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(InfraccionesActivity.this);
+                                    builder.setTitle("Información");
+                                    builder.setIcon(R.drawable.ic_baseline_check_circle_24);
+                                    builder.setMessage("EL NUMERO DE ACTA  YA SE ENCUENTRA EN EL DISPOSITIVO PORFAVOR DE SICRONIZAR DE NUEVO O DESCARGAR SUS DATOS RESPECTIVOS: "+etNumeroActa.getText().toString());
+                                    builder.setPositiveButton("Aceptar", null);
+
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                }
+
+
                             }
                         }
 
@@ -2719,17 +2738,37 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					}
 					else {*/
 						//guardar();
+                if(ante.contains("IN")){
+                    //if(validarFoto(Integer.valueOf(etNumeroActa.getText().toString()))<=0){
+                        if (!etInfraccion.getText().toString().equalsIgnoreCase("") | infrac == 2 | infrac == 3 | infrac == 4) {
 
-                if (validarI()) {
-                    if(!etInfraccion.getText().toString().equalsIgnoreCase("") | infrac == 2 | infrac == 3 | infrac == 4) {
-
-                        new Descargas().execute();
-                        if(!ante.contains("OV"))
-                        new EFoto().execute();
-                    }else {
-                        Toast toast = Toast.makeText(getApplicationContext(), "EL CAMPO INFRACCION ESTA VACIO", Toast.LENGTH_LONG);
+                            new Descargas().execute();
+                            if (!ante.contains("OV"))
+                                new EFoto().execute();
+                        } else {
+                            Toast toast = Toast.makeText(getApplicationContext(), "EL CAMPO INFRACCION ESTA VACIO", Toast.LENGTH_LONG);
+                            toast.setGravity(0, 0, 15);
+                            toast.show();
+                        }
+                   /* }else{
+                        Toast toast = Toast.makeText(getApplicationContext(), "ESE NUMERO DE ACTA YA EXISTE EN EL DISPOSITIVO: "+ etNumeroActa.getText().toString(), Toast.LENGTH_LONG);
                         toast.setGravity(0, 0, 15);
                         toast.show();
+                    }*/
+                }else {
+
+                    if (validarI()) {
+
+                        if (!etInfraccion.getText().toString().equalsIgnoreCase("") | infrac == 2 | infrac == 3 | infrac == 4) {
+
+                            new Descargas().execute();
+                            if (!ante.contains("OV"))
+                                new EFoto().execute();
+                        } else {
+                            Toast toast = Toast.makeText(getApplicationContext(), "EL CAMPO INFRACCION ESTA VACIO", Toast.LENGTH_LONG);
+                            toast.setGravity(0, 0, 15);
+                            toast.show();
+                        }
                     }
                 }
 					//}
@@ -6086,7 +6125,6 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 //if (!conn.search("http://172.16.1.21/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
                 //if (!conn.search("http://192.168.0.15/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
                 //if (conn.validarConexion(getApplicationContext()))
-            
             guardar();
             //}
             return null;
@@ -7476,22 +7514,45 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     		db.close();
     	}
     }
-    
+    public int validarFoto(int numero_acta) {
+        GestionBD gestionarBD = new GestionBD(this, "inspeccion", null, 1);
+        SQLiteDatabase db = gestionarBD.getWritableDatabase();
+        int bandera = 0;
+        if (db != null) {
+            try {
+                //validar no se guarde doble el pdf
+                Cursor c = db.rawQuery("SELECT * FROM Fotografia where numero_acta='" + numero_acta+"' and descripcion='PDF'", null);
+                if (c.moveToFirst()) {
+                    do {
+                        bandera = c.getInt(1);
+                        ///Log.i("FOTOGRAFIA", c.getInt(0) + " " + c.getInt(1) + " " + c.getString(2) + " " + c.getString(3) + " " + c.getString(4));
+                    } while (c.moveToNext());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally {
+                db.close();
+            }
+            Log.i("banderafoto: ", String.valueOf(bandera));
+        }
+        return bandera;
+    }
     public long insertFotrografia(int levantamiento, String numeroActa,String archivo, String descripcion,String com,String estatus) {
     	long n = 0;
     	GestionBD gestionarBD = new GestionBD(this, "inspeccion",null,1);
     	SQLiteDatabase db = gestionarBD.getWritableDatabase();
-    	
+    	int bandera=0;
     	if (db != null) {
     		try {
-    			ContentValues cv = new ContentValues();
-    			cv.put("id_levantamiento", levantamiento);
-    			cv.put("numero_acta", numeroActa);
-    			cv.put("archivo", archivo);
-    			cv.put("descripcion", descripcion);
-    			cv.put("enviado", com);
-    			cv.put("estatus", estatus);
-    			n = db.insert("Fotografia", null, cv);
+                ContentValues cv = new ContentValues();
+                cv.put("id_levantamiento", levantamiento);
+                cv.put("numero_acta", numeroActa);
+                cv.put("archivo", archivo);
+                cv.put("descripcion", descripcion);
+                cv.put("enviado", com);
+                cv.put("estatus", estatus);
+                n = db.insert("Fotografia", null, cv);
+
     		}catch (SQLiteException e) {
     			Log.e("ERROR en:", e.getMessage());
     		}
@@ -7507,8 +7568,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     	long n = 0;
     	GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
     	SQLiteDatabase db = gestionarBD.getWritableDatabase();
-    	
+
     	if(db != null) {
+
     		ContentValues cv = new ContentValues();
     		cv.put("id_levantamiento", idLevantamiento);
     		cv.put("numero_acta", numeroActa);
@@ -7517,7 +7579,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     		cv.put("estatus", estatus);
     		cv.put("unidad",unidad);
     		cv.put("especificacion",especificacion);
-    	
+
     		n = db.insert("Detalle_infraccion", null, cv);
     	}
     	db.close();
