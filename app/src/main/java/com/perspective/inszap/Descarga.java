@@ -951,7 +951,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 								System.out.println("si");
 								ContentValues cv = new ContentValues();
 								cv.put("status", "S");
-								db.update("Levantamiento", cv, "id_levantamiento = " + c.getInt(0), null);
+								db.update("Levantamiento", cv, "numero_acta = '" + c.getInt(1)+"'", null);
 								count += 1;
 								System.out.println("entro aqui levantamiento 1");
 								//db.delete("Levantamiento", "numero_acta = '" + c.getString(1) +  "'", null);
