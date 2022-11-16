@@ -12739,7 +12739,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     }
 
                     for(int x=0;x < folios.size();x++) {
-				        if(folios.get(x).trim().length()>0)
+				        if(!folios.get(x).trim().equalsIgnoreCase(""))
 				            f1+=folios.get(x) + ",";
                     }
 

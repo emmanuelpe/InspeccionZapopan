@@ -10529,7 +10529,7 @@ String uso="";
 
                 String textC="";
                 if(!etCondominio.getText().toString().equals(""))
-                    textC=""+etCondominio.getText().toString();
+                    textC=" "+etCondominio.getText().toString();
 
                String hechos=etSeleccion.getText().toString().trim();
                cuerpoInfra="En la ciudad de Zapopan, Jalisco, siendo las "+hora +" horas del día "
@@ -11530,7 +11530,7 @@ String uso="";
 
 
                     for(int x=0;x < folios.size();x++) {
-                    if(folios.get(x).trim().length()>0)
+                    if(!folios.get(x).trim().equalsIgnoreCase(""))
                         f1+=folios.get(x) + ",";
                 }
 
