@@ -1850,6 +1850,9 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                 pos ++;
 
                 Log.i("idinspector2", id_inspector2 + "");
+
+
+
             }
 
             @Override
@@ -7951,21 +7954,24 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarBD.getReadableDatabase();
         try{
-            Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre like '%" + nom + "%' and trim(vigente) = 'S'", null);
-            if(c.moveToFirst()){
-                do{
-                    ifeA = c.getString(2);
-                    noA = c.getString(c.getColumnIndex("no_empleado"));
-                    vigA = c.getString(c.getColumnIndex("vigencia"));
-                    folios.set(0,c.getString(c.getColumnIndex("folio")));
-                    Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
-                }while(c.moveToNext());
+            //System.out.println( "nom "+ nom);
+            if(nom.length()>0) {
+                Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre like '%" + nom + "%' and trim(vigente) = 'S'", null);
+                if (c.moveToFirst()) {
+                    do {
+                        ifeA = c.getString(2);
+                        noA = c.getString(c.getColumnIndex("no_empleado"));
+                        vigA = c.getString(c.getColumnIndex("vigencia"));
+                        folios.set(0, c.getString(c.getColumnIndex("folio")));
+                        Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4) + "folio" + c.getString(c.getColumnIndex("folio")));
+                    } while (c.moveToNext());
+                    c.close();
+                } else {
+                    //Toast.makeText(this, "No hay inspectores en la bd", Toast.LENGTH_SHORT).show();
+                }
+
                 c.close();
             }
-            else{
-                //Toast.makeText(this, "No hay inspectores en la bd", Toast.LENGTH_SHORT).show();
-            }
-            c.close();
         }catch (SQLiteException e) {
             Log.i("ERROR FATAL", e.getMessage());
         }finally {
@@ -7979,21 +7985,26 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarBD.getReadableDatabase();
         try{
-            Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre like '%" + nom + "%' and trim(vigente) = 'S'", null);
-            if(c.moveToFirst()){
-                do{
-                    ifeA1 = c.getString(2);
-                    noA1 = c.getString(c.getColumnIndex("no_empleado"));
-                    vigA1 = c.getString(c.getColumnIndex("vigencia"));
-                    folios.set(1,c.getString(c.getColumnIndex("folio")));
-                    Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
-                }while(c.moveToNext());
+            if(nom.length()>0) {
+                Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre like '%" + nom + "%' and trim(vigente) = 'S'", null);
+                System.out.println(c.getCount() + "renglones");
+
+                if (c.moveToFirst()) {
+                    do {
+                        ifeA1 = c.getString(2);
+                        noA1 = c.getString(c.getColumnIndex("no_empleado"));
+                        vigA1 = c.getString(c.getColumnIndex("vigencia"));
+                        folios.set(1, c.getString(c.getColumnIndex("folio")));
+
+                        Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4) + "folio" + c.getString(c.getColumnIndex("folio")));
+
+                    } while (c.moveToNext());
+                    c.close();
+                } else {
+                    //Toast.makeText(this, "No hay inspectores en la bd", Toast.LENGTH_SHORT).show();
+                }
                 c.close();
             }
-            else{
-                //Toast.makeText(this, "No hay inspectores en la bd", Toast.LENGTH_SHORT).show();
-            }
-            c.close();
         }catch (SQLiteException e) {
             Log.i("ERROR FATAL", e.getMessage());
         }finally {
@@ -8007,21 +8018,23 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarBD.getReadableDatabase();
         try{
-            Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre like '%" + nom + "%' and trim(vigente) = 'S'", null);
-            if(c.moveToFirst()){
-                do{
-                    ifeA2 = c.getString(2);
-                    noA2 = c.getString(c.getColumnIndex("no_empleado"));
-                    vigA2 = c.getString(c.getColumnIndex("vigencia"));
-                    folios.set(2,c.getString(c.getColumnIndex("folio")));
-                    Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
-                }while(c.moveToNext());
+            if(nom.length()>0) {
+                Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre like '%" + nom + "%' and trim(vigente) = 'S'", null);
+                System.out.println(c.getCount() + "renglones");
+                if (c.moveToFirst()) {
+                    do {
+                        ifeA2 = c.getString(2);
+                        noA2 = c.getString(c.getColumnIndex("no_empleado"));
+                        vigA2 = c.getString(c.getColumnIndex("vigencia"));
+                        folios.set(2, c.getString(c.getColumnIndex("folio")));
+                        Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4) + "folio" + c.getString(c.getColumnIndex("folio")));
+                    } while (c.moveToNext());
+                    c.close();
+                } else {
+                    //Toast.makeText(this, "No hay inspectores en la bd", Toast.LENGTH_SHORT).show();
+                }
                 c.close();
             }
-            else{
-                //Toast.makeText(this, "No hay inspectores en la bd", Toast.LENGTH_SHORT).show();
-            }
-            c.close();
         }catch (SQLiteException e) {
             Log.i("ERROR FATAL", e.getMessage());
         }finally {
@@ -8035,21 +8048,24 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarBD.getReadableDatabase();
         try{
-            Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre like '%" + nom + "%' and trim(vigente) = 'S'", null);
-            if(c.moveToFirst()){
-                do{
-                    ifeA3 = c.getString(2);
-                    noA3 = c.getString(c.getColumnIndex("no_empleado"));
-                    vigA3 = c.getString(c.getColumnIndex("vigencia"));
-                    folios.set(3,c.getString(c.getColumnIndex("folio")));
-                    Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
-                }while(c.moveToNext());
+            if(nom.length()>0) {
+                Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre like '%" + nom + "%' and trim(vigente) = 'S'", null);
+                System.out.println(c.getCount() + "renglones");
+
+                if (c.moveToFirst()) {
+                    do {
+                        ifeA3 = c.getString(2);
+                        noA3 = c.getString(c.getColumnIndex("no_empleado"));
+                        vigA3 = c.getString(c.getColumnIndex("vigencia"));
+                        folios.set(3, c.getString(c.getColumnIndex("folio")));
+                        Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4) + "folio" + c.getString(c.getColumnIndex("folio")));
+                    } while (c.moveToNext());
+                    c.close();
+                } else {
+                    //Toast.makeText(this, "No hay inspectores en la bd", Toast.LENGTH_SHORT).show();
+                }
                 c.close();
             }
-            else{
-                //Toast.makeText(this, "No hay inspectores en la bd", Toast.LENGTH_SHORT).show();
-            }
-            c.close();
         }catch (SQLiteException e) {
             Log.i("ERROR FATAL", e.getMessage());
         }finally {
@@ -8063,21 +8079,24 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
         GestionBD gestionarBD = new GestionBD(this,"inspeccion",null,1);
         SQLiteDatabase db = gestionarBD.getReadableDatabase();
         try{
-            Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre like '%" + nom + "%' and trim(vigente) = 'S'", null);
-            if(c.moveToFirst()){
-                do{
-                    ifeA4 = c.getString(2);
-                    noA4 = c.getString(c.getColumnIndex("no_empleado"));
-                    vigA4 = c.getString(c.getColumnIndex("vigencia"));
-                    folios.set(4,c.getString(c.getColumnIndex("folio")));
-                    Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
-                }while(c.moveToNext());
+            if(nom.length()>0) {
+                Cursor c = db.rawQuery("SELECT * FROM C_Inspector WHERE nombre like '%" + nom + "%' and trim(vigente) = 'S'", null);
+                System.out.println(c.getCount() + "renglones");
+
+                if (c.moveToFirst()) {
+                    do {
+                        ifeA4 = c.getString(2);
+                        noA4 = c.getString(c.getColumnIndex("no_empleado"));
+                        vigA4 = c.getString(c.getColumnIndex("vigencia"));
+                        folios.set(4, c.getString(c.getColumnIndex("folio")));
+                        Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4) + "folio" + c.getString(c.getColumnIndex("folio")));
+                    } while (c.moveToNext());
+                    c.close();
+                } else {
+                    //Toast.makeText(this, "No hay inspectores en la bd", Toast.LENGTH_SHORT).show();
+                }
                 c.close();
             }
-            else{
-                //Toast.makeText(this, "No hay inspectores en la bd", Toast.LENGTH_SHORT).show();
-            }
-            c.close();
         }catch (SQLiteException e) {
             Log.i("ERROR FATAL", e.getMessage());
         }finally {
@@ -11522,7 +11541,7 @@ String uso="";
 
                 String f1 = "";
                 if(etIfeI.getText().toString().length()>0){
-                    f1+=etIfeI.getText().toString();
+                    f1+=etIfeI.getText().toString()+", ";
                 }
 
 
@@ -11530,11 +11549,14 @@ String uso="";
 
 
                     for(int x=0;x < folios.size();x++) {
-                    if(!folios.get(x).trim().equalsIgnoreCase(""))
-                        f1+=folios.get(x) + ",";
+                    if(!folios.get(x).trim().equalsIgnoreCase("")) {
+                        f1 += folios.get(x) + ", ";
+
+                    }
+                        Log.i(TAG, "imprimir: " + folios.get(x));
                 }
 
-                f1=f1.substring(0,f1.length()-1);
+                f1=f1.substring(0,f1.length()-2);
                 p = new Paragraph("                                                          " ,font1);
                 p.setAlignment(Paragraph.ALIGN_LEFT);
                 doc.add(p);
@@ -11598,7 +11620,7 @@ String uso="";
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9.35f);
                 canvas.moveText(210f, 486f+c);
-                canvas.showText(fol + "," + f1);
+                canvas.showText(f1);
                 canvas.endText();
                 canvas.restoreState();
 
@@ -15393,6 +15415,7 @@ String uso="";
                 pos ++;
 
                 Log.i("idinspector3", id_inspector3 + "");
+
                 break;
             case R.id.spNombreAcompanante2:
                 etIfeA2.setEnabled(false);
@@ -15438,6 +15461,8 @@ String uso="";
                 pos ++;
 
                 Log.i("idinspector4", id_inspector4 + "");
+
+
                 break;
             case R.id.spNombreAcompanante3:
                 etIfeA3.setEnabled(false);
@@ -15485,6 +15510,8 @@ String uso="";
                 pos ++;
 
                 Log.i("idinspector5", id_inspector5 + "");
+
+
                 break;
             case R.id.spNombreAcompanante4:
                 etIfeA4.setEnabled(false);
@@ -15531,6 +15558,8 @@ String uso="";
                 pos ++;
 
                 Log.i("idinspector6", id_inspector6 + "");
+
+
                 break;
 
             case R.id.spReglamento:

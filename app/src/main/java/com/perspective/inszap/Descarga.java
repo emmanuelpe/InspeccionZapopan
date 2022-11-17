@@ -2028,8 +2028,9 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				 JSONArray jsonArray = jParser.realizarHttpRequest1(urlP+"getfoliolast.php", "POST",inspector);
 
 
+
 				eliminaRegistros2("C_inspector",f);
-				c2.insetarRegistros(urlP+"getc_insepctor.php"/*"http://pgt.no-ip.biz/serverSQL/getc_insepctor.php""http://192.168.1.87/serverSQL/getC_Direccion.php"*/, "C_inspector");
+				c2.insetarRegistros(urlP+"getc_insepctor.php", "C_inspector");
 
 			}
 		}

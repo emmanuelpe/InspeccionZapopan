@@ -328,10 +328,11 @@ public class MainActivity extends Activity {
 
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
-										new Actualizar().execute();
+										//new Actualizar().execute();
 
 									}
 								});
+
 								AlertDialog alert = dialog.create();
 								alert.show();
 							} else{
@@ -1353,7 +1354,7 @@ public class MainActivity extends Activity {
 					} else {
 						System.out.println("fechas no funkan");
 						r = false;
-						mensaje = "Las vigencias se actualizaran";
+						mensaje = "Necesita actualizar las vigencias (Actualizar la base de datos)";
 					}
 
 				}
