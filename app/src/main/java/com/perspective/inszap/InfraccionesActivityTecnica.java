@@ -5388,13 +5388,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                             idCompetencia1,idCompetencia2,idCompetencia3,idCompetencia4,idCompetencia5
                             ,etLGiro.getText().toString().trim(),etGiro.getText().toString(),axo,etNombreComercial.getText().toString(),etSector.getText().toString(),conf,spPeticion.getSelectedItem().toString(),spNE.getSelectedItem().toString(),reincidencia,tipoEntrega,etfoliopeticion.getText().toString(),etfolioap.getText().toString(),etfechap.getText().toString(),etNumeroSellos.getText().toString(),etdecomiso.getText().toString(),"","",/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/urlP+"insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php"/"http://192.168.0.15/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
 
-                        GestionBD gestion = new GestionBD(this.getApplicationContext(),"inspeccion",null,1);
-                        SQLiteDatabase db = gestion.getWritableDatabase();
-                        ContentValues cv = new ContentValues();
-                        cv.put("status", "S");
-                        db.update("Levantamiento", cv, "numero_acta = ' " + numero_acta +"'", null);
 
-                        db.close();
 
                         resu = true;
 
