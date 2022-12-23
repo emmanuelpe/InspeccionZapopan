@@ -11944,6 +11944,27 @@ String uso="";
                 canvas.restoreState();*/
 
                 if(cbFirma.isChecked()) {
+
+                    /*canvas.saveState();
+                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                    canvas.beginText();
+                    canvas.setFontAndSize(bf, 9.35f);
+                    canvas.moveText(86, 155.5f);
+                    canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
+                    canvas.endText();
+                    canvas.restoreState();
+
+                    canvas.saveState();
+                    bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                    canvas.beginText();
+                    canvas.setFontAndSize(bf, 9.25f);
+                    canvas.moveText(515, 155f);
+                    canvas.showText(hr);
+                    canvas.endText();
+                    canvas.restoreState();*/
+
+
+
                     canvas.saveState();
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
@@ -12007,7 +12028,27 @@ String uso="";
                           }
                       }
                   }
+                    String peticionb="";
+                    if(spPeticion.getSelectedItem().toString().equals("Flagrancia")){
+                        peticionb=spPeticion.getSelectedItem().toString();
+                    }else{
+                        if(etfoliopeticion.getText().length()>2){
+                            peticionb=spPeticion.getSelectedItem().toString()+" con folio "+etfoliopeticion.getText().toString();
 
+                        }else{
+                            peticionb=spPeticion.getSelectedItem().toString();
+
+                        }
+
+                    }
+                    canvas.saveState();
+                    bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                    canvas.beginText();
+                    canvas.setFontAndSize(bf, 9);
+                    canvas.moveText(60, 38);
+                    canvas.showText("NOTA: En atencion a :"+ peticionb);
+                    canvas.endText();
+                    canvas.restoreState();
 
 
                 }

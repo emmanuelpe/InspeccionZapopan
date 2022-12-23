@@ -9256,10 +9256,10 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			if(db != null){
 				//Cursor c = db.query("C_zonas", null, "id_c_zonas", null, null, null, null);
                 Cursor c;
-                if(id == 5)
+                if(id == 4)
                     c = db.rawQuery("SELECT * FROM C_zonas WHERE id_c_direccion = '" + 5 + "'", null);
                 else
-                    c = db.rawQuery("SELECT * FROM C_zonas WHERE id_c_direccion = '" + 5 + "'", null);
+                    c = db.rawQuery("SELECT * FROM C_zonas WHERE id_c_direccion = '" + 3 + "'", null);
 				if(c.moveToFirst()){
 					do{
 						//zona.add(c.getString(2) + "     " + c.getString(3));
@@ -13101,7 +13101,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9.25f);
-                        canvas.moveText(518, 171f);
+                        canvas.moveText(518, 155.5f);
                         canvas.showText(hr);
                         canvas.endText();
                         canvas.restoreState();
@@ -13110,7 +13110,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9.25f);
-                        canvas.moveText(65, 155.5f);
+                        canvas.moveText(65, 145.5f);
                         canvas.showText(dia + "");
                         canvas.endText();
                         canvas.restoreState();
@@ -13119,7 +13119,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9.25f);
-                        canvas.moveText(156, 155.5f);
+                        canvas.moveText(156, 145.5f);
                         canvas.showText(me.toUpperCase(Locale.getDefault()));
                         canvas.endText();
                         canvas.restoreState();
@@ -13128,7 +13128,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9.25f);
-                        canvas.moveText(263.6f, 155.5f);
+                        canvas.moveText(263.6f, 145.5f);
                         canvas.showText(a + "");
                         canvas.endText();
                         canvas.restoreState();
@@ -13138,7 +13138,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9.35f);
-                        canvas.moveText(86, 169f);
+                        canvas.moveText(86, 155.5f);
                         canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
                         canvas.endText();
                         canvas.restoreState();
@@ -13172,6 +13172,28 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         canvas.endText();
                         canvas.restoreState();
 			        }
+
+                    String peticionb="";
+                    if(spPeticion.getSelectedItem().toString().equals("Flagrancia")){
+                        peticionb=spPeticion.getSelectedItem().toString();
+                    }else{
+                        if(etfoliopeticion.getText().length()>2){
+                            peticionb=spPeticion.getSelectedItem().toString()+" con folio "+etfoliopeticion.getText().toString();
+
+                        }else{
+                            peticionb=spPeticion.getSelectedItem().toString();
+
+                        }
+
+                    }
+                    canvas.saveState();
+                    bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                    canvas.beginText();
+                    canvas.setFontAndSize(bf, 9);
+                    canvas.moveText(60, 38);
+                    canvas.showText("NOTA: En atencion a :"+ peticionb);
+                    canvas.endText();
+                    canvas.restoreState();
 
 
 

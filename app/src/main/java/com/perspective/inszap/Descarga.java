@@ -934,7 +934,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				count = 0;
 				if (c.moveToFirst()) {
 					do {
-						//System.out.println((buscarLevantamiento(c.getString(1)) == 0) + " l");
+						//System.out.println("acta1: "+c.getInt(1));
 						//System.out.println(buscarLevantamiento(c.getString(1))  + " l");
 						//if (buscarLevantamiento(c.getString(1)) < 1) {
 							if (Connection.inserta(c.getString(1), c.getString(2), c.getInt(3), c.getString(4), c.getInt(5), c.getString(6), c.getString(7), c.getDouble(8), c.getDouble(9),
@@ -951,7 +951,10 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 								System.out.println("si");
 								ContentValues cv = new ContentValues();
 								cv.put("status", "S");
-								db.update("Levantamiento", cv, "numero_acta = '" + c.getInt(1)+"'", null);
+								//System.out.println("acta2: "+c.getInt(1));
+								System.out.println("acta3: "+c.getString(1));
+
+								db.update("Levantamiento", cv, "numero_acta = '" + c.getString(1)+"'", null);
 								count += 1;
 								System.out.println("entro aqui levantamiento 1");
 								//db.delete("Levantamiento", "numero_acta = '" + c.getString(1) +  "'", null);
@@ -992,7 +995,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			if (db != null) {
 				if (c.moveToFirst()) {
 					do {
-						System.out.println((buscarDetalle(c.getString(2), c.getString(3), c.getString(4),c.getString(c.getColumnIndex("especificacion"))) == 0) + " d");
+						//System.out.println((buscarDetalle(c.getString(2), c.getString(3), c.getString(4),c.getString(c.getColumnIndex("especificacion"))) == 0) + " d");
 						System.out.println(c.getString(2) + " " + c.getString(3) + " " + c.getString(4) + " d");
 						if (buscarDetalle(c.getString(2), c.getString(3), c.getString(4),c.getString(c.getColumnIndex("especificacion"))) == 0) {
 							System.out.println("entro aqui detalle 1");
@@ -2250,7 +2253,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 
 				SharedPreferences.Editor editor = sp.edit();
 
-				System.out.println(tablet[which]);
+				//System.out.println(tablet[which]);
 				editor.putString("numt", tablet[which]);
 				editor.commit();
 

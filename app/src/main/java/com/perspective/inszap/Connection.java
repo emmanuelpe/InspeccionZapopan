@@ -447,6 +447,8 @@ public class Connection {
 			//httpclient. = TimeSpan.FromMilliseconds(10);
 			HttpParams clientParams = httpclient.getParams();
 
+			//HttpConnectionParams.setSoTimeout(clientParams, 240000);
+			HttpConnectionParams.setConnectionTimeout(clientParams, 240000);
 			HttpConnectionParams.setSoTimeout(clientParams, 240000);
 
 
