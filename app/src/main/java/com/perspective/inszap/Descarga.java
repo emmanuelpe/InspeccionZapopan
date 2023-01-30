@@ -386,11 +386,6 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 											toast.show();
 										}
 									}
-								}).setNegativeButton("No", new DialogInterface.OnClickListener() {
-									@Override
-									public void onClick(DialogInterface dialog, int which) {
-
-									}
 								});
 						builder.create().show();
 
@@ -429,46 +424,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 			btnInfraccion.setEnabled(false);
 
 		v = sp.getInt("v", 0);
-		/*if (!conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
-		//if (!conn.search("http://192.168.0.11/serverSQL/getC_Direccion.php").trim().equalsIgnoreCase("No se pudo conectar con el servidor")) {
-			if(conn.validarConexion(getApplicationContext())) {
-				if(!conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getC_Direccion.php").equalsIgnoreCase("No se pudo conectar con el servidor")) {
-				//if(!conn.search("http://172.16.1.21/serverSQL/getC_Direccion.php").equalsIgnoreCase("No se pudo conectar con el servidor")) {
-				//if(!conn.search("http://192.168.0.11/serverSQL/getC_Direccion.php").equalsIgnoreCase("No se pudo conectar con el servidor")) {
-					result = conn.search("http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/getVersion.php");
-					//result = conn.search("http://172.16.1.21/serversql/getVersion.php");
-					//result = conn.search("http://192.168.0.11/serversql/getVersion.php");
-					if (!result.trim().equalsIgnoreCase("null")) {
-						try {
-							this.jarray = new JSONArray(result);
-							for (int i = 0; i < jarray.length(); i++) {
-								this.json_data = this.jarray.getJSONObject(i);
-								v1 = json_data.getInt("version_app");
-							}
-						} catch (JSONException e) {
-							Log.e("idl", e.getMessage());
-						}
-						if (v != v1) {
-							mostrarMsg();
-						}else
-							System.out.println("no actualizar");
-					}
-				}
-			}
-		}*/
-		/*yourCheckBox.setOnClickListener(new OnClickListener() {
 
-      @Override
-      public void onClick(View v) {
-                //is chkIos checked?
-        if (((CheckBox) v).isChecked()) {
-                         //Case 1
-        }
-        else
-          //case 2
-
-      }
-    });*/
        if(id==1) {
 
 		   modoT.setOnClickListener(new OnClickListener() {

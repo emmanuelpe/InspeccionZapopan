@@ -1675,9 +1675,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
                         System.out.println(foliox + "---");
-                        if(valW =="") {
-                            System.out.println(consultarActa()+"/GGGGG");
-                            if (foliox > 0 && foliox >= min && foliox < max ) {
+
+
+                            if (foliox > 0 && foliox >= min && foliox <= max ) {
                                 if(foliox>folio) {
                                     folio = foliox;
                                 }else{
@@ -1686,16 +1686,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 etNumeroActa.setText(String.valueOf(folio));
 
                             }else {
+
+
                                 Log.v("folios ", folio + " " + max + " max");
-                                if (folio >= min && folio < max) {
-                                    folio = folio + 1;
-                                } else if(folio==0 && next_max==0 && next_min==0) {
-                                    folio = min;
-                                }else if(folio<min  ) {
-                                     folio = min;
-                                }else if(folio==max ){
+
+                                if(folio==max || foliox > max ){
+
                                     MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivity.this)
-                                            .setTitle("Requiere nuevo foliaje, reinicie con internet")
+                                            .setTitle("Requiere nuevo foliaje, reinicie con internet  en la tableta de origen")
                                             .setMessage(getResources().getString(R.string.continuar))
                                             .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
                                                 @Override
@@ -1707,6 +1705,15 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                             });
 
                                     builder.create().show();
+                                }
+
+                                if (folio >= min && folio < max) {
+                                    folio = folio + 1;
+
+                                } else if(folio==0 && next_max==0 && next_min==0) {
+                                    folio = min;
+                                }else if(folio<min  ) {
+                                     folio = min;
                                 }
                                 etNumeroActa.setText(String.valueOf(folio));
                                 //etNumeroActa.setText("453");
@@ -1730,7 +1737,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 
                             }
-                        }
+
 
 
 
@@ -1745,16 +1752,16 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     if(!citatorio){
                         String [] na;
                         if(consultarActa() == 0){
-                            System.out.println(consultarActa()+"/GGGGG");
+                           // System.out.println(consultarActa()+"/GGGGG");
                             if(infrac!=1) {
-                                Log.i("consultar", "si");
+                                //Log.i("consultar", "si");
                                 numero = "01";
                                 etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
-                                Log.i("acta", "entro aqui");
+                                //Log.i("acta", "entro aqui");
                                 buscarNumeroActa();
                                 if (!numero_acta.isEmpty()) {
                                     if (na()) {
-                                        Log.i("acta", "entro aqui2");
+                                        //Log.i("acta", "entro aqui2");
                                         //aqui consultar el ultimo y asignar
                                         na = ultimo().split("/");
                                         n = Integer.parseInt(na[6]) + 1;
@@ -1767,8 +1774,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             }
                         }
                         else{
-                            Log.i("acta", "entro aqui3");
-                            Log.i("consultar", "no");
+                            //Log.i("acta", "entro aqui3");
+                            //Log.i("consultar", "no");
                             asignarActa();
                             if(numero.equals("")){
                                 numero="0";
@@ -1805,7 +1812,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             buscarNumeroActa();
                             if (!numero_acta.isEmpty()) {
                                 if (na()) {
-                                    Log.i("acta", "entro aqui");
+                                   // Log.i("acta", "entro aqui");
                                     //aqui consultar el ultimo y asignar
                                     na = ultimo().split("/");
                                     if(na.length>5)
@@ -2006,7 +2013,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				if (!spconsultar.getItemAtPosition(position).equals("")) {
 					lldiv.setVisibility(View.VISIBLE);
 					consultarLevantamiento(spconsultar.getItemAtPosition(position).toString());
-					System.out.println("entro else consult");
+					//System.out.println("entro else consult");
 					valW="y";
 					//System.err.println(spconsultar.getSelectedItem().toString().substring(0, 2));
 					//String ante = spconsultar.getSelectedItem().toString().substring(0, 2);
@@ -5275,19 +5282,19 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				}
 			}
 			else{
-				Log.i("consultar", "no");
+				//Log.i("consultar", "no");
 				asignarActa();
 				n = Integer.valueOf(numero)+1;
-				Log.i("Numero1", numero);
+				//Log.i("Numero1", numero);
 				if(n > 0 & n <= 9){
 					numero = "0"+String.valueOf(n);
 					etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
-					Log.i("numeros", "n " + etNumeroActa.getText().toString().substring(0, 16) + " v " + s.substring(0, 16));
+					//Log.i("numeros", "n " + etNumeroActa.getText().toString().substring(0, 16) + " v " + s.substring(0, 16));
 					if(!etNumeroActa.getText().toString().substring(0, 16).equalsIgnoreCase(s.substring(0, 16))){
-						Log.i("numero acta", "si");
+						//Log.i("numero acta", "si");
 						numero = "01";
 						etNumeroActa.setText(ante + "/" + InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + numero);
-						Log.i("nueva ", InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + infrac + "/" + numero);
+						//Log.i("nueva ", InfraccionesActivity.this.id + "/" + id_inspector1 + "/" + fecha + "/" + infrac + "/" + numero);
 					}
 				}
 				else{
@@ -6943,7 +6950,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					orden.add("");
 					
 					do {
-					    Log.e("cmedida",cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim());
+					   // Log.e("cmedida",cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim());
 						campos.add(cursor.getString(cursor.getColumnIndex("campo")));
 						cmedida.add(cursor.getString(cursor.getColumnIndex("medida_precautoria")).trim() + " " + cursor.getString(cursor.getColumnIndex("ordenamiento")).trim());
 						art.add(cursor.getString(cursor.getColumnIndex("articulos")));
@@ -7261,7 +7268,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         f=cursor.getString(cursor.getColumnIndex("fundamento"));
                     } while(cursor.moveToNext());
                     articulos = articulos.substring(0,articulos.length()-1) + " del Reglamento de Construcción para el Municipio de Zapopan, Jalisco";
-                    Log.e("articulos",articulos);
+                    //Log.e("articulos",articulos);
                     etArticulo.setText(articulos);
                 }
             } catch (SQLiteException e) {
@@ -7315,7 +7322,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					idCompetencia.add(0);
 					campoReg.add("");
 					do {
-					    Log.e("reglamento",cursor.getString(1).trim());
+					   // Log.e("reglamento",cursor.getString(1).trim());
 						reglamento.add(cursor.getString(1).trim());
 						competencia.add(cursor.getString(cursor.getColumnIndex("competencia")));
 						idCompetencia.add(cursor.getInt(0));
@@ -7427,14 +7434,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
         if (db != null) {
             Cursor c;
             String sql="select * from c_giro2 order by giro ";
-            Log.i("entro",sql);
+            //Log.i("entro",sql);
             c=db.rawQuery(sql,null);
             giros.clear();
             giros.add("");
             if (c.moveToFirst()){
                 do {
-                    Log.i(TAG, "C_giro: entro");
-                    Log.i(TAG, "C_giro: "+c.getString(1));
+                    //Log.i(TAG, "C_giro: entro");
+                    //Log.i(TAG, "C_giro: "+c.getString(1));
                     giros.add(c.getString(1));
                 } while (c.moveToNext());
 
@@ -8482,7 +8489,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	    			id_i4.add(c.getInt(0));
 	    			id_i5.add(c.getInt(0));
 	    			id_i6.add(c.getInt(0));
-	    			Log.i("listadoinspa", "nombre: " + c.getString(1));
+	    			//Log.i("listadoinspa", "nombre: " + c.getString(1));
 	    		}while(c.moveToNext());
 	    	}
 	    	else{
@@ -8691,7 +8698,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     				vigI = c.getString(c.getColumnIndex("vigencia"));
                     clave = c.getString(c.getColumnIndex("clave"));
                     folio = c.getString(c.getColumnIndex("folio"));
-    				Log.i("inspector", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
+    				//Log.i("inspector", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
     			}while(c.moveToNext());
     			c.close();
     		}
@@ -8719,7 +8726,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         ifeA = c.getString(2);
                         noA = c.getString(c.getColumnIndex("no_empleado"));
                         vigA = c.getString(c.getColumnIndex("vigencia"));
-                        Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
+                       // Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
                         folios.set(0, c.getString(c.getColumnIndex("folio")));
                     } while (c.moveToNext());
                     c.close();
@@ -8750,7 +8757,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         ifeA1 = c.getString(2);
                         noA1 = c.getString(c.getColumnIndex("no_empleado"));
                         vigA1 = c.getString(c.getColumnIndex("vigencia"));
-                        Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
+                       // Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
                         folios.set(1, c.getString(c.getColumnIndex("folio")));
                     } while (c.moveToNext());
                     c.close();
@@ -8779,7 +8786,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         ifeA2 = c.getString(2);
                         noA2 = c.getString(c.getColumnIndex("no_empleado"));
                         vigA2 = c.getString(c.getColumnIndex("vigencia"));
-                        Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
+                       // Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
                         folios.set(2, c.getString(c.getColumnIndex("folio")));
                     } while (c.moveToNext());
                     c.close();
@@ -8808,7 +8815,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         ifeA3 = c.getString(2);
                         noA3 = c.getString(c.getColumnIndex("no_empleado"));
                         vigA3 = c.getString(c.getColumnIndex("vigencia"));
-                        Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
+                        //Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
                         folios.set(3, c.getString(c.getColumnIndex("folio")));
                     } while (c.moveToNext());
                     c.close();
@@ -8837,7 +8844,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         ifeA4 = c.getString(2);
                         noA4 = c.getString(c.getColumnIndex("no_empleado"));
                         vigA4 = c.getString(c.getColumnIndex("vigencia"));
-                        Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
+                      //  Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
                         folios.set(4, c.getString(c.getColumnIndex("folio")));
                     } while (c.moveToNext());
                     c.close();
@@ -16703,7 +16710,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
     				/*ifeA = c.getString(2);
     				noA = c.getString(c.getColumnIndex("no_empleado"));
     				vigA = c.getString(c.getColumnIndex("vigencia"));*/
-    				Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
+    				//Log.i("listado", "nombre: " + c.getString(1) + " IFE " + c.getString(2) + " NO_e " + c.getString(3) + " vigencia " + c.getString(4));
     			}while(c.moveToNext());
     		c.close();
     		}
@@ -17286,7 +17293,7 @@ Por recibida el Acta número ____________________________________ por la cual s
 
                 arregloCreglamentosx.add(cursor.getString(2));
                 arregloCreglamentos.add(cursor.getString(cursor.getColumnIndex("ordenamiento")));
-                Log.i("listado", "C_reglamentos: " + cursor.getString(2));
+                //Log.i("listado", "C_reglamentos: " + cursor.getString(2));
                 //Log.i("listado", "C_reglamentos: " +cursor.getString(cursor.getColumnIndex("ordenamiento")));
 
             }while(cursor.moveToNext());

@@ -1628,7 +1628,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
                         System.out.println(foliox + "---");
-                        if(valW =="") {
+
                             System.out.println(consultarActa()+"/GGGGG");
                             if (foliox > 0 && foliox >= min && foliox < max) {
                                 if(foliox>folio) {
@@ -1641,15 +1641,8 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
                             }else {
-                                Log.v("folios ", folio + " " + max + " max");
-                                if (folio >= min && folio < max) {
-                                    folio = folio + 1;
-                                } else if(folio==0 && next_max==0 && next_min==0) {
-                                    folio = min;
-                                }else if(folio<min  ) {
-                                    folio = min;
-                                }
-                                else if(folio==max && folio<=next_min){
+
+                                if(folio==max || foliox > max ){
                                     MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivityTecnica.this)
                                             .setTitle("Requiere nuevo foliaje, reinicie con internet")
                                             .setMessage(getResources().getString(R.string.continuar))
@@ -1664,6 +1657,15 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
                                     builder.create().show();
                                 }
+                                Log.v("folios ", folio + " " + max + " max");
+                                if (folio >= min && folio < max) {
+                                    folio = folio + 1;
+                                } else if(folio==0 && next_max==0 && next_min==0) {
+                                    folio = min;
+                                }else if(folio<min  ) {
+                                    folio = min;
+                                }
+
 
                                 etNumeroActa.setText(String.valueOf(folio));
                                 //etNumeroActa.setText("465");
@@ -1685,7 +1687,7 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                     dialog.show();
                                 }
                             }
-                        }
+
 
 
 
