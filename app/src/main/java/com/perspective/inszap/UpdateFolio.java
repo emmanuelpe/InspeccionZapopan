@@ -81,10 +81,11 @@ public class UpdateFolio extends Service {
             GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
 
             SQLiteDatabase db = gestion.getReadableDatabase();
-            String sql = "SELECT * FROM c_inspector where next_min = 1 and next_max=0";
+            String sql = "SELECT * FROM c_inspector where next_min = 1 and (next_max=0 or next_max is null)";
 
             Cursor cursor = db.rawQuery(sql, null);
             count = cursor.getCount();
+            Log.i("datos:", "datos: "+count);
             cursor.close();
             db.close();
         }catch (SQLiteException e){
@@ -127,7 +128,7 @@ public class UpdateFolio extends Service {
             int bandera = 0;
             GestionBD gestion = new GestionBD(getApplicationContext(), "inspeccion", null, 1);
             SQLiteDatabase db = gestion.getReadableDatabase();
-            String sql = "SELECT * FROM c_inspector where next_min = 1 and next_max=0";
+            String sql = "SELECT * FROM c_inspector where next_min = 1 and (next_max=0 or next_max is null)";
 
             Cursor cursor = db.rawQuery(sql, null);
             count=cursor.getCount();

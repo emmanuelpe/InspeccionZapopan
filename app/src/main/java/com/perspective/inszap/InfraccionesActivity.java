@@ -9452,6 +9452,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 etfechap.setVisibility(View.GONE);
                 tvPropietario.setText("NOMBRE Y/O RAZON SOCIAL");
                 etDondeActua.setVisibility(View.GONE);
+                btnImprimirResum.setVisibility(View.GONE);
+
                 rlLicencias.setVisibility(View.GONE);
                 radioReimprimir.setVisibility(View.GONE);
             }
@@ -9528,6 +9530,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			
 			tvAcomp.setVisibility(View.GONE);
 			llconcepto.setVisibility(View.GONE);
+            btnImprimirResum.setVisibility(View.GONE);
 
             if(id == 4) {
                 tvBuscar.setVisibility((View.GONE));
@@ -9584,6 +9587,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 tvfechap.setVisibility(View.VISIBLE);
                 etfolioap.setVisibility(View.VISIBLE);
                 etfechap.setVisibility(View.VISIBLE);
+                btnImprimirResum.setVisibility(View.GONE);
+
             }
             if(id == 2) {
                 tvMC.setVisibility(View.GONE);
@@ -9602,7 +9607,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
             if(id == 5)
                 rlDonde_actua.setVisibility(View.GONE);
             if(id == 2 | id == 5)
-                btnImprimirResum.setVisibility(View.VISIBLE);
+                btnImprimirResum.setVisibility(View.GONE);
 
 			
 			break;
@@ -9895,7 +9900,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 }
                 if(id == 2 | id == 5) {
                     Log.e(TAG, "onClick: entro aqui" );
-                    btnImprimirResum.setVisibility(View.VISIBLE);
+                    btnImprimirResum.setVisibility(View.GONE);
                 }
 
                 break;
@@ -11362,14 +11367,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 						else
 						    bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_c);*/
 
-                        bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.acta_vacia);
+                        bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.infraccion2023);
 					    bitmap.compress(Bitmap.CompressFormat.JPEG , 100, stream);
 					    Image img;
 					    
 					    try {
 					    	
 					    	img = Jpeg.getInstance(stream.toByteArray());
-					        img.setAbsolutePosition(0, 21);
+					        img.setAbsolutePosition(0, 11);
 					        
 					        float width = doc.getPageSize().getWidth();
 					        float height = doc.getPageSize().getHeight();
@@ -11391,7 +11396,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 					    doc.add(new Paragraph(" ",font1));
                         doc.add(new Paragraph(" ",font1));
                         doc.add(new Paragraph(" ",font1));
-					    doc.add(new Paragraph(" ",new Font(Font.BOLD,5,Color.BLACK)));
+					    doc.add(new Paragraph(" ",new Font(Font.BOLD,9,Color.BLACK)));
 					    
 					    Font font = new Font(Font.BOLD,10,Color.BLACK);
 					    
@@ -11404,7 +11409,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(30, 930);
+				        canvas.moveText(30, 921);
 				        canvas.showText(direccion);
 				        canvas.endText();
 				        canvas.restoreState();
@@ -11414,7 +11419,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(200, 930);
+				        canvas.moveText(200, 921);
 				        canvas.showText(spZona.getSelectedItem().toString());
 				        canvas.endText();
 				        canvas.restoreState();
@@ -11424,7 +11429,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 11);
-				        canvas.moveText(450, 930);
+				        canvas.moveText(450, 921);
 				        canvas.showText(etNumeroActa.getText().toString());
 				        canvas.endText();
 				        canvas.restoreState();
@@ -11832,7 +11837,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             if(!cbDatos.isChecked() && !cbDatos2.isChecked()){
 
                                 String []imprimir = Justificar.justifocarTexto1(spnombre.getSelectedItem().toString().trim().toUpperCase(), 26);
-                                float salto=255;
+                                float salto=248;
                                 for(int i=0;i<imprimir.length;i++){
                                     canvas.saveState();
                                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -11847,7 +11852,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }
 
                                 String []imprimir2 = Justificar.justifocarTexto1(etNombreV.getText().toString().trim().toUpperCase(), 26);
-                                float salto2=255;
+                                float salto2=248;
                                 for(int i=0;i<imprimir2.length;i++){
                                     canvas.saveState();
                                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -11865,7 +11870,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                                 if(!etNombreT.getText().toString().trim().isEmpty()) {
                                     String[] imprimir3 = Justificar.justifocarTexto1(etNombreT.getText().toString().trim().toUpperCase(), 26);
-                                    float salto3 = 255;
+                                    float salto3 = 248;
                                     for (int i = 0; i < imprimir3.length; i++) {
                                         canvas.saveState();
                                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -11881,7 +11886,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }
                                 if(!etNombreT1.getText().toString().trim().isEmpty()){
                                     String[] imprimir4 = Justificar.justifocarTexto1(etNombreT1.getText().toString().trim().toUpperCase(), 26);
-                                    float salto4 = 255;
+                                    float salto4 = 248;
                                     for (int i = 0; i < imprimir4.length; i++) {
                                         canvas.saveState();
                                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -11904,7 +11909,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             if(cbDatos.isChecked() && !cbDatos2.isChecked()){
 
                                 String []imprimir2 = Justificar.justifocarTexto1(spnombre.getSelectedItem().toString().trim().toUpperCase(), 26);
-                                float salto2=255;
+                                float salto2=248;
                                 for(int i=0;i<imprimir2.length;i++){
                                     canvas.saveState();
                                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -11922,7 +11927,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                                 tipoentrega="El visitado no proporcionó dato alguno de su identidad, por lo que se lleva a cabo la presente diligencia con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus artículos 86 y 87, con descripción de media filiación.";
                                 String []imprimir = Justificar.justifocarTexto1(tipoentrega, 35);
-                                float salto=320;
+                                float salto=310;
                                 for(int i=0;i<imprimir.length;i++){
                                     canvas.saveState();
                                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -11938,7 +11943,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                                 if(!etNombreT.getText().toString().trim().isEmpty()) {
                                     String[] imprimir3 = Justificar.justifocarTexto1(etNombreT.getText().toString().trim().toUpperCase(), 26);
-                                    float salto3 = 255;
+                                    float salto3 = 248;
                                     for (int i = 0; i < imprimir3.length; i++) {
                                         canvas.saveState();
                                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -11954,7 +11959,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }
                                 if(!etNombreT1.getText().toString().trim().isEmpty()){
                                     String[] imprimir4 = Justificar.justifocarTexto1(etNombreT1.getText().toString().trim().toUpperCase(), 26);
-                                    float salto4 = 255;
+                                    float salto4 = 248;
                                     for (int i = 0; i < imprimir4.length; i++) {
                                         canvas.saveState();
                                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -11975,7 +11980,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             if(cbDatos2.isChecked() && !cbDatos.isChecked()){
 
                                 String []imprimir2 = Justificar.justifocarTexto1(spnombre.getSelectedItem().toString().trim().toUpperCase(), 26);
-                                float salto2=255;
+                                float salto2=248;
                                 for(int i=0;i<imprimir2.length;i++){
                                     canvas.saveState();
                                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -11992,7 +11997,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 tipoentrega="En ausencia de persona alguna, se llevó a cabo la presente diligencia por cédula; con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus articulos 86 y 87.";
                                 //tipoEntrega=2;
                                 String []imprimir = Justificar.justifocarTexto1(tipoentrega, 35);
-                                float salto=315;
+                                float salto=306;
                                 for(int i=0;i<imprimir.length;i++){
                                     canvas.saveState();
                                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -12008,7 +12013,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                                 if(!etNombreT.getText().toString().trim().isEmpty()) {
                                     String[] imprimir3 = Justificar.justifocarTexto1(etNombreT.getText().toString().trim().toUpperCase(), 26);
-                                    float salto3 = 255;
+                                    float salto3 = 248;
                                     for (int i = 0; i < imprimir3.length; i++) {
                                         canvas.saveState();
                                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -12024,7 +12029,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 }
                                 if(!etNombreT1.getText().toString().trim().isEmpty()){
                                     String[] imprimir4 = Justificar.justifocarTexto1(etNombreT1.getText().toString().trim().toUpperCase(), 26);
-                                    float salto4 = 255;
+                                    float salto4 = 248;
                                     for (int i = 0; i < imprimir4.length; i++) {
                                         canvas.saveState();
                                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -12050,7 +12055,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(83, 219);
+                                canvas.moveText(83, 212);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -12059,7 +12064,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(91, 219);
+                                canvas.moveText(91, 212);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -12068,7 +12073,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(99, 219);
+                                canvas.moveText(99, 212);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -12077,7 +12082,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(107, 219);
+                                canvas.moveText(107, 212);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -12086,7 +12091,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(115, 219);
+                                canvas.moveText(115, 212);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -12098,7 +12103,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(228, 217);
+                                canvas.moveText(228, 210);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -12106,7 +12111,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 canvas.saveState();
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(236, 217);
+                                canvas.moveText(236, 210);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -12115,7 +12120,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(243, 217);
+                                canvas.moveText(243, 210);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -12124,7 +12129,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(251, 217);
+                                canvas.moveText(251, 210);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -12133,7 +12138,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 canvas.beginText();
                                 canvas.setFontAndSize(bf, 9);
-                                canvas.moveText(259, 217);
+                                canvas.moveText(259, 210);
                                 canvas.showText("X");
                                 canvas.endText();
                                 canvas.restoreState();
@@ -12146,7 +12151,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(370, 211);
+                            canvas.moveText(370, 204);
                             canvas.showText("SI");
                             canvas.endText();
                             canvas.restoreState();
@@ -12155,7 +12160,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                             bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             canvas.beginText();
                             canvas.setFontAndSize(bf, 9);
-                            canvas.moveText(385, 211);
+                            canvas.moveText(385, 204);
                             canvas.showText("NO");
                             canvas.endText();
                             canvas.restoreState();
@@ -12172,7 +12177,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(460, 209);
+				        canvas.moveText(460, 201);
 				        canvas.showText(etNumeroActa.getText().toString());
 				        canvas.endText();
 				        canvas.restoreState();
@@ -12183,7 +12188,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(117, 155);
+                        canvas.moveText(117, 145);
                         canvas.showText("__________");
                         canvas.endText();
                         canvas.restoreState();
@@ -12192,7 +12197,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(180, 155);
+                        canvas.moveText(180, 145);
                         canvas.showText("___________________________");
                         canvas.endText();
                         canvas.restoreState();
@@ -12201,7 +12206,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(351, 155);
+                        canvas.moveText(351, 145);
                         canvas.showText("______________________________________________");
                         canvas.endText();
                         canvas.restoreState();
@@ -12210,7 +12215,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 				        bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 				        canvas.beginText();
 				        canvas.setFontAndSize(bf, 9);
-				        canvas.moveText(150, 143);
+				        canvas.moveText(150, 134);
 				        canvas.showText(etNumeroActa.getText().toString());
 				        canvas.endText();
 				        canvas.restoreState();
@@ -12219,7 +12224,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(148, 142);
+                        canvas.moveText(148, 133);
                         canvas.showText("______________________");
                         canvas.endText();
                         canvas.restoreState();
@@ -12229,7 +12234,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(30, 122);
+                        canvas.moveText(30, 112);
                         canvas.showText("______________________________________________________________________________________________________________");
                         canvas.endText();
                         canvas.restoreState();
@@ -12240,7 +12245,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(125, 110);
+                        canvas.moveText(125, 101);
                         canvas.showText(String.valueOf(a));
                         canvas.endText();
                         canvas.restoreState();
@@ -12250,7 +12255,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(121, 109);
+                        canvas.moveText(121, 99);
                         canvas.showText("_________");
                         canvas.endText();
                         canvas.restoreState();
@@ -12259,7 +12264,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(420, 107);
+                        canvas.moveText(420, 99);
                         canvas.showText("________________________________");
                         canvas.endText();
                         canvas.restoreState();
@@ -12268,7 +12273,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(30, 88);
+                        canvas.moveText(30, 80);
                         canvas.showText("______________________________________________________________________________________________________________");
                         canvas.endText();
                         canvas.restoreState();
@@ -12277,7 +12282,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(30, 70);
+                        canvas.moveText(30, 55);
                         canvas.showText("______________________________________________________________________________________________________________");
                         canvas.endText();
                         canvas.restoreState();
@@ -12295,7 +12300,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9);
-                        canvas.moveText(60, 38);
+                        canvas.moveText(60, 30);
                         canvas.showText("NOTA: En atencion a :"+ peticionb);
                         canvas.endText();
                         canvas.restoreState();

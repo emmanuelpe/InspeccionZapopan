@@ -103,7 +103,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
     TextView prog,titlem;
     private SharedPreferences.Editor editor = null;
     private int idIns = 0;
-
+	private int foliox=0;
 	private int folio=0;
 	private int max=0;
 	private int colchon;
@@ -196,6 +196,8 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 		//validarM=getSharedPreferences("infracciones", Context.MODE_PRIVATE);
 
 		validarM = sp.getInt("modo",0);
+		foliox = sp.getInt("folio",0);
+
 
 		if(validarM==1) {
 
@@ -707,7 +709,15 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			 Cursor cursor = db.rawQuery(sql, null);
 			 if (cursor.moveToFirst()) {
 				 do {
-					 fol = cursor.getInt(0);
+
+
+					 if(cursor.getString(0)==null){
+
+						 fol=foliox-1;
+
+					 }else{
+						 fol = cursor.getInt(0);
+					 }
 				 } while (cursor.moveToNext());
 			 }
 			 cursor.close();
@@ -719,7 +729,8 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 				 } while (cursor.moveToNext());
 			 }
 			 cursor.close();
-		System.out.println(fol == folioMax);
+		//System.out.println(fol == folioMax);
+		//Log.e("gg", "clearFolio: "+fol+ " folio Max: "+ folioMax ,new Throwable() );
 		db.close();
 			 if (fol == folioMax)
 				 startService(new Intent(Descarga.this, ClearFolios.class));
@@ -734,6 +745,8 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
         /*int next_min=0;
         int next_max=0;*/
 
+        //if(folio)
+		//Log.e("folio online", "comprobarFolio: "+foliox,new Throwable());
 
 			GestionBD gestion = new GestionBD(this, "inspeccion", null, 1);
 			SQLiteDatabase db = gestion.getReadableDatabase();
@@ -747,7 +760,9 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			if (cursor.moveToFirst()) {
 				do {
 					if(cursor.getString(0)==null){
-						folio=0;
+
+						folio=foliox;
+
 					}else{
 						folio = cursor.getInt(0);
 					}
@@ -809,7 +824,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 		System.out.println("colchon : gg :"+ max +"-"+colchon);
 
 
-		/*if(next == 0 ) {*/
+		if(next == 0 ) {
 			if (colchon <= 5) {
 				if (folio >= 0) {
 					MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Descarga.this)
@@ -831,7 +846,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 					builder.create().show();
 				}
 			}
-		/*}*/
+		}
 
 	}
 
