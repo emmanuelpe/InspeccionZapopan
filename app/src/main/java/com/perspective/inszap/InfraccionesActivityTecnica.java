@@ -10289,8 +10289,8 @@ public String vigencia_inicial(String v){
             marginleft=25;
             margingright=31;
         }else{
-            marginleft=26;
-            margingright=29;
+            marginleft=19;
+            margingright=20;
 
         }
 
@@ -11514,7 +11514,7 @@ String uso="";
                 //p.setAlignment(Paragraph.ALIGN_LEFT);
                 //doc.add(p);
                 String []txt3 = Justificar.justifocarTexto1(insp, 100);
-                float li2 = 527+c;
+                float li2 = 451+c;
 
                 for (int i = 0; i < txt3.length; i++) {
 
@@ -11522,12 +11522,12 @@ String uso="";
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9.35f);
-                    canvas.moveText(28f, li2);
+                    canvas.moveText(20f, li2);
                     canvas.showText(txt3[i]);
                     canvas.endText();
                     canvas.restoreState();
 
-                    li2-=9.5;
+                    li2-=9.6;
                 }
 
                 if(count <= 1)
@@ -11578,7 +11578,7 @@ String uso="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9.35f);
-                canvas.moveText(150, 494f+c);
+                canvas.moveText(150, 417f+c);
                 //canvas.showText("01 de Abril");
                 canvas.showText(recorte2[2]+" de "+ vigencia_inicial);
                 canvas.endText();
@@ -11588,7 +11588,7 @@ String uso="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9.35f);
-                canvas.moveText(288, 494f+c);
+                canvas.moveText(296.5f, 416f+c);
                 canvas.showText(recorte2[0].substring(2, 4));
                 canvas.endText();
                 canvas.restoreState();
@@ -11597,7 +11597,7 @@ String uso="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9.35f);
-                canvas.moveText(350, 494f+c);
+                canvas.moveText(350, 416f+c);
                 canvas.showText(recorte1[2] + " de " + vigencia);
                 canvas.endText();
                 canvas.restoreState();
@@ -11606,7 +11606,7 @@ String uso="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9.35f);
-                canvas.moveText(521, 494f+c);
+                canvas.moveText(538, 416f+c);
                 canvas.showText(String.valueOf(ax).substring(2, 4));
                 canvas.endText();
                 canvas.restoreState();
@@ -11615,7 +11615,7 @@ String uso="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9.35f);
-                canvas.moveText(210f, 486f+c);
+                canvas.moveText(250f, 403f+c);
                 canvas.showText(f1);
                 canvas.endText();
                 canvas.restoreState();
@@ -11653,7 +11653,9 @@ String uso="";
                 doc.add(new Paragraph(" ",font1));
 
                 doc.add(new Paragraph(" ",new Font(Font.HELVETICA,7f,Color.BLACK)));
-                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,4f,Color.BLACK)));
+                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,7f,Color.BLACK)));
+                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,53f,Color.BLACK)));
+
                 p = new Paragraph(motivo,new Font(Font.HELVETICA,9.35f,Color.BLACK));
                 p.setLeading(10);
                 p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
@@ -11689,7 +11691,7 @@ String uso="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9.35f);
-                canvas.moveText(265, 170.5f);
+                canvas.moveText(265, 123.5f);
                 canvas.showText(dia + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -11698,7 +11700,7 @@ String uso="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(315, 170.5f);
+                canvas.moveText(379, 123.5f);
                 canvas.showText(me.toUpperCase());
                 canvas.endText();
                 canvas.restoreState();
@@ -11707,7 +11709,7 @@ String uso="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9);
-                canvas.moveText(451f, 170.5f);
+                canvas.moveText(505f, 123.5f);
                 canvas.showText(String.valueOf(a).substring(2,4) + "");
                 canvas.endText();
                 canvas.restoreState();
@@ -11971,7 +11973,7 @@ String uso="";
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(155, 128f);
+                    canvas.moveText(155, 76f);
                     canvas.showText("Si");
                     canvas.endText();
                     canvas.restoreState();
@@ -11980,7 +11982,7 @@ String uso="";
                     bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(155, 128f);
+                    canvas.moveText(155, 76f);
                     canvas.showText("No");
                     canvas.endText();
                     canvas.restoreState();
@@ -11988,7 +11990,7 @@ String uso="";
                   if(cbDatos2.isChecked()) {
                       String leyenda2 = "En ausencia de persona alguna, se llevó a cabo la presente diligencia por cedula; con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus articulos 86 y 87";
                       String[] txt2 = Justificar.justifocarTexto1(leyenda2, 40);
-                      float brinco = 250f;
+                      float brinco = 185f;
                       if (!cbDatos.isChecked()) {
                           for (int i = 0; i < txt2.length; i++) {
 
@@ -11997,7 +11999,7 @@ String uso="";
                               bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                               canvas.beginText();
                               canvas.setFontAndSize(bf, 9.35f);
-                              canvas.moveText(23, brinco);
+                              canvas.moveText(20, brinco);
                               canvas.showText(txt2[i]);
                               canvas.endText();
                               canvas.restoreState();
@@ -12011,7 +12013,7 @@ String uso="";
                       String leyenda = "El visitado no proporciono dato alguno de su identidad, por lo que se lleva a cabo la presente diligencia con base a lo señalado en la Ley del Procedimiento Administrativo del Estado de Jalisco en sus articulos 86 y 87, con descripcion de su media afiliacion";
 
 
-                      float brinco = 250f;
+                      float brinco = 185f;
                       String[] txt2 = Justificar.justifocarTexto1(leyenda, 40);
                       if (!cbDatos2.isChecked()) {
                           for (int i = 0; i < txt2.length; i++) {
@@ -12021,7 +12023,7 @@ String uso="";
                               bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                               canvas.beginText();
                               canvas.setFontAndSize(bf, 9.35f);
-                              canvas.moveText(23, brinco);
+                              canvas.moveText(20, brinco);
                               canvas.showText(txt2[i]);
                               canvas.endText();
                               canvas.restoreState();
@@ -12047,7 +12049,7 @@ String uso="";
                     bf = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                     canvas.beginText();
                     canvas.setFontAndSize(bf, 9);
-                    canvas.moveText(60, 38);
+                    canvas.moveText(60, 45);
                     canvas.showText("NOTA: En atencion a :"+ peticionb);
                     canvas.endText();
                     canvas.restoreState();
