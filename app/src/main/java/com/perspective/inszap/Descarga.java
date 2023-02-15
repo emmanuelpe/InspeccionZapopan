@@ -712,8 +712,8 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 
 
 					 if(cursor.getString(0)==null){
-
-						 fol=foliox-1;
+						//Linea original fol=foliox-1
+						 fol=foliox;
 
 					 }else{
 						 fol = cursor.getInt(0);
