@@ -144,7 +144,7 @@ public void validarFrom() {
 				System.err.println(e.getMessage() + " j ");
 			}
 			
-			return null;
+			return "F";
 		}
 		
 		@Override
@@ -156,7 +156,7 @@ public void validarFrom() {
 			bundle.putString("direccion", direccio);
 			bundle.putString("usuario", usuario.trim());
 			bundle.putInt("id", id_);
-			if(result.isEmpty()){
+			if(result.equalsIgnoreCase("F")){
 				toast = Toast.makeText(getApplicationContext(), "Verifique su conexion a internet", Toast.LENGTH_LONG);
 			}
 			if(result.equalsIgnoreCase("S")) {

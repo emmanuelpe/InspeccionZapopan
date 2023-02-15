@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,9 +21,12 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +37,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.net.ConnectivityManager;
+import android.util.JsonReader;
 import android.util.Log;
 
 /**
@@ -61,7 +66,7 @@ public class Connection {
 		this.context = context;
 	}
 	
-	public void insertDetalle(int id_levantamiento, String numero_acta, int id_c_infraccion,float cantidad,String unidad, String url) {
+	public void insertDetalle(int id_levantamiento, String numero_acta, int id_c_infraccion,float cantidad,String unidad,String especificacion, String url) {
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httpost = new HttpPost(url);
 		
@@ -72,11 +77,12 @@ public class Connection {
 			detalle.add(new BasicNameValuePair("id_c_infraccion", String.valueOf(id_c_infraccion)));
 			detalle.add(new BasicNameValuePair("cantidad", String.valueOf(cantidad)));
 			detalle.add(new BasicNameValuePair("unidad", unidad));
+			detalle.add(new BasicNameValuePair("especificacion",especificacion));
 			
 			httpost.setEntity(new UrlEncodedFormEntity(detalle));
 			HttpResponse response = httpclient.execute(httpost);
 			String responseText = EntityUtils.toString(response.getEntity()); 
-	        Log.i("msj", responseText);
+	        Log.i("msjque guardo", responseText);
 	    
 		}catch (ClientProtocolException e) {
 			Log.e("ClientProtocolException", e.getMessage());
@@ -84,6 +90,8 @@ public class Connection {
 		catch (IOException e) {
 			Log.e("IOException", e.getMessage());
 		}
+
+
 		
 	}
 	
@@ -328,16 +336,19 @@ public class Connection {
 
 			levanta.add(new BasicNameValuePair("tipo_cedula", tipo_cedula + ""));
 			levanta.add(new BasicNameValuePair("folio_peticion", etfoliopeticion));
-			levanta.add(new BasicNameValuePair("folio_apercibimiento", etfolioap));
-			levanta.add(new BasicNameValuePair("fecha_apercibimiento", etfechap));
+			levanta.add(new BasicNameValuePair("folio_apercibimiento", folio_clausura));
+			levanta.add(new BasicNameValuePair("fecha_apercibimiento", fechaclau));
 
 			levanta.add(new BasicNameValuePair("numero_sellos", numero_sellos));
 			levanta.add(new BasicNameValuePair("decomiso", decomiso));
-			levanta.add(new BasicNameValuePair("folio_clausura",folio_clausura));
-			levanta.add(new BasicNameValuePair("fecha_clausura",fechaclau));
+			levanta.add(new BasicNameValuePair("folio_clausura",etfolioap));
+			levanta.add(new BasicNameValuePair("fecha_clausura",etfechap));
+
 			JSONObject json = jsonParser.realizarHttpRequest(url, "POST", levanta);
-			
-			
+
+
+
+
 			int status = json.getInt("status");
 			msj = (status == 1) ? "S" : "N";
 			
@@ -433,7 +444,17 @@ public class Connection {
 		
 		try {
 			HttpClient httpclient = new DefaultHttpClient();
+			//httpclient. = TimeSpan.FromMilliseconds(10);
+			HttpParams clientParams = httpclient.getParams();
+
+			//HttpConnectionParams.setSoTimeout(clientParams, 240000);
+			HttpConnectionParams.setConnectionTimeout(clientParams, 240000);
+			HttpConnectionParams.setSoTimeout(clientParams, 240000);
+
+
+
 			HttpPost httpPost = new HttpPost(url);
+
 			httpPost.setEntity(new UrlEncodedFormEntity(dat));
 			HttpResponse response = httpclient.execute(httpPost);
 			HttpEntity entity = response.getEntity();
@@ -442,6 +463,8 @@ public class Connection {
 			Log.i("is", is.toString());
 		} catch (Exception e) {
 			Log.e("ERROR", e.getMessage() + " null");
+			Log.e("ERROR", "No se pudo conectar con el servidor" + " null");
+
 			return "No se pudo conectar con el servidor";
 		}
 		
@@ -459,15 +482,18 @@ public class Connection {
 			System.out.println(result + " result");
 		} catch (ClientProtocolException e) {
         	Log.e("ClientProtocolException", e.getMessage());
-        	return "null";
+			Log.e("ERROR", "No se pudo conectar con el servidor" + " null");
+        	return "No se pudo conectar con el servidor";
         }
 		catch (IOException e) {
 			Log.e("IOException", e.getMessage());
-			return "null";
+			Log.e("ERROR", "No se pudo conectar con el servidor" + " null");
+			return "No se pudo conectar con el servidor";
 		}
 		catch (Exception e) {
 			Log.e("Exception", e.getMessage());
-			return "null";
+			Log.e("ERROR", "No se pudo conectar con el servidor" + " null");
+			return "No se pudo conectar con el servidor";
 		}
 		return result;
 	}
@@ -542,13 +568,16 @@ public class Connection {
 		return result;
 	}
 	
-	public String detalleInfraccion(String numeroActa, String id_c_infraccion,String cantidad,String url) {
+	public String detalleInfraccion(String numeroActa, String id_c_infraccion,String cantidad,String especificacion,String url) {
 		ArrayList<NameValuePair> dat = new ArrayList<NameValuePair>();
 		dat.add(new BasicNameValuePair("numero_acta", numeroActa));
 		dat.add(new BasicNameValuePair("id_c_infraccion", id_c_infraccion));
 		dat.add(new BasicNameValuePair("cantidad", cantidad));
+		dat.add(new BasicNameValuePair("especificacion",especificacion));
+		//dat.add(new BasicNameValuePair("especificacion",especificacion));
 		
 		try {
+			System.out.println(url);
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httpPost = new HttpPost(url);
 			httpPost.setEntity(new UrlEncodedFormEntity(dat));
@@ -617,7 +646,7 @@ public class Connection {
 	}
 	
 	public boolean insetarRegistros(String url, String tabla) {
-
+		System.out.println("vamos1234");
 		URL url1=null;
 
 		System.out.println(tabla);
@@ -636,6 +665,8 @@ public class Connection {
 		ArrayList<NameValuePair> dat = new ArrayList<NameValuePair>();
 		dat.add(new BasicNameValuePair("id", "0"));
 		dat.add(new BasicNameValuePair("a", "2016"));
+
+		String json = "?key=PGM2021";
 		
 		try {
 			/*HttpClient httpclient = new DefaultHttpClient();
@@ -651,7 +682,10 @@ public class Connection {
 
 
 			try {
-				url1 = new URL(url);
+				url1 = new URL(url+json);
+
+				Log.e("url", url+json);
+
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			}
@@ -675,10 +709,17 @@ public class Connection {
 			result = sb.toString();*/
 
 			try {
+
+
+
 				HttpURLConnection httpURLConnection = (HttpURLConnection) url1.openConnection();
+
+                httpURLConnection.setConnectTimeout(240000);
 				httpURLConnection.connect();
 				int code= httpURLConnection.getResponseCode();
+				System.out.println("vamos asf");
 				if (code== HttpURLConnection.HTTP_OK){
+					System.out.println("vamos 4564");
 					InputStream in= new BufferedInputStream(httpURLConnection.getInputStream());
 					BufferedReader reader= new BufferedReader(new InputStreamReader(in));
 					String line="";
@@ -710,12 +751,12 @@ public class Connection {
 			}
 
 			for (int i = 0; i < tablas.size(); i++) {
-				System.out.println("t " + tablas.get(i));
-				if (c.getColumnIndex(tablas.get(i)) > -1)
-					System.out.println("si existe " );
-				else {
+				//System.out.println("t " + tablas.get(i));
+				if (c.getColumnIndex(tablas.get(i)) > -1) {
+					//System.out.println("si existe ");
+				}else {
 					db.execSQL("ALTER TABLE " + tabla + " ADD COLUMN " + tablas.get(i) + " TEXT ");
-					System.out.println("ALTER TABLE " + tabla + " ADD COLUMN " + tablas.get(i) + " TEXT ");
+					//System.out.println("ALTER TABLE " + tabla + " ADD COLUMN " + tablas.get(i) + " TEXT ");
 				}
 			}
 			if(c.getColumnIndex("fechaA") > -1) {
@@ -723,7 +764,7 @@ public class Connection {
 			}
 			c.close();
 			for (int i = 0; i < tablas.size(); i++) {
-				System.out.println("t " + tablas.get(i));
+				//System.out.println("t " + tablas.get(i));
 			}
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Date date = new Date();
@@ -731,15 +772,15 @@ public class Connection {
 				this.json_data = this.jArray.getJSONObject(i);
 
 				for (int j = 0; j < tablas.size(); j++) {
-					System.out.println("nombre campo "+ tablas.get(j));
+					//System.out.println("nombre campo "+ tablas.get(j));
 					if (!json_data.isNull(tablas.get(j))) {
 						System.out.println("entro");
 							cv.put(tablas.get(j), json_data.getString(tablas.get(j).trim()));
-							System.out.println("registro" + i + " " + tablas.get(j) + " " + json_data.getString(tablas.get(j)));
+							//System.out.println("registro" + i + " " + tablas.get(j) + " " + json_data.getString(tablas.get(j)));
 					}
 					else {
 						cv.put(tablas.get(j), "");
-						System.out.println("registro" + i + " " + tablas.get(j) + " ");
+						//System.out.println("registro" + i + " " + tablas.get(j) + " ");
 					}
 				}
 				if(r > 0) {
@@ -752,10 +793,10 @@ public class Connection {
 			db.setTransactionSuccessful();
 
 		}catch (SQLiteException sqlite) {
-			Log.e("SQLiteException", sqlite.getMessage());
+			//Log.e("SQLiteException", sqlite.getMessage());
 			return false;
 		}catch (JSONException j) {
-			Log.e("JSONException", j.getMessage());
+			//Log.e("JSONException", j.getMessage());
 			return false;
 		}
 		/*catch (ClientProtocolException e) {
@@ -959,7 +1000,7 @@ public class Connection {
 				this.is = entity.getContent();
 				Log.i("is", is + " x)");
 			} catch (Exception e) {
-				Log.e("ERROR 1", e.getMessage() + " ");
+				//Log.e("ERROR 1", e.getMessage() + " ");
 				return 0;
 			}
 			try {

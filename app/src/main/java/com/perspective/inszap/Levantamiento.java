@@ -3,10 +3,12 @@ package com.perspective.inszap;
 
 //,manifiesta_ser text,fraccionamiento text,calle text,numero_ext text,numero_int text,apellidop_prop text,apellidom_prop text,nombre_razon text,nombre_testigo1 text,ife_testigo1 text,designado_por1 text,nombre_testigo2 text,ife_testigo2 text,designado_por2 text,uso_catalogo text,hechos text,infracciones text,id_c_infraccion text,uso_suelo text,densidad text,manifiesta text,gravedad int,dias_plazo int,fecha_plazo numeric,hora_termino time,tipo_visita TEXT,id_pago int,pago numeric, fecha_pago numeric, estatus text,condominio TEXT,manzana TEXT,lote TEXT,capturo text,fecha_atiende_juez numeric, fecha_cancelacion numeric,fecha_efectua_multa numeric, vigencia_multa int, fecha_vigencia numeric,multa text,observaciones text, referencia TEXT
 
+import android.util.Log;
+
 public class Levantamiento {
 	
 	private int idLevantamiento,infraccion,tipoActa,idCDireccion,ordenVista,id_c_inspector1,id_c_inspector2,id_c_inspector3,id_c_inspector4,id_c_inspector5,id_c_inspector6,gravedad,dias_plazo,id_pago,idComp,axo_licencia;
-	private String numeroActa,numeroCitatorio,fecha,horaInicio,fecha_orden_v,Zona,nombre_visitado,se_identifica,manifiesta_ser,fraccionamiento,calle,numero_ext,numero_int,apellidop_prop,apellidom_prop,nombre_razon,nombre_testigo1,ife_testigo1,designado_por1,nombre_testigo2,ife_testigo2,designado_por2,uso_catalogo,hechos,infracciones,id_c_infraccion,uso_suelo,densidad,manifiesta,fecha_plazo,hora_termino,tipo_visita,pago,fecha_pago,estatus,condominio,manzana,lote,capturo,referencia,entre_calle1,entre_calle2,responsable_obra,registro_responsable,identifica,peticion,v_firma,motivo_orden,medida_seguridad,articulo_medida,l_construccion,licencia_giro,actividad_giro,nombre_comercial,sector;
+	private String fecha_apercibimiento,folio_apercibimiento,numeroActa,numeroCitatorio,fecha,horaInicio,fecha_orden_v,Zona,nombre_visitado,se_identifica,manifiesta_ser,fraccionamiento,calle,numero_ext,numero_int,apellidop_prop,apellidom_prop,nombre_razon,nombre_testigo1,ife_testigo1,designado_por1,nombre_testigo2,ife_testigo2,designado_por2,uso_catalogo,hechos,infracciones,id_c_infraccion,uso_suelo,densidad,manifiesta,fecha_plazo,hora_termino,tipo_visita,pago,fecha_pago,estatus,condominio,manzana,lote,capturo,referencia,entre_calle1,entre_calle2,responsable_obra,registro_responsable,identifica,peticion,v_firma,motivo_orden,medida_seguridad,articulo_medida,l_construccion,licencia_giro,actividad_giro,nombre_comercial,sector;
 	private double latitud,longitud;
 	
 	
@@ -15,7 +17,7 @@ public class Levantamiento {
 			String apellidop_prop,String apellidom_prop,int idComp,String fecha,String entre_calle1,String entre_calle2,
 			String responsable_obra,String registro_responsable,String identifica,String peticion,String v_firma,String motivo_orden,
 			String medida_seguridad,String articulo_medida,int id_c_inspector3,int id_c_inspector4,int id_c_inspector5,int id_c_inspector6,
-			String zona,String referencia,String construccion,String condominio,String citatorio,String licencia_giro, String actividad_giro, int axo_licencia) {
+			String zona,String referencia,String construccion,String condominio,String citatorio,String licencia_giro, String actividad_giro, int axo_licencia,String folio_apercibimiento, String fecha_apercibimiento) {
 		this.idCDireccion = idCDireccion;
 		this.id_c_inspector1 = id_c_inspector1;
 		this.id_c_inspector2 = id_c_inspector2;
@@ -54,6 +56,9 @@ public class Levantamiento {
 		this.licencia_giro = licencia_giro;
 		this.actividad_giro = actividad_giro;
 		this.axo_licencia = axo_licencia;
+		this.folio_apercibimiento=folio_apercibimiento;
+		this.fecha_apercibimiento=fecha_apercibimiento;
+		Log.i("ligar:", "fecha_apercebimiento: "+fecha_apercibimiento);
 	}
 	
 	public Levantamiento(int idCDireccion,int id_c_inspector1,int id_c_inspector2,String numeroActa,String nombre_visitado,String se_identifica,
@@ -62,7 +67,7 @@ public class Levantamiento {
 			String responsable_obra,String registro_responsable,String identifica,String peticion,String v_firma,String motivo_orden,
 			String medida_seguridad,String articulo_medida,int id_c_inspector3,int id_c_inspector4,int id_c_inspector5,int id_c_inspector6,
 			String zona,String referencia,String construccion,String condominio,String citatorio,String licencia_giro, String actividad_giro, int axo_licencia,
-			String nombre_comercial,String sector) {
+			String nombre_comercial,String sector,String folio_apercibimiento, String fecha_apercibimiento) {
 		this.idCDireccion = idCDireccion;
 		this.id_c_inspector1 = id_c_inspector1;
 		this.id_c_inspector2 = id_c_inspector2;
@@ -104,9 +109,19 @@ public class Levantamiento {
 		this.axo_licencia = axo_licencia;
 		this.nombre_comercial = nombre_comercial;
 		this.sector = sector;
+		this.folio_apercibimiento=folio_apercibimiento;
+		this.fecha_apercibimiento=fecha_apercibimiento;
+		//Log.i("ligar:", "fecha_apercebimiento: "+fecha_apercibimiento);
 	}
 	public String getIdentifica() {
 		return identifica;
+	}
+	public String getFecha_apercibimiento(){
+		return fecha_apercibimiento;
+	}
+
+	public String getFolio_apercibimiento(){
+		return  folio_apercibimiento;
 	}
 	public void setIdentifica(String identifica) {
 		this.identifica = identifica;

@@ -6,13 +6,20 @@
     android:layout_height="match_parent"
     android:gravity="center"
     tools:context=".ConsultarLicenciaConstruccion">
-
+        <Button
+            android:id="@+id/btnBuscar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="200dp"
+            android:paddingBottom="-20dp"
+            android:text="Opcion Online"/>
         <TextView
             android:id="@+id/id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Fecha Actualización 13/11/2019"
-            android:visibility="visible"
+            android:visibility="invisible"
+            android:layout_below="@+id/btnBuscar2"
             android:gravity="center"/>
 
         <TextView
@@ -21,6 +28,7 @@
             android:layout_height="wrap_content"
             android:text="Número Licencia"
             android:layout_marginTop="10dp"
+
             android:layout_below="@+id/id"/>
 
         <EditText
@@ -105,7 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/etFraccionamiento"
-            android:text="@android:string/search_go"/>
+            android:text="Buscar"/>
 
         <ListView
             android:id="@+id/lv"

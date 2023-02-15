@@ -29,7 +29,9 @@
 			 android:layout_height="wrap_content"
 			 android:paddingTop="10dp"
 			 android:paddingBottom="10dp"
-			 android:text="Version 1.2.2 16/03/2021"
+
+			 android:text="@string/version"
+
 			 android:gravity="center"
 			 android:layout_below="@id/ivLogo"
 			 android:textSize="19px"
@@ -76,7 +78,7 @@
         	    android:layout_marginLeft="10dp"
             	style="@style/SubtitleR"/>
 	        
-    	    <Spinner 
+    	   <!-- <Spinner
         	    android:id="@+id/spDireccion"
             	android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
@@ -85,36 +87,78 @@
         	    android:layout_marginTop="10dp"
             	android:layout_alignParentRight="true"
             	android:layout_marginRight="10dp"
-				android:spinnerMode="dialog"/>
-        
+				android:spinnerMode="dialog"/>-->
+
+
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/customerSpinnerLayout"
+				style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="Direccion"
+				android:layout_toRightOf="@+id/tvDireccion">
+
+				<androidx.appcompat.widget.AppCompatAutoCompleteTextView
+					android:id="@+id/spDireccion"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:clickable="true"
+					tools:ignore="KeyboardInaccessibleWidget"
+					android:layout_toRightOf="@+id/tvDireccion"/>
+			</com.google.android.material.textfield.TextInputLayout>
+
+
+
+
 	        <TextView 
     	        android:id="@+id/tvUsuario"
         	    android:layout_width="110dp"
             	android:layout_height="wrap_content"
 	            android:text="@string/usuario"
-            	android:layout_below="@+id/spDireccion"
-            	android:layout_marginTop="25dp"
+            	android:layout_below="@+id/tvDireccion"
+            	android:layout_marginTop="40dp"
     	        android:layout_alignParentLeft="true"
     	        android:gravity="center"
     	        android:layout_marginLeft="10dp"
+
         	    style="@style/SubtitleR"/>
         
-	        <Spinner 
+	        <!-- <Spinner
     	        android:id="@+id/spUsuario"
         	    android:layout_width="fill_parent"
             	android:layout_height="wrap_content"
 	            android:prompt="@string/iden"
     	        android:layout_toRightOf="@+id/tvUsuario"
-        	    android:layout_below="@+id/spDireccion"
+        	    android:layout_below="@+id/tvDireccion"
         	    android:layout_marginTop="5dp"
         	    android:layout_marginRight="10dp"
-            	android:layout_alignParentRight="true"/>
+            	android:layout_alignParentRight="true"/> -->
+
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/customerSpinnerLayout2"
+				style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="Usuario"
+				android:layout_toRightOf="@+id/tvUsuario"
+				android:layout_below="@+id/tvDireccion"
+				android:layout_marginTop="25dp">
+
+				<androidx.appcompat.widget.AppCompatAutoCompleteTextView
+					android:id="@+id/spUsuario"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:clickable="true"
+					tools:ignore="KeyboardInaccessibleWidget"
+					android:layout_toRightOf="@+id/tvUsuario"
+					android:layout_below="@+id/tvDireccion"/>
+			</com.google.android.material.textfield.TextInputLayout>
         
 	        <TextView 
     	        android:id="@+id/tvcontrasena"
         	    android:layout_width="110dp"
             	android:layout_height="wrap_content"
-        	    android:layout_below="@+id/spUsuario"
+        	    android:layout_below="@+id/customerSpinnerLayout2"
             	android:text="@string/contrasena"
 	            android:gravity="center"
 	            android:layout_marginTop="25dp"
@@ -127,7 +171,7 @@
     	        android:layout_height="70dp"
         	    android:hint="@string/contrasena"
             	android:inputType="textPassword"
-	            android:layout_below="@+id/spUsuario"
+	            android:layout_below="@+id/customerSpinnerLayout2"
     	        android:layout_toRightOf="@+id/tvcontrasena"
     	        android:layout_marginTop="5dp"
         	    android:layout_gravity="center"
@@ -137,14 +181,26 @@
     	         android:id="@+id/btnIngresar"
         	     android:layout_width="wrap_content"
             	 android:layout_height="70dp"
-	             android:layout_below="@id/spUsuario"
+	             android:layout_below="@id/customerSpinnerLayout2"
     	         android:layout_toRightOf="@id/etContrasena"
         	     android:text="@string/ingresar"
             	 android:layout_alignParentRight="true"
             	 android:layout_marginTop="5dp"
             	 android:layout_marginRight="10dp"
 	             style="@style/Boton"/>
-        
+
+<!--			<Button-->
+<!--				android:id="@+id/btnActualizar"-->
+<!--				android:layout_width="wrap_content"-->
+<!--				android:layout_height="70dp"-->
+<!--				android:layout_below="@id/btnIngresar"-->
+<!--				android:text="@string/actualizar"-->
+<!--				android:layout_alignParentRight="true"-->
+<!--				android:layout_marginTop="5dp"-->
+<!--				android:layout_marginRight="0dp"-->
+<!--				android:layout_marginLeft="0dp"-->
+<!--				style="@style/Boton"/>-->
+
     	</RelativeLayout>
     </ScrollView>
 </RelativeLayout>

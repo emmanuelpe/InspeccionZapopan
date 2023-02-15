@@ -1,13 +1,14 @@
 package com.perspective.inszap;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
-//import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,13 +17,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConsultarLicenciaConstruccion extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etIdLicencia,etNombre,etCalle,etNumero,etFraccionamiento;
-    private Button btnBuscar;
+    private Button btnBuscar,btnBuscar2;
     private ListView lv;
     private ArrayAdapter<String> adapter;
     private List<String> datos = new ArrayList<>();
@@ -40,8 +42,10 @@ public class ConsultarLicenciaConstruccion extends AppCompatActivity implements 
         etNumero = findViewById(R.id.etNumero);
         etFraccionamiento = findViewById(R.id.etFraccionamiento);
         btnBuscar = findViewById(R.id.btnBuscar);
+        btnBuscar2=findViewById(R.id.btnBuscar2);
         lv = findViewById(R.id.lv);
         btnBuscar.setOnClickListener(this);
+        btnBuscar2.setOnClickListener(this);
         adapter = new ArrayAdapter<>(getApplicationContext(),R.layout.simple_list_item,datos);
         lv.setAdapter(adapter);
         gestionarBD = new GestionBD(this,"inspeccion",null,1);
@@ -64,6 +68,13 @@ public class ConsultarLicenciaConstruccion extends AppCompatActivity implements 
                     toast.setGravity(0,0,15);
                     toast.show();
                 }
+                break;
+            case R.id.btnBuscar2:
+                /*WebView myWebView = new WebView(getApplicationContext());
+                setContentView(myWebView);
+                myWebView.loadUrl("https://www.google.com");*/
+
+                startActivity(new Intent(getApplicationContext(), navegador.class));
                 break;
         }
     }
@@ -127,7 +138,7 @@ public class ConsultarLicenciaConstruccion extends AppCompatActivity implements 
             if(c.moveToFirst()){
                 Log.i("no", c.getCount() + "");
                 do{
-                    datos.add("IdLicencia:" + c.getString(c.getColumnIndex("IdLicencia")) + " Propietario:" + c.getString(c.getColumnIndex("NombrePropietario")) + " Calle:" + c.getString(c.getColumnIndex("Calle")) + " Número:" + c.getString(c.getColumnIndex("Numero")) + " Fraccionamiento:" + c.getString(c.getColumnIndex("Fraccionamiento")) + " Giro:" + c.getString(c.getColumnIndex("GiroConstruccionLic")) + " m2:" + c.getString(c.getColumnIndex("m2")) + " m3:" + c.getString(c.getColumnIndex("m3"))+ " mL:" + c.getString(c.getColumnIndex("mL")));
+                    datos.add("IdLicencia:" + c.getString(c.getColumnIndex("IdLicencia")) + " Propietario:" + c.getString(c.getColumnIndex("NombrePropietario")) + " Calle:" + c.getString(c.getColumnIndex("Calle")) + " Número:" + c.getString(c.getColumnIndex("Numero")) + " Fraccionamiento:" + c.getString(c.getColumnIndex("Fraccionamiento")) + " Giro:" + c.getString(c.getColumnIndex("GiroConstruccionLic")) + " m2:" +c.getString(c.getColumnIndex("m2")));
                 }while(c.moveToNext());
 
             }
