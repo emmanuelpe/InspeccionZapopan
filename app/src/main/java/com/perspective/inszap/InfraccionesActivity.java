@@ -1676,67 +1676,68 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
                         System.out.println(foliox + "---");
 
+                         if(valW=="") {
+                             if (foliox > 0 && foliox >= min && foliox <= max) {
+                                 if (foliox > folio) {
+                                     folio = foliox;
+                                 } else {
+                                     folio = folio + 1;
+                                 }
+                                 etNumeroActa.setText(String.valueOf(folio));
 
-                            if (foliox > 0 && foliox >= min && foliox <= max ) {
-                                if(foliox>folio) {
-                                    folio = foliox;
-                                }else{
-                                    folio=folio+1;
-                                }
-                                etNumeroActa.setText(String.valueOf(folio));
-
-                            }else {
-
-
-                                Log.v("folios ", folio + " " + max + " max");
-
-                                if(folio==max || foliox > max ){
-
-                                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivity.this)
-                                            .setTitle("Requiere nuevo foliaje, reinicie con internet  en la tableta de origen")
-                                            .setMessage(getResources().getString(R.string.continuar))
-                                            .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
+                             } else {
 
 
-                                                    finish();
-                                                }
-                                            });
+                                 Log.v("folios ", folio + " " + max + " max");
 
-                                    builder.create().show();
-                                }
+                                 if (folio == 0 || folio == max || foliox > max) {
 
-                                if (folio >= min && folio < max) {
-                                    folio = folio + 1;
+                                     MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivity.this)
+                                             .setTitle("Requiere nuevo foliaje, reinicie con internet  en la tableta de origen")
+                                             .setMessage(getResources().getString(R.string.continuar))
+                                             .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+                                                 @Override
+                                                 public void onClick(DialogInterface dialog, int which) {
 
-                                } else if(folio==0 && next_max==0 && next_min==0) {
-                                    folio = min;
-                                }else if(folio<min  ) {
+
+                                                     finish();
+                                                 }
+                                             });
+
+                                     builder.create().show();
+                                 }
+
+                                 if (folio >= min && folio < max) {
+                                     folio = folio + 1;
+
+                                 } else if (folio == 0 && next_max == 0 && next_min == 0) {
                                      folio = min;
-                                }
-                                etNumeroActa.setText(String.valueOf(folio));
-                                //etNumeroActa.setText("453");
-                                if(validarFoto(Integer.valueOf(etNumeroActa.getText().toString()))>0){
-                                    btnImprimir.setEnabled(false);
-                                    btnGuardar.setEnabled(false);
-                                    btnVista.setEnabled(false);
+                                 } else if (folio < min) {
+                                     folio = min;
+                                 }
+                                 etNumeroActa.setText(String.valueOf(folio));
+                                 //etNumeroActa.setText("453");
+                                 if (validarFoto(Integer.valueOf(etNumeroActa.getText().toString())) > 0) {
+                                     btnImprimir.setEnabled(false);
+                                     btnGuardar.setEnabled(false);
+                                     btnVista.setEnabled(false);
 
                                     /*Toast toast = Toast.makeText(InfraccionesActivity.this, "EL NUMERO DE ACTA ASIGNADO YA SE ENCUENTRA EN EL DISPOSITIVO PORFAVOR DE SICRONIZAR DE NUEVO O DESCARGAR SUS DATOS RESPECTIVOS: "+etNumeroActa.getText().toString(), Toast.LENGTH_SHORT);
                                     toast.setGravity(0, 0, 15);
                                     toast.show();*/
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(InfraccionesActivity.this);
-                                    builder.setTitle("Información");
-                                    builder.setIcon(R.drawable.ic_baseline_check_circle_24);
-                                    builder.setMessage("EL NUMERO DE ACTA  YA SE ENCUENTRA EN EL DISPOSITIVO PORFAVOR DE SICRONIZAR DE NUEVO O DESCARGAR SUS DATOS RESPECTIVOS: "+etNumeroActa.getText().toString());
-                                    builder.setPositiveButton("Aceptar", null);
+                                     AlertDialog.Builder builder = new AlertDialog.Builder(InfraccionesActivity.this);
+                                     builder.setTitle("Información");
+                                     builder.setIcon(R.drawable.ic_baseline_check_circle_24);
+                                     builder.setMessage("EL NUMERO DE ACTA  YA SE ENCUENTRA EN EL DISPOSITIVO PORFAVOR DE SICRONIZAR DE NUEVO O DESCARGAR SUS DATOS RESPECTIVOS: " + etNumeroActa.getText().toString());
+                                     builder.setPositiveButton("Aceptar", null);
 
-                                    AlertDialog dialog = builder.create();
-                                    dialog.show();
-                                }
+                                     AlertDialog dialog = builder.create();
+                                     dialog.show();
+                                 }
 
 
-                            }
+                             }
+                         }
 
 
 
@@ -11594,7 +11595,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
 				            String numeroS="";
 				            if(etNumeroSellos.getText().toString().trim().length()>0){
-				                numeroS="con numero de sello(s) "+etNumeroSellos.getText().toString().trim();
+				                numeroS="con número de sello(s) "+etNumeroSellos.getText().toString().trim();
                             }
                             String hechos=etSeleccion.getText().toString().trim();
 				            Log.e(String.valueOf(hechos.length()),"Cantidad de texto");

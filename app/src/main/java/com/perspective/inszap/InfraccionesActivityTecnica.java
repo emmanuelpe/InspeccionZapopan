@@ -1630,61 +1630,63 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         System.out.println(foliox + "---");
 
                             System.out.println(consultarActa()+"/GGGGG");
-                            if (foliox > 0 && foliox >= min && foliox < max) {
-                                if(foliox>folio) {
-                                    folio = foliox;
-                                }else{
-                                    folio=folio+1;
-                                }
+                            if(valW=="") {
+                                if (foliox > 0 && foliox >= min && foliox < max) {
+                                    if (foliox > folio) {
+                                        folio = foliox;
+                                    } else {
+                                        folio = folio + 1;
+                                    }
 
-                                etNumeroActa.setText(String.valueOf(folio));
-
-
-                            }else {
-
-                                if(folio==max || foliox > max ){
-                                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivityTecnica.this)
-                                            .setTitle("Requiere nuevo foliaje, reinicie con internet")
-                                            .setMessage(getResources().getString(R.string.continuar))
-                                            .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
+                                    etNumeroActa.setText(String.valueOf(folio));
 
 
-                                                    finish();
-                                                }
-                                            });
+                                } else {
 
-                                    builder.create().show();
-                                }
-                                Log.v("folios ", folio + " " + max + " max");
-                                if (folio >= min && folio < max) {
-                                    folio = folio + 1;
-                                } else if(folio==0 && next_max==0 && next_min==0) {
-                                    folio = min;
-                                }else if(folio<min  ) {
-                                    folio = min;
-                                }
+                                    if (folio == max || foliox > max) {
+                                        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivityTecnica.this)
+                                                .setTitle("Requiere nuevo foliaje, reinicie con internet")
+                                                .setMessage(getResources().getString(R.string.continuar))
+                                                .setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
 
 
-                                etNumeroActa.setText(String.valueOf(folio));
-                                //etNumeroActa.setText("465");
-                                if(validarFoto(Integer.valueOf(etNumeroActa.getText().toString()))>0){
-                                    btnImprimir.setEnabled(false);
-                                    btnGuardar.setEnabled(false);
-                                    btnVista.setEnabled(false);
+                                                        finish();
+                                                    }
+                                                });
+
+                                        builder.create().show();
+                                    }
+                                    Log.v("folios ", folio + " " + max + " max");
+                                    if (folio >= min && folio < max) {
+                                        folio = folio + 1;
+                                    } else if (folio == 0 && next_max == 0 && next_min == 0) {
+                                        folio = min;
+                                    } else if (folio < min) {
+                                        folio = min;
+                                    }
+
+
+                                    etNumeroActa.setText(String.valueOf(folio));
+                                    //etNumeroActa.setText("465");
+                                    if (validarFoto(Integer.valueOf(etNumeroActa.getText().toString())) > 0) {
+                                        btnImprimir.setEnabled(false);
+                                        btnGuardar.setEnabled(false);
+                                        btnVista.setEnabled(false);
 
                                     /*Toast toast = Toast.makeText(InfraccionesActivity.this, "EL NUMERO DE ACTA ASIGNADO YA SE ENCUENTRA EN EL DISPOSITIVO PORFAVOR DE SICRONIZAR DE NUEVO O DESCARGAR SUS DATOS RESPECTIVOS: "+etNumeroActa.getText().toString(), Toast.LENGTH_SHORT);
                                     toast.setGravity(0, 0, 15);
                                     toast.show();*/
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(InfraccionesActivityTecnica.this);
-                                    builder.setTitle("Información");
-                                    builder.setIcon(R.drawable.ic_baseline_check_circle_24);
-                                    builder.setMessage("EL NUMERO DE ACTA  YA SE ENCUENTRA EN EL DISPOSITIVO PORFAVOR DE SICRONIZAR DE NUEVO O DESCARGAR SUS DATOS RESPECTIVOS: "+etNumeroActa.getText().toString());
-                                    builder.setPositiveButton("Aceptar", null);
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(InfraccionesActivityTecnica.this);
+                                        builder.setTitle("Información");
+                                        builder.setIcon(R.drawable.ic_baseline_check_circle_24);
+                                        builder.setMessage("EL NUMERO DE ACTA  YA SE ENCUENTRA EN EL DISPOSITIVO PORFAVOR DE SICRONIZAR DE NUEVO O DESCARGAR SUS DATOS RESPECTIVOS: " + etNumeroActa.getText().toString());
+                                        builder.setPositiveButton("Aceptar", null);
 
-                                    AlertDialog dialog = builder.create();
-                                    dialog.show();
+                                        AlertDialog dialog = builder.create();
+                                        dialog.show();
+                                    }
                                 }
                             }
 
@@ -10534,7 +10536,7 @@ public String vigencia_inicial(String v){
                 }
 String numeroS="";
                 if(etNumeroSellos.getText().toString().trim().length()>3){
-                    numeroS="con numero de sello(s) "+etNumeroSellos.getText().toString().trim();
+                    numeroS="con número de sello(s) "+etNumeroSellos.getText().toString().trim();
                 }
 String uso="";
                 if(!spuso.getSelectedItem().toString().contains("pública") | !spuso.getSelectedItem().toString().contains("público"))
