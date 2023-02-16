@@ -237,6 +237,7 @@
     <string name="decomiso">Decomiso</string>
     <string name="numero_de_sellos">Numero de sellos</string>
     <string name="actualizar_folios">Se actualizaran los folios</string>
+    <string name="noactualizar_folios">Sin conexion a internet no se podrá asignar nuevo foliaje"</string>
     <string name="esta_suguro">Esta seguro ?</string>
     <string name="continuar">Continuar</string>
     <string name="avertencia">Avertencia!! Se inicia  proceso de actualizacion de folios!!</string>

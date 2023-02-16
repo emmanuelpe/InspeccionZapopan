@@ -1686,11 +1686,22 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                  etNumeroActa.setText(String.valueOf(folio));
 
                              } else {
+                                 if (folio >= min && folio <=max) {
+                                     folio = folio + 1;
 
+                                 }
+                                 if (folio == 0 && next_max == 0 && next_min == 0) {
+                                     folio = min;
+                                 }
+                                 if (folio < min) {
+                                     folio = min;
+                                 }
+
+                                 etNumeroActa.setText(String.valueOf(folio));
 
                                  Log.v("folios ", folio + " " + max + " max");
 
-                                 if (folio == 0 || folio == max || foliox > max) {
+                                 if (folio == 0 || folio > max || foliox > max) {
 
                                      MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivity.this)
                                              .setTitle("Requiere nuevo foliaje, reinicie con internet  en la tableta de origen")
@@ -1707,15 +1718,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                      builder.create().show();
                                  }
 
-                                 if (folio >= min && folio < max) {
-                                     folio = folio + 1;
 
-                                 } else if (folio == 0 && next_max == 0 && next_min == 0) {
-                                     folio = min;
-                                 } else if (folio < min) {
-                                     folio = min;
-                                 }
-                                 etNumeroActa.setText(String.valueOf(folio));
                                  //etNumeroActa.setText("453");
                                  if (validarFoto(Integer.valueOf(etNumeroActa.getText().toString())) > 0) {
                                      btnImprimir.setEnabled(false);
@@ -11296,7 +11299,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		    margingright=31;
         }else{
 		    marginleft=19;
-		    margingright=20;
+		    margingright=19;
 
         }
 		try {
@@ -12866,12 +12869,12 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                     doc.add(new Paragraph(" ",font1));
                     doc.add(new Paragraph(" ",new Font(Font.HELVETICA,7f,Color.BLACK)));
                     doc.add(new Paragraph(" ",new Font(Font.HELVETICA,7f,Color.BLACK)));
-                    doc.add(new Paragraph(" ",new Font(Font.HELVETICA,53f,Color.BLACK)));
+                    doc.add(new Paragraph(" ",new Font(Font.HELVETICA,48f,Color.BLACK)));
 
 
                     //doc.add(new Paragraph(" ",font1));
                     //doc.setMargins(35,35,20,20);
-                    if(motivo.length()>1180){
+                    if(motivo.length()>950){
                         p = new Paragraph(motivo,new Font(Font.HELVETICA,6.2f,Color.BLACK));
                         p.setLeading(10);
                         p.setAlignment(Paragraph.ALIGN_JUSTIFIED);

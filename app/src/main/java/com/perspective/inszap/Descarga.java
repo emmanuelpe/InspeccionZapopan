@@ -818,32 +818,47 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 			Log.v("next", next + " ");
 			cursor.close();
             db.close();
+            if(folio <=min)
+            	folio=min;
 
 			colchon = max - folio;
 
 		System.out.println("colchon : gg :"+ max +"-"+colchon);
 
 
-		if(next == 0 ) {
+		if(next == 0 || next == 1 ) {
 			if (colchon <= 5) {
 				if (folio >= 0) {
-					MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Descarga.this)
-							.setTitle(getResources().getString(R.string.actualizar_folios))
-							.setMessage(getResources().getString(R.string.esta_suguro))
-							.setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									actualizaFolios(id);
-									startService(new Intent(Descarga.this, UpdateFolio.class));
-								}
-							})
-							.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
+					if (conn.validarConexion(getApplicationContext())) {
+						MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Descarga.this)
+								.setTitle(getResources().getString(R.string.actualizar_folios))
+								.setMessage(getResources().getString(R.string.esta_suguro))
+								.setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										actualizaFolios(id);
+										startService(new Intent(Descarga.this, UpdateFolio.class));
+									}
+								})
+								.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
 
-								}
-							});
-					builder.create().show();
+									}
+								});
+						builder.create().show();
+					}else{
+						MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Descarga.this)
+								.setTitle(getResources().getString(R.string.noactualizar_folios))
+
+								.setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+									}
+								});
+
+						builder.create().show();
+					}
 				}
 			}
 		}

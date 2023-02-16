@@ -88,6 +88,7 @@ public class UpdateFolio extends Service {
             Log.i("datos:", "datos: "+count);
             cursor.close();
             db.close();
+            gestion.close();
         }catch (SQLiteException e){
             Log.e("erro", "datos: ",e );
 
@@ -151,6 +152,8 @@ public class UpdateFolio extends Service {
                             cv.put("next_max", next_max);
                             int x = db.update("c_inspector", cv, "id_c_inspector = " + cursor.getInt(0), null);
                             Log.v("x",String.valueOf(x));
+
+
                             if(x > 0)
                                 bandera++;
 
@@ -169,6 +172,8 @@ public class UpdateFolio extends Service {
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
             if(aBoolean) {
+                startService(new Intent(UpdateFolio.this, ClearFolios.class));
+
                 Toast toast = Toast.makeText(getApplicationContext(),"Se envio",Toast.LENGTH_LONG);
                 toast.setGravity(0,0,15);
                 toast.show();

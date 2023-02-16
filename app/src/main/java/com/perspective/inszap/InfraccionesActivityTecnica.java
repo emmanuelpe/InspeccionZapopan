@@ -1642,6 +1642,19 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
 
 
                                 } else {
+                                    if (folio >= min && folio <=max) {
+                                        folio = folio + 1;
+
+                                    }
+                                    if (folio == 0 && next_max == 0 && next_min == 0) {
+                                        folio = min;
+                                    }
+                                    if (folio < min) {
+                                        folio = min;
+                                    }
+
+                                    etNumeroActa.setText(String.valueOf(folio));
+
 
                                     if (folio == max || foliox > max) {
                                         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InfraccionesActivityTecnica.this)
@@ -1659,16 +1672,9 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                                         builder.create().show();
                                     }
                                     Log.v("folios ", folio + " " + max + " max");
-                                    if (folio >= min && folio < max) {
-                                        folio = folio + 1;
-                                    } else if (folio == 0 && next_max == 0 && next_min == 0) {
-                                        folio = min;
-                                    } else if (folio < min) {
-                                        folio = min;
-                                    }
 
 
-                                    etNumeroActa.setText(String.valueOf(folio));
+
                                     //etNumeroActa.setText("465");
                                     if (validarFoto(Integer.valueOf(etNumeroActa.getText().toString())) > 0) {
                                         btnImprimir.setEnabled(false);
@@ -10292,7 +10298,7 @@ public String vigencia_inicial(String v){
             margingright=31;
         }else{
             marginleft=19;
-            margingright=20;
+            margingright=19;
 
         }
 
@@ -11656,9 +11662,9 @@ String uso="";
 
                 doc.add(new Paragraph(" ",new Font(Font.HELVETICA,7f,Color.BLACK)));
                 doc.add(new Paragraph(" ",new Font(Font.HELVETICA,7f,Color.BLACK)));
-                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,53f,Color.BLACK)));
+                doc.add(new Paragraph(" ",new Font(Font.HELVETICA,48f,Color.BLACK)));
 
-                p = new Paragraph(motivo,new Font(Font.HELVETICA,9.35f,Color.BLACK));
+                p = new Paragraph(motivo,new Font(Font.HELVETICA,9.30f,Color.BLACK));
                 p.setLeading(10);
                 p.setAlignment(Paragraph.ALIGN_JUSTIFIED);
                 //p.setFont(new Font(Font.HELVETICA,3));
