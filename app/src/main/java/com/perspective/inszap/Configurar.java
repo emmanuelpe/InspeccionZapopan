@@ -37,6 +37,7 @@ public class Configurar extends Activity implements OnClickListener {
 	private SharedPreferences sp;
 	private SharedPreferences.Editor editor;
 	private Bundle bundle = new Bundle();
+	private String tableta="";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class Configurar extends Activity implements OnClickListener {
 		sp = getSharedPreferences("infracciones", Context.MODE_PRIVATE);
 		
 		editor = sp.edit();
-		
+		tableta=sp.getString("Tableta","");
 		savedInstanceState = getIntent().getExtras();
         this.usuario = savedInstanceState.getString("usuario");
         this.id_ = savedInstanceState.getInt("id");
@@ -76,7 +77,7 @@ public void validarFrom() {
 		serie = etSerie.getText().toString();
 		serie1 = etSerie1.getText().toString();
 		
-		//Toast toast;
+		Toast toast;
 		/*if(spDir.getSelectedItemPosition() == 0) {
 			toast = Toast.makeText(getApplicationContext(), "Debe seleccionar la dirección", Toast.LENGTH_SHORT);
 			toast.setGravity(0, 0, 15);
@@ -99,13 +100,18 @@ public void validarFrom() {
 			isSelected = false;
 		}
 		
-		
-		
-		if(cancel) {
-			if(!isSelected)
-				focusView.requestFocus();
-		}else {
-			new GetNum().execute(serie,serie1);
+		if(tableta.isEmpty()) {
+
+			if (cancel) {
+				if (!isSelected)
+					focusView.requestFocus();
+			} else {
+				new GetNum().execute(serie, serie1);
+			}
+		}else{
+			toast = Toast.makeText(getApplicationContext(), "SU TABLETA YA ESTABA REGISTRADA CON EL NUMERO: "+tableta, Toast.LENGTH_SHORT);
+			toast.setGravity(0, 0, 15);
+			toast.show();
 		}
 		
 	}
@@ -163,6 +169,8 @@ public void validarFrom() {
 				//String loc = String.format(Locale.getDefault(), "%04d", res);
 				System.err.println(res + " num");
 				editor.putInt("config", res);
+				editor.putString("Tableta", serie);
+
 				comm = editor.commit();
 				if(comm) 
 					toast = Toast.makeText(getApplicationContext(), "Se registro número de tableta", Toast.LENGTH_LONG);

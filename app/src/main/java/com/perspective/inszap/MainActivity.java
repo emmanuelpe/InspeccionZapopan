@@ -601,6 +601,25 @@ public class MainActivity extends Activity {
 			db1.execSQL(sql);
 		}
 
+		if(validarCampo("Levantamiento", "version") == 0) {
+
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Levantamiento add version text";
+			db1.execSQL(sql);
+		}
+
+		if(validarCampo("Levantamiento", "tableta") == 0) {
+
+			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);
+			SQLiteDatabase db1 = gestionBD.getWritableDatabase();
+
+			String sql = "alter table Levantamiento add tableta text";
+			db1.execSQL(sql);
+		}
+
+
 		/*if(validarCampo("Detalle_infraccion", "modo_tablet") == 0) {
 
 			GestionBD gestionBD = new GestionBD(this,"inspeccion",null,1);

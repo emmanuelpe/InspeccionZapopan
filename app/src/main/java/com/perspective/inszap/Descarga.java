@@ -110,6 +110,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 	private int next=0;
 	private int min = 0;
 	private int auxId = 0;
+	private String tableta="";
 
 	/**
 	 * @see android.app.Activity#onCreate(Bundle)
@@ -197,6 +198,7 @@ public class Descarga extends Activity implements android.content.DialogInterfac
 
 		validarM = sp.getInt("modo",0);
 		foliox = sp.getInt("folio",0);
+		tableta=sp.getString("Tableta","");
 
 
 		if(validarM==1) {
@@ -932,7 +934,7 @@ this.btnUpdate.setOnClickListener(new OnClickListener() {
 									c.getInt(c.getColumnIndex("id_c_inspector3")), c.getInt(c.getColumnIndex("id_c_inspector4")), c.getInt(c.getColumnIndex("id_c_inspector5")), c.getInt(c.getColumnIndex("id_c_inspector6")),
 									c.getInt(c.getColumnIndex("id_c_competencia1")), c.getInt(c.getColumnIndex("id_c_competencia2")), c.getInt(c.getColumnIndex("id_c_competencia3")), c.getInt(c.getColumnIndex("id_c_competencia4")), c.getInt(c.getColumnIndex("id_c_competencia5")),
 									c.getString(c.getColumnIndex("licencia_giro")), c.getString(c.getColumnIndex("actividad_giro")), c.getInt(c.getColumnIndex("axo_licencia")),
-									c.getString(c.getColumnIndex("nombre_comercial")), c.getString(c.getColumnIndex("sector")), con, c.getString(c.getColumnIndex("peticion")), c.getString(c.getColumnIndex("nivel_economico")), c.getString(c.getColumnIndex("reincidencia")),c.getInt(c.getColumnIndex("tipo_cedula")),c.getString(c.getColumnIndex("folio_peticion")),c.getString(c.getColumnIndex("folio_apercibimiento")),c.getString(c.getColumnIndex("fecha_apercibimiento")),c.getString(c.getColumnIndex("numero_sellos")),c.getString(c.getColumnIndex("decomiso")),c.getString(c.getColumnIndex("folio_clausura")),c.getString(c.getColumnIndex("fecha_clausura")),/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/ urlP+"insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php" "http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
+									c.getString(c.getColumnIndex("nombre_comercial")), c.getString(c.getColumnIndex("sector")), con, c.getString(c.getColumnIndex("peticion")), c.getString(c.getColumnIndex("nivel_economico")), c.getString(c.getColumnIndex("reincidencia")),c.getInt(c.getColumnIndex("tipo_cedula")),c.getString(c.getColumnIndex("folio_peticion")),c.getString(c.getColumnIndex("folio_apercibimiento")),c.getString(c.getColumnIndex("fecha_apercibimiento")),c.getString(c.getColumnIndex("numero_sellos")),c.getString(c.getColumnIndex("decomiso")),c.getString(c.getColumnIndex("folio_clausura")),c.getString(c.getColumnIndex("fecha_clausura")),c.getString(c.getColumnIndex("tableta")),c.getString(c.getColumnIndex("version")),/*"http://172.16.1.21/serverSQL/insertLevantamiento.php"*/ urlP+"insertLevantamientoas.php"/*"http://pgt.no-ip.biz/serverSQL/insertLevantamiento.php" "http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/insertLevantamiento.php"*/).equalsIgnoreCase("S")) {
 
 								System.out.println("si");
 								ContentValues cv = new ContentValues();
