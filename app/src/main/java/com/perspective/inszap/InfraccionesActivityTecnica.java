@@ -1708,6 +1708,28 @@ public class InfraccionesActivityTecnica extends AppCompatActivity implements Vi
                         c.close();
                     }
                 }else{
+                    sp = getSharedPreferences("infracciones", Context.MODE_PRIVATE);
+                    foliox = sp.getInt("folio",0);
+                    validarM = sp.getInt("modo",0);
+                    tableta=sp.getString("Tableta","");
+                    Log.i(TAG, "tableta:"+tableta);
+                    Log.i(TAG, "modo: "+validarM);
+
+                    if(validarM==1) {
+                        //modoT.setChecked(true);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putInt("modo", 1);
+                        editor.apply();
+                        //titlem.setText("Modo de Tester: " + getResources().getString(R.string.version));
+                        urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/infracciones_alfa/";
+                    }else {
+                        //modoT.setChecked(false);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putInt("modo", 0);
+                        editor.apply();
+                        //titlem.setText("");
+                        urlP="http://sistemainspeccion.zapopan.gob.mx/infracciones/serverSQL/";
+                    }
                     if(!citatorio){
                         String [] na;
                         if(consultarActa() == 0){
