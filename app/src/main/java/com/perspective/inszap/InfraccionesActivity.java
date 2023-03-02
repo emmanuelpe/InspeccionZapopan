@@ -6025,14 +6025,14 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
             FirebaseCrashlytics.getInstance().log(exceptionAsString);
 
-			btnGuardar.setEnabled(false);
+			/*btnGuardar.setEnabled(false);
 			btnImprimir.setEnabled(true);
 			btnmodificar.setEnabled(false);
 			this.tvEvidencia.setVisibility(View.VISIBLE);
 	        this.btnTomarF.setVisibility(View.VISIBLE);
 	        //btnFtp.setEnabled(true);
-	        btnTomarF.setEnabled(true);
-			Toast toast = Toast.makeText(getApplicationContext(), "Los datos se han guardado en la base de datos local", Toast.LENGTH_LONG);
+	        btnTomarF.setEnabled(true);*/
+			Toast toast = Toast.makeText(getApplicationContext(), "UPPS!! Hubo un problema al guardar Por favor de volver a generar el documento", Toast.LENGTH_LONG);
 			toast.setGravity(0, 0, 15);
 			toast.show();
 		}
@@ -8344,29 +8344,41 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         sb.append("Ingrese folio de clausura. \n");
                         valid=false;
                     }
-                    if(!etfechaClau.getText().toString().contains("-")){
-                        sb.append("La fecha no esta en el formato especificado. \n");
-                        valid=false;
-                    }
-                    if(validarCampos(this.etfechaClau)){
-                        sb.append("Ingrese folio de clausura. \n");
-                        valid=false;
+                    if(etfechaClau.getText().toString().length()>=10) {
+                        if (!etfechaClau.getText().toString().contains("-")) {
+                            sb.append("La fecha no esta en el formato especificado. \n");
+                            valid = false;
+                        }
+                        if (validarCampos(this.etfechaClau)) {
+                            sb.append("Ingrese fecha de clausura. \n");
+                            valid = false;
+                        }
+                    }else{
+                        sb.append("No ingreso completamente la fecha de clausura. \n");
+                        valid = false;
                     }
 
                 }
                 if(etfolioap.isShown()){
+
                     if(validarCampos(this.etfolioap)){
                         sb.append("Ingrese folio de apercibimiento. \n");
 
                         valid=false;
                     }
-                    if(!etfechap.getText().toString().contains("-")){
-                        sb.append("La fecha no esta en el formato especificado. \n");
-                        valid=false;
-                    }
-                    if(validarCampos(this.etfechap)){
-                        sb.append("Ingrese folio de apercibimiento. \n");
-                        valid=false;
+                    if(etfechap.getText().toString().length()>=10) {
+
+                        if (!etfechap.getText().toString().contains("-")) {
+                            sb.append("La fecha no esta en el formato especificado. \n");
+                            valid = false;
+                        }
+                        if (validarCampos(this.etfechap)) {
+                            sb.append("Ingrese fecha de apercibimiento. \n");
+                            valid = false;
+                        }
+                    }else{
+                        sb.append("No ingreso completamente la fecha de apercibimiento. \n");
+                        valid = false;
                     }
                 }
                 //validacion
@@ -9646,15 +9658,15 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 		case R.id.btnVista:
 
 		    if(validarI()) {
-              //try {
+              try {
                   imprimirPrevia(formato);
-              /*}catch (Exception e){
+              }catch (Exception e){
 
                   Log.e(TAG, "onClick: ",e );
                   Toast toast = Toast.makeText(getApplicationContext(), "Verificar sus datos!! No se puede generar Vista Previa!!", (Toast.LENGTH_LONG));
                   toast.setGravity(0, 0, 15);
                   toast.show();
-              }*/
+              }
 
 
                 File file = new File(Environment.getExternalStorageDirectory() + "/Infracciones/fotografias/" + etNumeroActa.getText().toString().replace("/", "_") + "/" + etNumeroActa.getText().toString().replace("/", "_") + ".pdf");
@@ -14475,50 +14487,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 System.err.println(e.getMessage() + " doc ");
             }catch (IOException C) {
 
-            }/*catch (Exception e) {
-						Toast toast  = Toast.makeText(getApplicationContext(), "Verificar los datos que esten completos", Toast.LENGTH_LONG);
-						toast.setGravity(0, 0, 15);
-						toast.show();
-						Log.e("Error al abrir", e.getMessage() + " c ");
-                    }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            }
 
         } else if(formato.equalsIgnoreCase("orden")) {
             //construccion
@@ -15955,6 +15924,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 
             case R.id.cbDatos:
                 if(isChecked) {
+                    cbDatos2.setChecked(false);
                     etNombreV.setText("Propietario y/o Representante Legal y/o Encargado");
                     etNombreV.setEnabled(false);
 
@@ -16007,6 +15977,8 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                 break;
             case R.id.cbDatos2:
                 if(isChecked) {
+                    cbDatos.setChecked(false);
+
                     etNombreV.setText("Propietario y/o Representante Legal y/o Encargado");
                     etNombreV.setEnabled(false);
 
