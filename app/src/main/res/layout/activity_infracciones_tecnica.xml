@@ -4187,7 +4187,8 @@
                             style="@style/Boton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/vista" />
+                            android:text="@string/vista"
+                            android:visibility="invisible"/>
 
                         <Button
                             android:id="@+id/btnCopiar"

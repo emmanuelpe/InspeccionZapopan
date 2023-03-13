@@ -855,8 +855,9 @@ public class Connection {
 		boolean conexion = false;
 		ConnectivityManager conn = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		
-		if (conn.getActiveNetworkInfo() != null && conn.getActiveNetworkInfo().isAvailable() && conn.getActiveNetworkInfo().isConnected()) 
-			conexion = true;
+		if (conn.getActiveNetworkInfo() != null)
+			if(conn.getActiveNetworkInfo().isAvailable() && conn.getActiveNetworkInfo().isConnected())
+				conexion = true;
 		
 		return conexion;
 	}

@@ -6032,9 +6032,9 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 	        this.btnTomarF.setVisibility(View.VISIBLE);
 	        //btnFtp.setEnabled(true);
 	        btnTomarF.setEnabled(true);*/
-			Toast toast = Toast.makeText(getApplicationContext(), "UPPS!! Hubo un problema al guardar Por favor de volver a generar el documento", Toast.LENGTH_LONG);
+			/*Toast toast = Toast.makeText(getApplicationContext(), "UPPS!! Hubo un problema al guardar Por favor de volver a generar el documento", Toast.LENGTH_LONG);
 			toast.setGravity(0, 0, 15);
-			toast.show();
+			toast.show();*/
 		}
     }
     public  class EFoto extends AsyncTask<String, String, String> {
