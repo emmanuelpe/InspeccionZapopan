@@ -12849,7 +12849,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
 			        bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 			        canvas.beginText();
 			        canvas.setFontAndSize(bf, 9.35f);
-			        canvas.moveText(454, 490f+c);
+			        canvas.moveText(474, 490f+c);
 			        canvas.showText(String.valueOf(ax).substring(2, 4));
 			        canvas.endText();
 			        canvas.restoreState();
@@ -13203,8 +13203,17 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                         bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                         canvas.beginText();
                         canvas.setFontAndSize(bf, 9.35f);
-                        canvas.moveText(80, 98f);
-                        canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
+                        canvas.moveText(70, 98f);
+                        String visitado=etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString();
+                        if(visitado.length()<=85){
+
+                            canvas.showText(etNombreV.getText().toString() + " " + spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
+
+                        }else{
+
+                            canvas.showText(spIdentifica.getSelectedItem().toString() + " " + etVIdentifica.getText().toString());
+
+                        }
                         canvas.endText();
                         canvas.restoreState();
 

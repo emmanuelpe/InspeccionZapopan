@@ -11638,7 +11638,7 @@ String uso="";
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 canvas.beginText();
                 canvas.setFontAndSize(bf, 9.35f);
-                canvas.moveText(454, 490f+c);
+                canvas.moveText(474, 490f+c);
                 canvas.showText(String.valueOf(ax).substring(2, 4));
                 canvas.endText();
                 canvas.restoreState();
@@ -11736,6 +11736,7 @@ String uso="";
                 canvas.showText(me.toUpperCase());
                 canvas.endText();
                 canvas.restoreState();
+
 
                 canvas.saveState();
                 bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
