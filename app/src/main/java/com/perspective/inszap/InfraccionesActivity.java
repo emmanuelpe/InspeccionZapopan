@@ -11647,6 +11647,17 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                 uso = "el uso " + spuso.getSelectedItem().toString() + " ";
                             else
                                 uso = spuso.getSelectedItem().toString();
+                            String[] iHecho=null;
+                            String addText="";
+                            if(id_hechos != "") {
+                                iHecho = id_hechos.split(regex);
+                            }
+
+                            if(iHecho.length>1){
+                                addText="y de los articulo(s) ";
+                            }else{
+                                addText="y del articulo ";
+                            }
 
                             cuerpoInfra="En la ciudad de Zapopan, Jalisco, siendo las " + hora + " horas del día " + dia + " de " + me + " del año " + a + ", el suscrito " + spnombre.getSelectedItem().toString() +
                                     " Inspector Municipal con clave " + clave + ", facultado para llevar a cabo la Inspección y Vigilancia del cumplimiento de los diversos reglamentos y leyes de aplicación municipal por parte de los particulares, "+datos+" me constituí física y legalmente en " + uso +" marcada(o) con el número " +
@@ -11654,7 +11665,7 @@ public class InfraccionesActivity extends Activity implements OnClickListener, R
                                     " "+folio.trim() + ", vigente del " +diaIni+" de " +vigencia_inicial+ " del  "+recorte2[0]+ " al "+diavigen+ " de "+ vigencia +" del " + recorte1[0] + ", expedida por el Director de Inspección y Vigilancia del Gobierno Municipal de Zapopan, Jalisco, ante " + etNombreV.getText().toString() + " quien se identifica con, " + spIdentifica.getSelectedItem().toString().trim() + " " + etVIdentifica.getText().toString().trim() +
                                     ", manifiesta ser " + etVManifiesta.getText().toString() + " del lugar en que se actúa, propiedad de, " + prop + ", le  informo  el  derecho  que  le  asiste  para  designar  a  dos  testigos que estén presentes durante el desahogo de esta diligencia y que de negarse a  ello el suscrito lo haría en rebeldía por lo que fueron designados los C.C. " + nombresT + " por el " + spdesignado.getSelectedItem().toString().trim() +
                                     ", "+ testigos + " así, como de la prerrogativa que en todo momento tiene de manifestar lo que  a  su  derecho  convenga y aportar las pruebas que considere pertinentes.  Acto  seguido,  le hago  saber al visitado,  una  vez  practicada la diligencia, los hechos encontrados y que consisten en: " +
-                                    apercibimiento + hechos + " Los cuales constituyen infracción a lo dispuesto por los artículo(s): 2, 3, 5, 7  FRACCIONES I  a la VI, 34,  167, 168, 169, 171 ," + etInfraccion.getText().toString().trim() + "  Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + medidasP.trim() + " "+ numeroS+".Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
+                                    apercibimiento + hechos + " Los cuales constituyen infracción a lo dispuesto por los artículo(s): 2, 3, 5, 7  FRACCIONES I  a la VI, 34,  167, 168, 169, 171 del Reglamento de Construcción para el Municipio de Zapopan, Jalisco "+addText + etInfraccion.getText().toString().trim() + "  Por encuadrar dichas acciones y/u omisiones en los preceptos legales indicados y al haber sido detectados en flagrancia, se procede indistintamente con las siguientes medidas: " + medidasP.trim() + " "+ numeroS+".Lo anterior de conformidad a lo dispuesto por los artículo(s): " + etArticulo.getText().toString().trim() + ". En uso de su derecho el visitado manifiesta: " + etManifiesta.getText().toString().trim() +
                                     ". Finalmente, le informo que en contra de la presente acta procede el Recurso de Revisión previsto en los artículos 134 y 135 de la Ley del Procedimiento Administrativo del Estado de Jalisco, el cual deberá interponerse por escrito dirigido al Presidente Municipal de Zapopan, Jalisco dentro del plazo de 20 días hábiles contados a partir del día siguiente en que la misma es notificada o se haga del conocimiento del o los interesados, entregándolo en la Sindicatura Municipal en la Unidad Administrativa Centro Integral de Servicios Zapopan(CISZ), piso 4(Av. Prolongación Laureles No. 300, Col. Tepeyac). Se da por concluida esta diligencia, siendo las " +
                                     hr + " horas del día " + dia + " de " + me + " del " + a + " levantándose la presente acta en presencia de los  testigos  que  se  mencionan, quedando copia legible en poder del interesado y firmando constancia los que en ella intervinieron, quisieron y supieron hacerlo.  =Fin del texto=";
 
